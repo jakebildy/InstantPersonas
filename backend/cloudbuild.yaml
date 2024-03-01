@@ -1,0 +1,23 @@
+steps:
+- name: node:14.15.0
+  entrypoint: npm
+  args: ["install"]
+- name: node:14.15.0
+  dir: backend/
+  entrypoint: npm
+  args: ["run", "create-env"]
+  env:
+  - 'SITE_URL=${_SITE_URL}'
+  - 'API_URL=${_API_URL}'
+  - 'OPENAI_API_KEY=${_OPENAI_API_KEY}'
+  - 'MONGO_URL=${_MONGO_URL}'
+  - 'JWT_PRIVATE_KEY=${_JWT_PRIVATE_KEY}'
+  - 'STRIPE_PRIVATE_KEY=${_STRIPE_PRIVATE_KEY}'
+  - 'STRIPE_ENDPOINT_SECRET=${_STRIPE_ENDPOINT_SECRET}'
+  - 'STYTCH_PROJECT_ID=${_STYTCH_PROJECT_ID}'
+  - 'STYTCH_API_KEY=${_STYTCH_API_KEY}'
+  - 'STYTCH_API_KEY_PUBLIC=${_STYTCH_API_KEY_PUBLIC}'
+- name: "gcr.io/cloud-builders/gcloud"
+  dir: backend/
+  args: ["app", "deploy", "app.yaml", "dispatch.yaml"]
+timeout: '1600s'

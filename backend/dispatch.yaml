@@ -1,0 +1,6 @@
+dispatch:
+  - url: "api.teacherdashboard.ai/*"
+    service: default
+
+  # - url: "ai-api.teacherdashboard.ca/*"
+  #   service: ai-api
