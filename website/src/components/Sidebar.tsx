@@ -12,9 +12,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import { Logo } from "./Logo";
+import { PersonStandingIcon } from "lucide-react";
 
 const navigation = [
-  { name: "Consulting Tools", href: "/tools", icon: BriefcaseIcon },
+  { name: "Persona Creator", href: "/persona", icon: PersonStandingIcon },
   { name: "History", href: "/history", icon: BookmarkIcon },
   { name: "Subscription", href: "/subscription", icon: BanknotesIcon },
   { name: "Become an Affiliate", href: "/affiliate", icon: FireIcon },
@@ -40,12 +41,12 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
   function Content() {
     return (
       <div
-        className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#232325] px-3"
+        className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#ffffff] px-3 "
         style={{ fontFamily: "Jost" }}
       >
         <title>Instant Personas | Dashboard</title>
         <div className="flex h-16 shrink-0 items-center">
-          <p className="text-xl font-bold text-white flex">
+          <p className="text-xl font-bold text-black flex">
             <Logo className="h-7 w-8 bg-cover object-contain mr-2" />
             Instant Personas
           </p>
@@ -61,8 +62,8 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
                       to={item.href}
                       className={classNames(
                         item.name == currentSelectedPage
-                          ? "bg-white/20 text-white"
-                          : "text-slate-200 hover:text-white hover:bg-black/70",
+                          ? "bg-green-50 text-black"
+                          : "text-slate-500 hover:text-white hover:bg-blue-400",
                         "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold select-none"
                       )}
                     >
@@ -181,7 +182,7 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
             </p>
           </div>
         </div>
-        <main className="lg:pl-72">{children}</main>
+        <main className="lg:pl-72 bg-slate-50 h-screen">{children}</main>
       </div>
     </>
   );

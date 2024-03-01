@@ -23,8 +23,8 @@ function App() {
           <Route path="/signup" element={<LoginPage />} />
           {/* Dashboard */}
           <Route path="/home" element={<ToolsPage />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/tools/:id" element={<ToolsPage2 />} />
+          <Route path="/persona" element={<ToolsPage />} />
+          <Route path="/persona/:id" element={<ToolsPage2 />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/affiliate" element={<AffiliatePage />} />

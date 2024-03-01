@@ -4,9 +4,9 @@ import PromptArea from "../../components/Templates/ToolsPage/PromptArea/index.ts
 export default function ToolsPage() {
   return (
     <>
-      <Sidebar currentSelectedPage="Consulting Tools">
-        <h1 className="my-10 text-3xl font-bold tracking-tight text-gray-900 text-center">
-          Consulting Tools
+      <Sidebar currentSelectedPage="Persona Creator">
+        <h1 className="py-10 text-3xl font-bold tracking-tight text-gray-900 text-center">
+          Persona Creator
         </h1>
         <PromptArea />
       </Sidebar>

@@ -127,7 +127,7 @@ export default function ToolsPage2() {
         <div className="flex items-center justify-center pt-2">
           <Button
             onClick={() => {
-              window.location.href = "/tools";
+              window.location.href = "/persona";
             }}
           >
             New Business

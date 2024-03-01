@@ -22,13 +22,13 @@ export default function HistoryPage() {
                 className="mx-auto"
               />
               <p className="text-gray-500 font-bold text-sm w-350 mb-5">
-                No history yet. Create a business to get started.
+                No history yet. Create your first persona to get started.
               </p>
               <a
                 className="text-white py-2 px-3 bg-green-500 rounded font-bold text-sm w-350"
-                href="/tools"
+                href="/persona"
               >
-                Create a business
+                Create my first persona
               </a>
             </div>
           )}
@@ -72,7 +72,7 @@ function BusinessCard({
       style={{ padding: "30px" }}
       onClick={(event) => {
         // go to /tools/:id
-        window.location.href = "/tools/" + business._id;
+        window.location.href = "/persona/" + business._id;
         event.stopPropagation(); // Stop event propagation
       }}
     >

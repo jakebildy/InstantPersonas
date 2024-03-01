@@ -61,7 +61,7 @@ export default function PromptArea() {
               id="description"
               rows={4}
               className="w-full px-0 text-sm text-gray-900 bg-white border-0 focus:ring-0 "
-              placeholder="Enter a short description of the business..."
+              placeholder="Enter a description of the product or service..."
               required
               value={businessDescription}
               onChange={(e) => setBusinessDescription(e.target.value)}
@@ -101,7 +101,7 @@ export default function PromptArea() {
 
           <div className=" text-gray-600 mb-3 text-xs text-center">
             {(!subscriptionActive &&
-              "Start your free trial to generate analyses") ||
+              "Start your free trial to generate personas") ||
               (templatesToGenerate.length === 0 &&
                 "Select at least one analysis to generate") ||
               (businessDescription === "" &&
