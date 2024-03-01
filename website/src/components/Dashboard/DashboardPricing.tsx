@@ -5,7 +5,7 @@ import StripeBuyButton from "../common/StripeBuyButton";
 function CheckIcon() {
   return (
     <svg
-      className="h-6 w-5 flex-none text-orange-600"
+      className="h-6 w-5 flex-none text-green-600"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
@@ -42,7 +42,7 @@ function Plan({
             {name}
           </h3>
           {popular && (
-            <p className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
+            <p className="rounded-full bg-green-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-green-600">
               Best value
             </p>
           )}
@@ -58,7 +58,7 @@ function Plan({
           </span>
         </p>
         {popular && (
-          <p className="rounded-md bg-orange-600/10 px-2.5 py-1 text-xs font-semibold  text-orange-600">
+          <p className="rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-semibold  text-green-600">
             {description2}
           </p>
         )}

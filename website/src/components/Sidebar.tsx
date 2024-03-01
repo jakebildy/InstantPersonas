@@ -69,7 +69,7 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
                       <item.icon
                         className={classNames(
                           item.name == currentSelectedPage
-                            ? "text-orange-400"
+                            ? "text-green-400"
                             : "text-slate-200 group-hover:text-white",
                           "h-6 w-6 shrink-0"
                         )}

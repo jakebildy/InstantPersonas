@@ -16,22 +16,22 @@ const faqs = [
   ],
   [
     {
-      question: "What if I need help with AIConsultingTools.com?",
+      question: "What if I need help with InstantPersonas.com?",
       answer:
-        "If you have any questions or issues with AIConsultingTools.com, our support team is available to assist you. Simply email us and we’ll get back to you as soon as possible.",
+        "If you have any questions or issues with InstantPersonas.com, our support team is available to assist you. Simply email us and we’ll get back to you as soon as possible.",
     },
     {
       question:
-        "How can I provide feedback or suggestions for AIConsultingTools.com?",
+        "How can I provide feedback or suggestions for InstantPersonas.com?",
       answer:
         "We love hearing from our users and welcome any feedback or suggestions for improving our platform. You can provide suggestions by clicking Send Feedback when logged in.",
     },
   ],
   [
     {
-      question: "How does AIConsultingTools.com save me time?",
+      question: "How does InstantPersonas.com save me time?",
       answer:
-        "AIConsultingTools.com  uses AI-powered technology to instantly generate SWOT analyses, PESTEL analyses, Lean Canvases, and User Personas from just the description of a product or service, which can be customized after.",
+        "InstantPersonas.com  uses AI-powered technology to instantly generate SWOT analyses, PESTEL analyses, Lean Canvases, and User Personas from just the description of a product or service, which can be customized after.",
     },
   ],
 ];

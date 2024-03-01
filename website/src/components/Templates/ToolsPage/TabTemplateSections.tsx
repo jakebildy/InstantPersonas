@@ -108,7 +108,7 @@ export function TabTemplateSections({
               </div>
             ) : (
               <button
-                className="bg-black hover:bg-orange-600 text-white font-semibold py-2 w-52 rounded-lg mt-10"
+                className="bg-black hover:bg-green-600 text-white font-semibold py-2 w-52 rounded-lg mt-10"
                 onClick={() => {
                   if (selectedBusiness) {
                     currentTab.create(selectedBusiness);
@@ -234,7 +234,7 @@ export function TabTemplateSections({
             }}
             className={
               changes
-                ? "bg-black hover:bg-orange-600 text-white font-semibold py-2 w-52 rounded-lg mt-5"
+                ? "bg-black hover:bg-green-600 text-white font-semibold py-2 w-52 rounded-lg mt-5"
                 : "bg-gray-200 hover:gray-200 text-white font-semibold py-2 w-52 rounded-lg mt-5"
             }
           >
@@ -250,7 +250,7 @@ export function TabTemplateSections({
               });
             }}
             className={
-              "bg-black hover:bg-orange-600 text-white font-semibold py-2 w-52 rounded-lg mt-5 ml-3"
+              "bg-black hover:bg-green-600 text-white font-semibold py-2 w-52 rounded-lg mt-5 ml-3"
             }
           >
             Download Template

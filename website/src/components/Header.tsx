@@ -103,7 +103,7 @@ export function Header({
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
             <a
-              href="https://aiconsultingtools.com/"
+              href="https://InstantPersonas.com/"
               aria-label="Home"
               className="flex items-center"
             >
@@ -131,7 +131,7 @@ export function Header({
             <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button href="/register" color="orange" className="hidden sm:block">
+            <Button href="/register" color="green" className="hidden sm:block">
               <span>Try for free</span>
             </Button>
             <div className="-mr-1 md:hidden">

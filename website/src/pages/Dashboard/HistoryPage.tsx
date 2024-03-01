@@ -25,7 +25,7 @@ export default function HistoryPage() {
                 No history yet. Create a business to get started.
               </p>
               <a
-                className="text-white py-2 px-3 bg-orange-500 rounded font-bold text-sm w-350"
+                className="text-white py-2 px-3 bg-green-500 rounded font-bold text-sm w-350"
                 href="/tools"
               >
                 Create a business

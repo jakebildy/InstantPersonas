@@ -3,7 +3,7 @@ import clsx from "clsx";
 function CheckIcon() {
   return (
     <svg
-      className="h-6 w-5 flex-none text-orange-600"
+      className="h-6 w-5 flex-none text-green-600"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
@@ -36,7 +36,7 @@ function Plan({
             {name}
           </h3>
           {popular && (
-            <p className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
+            <p className="rounded-full bg-green-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-green-600">
               Best value
             </p>
           )}
@@ -52,7 +52,7 @@ function Plan({
           </span>
         </p>
         {popular && (
-          <p className="rounded-md bg-orange-600/10 px-2.5 py-1 text-xs font-semibold  text-orange-600">
+          <p className="rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-semibold  text-green-600">
             {description2}
           </p>
         )}
@@ -74,9 +74,9 @@ function Plan({
         // className="mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300"
         className={clsx(
           "mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6",
-          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600",
-          "text-orange-600 ring-1 ring-inset ring-orange-200 hover:ring-orange-300",
-          popular ? "bg-orange-50" : "bg-white"
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600",
+          "text-green-600 ring-1 ring-inset ring-green-200 hover:ring-green-300",
+          popular ? "bg-green-50" : "bg-white"
         )}
       >
         Start trial
@@ -90,7 +90,7 @@ export function Pricing() {
     <div className="bg-white py-24 sm:py-32" id="pricing">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-orange-600">
+          <h2 className="text-base font-semibold leading-7 text-green-600">
             Pricing
           </h2>
           <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">

@@ -14,7 +14,7 @@ export function Footer({ isBlog }: { isBlog?: boolean }) {
               {isBlog ? null : <NavLink href="#features">Features</NavLink>}
               {isBlog ? null : <NavLink href="/blog">Blog</NavLink>}
               {isBlog ? null : <NavLink href="#pricing">Pricing</NavLink>}
-              <NavLink href="https://affiliates.reflio.com/invite/aiconsultingtools">
+              <NavLink href="https://affiliates.reflio.com/invite/InstantPersonas">
                 Affiliate Program
               </NavLink>
             </div>
@@ -22,8 +22,8 @@ export function Footer({ isBlog }: { isBlog?: boolean }) {
         </div>
         <div className="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse justify-center ">
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} AIConsultingTools.com
-            All rights reserved. By using this site, you agree to our{" "}
+            Copyright &copy; {new Date().getFullYear()} InstantPersonas.com All
+            rights reserved. By using this site, you agree to our{" "}
             <a
               style={{ fontWeight: "bold" }}
               href="https://pastebin.com/raw/CfcqdFK5"

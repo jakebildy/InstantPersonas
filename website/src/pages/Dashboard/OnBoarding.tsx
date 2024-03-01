@@ -282,7 +282,7 @@ const FeedbackComponent = ({ form, submitting }: FormTabProps) => {
           <button className="text-sm" type="submit">
             Skip
           </button>
-          <Button type="submit" variant={submitting ? "disabled" : "orange"}>
+          <Button type="submit" variant={submitting ? "disabled" : "green"}>
             {submitting ? (
               <span className="animate-pulse">Submitting...</span>
             ) : (
@@ -304,13 +304,13 @@ const TabMarker = ({ active, title, className, ...props }: TabMarkerProps) => (
   <div className="flex items-center mr-4" {...props}>
     <div
       className={cn(
-        active ? "bg-orange-400" : "bg-gray-400",
+        active ? "bg-green-400" : "bg-gray-400",
         "w-2 h-2 min-h-2 min-w-2 rounded-full"
       )}
     />
     <h2
       className={cn(
-        active ? "text-orange-400 font-semibold" : "text-gray-400 font-normal",
+        active ? "text-green-400 font-semibold" : "text-gray-400 font-normal",
         " text-sm px-2",
         className
       )}
@@ -369,7 +369,7 @@ const Backdrop = () => {
                         <item.icon
                           className={cn(
                             item.name == "Consulting Tools"
-                              ? "text-orange-400"
+                              ? "text-green-400"
                               : "text-slate-200 group-hover:text-white",
                             "h-6 w-6 shrink-0"
                           )}

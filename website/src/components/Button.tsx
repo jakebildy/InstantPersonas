@@ -16,8 +16,8 @@ const variantStyles = {
     slate:
       "bg-slate-900 text-white hover:bg-slate-700 hover:text-slate-100 active:bg-slate-800 active:text-slate-300 ",
     blue: "bg-mypurple text-white hover:text-slate-100 hover:bg-indigo-600 active:bg-mypurple active:text-blue-100 ",
-    orange:
-      "bg-orange-500 text-white hover:text-slate-100 hover:bg-orange-600 active:bg-orange active:text-orange-100 ",
+    green:
+      "bg-green-500 text-white hover:text-slate-100 hover:bg-green-600 active:bg-green active:text-green-100 ",
     white:
       "bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 ",
   },
@@ -131,12 +131,7 @@ export function LoadingButton({
   if (isLoading) {
     return (
       <button className={className} disabled {...props}>
-        <Sparkles
-          size={10}
-          color="orange"
-          count={30}
-          style={{ width: "100px" }}
-        >
+        <Sparkles size={10} color="green" count={30} style={{ width: "100px" }}>
           <div className="relative w-full">
             {/* <Sparkle 
             flicker={false}

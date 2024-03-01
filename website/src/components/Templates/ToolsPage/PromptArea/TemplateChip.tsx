@@ -18,7 +18,7 @@ export function TemplateChip({
       className={
         "cursor-pointer flex flex-row select-none" +
         (selected
-          ? "flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-orange-700 bg-orange-100 border border-orange-300 "
+          ? "flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-green-700 bg-green-100 border border-green-300 "
           : "flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-gray-400 bg-gray-100 border border-gray-200 ")
       }
       onClick={() => {

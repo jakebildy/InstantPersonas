@@ -189,7 +189,7 @@ export default function AssessmentFormModal({
           <DialogTitle>Business Assessment</DialogTitle>
           <DialogDescription>
             Help us understand your business with a couple
-            <span className="italic text-orange-600 "> optional </span>
+            <span className="italic text-green-600 "> optional </span>
             questions.
           </DialogDescription>
         </DialogHeader>
@@ -246,7 +246,7 @@ export default function AssessmentFormModal({
                     <div className="flex gap-8">
                       <button
                         className={cn(
-                          "bg-orange-500 hover:bg-orange-600 text-white hover:text-slate-100 active:bg-orange active:text-orange-100 group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none"
+                          "bg-green-500 hover:bg-green-600 text-white hover:text-slate-100 active:bg-green active:text-green-100 group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none"
                         )}
                         type="submit"
                       >

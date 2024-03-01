@@ -75,9 +75,9 @@ export default function PromptArea() {
             <LoadingButton
               type="button"
               loading={generating}
-              color="orange"
+              color="green"
               className={cn(
-                "inline-flex items-center px-4 text-white font-semibold py-2 w-52 rounded-lg bg-orange-500 hover:bg-orange-600",
+                "inline-flex items-center px-4 text-white font-semibold py-2 w-52 rounded-lg bg-green-500 hover:bg-green-600",
                 subscriptionActive &&
                   (templatesToGenerate.length === 0 ||
                     businessDescription === "")

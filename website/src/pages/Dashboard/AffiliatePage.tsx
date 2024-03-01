@@ -1,7 +1,7 @@
 import Sidebar from "../../components/Sidebar";
 
 export default function AffiliatePage() {
-  const link = "https://affiliates.reflio.com/invite/aiconsultingtools";
+  const link = "https://affiliates.reflio.com/invite/InstantPersonas";
   return (
     <>
       <Sidebar currentSelectedPage="Become an Affiliate">
@@ -26,7 +26,7 @@ export default function AffiliatePage() {
             <div className="mt-5">
               <button
                 type="button"
-                className="inline-flex items-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="inline-flex items-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 <a href={link}>Join now</a>
               </button>

@@ -30,7 +30,7 @@ export default function HowToMakePestelAnalysis() {
                       Jacob Bildy
                     </a>
                     <p className="text-base font-light text-gray-500 ">
-                      Entrepreneur, Founder @ AIConsultingTools.com
+                      Entrepreneur, Founder @ InstantPersonas.com
                     </p>
                     <p className="text-base font-light text-gray-500 ">
                       <time
@@ -190,7 +190,7 @@ export default function HowToMakePestelAnalysis() {
             </p>
             <p>
               Want to make a PESTEL Analysis in 5 minutes?{" "}
-              <a href="https://aiconsultingtools.com/">
+              <a href="https://InstantPersonas.com/">
                 {" "}
                 Use our AI powered platform{" "}
               </a>{" "}

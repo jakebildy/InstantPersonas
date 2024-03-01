@@ -187,7 +187,7 @@ export default function ToolsPage2() {
               <LoadingButton
                 type="button"
                 loading={generating}
-                className="inline-flex items-center px-4 bg-black hover:bg-orange-600 text-white font-semibold py-2 w-52 rounded-lg"
+                className="inline-flex items-center px-4 bg-black hover:bg-green-600 text-white font-semibold py-2 w-52 rounded-lg"
                 disabled={
                   (templatesToGenerate.length === 0 ||
                     businessDescription === "") &&
@@ -224,7 +224,7 @@ export function LoadingIcon() {
     <div role="status">
       <svg
         aria-hidden="true"
-        className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-100 fill-orange-600"
+        className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-100 fill-green-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
