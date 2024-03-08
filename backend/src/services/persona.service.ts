@@ -48,7 +48,7 @@ export async function messagePersona(
 
 
   //Generate response and generate AI suggestion messages
-  const response = await generateResponseAndSuggestionMessages(personaHistory.messageHistory, newMessage, intentToChangePersona);
+  const response = await generateResponseAndSuggestionMessages(personaHistory.messageHistory, newMessage, intentToChangePersona, personaHistory.persona);
 
   console.log("ResponseAndSuggestionMessages: ", response);
   personaHistory.aiSuggestedChats = response.suggestions;
@@ -266,7 +266,28 @@ export async function updateUserPersona(
     messageHistory: { sender: "bot" | "user"; text: string }[],
     newMessage: string,
     intentToChangePersona: boolean,
+    userPersona?: UserPersona,
   ): Promise<{ response: string; suggestions: string[] }> {
-    // const systemMessage = `Based on the following message history, generate a response to the user and suggest some AI generated messages:
-    return { response: "response", suggestions: ["suggestion1", "suggestion2"] };
+    const systemMessage = `You are a bot that helps a user create customer personas. Based on the following message history, generate a response to the user and suggest some AI generated messages:
+    Message History: ${JSON.stringify(messageHistory)}
+    New Message from User: ${newMessage}
+    User Persona: ${JSON.stringify(userPersona)}
+    Did the bot just update the User Persona: ${intentToChangePersona}
+
+    Please structure your response in a clear and easily parsable JSON format.
+
+    example: 
+    { response: "I updated the persona with the details you provided.", suggestions: ["Why did you change the age?", "Change the name as well"] }
+    `;
+
+    const chatResponse = await ChatGPT(systemMessage);
+
+    try {
+      const response = JSON.parse(chatResponse.text.trim());
+      return response;
+    } catch (error) {
+      throw new Error(
+        "Failed to parse the response and suggestions. Please try again.",
+      );
+    }
   }

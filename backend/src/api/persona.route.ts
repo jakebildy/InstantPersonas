@@ -18,7 +18,7 @@ async function getPersonaHistory(req: RequestI, res: Response) {
     );
     res.status(200).json({results: personaHistories });
   } catch (error: unknown) {
-    console.error("Error getting Persona History", error);
+    console.error("Error getting persona history", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
@@ -35,7 +35,7 @@ async function messagePersona(req: RequestI, res: Response) {
     );
     res.status(200).json(personaHistory);
   } catch (error: unknown) {
-    console.error("Error creating business", error);
+    console.error("Error messaging persona", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
