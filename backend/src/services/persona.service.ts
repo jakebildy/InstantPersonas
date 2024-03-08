@@ -15,16 +15,13 @@ export async function messagePersona(
     newMessage: string,
     historyID?: string,
 ): Promise<PersonaHistory> {
-//   TODO:
-
- var personaHistory;
+ let personaHistory;
+ let intentToChangePersona: boolean = false;
 
   if (!historyID) {
     //  Create User Persona
-    const userPersona = await  generateUserPersona(newMessage);
+    const userPersona = await generateUserPersona(newMessage);
 
-
-    //createPersonaHistory
     personaHistory = await PersonaHistory.create({
         messageHistory: [{ sender: "user", text: newMessage }],
         user: user._id,
@@ -39,19 +36,23 @@ export async function messagePersona(
         throw new Error("PersonaHistory not found for the provided historyID");
       }
 
+    intentToChangePersona = await getIntentToChangePersona(newMessage);
+    console.log("Intent to change persona: ", intentToChangePersona);
 
-    // Identify intent
-
-      // IF intent is to change persona, update persona and return
+      // If intent is to change persona, update persona and return
+      if (intentToChangePersona && personaHistory.persona) {
+        const newUserPersona = await updateUserPersona(newMessage, personaHistory.persona);
+        personaHistory.persona = newUserPersona;
+      }
   }
 
 
-  //Generate response and concurrently
+  //Generate response and generate AI suggestion messages
+  const response = await generateResponseAndSuggestionMessages(personaHistory.messageHistory, newMessage, intentToChangePersona);
 
-  // Generate AI suggestion messages
-  
-
-
+  console.log("ResponseAndSuggestionMessages: ", response);
+  personaHistory.aiSuggestedChats = response.suggestions;
+  personaHistory.messageHistory.push({ sender: "bot", text: response.response });
 
   return personaHistory;
 }
@@ -148,5 +149,124 @@ export async function generateUserPersona(
   
     userPersona.pictureURL = getRandomHeadshot(userPersona.gender);
     return userPersona;
+}
+  
+  
+
+
+  export async function getIntentToChangePersona(
+    newMessage: string,
+  ): Promise<boolean> {
+    const systemMessage = `Based on the following message, determine if the user wants to change the user persona they generated:
+  Message from user: ${newMessage}
+  
+  Respond either 'true' or 'false' to indicate if the user wants to change their persona.
+  `;
+  
+    const chatResponse = await ChatGPT(systemMessage);
+
+    try {
+        // try to convert chatResponse as boolean and return 
+        const intent: boolean = chatResponse.text.trim().toLowerCase() === "true";
+        return intent;
+    } catch (error) {
+      throw new Error(
+        "Failed to parse the intent to change persona. Please try again.",
+      );
+    }
   }
   
+
+export async function updateUserPersona(
+    message: string,
+    currentPersona: UserPersona,
+  ): Promise<UserPersona> {
+    const systemMessage = `Update the following User Persona in JSON format based on the following message:
+  User Persona: ${JSON.stringify(currentPersona)}
+  Message: ${message}
+  
+  Please structure your response in a clear and easily parsable JSON format.
+  
+  interface UserPersona {
+    name: string;
+    gender: string;
+    pictureURL: string
+    sections: [{label: string, description: string}]
+  }
+  
+  For example:
+  {
+    "name": "John Doe",
+    "gender" : "details",
+    pictureURL: "a url",
+    sections: [{
+        "label": "age",
+        "description": "details"
+        },
+        {
+        "label": "location",
+        "description": "details"
+        },
+        {
+        "label": "occupation",
+        "description": "details"
+        },
+        {
+        "label": "familyStatus",
+        "description": "details"
+        },
+        {
+        "label": "bio",
+        "description": "details"
+        },
+        {
+        "label": "goals",
+        "description": "details"
+        },
+        {
+        "label": "motivations",
+        "description": "details"
+        },
+        {
+        "label": "pains",
+        "description": "details"
+        },
+        {
+        "label": "devices",
+        "description": "details"
+        },
+        {
+        "label": "brandAffiliations",
+        "description": "details"
+        }
+    ] 
+  }
+  `;
+  
+    const chatResponse = await ChatGPT(systemMessage);
+    const responseText = chatResponse.text.trim();
+    let userPersona: UserPersona;
+    try {
+      userPersona = JSON.parse(responseText);
+      if ((userPersona as any)["UserPersona"]) {
+        userPersona = (userPersona as any)["UserPersona"];
+        console.log("Had to fix USER PERSONA");
+      }
+    } catch (error) {
+      throw new Error(
+        "Failed to parse the generated userPersona JSON. Please try again.",
+      );
+    }
+  
+    return userPersona;
+  }
+  
+
+  export async function generateResponseAndSuggestionMessages(
+    messageHistory: { sender: "bot" | "user"; text: string }[],
+    newMessage: string,
+    intentToChangePersona: boolean,
+  ): Promise<{ response: string; suggestions: string[] }> {
+    // const systemMessage = `Based on the following message history, generate a response to the user and suggest some AI generated messages:
+    return { response: "response", suggestions: ["suggestion1", "suggestion2"] };
+  }
