@@ -86,7 +86,7 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
             <li className="-mx-6 mt-auto">
               <a
                 href=""
-                className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700"
+                className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-black hover:bg-blue-500"
               >
                 <span className="sr-only">Your profile</span>
                 <span aria-hidden="true">{user?.email}</span>
