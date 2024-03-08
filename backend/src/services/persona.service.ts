@@ -266,7 +266,6 @@ export async function updateUserPersona(
     messageHistory: { sender: "bot" | "user"; text: string }[],
     newMessage: string,
     intentToChangePersona: boolean,
-<<<<<<< HEAD
     userPersona?: UserPersona,
   ): Promise<{ response: string; suggestions: string[] }> {
     const systemMessage = `You are a bot that helps a user create customer personas. Based on the following message history, generate a response to the user and suggest some AI generated messages:
@@ -291,9 +290,4 @@ export async function updateUserPersona(
         "Failed to parse the response and suggestions. Please try again.",
       );
     }
-=======
-  ): Promise<{ response: string; suggestions: string[] }> {
-    // const systemMessage = `Based on the following message history, generate a response to the user and suggest some AI generated messages:
-    return { response: "response", suggestions: ["suggestion1", "suggestion2"] };
->>>>>>> 6a5452a1e6253211992c0ec0a6a46c1434a71652
   }
