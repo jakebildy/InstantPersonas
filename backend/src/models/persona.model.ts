@@ -1,32 +1,32 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export interface UserPersona {
-    id: string;
     name: string;
+    gender: string;
     pictureURL: string;
     sections: [{label: string, description: string}]
   }
   
 
-const PersonaSchema = new mongoose.Schema<UserPersona>(
-{
-    id: { type: String, required: true },
-    name: { type: String, required: true },
-    pictureURL: { type: String, required: true },
-    sections: [
-        {
-        label: { type: String, required: true },
-        description: { type: String, required: true },
-        },
-    ],
-},
-{
-    versionKey: false,
-    timestamps: true,
-},
-);
+// const PersonaSchema = new mongoose.Schema<UserPersona>(
+// {
+//     id: { type: String, required: true },
+//     name: { type: String, required: true },
+//     pictureURL: { type: String, required: true },
+//     sections: [
+//         {
+//         label: { type: String, required: true },
+//         description: { type: String, required: true },
+//         },
+//     ],
+// },
+// {
+//     versionKey: false,
+//     timestamps: true,
+// },
+// );
 
-export const Persona = mongoose.model("Persona", PersonaSchema);
+// export const Persona = mongoose.model("Persona", PersonaSchema);
 
 
 //   PersonaHistory object - contains the message history, AI suggested messages, and the User Persona
@@ -46,7 +46,7 @@ const PersonaHistorySchema = new mongoose.Schema<PersonaHistory>(
         text: { type: String, required: true },
         },
     ],
-    persona: { type: PersonaSchema, required: false },
+    persona: {type: Schema.Types.Mixed, required: false },
     aiSuggestedChats: [{ type: String, required: false }],
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     },

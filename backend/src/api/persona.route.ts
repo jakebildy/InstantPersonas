@@ -29,6 +29,7 @@ async function messagePersona(req: RequestI, res: Response) {
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     const personaHistory = await PersonaService.messagePersona(
+        req.user as UserI,
       req.body.newMessage,
       req.body.historyID,
     );
