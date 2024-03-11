@@ -5,6 +5,7 @@ export interface UserPersona {
     gender: string;
     pictureURL: string;
     sections: [{label: string, description: string}]
+    shortDescriptors: [{label: string, description: string, emoji: string}]
   }
   
 

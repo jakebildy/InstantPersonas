@@ -87,22 +87,7 @@ export async function generateUserPersona(
   {
     "name": "John Doe",
     "gender" : "details",
-    sections: [{
-        "label": "age",
-        "description": "details"
-        },
-        {
-        "label": "location",
-        "description": "details"
-        },
-        {
-        "label": "occupation",
-        "description": "details"
-        },
-        {
-        "label": "familyStatus",
-        "description": "details"
-        },
+    "sections": [{
         {
         "label": "bio",
         "description": "details"
@@ -127,7 +112,28 @@ export async function generateUserPersona(
         "label": "brandAffiliations",
         "description": "details"
         }
-    ] 
+      ],
+      "shortDescriptors": [ 
+        "label": "age",
+        "description": "details",
+        "emoji": "🧔"
+        },
+        {
+        "label": "location",
+        "description": "details",
+        "emoji": "📍"
+        },
+        {
+        "label": "occupation",
+        "description": "details",
+        "emoji": "💼"
+        },
+        {
+        "label": "familyStatus",
+        "description": "details",
+        "emoji": "🏠"
+        }
+    ]
   }
   `;
   
