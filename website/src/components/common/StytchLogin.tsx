@@ -6,7 +6,6 @@ const oauthRedirectUrl = API_URL + "/api/stytch/google";
 const redirectUrl = API_URL + "/api/stytch";
 
 const Login = () => {
-
   const config = {
     products: ["oauth", "emailMagicLinks"],
     oauthOptions: {
@@ -60,12 +59,18 @@ const Login = () => {
     // },
   };
 
-  return <StytchLogin config={config as any} styles={styles} callbacks={{
-    onEvent: (event: any) => {
-      console.log("🚀 Stytch event:");
-      console.log(event);
-    },
-  }} />;
+  return (
+    <StytchLogin
+      config={config as any}
+      styles={styles}
+      callbacks={{
+        onEvent: (event: any) => {
+          console.log("🚀 Stytch event:");
+          console.log(event);
+        },
+      }}
+    />
+  );
 };
 
 export default Login;

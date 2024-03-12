@@ -4,7 +4,7 @@ import {
   XMarkIcon,
   BanknotesIcon,
   BookmarkIcon,
-  BriefcaseIcon,
+  // BriefcaseIcon,
   FireIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
