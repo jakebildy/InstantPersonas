@@ -45,6 +45,13 @@
     --ring: 27 96% 61%;
 
     --radius: 0.5rem;
+
+    --persona-background: 250 75% 98%;
+    --persona-foreground: 222.2 84% 90%;
+    --persona-border: 214.3 31.8% 100%;
+    --persona-accent: 222.2 84% 75%;
+    --persona-text: 222.2 84% 4.9%;
+    --persona-title: 222.2 84% 4.9%;
   }
   /* 218 163% 175%; */
 

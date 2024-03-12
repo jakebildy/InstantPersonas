@@ -59,6 +59,14 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        persona: {
+          background: "hsl(var(--persona-background))",
+          foreground: "hsl(var(--persona-foreground))",
+          border: "hsl(var(--persona-border))",
+          accent: "hsl(var(--persona-accent))",
+          text: "hsl(var(--persona-text))",
+          title: "hsl(var(--persona-title))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

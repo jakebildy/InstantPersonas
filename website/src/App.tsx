@@ -10,6 +10,7 @@ import BlogList, { BLOG_POSTS } from "./pages/Blog/BlogList";
 import BusinessProvider from "./contexts/BusinessContext";
 import ToolsPage2 from "./pages/Dashboard/ToolsPage2";
 import OnBoarding from "./pages/Dashboard/OnBoarding";
+import { PersonaChat } from "./pages/Persona/PersonaChat";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/signup" element={<LoginPage />} />
           {/* Dashboard */}
           <Route path="/home" element={<ToolsPage />} />
-          <Route path="/persona" element={<ToolsPage />} />
+          <Route path="/persona" element={<PersonaChat />} />
           <Route path="/persona/:id" element={<ToolsPage2 />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
