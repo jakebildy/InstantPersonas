@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Message, useChat } from "ai/react";
+// import { Message, useChat } from "ai/react";
 import { HTMLAttributes, memo, useRef } from "react";
 import {
   CommandUserInput,
@@ -9,8 +9,13 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
+import { Message } from "@/services/api.service";
 
 type Props = {
+  messages: Message[];
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  input: string;
   className?: string;
 };
 
@@ -19,23 +24,16 @@ type MemoizedComponent = React.MemoExoticComponent<
 >;
 
 type ComponentLookupTableType = {
-  [role in ExtractField<Message, "role">]: MemoizedComponent;
+  [role in ExtractField<Message, "sender">]: MemoizedComponent;
 };
 
-export default function Chat({ className }: Props) {
-  // By default, the useChat hook will use the POST Route Handler we created above (it defaults to /api/chat). You can override this by passing a api prop to useChat({ api: '...'}).
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat",
-    initialMessages: [
-      {
-        id: "0",
-        role: "assistant",
-        content: `Describe your product or service, and I can create a user persona.`,
-      },
-    ],
-  });
-
-  // const messages: Message[] = [];
+export default function Chat({
+  messages,
+  className,
+  handleSubmit,
+  handleInputChange,
+  input,
+}: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
 
   const keyBinds: CommandUserInputKeybind[] = [
@@ -57,10 +55,10 @@ export default function Chat({ className }: Props) {
         {/* 120px is the height of the input and suggestions */}
         <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
           {messages.map((message: Message, i) => {
-            const Component = componentLookupTable[message.role];
+            const Component = componentLookupTable[message.sender];
             return Component ? (
               <div
-                key={message.id}
+                key={i}
                 className={cn("-z-10", messages.length == i + 1 ? "pb-4" : "")}
               >
                 <Component message={message} />
@@ -133,7 +131,7 @@ const PersonaMessage = ({
       </div>
 
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message.content}
+        {message.text}
       </p>
     </div>
   );
@@ -147,7 +145,7 @@ const UserMessage = ({
   return (
     <div className={cn("flex gap-2 justify-end", className)} {...Props}>
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message.content}
+        {message.text}
       </p>
       <div className="flex items-center h-full">
         <img

@@ -3,80 +3,73 @@ import { HTMLAttributes, useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { Persona } from "@/services/api.service";
 
-type UserPersona = {
-  name: string;
-  gender: string; //required for getting the pictureURL
-  pictureURL: string;
-  personalAttributes: { label: string; description: string; icon: string }[];
-  sections: { label: string; description: string }[];
-};
+interface Props extends Persona, HTMLAttributes<HTMLDivElement> {}
 
-interface Props extends UserPersona, HTMLAttributes<HTMLDivElement> {}
-
-export const EXAMPLE_PERSONA: UserPersona = {
-  name: "Alex Johnson",
-  gender: "Male",
-  pictureURL: "/test_avatar.jpg",
-  personalAttributes: [
-    {
-      label: "Age",
-      description: "30",
-      icon: "👨‍🦰",
-    },
-    {
-      label: "Occupation",
-      description: "Digital Marketer",
-      icon: "💼",
-    },
-    {
-      label: "Location",
-      description: "San Francisco, CA",
-      icon: "📍",
-    },
-    {
-      label: "Family Status",
-      description: "Single",
-      icon: "🏠",
-    },
-  ],
-  sections: [
-    {
-      label: "Alex Johnson",
-      description:
-        "Alex is a tech-savvy digital marketer with a keen interest in the latest marketing automation tools. They have over 5 years of experience in the field and are always looking for ways to improve their campaigns through technology.",
-    },
-    {
-      label: "Motivations",
-      description:
-        "Alex is motivated by the desire to stay ahead of the curve in digital marketing trends and tools, aiming to leverage technology to achieve better results for their clients.",
-    },
-    {
-      label: "Devices",
-      description: "Smartphone, Laptop, Smartwatch",
-    },
-    {
-      label: "Pains",
-      description:
-        "Struggles with finding an all-in-one marketing tool that integrates seamlessly with various platforms. Also, finds it challenging to keep up with the rapid pace of technological advancements.",
-    },
-    {
-      label: "Goals",
-      description:
-        "To master the use of marketing automation tools to increase campaign efficiency and effectiveness. Alex also aims to become a thought leader in digital marketing by sharing insights and best practices.",
-    },
-    {
-      label: "Brand Affiliations",
-      description: "Google, Apple, HubSpot",
-    },
-  ],
-};
+// export const EXAMPLE_PERSONA: Persona = {
+//   name: "Alex Johnson",
+//   gender: "Male",
+//   pictureURL: "/test_avatar.jpg",
+//   shortDescriptors: [
+//     {
+//       label: "Age",
+//       description: "30",
+//       icon: "👨‍🦰",
+//     },
+//     {
+//       label: "Occupation",
+//       description: "Digital Marketer",
+//       icon: "💼",
+//     },
+//     {
+//       label: "Location",
+//       description: "San Francisco, CA",
+//       icon: "📍",
+//     },
+//     {
+//       label: "Family Status",
+//       description: "Single",
+//       icon: "🏠",
+//     },
+//   ],
+//   sections: [
+//     {
+//       label: "Alex Johnson",
+//       description:
+//         "Alex is a tech-savvy digital marketer with a keen interest in the latest marketing automation tools. They have over 5 years of experience in the field and are always looking for ways to improve their campaigns through technology.",
+//     },
+//     {
+//       label: "Motivations",
+//       description:
+//         "Alex is motivated by the desire to stay ahead of the curve in digital marketing trends and tools, aiming to leverage technology to achieve better results for their clients.",
+//     },
+//     {
+//       label: "Devices",
+//       description: "Smartphone, Laptop, Smartwatch",
+//     },
+//     {
+//       label: "Pains",
+//       description:
+//         "Struggles with finding an all-in-one marketing tool that integrates seamlessly with various platforms. Also, finds it challenging to keep up with the rapid pace of technological advancements.",
+//     },
+//     {
+//       label: "Goals",
+//       description:
+//         "To master the use of marketing automation tools to increase campaign efficiency and effectiveness. Alex also aims to become a thought leader in digital marketing by sharing insights and best practices.",
+//     },
+//     {
+//       label: "Brand Affiliations",
+//       description: "Google, Apple, HubSpot",
+//     },
+//   ],
+// };
 
 export default function UserPersona({
   name,
   gender,
   pictureURL,
-  personalAttributes,
+  shortDescriptors,
   sections,
   className,
   ...Props
@@ -84,7 +77,7 @@ export default function UserPersona({
   return (
     <div
       className={cn(
-        "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 m-4 shadow-lg rounded-xl overflow-hidden bg-persona-background",
+        "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background md:m-10 xl:m-24 xl:mb-10",
         className
       )}
       {...Props}
@@ -99,7 +92,7 @@ export default function UserPersona({
           />
         </div>
         <div className="grid grid-cols-2 bg-persona-foreground">
-          {personalAttributes.map((section, index) => (
+          {shortDescriptors.map((section, index) => (
             <EditableAttributeCard
               key={index}
               label={section.label}

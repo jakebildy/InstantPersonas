@@ -1,5 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = "http://localhost:7001";
 axios.defaults.withCredentials = true;
 
 export interface UserI {
@@ -104,6 +105,25 @@ export interface BusinessI {
   // Timestamps
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface Persona {
+  name: string;
+  gender: string; //required for getting the pictureURL
+  pictureURL: string;
+  shortDescriptors: { label: string; description: string; icon: string }[];
+  sections: { label: string; description: string }[];
+}
+
+export interface Message {
+  sender: "bot" | "user";
+  text: string;
+}
+export interface PersonaHistory {
+  messageHistory: Message[];
+  persona: Persona;
+  aiSuggestedChats?: string[];
+  id: string;
 }
 
 const api = {
@@ -212,6 +232,23 @@ const api = {
     getBusinessById: async (id: string) => {
       const response = await axios.get(`/api/business/${id}`);
       return response.data.business;
+    },
+  },
+
+  userPersona: {
+    messagePersona: async (
+      newMessage: string,
+      historyID?: string
+    ): Promise<PersonaHistory> => {
+      const response = await axios.post("/api/message-persona", {
+        newMessage,
+        historyID,
+      });
+      return response.data;
+    },
+    getPersonaHistroy: async (id?: string): Promise<PersonaHistory[]> => {
+      const response = await axios.get(`/api/persona-history/${id}`);
+      return response.data;
     },
   },
 };
