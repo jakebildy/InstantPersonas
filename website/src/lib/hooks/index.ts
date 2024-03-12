@@ -4,6 +4,4 @@ export * from "./useLoadingDots";
 export * from "./useEscapeKey";
 export * from "./useDisableIntermediateResizeTransition";
 export * from "./useMediaQuery";
-export * from "./useInterval";
 export * from "./useContinuousDebounce";
-export * from "./useHashParams";
