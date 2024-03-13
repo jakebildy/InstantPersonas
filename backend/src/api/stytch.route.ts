@@ -16,7 +16,7 @@ async function magicLink(req: RequestI, res: Response) {
     res.cookie('user', response.jwt);
 
     if (!response.user.onboarded) return res.redirect(302, SITE_URL + "/onboarding");
-    return res.redirect(302, SITE_URL + "/home");
+    return res.redirect(302, SITE_URL + "/persona");
   } catch (e) {
     console.log(e);
     res.status(500).send(e);
@@ -25,12 +25,13 @@ async function magicLink(req: RequestI, res: Response) {
 
 async function googleAuthenticate(req: RequestI, res: Response) {
   try {
+    console.log("Trying to authenticate with google")
     const token: string = req.query.token as string;
     const response = await StytchService.googleAuthenticate(token);
     res.cookie('user', response.jwt);
     
     if (!response.user.onboarded) return res.redirect(302, SITE_URL + "/onboarding");
-    return res.redirect(302, SITE_URL + "/home");
+    return res.redirect(302, SITE_URL + "/persona");
   } catch (e) {
     console.log(e);
     res.status(500).send(e);
