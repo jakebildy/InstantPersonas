@@ -89,47 +89,47 @@ export async function generateUserPersona(
     "gender" : "details",
     "sections": [{
         {
-        "label": "bio",
+        "label": "Bio",
         "description": "details"
         },
         {
-        "label": "goals",
+        "label": "Goals",
         "description": "details"
         },
         {
-        "label": "motivations",
+        "label": "Motivations",
         "description": "details"
         },
         {
-        "label": "pains",
+        "label": "Pains",
         "description": "details"
         },
         {
-        "label": "devices",
+        "label": "Devices",
         "description": "details"
         },
         {
-        "label": "brandAffiliations",
+        "label": "Brand Affiliations",
         "description": "details"
         }
       ],
       "shortDescriptors": [ 
-        "label": "age",
+        "label": "Age",
         "description": "details",
         "emoji": "🧔"
         },
         {
-        "label": "location",
+        "label": "Location",
         "description": "details",
         "emoji": "📍"
         },
         {
-        "label": "occupation",
+        "label": "Occupation",
         "description": "details",
         "emoji": "💼"
         },
         {
-        "label": "familyStatus",
+        "label": "Family Status",
         "description": "details",
         "emoji": "🏠"
         }
