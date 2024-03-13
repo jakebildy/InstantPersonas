@@ -71,6 +71,7 @@ export default function Chat({
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2"}
         value={input}
+        //@ts-ignore
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         keyBinds={keyBinds}
@@ -163,6 +164,7 @@ const UserMessage = ({
 
 const componentLookupTable: ComponentLookupTableType = {
   user: memo(UserMessage),
+  //@ts-ignore
   assistant: memo(PersonaMessage),
   function: memo(PersonaMessage),
   system: memo(PersonaMessage),
