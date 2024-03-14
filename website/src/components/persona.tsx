@@ -4,66 +4,9 @@ import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Persona } from "@/services/api.service";
+import { Skeleton } from "./ui/skeleton";
 
 interface Props extends Persona, HTMLAttributes<HTMLDivElement> {}
-
-// export const EXAMPLE_PERSONA: Persona = {
-//   name: "Alex Johnson",
-//   gender: "Male",
-//   pictureURL: "/test_avatar.jpg",
-//   shortDescriptors: [
-//     {
-//       label: "Age",
-//       description: "30",
-//       icon: "👨‍🦰",
-//     },
-//     {
-//       label: "Occupation",
-//       description: "Digital Marketer",
-//       icon: "💼",
-//     },
-//     {
-//       label: "Location",
-//       description: "San Francisco, CA",
-//       icon: "📍",
-//     },
-//     {
-//       label: "Family Status",
-//       description: "Single",
-//       icon: "🏠",
-//     },
-//   ],
-//   sections: [
-//     {
-//       label: "Alex Johnson",
-//       description:
-//         "Alex is a tech-savvy digital marketer with a keen interest in the latest marketing automation tools. They have over 5 years of experience in the field and are always looking for ways to improve their campaigns through technology.",
-//     },
-//     {
-//       label: "Motivations",
-//       description:
-//         "Alex is motivated by the desire to stay ahead of the curve in digital marketing trends and tools, aiming to leverage technology to achieve better results for their clients.",
-//     },
-//     {
-//       label: "Devices",
-//       description: "Smartphone, Laptop, Smartwatch",
-//     },
-//     {
-//       label: "Pains",
-//       description:
-//         "Struggles with finding an all-in-one marketing tool that integrates seamlessly with various platforms. Also, finds it challenging to keep up with the rapid pace of technological advancements.",
-//     },
-//     {
-//       label: "Goals",
-//       description:
-//         "To master the use of marketing automation tools to increase campaign efficiency and effectiveness. Alex also aims to become a thought leader in digital marketing by sharing insights and best practices.",
-//     },
-//     {
-//       label: "Brand Affiliations",
-//       description: "Google, Apple, HubSpot",
-//     },
-//   ],
-// };
 
 export default function UserPersona({
   name,
@@ -83,33 +26,56 @@ export default function UserPersona({
       {...Props}
     >
       <div className="row-span-2 col-span-1 grid grid-rows-2 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        <div className="flex-grow relative">
-          <img
-            src={pictureURL}
-            alt="Image"
-            // fill={true}
-            className="object-contain"
-          />
-        </div>
-        <div className="grid grid-cols-2 bg-persona-foreground">
-          {shortDescriptors.map((section, index) => (
-            <EditableAttributeCard
-              key={index}
-              label={section.label}
-              description={section.description}
-              icon={section.icon}
+        {pictureURL ? (
+          <div className="flex-grow relative">
+            <img
+              src={pictureURL}
+              alt="Image"
+              // fill={true}
+              className="object-contain"
             />
-          ))}
+          </div>
+        ) : (
+          <div className="flex-grow p-2">
+            <Skeleton className="h-60 w-full bg-black/5" />
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 bg-persona-foreground">
+          {shortDescriptors.length > 0
+            ? shortDescriptors.map((section, index) => (
+                <EditableAttributeCard
+                  key={index}
+                  label={section.label}
+                  description={section.description}
+                  icon={section.icon}
+                />
+              ))
+            : [1, 2, 3, 4].map((_, index) => (
+                <Skeleton
+                  key={index}
+                  className="bg-persona-background shadow-lg rounded-lg m-2 text-center font-bold"
+                />
+              ))}
         </div>
       </div>
 
-      {sections.map((section, index) => (
-        <PersonaText
-          key={index}
-          label={section.label}
-          description={section.description}
-        />
-      ))}
+      {sections.length > 0
+        ? sections.map((section, index) => (
+            <PersonaText
+              key={index}
+              label={section.label}
+              description={section.description}
+            />
+          ))
+        : [1, 2, 3, 4, 5, 6].map((_, index) => (
+            <div className="p-2 flex-grow flex">
+              <Skeleton
+                key={index}
+                className="p-4 bg-persona-accent/25 flex-1"
+              />
+            </div>
+          ))}
     </div>
   );
 }

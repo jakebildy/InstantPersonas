@@ -7,17 +7,15 @@ import {
   CommandUserInputKeybind,
 } from "@/components/fcs-ui/cli-input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   input: string;
-  className?: string;
-};
+}
 
 type MemoizedComponent = React.MemoExoticComponent<
   (props: MessageComponentProps) => JSX.Element | null
@@ -33,6 +31,8 @@ export default function Chat({
   handleSubmit,
   handleInputChange,
   input,
+  children,
+  ...Props
 }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +50,7 @@ export default function Chat({
         "m-2 h-[calc(100%-56px)] w-[calc(100%-16px)] relative",
         className
       )}
+      {...Props}
     >
       <ScrollArea className="h-[calc(100%-56px)]">
         {/* 120px is the height of the input and suggestions */}
@@ -71,38 +72,12 @@ export default function Chat({
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2"}
         value={input}
-        //@ts-ignore
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       >
-        <div className="flex flex-col flex-wrap ">
-          <div className="flex gap-4 my-4 overflow-hidden flex-wrap">
-            {[
-              {
-                suggestion: "Change sections to generate",
-              },
-              {
-                suggestion: "Provide more details about the product or service",
-              },
-              {
-                suggestion: "I need a user persona for a product manager",
-              },
-              {
-                suggestion: "What is a user persona?",
-              },
-            ].map((userAction, i) => (
-              <Button
-                key={i}
-                variant={"secondary"}
-                className="text-white bg-gray-400/75 rounded-lg text-xs hover:bg-green-400"
-              >
-                {userAction.suggestion}
-              </Button>
-            ))}
-          </div>
-        </div>
+        {children}
       </CommandUserInput>
     </section>
   );
