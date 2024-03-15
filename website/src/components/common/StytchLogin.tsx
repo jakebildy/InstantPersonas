@@ -53,10 +53,6 @@ const Login = () => {
     },
     fontFamily: "Arial",
     hideHeaderText: false,
-    // headerText: "Sign in to Seashore",
-    // logo: {
-    //   logoImageUrl: "https://setup.seashore.ai/logo.svg",
-    // },
   };
 
   return (

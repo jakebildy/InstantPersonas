@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar";
-import PromptArea from "../../components/Templates/ToolsPage/PromptArea/index.tsx";
+// import PromptArea from "../../components/Templates/ToolsPage/PromptArea/index.tsx";
 
 export default function ToolsPage() {
   return (
@@ -8,7 +8,7 @@ export default function ToolsPage() {
         <h1 className="py-10 text-3xl font-bold tracking-tight text-gray-900 text-center">
           Persona Creator
         </h1>
-        <PromptArea />
+        {/* <PromptArea /> */}
       </Sidebar>
     </>
   );
