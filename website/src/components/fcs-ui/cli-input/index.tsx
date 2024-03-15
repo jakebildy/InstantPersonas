@@ -6,6 +6,7 @@ import { useAutoAdjustTextArea } from "./useAutoAdjustTextArea";
 import { KeyBind, useKeyboardShortcuts } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { SendHorizontal } from "lucide-react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 type BaseKeyBind = Omit<KeyBind, "action">; // Base type without the action property
 
@@ -131,7 +132,7 @@ export const CommandUserInput = React.forwardRef<
             disabled={buttonisDisabled}
             ref={submitButtonRef}
             className={cn(
-              "h-[42px] md:h-9 absolute right-0 top-0 flex items-center mx-2 justify-center z-20 p-0 my-auto",
+              "h-[42px] md:h-10 absolute right-0 top-0 flex items-center m-2 justify-center z-20 p-0 my-auto",
               nonInteractable
                 ? "disabled:cursor-default disabled:pointer-events-none disabled:opacity-100"
                 : ""
@@ -139,7 +140,7 @@ export const CommandUserInput = React.forwardRef<
             type="submit"
             variant={"link"}
           >
-            <SendHorizontal className="h-4 w-4 text-primary hover:text-OffWhite-light transition-colors duration-500" />
+            <PaperAirplaneIcon className="h-6 w-6 text-primary hover:text-OffWhite-light transition-colors duration-500" />
           </Button>
         </div>
       </form>

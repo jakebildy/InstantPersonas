@@ -110,7 +110,7 @@ export interface Persona {
   name: string;
   gender: string; //required for getting the pictureURL
   pictureURL: string;
-  shortDescriptors: { label: string; description: string; icon: string }[];
+  shortDescriptors: { label: string; description: string; emoji: string }[];
   sections: { label: string; description: string }[];
 }
 
@@ -152,88 +152,6 @@ const api = {
       (await axios.get("/api/stripe/portal")).data,
   },
 
-  business: {
-    getBusinesses: async () => {
-      const response = await axios.get("/api/business");
-      return response.data.businesses;
-    },
-
-    createBusiness: async (description: string) => {
-      const response = await axios.post("/api/business", { description });
-      return response.data.business;
-    },
-
-    saveBusiness: async (business: any) => {
-      const response = await axios.put(
-        `/api/business/${business._id}`,
-        business
-      );
-      return response.data.business;
-    },
-
-    deleteBusiness: async (id: string) => {
-      const response = await axios.delete(`/api/business/${id}`);
-      return response.data.business;
-    },
-
-    generateSWOTAnalysis: async (id: string) => {
-      const response = await axios.post(
-        `/api/business/${id}/generate-swot-analysis`
-      );
-      console.log(response.data.business);
-      return response.data.business;
-    },
-
-    generateLeanCanvas: async (id: string) => {
-      const response = await axios.post(
-        `/api/business/${id}/generate-lean-canvas`
-      );
-      console.log(response.data.business);
-      return response.data.business;
-    },
-
-    generatePESTELAnalysis: async (id: string) => {
-      const response = await axios.post(
-        `/api/business/${id}/generate-pestel-analysis`
-      );
-      console.log(response.data.business);
-      return response.data.business;
-    },
-
-    generateUserPersona: async (id: string) => {
-      const response = await axios.post(
-        `/api/business/${id}/generate-user-persona`
-      );
-      console.log(response.data.business);
-      return response.data.business;
-    },
-    generateValueProposition: async (id: string) => {
-      const response = await axios.post(
-        `/api/business/${id}/value-proposition`
-      );
-      console.log(response.data.business);
-      return response.data.business;
-    },
-    generatePorters5Forces: async (id: string) => {
-      const response = await axios.post(`/api/business/${id}/porters-5-forces`);
-      console.log(response.data.business);
-      return response.data.business;
-    },
-    generateAssessmentQuestions: async (description: string) => {
-      const response = await axios.post("/api/business/assessment-questions", {
-        description,
-      });
-      // console.log(response.data.assessmentQuestions);
-      console.log("Assessment-questions: fetched questions!");
-      return response.data.assessmentQuestions;
-    },
-
-    getBusinessById: async (id: string) => {
-      const response = await axios.get(`/api/business/${id}`);
-      return response.data.business;
-    },
-  },
-
   userPersona: {
     messagePersona: async (
       newMessage: string,
@@ -246,7 +164,7 @@ const api = {
       return response.data;
     },
     getPersonaHistroy: async (id?: string): Promise<PersonaHistory[]> => {
-      const response = await axios.get(`/api/persona-history/${id}`);
+      const response = await axios.get(`/api/get-persona-history/${id}`);
       return response.data;
     },
   },

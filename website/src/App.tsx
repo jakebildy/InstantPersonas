@@ -8,8 +8,6 @@ import RefundPolicy from "./pages/RefundPolicy";
 import AffiliatePage from "./pages/Dashboard/AffiliatePage";
 import BlogList, { BLOG_POSTS } from "./pages/Blog/BlogList";
 import BusinessProvider from "./contexts/BusinessContext";
-import ToolsPage2 from "./pages/Dashboard/ToolsPage2";
-import OnBoarding from "./pages/Dashboard/OnBoarding";
 import { PersonaChat } from "./pages/Persona/PersonaChat";
 
 function App() {
@@ -23,13 +21,12 @@ function App() {
           <Route path="/register" element={<LoginPage />} />
           <Route path="/signup" element={<LoginPage />} />
           {/* Dashboard */}
-          <Route path="/home" element={<ToolsPage />} />
+          <Route path="/home" element={<PersonaChat />} />
           <Route path="/persona" element={<PersonaChat />} />
-          <Route path="/persona/:id" element={<ToolsPage2 />} />
+          <Route path="/persona/:id" element={<PersonaChat />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/affiliate" element={<AffiliatePage />} />
-          <Route path="/onboarding" element={<OnBoarding />} />
           {/* Return Policy */}
           <Route path="/refund-policy" element={<RefundPolicy />} />
           {/* TODO: Terms of service */}

@@ -32,7 +32,7 @@ export default function UserPersona({
               src={pictureURL}
               alt="Image"
               // fill={true}
-              className="object-contain"
+              className="object-contain rounded-xl"
             />
           </div>
         ) : (
@@ -48,7 +48,7 @@ export default function UserPersona({
                   key={index}
                   label={section.label}
                   description={section.description}
-                  icon={section.icon}
+                  icon={section.emoji}
                 />
               ))
             : [1, 2, 3, 4].map((_, index) => (
