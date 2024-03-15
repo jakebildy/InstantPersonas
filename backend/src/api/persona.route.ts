@@ -12,10 +12,20 @@ async function getPersonaHistory(req: RequestI, res: Response) {
   try {
     const user = req.user;
     if (!user) return res.status(401).json({ error: "Unauthorized" });
-
+    const id = req.params.id;
+    if (id) {
+      const personaHistories = await PersonaService.getPersonaHistory(
+        req.user as UserI,
+        id
+      );
+      res.status(200).json({results: personaHistories });
+      return;
+    }
+ 
     const personaHistories = await PersonaService.getPersonaHistory(
       req.user as UserI,
     );
+    
     res.status(200).json({results: personaHistories });
   } catch (error: unknown) {
     console.error("Error getting persona history", error);
@@ -41,6 +51,6 @@ async function messagePersona(req: RequestI, res: Response) {
 }
 
 
-
+router.get("/get-persona-history/:id", userAuth, getPersonaHistory);
 router.get("/get-persona-history/", userAuth, getPersonaHistory);
 router.post("/message-persona/", userAuth, messagePersona);

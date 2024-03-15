@@ -57,7 +57,12 @@ export async function messagePersona(
   return personaHistory;
 }
 
-export async function getPersonaHistory(user: UserI): Promise<PersonaHistory[]> {
+export async function getPersonaHistory(user: UserI, id?: string): Promise<PersonaHistory[]> {
+
+    if (id) {
+        const _personaHistory = await PersonaHistory.find({ user: user._id, _id: id });
+        return _personaHistory;
+    }
     const _personaHistory = await PersonaHistory.find({ user: user._id });
     return _personaHistory;
 }
