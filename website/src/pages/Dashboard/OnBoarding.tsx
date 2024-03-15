@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import PromptArea from "../../components/Templates/ToolsPage/PromptArea";
+// import PromptArea from "../../components/Templates/ToolsPage/PromptArea";
 import { cn } from "../../lib/utilities";
 import {
   BanknotesIcon,
@@ -399,7 +399,7 @@ const Backdrop = () => {
       <h1 className="my-10 text-3xl font-bold tracking-tight text-gray-900 text-center">
         Consulting Tools
       </h1>
-      <PromptArea />
+      {/* <PromptArea /> */}
     </div>
   );
 };

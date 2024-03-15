@@ -5,7 +5,6 @@ import {
   BanknotesIcon,
   BookmarkIcon,
   // BriefcaseIcon,
-  FireIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
 import { Dialog, Transition } from "@headlessui/react";

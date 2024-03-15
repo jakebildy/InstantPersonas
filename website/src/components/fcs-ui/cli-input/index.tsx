@@ -5,7 +5,6 @@ import React, { RefObject, createRef, useRef } from "react";
 import { useAutoAdjustTextArea } from "./useAutoAdjustTextArea";
 import { KeyBind, useKeyboardShortcuts } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
-import { SendHorizontal } from "lucide-react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 type BaseKeyBind = Omit<KeyBind, "action">; // Base type without the action property

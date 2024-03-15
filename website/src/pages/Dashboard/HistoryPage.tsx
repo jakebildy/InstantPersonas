@@ -1,11 +1,10 @@
 import Sidebar from "../../components/Sidebar";
-import { useBusiness } from "../../contexts/BusinessContext";
 import { BusinessI } from "../../services/api.service";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import createFirstBusiness from "../../images/ProjectAnalysis.gif";
 
 export default function HistoryPage() {
-  const { businesses } = useBusiness();
+  // const { businesses } = useBusiness();
 
   return (
     <>
@@ -14,7 +13,8 @@ export default function HistoryPage() {
           History
         </h1>
         <div className=" mt-10">
-          {businesses.length == 0 && (
+          {/* {businesses.length == 0 && ( */}
+          {true && ( //TODO: replace this with the personas
             <div className="text-center">
               <img
                 src={createFirstBusiness}
@@ -32,7 +32,7 @@ export default function HistoryPage() {
               </a>
             </div>
           )}
-          {businesses
+          {/* {businesses
             .slice(0)
             .reverse()
             .map((business) => (
@@ -44,14 +44,15 @@ export default function HistoryPage() {
                 date={new Date(
                   business.createdAt || Date.now()
                 ).toLocaleDateString()}
-              />
-            ))}
+              /> */}
+          {/* ))} */}
         </div>
       </Sidebar>
     </>
   );
 }
 
+//@ts-ignore
 function BusinessCard({
   description,
   index,
@@ -64,7 +65,7 @@ function BusinessCard({
   business: BusinessI;
 }) {
   // const [showDropdown, setShowDropdown] = useState(false);
-  const { deleteBusiness } = useBusiness();
+  // const { deleteBusiness } = useBusiness();
 
   return (
     <span
@@ -91,8 +92,8 @@ function BusinessCard({
         <button
           className="text-gray-300 hover:text-gray-500"
           onClick={(event) => {
-            deleteBusiness(business);
-            // setShowDropdown(false);
+            // deleteBusiness(business);s
+
             event.stopPropagation(); // Stop event propagation
           }}
         >
