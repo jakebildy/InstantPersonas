@@ -34,10 +34,10 @@ export const PersonaChat = () => {
     e.preventDefault();
     console.log("input", input);
     if (input.trim() === "") return;
-    // const data = await api.userPersona.messagePersona(input);
-    // setMessages(data.messageHistory);
-    // setPersona(data.persona);
-    // setSuggestions(data.aiSuggestedChats ?? []);
+    const data = await api.userPersona.messagePersona(input);
+    setMessages(data.messageHistory);
+    setPersona(data.persona);
+    setSuggestions(data.aiSuggestedChats ?? []);
     setInput("");
   };
 
