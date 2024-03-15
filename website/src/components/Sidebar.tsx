@@ -18,7 +18,7 @@ const navigation = [
   { name: "Persona Creator", href: "/persona", icon: PersonStandingIcon },
   { name: "History", href: "/history", icon: BookmarkIcon },
   { name: "Subscription", href: "/subscription", icon: BanknotesIcon },
-  { name: "Become an Affiliate", href: "/affiliate", icon: FireIcon },
+  // { name: "Become an Affiliate", href: "/affiliate", icon: FireIcon },
   {
     name: "Send Feedback",
     href: "https://forms.gle/7JRsj2FxffD3Uofm9",
