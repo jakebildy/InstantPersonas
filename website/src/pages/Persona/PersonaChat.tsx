@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utilities";
 import api, { Persona, Message } from "@/services/api.service";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // import { Message } from "ai";
 
 export const PersonaChat = () => {
@@ -29,6 +30,7 @@ export const PersonaChat = () => {
     "I need a user persona for a product manager",
     "What is a user persona?",
   ]);
+  const { id } = useParams<{ id: string }>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +45,7 @@ export const PersonaChat = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await api.userPersona.getPersonaHistroy();
+      const data = await api.userPersona.getPersonaHistroy(id);
       const persona = data.at(-1);
       if (!persona) return;
       setMessages(persona.messageHistory);
