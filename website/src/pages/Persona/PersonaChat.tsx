@@ -55,7 +55,7 @@ export const PersonaChat = () => {
   const renderPersona = !personaHasNoValues(persona);
 
   return (
-    <Sidebar currentSelectedPage="Consulting Tools">
+    <Sidebar currentSelectedPage="Persona Creator">
       <ScrollArea className="h-screen">
         <div className="flex flex-col">
           {renderPersona ? (
