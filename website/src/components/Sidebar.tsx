@@ -62,7 +62,7 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
                       className={classNames(
                         item.name == currentSelectedPage
                           ? "bg-green-50 text-black"
-                          : "text-slate-500 hover:text-white hover:bg-blue-400",
+                          : "text-slate-500 hover:text-white hover:bg-green-400",
                         "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold select-none"
                       )}
                     >
