@@ -2,9 +2,9 @@ import { HTMLAttributes, useState } from "react";
 // import Image from "next/image";
 import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
 import { Persona } from "@/services/api.service";
 import { Skeleton } from "./ui/skeleton";
+import { useFetchBase64Image } from "@/lib/hooks";
 
 interface Props extends Persona, HTMLAttributes<HTMLDivElement> {}
 
@@ -17,6 +17,8 @@ export default function UserPersona({
   className,
   ...Props
 }: Props) {
+  const [img, loading, error] = useFetchBase64Image(pictureURL);
+
   return (
     <div
       className={cn(
@@ -26,12 +28,11 @@ export default function UserPersona({
       {...Props}
     >
       <div className="row-span-2 col-span-1 grid grid-rows-2 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        {pictureURL ? (
+        {pictureURL || loading || error ? (
           <div className="flex-grow relative">
             <img
-              src={pictureURL}
-              alt="Image"
-              // fill={true}
+              src={img}
+              alt="Persona Image"
               className="object-contain rounded-xl"
             />
           </div>
@@ -142,26 +143,6 @@ const EditableAttributeCard = ({
         className="resize-none border-none scrollbar-hidden mt-2 text-center text-persona-text text-xs focus-visible:ring-persona-accent bg-persona-background"
         rows={2}
       />
-    </div>
-  );
-};
-
-export const PersonaActions = () => {
-  return (
-    <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
-      {[
-        {
-          suggestion: "Change Colour",
-        },
-        {
-          suggestion: "Change Picture",
-        },
-        {
-          suggestion: "Download Image",
-        },
-      ].map((userAction, i) => (
-        <Button key={i}>{userAction.suggestion}</Button>
-      ))}
     </div>
   );
 };

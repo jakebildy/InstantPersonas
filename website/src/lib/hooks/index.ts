@@ -5,3 +5,4 @@ export * from "./useEscapeKey";
 export * from "./useDisableIntermediateResizeTransition";
 export * from "./useMediaQuery";
 export * from "./useContinuousDebounce";
+export * from "./useFetchBase64Image";
