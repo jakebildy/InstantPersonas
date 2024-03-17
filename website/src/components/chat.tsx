@@ -48,8 +48,6 @@ export default function Chat({
     },
   ];
 
-  console.log("messages", messages);
-
   return (
     <section
       className={cn(
@@ -82,7 +80,6 @@ export default function Chat({
               />
             </div>
           )}
-          {/* ProjectAnalysis */}
         </div>
         <div ref={scrollBottomRef} />
       </ScrollArea>
