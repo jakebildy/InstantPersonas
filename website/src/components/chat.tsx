@@ -108,7 +108,7 @@ const PersonaMessage = ({
   ...Props
 }: MessageComponentProps) => {
   return (
-    <div className={cn("flex gap-2", className)} {...Props}>
+    <div className={cn("flex gap-2 items-center", className)} {...Props}>
       {/* 32px + 16px = 48px ~ image width + gap */}
       <div className="flex items-center h-full w-[calc(32px+16px)]">
         <img
@@ -133,7 +133,10 @@ const UserMessage = ({
   ...Props
 }: MessageComponentProps) => {
   return (
-    <div className={cn("flex gap-2 justify-end", className)} {...Props}>
+    <div
+      className={cn("flex gap-2 justify-end items-center", className)}
+      {...Props}
+    >
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
         {message.text}
       </p>
