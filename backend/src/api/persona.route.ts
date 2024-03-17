@@ -25,7 +25,7 @@ async function getPersonaHistory(req: RequestI, res: Response) {
     const personaHistories = await PersonaService.getPersonaHistory(
       req.user as UserI,
     );
-    
+
     res.status(200).json({results: personaHistories });
   } catch (error: unknown) {
     console.error("Error getting persona history", error);
@@ -50,7 +50,28 @@ async function messagePersona(req: RequestI, res: Response) {
   }
 }
 
+async function updatePersona(req: RequestI, res: Response) {
+  try {
+    const user = req.user;
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+    const persona = req.body.persona;
+    const historyID = req.body.historyID;
+    
+    const personaHistory = await PersonaService.updatePersona(
+      persona,
+      historyID,
+    );
+    res.status(200).json(personaHistory);
+  } catch (error: unknown) {
+    console.error("Error updating persona", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+
 
 router.get("/get-persona-history/:id", userAuth, getPersonaHistory);
 router.get("/get-persona-history/", userAuth, getPersonaHistory);
 router.post("/message-persona/", userAuth, messagePersona);
+router.post("/update-persona/", userAuth, updatePersona);

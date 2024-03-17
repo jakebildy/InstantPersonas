@@ -302,3 +302,27 @@ export async function updateUserPersona(
       );
     }
   }
+
+
+
+  export async function updatePersona(
+    persona: UserPersona,
+    historyID: string,
+  ): Promise<PersonaHistory> {
+    try {
+      const filter = { _id: historyID };
+      const update = { persona: persona };
+      const options = { new: true }; // Return the updated document
+  
+      const updatedPersonaHistory = await PersonaHistory.findOneAndUpdate(filter, update, options);
+  
+      if (!updatedPersonaHistory) {
+        throw new Error("PersonaHistory not found for the provided historyID");
+      }
+  
+      return updatedPersonaHistory;
+    } catch (error) {
+      console.error("Error updating persona: ", error);
+      throw error; // Or handle the error as per your application's error handling strategy
+    }
+  }
