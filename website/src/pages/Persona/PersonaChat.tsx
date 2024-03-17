@@ -37,7 +37,12 @@ export const PersonaChat = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const location = useLocation();
   const pathSegments = location.pathname.split("/");
-  const id = pathSegments[pathSegments.length - 1];
+  // Checks if the path follows the exact structure ["", "persona", id]
+  const id: string | undefined =
+    pathSegments.length === 3 && pathSegments[1] === "persona"
+      ? pathSegments[2]
+      : undefined;
+
   const personaRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +50,7 @@ export const PersonaChat = () => {
     e.preventDefault();
     if (input.trim() === "") return;
     try {
-      const data = await api.userPersona.messagePersona(input);
+      const data = await api.userPersona.messagePersona(input, id);
       setMessages(data.messageHistory);
       setPersona(data.persona);
       setSuggestions(data.aiSuggestedChats ?? []);
