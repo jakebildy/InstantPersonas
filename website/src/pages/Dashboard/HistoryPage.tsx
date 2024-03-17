@@ -57,6 +57,7 @@ export default function HistoryPage() {
 }
 
 function PersonaCard({ persona, _id }: PersonaHistory) {
+  // Grab Occupation or Location, or the first descriptor, or fallback to empty string
   const relevantPersonaInfo = persona.shortDescriptors
     .filter((s) => ["Occupation", "Location"].includes(s.label))
     .at(-1) ??
