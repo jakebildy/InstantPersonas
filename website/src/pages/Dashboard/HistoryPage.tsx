@@ -1,10 +1,20 @@
 import Sidebar from "../../components/Sidebar";
-import { BusinessI } from "../../services/api.service";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import api, { PersonaHistory } from "../../services/api.service";
 import createFirstBusiness from "../../images/ProjectAnalysis.gif";
+import { useEffect, useState } from "react";
 
 export default function HistoryPage() {
-  // const { businesses } = useBusiness();
+  const [personas, setPersonas] = useState<PersonaHistory[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await api.userPersona.getPersonaHistory();
+      if (!data) return;
+      setPersonas(data);
+      console.log(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -12,9 +22,17 @@ export default function HistoryPage() {
         <h1 className=" text-3xl  text-gray-700 text-center mt-10  font-bold">
           History
         </h1>
-        <div className=" mt-10">
-          {/* {businesses.length == 0 && ( */}
-          {true && ( //TODO: replace this with the personas
+        <div className="mt-10">
+          {personas.length > 0 ? (
+            <div className="flex flex-col gap-2 px-2">
+              {personas
+                .slice(0)
+                .reverse()
+                .map((persona) => (
+                  <PersonaCard {...persona} key={persona._id} />
+                ))}
+            </div>
+          ) : (
             <div className="text-center">
               <img
                 src={createFirstBusiness}
@@ -32,119 +50,35 @@ export default function HistoryPage() {
               </a>
             </div>
           )}
-          {/* {businesses
-            .slice(0)
-            .reverse()
-            .map((business) => (
-              <BusinessCard
-                description={business.description}
-                business={business}
-                index={0}
-                // Convert the date to a human readable string
-                date={new Date(
-                  business.createdAt || Date.now()
-                ).toLocaleDateString()}
-              /> */}
-          {/* ))} */}
         </div>
       </Sidebar>
     </>
   );
 }
 
-//@ts-ignore
-function BusinessCard({
-  description,
-  index,
-  date,
-  business,
-}: {
-  description: string;
-  index: number;
-  date: string;
-  business: BusinessI;
-}) {
-  // const [showDropdown, setShowDropdown] = useState(false);
-  // const { deleteBusiness } = useBusiness();
-
+function PersonaCard({ persona, _id }: PersonaHistory) {
   return (
-    <span
-      className="flex items-center hover:bg-gray-100 w-full"
-      style={{ padding: "30px" }}
+    <div
+      className={
+        "flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
+      }
       onClick={(event) => {
-        // go to /tools/:id
-        window.location.href = "/persona/" + business._id;
+        window.location.href = "/persona/" + _id;
         event.stopPropagation(); // Stop event propagation
       }}
     >
-      <img
-        src={"history_icons/" + index + ".png"}
-        style={{ height: "60px" }}
-        className="mr-4"
-      />
-
-      <div className=" w-10/12">
-        <p className="text-gray-500 font-bold text-sm w-350">{date}</p>
-        <p className="text-gray-700 font-bold text-sm w-350">{description}</p>
+      <div className="flex items-center justify-center h-8 w-8">
+        <img
+          src={persona.pictureURL ?? "/instant_personas_logo.png"}
+          alt={"Instant Personas Logo"}
+          className={
+            "object-contain rounded-full group-hover:shadow-lg  group-hover:opacity-90   transition-all"
+          }
+        />
       </div>
-
-      <div>
-        <button
-          className="text-gray-300 hover:text-gray-500"
-          onClick={(event) => {
-            // deleteBusiness(business);s
-
-            event.stopPropagation(); // Stop event propagation
-          }}
-        >
-          <TrashIcon style={{ height: "20px" }} />
-        </button>
-
-        {/* {showDropdown && (
-          <div
-            className="absolute right-36 z-10 mt-2 w-56 origin-top-right rounded-md bg-white hover:bg-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-          >
-            <div className="py-1" role="none">
-              <button
-                type="submit"
-                onClick={(event) => {
-                  deleteBusiness(business);
-                  setShowDropdown(false);
-                  event.stopPropagation(); // Stop event propagation
-                }}
-                className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                role="menuitem"
-                id="menu-item-3"
-              >
-                Delete Business
-              </button>
-            </div>
-          </div>
-        )} */}
-      </div>
-    </span>
-  );
-}
-
-export function EllipsisVertical() {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      height={30}
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-      ></path>
-    </svg>
+      <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
+        {persona.name}
+      </p>
+    </div>
   );
 }

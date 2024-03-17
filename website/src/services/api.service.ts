@@ -123,7 +123,7 @@ export interface PersonaHistory {
   messageHistory: Message[];
   persona: Persona;
   aiSuggestedChats?: string[];
-  id: string;
+  _id: string;
 }
 
 const api = {
@@ -165,8 +165,10 @@ const api = {
       return response.data;
     },
     getPersonaHistory: async (id?: string): Promise<PersonaHistory[]> => {
-      const response = await axios.get(`/api/get-persona-history/${id}`);
-      return response.data;
+      const response = await axios.get(
+        id ? `/api/get-persona-history/${id}` : "/api/get-persona-history"
+      );
+      return response.data.results;
     },
   },
 };

@@ -1,12 +1,15 @@
 import Sidebar from "@/components/Sidebar";
 import Chat from "@/components/chat";
-import UserPersona, { PersonaActions } from "@/components/persona";
+import UserPersona from "@/components/persona";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utilities";
 import api, { Persona, Message } from "@/services/api.service";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { RefObject, useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { toPng } from "html-to-image";
+import download from "downloadjs";
+import { generateTimestamp } from "@/lib/utils";
 // import { Message } from "ai";
 
 export const PersonaChat = () => {
@@ -32,18 +35,24 @@ export const PersonaChat = () => {
     "What is a user persona?",
   ]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const pathSegments = location.pathname.split("/");
+  const id = pathSegments[pathSegments.length - 1];
+  const personaRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    console.log("input", input);
     if (input.trim() === "") return;
-    const data = await api.userPersona.messagePersona(input);
-    setMessages(data.messageHistory);
-    setPersona(data.persona);
-    setSuggestions(data.aiSuggestedChats ?? []);
-    setInput("");
+    try {
+      const data = await api.userPersona.messagePersona(input);
+      setMessages(data.messageHistory);
+      setPersona(data.persona);
+      setSuggestions(data.aiSuggestedChats ?? []);
+      setInput("");
+    } catch (error) {
+      console.error("Error sending message", error);
+    }
     setLoading(false);
   };
 
@@ -61,14 +70,31 @@ export const PersonaChat = () => {
 
   const renderPersona = !personaHasNoValues(persona);
 
+  const downloadImage = (elementRef: RefObject<HTMLElement>) => {
+    const element = elementRef.current;
+    if (!element) return console.error("😭 No element to print");
+    const timeStamp = generateTimestamp();
+    toPng(element).then(function (dataUrl: any) {
+      download(dataUrl, "Persona-" + timeStamp + ".png");
+    });
+  };
+
   return (
     <Sidebar currentSelectedPage="Persona Creator">
       <ScrollArea className="h-screen">
         <div className="flex flex-col">
           {renderPersona ? (
             <div className="flex-1 flex flex-col">
-              <UserPersona {...persona} />
-              <PersonaActions />
+              <div ref={personaRef}>
+                <UserPersona {...persona} />
+              </div>
+              <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
+                <Button>{"Change Colour"}</Button>
+                <Button>{"Change Picture"}</Button>
+                <Button onClick={() => downloadImage(personaRef)}>
+                  {"Download Image"}
+                </Button>
+              </div>
             </div>
           ) : null}
           {/* 18px is padding + margin of the chat component */}
