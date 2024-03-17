@@ -163,7 +163,7 @@ const api = {
       });
       return response.data;
     },
-    getPersonaHistroy: async (id?: string): Promise<PersonaHistory[]> => {
+    getPersonaHistory: async (id?: string): Promise<PersonaHistory[]> => {
       const response = await axios.get(`/api/get-persona-history/${id}`);
       return response.data;
     },

@@ -46,7 +46,7 @@ export const PersonaChat = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!id) return;
-      const data = await api.userPersona.getPersonaHistroy(id);
+      const data = await api.userPersona.getPersonaHistory(id);
       const persona = data.at(-1);
       if (!persona) return;
       setMessages(persona.messageHistory);
