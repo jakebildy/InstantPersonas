@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utilities";
 import api, { Persona, Message } from "@/services/api.service";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toPng } from "html-to-image";
 import download from "downloadjs";
 import { generateTimestamp } from "@/lib/utils";
@@ -36,6 +36,8 @@ export const PersonaChat = () => {
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
   const pathSegments = location.pathname.split("/");
   // Checks if the path follows the exact structure ["", "persona", id]
   const id: string | undefined =
@@ -55,6 +57,9 @@ export const PersonaChat = () => {
       setPersona(data.persona);
       setSuggestions(data.aiSuggestedChats ?? []);
       setInput("");
+      if (!id) {
+        navigate("/persona/" + data._id);
+      }
     } catch (error) {
       console.error("Error sending message", error);
     }
