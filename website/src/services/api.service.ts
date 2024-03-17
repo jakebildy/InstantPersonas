@@ -117,6 +117,7 @@ export interface Persona {
 export interface Message {
   sender: "bot" | "user";
   text: string;
+  _id?: string;
 }
 export interface PersonaHistory {
   messageHistory: Message[];

@@ -6,6 +6,7 @@ import { useAutoAdjustTextArea } from "./useAutoAdjustTextArea";
 import { KeyBind, useKeyboardShortcuts } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { LoaderIcon } from "lucide-react";
 
 type BaseKeyBind = Omit<KeyBind, "action">; // Base type without the action property
 
@@ -34,6 +35,7 @@ export interface CommandUserInputProps
   nonInteractable?: boolean;
   inputClassName?: string;
   children?: React.ReactNode;
+  loading?: boolean;
 }
 export const CommandUserInput = React.forwardRef<
   HTMLTextAreaElement,
@@ -51,6 +53,7 @@ export const CommandUserInput = React.forwardRef<
       disabled,
       inputClassName,
       children,
+      loading,
       ...props
     },
     forwardedRef
@@ -65,7 +68,7 @@ export const CommandUserInput = React.forwardRef<
     // Determines whether the text area is disabled
     // If nonInteractable is true, the text area is disabled regardless of the 'disabled' prop
     // If nonInteractable is false, the 'disabled' prop controls the disabled state of the text area
-    const textAreaIsDisabled = nonInteractable ? true : disabled;
+    const textAreaIsDisabled = nonInteractable ? true : disabled || loading;
 
     // Determines whether the submit button is disabled
     // If the text area is disabled (either due to nonInteractable being true or 'disabled' being true),
@@ -117,6 +120,8 @@ export const CommandUserInput = React.forwardRef<
               "text-base md:text-sm scrollbar-hidden font-mono resize-none min-h-[42px] sm:min-h-9 overflow-auto border border-input p-2 scroll-p-1 transition-colors duration-500 focus-visible:ring-primary pr-6 focus:scroll-pr-6 focus:border-gray-400 focus:rounded focused:h-auto text-gray-500 hover:text-black",
               nonInteractable
                 ? "disabled:cursor-default disabled:opacity-100"
+                : loading
+                ? "disabled:cursor-wait"
                 : "",
               inputClassName
             )}
@@ -139,7 +144,11 @@ export const CommandUserInput = React.forwardRef<
             type="submit"
             variant={"link"}
           >
-            <PaperAirplaneIcon className="h-6 w-6 text-primary hover:text-OffWhite-light transition-colors duration-500" />
+            {loading ? (
+              <LoaderIcon className="h-6 w-6 animate-spin" />
+            ) : (
+              <PaperAirplaneIcon className="h-6 w-6 text-primary hover:text-OffWhite-light transition-colors duration-500" />
+            )}
           </Button>
         </div>
       </form>

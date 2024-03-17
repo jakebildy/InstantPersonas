@@ -9,12 +9,15 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
+import ProjectAnalysis from "../images/ProjectAnalysis.gif";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   input: string;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 type MemoizedComponent = React.MemoExoticComponent<
@@ -32,6 +35,7 @@ export default function Chat({
   handleInputChange,
   input,
   children,
+  loading,
   ...Props
 }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
@@ -44,6 +48,8 @@ export default function Chat({
     },
   ];
 
+  console.log("messages", messages);
+
   return (
     <section
       className={cn(
@@ -55,17 +61,28 @@ export default function Chat({
       <ScrollArea className="h-[calc(100%-56px)]">
         {/* 120px is the height of the input and suggestions */}
         <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
-          {messages.map((message: Message, i) => {
-            const Component = componentLookupTable[message.sender];
-            return Component ? (
-              <div
-                key={i}
-                className={cn("-z-10", messages.length == i + 1 ? "pb-4" : "")}
-              >
-                <Component message={message} />
-              </div>
-            ) : null;
-          })}
+          {messages.length > 0 ? (
+            messages.map((message: Message, i) => {
+              const Component = componentLookupTable[message.sender];
+              return Component ? (
+                <div
+                  key={message._id ?? i}
+                  className={cn("z-10", messages.length == i + 1 ? "pb-4" : "")}
+                >
+                  <Component message={message} />
+                </div>
+              ) : null;
+            })
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <img
+                src={ProjectAnalysis}
+                alt={"Loading Chat..."}
+                className={"object-contain w-8 h-7"}
+              />
+            </div>
+          )}
+          {/* ProjectAnalysis */}
         </div>
         <div ref={scrollBottomRef} />
       </ScrollArea>
@@ -76,6 +93,7 @@ export default function Chat({
         onSubmit={handleSubmit}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
+        loading={loading}
       >
         {children}
       </CommandUserInput>
@@ -105,7 +123,6 @@ const PersonaMessage = ({
           className={cn("object-contain w-8 h-7")}
         />
       </div>
-
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
         {message.text}
       </p>
@@ -139,10 +156,5 @@ const UserMessage = ({
 
 const componentLookupTable: ComponentLookupTableType = {
   user: memo(UserMessage),
-  //@ts-ignore
-  assistant: memo(PersonaMessage),
-  function: memo(PersonaMessage),
-  system: memo(PersonaMessage),
-  tool: memo(PersonaMessage),
-  data: memo(PersonaMessage),
+  bot: memo(PersonaMessage),
 };

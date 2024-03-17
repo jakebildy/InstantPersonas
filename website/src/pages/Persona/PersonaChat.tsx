@@ -14,6 +14,7 @@ export const PersonaChat = () => {
     {
       sender: "bot",
       text: `Describe your product or service, and I can create a user persona.`,
+      _id: "000",
     },
   ]);
   const [input, setInput] = useState<string>("");
@@ -30,9 +31,11 @@ export const PersonaChat = () => {
     "I need a user persona for a product manager",
     "What is a user persona?",
   ]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { id } = useParams<{ id: string }>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     console.log("input", input);
     if (input.trim() === "") return;
@@ -41,6 +44,7 @@ export const PersonaChat = () => {
     setPersona(data.persona);
     setSuggestions(data.aiSuggestedChats ?? []);
     setInput("");
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -80,6 +84,8 @@ export const PersonaChat = () => {
             handleSubmit={handleSubmit}
             handleInputChange={(e) => setInput(e.target.value)}
             input={input}
+            loading={loading}
+            setLoading={(b) => setLoading(b)}
           >
             <div className="flex flex-col flex-wrap ">
               <div className="flex gap-4 my-4 overflow-hidden flex-wrap">
