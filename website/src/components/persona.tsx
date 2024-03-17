@@ -6,15 +6,19 @@ import { Persona } from "@/services/api.service";
 import { Skeleton } from "./ui/skeleton";
 import { useFetchBase64Image } from "@/lib/hooks";
 
-interface Props extends Persona, HTMLAttributes<HTMLDivElement> {}
+interface Props extends Persona {
+  selectedColor?: string;
+}
 
 export default function UserPersona({
   name,
   gender,
+  color,
   pictureURL,
   shortDescriptors,
   sections,
-  className,
+  // className,
+  selectedColor,
   ...Props
 }: Props) {
   const [img, loading, error] = useFetchBase64Image(pictureURL);
@@ -22,8 +26,8 @@ export default function UserPersona({
   return (
     <div
       className={cn(
-        "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background md:m-10 xl:m-24 xl:mb-10",
-        className
+        "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background md:m-10 xl:m-24 xl:mb-10"
+        // className
       )}
       {...Props}
     >
@@ -42,7 +46,10 @@ export default function UserPersona({
           </div>
         )}
 
-        <div className="grid grid-cols-2 bg-persona-foreground">
+        <div
+          className={"grid grid-cols-2 bg-persona-foreground"}
+          style={{ backgroundColor: selectedColor || "defaultBackgroundColor" }}
+        >
           {shortDescriptors.length > 0
             ? shortDescriptors.map((section, index) => (
                 <EditableAttributeCard
@@ -55,7 +62,9 @@ export default function UserPersona({
             : [1, 2, 3, 4].map((_, index) => (
                 <Skeleton
                   key={index}
-                  className="bg-persona-background shadow-lg rounded-lg m-2 text-center font-bold"
+                  className={
+                    "bg-persona-background shadow-lg rounded-lg m-2 text-center font-bold"
+                  }
                 />
               ))}
         </div>

@@ -90,6 +90,7 @@ export default function Chat({
         onSubmit={handleSubmit}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
+        //@ts-ignore
         loading={loading}
       >
         {children}

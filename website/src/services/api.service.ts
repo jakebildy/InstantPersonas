@@ -110,6 +110,7 @@ export interface Persona {
   name: string;
   gender: string; //required for getting the pictureURL
   pictureURL: string;
+  color: string;
   shortDescriptors: { label: string; description: string; emoji: string }[];
   sections: { label: string; description: string }[];
 }
@@ -169,6 +170,16 @@ const api = {
         id ? `/api/get-persona-history/${id}` : "/api/get-persona-history"
       );
       return response.data.results;
+    },
+    updatePersona: async (
+      persona: Persona,
+      historyID: string
+    ): Promise<PersonaHistory> => {
+      const response = await axios.post("/api/update-persona", {
+        persona,
+        historyID,
+      });
+      return response.data;
     },
   },
 };

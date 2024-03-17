@@ -165,17 +165,17 @@ const Sidebar = ({ currentSelectedPage, children }: any) => {
           <Content />
         </div>
 
-        <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-[#232325] px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-[white] px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
-            className="-m-2.5 p-2.5 text-white lg:hidden"
+            className="-m-2.5 p-2.5 text-black lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-xl font-semibold leading-6 text-white">
-            <p className="text-xl font-bold text-white flex">
+            <p className="text-xl font-bold text-black flex">
               <Logo className="h-7 w-8 bg-cover object-contain mr-1" />
               Instant Personas
             </p>
