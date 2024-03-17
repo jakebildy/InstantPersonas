@@ -57,6 +57,11 @@ export default function HistoryPage() {
 }
 
 function PersonaCard({ persona, _id }: PersonaHistory) {
+  const relevantPersonaInfo = persona.shortDescriptors
+    .filter((s) => ["Occupation", "Location"].includes(s.label))
+    .at(-1) ??
+    persona.shortDescriptors.at(0) ?? { description: "" };
+
   return (
     <div
       className={
@@ -77,7 +82,7 @@ function PersonaCard({ persona, _id }: PersonaHistory) {
         />
       </div>
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
-        {persona.name}
+        {persona.name} - {relevantPersonaInfo.description}
       </p>
     </div>
   );
