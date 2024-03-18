@@ -90,7 +90,7 @@ export default function Chat({
         onSubmit={handleSubmit}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
-        //@ts-ignore
+        // @ts-ignore
         loading={loading}
       >
         {children}
@@ -138,19 +138,9 @@ const UserMessage = ({
       className={cn("flex gap-2 justify-end items-center", className)}
       {...Props}
     >
-      <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+      <p className="flex items-center bg-blue-100 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
         {message.text}
       </p>
-      <div className="flex items-center h-full">
-        <img
-          src={"/test_avatar.jpg"}
-          alt={"User Avatar"}
-          // width={32}
-          // height={28}
-          // priority
-          className={cn("object-contain rounded-full w-8 h-7")}
-        />
-      </div>
     </div>
   );
 };
