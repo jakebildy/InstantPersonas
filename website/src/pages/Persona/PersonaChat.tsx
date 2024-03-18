@@ -54,8 +54,15 @@ export const PersonaChat = () => {
   const personaRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
+    setMessages((m) =>
+      m.concat([
+        { sender: "user", text: input, _id: "001" },
+        { sender: "bot", text: "...", _id: "002" },
+      ])
+    );
+
     if (input.trim() === "") return;
     try {
       const data = await api.userPersona.messagePersona(input, id);
@@ -108,57 +115,63 @@ export const PersonaChat = () => {
 
   return (
     <Sidebar currentSelectedPage="Persona Creator">
-      <ScrollArea className="h-screen">
-        <div className="flex flex-col">
-          {renderPersona ? (
-            <div className="flex-1 flex flex-col">
-              <div ref={personaRef}>
-                <UserPersona
-                  {...{ selectedColor, setPersona, id, ...persona }}
-                />
-              </div>
-              <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
-                <Button onClick={() => setShowPicker(!showPicker)}>
-                  {"Change Colour"}
-                </Button>
-                {showPicker && (
-                  <div style={{ position: "relative" }}>
-                    <CompactPicker
-                      color={selectedColor}
-                      onChangeComplete={(color: ColorResult) => {
-                        setSelectedColor(color.hex);
-                        setShowPicker(false);
-                        updateColor(color.hex);
-                      }}
-                    />
-                  </div>
-                )}
-                <Button
-                  onClick={() => {
-                    const newPicture = `https://xsgames.co/randomusers/assets/avatars/${persona.gender.toLowerCase()}/${Math.ceil(
-                      Math.random() * 78
-                    )}.jpg`;
-
-                    updatePicture(newPicture);
-                    setPersona({
-                      ...persona,
-                      pictureURL: newPicture,
-                    });
-                  }}
-                >
-                  {"Change Picture"}
-                </Button>
-                <Button onClick={() => downloadImage(personaRef)}>
-                  {"Download Image"}
-                </Button>
-              </div>
+      <div className="flex flex-col relative">
+        {renderPersona ? (
+          <div className="flex-1 flex flex-col">
+            <div ref={personaRef}>
+              <UserPersona {...{ selectedColor, setPersona, id, ...persona }} />
             </div>
-          ) : null}
+            <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
+              <Button onClick={() => setShowPicker(!showPicker)}>
+                {"Change Colour"}
+              </Button>
+              {showPicker && (
+                <div style={{ position: "relative" }}>
+                  <CompactPicker
+                    color={selectedColor}
+                    onChangeComplete={(color: ColorResult) => {
+                      setSelectedColor(color.hex);
+                      setShowPicker(false);
+                      updateColor(color.hex);
+                    }}
+                  />
+                </div>
+              )}
+              <Button
+                onClick={() => {
+                  const newPicture = `https://xsgames.co/randomusers/assets/avatars/${persona.gender.toLowerCase()}/${Math.ceil(
+                    Math.random() * 78
+                  )}.jpg`;
+
+                  updatePicture(newPicture);
+                  setPersona({
+                    ...persona,
+                    pictureURL: newPicture,
+                  });
+                }}
+              >
+                {"Change Picture"}
+              </Button>
+              <Button onClick={() => downloadImage(personaRef)}>
+                {"Download Image"}
+              </Button>
+            </div>
+          </div>
+        ) : null}
+        <div
+          className={cn(
+            "flex-1",
+            renderPersona ? "min-h-[35dvh] lg:min-h-[10dvh]" : ""
+          )}
+          id="scroll-spacer"
+        />
+        {/* 288px is w-72 the sidebar lg width */}
+        <div className="fixed bottom-0 w-full lg:w-[calc(100%-288px)]">
           {/* 18px is padding + margin of the chat component */}
           {/* 78px: 18px + 60px is the height of margin + mobile header */}
           <Chat
             className={cn(
-              "border rounded-lg",
+              "border rounded-lg bg-white shadow-xl",
               renderPersona
                 ? "min-h-[400px]"
                 : "min-h-[calc(100dvh-78px)] lg:min-h-[calc(100vh-18px)]"
@@ -187,7 +200,7 @@ export const PersonaChat = () => {
             </div>
           </Chat>
         </div>
-      </ScrollArea>
+      </div>
     </Sidebar>
   );
 };
