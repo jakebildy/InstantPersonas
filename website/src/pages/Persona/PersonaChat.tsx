@@ -2,7 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import Chat from "@/components/chat";
 import UserPersona from "@/components/persona";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utilities";
 import api, { Persona, Message } from "@/services/api.service";
 import { RefObject, useEffect, useRef, useState } from "react";

@@ -1,5 +1,3 @@
-// import { Container } from './Container'
-import backgroundImage from "../../images/background-faqs.jpg";
 import { Container } from "../Container";
 import { BackgroundGradient } from "../ui/card_background_gradient";
 import { BackgroundGradientAnimation } from "../ui/gradient_background";

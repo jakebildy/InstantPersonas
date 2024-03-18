@@ -2,7 +2,6 @@ import React from "react";
 import TDLogo from "../assets/logo_new.png";
 import StytchLogin from "../components/common/StytchLogin";
 import { World } from "@/components/ui/globe";
-import { AuroraBackground } from "@/components/ui/aurora_background";
 import { BackgroundGradientAnimation } from "@/components/ui/gradient_background";
 
 const LoginPage: React.FC = () => {
