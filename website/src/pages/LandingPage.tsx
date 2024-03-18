@@ -18,7 +18,7 @@ export default function LandingPage() {
         <Hero />
         <PrimaryFeatures />
         <CallToAction />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Pricing />
         <Faqs />
       </main>
