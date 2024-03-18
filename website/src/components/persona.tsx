@@ -2,12 +2,14 @@ import { HTMLAttributes, useState } from "react";
 // import Image from "next/image";
 import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
-import { Persona } from "@/services/api.service";
+import api, { Persona } from "@/services/api.service";
 import { Skeleton } from "./ui/skeleton";
 import { useFetchBase64Image } from "@/lib/hooks";
 
 interface Props extends Persona {
   selectedColor?: string;
+  id?: string;
+  setPersona: (persona: Persona) => void;
 }
 
 export default function UserPersona({
@@ -17,8 +19,9 @@ export default function UserPersona({
   pictureURL,
   shortDescriptors,
   sections,
-  // className,
   selectedColor,
+  id,
+  setPersona,
   ...Props
 }: Props) {
   const [img, loading, error] = useFetchBase64Image(pictureURL);
@@ -27,7 +30,6 @@ export default function UserPersona({
     <div
       className={cn(
         "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background md:m-10 xl:m-24 xl:mb-10"
-        // className
       )}
       {...Props}
     >
@@ -55,8 +57,19 @@ export default function UserPersona({
                 <EditableAttributeCard
                   key={index}
                   label={section.label}
+                  personaID={id}
+                  descriptorIndex={index}
                   description={section.description}
                   icon={section.emoji}
+                  persona={{
+                    name,
+                    gender,
+                    color,
+                    pictureURL,
+                    shortDescriptors,
+                    sections,
+                  }}
+                  setPersona={setPersona}
                 />
               ))
             : [1, 2, 3, 4].map((_, index) => (
@@ -76,6 +89,17 @@ export default function UserPersona({
               key={index}
               label={section.label}
               description={section.description}
+              personaID={id}
+              sectionIndex={index}
+              persona={{
+                name,
+                gender,
+                color,
+                pictureURL,
+                shortDescriptors,
+                sections,
+              }}
+              setPersona={setPersona}
             />
           ))
         : [1, 2, 3, 4, 5, 6].map((_, index) => (
@@ -93,15 +117,28 @@ export default function UserPersona({
 interface PersonaTextProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   description: string;
+  personaID: string | undefined;
+  sectionIndex: number;
+  persona: any;
+  setPersona: (persona: Persona) => void;
 }
 
 function PersonaText({
   label,
   description,
   className,
+  personaID,
+  sectionIndex,
+  persona,
+  setPersona,
   ...Props
 }: PersonaTextProps) {
   const [content, setContent] = useState(description);
+
+  const updatePersona = async (persona: Persona) => {
+    if (!personaID) return console.error("No id to update persona");
+    await api.userPersona.updatePersona(persona, personaID);
+  };
 
   return (
     <div
@@ -114,7 +151,22 @@ function PersonaText({
       <h3 className="text-2xl font-bold">{label}</h3>
       <Textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => {
+          const description = e.target.value;
+          setContent(description);
+          setPersona({
+            ...persona,
+            sections: persona.sections.map((s: any, i: number) =>
+              i === sectionIndex ? { ...s, description } : s
+            ),
+          });
+          updatePersona({
+            ...persona,
+            sections: persona.sections.map((s: any, i: number) =>
+              i === sectionIndex ? { ...s, description } : s
+            ),
+          });
+        }}
         className="resize-none flex-grow mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border min-h-[150px]"
       />
     </div>
@@ -125,6 +177,10 @@ interface GenericStatusProps extends HTMLAttributes<HTMLDivElement> {
   icon: string;
   label: string;
   description: string;
+  personaID: string | undefined;
+  descriptorIndex: number;
+  persona: any;
+  setPersona: (persona: Persona) => void;
 }
 
 const EditableAttributeCard = ({
@@ -132,9 +188,18 @@ const EditableAttributeCard = ({
   label,
   description,
   className,
+  personaID,
+  descriptorIndex,
+  persona,
+  setPersona,
   ...Props
 }: GenericStatusProps) => {
   const [content, setContent] = useState(description);
+
+  const updatePersona = async (persona: Persona) => {
+    if (!personaID) return console.error("No id to update persona");
+    await api.userPersona.updatePersona(persona, personaID);
+  };
 
   return (
     <div
@@ -148,7 +213,24 @@ const EditableAttributeCard = ({
       <h2 className="text-xs text-persona-title/80">{label}</h2>
       <Textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => {
+          const description = e.target.value;
+          setContent(description);
+          setPersona({
+            ...persona,
+            shortDescriptors: persona.shortDescriptors.map(
+              (s: any, i: number) =>
+                i === descriptorIndex ? { ...s, description } : s
+            ),
+          });
+          updatePersona({
+            ...persona,
+            shortDescriptors: persona.shortDescriptors.map(
+              (s: any, i: number) =>
+                i === descriptorIndex ? { ...s, description } : s
+            ),
+          });
+        }}
         className="resize-none border-none scrollbar-hidden mt-2 text-center text-persona-text text-xs focus-visible:ring-persona-accent bg-persona-background"
         rows={2}
       />

@@ -101,6 +101,11 @@ export const PersonaChat = () => {
     await api.userPersona.updatePersona({ ...persona, color }, id);
   };
 
+  const updatePicture = async (pictureURL: string) => {
+    if (!id) return console.error("No id to update persona");
+    await api.userPersona.updatePersona({ ...persona, pictureURL }, id);
+  };
+
   return (
     <Sidebar currentSelectedPage="Persona Creator">
       <ScrollArea className="h-screen">
@@ -108,7 +113,9 @@ export const PersonaChat = () => {
           {renderPersona ? (
             <div className="flex-1 flex flex-col">
               <div ref={personaRef}>
-                <UserPersona {...{ selectedColor, ...persona }} />
+                <UserPersona
+                  {...{ selectedColor, setPersona, id, ...persona }}
+                />
               </div>
               <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
                 <Button onClick={() => setShowPicker(!showPicker)}>
@@ -126,7 +133,21 @@ export const PersonaChat = () => {
                     />
                   </div>
                 )}
-                <Button>{"Change Picture"}</Button>
+                <Button
+                  onClick={() => {
+                    const newPicture = `https://xsgames.co/randomusers/assets/avatars/${persona.gender.toLowerCase()}/${Math.ceil(
+                      Math.random() * 78
+                    )}.jpg`;
+
+                    updatePicture(newPicture);
+                    setPersona({
+                      ...persona,
+                      pictureURL: newPicture,
+                    });
+                  }}
+                >
+                  {"Change Picture"}
+                </Button>
                 <Button onClick={() => downloadImage(personaRef)}>
                   {"Download Image"}
                 </Button>
