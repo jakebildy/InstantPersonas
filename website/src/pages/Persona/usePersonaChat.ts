@@ -26,6 +26,7 @@ export function usePersonaChat(id: string | undefined) {
     "What is a user persona?",
   ]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [currentID, setCurrentID] = useState<string | undefined>(undefined);
   const [selectedColor, setSelectedColor] = useState<string>("#ADD8E6");
   const navigate = useNavigate();
 
@@ -61,6 +62,7 @@ export function usePersonaChat(id: string | undefined) {
       setInput("");
       if (!id && data.persona) {
         navigate("/persona/" + data._id);
+        setCurrentID(data._id);
       }
     } catch (error) {
       console.error("Error sending message", error);
@@ -78,6 +80,7 @@ export function usePersonaChat(id: string | undefined) {
       setPersona(persona.persona);
       setSelectedColor(persona.persona.color);
       setSuggestions(persona.aiSuggestedChats ?? []);
+      setCurrentID(persona._id);
     };
     fetchData();
   }, [id]);
@@ -96,5 +99,6 @@ export function usePersonaChat(id: string | undefined) {
     handleSubmit,
     setPersona,
     setSelectedColor,
+    currentID,
   };
 }

@@ -24,6 +24,7 @@ export const PersonaChat = () => {
     selectedColor,
     input,
     loading,
+    currentID,
     handleSubmit,
     setInput,
     setLoading,
@@ -36,7 +37,9 @@ export const PersonaChat = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
-  const renderPersona = !personaHasNoValues(persona);
+  const renderPersona = id
+    ? id == currentID || !personaHasNoValues(persona)
+    : false;
 
   const downloadImage = (elementRef: RefObject<HTMLElement>) => {
     const element = elementRef.current;
