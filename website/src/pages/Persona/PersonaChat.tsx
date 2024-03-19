@@ -46,6 +46,8 @@ export const PersonaChat = () => {
       download(dataUrl, "Persona-" + timeStamp + ".png");
     });
   };
+
+  //@ts-ignore
   const { subscriptionActive } = useUser();
 
   const handleCheckSubscriptionSubmit = (

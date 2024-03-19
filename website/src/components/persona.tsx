@@ -24,6 +24,7 @@ export default function UserPersona({
   setPersona,
   ...Props
 }: Props) {
+  //@ts-ignore
   const [img, loading, error] = useFetchBase64Image(pictureURL);
 
   const displayImage = () => {

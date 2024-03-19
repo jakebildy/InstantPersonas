@@ -1,7 +1,6 @@
 // import { Button } from "../Button";
 import { Container } from "../Container";
 import { AnimatedTooltip } from "../ui/animated_tooltip";
-import { LampContainer } from "../ui/lamp";
 
 export function CallToAction() {
   const people = [
