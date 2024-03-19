@@ -3,7 +3,6 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Hero } from "../components/LandingPage/Hero";
 import { CallToAction } from "../components/LandingPage/CallToAction";
-import { Testimonials } from "../components/LandingPage/Testimonials";
 import { PrimaryFeatures } from "../components/LandingPage/PrimaryFeatures";
 import { Pricing } from "../components/LandingPage/Pricing";
 import { useScrollToSection } from "../hooks/UseScrollToSection";

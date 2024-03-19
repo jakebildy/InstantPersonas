@@ -19,8 +19,8 @@ export function CallToAction() {
               <b>It’s time to take back your time.</b>
             </p>
             <p className="mt-4 text-lg tracking-tight text-white mb-10">
-              Save hours by generating in-depth analyses effortlessly with AI
-              Consulting Tools.
+              Save hours by generating in-depth personas effortlessly with
+              InstantPersonas.
             </p>
 
             <Button href="/register" color="white" className=" font-bold">

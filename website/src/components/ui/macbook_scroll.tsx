@@ -25,12 +25,12 @@ import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "../utils/cn";
 
 export const MacbookScroll = ({
-  src,
+  // src,
   showGradient,
   title,
   badge,
 }: {
-  src?: string;
+  // src?: string;
   showGradient?: boolean;
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
@@ -84,7 +84,7 @@ export const MacbookScroll = ({
       </motion.h2>
       {/* Lid */}
       <Lid
-        src={src}
+        // src={src}
         scaleX={scaleX}
         scaleY={scaleY}
         rotate={rotate}
@@ -123,13 +123,13 @@ export const Lid = ({
   scaleY,
   rotate,
   translate,
-  src,
-}: {
+}: // src,
+{
   scaleX: MotionValue<number>;
   scaleY: MotionValue<number>;
   rotate: MotionValue<number>;
   translate: MotionValue<number>;
-  src?: string;
+  // src?: string;
 }) => {
   return (
     <div className="relative [perspective:800px]">
@@ -164,12 +164,28 @@ export const Lid = ({
         className="h-96 w-[32rem] absolute inset-0 bg-[#010101] rounded-2xl p-2"
       >
         <div className="absolute inset-0 bg-[#272729] rounded-lg" />
-        <img
+        {/* <img
           src={src as string}
           alt="aceternity logo"
           //   fill
           className="object-cover object-left-top absolute rounded-lg inset-0 h-full w-full"
-        />
+        /> */}
+        <iframe
+          className=" absolute z-10 h-96 w-[32rem] rounded-lg inset-0"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+          // frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          // allowfullscreen
+        ></iframe>
+        {/* <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          // frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          // allowfullscreen
+        ></iframe> */}
       </motion.div>
     </div>
   );

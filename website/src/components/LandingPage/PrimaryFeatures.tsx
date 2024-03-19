@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import userPersona from "../../images/screenshots/user-persona.png";
+// import userPersona from "../../images/screenshots/user-persona.png";
 import { AuroraBackground } from "../ui/aurora_background";
 import { MacbookScroll } from "../ui/macbook_scroll";
 
@@ -31,7 +31,7 @@ export function PrimaryFeatures() {
                   </p>
                 </div>
               }
-              src={userPersona}
+              // src={userPersona}
             ></MacbookScroll>
           </div>
         </Container>
