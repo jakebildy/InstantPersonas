@@ -34,7 +34,7 @@ export default function UserPersona({
       {...Props}
     >
       <div className="row-span-2 col-span-1 grid grid-rows-2 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        {pictureURL || loading || error ? (
+        {pictureURL || !img || loading || error ? (
           <div className="flex-grow relative">
             <img
               src={img}
