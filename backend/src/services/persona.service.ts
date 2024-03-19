@@ -139,7 +139,8 @@ export async function generateUserPersona(
   interface UserPersona {
     name: string;
     gender: string;
-    sections: [{label: string, description: string}]
+    sections: [{label: string, description: string}];
+    shortDescriptors: [{label: string, description: string, emoji: string}];
   }
   
   For example:
@@ -277,31 +278,17 @@ export async function updateUserPersona(
   interface UserPersona {
     name: string;
     gender: string;
-    pictureURL: string
-    sections: [{label: string, description: string}]
+    pictureURL: string;
+    sections: [{label: string, description: string}];
+    shortDescriptors: [{label: string, description: string, emoji: string}];
   }
   
   For example:
   {
     "name": "John Doe",
     "gender" : "details",
-    pictureURL: "a url",
-    sections: [{
-        "label": "age",
-        "description": "details"
-        },
-        {
-        "label": "location",
-        "description": "details"
-        },
-        {
-        "label": "occupation",
-        "description": "details"
-        },
-        {
-        "label": "familyStatus",
-        "description": "details"
-        },
+    "pictureURL": "a url",
+    "sections": [{
         {
         "label": "bio",
         "description": "details"
@@ -326,7 +313,28 @@ export async function updateUserPersona(
         "label": "brandAffiliations",
         "description": "details"
         }
-    ] 
+    ],
+    "shortDescriptors": [ 
+      "label": "Age",
+      "description": "details",
+      "emoji": "🧔"
+      },
+      {
+      "label": "Location",
+      "description": "details",
+      "emoji": "📍"
+      },
+      {
+      "label": "Occupation",
+      "description": "details",
+      "emoji": "💼"
+      },
+      {
+      "label": "Family Status",
+      "description": "details",
+      "emoji": "🏠"
+      }
+  ]
   }
   `;
   
@@ -355,31 +363,36 @@ export async function updateUserPersona(
     userPersona?: UserPersona,
   ): Promise<{ response: string; suggestions: string[] }> {
 
-    if (!userPersona && !intentToChangePersona) {
-     
-    }
+ 
 
     const systemMessage =
 
     
     intentToChangePersona === false ?
-    `You are a bot that helps a user learn about and understand customer personas. Based on the following message history, generate a response to the user and suggest some AI generated messages:
-    Message History: ${JSON.stringify(messageHistory)}
-    The User Persona the user created: ${JSON.stringify(userPersona)}
+    `You are a bot that helps a user learn about and understand customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
+    Message History (from oldest to newest):     ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)))}
+    The User Persona you (the bot) created: ${JSON.stringify(userPersona)}
 
-    Please structure your response in a clear and easily parsable JSON format.
 
+    "response" should be a string that is a response to the user's message. Try to be insightful. "suggestions" should be an array of 2 strings that that the user might want to ask next, written from the perspective of the user.
+
+    Please structure your output in a clear and easily parsable JSON format.
+    
     example output when the user asks "why should I make a user persona?": 
     { "response": "User personas are often used for understanding a customer market", "suggestions": ["Tell me more", "Is it the same as a customer persona?"] }
     ` :
     
     
-    `You are a bot that helps a user create customer personas. Based on the following message history, generate a response to the user and suggest some AI generated messages:
-    Message History: ${JSON.stringify(messageHistory)}
+    `You are a bot that creates customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
+    Message History (from oldest to newest): 
+    ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)))}
     User Persona: ${JSON.stringify(userPersona)}
-    Did the bot just update the User Persona: ${intentToChangePersona}
+    Is the bot updating an existing persona: ${intentToChangePersona}
 
-    Please structure your response in a clear and easily parsable JSON format. You should only provide 'response' and 'suggestions'
+
+    "response" should be a string that is a response to the user's message. "suggestions" should be an array of 2 strings that that the user might want to ask next, written from the perspective of the user.
+
+    Please structure your output in a clear and easily parsable JSON format. You should only provide 'response' and 'suggestions'
 
     example: 
     { "response": "I updated the persona with the details you provided.", "suggestions": ["Why did you change the age?", "Change the name as well"] }
