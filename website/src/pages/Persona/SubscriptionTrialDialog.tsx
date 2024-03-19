@@ -32,11 +32,11 @@ export const SubscriptionTrialDialog = React.forwardRef<
           </div>
           <div className="space-y-4 md:col-span-3">
             <h2 className="text-lg font-bold text-gray-800">
-              Take Your Chats Further: Try Persona Chat's Premium Access!
+              Take Your Chats Further: Try InstantPersona's Premium Access!
             </h2>
             <p className="text-sm text-gray-600">
-              To continue using Persona Chat, you need to subscribe to our
-              service, or check out our free 3 week trial.
+              To use Persona Chat, you need to subscribe to our service, or
+              check out our free 3 day trial.
             </p>
             <div className="flex space-x-4">
               <DialogPrimitive.Close asChild>

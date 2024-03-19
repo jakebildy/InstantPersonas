@@ -52,11 +52,11 @@ export const PersonaChat = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!subscriptionActive) {
-      setShowSubscriptionPromptDialog(true);
-    } else {
-      handleSubmit(e);
-    }
+    // if (!subscriptionActive) {
+    //   setShowSubscriptionPromptDialog(true);
+    // } else {
+    handleSubmit(e);
+    // }
   };
 
   return (
