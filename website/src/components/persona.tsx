@@ -74,7 +74,7 @@ export default function UserPersona({
           {shortDescriptors.length > 0
             ? shortDescriptors.map((section, index) => (
                 <EditableAttributeCard
-                  key={index}
+                  key={section.description}
                   label={section.label}
                   personaID={id}
                   descriptorIndex={index}
@@ -105,7 +105,7 @@ export default function UserPersona({
       {sections.length > 0
         ? sections.map((section, index) => (
             <PersonaText
-              key={index}
+              key={section.description}
               label={section.label}
               description={section.description}
               personaID={id}
