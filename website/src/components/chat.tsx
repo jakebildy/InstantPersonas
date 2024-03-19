@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
 import ProjectAnalysis from "../images/ProjectAnalysis.gif";
+import "../App.css";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
@@ -122,7 +123,15 @@ const PersonaMessage = ({
         />
       </div>
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message.text}
+        {message.text === "..." ? (
+          <div className="typing">
+            <div className="typing__dot"></div>
+            <div className="typing__dot"></div>
+            <div className="typing__dot"></div>
+          </div>
+        ) : (
+          message.text
+        )}
       </p>
     </div>
   );
