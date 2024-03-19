@@ -58,10 +58,14 @@ export default function HistoryPage() {
 
 function PersonaCard({ persona, _id }: PersonaHistory) {
   // Grab Occupation or Location, or the first descriptor, or fallback to empty string
-  const relevantPersonaInfo = persona.shortDescriptors
-    .filter((s) => ["Occupation", "Location"].includes(s.label))
-    .at(-1) ??
-    persona.shortDescriptors.at(0) ?? { description: "" };
+  const relevantPersonaInfo =
+    persona && persona.shortDescriptors && persona.shortDescriptors.length > 0
+      ? persona.shortDescriptors
+          .filter((s) => ["Occupation", "Location"].includes(s.label))
+          .at(-1)?.description ?? persona.shortDescriptors.at(0)?.description
+      : "";
+
+  if (!persona) return null;
 
   return (
     <div
@@ -83,7 +87,7 @@ function PersonaCard({ persona, _id }: PersonaHistory) {
         />
       </div>
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
-        {persona.name} - {relevantPersonaInfo.description}
+        {persona.name} - {relevantPersonaInfo ?? ""}
       </p>
     </div>
   );
