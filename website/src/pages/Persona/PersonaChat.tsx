@@ -125,7 +125,7 @@ export const PersonaChat = () => {
               className={cn(
                 "border rounded-lg bg-white shadow-xl",
                 renderPersona
-                  ? "min-h-[400px]"
+                  ? "min-h-[400px] max-h-[33dvh]"
                   : "min-h-[calc(100dvh-78px)] lg:min-h-[calc(100vh-18px)]"
               )}
               messages={messages}
