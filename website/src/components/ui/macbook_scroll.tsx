@@ -25,12 +25,12 @@ import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "../utils/cn";
 
 export const MacbookScroll = ({
-  src,
+  // src,
   showGradient,
   title,
   badge,
 }: {
-  src?: string;
+  // src?: string;
   showGradient?: boolean;
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
@@ -84,7 +84,7 @@ export const MacbookScroll = ({
       </motion.h2>
       {/* Lid */}
       <Lid
-        src={src}
+        // src={src}
         scaleX={scaleX}
         scaleY={scaleY}
         rotate={rotate}
@@ -123,13 +123,13 @@ export const Lid = ({
   scaleY,
   rotate,
   translate,
-  src,
-}: {
+}: // src,
+{
   scaleX: MotionValue<number>;
   scaleY: MotionValue<number>;
   rotate: MotionValue<number>;
   translate: MotionValue<number>;
-  src?: string;
+  // src?: string;
 }) => {
   return (
     <div className="relative [perspective:800px]">
