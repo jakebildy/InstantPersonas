@@ -27,13 +27,6 @@ export default function UserPersona({
   const [img, loading, error] = useFetchBase64Image(pictureURL);
 
   const displayImage = () => {
-    if (loading)
-      return (
-        <div className="flex-grow p-2">
-          <Skeleton className="h-60 w-full bg-black/5" />
-        </div>
-      );
-    if (error) return <p>Failed to load image</p>;
     if (img)
       return (
         <div className="flex-grow relative">
@@ -55,6 +48,7 @@ export default function UserPersona({
           />
         </div>
       );
+
     return (
       <div className="flex-grow p-2">
         <Skeleton className="h-60 w-full bg-black/5" />
