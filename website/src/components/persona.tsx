@@ -186,7 +186,7 @@ function PersonaText({
             ),
           });
         }}
-        className="resize-none flex-grow mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border min-h-[25dvh]"
+        className="resize-none flex-grow mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border min-h-[5dvh]"
       />
     </div>
   );
