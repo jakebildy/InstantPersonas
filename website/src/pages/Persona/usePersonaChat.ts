@@ -74,6 +74,7 @@ export function usePersonaChat(id: string | undefined) {
       setMessages(persona.messageHistory);
       setPersona(persona.persona);
       setSelectedColor(persona.persona.color);
+      setSuggestions(persona.aiSuggestedChats ?? []);
     };
     fetchData();
   }, [id]);
