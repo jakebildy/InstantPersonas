@@ -26,6 +26,42 @@ export default function UserPersona({
 }: Props) {
   const [img, loading, error] = useFetchBase64Image(pictureURL);
 
+  const displayImage = () => {
+    if (loading)
+      return (
+        <div className="flex-grow p-2">
+          <Skeleton className="h-60 w-full bg-black/5" />
+        </div>
+      );
+    if (error) return <p>Failed to load image</p>;
+    if (img)
+      return (
+        <div className="flex-grow relative">
+          <img
+            src={img}
+            alt="Persona Image"
+            className="object-contain rounded-xl"
+          />
+        </div>
+      );
+
+    if (pictureURL)
+      return (
+        <div className="flex-grow relative">
+          <img
+            src={pictureURL}
+            alt="Persona Image"
+            className="object-contain rounded-xl"
+          />
+        </div>
+      );
+    return (
+      <div className="flex-grow p-2">
+        <Skeleton className="h-60 w-full bg-black/5" />
+      </div>
+    );
+  };
+
   return (
     <div
       className={cn(
@@ -34,19 +70,7 @@ export default function UserPersona({
       {...Props}
     >
       <div className="row-span-2 col-span-1 grid grid-rows-2 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        {pictureURL || !img || !loading || !error ? (
-          <div className="flex-grow relative">
-            <img
-              src={img}
-              alt="Persona Image"
-              className="object-contain rounded-xl"
-            />
-          </div>
-        ) : (
-          <div className="flex-grow p-2">
-            <Skeleton className="h-60 w-full bg-black/5" />
-          </div>
-        )}
+        {displayImage()}
 
         <div
           className={"grid grid-cols-2 bg-persona-foreground"}
