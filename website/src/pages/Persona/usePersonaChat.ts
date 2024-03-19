@@ -52,11 +52,14 @@ export function usePersonaChat(id: string | undefined) {
     if (input.trim() === "") return;
     try {
       const data = await api.userPersona.messagePersona(input, id);
+      console.log("New Message History: ", data.messageHistory);
       setMessages(data.messageHistory);
-      setPersona(data.persona);
+      if (data.persona) {
+        setPersona(data.persona);
+      }
       setSuggestions(data.aiSuggestedChats ?? []);
       setInput("");
-      if (!id) {
+      if (!id && data.persona) {
         navigate("/persona/" + data._id);
       }
     } catch (error) {
