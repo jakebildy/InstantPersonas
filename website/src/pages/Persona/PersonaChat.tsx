@@ -1,97 +1,36 @@
 import Sidebar from "@/components/Sidebar";
 import Chat from "@/components/chat";
 import UserPersona from "@/components/persona";
-import { Button } from "@/components/ui/button";
-// import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utilities";
-import api, { Persona, Message } from "@/services/api.service";
-import { RefObject, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { toPng } from "html-to-image";
 import download from "downloadjs";
+import useGetPersonaPathId from "./useGetPersonaPathId";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utilities";
+import { Persona } from "@/services/api.service";
+import { usePersonaChat } from "./usePersonaChat";
+import { RefObject, useRef, useState } from "react";
+import { ColorResult, CompactPicker } from "react-color";
 import { generateTimestamp } from "@/lib/utils";
-import { CompactPicker, ColorResult } from "react-color";
-// import { Message } from "ai";
+import { toPng } from "html-to-image";
 
 export const PersonaChat = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      sender: "bot",
-      text: `Describe your product or service, and I can create a user persona.`,
-      _id: "000",
-    },
-  ]);
-  const [input, setInput] = useState<string>("");
-  const [persona, setPersona] = useState<Persona>({
-    color: "#ADD8E6",
-    name: "",
-    gender: "",
-    pictureURL: "",
-    shortDescriptors: [],
-    sections: [],
-  });
-  const [suggestions, setSuggestions] = useState<string[]>([
-    "Change sections to generate",
-    "Provide more details about the product or service",
-    "I need a user persona for a product manager",
-    "What is a user persona?",
-  ]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const [showPicker, setShowPicker] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("#ADD8E6");
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const pathSegments = location.pathname.split("/");
-  // Checks if the path follows the exact structure ["", "persona", id]
-  const id: string | undefined =
-    pathSegments.length === 3 && pathSegments[1] === "persona"
-      ? pathSegments[2]
-      : undefined;
-
+  const { id } = useGetPersonaPathId();
+  const {
+    persona,
+    messages,
+    suggestions,
+    selectedColor,
+    input,
+    loading,
+    handleSubmit,
+    setInput,
+    setLoading,
+    setPersona,
+    setSelectedColor,
+    updateColor,
+    updatePicture,
+  } = usePersonaChat(id);
   const personaRef = useRef<HTMLDivElement>(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessages((m) =>
-      m.concat([
-        { sender: "user", text: input, _id: "001" },
-        { sender: "bot", text: "...", _id: "002" },
-      ])
-    );
-
-    if (input.trim() === "") return;
-    try {
-      const data = await api.userPersona.messagePersona(input, id);
-      setMessages(data.messageHistory);
-      setPersona(data.persona);
-      setSuggestions(data.aiSuggestedChats ?? []);
-      setInput("");
-      if (!id) {
-        navigate("/persona/" + data._id);
-      }
-    } catch (error) {
-      console.error("Error sending message", error);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!id) return;
-      const data = await api.userPersona.getPersonaHistory(id);
-      const persona = data.at(-1);
-      if (!persona) return;
-      setMessages(persona.messageHistory);
-      setPersona(persona.persona);
-      setSelectedColor(persona.persona.color);
-    };
-    fetchData();
-  }, []);
-
+  const [showPicker, setShowPicker] = useState<boolean>(false);
   const renderPersona = !personaHasNoValues(persona);
 
   const downloadImage = (elementRef: RefObject<HTMLElement>) => {
@@ -101,16 +40,6 @@ export const PersonaChat = () => {
     toPng(element).then(function (dataUrl: any) {
       download(dataUrl, "Persona-" + timeStamp + ".png");
     });
-  };
-
-  const updateColor = async (color: string) => {
-    if (!id) return console.error("No id to update persona");
-    await api.userPersona.updatePersona({ ...persona, color }, id);
-  };
-
-  const updatePicture = async (pictureURL: string) => {
-    if (!id) return console.error("No id to update persona");
-    await api.userPersona.updatePersona({ ...persona, pictureURL }, id);
   };
 
   return (
