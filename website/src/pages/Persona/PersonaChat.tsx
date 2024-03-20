@@ -72,18 +72,21 @@ export const PersonaChat = () => {
       >
         <div className="flex flex-col relative">
           {renderPersona ? (
-            <div className="flex-1 flex flex-col">
-              <div ref={personaRef}>
+            <div className="flex-1 grid grid-cols-6 place-items-center min-h-[70dvh]">
+              <div ref={personaRef} className="col-span-5">
                 <UserPersona
                   {...{ selectedColor, setPersona, id, ...persona }}
                 />
               </div>
-              <div className="flex gap-4 lg:gap-8 my-4 overflow-hidden flex-wrap justify-center">
-                <Button onClick={() => setShowPicker(!showPicker)}>
+              <div className="max-sm:fixed max-sm:right-0 max-sm:top-0 max-sm:translate-y-1/2 flex flex-col overflow-hidden flex-wrap justify-center gap-2 p-4 ">
+                <Button
+                  onClick={() => setShowPicker(!showPicker)}
+                  className="rounded-md"
+                >
                   {"Change Colour"}
                 </Button>
                 {showPicker && (
-                  <div style={{ position: "relative" }}>
+                  <div className="relative">
                     <CompactPicker
                       color={selectedColor}
                       onChangeComplete={(color: ColorResult) => {
@@ -106,10 +109,14 @@ export const PersonaChat = () => {
                       pictureURL: newPicture,
                     });
                   }}
+                  className="rounded-md"
                 >
                   {"Change Picture"}
                 </Button>
-                <Button onClick={() => downloadImage(personaRef)}>
+                <Button
+                  onClick={() => downloadImage(personaRef)}
+                  className="rounded-md"
+                >
                   {"Download Image"}
                 </Button>
               </div>
@@ -117,8 +124,8 @@ export const PersonaChat = () => {
           ) : null}
           <div
             className={cn(
-              "flex-1",
-              renderPersona ? "min-h-[35dvh] lg:min-h-[10dvh]" : ""
+              "flex-1 sm:hidden",
+              renderPersona ? "min-h-[35dvh]" : ""
             )}
             id="scroll-spacer"
           />
@@ -128,10 +135,10 @@ export const PersonaChat = () => {
             {/* 78px: 18px + 60px is the height of margin + mobile header */}
             <Chat
               className={cn(
-                "border rounded-lg bg-white shadow-xl",
-                renderPersona
-                  ? "min-h-[400px] max-h-[33dvh]"
-                  : "min-h-[calc(100dvh-78px)] lg:min-h-[calc(100vh-18px)]"
+                "border rounded-lg bg-white shadow-xl"
+                // renderPersona
+                //   ? "min-h-[400px] max-h-[33dvh]"
+                //   : "min-h-[calc(100dvh-78px)] lg:min-h-[calc(100vh-18px)]"
               )}
               messages={messages}
               handleSubmit={handleCheckSubscriptionSubmit}
