@@ -138,6 +138,7 @@ export async function generateUserPersona(
   
   interface UserPersona {
     name: string;
+    productDescription: string;
     gender: string;
     sections: [{label: string, description: string}];
     shortDescriptors: [{label: string, description: string, emoji: string}];
@@ -146,6 +147,7 @@ export async function generateUserPersona(
   For example:
   {
     "name": "John Doe",
+    "productDescription" : "Skiing App ⛷️"
     "gender" : "details",
     "sections": [{
         {
@@ -277,6 +279,7 @@ export async function updateUserPersona(
   
   interface UserPersona {
     name: string;
+    productDescription: string;
     gender: string;
     pictureURL: string;
     sections: [{label: string, description: string}];
@@ -286,6 +289,7 @@ export async function updateUserPersona(
   For example:
   {
     "name": "John Doe",
+    "productDescription" : "Skiing App ⛷️"
     "gender" : "details",
     "pictureURL": "a url",
     "sections": [{
@@ -370,7 +374,7 @@ export async function updateUserPersona(
     
     intentToChangePersona === false ?
     `You are a bot that helps a user learn about and understand customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
-    Message History (from oldest to newest):     ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)))}
+    Message History (from newest to oldest):     ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6))}
     The User Persona you (the bot) created: ${JSON.stringify(userPersona)}
 
 
@@ -384,8 +388,8 @@ export async function updateUserPersona(
     
     
     `You are a bot that creates customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
-    Message History (from oldest to newest): 
-    ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)))}
+    Message History (from newest to oldest): 
+    ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6))}
     User Persona: ${JSON.stringify(userPersona)}
     Is the bot updating an existing persona: ${intentToChangePersona}
 

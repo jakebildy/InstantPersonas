@@ -77,8 +77,8 @@ export function usePersonaChat(id: string | undefined) {
       const persona = data.at(-1);
       if (!persona) return;
       setMessages(persona.messageHistory);
-      setPersona(persona.persona);
-      setSelectedColor(persona.persona.color);
+      setPersona(persona.persona!);
+      setSelectedColor(persona.persona!.color);
       setSuggestions(persona.aiSuggestedChats ?? []);
       setCurrentID(persona._id);
     };

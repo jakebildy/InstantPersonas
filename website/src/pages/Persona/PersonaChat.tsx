@@ -141,18 +141,22 @@ export const PersonaChat = () => {
               setLoading={(b) => setLoading(b)}
             >
               <div className="flex flex-col flex-wrap z-50">
-                <div className="flex gap-4 my-4 overflow-hidden flex-wrap">
-                  {suggestions.map((suggestion, i) => (
-                    <Button
-                      key={i}
-                      variant={"secondary"}
-                      className="text-white bg-gray-400 rounded-lg text-xs hover:bg-green-400"
-                      type="submit"
-                      onClick={() => setInput(suggestion)}
-                    >
-                      {suggestion}
-                    </Button>
-                  ))}
+                <div className="flex gap-4 overflow-hidden flex-wrap ">
+                  {loading ? (
+                    <div />
+                  ) : (
+                    suggestions.map((suggestion, i) => (
+                      <Button
+                        key={i}
+                        variant={"secondary"}
+                        className="text-white bg-gray-400 rounded-lg text-xs hover:bg-green-400"
+                        type="submit"
+                        onClick={() => setInput(suggestion)}
+                      >
+                        {suggestion}
+                      </Button>
+                    ))
+                  )}
                 </div>
               </div>
             </Chat>

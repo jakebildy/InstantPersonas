@@ -26,54 +26,7 @@ export default function HistoryPage() {
               Recent Personas
             </h1>
             <div className="flex flex-row items-center justify-center mt-20 w-full">
-              <AnimatedTooltip
-                onClick={(index) => {
-                  window.location.href =
-                    "/persona/" +
-                    personas
-                      .slice(0)
-                      .reverse()
-                      .slice(0, 10)
-                      .filter((persona) => persona.persona !== undefined)[index]
-                      ._id;
-                }}
-                items={
-                  personas
-                    .slice(0)
-                    .reverse()
-                    .slice(0, 10)
-                    .filter((persona) => persona.persona !== undefined)
-                    .map((history, i) => ({
-                      id: i,
-                      name:
-                        history.persona!.name!.split(" ")[0] +
-                        " | " +
-                        (history!.persona &&
-                        history!.persona!.shortDescriptors &&
-                        history!.persona!.shortDescriptors.length > 0
-                          ? history!
-                              .persona!.shortDescriptors.filter((s) =>
-                                ["Occupation", "Location"].includes(s.label)
-                              )
-                              .at(-1)?.description ??
-                            history!.persona!.shortDescriptors.at(0)
-                              ?.description
-                          : ""),
-                      image: history.persona!.pictureURL!,
-                      designation:
-                        history &&
-                        history.persona &&
-                        history.persona!.productDescription
-                          ? history.persona!.productDescription!
-                          : "",
-                    })) as {
-                    id: number;
-                    name: string;
-                    designation: string;
-                    image: string;
-                  }[]
-                }
-              />
+              <RecentPersonas personas={personas} />
             </div>
           </div>
         ) : null}
@@ -160,5 +113,54 @@ function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
         </div>
       </p>
     </div>
+  );
+}
+
+function RecentPersonas({ personas }: { personas: PersonaHistory[] }) {
+  return (
+    <AnimatedTooltip
+      onClick={(index) => {
+        window.location.href =
+          "/persona/" +
+          personas
+            .slice(0)
+            .reverse()
+            .slice(0, 10)
+            .filter((persona) => persona.persona !== undefined)[index]._id;
+      }}
+      items={
+        personas
+          .slice(0)
+          .reverse()
+          .slice(0, 10)
+          .filter((persona) => persona.persona !== undefined)
+          .map((history, i) => ({
+            id: i,
+            name:
+              history.persona!.name!.split(" ")[0] +
+              " | " +
+              (history!.persona &&
+              history!.persona!.shortDescriptors &&
+              history!.persona!.shortDescriptors.length > 0
+                ? history!
+                    .persona!.shortDescriptors.filter((s) =>
+                      ["Occupation", "Location"].includes(s.label)
+                    )
+                    .at(-1)?.description ??
+                  history!.persona!.shortDescriptors.at(0)?.description
+                : ""),
+            image: history.persona!.pictureURL!,
+            designation:
+              history && history.persona && history.persona!.productDescription
+                ? history.persona!.productDescription!
+                : "",
+          })) as {
+          id: number;
+          name: string;
+          designation: string;
+          image: string;
+        }[]
+      }
+    />
   );
 }
