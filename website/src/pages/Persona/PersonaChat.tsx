@@ -45,7 +45,7 @@ export const PersonaChat = () => {
     const element = elementRef.current;
     if (!element) return console.error("😭 No element to print");
     const timeStamp = generateTimestamp();
-    toPng(element).then(function (dataUrl: any) {
+    toPng(element, { cacheBust: true }).then(function (dataUrl: any) {
       download(dataUrl, "Persona-" + timeStamp + ".png");
     });
   };
@@ -96,7 +96,7 @@ export const PersonaChat = () => {
                 )}
                 <Button
                   onClick={() => {
-                    const newPicture = `https://xsgames.co/randomusers/assets/avatars/${persona.gender.toLowerCase()}/${Math.ceil(
+                    const newPicture = `https://instantpersonas.com/src/assets/profiles/${persona.gender.toLowerCase()}/${Math.ceil(
                       Math.random() * 78
                     )}.jpg`;
 

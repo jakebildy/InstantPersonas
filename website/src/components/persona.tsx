@@ -28,33 +28,21 @@ export default function UserPersona({
   const [img, loading, error] = useFetchBase64Image(pictureURL);
 
   const displayImage = () => {
-    if (img)
-      return (
-        <div className="flex-grow relative">
-          <img
-            src={img}
-            alt="Persona Image"
-            className="object-contain rounded-xl"
-          />
-        </div>
-      );
-
-    if (pictureURL)
-      return (
-        <div className="flex-grow relative">
-          <img
-            src={pictureURL}
-            alt="Persona Image"
-            className="object-contain rounded-xl"
-          />
-        </div>
-      );
-
     return (
-      <div className="flex-grow p-2">
-        <Skeleton className="h-60 w-full bg-black/5" />
+      <div className="flex-grow relative">
+        <img
+          src={pictureURL}
+          alt="Persona Image"
+          className="object-contain rounded-xl"
+        />
       </div>
     );
+
+    // return (
+    //   <div className="flex-grow p-2">
+    //     <Skeleton className="h-60 w-full bg-black/5" />
+    //   </div>
+    // );
   };
 
   return (
