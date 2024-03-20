@@ -31,11 +31,11 @@ export default function UserPersona({
       {...Props}
     >
       <div className="row-span-2 col-span-1 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        <div className="w-full grid place-items-center m-2 relative">
+        <div className="w-full grid place-items-center relative">
           <img
             src={pictureURL}
             alt="Persona Image"
-            className="object-contain rounded-xl"
+            className="w-full object-cover"
           />
         </div>
 
