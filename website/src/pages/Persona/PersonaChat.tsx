@@ -140,13 +140,13 @@ export const PersonaChat = () => {
               loading={loading}
               setLoading={(b) => setLoading(b)}
             >
-              <div className="flex flex-col flex-wrap ">
+              <div className="flex flex-col flex-wrap z-50">
                 <div className="flex gap-4 my-4 overflow-hidden flex-wrap">
                   {suggestions.map((suggestion, i) => (
                     <Button
                       key={i}
                       variant={"secondary"}
-                      className="text-white bg-gray-400/75 rounded-lg text-xs hover:bg-green-400"
+                      className="text-white bg-gray-400 rounded-lg text-xs hover:bg-green-400"
                       type="submit"
                       onClick={() => setInput(suggestion)}
                     >

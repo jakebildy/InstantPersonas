@@ -57,7 +57,7 @@ export default function Chat({
       )}
       {...Props}
     >
-      <ScrollArea className="h-[calc(100%-56px)]">
+      <ScrollArea className="h-[390px]">
         {/* 120px is the height of the input and suggestions */}
         <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
           {messages.length > 0 ? (
@@ -85,7 +85,7 @@ export default function Chat({
         <div ref={scrollBottomRef} />
       </ScrollArea>
       <CommandUserInput
-        className={"bottom-0 absolute w-[calc(100%-16px)] m-2"}
+        className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
         onChange={handleInputChange}
         onSubmit={handleSubmit}
