@@ -96,7 +96,7 @@ export const PersonaChat = () => {
                 )}
                 <Button
                   onClick={() => {
-                    const newPicture = `https://instantpersonas.com/src/assets/profiles/${persona.gender.toLowerCase()}/${Math.ceil(
+                    const newPicture = `https://instantpersonas.com/public/assets/profiles/${persona.gender.toLowerCase()}/${Math.ceil(
                       Math.random() * 78
                     )}.jpg`;
 
