@@ -79,8 +79,8 @@ function Plan({
       <StripeBuyButton
         buyButtonId={
           popular
-            ? "buy_btn_1NECYJFTqqPiFdIjGidtKvOF" //yearly
-            : "buy_btn_1NEC2wFTqqPiFdIjSPhMM9cC"
+            ? "buy_btn_1OwXj6CtCkpcyaeHizOLRjdm" //yearly
+            : "buy_btn_1OwXkNCtCkpcyaeHZB5J9raH"
         }
         id={user._id}
         email={user.email}
@@ -92,37 +92,37 @@ function Plan({
 export function DashboardPricing() {
   const features = [
     "Unlimited User Personas",
-    "Unlimited SWOT and PESTEL Analyses",
-    "Advanced Lean Canvases",
+    "Persona Chat - Powered by AI",
+    "Deep Target Market Insights",
     "Priority support",
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-slate-50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-10 text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="pt-10 text-3xl font-bold tracking-tight text-gray-900">
             Pricing
           </h1>
         </div>
 
-        {/* Teacher Dashboard Pricing */}
+        {/* InstantPersonas Pricing */}
         <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 md:max-w-[800px] md:grid-cols-2">
-          {/* Yearly 4.99 / month */}
+          {/* Yearly 5.99 / month */}
           <Plan
             name="Yearly"
-            price="$9.99"
+            price="$5.99"
             description="Billed annually."
             description2="Save more with the yearly plan."
             features={features}
             popular
           />
 
-          {/* Quartly 9.99 / month */}
+          {/* Monthly 7.99 / month */}
           <Plan
             name="Monthly"
-            price="$12.99"
+            price="$7.99"
             description="Billed every month."
             description2=""
             features={features}

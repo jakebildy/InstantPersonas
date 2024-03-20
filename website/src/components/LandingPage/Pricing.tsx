@@ -102,28 +102,28 @@ export function Pricing() {
           trial ends.
         </p>
         <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
-          {/* Teacher Dashboard Pricing */}
+          {/* InstantPersonas Pricing */}
           <Plan
             name="Monthly"
-            price="$12.99"
+            price="$7.99"
             description="Billed every month."
             description2=""
             features={[
               "Unlimited User Personas",
-              "Unlimited SWOT and PESTEL Analyses",
-              "Advanced Lean Canvases",
+              "Persona Chat - Powered by AI",
+              "Deep Target Market Insights",
               "Priority support",
             ]}
           />
           <Plan
             name="Yearly"
-            price="$9.99"
+            price="$5.99"
             description="Billed annually."
             description2="Save more with the yearly plan."
             features={[
               "Unlimited User Personas",
-              "Unlimited SWOT and PESTEL Analyses",
-              "Advanced Lean Canvases",
+              "Persona Chat - Powered by AI",
+              "Deep Target Market Insights",
               "Priority support",
             ]}
             popular
