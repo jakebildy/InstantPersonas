@@ -10,6 +10,7 @@ import {
 
 export const AnimatedTooltip = ({
   items,
+  onClick,
 }: {
   items: {
     id: number;
@@ -17,6 +18,7 @@ export const AnimatedTooltip = ({
     designation: string;
     image: string;
   }[];
+  onClick?: (id: number) => void;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const springConfig = { stiffness: 100, damping: 5 };
@@ -44,6 +46,7 @@ export const AnimatedTooltip = ({
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
+          onClick={() => onClick && onClick(item.id)}
         >
           <AnimatePresence mode="wait">
             {hoveredIndex === item.id && (

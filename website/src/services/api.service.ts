@@ -108,6 +108,7 @@ export interface BusinessI {
 
 export interface Persona {
   name: string;
+  productDescription?: string;
   gender: string; //required for getting the pictureURL
   pictureURL: string;
   color: string;
@@ -122,7 +123,7 @@ export interface Message {
 }
 export interface PersonaHistory {
   messageHistory: Message[];
-  persona: Persona;
+  persona?: Persona;
   aiSuggestedChats?: string[];
   _id: string;
 }

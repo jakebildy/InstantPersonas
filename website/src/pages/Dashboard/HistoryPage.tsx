@@ -2,6 +2,7 @@ import Sidebar from "../../components/Sidebar";
 import api, { PersonaHistory } from "../../services/api.service";
 import createFirstBusiness from "../../images/ProjectAnalysis.gif";
 import { useEffect, useState } from "react";
+import { AnimatedTooltip } from "@/components/ui/animated_tooltip";
 
 export default function HistoryPage() {
   const [personas, setPersonas] = useState<PersonaHistory[]>([]);
@@ -19,14 +20,73 @@ export default function HistoryPage() {
   return (
     <>
       <Sidebar currentSelectedPage="History">
-        <h1 className=" text-3xl  text-gray-700 text-center mt-10  font-bold">
+        {personas.length > 0 ? (
+          <div>
+            <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
+              Recent Personas
+            </h1>
+            <div className="flex flex-row items-center justify-center mt-20 w-full">
+              <AnimatedTooltip
+                onClick={(index) => {
+                  window.location.href =
+                    "/persona/" +
+                    personas
+                      .slice(0)
+                      .reverse()
+                      .slice(0, 10)
+                      .filter((persona) => persona.persona !== undefined)[index]
+                      ._id;
+                }}
+                items={
+                  personas
+                    .slice(0)
+                    .reverse()
+                    .slice(0, 10)
+                    .filter((persona) => persona.persona !== undefined)
+                    .map((history, i) => ({
+                      id: i,
+                      name:
+                        history.persona!.name!.split(" ")[0] +
+                        " | " +
+                        (history!.persona &&
+                        history!.persona!.shortDescriptors &&
+                        history!.persona!.shortDescriptors.length > 0
+                          ? history!
+                              .persona!.shortDescriptors.filter((s) =>
+                                ["Occupation", "Location"].includes(s.label)
+                              )
+                              .at(-1)?.description ??
+                            history!.persona!.shortDescriptors.at(0)
+                              ?.description
+                          : ""),
+                      image: history.persona!.pictureURL!,
+                      designation:
+                        history &&
+                        history.persona &&
+                        history.persona!.productDescription
+                          ? history.persona!.productDescription!
+                          : "",
+                    })) as {
+                    id: number;
+                    name: string;
+                    designation: string;
+                    image: string;
+                  }[]
+                }
+              />
+            </div>
+          </div>
+        ) : null}
+        <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
           History
         </h1>
+
         <div className="mt-10">
           {personas.length > 0 ? (
             <div className="flex flex-col gap-2 px-2">
               {personas
                 .slice(0)
+                .filter((persona) => persona.persona !== undefined)
                 .reverse()
                 .map((persona) => (
                   <PersonaCard {...persona} key={persona._id} />
@@ -56,7 +116,7 @@ export default function HistoryPage() {
   );
 }
 
-function PersonaCard({ persona, _id }: PersonaHistory) {
+function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
   // Grab Occupation or Location, or the first descriptor, or fallback to empty string
   const relevantPersonaInfo =
     persona && persona.shortDescriptors && persona.shortDescriptors.length > 0
@@ -87,7 +147,17 @@ function PersonaCard({ persona, _id }: PersonaHistory) {
         />
       </div>
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
-        {persona.name} - {relevantPersonaInfo ?? ""}
+        <div>
+          {persona.name} | {relevantPersonaInfo ?? ""}
+          <br></br>
+          <span className="text-slate-700  font-normal">
+            {persona.productDescription
+              ? persona.productDescription!
+              : messageHistory.length > 1
+              ? messageHistory[1].text
+              : messageHistory[0].text}
+          </span>
+        </div>
       </p>
     </div>
   );
