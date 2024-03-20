@@ -73,7 +73,7 @@ export const PersonaChat = () => {
         <div className="flex flex-col relative">
           {renderPersona ? (
             <div className="flex-1 grid grid-cols-6 place-items-center min-h-[70dvh]">
-              <div ref={personaRef} className="col-span-5">
+              <div ref={personaRef} className="col-span-5 m-2">
                 <UserPersona
                   {...{ selectedColor, setPersona, id, ...persona }}
                 />
