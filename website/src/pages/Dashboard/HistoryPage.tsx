@@ -3,6 +3,7 @@ import api, { PersonaHistory } from "../../services/api.service";
 import createFirstBusiness from "../../images/ProjectAnalysis.gif";
 import { useEffect, useState } from "react";
 import { AnimatedTooltip } from "@/components/ui/animated_tooltip";
+import { TrashIcon } from "@heroicons/react/20/solid";
 
 export default function HistoryPage() {
   const [personas, setPersonas] = useState<PersonaHistory[]>([]);
@@ -83,7 +84,7 @@ function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
   return (
     <div
       className={
-        "flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
+        "ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
       }
       onClick={(event) => {
         window.location.href = "/persona/" + _id;
@@ -112,6 +113,15 @@ function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
           </span>
         </div>
       </p>
+
+      <TrashIcon
+        onClick={(event) => {
+          event.stopPropagation();
+          api.userPersona.deletePersona(_id);
+          window.location.reload();
+        }}
+        className="h-5 text-transparent ml-5 mr-5 group-hover:text-slate-600"
+      />
     </div>
   );
 }

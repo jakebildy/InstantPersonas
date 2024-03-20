@@ -182,21 +182,12 @@ const api = {
       });
       return response.data;
     },
+
+    deletePersona: async (id: string) => {
+      const response = await axios.delete(`/api/delete-persona/${id}`);
+      return response.data;
+    }
   },
 };
 
 export default api;
-
-// router.get("/business/:id/generate-user-persona", userAuth, generateUserPersona);
-// router.get("/business/:id/generate-swot-analysis", userAuth, generateSWOTAnalysis);
-// router.get("/business/:id/generate-lean-canvas", userAuth, generateLeanCanvas);
-// router.get("/business/:id/generate-pestel-analysis", userAuth, generatePESTELAnalysis);
-// router.post("/business/:id/value-proposition", userAuth, generateValueProposition);
-// router.post("/business/:id/porters-5-forces", userAuth, generateValueProposition);
-// router.post("/business/assessment-questions", userAuth, generateAssessmentQuestions);
-
-// router.post("/business/", userAuth, createBusiness);
-// router.put("/business/:id", userAuth, saveBusiness);
-// router.delete("/business/:id", userAuth, deleteBusiness);
-// router.get("/business/", userAuth, getBusinesses);
-// router.get("/business/:id", userAuth, getBusinessById);

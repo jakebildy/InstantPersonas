@@ -69,9 +69,25 @@ async function updatePersona(req: RequestI, res: Response) {
   }
 }
 
+async function deletePersona(req: RequestI, res: Response) {
+  try {
+    const user = req.user;
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ error: "No id provided" });
+    await PersonaService.deletePersona(id);
+    console.log("Persona deleted")
+    res.status(200).json({ message: "Persona deleted" });
+  } catch (error: unknown) {
+    console.error("Error deleting persona", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 
 
 router.get("/get-persona-history/:id", userAuth, getPersonaHistory);
 router.get("/get-persona-history/", userAuth, getPersonaHistory);
 router.post("/message-persona/", userAuth, messagePersona);
 router.post("/update-persona/", userAuth, updatePersona);
+router.delete("/delete-persona/:id", userAuth, deletePersona);

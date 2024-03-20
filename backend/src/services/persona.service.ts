@@ -438,3 +438,15 @@ export async function updateUserPersona(
       throw error; // Or handle the error as per your application's error handling strategy
     }
   }
+
+  // delete persona
+export async function deletePersona(
+    id: string,
+  ): Promise<void> {
+    try {
+      await PersonaHistory.findByIdAndDelete(id);
+    } catch (error) {
+      console.error("Error deleting persona: ", error);
+      throw error; 
+    }
+  }
