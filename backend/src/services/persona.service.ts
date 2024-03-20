@@ -5,7 +5,7 @@ import { PersonaHistory, UserPersona } from "../models/persona.model";
 
 
 function getRandomHeadshot(gender: string) {
-  return `https://instantpersonas.com/public/assets/profiles/${gender.toLowerCase()}/${Math.ceil(
+  return `https://instantpersonas.com/profiles/${gender.toLowerCase()}/${Math.ceil(
     Math.random() * 78,
   )}.jpg`;
 }
