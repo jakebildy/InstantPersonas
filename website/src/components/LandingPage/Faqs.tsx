@@ -31,7 +31,7 @@ const faqs = [
     {
       question: "How does InstantPersonas.com save me time?",
       answer:
-        "InstantPersonas.com  uses AI-powered technology to instantly generate User Personas. Just by talking to our AI, you're able to figure out gaps in your understanding of your target market, and adjust accordingly.",
+        "InstantPersonas.com uses AI-powered technology to instantly generate User Personas. Just by talking to our AI, you're able to figure out gaps in your understanding of your target market, and adjust accordingly.",
     },
   ],
 ];
@@ -65,7 +65,7 @@ export function Faqs() {
               <li key={columnIndex}>
                 <ul role="list" className="flex flex-col gap-y-8 ">
                   {column.map((faq, faqIndex) => (
-                    <BackgroundGradient className="rounded-[22px] max-w-sm p-4 sm:p-10 bg-white dark:bg-zinc-900">
+                    <BackgroundGradient className="rounded-[22px] p-4 sm:p-10 bg-white dark:bg-zinc-900">
                       <li key={faqIndex}>
                         <h3 className="font-display text-lg leading-7 text-black">
                           {faq.question}
