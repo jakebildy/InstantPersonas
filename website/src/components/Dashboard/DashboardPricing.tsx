@@ -98,11 +98,11 @@ export function DashboardPricing() {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-slate-50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="mt-10 text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="pt-10 text-3xl font-bold tracking-tight text-gray-900">
             Pricing
           </h1>
         </div>
