@@ -4,7 +4,6 @@ import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
 import api, { Persona } from "@/services/api.service";
 import { Skeleton } from "./ui/skeleton";
-import { useFetchBase64Image } from "@/lib/hooks";
 
 interface Props extends Persona {
   selectedColor?: string;
@@ -24,9 +23,6 @@ export default function UserPersona({
   setPersona,
   ...Props
 }: Props) {
-  //@ts-ignore
-  const [img, loading, error] = useFetchBase64Image(pictureURL);
-
   const displayImage = () => {
     return (
       <div className="flex-grow relative">
@@ -37,12 +33,6 @@ export default function UserPersona({
         />
       </div>
     );
-
-    // return (
-    //   <div className="flex-grow p-2">
-    //     <Skeleton className="h-60 w-full bg-black/5" />
-    //   </div>
-    // );
   };
 
   return (
