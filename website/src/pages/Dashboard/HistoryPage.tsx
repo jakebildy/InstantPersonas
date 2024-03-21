@@ -1,6 +1,6 @@
 import Sidebar from "../../components/Sidebar";
 import api, { PersonaHistory } from "../../services/api.service";
-import createFirstBusiness from "../../images/ProjectAnalysis.gif";
+import createFirstBusiness from "../../images/history.gif";
 import { useEffect, useState } from "react";
 import { AnimatedTooltip } from "@/components/ui/animated_tooltip";
 import { TrashIcon } from "@heroicons/react/20/solid";
