@@ -64,7 +64,7 @@ function SubscriptionDetails() {
         feedback!
       </h2>
       <Button
-        className="ml-5"
+        className="mr-5"
         onClick={() =>
           (window.location.href = "https://forms.gle/zei5QLdBTfTgssBv9")
         }
