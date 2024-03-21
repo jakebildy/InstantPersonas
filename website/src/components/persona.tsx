@@ -23,27 +23,21 @@ export default function UserPersona({
   setPersona,
   ...Props
 }: Props) {
-  const displayImage = () => {
-    return (
-      <div className="flex-grow relative">
-        <img
-          src={pictureURL}
-          alt="Persona Image"
-          className="object-contain rounded-xl"
-        />
-      </div>
-    );
-  };
-
   return (
     <div
       className={cn(
-        "grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background md:m-10 xl:m-24 xl:mb-10"
+        "grid lg:grid-cols-4 grid-rows-2 gap-0 shadow-lg rounded-xl overflow-hidden bg-persona-background"
       )}
       {...Props}
     >
-      <div className="row-span-2 col-span-1 grid grid-rows-2 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
-        {displayImage()}
+      <div className="row-span-2 col-span-1 shadow-xl rounded-xl overflow-hidden border-2 border-persona-border">
+        <div className="w-full grid place-items-center relative">
+          <img
+            src={pictureURL}
+            alt="Persona Image"
+            className="w-full object-cover"
+          />
+        </div>
 
         <div
           className={"grid grid-cols-2 bg-persona-foreground"}
@@ -164,7 +158,7 @@ function PersonaText({
             ),
           });
         }}
-        className="resize-none flex-grow mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border min-h-[5dvh]"
+        className="resize-none mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border flex-1"
       />
     </div>
   );

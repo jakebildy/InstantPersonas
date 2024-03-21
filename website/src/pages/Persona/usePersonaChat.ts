@@ -19,12 +19,7 @@ export function usePersonaChat(id: string | undefined) {
     shortDescriptors: [],
     sections: [],
   });
-  const [suggestions, setSuggestions] = useState<string[]>([
-    "Change sections to generate",
-    "Provide more details about the product or service",
-    "I need a user persona for a product manager",
-    "What is a user persona?",
-  ]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentID, setCurrentID] = useState<string | undefined>(undefined);
   const [selectedColor, setSelectedColor] = useState<string>("#ADD8E6");
@@ -45,11 +40,22 @@ export function usePersonaChat(id: string | undefined) {
     setLoading(true);
     setMessages((m) =>
       m.concat([
-        { sender: "user", text: input, _id: "001" },
-        { sender: "bot", text: "...", _id: "002" },
+        {
+          sender: "user",
+          text: input,
+          _id:
+            Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15),
+        },
+        {
+          sender: "bot",
+          text: "...",
+          _id:
+            Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15),
+        },
       ])
     );
-
     if (input.trim() === "") return;
     try {
       const data = await api.userPersona.messagePersona(input, id);
@@ -78,12 +84,35 @@ export function usePersonaChat(id: string | undefined) {
       if (!persona) return;
       setMessages(persona.messageHistory);
       setPersona(persona.persona!);
-      setSelectedColor(persona.persona!.color);
+      setSelectedColor(persona.persona?.color ?? "#ADD8E6");
       setSuggestions(persona.aiSuggestedChats ?? []);
       setCurrentID(persona._id);
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    if (id !== currentID) {
+      setMessages([
+        {
+          sender: "bot",
+          text: `Describe your product or service, and I can create a user persona.`,
+          _id: "000",
+        },
+      ]);
+      setInput("");
+      setPersona({
+        color: "#ADD8E6",
+        name: "",
+        gender: "",
+        pictureURL: "",
+        shortDescriptors: [],
+        sections: [],
+      });
+      setSuggestions([]);
+      setSelectedColor("#ADD8E6");
+    }
+  }, [id, currentID]);
 
   return {
     messages,
