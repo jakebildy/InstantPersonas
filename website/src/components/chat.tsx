@@ -11,6 +11,7 @@ import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
 import ProjectAnalysis from "../images/ProjectAnalysis.gif";
 import "../App.css";
+import { motion } from "framer-motion";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
@@ -64,12 +65,15 @@ export default function Chat({
             messages.map((message: Message, i) => {
               const Component = componentLookupTable[message.sender];
               return Component ? (
-                <div
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
                   key={message._id ?? i}
                   className={cn("z-10", messages.length == i + 1 ? "pb-4" : "")}
                 >
                   <Component message={message} />
-                </div>
+                </motion.div>
               ) : null;
             })
           ) : (

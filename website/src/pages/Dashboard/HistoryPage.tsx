@@ -7,12 +7,17 @@ import { TrashIcon } from "@heroicons/react/20/solid";
 
 export default function HistoryPage() {
   const [personas, setPersonas] = useState<PersonaHistory[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await api.userPersona.getPersonaHistory();
-      if (!data) return;
+      if (!data) {
+        setLoading(false);
+        return;
+      }
       setPersonas(data);
+      setLoading(false);
       console.log(data);
     };
     fetchData();
@@ -31,12 +36,18 @@ export default function HistoryPage() {
             </div>
           </div>
         ) : null}
-        <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
-          History
-        </h1>
+        {loading ? (
+          <div />
+        ) : (
+          <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
+            History
+          </h1>
+        )}
 
         <div className="mt-10">
-          {personas.length > 0 ? (
+          {loading ? (
+            <div />
+          ) : personas.length > 0 ? (
             <div className="flex flex-col gap-2 px-2">
               {personas
                 .slice(0)

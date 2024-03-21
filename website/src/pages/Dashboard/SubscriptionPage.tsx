@@ -39,7 +39,8 @@ function SubscriptionDetails() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    // center
+    return <div className="text-center pt-10">Loading...</div>;
   }
 
   if (error) {

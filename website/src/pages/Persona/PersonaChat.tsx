@@ -15,6 +15,8 @@ import { Dialog } from "@/components/ui/dialog";
 import { SubscriptionTrialDialog } from "./SubscriptionTrialDialog";
 import { useUser } from "@/contexts/UserContext";
 import { motion } from "framer-motion";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter_effect";
+import createFirstBusiness from "../../images/history.gif";
 
 export const PersonaChat = () => {
   const { id } = useGetPersonaPathId();
@@ -65,6 +67,22 @@ export const PersonaChat = () => {
     }
   };
 
+  const words = [
+    {
+      text: "Create",
+    },
+    {
+      text: "a",
+    },
+    { text: "new" },
+    // { text: "Persona" },
+    // { text: "you" },
+    {
+      text: "User Persona 👋",
+      className: "text-green-500 dark:text-blue-500",
+    },
+  ];
+
   return (
     <Sidebar currentSelectedPage="Persona Creator">
       <Dialog
@@ -72,7 +90,19 @@ export const PersonaChat = () => {
         onOpenChange={setShowSubscriptionPromptDialog}
       >
         <div className="flex flex-col relative">
-          {renderPersona ? (
+          {loading && !renderPersona ? (
+            <div className="h-[40rem] w-full bg-slate-50 flex flex-col items-center justify-center overflow-hidden rounded-md">
+              <motion.img
+                // bounce in
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                src={createFirstBusiness}
+                style={{ height: "300px" }}
+                className="mx-auto"
+              />
+            </div>
+          ) : renderPersona ? (
             <div className="flex-1 grid grid-cols-6 place-items-center min-h-[70dvh]">
               <div ref={personaRef} className="col-span-5 m-2">
                 <motion.div
@@ -133,7 +163,13 @@ export const PersonaChat = () => {
                 </Button>
               </div>
             </div>
-          ) : null}
+          ) : (
+            // <div className="top-[50px] absolute left-[40%]">
+            <div className="h-[40rem] w-full bg-slate-50 flex flex-col items-center justify-center overflow-hidden rounded-md">
+              <TypewriterEffectSmooth words={words} />
+            </div>
+            // </div>
+          )}
           <div
             className={cn(
               "flex-1 sm:hidden",
