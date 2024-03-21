@@ -31,7 +31,7 @@ const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
     return (
       <div className="pt-4 w-full flex justify-center overflow-clip rounded">
         <stripe-buy-button
-          buy-button-id={"buy_btn_1NEPwSFTqqPiFdIjJxX6nu8n"}
+          buy-button-id={buyButtonId}
           publishable-key={STRIPE_PUBLIC_TOKEN}
           client-reference-id={id}
           customer-email={email}
