@@ -14,6 +14,7 @@ import { toPng } from "html-to-image";
 import { Dialog } from "@/components/ui/dialog";
 import { SubscriptionTrialDialog } from "./SubscriptionTrialDialog";
 import { useUser } from "@/contexts/UserContext";
+import { motion } from "framer-motion";
 
 export const PersonaChat = () => {
   const { id } = useGetPersonaPathId();
@@ -74,9 +75,20 @@ export const PersonaChat = () => {
           {renderPersona ? (
             <div className="flex-1 grid grid-cols-6 place-items-center min-h-[70dvh]">
               <div ref={personaRef} className="col-span-5 m-2">
-                <UserPersona
-                  {...{ selectedColor, setPersona, id, ...persona }}
-                />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
+                >
+                  <UserPersona
+                    {...{ selectedColor, setPersona, id, ...persona }}
+                  />
+                </motion.div>
               </div>
               <div className="max-sm:fixed max-sm:right-0 max-sm:top-0 max-sm:translate-y-1/2 flex flex-col overflow-hidden flex-wrap justify-center gap-2 p-4 ">
                 <Button
