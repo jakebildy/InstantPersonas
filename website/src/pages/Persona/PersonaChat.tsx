@@ -58,7 +58,7 @@ export const PersonaChat = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!subscriptionActive) {
+    if (!subscriptionActive && window.location.hostname !== "localhost") {
       setShowSubscriptionPromptDialog(true);
     } else {
       handleSubmit(e);
