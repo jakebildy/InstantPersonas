@@ -142,7 +142,11 @@ export const PersonaChat = () => {
               )}
               messages={messages}
               handleSubmit={handleCheckSubscriptionSubmit}
-              handleInputChange={(e) => setInput(e.target.value)}
+              handleInputChange={(e) => {
+                if (e.target.value.length < 2000) {
+                  setInput(e.target.value);
+                }
+              }}
               input={input}
               loading={loading}
               setLoading={(b) => setLoading(b)}
