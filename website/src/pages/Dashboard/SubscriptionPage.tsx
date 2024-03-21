@@ -59,11 +59,12 @@ function SubscriptionDetails() {
         className="mx-auto mt-10"
         style={{ height: "200px" }}
       />
-      <h2 className=" text-2xl  text-gray-700 text-center pt-10  font-bold">
+      <h2 className=" text-md  text-gray-700 text-center pt-10 pb-10 font-bold">
         Is InstantPersonas not providing enough value for you? Send us some
         feedback!
       </h2>
       <Button
+        className="ml-5"
         onClick={() =>
           (window.location.href = "https://forms.gle/zei5QLdBTfTgssBv9")
         }
