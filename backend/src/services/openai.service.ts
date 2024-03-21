@@ -7,10 +7,10 @@ dotenv.config();
 const apiKey: string = process.env.OPENAI_API_KEY || process.env.OPENAI || "";
 if (!apiKey) throw new Error("Missing OpenAI API key.");
 
-export async function ChatGPT(
+export async function GPT4(
   prompt: string,
   systemMessages?: string[],
-  model: OpenAIModels = "gpt-3.5-turbo",
+  model: OpenAIModels = "gpt-4",
 ): Promise<any> {
   const endpoint = "https://api.openai.com/v1/chat/completions";
   const headers = {

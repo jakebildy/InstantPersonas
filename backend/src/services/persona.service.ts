@@ -1,6 +1,6 @@
 import { UserI } from "../models/user.model";
 import { SurveyQuestion } from "../types";
-import { ChatGPT } from "./openai.service"; 
+import { GPT4 } from "./openai.service"; 
 import { PersonaHistory, UserPersona } from "../models/persona.model";
 
 
@@ -199,7 +199,7 @@ export async function generateUserPersona(
   }
   `;
   
-    const chatResponse = await ChatGPT(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
     const responseText = chatResponse.text.trim();
     let userPersona: UserPersona;
   //TODO:
@@ -231,7 +231,7 @@ export async function generateUserPersona(
   Respond either 'true' or 'false' to indicate if the user wants to change their persona.
   `;
   
-    const chatResponse = await ChatGPT(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
 
     try {
         // try to convert chatResponse as boolean and return 
@@ -254,7 +254,7 @@ export async function generateUserPersona(
   Respond either 'true' or 'false' to indicate if the user provided details about a product or service.
   `;
   
-    const chatResponse = await ChatGPT(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
 
     try {
         // try to convert chatResponse as boolean and return 
@@ -342,7 +342,7 @@ export async function updateUserPersona(
   }
   `;
   
-    const chatResponse = await ChatGPT(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
     const responseText = chatResponse.text.trim();
     let userPersona: UserPersona;
     try {
@@ -374,9 +374,10 @@ export async function updateUserPersona(
     
     intentToChangePersona === false ?
     `You are a bot that helps a user learn about and understand customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
-    Message History (from newest to oldest):     ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6))}
+    Message History (from oldest to newest): ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6).reverse())}
     The User Persona you (the bot) created: ${JSON.stringify(userPersona)}
 
+    Avoid repeating yourself.
 
     "response" should be a string that is a response to the user's message. Try to be insightful. "suggestions" should be an array of 2 strings that that the user might want to ask next, written from the perspective of the user.
 
@@ -388,11 +389,12 @@ export async function updateUserPersona(
     
     
     `You are a bot that creates customer personas. Based on the following message history, generate a response to the user and help the user come up with follow up questions to ask:
-    Message History (from newest to oldest): 
-    ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6))}
+    Message History (from oldest to newest): 
+    ${JSON.stringify(messageHistory. map(((e) => e.sender + ":" +e.text)).reverse().slice(0, 6).reverse())}
     User Persona: ${JSON.stringify(userPersona)}
     Is the bot updating an existing persona: ${intentToChangePersona}
 
+    Avoid repeating yourself.
 
     "response" should be a string that is a response to the user's message. "suggestions" should be an array of 2 strings that that the user might want to ask next, written from the perspective of the user.
 
@@ -402,7 +404,8 @@ export async function updateUserPersona(
     { "response": "I updated the persona with the details you provided.", "suggestions": ["Why did you change the age?", "Change the name as well"] }
     `;
 
-    const chatResponse = await ChatGPT(systemMessage);
+    console.log(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
 
     try {
       console.log("Chat Response: ", chatResponse.text.trim());
