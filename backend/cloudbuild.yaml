@@ -16,6 +16,7 @@ steps:
       - "STYTCH_PROJECT_ID=${_STYTCH_PROJECT_ID}"
       - "STYTCH_API_KEY=${_STYTCH_API_KEY}"
       - "STYTCH_API_KEY_PUBLIC=${_STYTCH_API_KEY_PUBLIC}"
+      _ "APIFY_TOKEN=${_APIFY_TOKEN}"
   - name: "gcr.io/cloud-builders/gcloud"
     dir: backend/
     args: ["app", "deploy", "app.yaml", "dispatch.yaml"]
