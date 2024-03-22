@@ -125,6 +125,7 @@ export interface PersonaHistory {
   messageHistory: Message[];
   persona?: Persona;
   aiSuggestedChats?: string[];
+  contentLastGeneratedAt?: Date;
   _id: string;
 }
 
