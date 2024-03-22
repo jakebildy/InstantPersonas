@@ -8,7 +8,6 @@ import { cn } from "@/lib/utilities";
 import { Persona } from "@/services/api.service";
 import { usePersonaChat } from "./usePersonaChat";
 import { RefObject, useRef, useState } from "react";
-import { ColorResult, CompactPicker } from "react-color";
 import { generateTimestamp } from "@/lib/utils";
 import { toPng } from "html-to-image";
 import { Dialog } from "@/components/ui/dialog";
@@ -17,6 +16,12 @@ import { useUser } from "@/contexts/UserContext";
 import { motion } from "framer-motion";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter_effect";
 import createFirstBusiness from "../../images/history.gif";
+import { HexColorPicker } from "react-colorful";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const PersonaChat = () => {
   const { id } = useGetPersonaPathId();
@@ -33,7 +38,6 @@ export const PersonaChat = () => {
     setLoading,
     setPersona,
     setSelectedColor,
-    updateColor,
     updatePicture,
   } = usePersonaChat(id);
   const personaRef = useRef<HTMLDivElement>(null);
@@ -115,30 +119,27 @@ export const PersonaChat = () => {
                     damping: 20,
                   }}
                 >
-                  <UserPersona
-                    {...{ selectedColor, setPersona, id, ...persona }}
-                  />
+                  <UserPersona {...{ setPersona, id, ...persona }} />
                 </motion.div>
               </div>
               <div className="max-sm:fixed max-sm:right-0 max-sm:top-0 max-sm:translate-y-1/2 flex flex-col overflow-hidden flex-wrap justify-center gap-2 p-4 ">
-                <Button
-                  onClick={() => setShowPicker(!showPicker)}
-                  className="rounded-md"
-                >
-                  {"Change Colour"}
-                </Button>
-                {showPicker && (
-                  <div className="relative">
-                    <CompactPicker
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      onClick={() => setShowPicker(!showPicker)}
+                      className="rounded-md"
+                    >
+                      {"Change Colour"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full">
+                    <HexColorPicker
                       color={selectedColor}
-                      onChangeComplete={(color: ColorResult) => {
-                        setSelectedColor(color.hex);
-                        setShowPicker(false);
-                        updateColor(color.hex);
-                      }}
+                      onChange={setSelectedColor}
                     />
-                  </div>
-                )}
+                  </PopoverContent>
+                </Popover>
+
                 <Button
                   onClick={() => {
                     const newPicture = `https://instantpersonas.com/profiles/${persona.gender.toLowerCase()}/${Math.ceil(
