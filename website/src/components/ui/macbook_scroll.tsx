@@ -172,8 +172,8 @@ export const Lid = ({
         /> */}
         <iframe
           className=" absolute z-10 h-96 w-[32rem] rounded-lg inset-0"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+          src="https://www.youtube.com/embed/_3dSBfrRtSY?si=Peb3qppeidUN64EM"
+          title="Instant Personas - AI Powered Personas"
           // frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           // allowfullscreen
