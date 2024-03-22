@@ -41,7 +41,7 @@ export function Faqs() {
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="relative overflow-hidden bg-white "
+      className="relative overflow-hidden bg-white rounded-b-2xl"
     >
       <BackgroundGradientAnimation>
         <Container className="relative mt-20">

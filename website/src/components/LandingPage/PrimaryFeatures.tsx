@@ -1,17 +1,35 @@
+import { useRef } from "react";
 import { Container } from "../Container";
 // import userPersona from "../../images/screenshots/user-persona.png";
 import { AuroraBackground } from "../ui/aurora_background";
 import { MacbookScroll } from "../ui/macbook_scroll";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function PrimaryFeatures() {
   // const ref = useRef(null);
   // const isInView = useInView(ref, { once: true });
 
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [16, 0, 0, 16]
+  );
+
   return (
-    <section
+    <motion.section
       id="features"
       aria-label="Features for running your books"
-      className="relative overflow-hidden bg-black dark h-[200vh]"
+      className="relative overflow-hidden bg-black dark h-[200vh] rounded-2xl mx-4"
+      style={{
+        marginLeft: textOpacity,
+        marginRight: textOpacity,
+      }}
     >
       {/* if sm, hide */}
       <div className="hidden sm:block">
@@ -64,6 +82,6 @@ export function PrimaryFeatures() {
           </div>
         </Container>
       </div>
-    </section>
+    </motion.section>
   );
 }
