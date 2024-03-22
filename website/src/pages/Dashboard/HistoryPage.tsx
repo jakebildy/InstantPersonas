@@ -4,6 +4,8 @@ import createFirstBusiness from "../../images/history.gif";
 import { useEffect, useState } from "react";
 import { AnimatedTooltip } from "@/components/ui/animated_tooltip";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function HistoryPage() {
   const [personas, setPersonas] = useState<PersonaHistory[]>([]);
@@ -26,41 +28,76 @@ export default function HistoryPage() {
   return (
     <>
       <Sidebar currentSelectedPage="History">
-        {personas.length > 0 ? (
-          <div>
-            <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
-              Recent Personas
-            </h1>
+        <div>
+          <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+            {personas.length > 0 || loading ? "Recent Personas" : "History"}
+          </h1>
+          {loading ? (
+            <div className="flex flex-row items-center justify-center mt-20 w-full">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+                <Skeleton
+                  className="bg-gray-300 rounded-full -mr-4 h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white"
+                  key={index}
+                />
+              ))}
+            </div>
+          ) : personas.length > 0 ? (
             <div className="flex flex-row items-center justify-center mt-20 w-full">
               <RecentPersonas personas={personas} />
             </div>
-          </div>
-        ) : null}
-        {loading ? (
-          <div />
-        ) : (
-          <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
-            History
-          </h1>
-        )}
+          ) : null}
+        </div>
 
         <div className="mt-10">
           {loading ? (
-            <div />
-          ) : personas.length > 0 ? (
             <div className="flex flex-col gap-2 px-2">
-              {personas
-                .slice(0)
-                .filter((persona) => persona.persona !== undefined)
-                .reverse()
-                .map((persona) => (
-                  <PersonaCard {...persona} key={persona._id} />
-                ))}
+              {[...Array(9).keys()].map((index) => (
+                <div
+                  className="ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
+                  key={index}
+                >
+                  <Skeleton className="bg-gray-300 rounded-full h-8 w-8" />
+                  <Skeleton className="bg-gray-300 p-2 px-4 rounded-lg h-14 w-full" />
+                  <div className="h-5 w-8 ml-5 mr-5" />
+                </div>
+              ))}
             </div>
+          ) : personas.length > 0 ? (
+            <AnimatePresence>
+              <div className="flex flex-col gap-2 px-2">
+                {personas
+                  .filter((persona) => persona.persona !== undefined)
+                  .reverse()
+                  .map((persona) => (
+                    <motion.div
+                      key={persona._id}
+                      initial={{
+                        opacity: 0,
+                        y: -50,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -50,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <PersonaCard {...persona} />
+                    </motion.div>
+                  ))}
+              </div>
+            </AnimatePresence>
           ) : (
             <div className="text-center">
               <img
                 src={createFirstBusiness}
+                alt="Create your first persona"
                 style={{ height: "300px" }}
                 className="mx-auto"
               />
