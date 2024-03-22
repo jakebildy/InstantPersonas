@@ -130,6 +130,27 @@ const PersonaMessage = ({
             <div className="typing__dot"></div>
             <div className="typing__dot"></div>
           </div>
+        ) : message.text.startsWith("[TIKTOKS]: ") ? (
+          <div>
+            <div className=" flex flex-row">
+              {message.text
+                .replaceAll("[TIKTOKS]: ", "")
+                .split(", ")
+                .map((url) => {
+                  return (
+                    <iframe
+                      width="200"
+                      height="344"
+                      className="p-2"
+                      src={url}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  );
+                })}
+            </div>
+          </div>
         ) : (
           message.text
         )}

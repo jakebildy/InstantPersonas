@@ -2,7 +2,12 @@ import { UserI } from "../models/user.model";
 import { SurveyQuestion } from "../types";
 import { GPT4 } from "./openai.service"; 
 import { PersonaHistory, UserPersona } from "../models/persona.model";
+import axios from "axios";
+import { ApifyClient } from "apify-client";
 
+
+const apifyToken: string = process.env.APIFY_TOKEN || "";
+if (!apifyToken) throw new Error("Missing Apify API Token.");
 
 function getRandomHeadshot(gender: string) {
   return `https://instantpersonas.com/profiles/${gender.toLowerCase()}/${Math.ceil(
@@ -15,11 +20,11 @@ export async function messagePersona(
     newMessage: string,
     historyID?: string,
 ): Promise<PersonaHistory> {
- let personaHistory;
+ let personaHistory: any;
  let intentToChangePersona: boolean = false;
  
  let creatingNewPersona = false;
- 
+  let videos: string[] = [];
 
   if (!historyID) {
 
@@ -33,7 +38,7 @@ export async function messagePersona(
         messageHistory: [
           { sender: "bot", text: "Describe your product or service, and I can create a user persona." },
           { sender: "user", text: newMessage },
-          { sender: "bot", text: "Please specify a product or service." },],
+          { sender: "bot", text: "Please specify a product or service. Be detailed." },],
         user: user._id,
      });
 
@@ -61,6 +66,15 @@ export async function messagePersona(
         throw new Error("PersonaHistory not found for the provided historyID");
       }
 
+      console.log (newMessage.toLowerCase())
+      console.log( "new message is: ", newMessage.includes("⭐️ show me what content they consume"))
+    if (newMessage.toLowerCase().includes("⭐️ show me what content they consume")) {
+      const keyword = await getKeywordFromPersona(personaHistory.persona!);
+      console.log("keyword:" , keyword);
+      videos = await getTikTokVideos(keyword);
+      console.log("TikTok Videos: ", videos);
+    } else {
+
     // add the new message to the message history
     personaHistory.messageHistory.push({ sender: "user", text: newMessage });
    
@@ -73,18 +87,36 @@ export async function messagePersona(
         const newUserPersona = await updateUserPersona(newMessage, personaHistory.persona);
         personaHistory.persona = newUserPersona;
       }
+    }
   }
 
   
 
+
+  if (!newMessage.toLowerCase().includes("⭐️ show me what content they consume")) {
   //Generate response and generate AI suggestion messages
   const response = await generateResponseAndSuggestionMessages(personaHistory.messageHistory, intentToChangePersona, personaHistory.persona);
 
   console.log("ResponseAndSuggestionMessages: ", response);
   personaHistory.aiSuggestedChats = response.suggestions;
   personaHistory.messageHistory.push({ sender: "bot", text: response.response });
+  
+  } else {
+
+    personaHistory.messageHistory.push ({sender: "user", text: newMessage});
+    personaHistory.messageHistory.push({ sender: "bot", text: "This is what kind of content they would be consuming:"});
+    personaHistory.messageHistory.push({ sender: "bot", text: "[TIKTOKS]: " +  videos.join(", ")});
+
+    personaHistory.aiSuggestedChats = ["How can I gain insights from the content they consume?", "What platforms do they use?"];
+  
+  }
+
+
 
   if (creatingNewPersona) {
+    personaHistory.aiSuggestedChats?.pop();
+    personaHistory.aiSuggestedChats?.push("⭐️ Show me what content they consume");
+
     personaHistory = await PersonaHistory.create({
       messageHistory: personaHistory.messageHistory,
       user: user._id,
@@ -107,6 +139,7 @@ export async function messagePersona(
       console.error("Error updating PersonaHistory:", error);
     }
   }
+
 
   return personaHistory as PersonaHistory;
 }
@@ -134,7 +167,7 @@ export async function generateUserPersona(
     const systemMessage = `You are an AI language model. Generate a User Persona in JSON format based on the following company description and Q & A::
   Description: ${companyDescription}
   
-  Please structure your response in a clear and easily parsable JSON format.
+  Please structure your response in a clear and easily parsable JSON format. The beginning of the response should be "{" and it should end with "}".
   
   interface UserPersona {
     name: string;
@@ -200,10 +233,13 @@ export async function generateUserPersona(
   `;
   
     const chatResponse = await GPT4(systemMessage);
-    const responseText = chatResponse.text.trim();
+    let responseText = chatResponse.text.trim();
     let userPersona: UserPersona;
   //TODO:
     try {
+      if (!responseText.startsWith("{")) {
+        responseText = responseText.substring(responseText.indexOf("{"));
+      }
       userPersona = JSON.parse(responseText);
       if ((userPersona as any)["UserPersona"]) {
         userPersona = (userPersona as any)["UserPersona"];
@@ -275,7 +311,7 @@ export async function updateUserPersona(
   User Persona: ${JSON.stringify(currentPersona)}
   Message: ${message}
   
-  Please structure your response in a clear and easily parsable JSON format.
+  Please structure your response in a clear and easily parsable JSON format. The beginning of the response should be "{" and it should end with "}"
   
   interface UserPersona {
     name: string;
@@ -353,7 +389,7 @@ export async function updateUserPersona(
       }
     } catch (error) {
       throw new Error(
-        "Failed to parse the generated userPersona JSON. Please try again.",
+        "Failed to parse the generated userPersona JSON. Please try again. Here was the response: " + responseText,
       );
     }
   
@@ -381,7 +417,7 @@ export async function updateUserPersona(
 
     "response" should be a string that is a response to the user's message. Try to be insightful. "suggestions" should be an array of 2 strings that that the user might want to ask next, written from the perspective of the user.
 
-    Please structure your output in a clear and easily parsable JSON format.
+    Please structure your output in a clear and easily parsable JSON format. The beginning of the response should be "{" and it should end with "}"
     
     example output when the user asks "why should I make a user persona?": 
     { "response": "User personas are often used for understanding a customer market", "suggestions": ["Tell me more", "Is it the same as a customer persona?"] }
@@ -453,3 +489,67 @@ export async function deletePersona(
       throw error; 
     }
   }
+
+
+  const client = new ApifyClient({
+    token: apifyToken,
+});
+
+  export async function getTikTokVideos(
+    keyword: string,
+  ) : Promise<string[]> {
+    try {
+
+      // Prepare Actor input
+      const input = {
+        "keyword": keyword,
+        "limit": 5,
+        "publishTime": "ALL_TIME",
+        "proxyConfiguration": {
+            "useApifyProxy": true
+        }
+      };
+
+      const run = await client.actor("jQfZ1h9FrcWcliKZX").call(input);
+
+      // Fetch and print Actor results from the run's dataset (if any)
+      console.log('Results from dataset');
+      const { items } = await client.dataset(run.defaultDatasetId).listItems();
+      items.forEach((item: any) => {
+          console.dir(item["aweme_info"]["video"]["bit_rate"][0]["play_addr"]["url_list"][0] as string);
+      });
+    
+      return items.map((item: any) => item["aweme_info"]["video"]["bit_rate"][0]["play_addr"]["url_list"][0] as string);
+
+    } catch (error) {
+      console.error("Error getting TikTok videos: ", error);
+      throw error; 
+    }
+  }
+
+
+  export async function getKeywordFromPersona(
+    persona: UserPersona,
+  ): Promise<string> {
+
+    const systemMessage =
+    `Give me a one word keyword that would describe what the content the user persona would engage with would be about.
+
+    User Persona: ${JSON.stringify(persona)}
+  
+    example response: "skiing"
+    `;
+
+    console.log(systemMessage);
+    const chatResponse = await GPT4(systemMessage);
+
+    try {
+      console.log("Chat Response: ", chatResponse.text.trim());
+      return chatResponse.text.trim();
+    } catch (error) {
+      throw new Error(
+        "Failed to create the keyword. Please try again. Here was the response: " + chatResponse.text.trim(),
+      );
+    }
+  }
+
