@@ -39,6 +39,7 @@ export interface PersonaHistory {
     persona?: UserPersona
     aiSuggestedChats?: string[]
     user?: string
+    contentLastGeneratedAt?: Date
 }
 
 const PersonaHistorySchema = new mongoose.Schema<PersonaHistory>(
@@ -52,6 +53,7 @@ const PersonaHistorySchema = new mongoose.Schema<PersonaHistory>(
     persona: {type: Schema.Types.Mixed, required: false },
     aiSuggestedChats: [{ type: String, required: false }],
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    contentLastGeneratedAt: { type: Date, required: false },
     },
     {
         versionKey: false,

@@ -108,7 +108,7 @@ export async function messagePersona(
     personaHistory.messageHistory.push({ sender: "bot", text: "[TIKTOKS]: " +  videos.join(", ")});
 
     personaHistory.aiSuggestedChats = ["How can I gain insights from the content they consume?", "What platforms do they use?"];
-  
+    personaHistory.contentLastGeneratedAt = new Date();
   }
 
 
@@ -130,7 +130,8 @@ export async function messagePersona(
         {
           messageHistory: personaHistory.messageHistory,
           persona: personaHistory.persona,
-          aiSuggestedChats: personaHistory.aiSuggestedChats
+          aiSuggestedChats: personaHistory.aiSuggestedChats,
+          contentLastGeneratedAt: personaHistory.contentLastGeneratedAt,
         },
         { new: true }
       );
