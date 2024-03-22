@@ -1,4 +1,3 @@
-
 import express, { Response } from "express";
 import { RequestI } from "../types/request";
 import * as StytchService from "../services/stytch.service";
@@ -13,9 +12,10 @@ async function magicLink(req: RequestI, res: Response) {
   try {
     const token: string = req.query.token as string;
     const response = await StytchService.authenticate(token);
-    res.cookie('user', response.jwt);
+    res.cookie("user", response.jwt);
 
-    if (!response.user.onboarded) return res.redirect(302, SITE_URL + "/onboarding");
+    if (!response.user.onboarded)
+      return res.redirect(302, SITE_URL + "/persona");
     return res.redirect(302, SITE_URL + "/persona");
   } catch (e) {
     console.log(e);
@@ -25,12 +25,13 @@ async function magicLink(req: RequestI, res: Response) {
 
 async function googleAuthenticate(req: RequestI, res: Response) {
   try {
-    console.log("Trying to authenticate with google")
+    console.log("Trying to authenticate with google");
     const token: string = req.query.token as string;
     const response = await StytchService.googleAuthenticate(token);
-    res.cookie('user', response.jwt);
-    
-    if (!response.user.onboarded) return res.redirect(302, SITE_URL + "/onboarding");
+    res.cookie("user", response.jwt);
+
+    if (!response.user.onboarded)
+      return res.redirect(302, SITE_URL + "/persona");
     return res.redirect(302, SITE_URL + "/persona");
   } catch (e) {
     console.log(e);
