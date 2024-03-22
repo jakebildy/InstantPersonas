@@ -131,6 +131,21 @@ function PersonaText({
     await api.userPersona.updatePersona(persona, personaID);
   };
 
+  const handleBlur = () => {
+    setPersona({
+      ...persona,
+      sections: persona.sections.map((s: any, i: number) =>
+        i === sectionIndex ? { ...s, content } : s
+      ),
+    });
+    updatePersona({
+      ...persona,
+      sections: persona.sections.map((s: any, i: number) =>
+        i === sectionIndex ? { ...s, content } : s
+      ),
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -142,22 +157,8 @@ function PersonaText({
       <h3 className="text-2xl font-bold">{label}</h3>
       <Textarea
         value={content}
-        onChange={(e) => {
-          const description = e.target.value;
-          setContent(description);
-          setPersona({
-            ...persona,
-            sections: persona.sections.map((s: any, i: number) =>
-              i === sectionIndex ? { ...s, description } : s
-            ),
-          });
-          updatePersona({
-            ...persona,
-            sections: persona.sections.map((s: any, i: number) =>
-              i === sectionIndex ? { ...s, description } : s
-            ),
-          });
-        }}
+        onChange={(e) => setContent(e.target.value)}
+        onBlur={handleBlur}
         className="resize-none mt-2 bg-persona-background/80 text-persona-text focus-visible:ring-persona-accent border-persona-border flex-1"
       />
     </div>
@@ -192,6 +193,21 @@ const EditableAttributeCard = ({
     await api.userPersona.updatePersona(persona, personaID);
   };
 
+  const handleBlur = () => {
+    setPersona({
+      ...persona,
+      shortDescriptors: persona.shortDescriptors.map((s: any, i: number) =>
+        i === descriptorIndex ? { ...s, description } : s
+      ),
+    });
+    updatePersona({
+      ...persona,
+      shortDescriptors: persona.shortDescriptors.map((s: any, i: number) =>
+        i === descriptorIndex ? { ...s, description } : s
+      ),
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -204,24 +220,8 @@ const EditableAttributeCard = ({
       <h2 className="text-xs text-persona-title/80">{label}</h2>
       <Textarea
         value={content}
-        onChange={(e) => {
-          const description = e.target.value;
-          setContent(description);
-          setPersona({
-            ...persona,
-            shortDescriptors: persona.shortDescriptors.map(
-              (s: any, i: number) =>
-                i === descriptorIndex ? { ...s, description } : s
-            ),
-          });
-          updatePersona({
-            ...persona,
-            shortDescriptors: persona.shortDescriptors.map(
-              (s: any, i: number) =>
-                i === descriptorIndex ? { ...s, description } : s
-            ),
-          });
-        }}
+        onChange={(e) => setContent(e.target.value)}
+        onBlur={handleBlur}
         className="resize-none border-none scrollbar-hidden mt-2 text-center text-persona-text text-xs focus-visible:ring-persona-accent bg-persona-background"
         rows={2}
       />
