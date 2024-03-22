@@ -14,9 +14,6 @@ export function Footer({ isBlog }: { isBlog?: boolean }) {
               {isBlog ? null : <NavLink href="#features">Features</NavLink>}
               {isBlog ? null : <NavLink href="/blog">Blog</NavLink>}
               {isBlog ? null : <NavLink href="#pricing">Pricing</NavLink>}
-              <NavLink href="https://affiliates.reflio.com/invite/InstantPersonas">
-                Affiliate Program
-              </NavLink>
             </div>
           </nav>
         </div>
@@ -26,7 +23,7 @@ export function Footer({ isBlog }: { isBlog?: boolean }) {
             rights reserved. By using this site, you agree to our{" "}
             <a
               style={{ fontWeight: "bold" }}
-              href="https://pastebin.com/raw/CfcqdFK5"
+              href="https://instantpersonas.com/terms-of-service"
             >
               Terms of Service
             </a>
