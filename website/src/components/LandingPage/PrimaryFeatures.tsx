@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Container } from "../Container";
 // import userPersona from "../../images/screenshots/user-persona.png";
 import { AuroraBackground } from "../ui/aurora_background";
