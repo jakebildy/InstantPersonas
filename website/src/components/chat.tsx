@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 // import { Message, useChat } from "ai/react";
-import { HTMLAttributes, memo, useRef } from "react";
+import { HTMLAttributes, memo, useEffect, useRef, useState } from "react";
 import {
   CommandUserInput,
   CommandUserInputKeybind,
@@ -11,7 +11,8 @@ import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
 import ProjectAnalysis from "../images/ProjectAnalysis.gif";
 import "../App.css";
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
+import { Button } from "./ui/button";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
@@ -40,7 +41,11 @@ export default function Chat({
   loading,
   ...Props
 }: Props) {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollBottomRef = useRef<HTMLDivElement>(null);
+  const [minimized, setMinimized] = useState<boolean>(false);
+  const [height, setHeight] = useState<number>(0);
+  const [animateHeight, setAnimateHeight] = useState<boolean>(false);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -50,6 +55,38 @@ export default function Chat({
     },
   ];
 
+  useEffect(() => {
+    // Set height on initial render
+    if (inputRef.current) {
+      setHeight(inputRef.current.offsetHeight);
+    }
+
+    // Update height when input changes
+    const updateHeight = () => {
+      if (inputRef.current) {
+        if (inputRef.current.offsetHeight + 16 > height) {
+          setAnimateHeight(false);
+        } else {
+          console.log("animate height");
+          setAnimateHeight(true);
+        }
+        setHeight(inputRef.current.offsetHeight);
+      }
+    };
+
+    // Observe the input element for changes
+    const observer = new MutationObserver(updateHeight);
+    if (inputRef.current) {
+      observer.observe(inputRef.current, {
+        childList: true, // Observe direct children changes
+        subtree: true, // Observe all descendants
+        characterData: true, // Observe text changes
+      });
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       className={cn(
@@ -58,36 +95,63 @@ export default function Chat({
       )}
       {...Props}
     >
-      <ScrollArea className="h-[390px]">
-        {/* 120px is the height of the input and suggestions */}
-        <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
-          {messages.length > 0 ? (
-            messages.map((message: Message, i) => {
-              const Component = componentLookupTable[message.sender];
-              return Component ? (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
-                  key={message._id ?? i}
-                  className={cn("z-10", messages.length == i + 1 ? "pb-4" : "")}
-                >
-                  <Component message={message} />
-                </motion.div>
-              ) : null;
-            })
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <img
-                src={ProjectAnalysis}
-                alt={"Loading Chat..."}
-                className={"object-contain w-8 h-7"}
-              />
-            </div>
-          )}
-        </div>
-        <div ref={scrollBottomRef} />
-      </ScrollArea>
+      <Button
+        className="absolute top-0 max-lg:left-0 lg:right-0 -translate-y-full rounded-b-none rounded-t-md h-fit mx-4 p-1 px-4 hover:px-5 hover:py-1 hover:text-lg transition-all "
+        onClick={() => setMinimized((p) => !p)}
+      >
+        X
+      </Button>
+      <motion.div
+        className={" w-full"}
+        animate={{
+          height: minimized ? `${height + 16}px` : "100%",
+        }}
+        transition={{ duration: animateHeight ? 0.5 : 0, ease: easeInOut }}
+      >
+        <ScrollArea className={"h-[390px]"}>
+          {/* 120px is the height of the input and suggestions */}
+          <div
+            className={cn(
+              "font-mono text-sm p-4 flex flex-col gap-2",
+              minimized ? "" : "pb-[120px]"
+            )}
+          >
+            {messages.length > 0 && !minimized ? (
+              messages.map((message: Message, i) => {
+                const Component = componentLookupTable[message.sender];
+                return Component ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    key={message._id ?? i}
+                    className={cn(
+                      "z-10",
+                      messages.length == i + 1 ? "pb-4" : ""
+                    )}
+                  >
+                    <Component message={message} />
+                  </motion.div>
+                ) : null;
+              })
+            ) : (
+              <div
+                className={cn(
+                  "flex items-center justify-center h-full",
+                  minimized ? "hidden" : ""
+                )}
+              >
+                <img
+                  src={ProjectAnalysis}
+                  alt={"Loading Chat..."}
+                  className={"object-contain w-8 h-7"}
+                />
+              </div>
+            )}
+          </div>
+          <div ref={scrollBottomRef} />
+        </ScrollArea>
+      </motion.div>
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
@@ -96,6 +160,7 @@ export default function Chat({
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
         // @ts-ignore
+        ref={inputRef}
         loading={loading}
       >
         {children}

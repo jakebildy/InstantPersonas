@@ -127,8 +127,11 @@ export function usePersonaChat(id: string | undefined) {
           `${value.h.toFixed(1)} ${value.s.toFixed(1)}% ${value.l.toFixed(1)}%`
         );
       });
+      if (selectedColor !== persona.color) {
+        updateColor(selectedColor);
+      }
     }
-  }, [selectedColor]);
+  }, [selectedColor, persona.color, updateColor]);
 
   return {
     messages,
