@@ -135,13 +135,13 @@ function PersonaText({
     setPersona({
       ...persona,
       sections: persona.sections.map((s: any, i: number) =>
-        i === sectionIndex ? { ...s, content } : s
+        i === sectionIndex ? { ...s, description: content } : s
       ),
     });
     updatePersona({
       ...persona,
       sections: persona.sections.map((s: any, i: number) =>
-        i === sectionIndex ? { ...s, content } : s
+        i === sectionIndex ? { ...s, description: content } : s
       ),
     });
   };
@@ -197,13 +197,13 @@ const EditableAttributeCard = ({
     setPersona({
       ...persona,
       shortDescriptors: persona.shortDescriptors.map((s: any, i: number) =>
-        i === descriptorIndex ? { ...s, description } : s
+        i === descriptorIndex ? { ...s, description: content } : s
       ),
     });
     updatePersona({
       ...persona,
       shortDescriptors: persona.shortDescriptors.map((s: any, i: number) =>
-        i === descriptorIndex ? { ...s, description } : s
+        i === descriptorIndex ? { ...s, description: content } : s
       ),
     });
   };
