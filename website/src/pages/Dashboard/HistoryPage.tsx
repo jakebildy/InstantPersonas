@@ -148,7 +148,7 @@ function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
           }
         />
       </div>
-      <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
+      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
         <div>
           {persona.name} | {relevantPersonaInfo ?? ""}
           <br></br>
@@ -160,7 +160,7 @@ function PersonaCard({ persona, messageHistory, _id }: PersonaHistory) {
               : messageHistory[0].text}
           </span>
         </div>
-      </p>
+      </div>
 
       <TrashIcon
         onClick={(event) => {
