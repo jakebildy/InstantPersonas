@@ -31,7 +31,7 @@ const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
     return (
       <div className="pt-4 w-full flex justify-center overflow-clip rounded">
         <stripe-buy-button
-          buy-button-id={"buy_btn_1NEPwSFTqqPiFdIjJxX6nu8n"}
+          buy-button-id={buyButtonId}
           publishable-key={STRIPE_PUBLIC_TOKEN}
           client-reference-id={id}
           customer-email={email}
@@ -48,7 +48,7 @@ const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
         buy-button-id={buyButtonId}
         // publishable-key={STRIPE_PUBLIC_TOKEN}
         publishable-key={
-          "pk_live_51MyjOoFTqqPiFdIjIW6cmT8tmE1vKaLMW6kTHEyTwsfqgaeCdYAmsIM1geTuccUhUr2wRRYQ79A6HCwbt1JNn0Ij00YAW2R2oi"
+          "pk_live_51OtcoTCtCkpcyaeHAKlL4K2k67Jfxhdqkjop4trisy5ojZXlJezdf00PT6BEupBJzSIWXUDxXRIfKP2WDOczetPS00EUjOVLOH"
         }
         client-reference-id={id}
         customer-email={email}

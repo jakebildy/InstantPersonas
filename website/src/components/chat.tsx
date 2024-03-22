@@ -11,6 +11,7 @@ import { ExtractField } from "@/lib/types";
 import { Message } from "@/services/api.service";
 import ProjectAnalysis from "../images/ProjectAnalysis.gif";
 import "../App.css";
+import { motion } from "framer-motion";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
@@ -64,12 +65,15 @@ export default function Chat({
             messages.map((message: Message, i) => {
               const Component = componentLookupTable[message.sender];
               return Component ? (
-                <div
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
                   key={message._id ?? i}
                   className={cn("z-10", messages.length == i + 1 ? "pb-4" : "")}
                 >
                   <Component message={message} />
-                </div>
+                </motion.div>
               ) : null;
             })
           ) : (
@@ -125,6 +129,27 @@ const PersonaMessage = ({
             <div className="typing__dot"></div>
             <div className="typing__dot"></div>
             <div className="typing__dot"></div>
+          </div>
+        ) : message.text.startsWith("[TIKTOKS]: ") ? (
+          <div>
+            <div className=" flex flex-row">
+              {message.text
+                .replaceAll("[TIKTOKS]: ", "")
+                .split(", ")
+                .map((url) => {
+                  return (
+                    <iframe
+                      width="200"
+                      height="344"
+                      className="p-2"
+                      src={url}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  );
+                })}
+            </div>
           </div>
         ) : (
           message.text

@@ -37,6 +37,7 @@
     "@shopify/shopify-api": "^2.0.0",
     "@types/json2csv": "^5.0.3",
     "@types/node": "^16.6.1",
+    "apify-client": "^2.9.3",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",

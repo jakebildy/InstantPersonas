@@ -14,6 +14,9 @@ import { toPng } from "html-to-image";
 import { Dialog } from "@/components/ui/dialog";
 import { SubscriptionTrialDialog } from "./SubscriptionTrialDialog";
 import { useUser } from "@/contexts/UserContext";
+import { motion } from "framer-motion";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter_effect";
+import createFirstBusiness from "../../images/history.gif";
 
 export const PersonaChat = () => {
   const { id } = useGetPersonaPathId();
@@ -57,12 +60,28 @@ export const PersonaChat = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    // if (!subscriptionActive) {
-    //   setShowSubscriptionPromptDialog(true);
-    // } else {
-    handleSubmit(e);
-    // }
+    if (!subscriptionActive && window.location.hostname !== "localhost") {
+      setShowSubscriptionPromptDialog(true);
+    } else {
+      handleSubmit(e);
+    }
   };
+
+  const words = [
+    {
+      text: "Create",
+    },
+    {
+      text: "a",
+    },
+    { text: "new" },
+    // { text: "Persona" },
+    // { text: "you" },
+    {
+      text: "User Persona 👋",
+      className: "text-green-500 dark:text-blue-500",
+    },
+  ];
 
   return (
     <Sidebar currentSelectedPage="Persona Creator">
@@ -71,12 +90,35 @@ export const PersonaChat = () => {
         onOpenChange={setShowSubscriptionPromptDialog}
       >
         <div className="flex flex-col relative">
-          {renderPersona ? (
+          {loading && !renderPersona ? (
+            <div className="h-[40rem] w-full bg-slate-50 flex flex-col items-center justify-center overflow-hidden rounded-md">
+              <motion.img
+                // bounce in
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                src={createFirstBusiness}
+                style={{ height: "300px" }}
+                className="mx-auto"
+              />
+            </div>
+          ) : renderPersona ? (
             <div className="flex-1 grid grid-cols-6 place-items-center min-h-[70dvh]">
               <div ref={personaRef} className="col-span-5 m-2">
-                <UserPersona
-                  {...{ selectedColor, setPersona, id, ...persona }}
-                />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
+                >
+                  <UserPersona
+                    {...{ selectedColor, setPersona, id, ...persona }}
+                  />
+                </motion.div>
               </div>
               <div className="max-sm:fixed max-sm:right-0 max-sm:top-0 max-sm:translate-y-1/2 flex flex-col overflow-hidden flex-wrap justify-center gap-2 p-4 ">
                 <Button
@@ -121,7 +163,13 @@ export const PersonaChat = () => {
                 </Button>
               </div>
             </div>
-          ) : null}
+          ) : (
+            // <div className="top-[50px] absolute left-[40%]">
+            <div className="h-[40rem] w-full bg-slate-50 flex flex-col items-center justify-center overflow-hidden rounded-md">
+              <TypewriterEffectSmooth words={words} />
+            </div>
+            // </div>
+          )}
           <div
             className={cn(
               "flex-1 sm:hidden",

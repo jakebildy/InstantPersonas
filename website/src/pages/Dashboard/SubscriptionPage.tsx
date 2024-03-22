@@ -39,7 +39,8 @@ function SubscriptionDetails() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    // center
+    return <div className="text-center pt-10">Loading...</div>;
   }
 
   if (error) {
@@ -48,14 +49,30 @@ function SubscriptionDetails() {
 
   return (
     <div className=" align-center text-center">
-      <h1 className=" text-3xl  text-gray-700 text-center mt-10  font-bold">
+      <h1 className=" text-3xl  text-gray-700 text-center pt-10  font-bold">
         My Subscription
       </h1>
+      <h2 className=" text-2xl  text-gray-700 text-center pt-10  font-bold">
+        Your subscription is active
+      </h2>
       <img
         src={PricingPage}
         className="mx-auto mt-10"
         style={{ height: "200px" }}
       />
+      <h2 className=" text-md  text-gray-700 text-center pt-10 pb-10 font-bold">
+        Is InstantPersonas not providing enough value for you? Send us some
+        feedback!
+      </h2>
+      <Button
+        className="mr-5"
+        onClick={() =>
+          (window.location.href = "https://forms.gle/zei5QLdBTfTgssBv9")
+        }
+        variant={"secondary"}
+      >
+        Send Feedback
+      </Button>
       <Button
         onClick={() => (window.location.href = link)}
         variant={"destructive"}
