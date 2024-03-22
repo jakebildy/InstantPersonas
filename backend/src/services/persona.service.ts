@@ -3,7 +3,7 @@ import { SurveyQuestion } from "../types";
 import { GPT4 } from "./openai.service"; 
 import { PersonaHistory, UserPersona } from "../models/persona.model";
 import axios from "axios";
-import { ApifyClient } from "apify-client";
+const { ApifyClient } = require('apify-client');
 
 
 const apifyToken: string = process.env.APIFY_TOKEN || "";
