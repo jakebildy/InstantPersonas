@@ -11,7 +11,7 @@ export function PrimaryFeatures() {
     <section
       id="features"
       aria-label="Features for running your books"
-      className="relative overflow-hidden bg-black dark h-[200vh]"
+      className="relative overflow-hidden bg-black dark h-[200vh] rounded-2xl mx-2"
     >
       {/* if sm, hide */}
       <div className="hidden sm:block">
