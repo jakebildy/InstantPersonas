@@ -7,6 +7,8 @@ import RefundPolicy from "./pages/RefundPolicy";
 import AffiliatePage from "./pages/Dashboard/AffiliatePage";
 import BlogList, { BLOG_POSTS } from "./pages/Blog/BlogList";
 import { PersonaChat } from "./pages/Persona/PersonaChat";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -27,7 +29,10 @@ function App() {
         <Route path="/affiliate" element={<AffiliatePage />} />
         {/* Return Policy */}
         <Route path="/refund-policy" element={<RefundPolicy />} />
-        {/* TODO: Terms of service */}
+
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         {/* Blog */}
         <Route path="/blog/" element={<BlogList />} />
         {BLOG_POSTS.map((post) => (
