@@ -6,7 +6,6 @@ import api, { Persona } from "@/services/api.service";
 import { Skeleton } from "./ui/skeleton";
 
 interface Props extends Persona {
-  selectedColor?: string;
   id?: string;
   setPersona: (persona: Persona) => void;
 }
@@ -18,7 +17,6 @@ export default function UserPersona({
   pictureURL,
   shortDescriptors,
   sections,
-  selectedColor,
   id,
   setPersona,
   ...Props
@@ -39,10 +37,7 @@ export default function UserPersona({
           />
         </div>
 
-        <div
-          className={"grid grid-cols-2 bg-persona-foreground"}
-          style={{ backgroundColor: selectedColor || "defaultBackgroundColor" }}
-        >
+        <div className={"grid grid-cols-2 bg-persona-foreground"}>
           {shortDescriptors.length > 0
             ? shortDescriptors.map((section, index) => (
                 <EditableAttributeCard
