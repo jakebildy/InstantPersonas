@@ -183,12 +183,7 @@ export const PersonaChat = () => {
             {/* 18px is padding + margin of the chat component */}
             {/* 78px: 18px + 60px is the height of margin + mobile header */}
             <Chat
-              className={cn(
-                "border rounded-lg bg-white shadow-xl"
-                // renderPersona
-                //   ? "min-h-[400px] max-h-[33dvh]"
-                //   : "min-h-[calc(100dvh-78px)] lg:min-h-[calc(100vh-18px)]"
-              )}
+              className={"border rounded-lg bg-white shadow-xl"}
               messages={messages}
               handleSubmit={handleCheckSubscriptionSubmit}
               handleInputChange={(e) => {
