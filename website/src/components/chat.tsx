@@ -96,7 +96,7 @@ export default function Chat({
       {...Props}
     >
       <Button
-        className="absolute top-0 max-lg:left-0 lg:right-0 -translate-y-full rounded-b-none rounded-t-md h-fit mx-4 p-1 px-4 hover:px-5 hover:py-1 hover:text-lg transition-all "
+        className="absolute top-0 max-lg:left-0 lg:right-0 -translate-y-full rounded-b-none rounded-t-md h-fit mx-4 p-1 px-4 hover:px-5 hover:py-1 hover:text-lg transition-all z-50"
         onClick={() => setMinimized((p) => !p)}
       >
         X
