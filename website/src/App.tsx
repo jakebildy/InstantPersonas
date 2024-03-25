@@ -12,7 +12,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
-    // <BusinessProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -44,7 +43,6 @@ function App() {
         ))}
       </Routes>
     </BrowserRouter>
-    // </BusinessProvider>
   );
 }
 
