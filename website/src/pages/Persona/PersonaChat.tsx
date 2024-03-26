@@ -79,8 +79,6 @@ export const PersonaChat = () => {
       text: "a",
     },
     { text: "new" },
-    // { text: "Persona" },
-    // { text: "you" },
     {
       text: "User Persona 👋",
       className: "text-green-500 dark:text-blue-500",
@@ -165,11 +163,9 @@ export const PersonaChat = () => {
               </div>
             </div>
           ) : (
-            // <div className="top-[50px] absolute left-[40%]">
             <div className="h-[40rem] w-full bg-slate-50 flex flex-col items-center justify-center overflow-hidden rounded-md">
               <TypewriterEffectSmooth words={words} />
             </div>
-            // </div>
           )}
           <div
             className={cn(
