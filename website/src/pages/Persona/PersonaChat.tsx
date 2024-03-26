@@ -22,6 +22,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { UserFeedbackDialog } from "./UserFeedbackDialog";
+import posthog from "posthog-js";
 
 export const PersonaChat = () => {
   const { id } = useGetPersonaPathId();
@@ -43,6 +45,8 @@ export const PersonaChat = () => {
   const personaRef = useRef<HTMLDivElement>(null);
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
+    useState<boolean>(false);
+  const [showUserFeedbackDialog, setShowUserFeedbackDialog] =
     useState<boolean>(false);
   const renderPersona = id
     ? id == currentID || !personaHasNoValues(persona)
@@ -85,8 +89,31 @@ export const PersonaChat = () => {
     },
   ];
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //! Do something with the feedback on submit
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+
+    posthog.capture("User Feedback", values);
+
+    // Feedback in in values.feedback - corresponding to the name attribute of the textarea
+
+    setShowUserFeedbackDialog(false);
+  };
+
   return (
     <Sidebar currentSelectedPage="Persona Creator">
+      <Dialog
+        open={showUserFeedbackDialog}
+        onOpenChange={setShowUserFeedbackDialog}
+      >
+        <UserFeedbackDialog
+          onCloseAutoFocus={() => personaRef.current?.focus()}
+          onFeedbackSubmit={onSubmit}
+        />
+      </Dialog>
       <Dialog
         open={showSubscriptionPromptDialog}
         onOpenChange={setShowSubscriptionPromptDialog}
