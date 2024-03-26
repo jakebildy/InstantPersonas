@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import api, { UserI as UserI } from "../services/api.service";
-import LogRocket from "logrocket";
+import posthog from "posthog-js";
 
 export interface User extends UserI {
   subscriptionActive?: boolean;
@@ -43,12 +43,10 @@ function UserProvider({ children }: { children: React.ReactNode }) {
       console.log("fetched user", fetchedUser);
       // console.log("is subscription active", isSubscriptionActive);
 
-      // This is an example script - don't forget to change it!
-      LogRocket.identify(fetchedUser._id, {
+      posthog?.identify(fetchedUser._id, {
         email: fetchedUser.email,
-
-        // Add your own custom user variables here, ie:
-        // subscriptionType: isSubscriptionActive ? "paid" : "free",
+        subscriptionType: isSubscriptionActive ? "paid" : "free",
+        userSignupDate: fetchedUser.createdAt,
       });
     } catch (error) {
       console.error("Error fetching user:", error);
