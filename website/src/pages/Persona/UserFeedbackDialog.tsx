@@ -4,14 +4,28 @@ import { DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import * as Checkbox from "@radix-ui/react-checkbox";
+import { CheckIcon } from "@radix-ui/react-icons";
+import "../../App.css";
+import api from "@/services/api.service";
 
 export const UserFeedbackDialog = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
-    onFeedbackSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+    onFeedbackSubmit: () => void;
   }
 >(({ onFeedbackSubmit, className, children, ...props }, ref) => {
+  const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
+  const [submitting, setSubmitting] = React.useState(false);
+
+  const options = [
+    "Even more detailed User Personas",
+    "User Journeys",
+    "See the best hashtags and influencers for marketing to your User Persona",
+    "Generate blog posts/content to target your User Persona",
+    "Different User Persona templates",
+  ];
+
   return (
     <DialogPortal>
       <DialogOverlay className="bg-black/75" />
@@ -23,32 +37,103 @@ export const UserFeedbackDialog = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <form
-          className="space-y-2 md:col-span-3 flex-1 flex flex-col"
-          onSubmit={onFeedbackSubmit}
-        >
-          <h2 className="text-green-500 text-lg font-bold">
-            What do you want to get out of Instant Personas?
-          </h2>
-          <p className="text-xs text-gray-600">
-            Answer a quick question to help us improve your InstantPersonas!
-          </p>
+        <h2 className="text-green-500 text-lg font-bold mb-5">
+          Which upcoming features would be the most useful for you?
+        </h2>
 
-          <Textarea
-            name="feedback"
-            placeholder="I want to use Instant Personas to..."
-            className=" h-full border-green-500"
-          />
-
-          <div className="flex space-x-4 w-full justify-end pt-2">
-            <DialogPrimitive.Close asChild>
-              <Button variant={"secondary"}>Close</Button>
-            </DialogPrimitive.Close>
-            <Button className="px-6" type="submit">
-              Submit
-            </Button>
+        {...options.map((option) => (
+          <div className="flex flex-row">
+            <Checkbox.Root
+              className="CheckboxRoot"
+              defaultChecked
+              id={option}
+              checked={selectedOptions.includes(option)}
+              onCheckedChange={
+                selectedOptions.includes(option)
+                  ? () =>
+                      setSelectedOptions(
+                        selectedOptions.filter((o) => o !== option)
+                      )
+                  : () => setSelectedOptions([...selectedOptions, option])
+              }
+              style={
+                selectedOptions.includes(option)
+                  ? {
+                      backgroundColor: "green",
+                      boxShadow: "none",
+                      marginRight: "10px",
+                      marginBottom: "10px",
+                    }
+                  : { marginRight: "10px", marginBottom: "10px" }
+              }
+            >
+              <Checkbox.Indicator className="CheckboxIndicator">
+                <CheckIcon />
+              </Checkbox.Indicator>
+            </Checkbox.Root>
+            <label className="Label" htmlFor={option}>
+              {option}
+            </label>
           </div>
-        </form>
+        ))}
+
+        <div className="flex space-x-4 w-full justify-end pt-2">
+          <DialogPrimitive.Close asChild>
+            <Button variant={"secondary"}>Close</Button>
+          </DialogPrimitive.Close>
+          <Button
+            className="px-6"
+            type="submit"
+            onClick={async () => {
+              if (!submitting) {
+                try {
+                  setSubmitting(true);
+                  const response = await fetch(
+                    "https://hook.us1.make.com/nbx94dpphesjvgad4067yl0nyot2rscy",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ options: selectedOptions }),
+                    }
+                  );
+                  //? Uncomment to test loading state
+                  // await new Promise((resolve) => setTimeout(resolve, 10000));
+
+                  if (response.ok) {
+                    console.log("Response sent successfully");
+                    try {
+                      console.log("pending set as onboarded");
+                      const onboardedResponse = await api.auth.setOnBoarded();
+                      console.log("set as onboarded finished");
+                      if (onboardedResponse.ok) {
+                        console.log("User set as onboarded");
+                      }
+                    } catch (error) {
+                      console.error("Error setting user as onboarded:", error);
+                    }
+                  } else {
+                    console.error(
+                      "Failed to send response:",
+                      response.status,
+                      response.statusText
+                    );
+                  }
+                } catch (error) {
+                  console.error(
+                    "An error occurred while sending the response:",
+                    error
+                  );
+                }
+                setSubmitting(false);
+                onFeedbackSubmit();
+              }
+            }}
+          >
+            Submit
+          </Button>
+        </div>
 
         {children}
         <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
