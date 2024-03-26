@@ -29,6 +29,7 @@ export default function HistoryPage() {
       setPersonas(data);
       setLoading(false);
       console.log(data);
+      console.log("user, ", user);
       console.log("user onboarded", user?.onboarded);
       if (
         data.length >= 1 &&
