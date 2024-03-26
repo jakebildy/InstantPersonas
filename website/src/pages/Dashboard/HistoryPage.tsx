@@ -31,8 +31,8 @@ export default function HistoryPage() {
       console.log(data);
 
       if (
-        (data.length >= 1 && user?.onboarded === false) ||
-        user?.onboarded === undefined
+        data.length >= 1 &&
+        (user?.onboarded === false || user?.onboarded === undefined)
       ) {
         setShowUserFeedbackDialog(true);
       }
