@@ -29,17 +29,21 @@ export default function HistoryPage() {
       setPersonas(data);
       setLoading(false);
       console.log(data);
-      console.log("user, ", user);
-      console.log("user onboarded", user?.onboarded);
-      if (
-        data.length >= 1 &&
-        (user?.onboarded === false || user?.onboarded === undefined)
-      ) {
-        setShowUserFeedbackDialog(true);
-      }
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("user, ", user);
+    console.log("user onboarded", user?.onboarded);
+    if (
+      personas.length >= 1 &&
+      user !== null &&
+      (user?.onboarded === false || user?.onboarded === undefined)
+    ) {
+      setShowUserFeedbackDialog(true);
+    }
+  }, [user, personas]);
 
   const onSubmit = () => {
     setShowUserFeedbackDialog(false);
