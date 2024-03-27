@@ -5,9 +5,9 @@ import download from "downloadjs";
 import useGetPersonaPathId from "./useGetPersonaPathId";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utilities";
-import { Persona } from "@/services/api.service";
+import api, { Persona, PersonaHistory } from "@/services/api.service";
 import { usePersonaChat } from "./usePersonaChat";
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { generateTimestamp } from "@/lib/utils";
 import { toPng } from "html-to-image";
 import { Dialog } from "@/components/ui/dialog";
@@ -36,11 +36,11 @@ export const PersonaChat = () => {
     showChatVideoContent,
     handleSubmit,
     setInput,
-    setLoading,
     setPersona,
     setSelectedColor,
     updatePicture,
   } = usePersonaChat(id);
+  const [personas, setPersonas] = useState<PersonaHistory[]>([]);
   const personaRef = useRef<HTMLDivElement>(null);
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
@@ -65,12 +65,26 @@ export const PersonaChat = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    if (!subscriptionActive && window.location.hostname !== "localhost") {
+    if (
+      personas.filter((persona) => persona.persona !== undefined).length > 1
+    ) {
+      console.log(personas);
       setShowSubscriptionPromptDialog(true);
     } else {
       handleSubmit(e);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await api.userPersona.getPersonaHistory();
+      if (!data) {
+        return;
+      }
+      setPersonas(data);
+    };
+    fetchData();
+  }, []);
 
   const words = [
     {
@@ -191,7 +205,6 @@ export const PersonaChat = () => {
               renderVideoContent={showChatVideoContent}
               input={input}
               loading={loading}
-              setLoading={(b) => setLoading(b)}
             >
               <div className="flex flex-col flex-wrap z-50">
                 <div className="flex gap-4 overflow-hidden flex-wrap ">

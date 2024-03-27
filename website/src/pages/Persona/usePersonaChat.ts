@@ -66,6 +66,10 @@ export function usePersonaChat(id: string | undefined) {
       if (data.persona) {
         setPersona(data.persona);
       }
+      if (id !== data._id) {
+        navigate("/persona/" + data._id);
+        setCurrentID(data._id);
+      }
       setSuggestions(data.aiSuggestedChats ?? []);
       if (!data.contentLastGeneratedAt) return;
 
@@ -80,11 +84,8 @@ export function usePersonaChat(id: string | undefined) {
         setShowChatVideoContent(true);
       }
       setInput("");
-      if (!id && data.persona) {
-        navigate("/persona/" + data._id);
-        setCurrentID(data._id);
-      }
     } catch (error) {
+      setLoading(false);
       console.error("Error sending message", error);
     }
     setLoading(false);
@@ -101,9 +102,14 @@ export function usePersonaChat(id: string | undefined) {
       const data = await api.userPersona.getPersonaHistory(id);
       const persona = data.at(-1);
       if (!persona) return;
+      if (!persona.persona) {
+        console.error("No persona found", persona);
+        navigate("/persona");
+        return;
+      }
       setMessages(persona.messageHistory);
-      setPersona(persona.persona!);
-      setSelectedColor(persona.persona?.color ?? "#ADD8E6");
+      setPersona(persona.persona);
+      setSelectedColor(persona.persona.color ?? "#ADD8E6");
       setSuggestions(persona.aiSuggestedChats ?? []);
       setCurrentID(persona._id);
 
@@ -120,11 +126,13 @@ export function usePersonaChat(id: string | undefined) {
         setShowChatVideoContent(true);
       }
     };
+    setLoading(false);
     fetchData();
   }, [id]);
 
   useEffect(() => {
     if (id !== currentID) {
+      setLoading(false);
       setMessages([
         {
           sender: "bot",

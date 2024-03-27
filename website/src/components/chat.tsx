@@ -22,7 +22,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   renderVideoContent: boolean;
   input: string;
   loading: boolean;
-  setLoading: (loading: boolean) => void;
 }
 
 type MemoizedComponent = React.MemoExoticComponent<
