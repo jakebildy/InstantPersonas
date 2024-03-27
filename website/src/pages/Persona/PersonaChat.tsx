@@ -32,6 +32,7 @@ export const PersonaChat = () => {
     selectedColor,
     input,
     loading,
+    //@ts-ignore
     currentID,
     showChatVideoContent,
     handleSubmit,
