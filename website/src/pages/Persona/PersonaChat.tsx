@@ -32,7 +32,6 @@ export const PersonaChat = () => {
     selectedColor,
     input,
     loading,
-    //@ts-ignore
     currentID,
     showChatVideoContent,
     handleSubmit,
@@ -46,7 +45,9 @@ export const PersonaChat = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
-  const [renderPersona, setRenderPersona] = useState<boolean>(false);
+  const [renderPersona, setRenderPersona] = useState<boolean>(
+    id ? id == currentID && !personaHasNoValues(persona) : false
+  );
 
   const downloadImage = (elementRef: RefObject<HTMLElement>) => {
     const element = elementRef.current;
@@ -89,7 +90,7 @@ export const PersonaChat = () => {
 
   useEffect(() => {
     setRenderPersona(
-      id ? id == currentID || !personaHasNoValues(persona) : false
+      id ? id == currentID && !personaHasNoValues(persona) : false
     );
   }, [id, currentID, persona]);
 
@@ -251,6 +252,13 @@ function personaHasNoValues({
   shortDescriptors,
   sections,
 }: Persona): boolean {
+  console.log("personaHasNoValues", {
+    name,
+    gender,
+    pictureURL,
+    shortDescriptors,
+    sections,
+  });
   const isStringEmpty = (str: string) => !str || str.trim() === "";
   const isArrayEmpty = (arr: { [key: string]: string }[]) =>
     !arr ||
@@ -266,8 +274,9 @@ function personaHasNoValues({
     isArrayEmpty(shortDescriptors) &&
     isArrayEmpty(sections)
   ) {
+    console.log("personaHasNoValues", true);
     return true;
   }
-
+  console.log("personaHasNoValues", false);
   return false;
 }

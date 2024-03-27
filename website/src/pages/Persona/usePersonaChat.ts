@@ -103,15 +103,16 @@ export function usePersonaChat(id: string | undefined) {
       const data = await api.userPersona.getPersonaHistory(id);
       const persona = data.at(-1);
       if (!persona) return;
+      setMessages(persona.messageHistory);
+      setSuggestions(persona.aiSuggestedChats ?? []);
       if (!persona.persona) {
         console.error("No persona found", persona);
-        navigate("/persona");
-        return;
+      } else {
+        console.log("Persona found", persona.persona);
+        setPersona(persona.persona);
+        setSelectedColor(persona.persona.color ?? "#ADD8E6");
       }
-      setMessages(persona.messageHistory);
-      setPersona(persona.persona);
-      setSelectedColor(persona.persona.color ?? "#ADD8E6");
-      setSuggestions(persona.aiSuggestedChats ?? []);
+
       setCurrentID(persona._id);
 
       if (persona.contentLastGeneratedAt) {
