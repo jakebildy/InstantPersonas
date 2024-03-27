@@ -32,11 +32,11 @@ export const SubscriptionTrialDialog = React.forwardRef<
           </div>
           <div className="space-y-4 md:col-span-3">
             <h2 className="text-lg font-bold text-gray-800">
-              Try InstantPersona free for 3 days!
+              You're out of free credits!
             </h2>
             <p className="text-sm text-gray-600">
-              To use Persona Chat, you need to subscribe to our service, or
-              check out our free 3 day trial.
+              To keep using Instant Personas, subscribe now! You can cancel at
+              any time.
             </p>
             <div className="flex space-x-4">
               <DialogPrimitive.Close asChild>
@@ -46,7 +46,7 @@ export const SubscriptionTrialDialog = React.forwardRef<
                 className="px-6"
                 onClick={() => navigate("/subscription")}
               >
-                Try Now!
+                Subscribe Now
               </Button>
             </div>
           </div>
