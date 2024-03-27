@@ -71,18 +71,19 @@ export function usePersonaChat(id: string | undefined) {
         setCurrentID(data._id);
       }
       setSuggestions(data.aiSuggestedChats ?? []);
-      if (!data.contentLastGeneratedAt) return;
+      if (data.contentLastGeneratedAt) {
+        const hoursSinceLastGeneration = hoursDifference(
+          new Date(data.contentLastGeneratedAt)
+        );
 
-      const hoursSinceLastGeneration = hoursDifference(
-        new Date(data.contentLastGeneratedAt)
-      );
-
-      // If more than 5 hours have passed, do not show chat video content
-      if (hoursSinceLastGeneration > 5) {
-        setShowChatVideoContent(false);
-      } else {
-        setShowChatVideoContent(true);
+        // If more than 5 hours have passed, do not show chat video content
+        if (hoursSinceLastGeneration > 5) {
+          setShowChatVideoContent(false);
+        } else {
+          setShowChatVideoContent(true);
+        }
       }
+
       setInput("");
     } catch (error) {
       setLoading(false);
@@ -113,17 +114,17 @@ export function usePersonaChat(id: string | undefined) {
       setSuggestions(persona.aiSuggestedChats ?? []);
       setCurrentID(persona._id);
 
-      if (!persona.contentLastGeneratedAt) return;
+      if (persona.contentLastGeneratedAt) {
+        const hoursSinceLastGeneration = hoursDifference(
+          new Date(persona.contentLastGeneratedAt)
+        );
 
-      const hoursSinceLastGeneration = hoursDifference(
-        new Date(persona.contentLastGeneratedAt)
-      );
-
-      // If more than 5 hours have passed, do not show chat video content
-      if (hoursSinceLastGeneration > 5) {
-        setShowChatVideoContent(false);
-      } else {
-        setShowChatVideoContent(true);
+        // If more than 5 hours have passed, do not show chat video content
+        if (hoursSinceLastGeneration > 5) {
+          setShowChatVideoContent(false);
+        } else {
+          setShowChatVideoContent(true);
+        }
       }
     };
     setLoading(false);
