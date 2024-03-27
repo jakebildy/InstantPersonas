@@ -33,6 +33,7 @@ export const PersonaChat = () => {
     input,
     loading,
     currentID,
+    showChatVideoContent,
     handleSubmit,
     setInput,
     setLoading,
@@ -187,6 +188,7 @@ export const PersonaChat = () => {
                   setInput(e.target.value);
                 }
               }}
+              renderVideoContent={showChatVideoContent}
               input={input}
               loading={loading}
               setLoading={(b) => setLoading(b)}
