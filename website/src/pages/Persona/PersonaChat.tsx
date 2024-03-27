@@ -236,6 +236,7 @@ export const PersonaChat = () => {
   );
 };
 
+//@ts-ignore
 function personaHasNoValues({
   name,
   gender,
