@@ -46,7 +46,7 @@ export const PersonaChat = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
-  const renderPersona = true;
+  const [renderPersona, setRenderPersona] = useState<boolean>(false);
 
   const downloadImage = (elementRef: RefObject<HTMLElement>) => {
     const element = elementRef.current;
@@ -86,6 +86,12 @@ export const PersonaChat = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setRenderPersona(
+      id ? id == currentID || !personaHasNoValues(persona) : false
+    );
+  }, [id, currentID, persona]);
 
   const words = [
     {
