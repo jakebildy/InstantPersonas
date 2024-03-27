@@ -98,7 +98,9 @@ export function Header({
 }) {
   return (
     <header className="py-10" style={{ fontFamily: "Jost" }}>
-      <title>{title ? title : "Instant Personas | Try for Free"}</title>
+      <title>
+        {title ? title : "Detailed User Personas in Seconds | Try for Free"}
+      </title>
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
