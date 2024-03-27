@@ -125,7 +125,7 @@ export interface PersonaHistory {
   messageHistory: Message[];
   persona?: Persona;
   aiSuggestedChats?: string[];
-  contentLastGeneratedAt?: Date;
+  contentLastGeneratedAt?: string;
   _id: string;
 }
 
@@ -187,7 +187,7 @@ const api = {
     deletePersona: async (id: string) => {
       const response = await axios.delete(`/api/delete-persona/${id}`);
       return response.data;
-    }
+    },
   },
 };
 

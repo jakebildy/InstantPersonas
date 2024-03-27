@@ -13,11 +13,13 @@ import ProjectAnalysis from "../images/ProjectAnalysis.gif";
 import "../App.css";
 import { easeInOut, motion } from "framer-motion";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   messages: Message[];
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  renderVideoContent: boolean;
   input: string;
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -34,6 +36,7 @@ type ComponentLookupTableType = {
 export default function Chat({
   messages,
   className,
+  renderVideoContent,
   handleSubmit,
   handleInputChange,
   input,
@@ -130,7 +133,10 @@ export default function Chat({
                       messages.length == i + 1 ? "pb-4" : ""
                     )}
                   >
-                    <Component message={message} />
+                    <Component
+                      message={message}
+                      renderVideoContent={renderVideoContent}
+                    />
                   </motion.div>
                 ) : null;
               })
@@ -170,10 +176,12 @@ export default function Chat({
 }
 
 interface MessageComponentProps extends HTMLAttributes<HTMLDivElement> {
+  renderVideoContent?: boolean;
   message: Message;
 }
 
 const PersonaMessage = ({
+  renderVideoContent,
   message,
   className,
   ...Props
@@ -197,23 +205,33 @@ const PersonaMessage = ({
           </div>
         ) : message.text.startsWith("[TIKTOKS]: ") ? (
           <div>
-            <div className=" flex flex-row">
-              {message.text
-                .replaceAll("[TIKTOKS]: ", "")
-                .split(", ")
-                .map((url) => {
-                  return (
-                    <iframe
-                      width="200"
-                      height="344"
-                      className="p-2"
-                      src={url}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  );
-                })}
+            <div className="flex flex-row flex-wrap">
+              {renderVideoContent ? (
+                message.text
+                  .replaceAll("[TIKTOKS]: ", "")
+                  .split(", ")
+                  .map((url) => {
+                    return (
+                      <iframe
+                        key={url}
+                        width="200"
+                        height="344"
+                        className="p-2"
+                        src={url}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    );
+                  })
+              ) : (
+                <div className="relative">
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center z-10">
+                    Content Expired
+                  </span>
+                  <Skeleton className="w-[200px] h-[100px]" />
+                </div>
+              )}
             </div>
           </div>
         ) : (

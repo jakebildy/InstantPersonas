@@ -21,6 +21,8 @@ export function usePersonaChat(id: string | undefined) {
   });
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showChatVideoContent, setShowChatVideoContent] =
+    useState<boolean>(true);
   const [currentID, setCurrentID] = useState<string | undefined>(undefined);
   const [selectedColor, setSelectedColor] = useState<string>("#ADD8E6");
   const navigate = useNavigate();
@@ -65,6 +67,18 @@ export function usePersonaChat(id: string | undefined) {
         setPersona(data.persona);
       }
       setSuggestions(data.aiSuggestedChats ?? []);
+      if (!data.contentLastGeneratedAt) return;
+
+      const hoursSinceLastGeneration = hoursDifference(
+        new Date(data.contentLastGeneratedAt)
+      );
+
+      // If more than 5 hours have passed, do not show chat video content
+      if (hoursSinceLastGeneration > 5) {
+        setShowChatVideoContent(false);
+      } else {
+        setShowChatVideoContent(true);
+      }
       setInput("");
       if (!id && data.persona) {
         navigate("/persona/" + data._id);
@@ -74,6 +88,11 @@ export function usePersonaChat(id: string | undefined) {
       console.error("Error sending message", error);
     }
     setLoading(false);
+  };
+
+  const hoursDifference = (date: Date) => {
+    const now = new Date();
+    return Math.abs(now.getTime() - date.getTime()) / (1000 * 60 * 60);
   };
 
   useEffect(() => {
@@ -87,6 +106,19 @@ export function usePersonaChat(id: string | undefined) {
       setSelectedColor(persona.persona?.color ?? "#ADD8E6");
       setSuggestions(persona.aiSuggestedChats ?? []);
       setCurrentID(persona._id);
+
+      if (!persona.contentLastGeneratedAt) return;
+
+      const hoursSinceLastGeneration = hoursDifference(
+        new Date(persona.contentLastGeneratedAt)
+      );
+
+      // If more than 5 hours have passed, do not show chat video content
+      if (hoursSinceLastGeneration > 5) {
+        setShowChatVideoContent(false);
+      } else {
+        setShowChatVideoContent(true);
+      }
     };
     fetchData();
   }, [id]);
@@ -147,6 +179,7 @@ export function usePersonaChat(id: string | undefined) {
     handleSubmit,
     setPersona,
     setSelectedColor,
+    showChatVideoContent,
     currentID,
   };
 }
