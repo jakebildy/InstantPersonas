@@ -88,3 +88,26 @@
       transform: rotate(360deg);
   }
 }
+
+.CheckboxRoot {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0 2px 10px black; */
+  box-shadow: 0 0 0 2px black;
+}
+.CheckboxRoot:hover {
+  background-color: green;
+}
+.CheckboxRoot:focus {
+  box-shadow: 0 0 0 2px black;
+}
+
+.CheckboxIndicator {
+  color: white;
+  background-color: green;
+}

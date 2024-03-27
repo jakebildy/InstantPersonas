@@ -1,15 +1,23 @@
 import Sidebar from "../../components/Sidebar";
 import api, { PersonaHistory } from "../../services/api.service";
 import createFirstBusiness from "../../images/history.gif";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatedTooltip } from "@/components/ui/animated_tooltip";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
+import { UserFeedbackDialog } from "../Persona/UserFeedbackDialog";
+import { Dialog } from "@/components/ui/dialog";
+import { useUser } from "@/contexts/UserContext";
 
 export default function HistoryPage() {
   const [personas, setPersonas] = useState<PersonaHistory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showUserFeedbackDialog, setShowUserFeedbackDialog] =
+    useState<boolean>(false);
+  const personaRef = useRef<HTMLDivElement>(null);
+
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,9 +33,34 @@ export default function HistoryPage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("user, ", user);
+    console.log("user onboarded", user?.onboarded);
+    if (
+      personas.length >= 1 &&
+      user !== null &&
+      (user?.onboarded === false || user?.onboarded === undefined)
+    ) {
+      setShowUserFeedbackDialog(true);
+    }
+  }, [user, personas]);
+
+  const onSubmit = () => {
+    setShowUserFeedbackDialog(false);
+  };
+
   return (
     <>
       <Sidebar currentSelectedPage="History">
+        <Dialog
+          open={showUserFeedbackDialog}
+          onOpenChange={setShowUserFeedbackDialog}
+        >
+          <UserFeedbackDialog
+            onCloseAutoFocus={() => personaRef.current?.focus()}
+            onFeedbackSubmit={onSubmit}
+          />
+        </Dialog>
         <div>
           <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
             {personas.length > 0 || loading ? "Recent Personas" : "History"}
