@@ -45,9 +45,7 @@ export const PersonaChat = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
-  const renderPersona = id
-    ? id == currentID || !personaHasNoValues(persona)
-    : false;
+  const renderPersona = true;
 
   const downloadImage = (elementRef: RefObject<HTMLElement>) => {
     const element = elementRef.current;
@@ -66,6 +64,8 @@ export const PersonaChat = () => {
   ) => {
     e.preventDefault();
     if (
+      !subscriptionActive &&
+      window.location.hostname !== "localhost" &&
       personas.filter((persona) => persona.persona !== undefined).length > 1
     ) {
       console.log(personas);
