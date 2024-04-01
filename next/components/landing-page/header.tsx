@@ -20,14 +20,14 @@ export default function LandingHeader({ title }: Props) {
             <InstantPersonas />
             <div className="hidden md:flex md:gap-x-6">
               {[
-                { text: "Features", href: "#features" },
+                { text: "Features", href: "/#features" },
                 {
                   text: "Blog",
                   href: "/blog",
                 },
                 {
                   text: "Pricing",
-                  href: "#pricing",
+                  href: "/#pricing",
                 },
               ].map((link) => (
                 <Link

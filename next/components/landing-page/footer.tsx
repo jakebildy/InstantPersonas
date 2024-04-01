@@ -20,14 +20,14 @@ export default function LandingFooter({
           <nav className="mt-10 text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
               {[
-                { text: "Features", href: "#features" },
+                { text: "Features", href: "/#features" },
                 {
                   text: "Blog",
                   href: "/blog",
                 },
                 {
                   text: "Pricing",
-                  href: "#pricing",
+                  href: "/#pricing",
                 },
               ].map((link) => (
                 <Link
