@@ -29,16 +29,16 @@ export default function Home() {
   }, [canExpandSidebar]);
 
   return (
-    <main className="grid h-screen w-screen">
+    <main className="relative overflow-x-hidden">
       <LandingPage.header />
       <LandingPage.hero />
       <LandingPage.videoFeature />
       <LandingPage.callToAction />
       <LandingPage.pricing />
       <LandingPage.faqs />
-      <LandingPage.footer />
+      <LandingPage.footer className="from-slate-50 to-transparent bg-gradient-to-t absolute bottom-0 bg-transparent w-screen overflow-hidden backdrop-blur supports-[backdrop-filter]:bg-bg-gradient-to-t" />
 
-      <Button asChild className="fixed m-10 " variant={"destructive"}>
+      <Button asChild className="absolute top-0 m-10 " variant={"destructive"}>
         <Link href={"/dashboard"}>Dashboard</Link>
       </Button>
     </main>

@@ -1,11 +1,17 @@
+import { cn } from "@/lib/utils";
 import { Container } from "../container";
-import logo from "../assets/logo_new.png";
 import { InstantPersonas } from "../instantPersonas";
 import Link from "next/link";
 
-export default function LandingFooter({ isBlog }: { isBlog?: boolean }) {
+export default function LandingFooter({
+  isBlog,
+  className,
+}: {
+  isBlog?: boolean;
+  className?: string;
+}) {
   return (
-    <footer className="bg-slate-50">
+    <footer className={cn("bg-slate-50", className)}>
       <Container>
         <div className="py-16">
           <div className="mx-auto grid place-items-center">

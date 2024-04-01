@@ -41,7 +41,7 @@ export default function FaqSection() {
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="relative  bg-white rounded-b-2xl"
+      className="relative bg-white rounded-b-2xl"
     >
       <BackgroundGradientAnimation>
         <Container className="relative mt-20">
