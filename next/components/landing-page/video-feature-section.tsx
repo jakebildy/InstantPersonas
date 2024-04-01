@@ -1,0 +1,80 @@
+import { useRef } from "react";
+import { Container } from "../container";
+import { AuroraBackground } from "@/components/aceternity-ui/aurora_background";
+import { MacbookScroll } from "@/components/aceternity-ui/macbook_scroll";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+export default function VideoFeatureSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [16, 0, 0, 16]
+  );
+
+  return (
+    <motion.section
+      id="features"
+      aria-label="Features for running your books"
+      className="relative overflow-hidden bg-black dark h-[200vh] rounded-2xl mx-4"
+      style={{
+        marginLeft: textOpacity,
+        marginRight: textOpacity,
+      }}
+    >
+      {/* Hide on sm screens */}
+      <div className="hidden sm:block">
+        <AuroraBackground className="h-[200vh]">
+          <Container className=" b-28 pt-20 sm:py-32 ">
+            <div className="height-[400vh]">
+              <MacbookScroll
+                title={
+                  <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
+                    <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-7xl pt-20">
+                      Reclaim your free time.
+                    </h2>
+                    <p className="mt-6 text-lg tracking-tight text-blue-100">
+                      Deep understanding of your target market with AI-Powered
+                      Personas.
+                    </p>
+                    <p className="mt-6 text-lg tracking-tight text-blue-100">
+                      Our current products
+                    </p>
+                  </div>
+                }
+              />
+            </div>
+          </Container>
+        </AuroraBackground>
+      </div>
+
+      {/* Hide on md screens */}
+      <div className="sm:hidden">
+        <Container className="b-28 pt-20 sm:py-32">
+          <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-7xl pt-20">
+              Reclaim your free time.
+            </h2>
+            <p className="mt-6 text-lg tracking-tight text-blue-100">
+              Deep understanding of your target market with AI-Powered Personas.
+            </p>
+            <p className="mt-6 text-lg tracking-tight text-blue-100  mb-5">
+              Our current products
+            </p>
+            <iframe
+              className="  z-10 h-96 w-[100%] rounded-lg inset-0"
+              src="https://www.youtube.com/embed/_3dSBfrRtSY?si=Peb3qppeidUN64EM"
+              title="Instant Personas - AI Powered Personas"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            />
+          </div>
+        </Container>
+      </div>
+    </motion.section>
+  );
+}
