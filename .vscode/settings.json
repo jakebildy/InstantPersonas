@@ -1,3 +1,12 @@
 {
-  "cSpell.words": ["clsx", "stytch"]
+  "cSpell.words": ["clsx", "stytch"],
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/CVS": false,
+    "**/.DS_Store": false,
+    "**/Thumbs.db": false
+  },
+  "explorerExclude.backup": {}
 }
