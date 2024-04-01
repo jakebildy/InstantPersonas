@@ -45,12 +45,9 @@ export default function LandingFooter({
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
             Copyright &copy; {new Date().getFullYear()} InstantPersonas.com All
             rights reserved. By using this site, you agree to our{" "}
-            <a
-              style={{ fontWeight: "bold" }}
-              href="https://instantpersonas.com/terms-of-service"
-            >
+            <Link href="/terms-of-service" className="font-bold">
               Terms of Service
-            </a>
+            </Link>
             .
           </p>
         </div>
