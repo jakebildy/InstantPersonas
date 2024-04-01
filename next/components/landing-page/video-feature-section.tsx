@@ -30,26 +30,24 @@ export default function VideoFeatureSection() {
       {/* Hide on sm screens */}
       <div className="hidden sm:block">
         <AuroraBackground className="h-[200vh]">
-          <Container className=" b-28 pt-20 sm:py-32 ">
-            <div className="height-[400vh]">
-              <MacbookScroll
-                title={
-                  <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
-                    <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-7xl pt-20">
-                      Reclaim your free time.
-                    </h2>
-                    <p className="mt-6 text-lg tracking-tight text-blue-100">
-                      Deep understanding of your target market with AI-Powered
-                      Personas.
-                    </p>
-                    <p className="mt-6 text-lg tracking-tight text-blue-100">
-                      Our current products
-                    </p>
-                  </div>
-                }
-              />
-            </div>
-          </Container>
+          <div className="height-[400vh]">
+            <MacbookScroll
+              title={
+                <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
+                  <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-7xl pt-20">
+                    Reclaim your free time.
+                  </h2>
+                  <p className="mt-6 text-lg tracking-tight text-blue-100">
+                    Deep understanding of your target market with AI-Powered
+                    Personas.
+                  </p>
+                  <p className="mt-6 text-lg tracking-tight text-blue-100">
+                    Our current products
+                  </p>
+                </div>
+              }
+            />
+          </div>
         </AuroraBackground>
       </div>
 
