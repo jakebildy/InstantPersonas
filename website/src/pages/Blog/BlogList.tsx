@@ -1,14 +1,14 @@
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import HowToMakePestelAnalysis from "./HowToMakePestelAnalysis";
+import CraftStrongUserPersona from "./CraftStrongUserPersona";
 
 // The list of Blog Posts
 export const BLOG_POSTS = [
   {
-    name: "How to Make a PESTEL Analysis in 5 Minutes [Ultimate 2023 Guide]",
-    url: "how-to-make-pestel-analysis",
-    lead: "In today's rapidly changing business landscape, it is crucial for organizations to understand the external factors that influence their operations and strategic decision-making. One valuable tool that helps in this endeavor is the PESTEL analysis.",
-    page: <HowToMakePestelAnalysis />,
+    name: "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)",
+    url: "craft-a-strong-user-persona-in-2024",
+    lead: "1. Use the 80/20 Rule: Your product or service likely appeals to a bunch of different kinds of people - that’s great, but it’s important to narrow down to a specific audience.",
+    page: <CraftStrongUserPersona />,
   },
 ];
 
@@ -26,11 +26,9 @@ export default function BlogList() {
               Our Blog
             </h2>
             <p className="font-light text-gray-500 sm:text-xl ">
-              Dive into our comprehensive blog as we delve into the world of
-              strategic business consulting, uncovering the power of user
-              personas, SWOT analyses, and a myriad of other indispensable tools
-              and techniques for driving business growth and maximizing
-              competitive advantage.
+              Dive into our comprehensive blog as we help you understand how to
+              make strong user personas and get deep insights on your target
+              market using data and artificial intelligence.
             </p>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
