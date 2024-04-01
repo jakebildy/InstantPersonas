@@ -1,61 +1,32 @@
 "use client";
-import Chat from "@/components/chat";
-import { cn } from "@/lib/utils";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { PersonStandingIcon } from "lucide-react";
-import {
-  BanknotesIcon,
-  BookmarkIcon,
-  FireIcon,
-  PencilSquareIcon,
-} from "@heroicons/react/24/solid";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Nav } from "@/components/nav";
-import { useEffect, useState } from "react";
-import { InstantPersonas } from "@/components/instantPersonas";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import UserPersona, {
-  EXAMPLE_PERSONA,
-  PersonaActions,
-} from "@/components/persona";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useMediaQuery } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import LandingPage from "@/components/landing-page";
+
+const env = process.env.NEXT_PUBLIC_ENV;
 
 export default function Home() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const defaultLayout = [265, 440, 655];
-  const navCollapsedSize = 4;
-
-  const canExpandSidebar = useMediaQuery("(min-width: 1025px)");
-  // Expanded Sidebar needs to be at least 205px and has constraint of 20% of the screen
-  // 205 * 5 = 1025px
-
-  useEffect(() => {
-    if (!canExpandSidebar) {
-      setIsCollapsed(true);
-      document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-        true
-      )}`;
-    } else {
-      setIsCollapsed(false);
-      document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-        false
-      )}`;
-    }
-  }, [canExpandSidebar]);
-
   return (
-    <main className="grid place-items-center h-screen w-screen">
-      <Button asChild>
-        <Link href={"/dashboard"}>Dashboard</Link>
-      </Button>
+    <main className="relative overflow-x-hidden">
+      <LandingPage.header />
+      <LandingPage.hero />
+      <LandingPage.videoFeature />
+      <LandingPage.callToAction />
+      <LandingPage.pricing />
+      <LandingPage.faqs />
+      <div className="w-full h-[100px] from-slate-50 to-transparent bg-gradient-to-t backdrop-blur supports-[backdrop-filter]:bg-bg-gradient-to-t" />
+      <LandingPage.footer className="from-slate-50 from-[33%] to-transparent bg-gradient-to-t absolute bottom-0 bg-transparent w-screen overflow-hidden backdrop-blur supports-[backdrop-filter]:bg-bg-gradient-to-t" />
+
+      {/* Remove on PROD */}
+      {env && env === "dev" ? (
+        <Button
+          asChild
+          className="fixed top-0 translate-y-[100px] m-10 z-50"
+          variant={"destructive"}
+        >
+          <Link href={"/dashboard"}>DEV BTN {`=>`} Dashboard</Link>
+        </Button>
+      ) : null}
     </main>
   );
 }

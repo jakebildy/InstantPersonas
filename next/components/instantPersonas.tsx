@@ -4,21 +4,21 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   isCollapsed?: boolean;
+  className?: string;
 };
 
-export const InstantPersonas = ({ isCollapsed }: Props) => {
+export const InstantPersonas = ({ isCollapsed, className }: Props) => {
   return (
     <div
       className={cn(
+        "text-xl font-bold text-black font-jost",
         isCollapsed
           ? "inline-flex items-center justify-center whitespace-nowrap rounded-md"
-          : "flex-1 text-xl font-semibold leading-6"
+          : "flex-1 text-xl font-semibold leading-6",
+        className
       )}
     >
-      <Link
-        className="text-xl font-bold text-black flex font-jost text-left items-center"
-        href={"/"}
-      >
+      <Link href={"/"} className="flex items-center text-left">
         <Image
           src={"/instant_personas_logo.png"}
           alt={"Instant Personas Logo"}
