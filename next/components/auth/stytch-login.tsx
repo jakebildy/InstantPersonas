@@ -4,7 +4,7 @@ const API_URL = process.env.VITE_API_URL as string;
 const oauthRedirectUrl = API_URL + "/api/stytch/google";
 const redirectUrl = API_URL + "/api/stytch";
 
-export const StytchLoginForm = () => {
+export function StytchLoginForm() {
   const config = {
     products: ["oauth", "emailMagicLinks"],
     oauthOptions: {
@@ -66,4 +66,4 @@ export const StytchLoginForm = () => {
       }}
     />
   );
-};
+}
