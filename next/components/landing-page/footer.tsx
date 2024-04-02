@@ -3,13 +3,7 @@ import { Container } from "../container";
 import { InstantPersonas } from "../instantPersonas";
 import Link from "next/link";
 
-export default function LandingFooter({
-  isBlog,
-  className,
-}: {
-  isBlog?: boolean;
-  className?: string;
-}) {
+export default function Footer({ className }: { className?: string }) {
   return (
     <footer className={cn("bg-slate-50", className)}>
       <Container>

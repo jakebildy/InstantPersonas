@@ -8,6 +8,7 @@ const env = process.env.NEXT_PUBLIC_ENV;
 export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
+      <title>{"Detailed User Personas in Seconds | Try for Free"}</title>
       <LandingPage.header />
       <LandingPage.hero />
       <LandingPage.videoFeature />

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { InstantPersonas } from "../instantPersonas";
 import { Button } from "../ui/button";
@@ -8,12 +9,9 @@ import { cn } from "@/lib/utils";
 
 type Props = { title?: string };
 
-export default function LandingHeader({ title }: Props) {
+export default function Header({ title }: Props) {
   return (
     <header className="py-10 font-jost">
-      <title>
-        {title ? title : "Detailed User Personas in Seconds | Try for Free"}
-      </title>
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
