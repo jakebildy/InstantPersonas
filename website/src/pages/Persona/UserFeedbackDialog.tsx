@@ -18,13 +18,7 @@ export const UserFeedbackDialog = React.forwardRef<
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
   const [submitting, setSubmitting] = React.useState(false);
 
-  const options = [
-    "Even more detailed User Personas",
-    "User Journeys",
-    "See the best hashtags and influencers for marketing to your User Persona",
-    "Generate blog posts/content to target your User Persona",
-    "Different User Persona templates",
-  ];
+  const options = ["One", "Two to four", "5 to 10", "10 to 20", "20+"];
 
   return (
     <DialogPortal>
@@ -38,7 +32,7 @@ export const UserFeedbackDialog = React.forwardRef<
         {...props}
       >
         <h2 className="text-green-500 text-lg font-bold mb-5">
-          Which upcoming features would be the most useful for you?
+          How many personas do you need to create in a year?
         </h2>
 
         {...options.map((option) => (
