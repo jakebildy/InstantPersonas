@@ -2,7 +2,9 @@
 import { createStytchUIClient } from "@stytch/nextjs/ui";
 import { StytchProvider } from "@stytch/nextjs";
 
-const stytch = createStytchUIClient(process.env.STYTCH_PUBLIC_TOKEN);
+const stytch = createStytchUIClient(
+  process.env.NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN
+);
 type Props = {
   children: React.ReactNode;
 };
