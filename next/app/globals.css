@@ -95,3 +95,5 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.foo {white-space: 'pre-wrap';}

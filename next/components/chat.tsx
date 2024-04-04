@@ -16,6 +16,9 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
+import { useUIState, useActions } from "ai/rsc";
+import { AI } from "@/app/action";
+import ReactMarkdown from "react-markdown";
 
 type Props = {
   className?: string;
@@ -30,8 +33,11 @@ type ComponentLookupTableType = {
 };
 
 export default function Chat({ className }: Props) {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
   const scrollBottomRef = useRef<HTMLDivElement>(null);
+
+  const [messages, setMessages] = useUIState<typeof AI>();
+  const [input, setInput] = useState("");
+  const { submitUserMessage } = useActions<typeof AI>();
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -52,14 +58,19 @@ export default function Chat({ className }: Props) {
         {/* 120px is the height of the input and suggestions */}
         <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
           <PersonaMessage
-            message={{
-              id: "0",
-              role: "assistant",
-              content: `Describe your product or service, and I can create a user persona.`,
-            }}
+            message={`Describe your product or service, and I can create a user persona.`}
           />
-
-          {messages.map((message: Message, i) => {
+          {
+            // View messages in UI state
+            messages.map((message: any) =>
+              message.role == "user" ? (
+                <UserMessage key={message.id} message={message} />
+              ) : (
+                <div key={message.id}>{message.display}</div>
+              )
+            )
+          }
+          {/* {messages.map((message: Message, i) => {
             const Component = componentLookupTable[message.role];
             return Component ? (
               <div
@@ -69,7 +80,7 @@ export default function Chat({ className }: Props) {
                 <Component message={message} />
               </div>
             ) : null;
-          })}
+          })} */}
         </div>
         <div ref={scrollBottomRef} />
       </ScrollArea>
@@ -77,8 +88,27 @@ export default function Chat({ className }: Props) {
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2"}
         value={input}
-        onChange={handleInputChange}
-        onSubmit={handleSubmit}
+        onChange={(e) => setInput(e.target.value)}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setInput("");
+
+          // Add user message to UI state
+          setMessages((currentMessages: any) => [
+            ...currentMessages,
+            {
+              id: Date.now(),
+              display: <UserMessage message={input} />,
+            },
+          ]);
+
+          // Submit and get response message
+          const responseMessage = await submitUserMessage(input);
+          setMessages((currentMessages: any) => [
+            ...currentMessages,
+            responseMessage,
+          ]);
+        }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       >
@@ -114,10 +144,10 @@ export default function Chat({ className }: Props) {
 }
 
 interface MessageComponentProps extends HTMLAttributes<HTMLDivElement> {
-  message: Message;
+  message: string;
 }
 
-const PersonaMessage = ({
+export const PersonaMessage = ({
   message,
   className,
   ...Props
@@ -137,7 +167,7 @@ const PersonaMessage = ({
       </div>
 
       <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message.content}
+        <ReactMarkdown className="foo">{message}</ReactMarkdown>
       </p>
     </div>
   );
@@ -153,8 +183,8 @@ const UserMessage = ({
       className={cn("flex gap-2 justify-end items-center", className)}
       {...Props}
     >
-      <p className="flex items-center bg-blue-100 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message.content}
+      <p className="flex items-center bg-blue-600 text-white p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+        {message}
       </p>
     </div>
   );
