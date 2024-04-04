@@ -25,7 +25,7 @@ export default function Home() {
           className="fixed top-0 translate-y-[100px] m-10 z-50"
           variant={"destructive"}
         >
-          <Link href={"/dashboard"}>DEV BTN {`=>`} Dashboard</Link>
+          <Link href={"/persona"}>DEV BTN {`=>`} Dashboard</Link>
         </Button>
       ) : null}
     </main>
