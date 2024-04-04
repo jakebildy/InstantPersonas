@@ -13,22 +13,21 @@ import { InstantPersonas } from "@/components/instantPersonas";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useMediaQuery } from "@/lib/hooks";
 import { SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
+import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
-  activeTab,
   children,
 }: {
-  activeTab?: SidebarLinkName;
   children: React.ReactNode;
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const defaultLayout = [265, 440, 655];
   const navCollapsedSize = 4;
-
   const canExpandSidebar = useMediaQuery("(min-width: 1025px)");
+  const pathname = usePathname();
+
   // Expanded Sidebar needs to be at least 205px and has constraint of 20% of the screen
   // 205 * 5 = 1025px
-
   useEffect(() => {
     if (!canExpandSidebar) {
       setIsCollapsed(true);
@@ -96,7 +95,7 @@ export default function DashboardLayout({
             isCollapsed={isCollapsed}
             links={SIDEBAR_LINKS.map((element) => ({
               ...element,
-              variant: activeTab === element.title ? "default" : "ghost",
+              variant: pathname === element.href ? "default" : "ghost",
             }))}
           />
         </ResizablePanel>
