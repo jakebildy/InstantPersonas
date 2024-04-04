@@ -8,5 +8,5 @@ type Props = {
 };
 
 export default function StytchContext({ children }: Props) {
-  return <StytchProvider stytch={stytch}>{children} </StytchProvider>;
+  return <StytchProvider stytch={stytch}>{children}</StytchProvider>;
 }
