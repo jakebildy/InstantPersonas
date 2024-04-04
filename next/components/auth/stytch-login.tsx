@@ -1,8 +1,8 @@
 // login.jsx
 import { StytchLogin } from "@stytch/nextjs";
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
-const oauthRedirectUrl = API_URL + "/stytch/google";
-const redirectUrl = API_URL + "/stytch";
+const oauthRedirectUrl = API_URL + "/persona";
+const redirectUrl = API_URL + "/persona";
 
 export function StytchLoginForm() {
   const config = {
