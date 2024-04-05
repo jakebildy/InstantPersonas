@@ -23,46 +23,10 @@ function PersonaCard({ persona }) {
       <h2 style={{ fontWeight: "bold" }}>{persona.productOrService}</h2>
       <UserPersona
         name={persona.name}
-        gender={"Male"}
-        // pictureURL={persona.pictureURL}
-        personalAttributes={[
-          {
-            label: "Age",
-            description: "25-35",
-            icon: "👨‍🦳",
-          },
-          {
-            label: "Occupation",
-            description: "Software Engineer",
-            icon: "💻",
-          },
-          {
-            label: "Location",
-            description: "San Francisco, CA",
-            icon: "🌉",
-          },
-        ]}
-        sections={[
-          {
-            label: "Joe Mama",
-            description:
-              "Joe is a software engineer who works at a tech company in San Francisco. He enjoys playing video games in his free time and is passionate about technology.",
-          },
-          {
-            label: "Motivations",
-            description:
-              "Joe is motivated by the desire to learn new technologies and improve his coding skills. He is always looking for ways to challenge himself and grow as a developer.",
-          },
-          {
-            label: "Devices",
-            description: "Laptop, Smartphone, Tablet",
-          },
-          {
-            label: "Pains",
-            description:
-              "Joe struggles with imposter syndrome and often feels overwhelmed by the fast-paced nature of the tech industry.",
-          },
-        ]}
+        gender={persona.gender}
+        pictureURL={persona.pictureURL}
+        personalAttributes={persona.shortDescriptors}
+        sections={persona.sections}
       />
     </div>
   );
