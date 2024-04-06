@@ -97,3 +97,16 @@
 }
 
 .foo {white-space: 'pre-wrap';}
+
+.loading-animation {
+  animation: loadAnimation 20s ease-in-out forwards;
+}
+
+@keyframes loadAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 95%;
+  }
+}
