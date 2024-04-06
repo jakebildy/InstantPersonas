@@ -4,6 +4,7 @@ import { z } from "zod";
 import { PersonaMessage } from "@/components/chat";
 import UserPersona, { EXAMPLE_PERSONA } from "@/components/persona";
 import axios from "axios";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,11 +12,23 @@ const openai = new OpenAI({
 
 // An example of a spinner component. You can also import your own components,
 // or 3rd party component libraries.
-function Spinner() {
-  return <div>Loading...</div>;
+function Loading() {
+  return (
+    // align center
+    <div className="items-center justify-center space-x-2">
+      <div className="m-w-4 w-full h-3 bg-gray-200 rounded-full dark:bg-gray-700">
+        <div
+          className="h-3 bg-green-600 rounded-full dark:bg-green-500 loading-animation"
+          style={{ width: "45%" }}
+        ></div>
+      </div>
+      <br></br>
+      Generating persona...
+    </div>
+  );
 }
 
-// An example of a flight card component.
+// An example of a persona component
 //@ts-ignore
 function PersonaCard({ persona }) {
   return (
@@ -227,7 +240,7 @@ async function submitUserMessage(userInput: string) {
           .required(),
         render: async function* ({ productOrService }) {
           // Show a spinner on the client while we wait for the response.
-          yield <Spinner />;
+          yield <Loading />;
 
           // Fetch the flight information from an external API.
           const persona = await createPersona(productOrService);
