@@ -22,12 +22,9 @@ export interface PersonaChat {
 const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
     {
     messageHistory: [
-        {
-        sender: { type: String, required: true },
-        text: { type: String, required: true },
-        },
+        {type: Schema.Types.Mixed, required: false }
     ],
-    personas: {type: Schema.Types.Mixed, required: false },
+    personas: [{type: Schema.Types.Mixed, required: false }],
     aiSuggestedChats: [{ type: String, required: false }],
     user: { type: String, required: true},
     contentLastGeneratedAt: { type: Date, required: false },

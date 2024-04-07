@@ -274,7 +274,7 @@ async function submitUserMessage(userInput: string, userID: string) {
 
           if (userID) {
             const personaHistory: any = await PersonaChat.create({
-              messageHistory: [], //TODO: replace with aiState
+              messageHistory: aiState.get(),
               user: userID,
               aiSuggestedChats: [],
               personas: persona,
