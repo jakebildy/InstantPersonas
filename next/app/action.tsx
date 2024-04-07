@@ -5,6 +5,9 @@ import { PersonaMessage } from "@/components/chat";
 import axios from "axios";
 import React from "react";
 import { PersonaCard } from "@/components/generative-ui/persona";
+import { Loading } from "@/components/generative-ui/loading";
+import { PersonaChat } from "./api/models/persona.model";
+import { initMongoDB } from "@/database/mongodb";
 
 const { ApifyClient } = require("apify-client");
 
@@ -19,23 +22,7 @@ const apify = new ApifyClient({
   token: apifyToken,
 });
 
-// An example of a spinner component. You can also import your own components,
-// or 3rd party component libraries.
-function Loading(props: { loadingMessage: string }) {
-  return (
-    // align center
-    <div className="items-center justify-center space-x-2">
-      <div className="m-w-4 w-full h-3 bg-gray-200 rounded-full dark:bg-gray-700">
-        <div
-          className="h-3 bg-green-600 rounded-full dark:bg-green-500 loading-animation"
-          style={{ width: "45%" }}
-        ></div>
-      </div>
-      <br></br>
-      {props.loadingMessage}
-    </div>
-  );
-}
+initMongoDB();
 
 async function getContentConsumption(keyword: string): Promise<string[]> {
   try {
@@ -209,7 +196,7 @@ export async function GPT4(
 }
 
 //@ts-ignore
-async function submitUserMessage(userInput: string) {
+async function submitUserMessage(userInput: string, userID: string) {
   "use server";
 
   //@ts-ignore
@@ -250,6 +237,8 @@ async function submitUserMessage(userInput: string) {
             content,
           },
         ]);
+
+        // TODO: add to the database
       }
 
       return <PersonaMessage message={content} />;
@@ -270,7 +259,6 @@ async function submitUserMessage(userInput: string) {
         render: async function* ({ productOrService }) {
           yield <Loading loadingMessage={"Generating persona..."} />;
 
-          // Fetch the flight information from an external API.
           const persona = await createPersona(productOrService);
 
           // Update the final AI state.
@@ -284,7 +272,15 @@ async function submitUserMessage(userInput: string) {
             },
           ]);
 
-          // Return the flight card to the client.
+          if (userID !== "null_user") {
+            const personaHistory: any = await PersonaChat.create({
+              messageHistory: [], //TODO: replace with aiState
+              user: userID,
+              aiSuggestedChats: [],
+              personas: persona,
+            });
+          }
+
           return <PersonaCard persona={persona} />;
         },
       },
@@ -305,7 +301,6 @@ async function submitUserMessage(userInput: string) {
             <Loading loadingMessage={"Doing content consumption analysis..."} />
           );
 
-          // Fetch the flight information from an external API.
           const contentConsumption = await getContentConsumption(keyword);
 
           // Update the final AI state.
@@ -319,7 +314,6 @@ async function submitUserMessage(userInput: string) {
             },
           ]);
 
-          // Return the flight card to the client.
           return (
             <div className="flex flex-row flex-wrap">
               {contentConsumption.map((url: string) => {

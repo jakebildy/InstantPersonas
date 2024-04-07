@@ -103,7 +103,7 @@ export default function Chat({ className }: Props) {
           ]);
 
           // Submit and get response message
-          const responseMessage = await submitUserMessage(input);
+          const responseMessage = await submitUserMessage(input, "null_user");
           setMessages((currentMessages: any) => [
             ...currentMessages,
             responseMessage,
