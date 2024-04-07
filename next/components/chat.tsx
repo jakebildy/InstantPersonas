@@ -19,6 +19,7 @@ import { ExtractField } from "@/lib/types";
 import { useUIState, useActions } from "ai/rsc";
 import { AI } from "@/app/action";
 import ReactMarkdown from "react-markdown";
+import { useStytchUser } from "@stytch/nextjs";
 
 type Props = {
   className?: string;
@@ -38,6 +39,7 @@ export default function Chat({ className }: Props) {
   const [messages, setMessages] = useUIState<typeof AI>();
   const [input, setInput] = useState("");
   const { submitUserMessage } = useActions<typeof AI>();
+  const user = useStytchUser();
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -103,7 +105,10 @@ export default function Chat({ className }: Props) {
           ]);
 
           // Submit and get response message
-          const responseMessage = await submitUserMessage(input, "null_user");
+          const responseMessage = await submitUserMessage(
+            input,
+            user.user?.user_id
+          );
           setMessages((currentMessages: any) => [
             ...currentMessages,
             responseMessage,

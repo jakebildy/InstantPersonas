@@ -29,7 +29,7 @@ const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
     ],
     personas: {type: Schema.Types.Mixed, required: false },
     aiSuggestedChats: [{ type: String, required: false }],
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: String, required: true},
     contentLastGeneratedAt: { type: Date, required: false },
     },
     {
