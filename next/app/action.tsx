@@ -2,9 +2,10 @@ import { OpenAI } from "openai";
 import { createAI, getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
 import { PersonaMessage } from "@/components/chat";
-import UserPersona, { EXAMPLE_PERSONA } from "@/components/persona";
 import axios from "axios";
-import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
+import { PersonaCard } from "@/components/generative-ui/persona";
+
 const { ApifyClient } = require("apify-client");
 
 const apifyToken: string = process.env.APIFY_TOKEN || "";
@@ -32,23 +33,6 @@ function Loading(props: { loadingMessage: string }) {
       </div>
       <br></br>
       {props.loadingMessage}
-    </div>
-  );
-}
-
-// An example of a persona component
-//@ts-ignore
-function PersonaCard({ persona }) {
-  return (
-    <div>
-      <h2 style={{ fontWeight: "bold" }}>{persona.productOrService}</h2>
-      <UserPersona
-        name={persona.name}
-        gender={persona.gender}
-        pictureURL={persona.pictureURL}
-        personalAttributes={persona.shortDescriptors}
-        sections={persona.sections}
-      />
     </div>
   );
 }
