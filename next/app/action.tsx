@@ -5,14 +5,22 @@ import { PersonaMessage } from "@/components/chat";
 import UserPersona, { EXAMPLE_PERSONA } from "@/components/persona";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+const { ApifyClient } = require("apify-client");
+
+const apifyToken: string = process.env.APIFY_TOKEN || "";
+if (!apifyToken) throw new Error("Missing Apify API Token.");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const apify = new ApifyClient({
+  token: apifyToken,
+});
+
 // An example of a spinner component. You can also import your own components,
 // or 3rd party component libraries.
-function Loading() {
+function Loading(props: { loadingMessage: string }) {
   return (
     // align center
     <div className="items-center justify-center space-x-2">
@@ -23,7 +31,7 @@ function Loading() {
         ></div>
       </div>
       <br></br>
-      Generating persona...
+      {props.loadingMessage}
     </div>
   );
 }
@@ -43,6 +51,43 @@ function PersonaCard({ persona }) {
       />
     </div>
   );
+}
+
+async function getContentConsumption(keyword: string): Promise<string[]> {
+  try {
+    // Prepare Actor input
+    const input = {
+      keyword: keyword,
+      limit: 5,
+      publishTime: "ALL_TIME",
+      proxyConfiguration: {
+        useApifyProxy: true,
+      },
+    };
+
+    const run = await apify.actor("jQfZ1h9FrcWcliKZX").call(input);
+
+    // Fetch and print Actor results from the run's dataset (if any)
+    console.log("Results from dataset");
+    const { items } = await apify.dataset(run.defaultDatasetId).listItems();
+    items.forEach((item: any) => {
+      console.dir(
+        item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
+          "url_list"
+        ][0] as string
+      );
+    });
+
+    return items.map(
+      (item: any) =>
+        item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
+          "url_list"
+        ][0] as string
+    );
+  } catch (error) {
+    console.error("Error getting TikTok videos: ", error);
+    throw error;
+  }
 }
 
 // An example of a function that fetches flight information from an external API.
@@ -239,8 +284,7 @@ async function submitUserMessage(userInput: string) {
           })
           .required(),
         render: async function* ({ productOrService }) {
-          // Show a spinner on the client while we wait for the response.
-          yield <Loading />;
+          yield <Loading loadingMessage={"Generating persona..."} />;
 
           // Fetch the flight information from an external API.
           const persona = await createPersona(productOrService);
@@ -258,6 +302,58 @@ async function submitUserMessage(userInput: string) {
 
           // Return the flight card to the client.
           return <PersonaCard persona={persona} />;
+        },
+      },
+      persona_content_consumption: {
+        description:
+          "When a persona has been created and the user wants to know how to target them, provide a display of what their content consumption might look like.",
+        parameters: z
+          .object({
+            keyword: z
+              .string()
+              .describe(
+                "a keyword that the persona might search for (ex. 'coffee')"
+              ),
+          })
+          .required(),
+        render: async function* ({ keyword }) {
+          yield (
+            <Loading loadingMessage={"Doing content consumption analysis..."} />
+          );
+
+          // Fetch the flight information from an external API.
+          const contentConsumption = await getContentConsumption(keyword);
+
+          // Update the final AI state.
+          aiState.done([
+            ...aiState.get(),
+            {
+              role: "function",
+              name: "persona_content_consumption",
+              // Content can be any string to provide context to the LLM in the rest of the conversation.
+              content: JSON.stringify(contentConsumption),
+            },
+          ]);
+
+          // Return the flight card to the client.
+          return (
+            <div className="flex flex-row flex-wrap">
+              {contentConsumption.map((url: string) => {
+                return (
+                  <iframe
+                    key={url}
+                    width="200"
+                    height="344"
+                    className="p-2"
+                    src={url}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                );
+              })}
+            </div>
+          );
         },
       },
     },
