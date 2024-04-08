@@ -356,6 +356,12 @@ async function submitUserMessage(userInput: string, userID: string) {
 // Define the initial state of the AI. It can be any JSON object.
 const initialAIState: {
   business: string;
+  targetProblem: string;
+  threadKnowledge: {
+    context: string;
+    personaCharacteristics: string[];
+    thresholdRating: number; // 0-10
+  };
   messages: {
     role: "user" | "assistant" | "system" | "function";
     content: string;
@@ -365,6 +371,12 @@ const initialAIState: {
 } = {
   messages: [],
   business: "",
+  targetProblem: "",
+  threadKnowledge: {
+    context: "",
+    personaCharacteristics: [],
+    thresholdRating: 0,
+  },
 };
 
 // The initial UI state that the client will keep track of, which contains the message IDs and their UI nodes.
