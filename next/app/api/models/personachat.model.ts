@@ -12,7 +12,7 @@ export interface UserPersona {
   
 
 export interface PersonaChat {
-    messageHistory: [{sender: "bot"|"user", text: string}]
+    aiState: any, //TODO: define aiState
     personas?: UserPersona[]
     aiSuggestedChats?: string[]
     user?: string
@@ -21,7 +21,7 @@ export interface PersonaChat {
 
 const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
     {
-    messageHistory: [
+    aiState: [
         {type: Schema.Types.Mixed, required: false }
     ],
     personas: [{type: Schema.Types.Mixed, required: false }],

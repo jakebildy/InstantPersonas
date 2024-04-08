@@ -6,8 +6,9 @@ import axios from "axios";
 import React from "react";
 import { PersonaCard } from "@/components/generative-ui/persona";
 import { Loading } from "@/components/generative-ui/loading";
-import { PersonaChat } from "./api/models/persona.model";
+import { PersonaChat } from "./api/models/personachat.model";
 import { initMongoDB } from "@/database/mongodb";
+import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
 
 const { ApifyClient } = require("apify-client");
 
@@ -203,13 +204,16 @@ async function submitUserMessage(userInput: string, userID: string) {
   const aiState = getMutableAIState<typeof AI>();
 
   // Update the AI state with the new user message.
-  aiState.update([
+  aiState.update({
     ...aiState.get(),
-    {
-      role: "user",
-      content: userInput,
-    },
-  ]);
+    messages: [
+      ...aiState.get().messages,
+      {
+        role: "user",
+        content: userInput,
+      },
+    ],
+  });
 
   // The `render()` creates a generated, streamable UI.
   //@ts-ignore
@@ -222,7 +226,7 @@ async function submitUserMessage(userInput: string, userID: string) {
         content:
           "You help the user create personas. Before creating a persona, ask the user about the customer motivations, goals, and pain points.",
       },
-      ...aiState.get(),
+      ...aiState.get().messages,
     ],
     // `text` is called when an AI returns a text response (as opposed to a tool call).
     // Its content is streamed from the LLM, so this function will be called
@@ -230,13 +234,16 @@ async function submitUserMessage(userInput: string, userID: string) {
     text: ({ content, done }) => {
       // When it's the final content, mark the state as done and ready for the client to access.
       if (done) {
-        aiState.done([
+        aiState.done({
           ...aiState.get(),
-          {
-            role: "assistant",
-            content,
-          },
-        ]);
+          messages: [
+            ...aiState.get().messages,
+            {
+              role: "assistant",
+              content,
+            },
+          ],
+        });
 
         // TODO: add to the database
       }
@@ -262,19 +269,22 @@ async function submitUserMessage(userInput: string, userID: string) {
           const persona = await createPersona(productOrService);
 
           // Update the final AI state.
-          aiState.done([
+          aiState.done({
             ...aiState.get(),
-            {
-              role: "function",
-              name: "create_persona",
-              // Content can be any string to provide context to the LLM in the rest of the conversation.
-              content: JSON.stringify(persona),
-            },
-          ]);
+            messages: [
+              ...aiState.get().messages,
+              {
+                role: "function",
+                name: "create_persona",
+                // Content can be any string to provide context to the LLM in the rest of the conversation.
+                content: JSON.stringify(persona),
+              },
+            ],
+          });
 
           if (userID) {
-            const personaHistory: any = await PersonaChat.create({
-              messageHistory: aiState.get(),
+            const personaChat: any = await PersonaChat.create({
+              aiState: aiState.get(),
               user: userID,
               aiSuggestedChats: [],
               personas: persona,
@@ -345,11 +355,17 @@ async function submitUserMessage(userInput: string, userID: string) {
 
 // Define the initial state of the AI. It can be any JSON object.
 const initialAIState: {
-  role: "user" | "assistant" | "system" | "function";
-  content: string;
-  id?: string;
-  name?: string;
-}[] = [];
+  business: string;
+  messages: {
+    role: "user" | "assistant" | "system" | "function";
+    content: string;
+    id?: string;
+    name?: string;
+  }[];
+} = {
+  messages: [],
+  business: "",
+};
 
 // The initial UI state that the client will keep track of, which contains the message IDs and their UI nodes.
 const initialUIState: {
