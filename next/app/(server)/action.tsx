@@ -6,7 +6,7 @@ import axios from "axios";
 import React from "react";
 import { PersonaCard } from "@/components/generative-ui/persona";
 import { Loading } from "@/components/generative-ui/loading";
-import { PersonaChat } from "./api/models/personachat.model";
+import { PersonaChat } from "./models/personachat.model";
 import { initMongoDB } from "@/database/mongodb";
 import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
 

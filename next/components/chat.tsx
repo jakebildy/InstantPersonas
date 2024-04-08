@@ -17,7 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
 import { useUIState, useActions } from "ai/rsc";
-import { AI } from "@/app/action";
+import { AI } from "@/app/(server)/action";
 import ReactMarkdown from "react-markdown";
 import { useStytchUser } from "@stytch/nextjs";
 

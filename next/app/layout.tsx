@@ -3,7 +3,7 @@ import { Inter, Jost } from "next/font/google";
 import posthog from "posthog-js";
 import StytchContext from "@/components/auth/stytch-context";
 import "./globals.css";
-import { AI } from "./action";
+import { AI } from "./(server)/action";
 
 const env = process.env.NEXT_PUBLIC_ENV;
 if (env && env === "dev" && typeof window !== "undefined") {
