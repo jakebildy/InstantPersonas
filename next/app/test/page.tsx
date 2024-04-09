@@ -1,7 +1,9 @@
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/template";
+import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
 
 import React from "react";
+import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
 
 type Props = {};
 
@@ -98,6 +100,13 @@ const TEST_PERSONA_ARCHETYPES = {
   ],
 };
 
+const TEST_KNOWLEDGE_CONFIRMATION = {
+  business:
+    "The user works as a UX designer for a company specializing in smart thermostats. The company's products feature functionalities like learning user habits and preferences, optimizing comfort and energy usage, and remote control via smartphone apps. Recent user feedback has highlighted both strengths (ease of use, learning capabilities, integration with major platforms) and areas for improvement (compatibility challenges with certain smart home devices, limited automation options, complexity in advanced setup, privacy and security concerns).",
+  target_problem:
+    "The primary challenge is refining the smart thermostat's integration with a broad spectrum of smart home systems and devices to improve user experience, enhance automation and personalization capabilities, ensure broader compatibility, and address privacy and security concerns. This involves leveraging positive user feedback while addressing the noted areas for improvement.",
+};
+
 export default function page({}: Props) {
   const randomColor = [
     "blue",
@@ -108,8 +117,17 @@ export default function page({}: Props) {
     "brown",
     "pink",
   ] as const;
+  const difftest = {
+    ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0],
+    persona_components: {
+      ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0].persona_components,
+      End_Goal:
+        "To maintain a consistently comfortable home environment with minimal personal effort and maximum energy efficiency.",
+    },
+  };
+
   return (
-    <div className="w-screen h-screen grid place-items-center">
+    <div className="w-screen min-h-screen grid place-items-center my-[100px] gap-8">
       <div className="flex gap-2">
         {TEST_PERSONA_ARCHETYPES.persona_archetypes.map((archetype) => {
           return (
@@ -125,6 +143,19 @@ export default function page({}: Props) {
         <PersonaTemplate
           archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[0]}
           variant={randomColor[Math.floor(Math.random() * 7)]}
+        />
+      </div>
+      <div className="w-[600px]">
+        <PersonaChangeDiffCard
+          origin_archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[0]}
+          // updated_archetype={difftest}
+          updated_archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[1]}
+        />
+      </div>
+      <div className="w-[600px]">
+        <ConfirmKnowledgeCard
+          business={TEST_KNOWLEDGE_CONFIRMATION.business}
+          target_problem={TEST_KNOWLEDGE_CONFIRMATION.target_problem}
         />
       </div>
     </div>
