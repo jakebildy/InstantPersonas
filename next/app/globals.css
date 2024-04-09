@@ -96,7 +96,9 @@
   }
 }
 
-.foo {white-space: 'pre-wrap';}
+.foo {
+  white-space: "pre-wrap";
+}
 
 .loading-animation {
   animation: loadAnimation 20s ease-in-out forwards;
