@@ -34,7 +34,7 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
     .map((word) => word.charAt(0))
     .join("");
   return (
-    <div className="grid w-full h-full rounded-xl border relative shadow-md">
+    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
       <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-6" />
       <div className="flex gap-2 border-b">
         <Avatar

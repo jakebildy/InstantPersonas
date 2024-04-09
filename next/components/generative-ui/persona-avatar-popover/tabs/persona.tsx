@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   avatarVariants,
@@ -5,9 +6,12 @@ import {
   gradientVariants,
   PersonaAvatarPopoverProps,
 } from "..";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { DownloadCloudIcon } from "lucide-react";
+import { DownloadCloudIcon, LoaderIcon } from "lucide-react";
+import { PersonaTemplate } from "../template";
+import { useToPng } from "@hugocxl/react-to-image";
+import { cn, delay } from "@/lib/utils";
+import { useRef, useState } from "react";
 
 export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;
@@ -15,6 +19,32 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
     .split(" ")
     .map((word) => word.charAt(0))
     .join("");
+  const templateID = [archetype_name.toLocaleLowerCase(), "persona template"]
+    .join("-")
+    .replace(/ /g, "-");
+
+  const [showTemplate, setShowTemplate] = useState(false);
+
+  const [{ isLoading }, convert, templateRef] = useToPng<HTMLDivElement>({
+    onSuccess: async (data) => {
+      const link = document.createElement("a");
+      link.download = "persona-template.jpeg";
+      link.href = data;
+      link.click();
+      setShowTemplate(false);
+    },
+    onError: async (error) => {
+      console.error(error);
+      setShowTemplate(false);
+    },
+  });
+
+  const handleConvert = async () => {
+    setShowTemplate(true);
+    await delay(50);
+    console.log("Downloading...");
+    convert();
+  };
 
   return (
     <div>
@@ -49,8 +79,18 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
               variant,
               className: "flex gap-2 px-2 pr-3 items-center",
             })}
+            onClick={handleConvert}
           >
-            <DownloadCloudIcon className="h-4 w-4" /> <span>Download</span>
+            {isLoading ? (
+              <>
+                <LoaderIcon className="h-4 w-4 animate-spin" />{" "}
+                <span>Downloading...</span>
+              </>
+            ) : (
+              <>
+                <DownloadCloudIcon className="h-4 w-4" /> <span>Download</span>
+              </>
+            )}
           </Button>
         </div>
       </div>
@@ -71,6 +111,13 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
             </li>
           ))}
         </ul>
+      </div>
+      <div id={templateID} ref={templateRef}>
+        {showTemplate ? (
+          <div className={"w-[600px] visible"}>
+            <PersonaTemplate archetype={archetype} variant={variant} />
+          </div>
+        ) : null}
       </div>
     </div>
   );
