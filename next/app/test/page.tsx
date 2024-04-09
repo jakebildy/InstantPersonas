@@ -1,5 +1,6 @@
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/template";
+import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
 
 import React from "react";
 
@@ -108,8 +109,17 @@ export default function page({}: Props) {
     "brown",
     "pink",
   ] as const;
+  const difftest = {
+    ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0],
+    persona_components: {
+      ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0].persona_components,
+      End_Goal:
+        "To maintain a consistently comfortable home environment with minimal personal effort and maximum energy efficiency.",
+    },
+  };
+
   return (
-    <div className="w-screen h-screen grid place-items-center">
+    <div className="w-screen min-h-screen grid place-items-center my-[100px] gap-8">
       <div className="flex gap-2">
         {TEST_PERSONA_ARCHETYPES.persona_archetypes.map((archetype) => {
           return (
@@ -125,6 +135,13 @@ export default function page({}: Props) {
         <PersonaTemplate
           archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[0]}
           variant={randomColor[Math.floor(Math.random() * 7)]}
+        />
+      </div>
+      <div className="w-[600px]">
+        <PersonaChangeDiffCard
+          origin_archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[0]}
+          // updated_archetype={difftest}
+          updated_archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[1]}
         />
       </div>
     </div>
