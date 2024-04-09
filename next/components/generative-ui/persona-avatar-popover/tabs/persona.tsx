@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { DownloadCloudIcon, LoaderIcon } from "lucide-react";
 import { PersonaTemplate } from "../template";
 import { useToPng } from "@hugocxl/react-to-image";
-import { cn, delay } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { delay } from "@/lib/utils";
+import { useState } from "react";
 
 export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;
