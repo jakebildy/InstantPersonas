@@ -11,6 +11,7 @@ import { initMongoDB } from "@/database/mongodb";
 import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
 import { getRandomHeadshot } from "./ai/persona_picture";
 import { GPT4 } from "./ai/gpt4";
+import { ASSISTANT_PROMPT } from "./ai/prompts";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -154,8 +155,7 @@ async function submitUserMessage(userInput: string, userID: string) {
     messages: [
       {
         role: "system",
-        content:
-          "You help the user create personas. Before creating a persona, ask the user about the customer motivations, goals, and pain points.",
+        content: ASSISTANT_PROMPT,
       },
       ...aiState.get().messages,
     ],
