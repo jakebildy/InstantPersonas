@@ -24,12 +24,12 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
         event.stopPropagation(); // Stop event propagation
       }}
     >
-      <div className="flex items-center justify-center h-8 w-8">
+      <div className="flex items-center justify-center h-16 w-16">
         <Image
           src={persona.pictureURL ?? "/instant_personas_logo.png"}
           alt={"Instant Personas Logo"}
-          height={32}
-          width={32}
+          height={64}
+          width={64}
           className={
             "object-contain rounded-full group-hover:shadow-lg  group-hover:opacity-90   transition-all"
           }

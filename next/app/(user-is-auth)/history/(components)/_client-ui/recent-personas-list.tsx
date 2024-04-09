@@ -29,7 +29,21 @@ export function RecentPersonasList({ personachats }: { personachats: any[] }) {
     const name =
       firstName +
       (lastRelevantDescriptor ? ` | ${lastRelevantDescriptor}` : "");
-    const image = persona.persona.pictureURL ?? "/default-image-url.jpg"; // Assuming you have a default image URL
+
+    const backgroundColor =
+      i % 5 === 0
+        ? "b6e3f4"
+        : i % 5 === 1
+        ? "c0aede"
+        : i % 5 === 2
+        ? "d1d4f9"
+        : i % 5 === 3
+        ? "ffd5dc"
+        : "ffdfbf";
+
+    const image =
+      persona.persona.pictureURL + "&backgroundColor=" + backgroundColor ??
+      "/default-image-url.jpg"; // Assuming you have a default image URL
     const designation = persona.persona.productDescription ?? "";
 
     return {
