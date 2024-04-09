@@ -1,3 +1,4 @@
+import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import axios from "axios";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 axios.defaults.withCredentials = true;
@@ -83,11 +84,23 @@ const api = {
       });
       return response.data;
     },
-    getPersonaHistory: async (id?: string): Promise<PersonaHistory[]> => {
-      const response = await axios.get(
-        id ? `/api/get-persona-history/${id}` : "/api/get-persona-history"
-      );
-      return response.data.results;
+    getPersonaHistory: async (id?: string): Promise<any> => {
+        // Define the base URL for the request
+        const baseUrl = "/api/get-persona-history";
+
+        // Create an object to hold any query parameters
+        const params = {} as any;
+
+        // If an ID is provided, add it as a query parameter
+        if (id) {
+          params.id = id;
+        }
+
+        // Make the GET request with the query parameters
+        const response = await axios.get(baseUrl, { params });
+
+        // Return the results from the response
+        return response.data.results;
     },
     updatePersona: async (
       persona: Persona,

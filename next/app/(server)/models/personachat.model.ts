@@ -17,6 +17,7 @@ export interface PersonaChat {
     aiSuggestedChats?: string[]
     user?: string
     contentLastGeneratedAt?: Date
+    _id?: string
 }
 
 const PersonaChatSchema = new mongoose.Schema<PersonaChat>(

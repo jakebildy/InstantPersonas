@@ -1,12 +1,9 @@
+import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
 import api, { PersonaHistory } from "@/service/api.service";
 import { TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-export function PersonaHistoryCard({
-  persona,
-  messageHistory,
-  _id,
-}: PersonaHistory) {
+export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
   // Grab Occupation or Location, or the first descriptor, or fallback to empty string
   const relevantPersonaInfo =
     persona && persona.shortDescriptors && persona.shortDescriptors.length > 0
@@ -23,7 +20,7 @@ export function PersonaHistoryCard({
         "ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
       }
       onClick={(event) => {
-        window.location.href = "/persona/" + _id;
+        window.location.href = "/persona/" + id;
         event.stopPropagation(); // Stop event propagation
       }}
     >
@@ -43,11 +40,7 @@ export function PersonaHistoryCard({
           {persona.name} | {relevantPersonaInfo ?? ""}
           <br></br>
           <span className="text-slate-700  font-normal">
-            {persona.productDescription
-              ? persona.productDescription!
-              : messageHistory.length > 1
-              ? messageHistory[1].text
-              : messageHistory[0].text}
+            {persona.productDescription}
           </span>
         </div>
       </div>
@@ -55,7 +48,7 @@ export function PersonaHistoryCard({
       <TrashIcon
         onClick={(event: { stopPropagation: () => void }) => {
           event.stopPropagation();
-          api.userPersona.deletePersona(_id);
+          api.userPersona.deletePersona(id); //TODO: should this delete all the personas for this product?
           window.location.reload();
         }}
         className="h-5 text-transparent ml-5 mr-5 group-hover:text-slate-600"

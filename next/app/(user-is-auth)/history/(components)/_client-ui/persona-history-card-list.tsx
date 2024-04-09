@@ -3,12 +3,16 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { PersonaHistoryCard } from "./persona-history-card";
 import { PersonaHistory } from "@/service/api.service";
+import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 
 export default function PersonaHistoryCardList({
-  personas,
+  personachats,
 }: {
-  personas: PersonaHistory[];
+  personachats: PersonaChat[];
 }) {
+  const personas = convertPersonaChatsToPersonaWithIDs(personachats);
+
   return (
     <AnimatePresence>
       <div className="flex flex-col gap-2 px-2 pb-10">
@@ -17,7 +21,7 @@ export default function PersonaHistoryCardList({
           .reverse()
           .map((persona, i) => (
             <motion.div
-              key={persona._id}
+              key={persona.id}
               initial={{
                 opacity: 0,
                 y: -50,
