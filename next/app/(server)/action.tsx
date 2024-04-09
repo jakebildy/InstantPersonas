@@ -122,6 +122,11 @@ async function createPersona(productOrService: string) {
   return userPersona;
 }
 
+async function setInitialAIState(newAIState: any) {
+  const aiState = getMutableAIState<typeof AI>();
+  aiState.done(newAIState);
+}
+
 //@ts-ignore
 async function submitUserMessage(userInput: string, userID: string) {
   "use server";
@@ -316,6 +321,7 @@ const initialUIState: {
 export const AI = createAI({
   actions: {
     submitUserMessage,
+    setInitialAIState,
   },
   // Each state can be any shape of object, but for chat applications
   // it makes sense to have an array of messages. Or you may prefer something like { id: number, messages: Message[] }
