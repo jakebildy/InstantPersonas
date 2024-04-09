@@ -9,58 +9,14 @@ import { Loading } from "@/components/generative-ui/loading";
 import { PersonaChat } from "./models/personachat.model";
 import { initMongoDB } from "@/database/mongodb";
 import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
-
-const { ApifyClient } = require("apify-client");
-
-const apifyToken: string = process.env.APIFY_TOKEN || "";
-if (!apifyToken) throw new Error("Missing Apify API Token.");
+import { getRandomHeadshot } from "./ai/persona_picture";
+import { GPT4 } from "./ai/gpt4";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const apify = new ApifyClient({
-  token: apifyToken,
-});
-
 initMongoDB();
-
-async function getContentConsumption(keyword: string): Promise<string[]> {
-  try {
-    // Prepare Actor input
-    const input = {
-      keyword: keyword,
-      limit: 5,
-      publishTime: "ALL_TIME",
-      proxyConfiguration: {
-        useApifyProxy: true,
-      },
-    };
-
-    const run = await apify.actor("jQfZ1h9FrcWcliKZX").call(input);
-
-    // Fetch and print Actor results from the run's dataset (if any)
-    console.log("Results from dataset");
-    const { items } = await apify.dataset(run.defaultDatasetId).listItems();
-    items.forEach((item: any) => {
-      console.dir(
-        item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
-          "url_list"
-        ][0] as string
-      );
-    });
-
-    return items.map(
-      (item: any) =>
-        item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
-          "url_list"
-        ][0] as string
-    );
-  } catch (error) {
-    console.error("Error getting TikTok videos: ", error);
-    throw error;
-  }
-}
 
 // An example of a function that fetches flight information from an external API.
 async function createPersona(productOrService: string) {
@@ -164,103 +120,6 @@ async function createPersona(productOrService: string) {
     userPersona.clothing
   );
   return userPersona;
-}
-
-function getRandomHeadshot(hair: string, glasses: string, clothing: string) {
-  // return `https://instantpersonas.com/profiles/${gender.toLowerCase()}/${Math.ceil(
-  //   Math.random() * 78
-  // )}.jpg`;
-
-  let body = "";
-  switch (clothing) {
-    case "casual":
-      body = "variant07";
-      break;
-    case "funky":
-      body = "variant02";
-      break;
-    case "hoodie":
-      body = "variant23";
-      break;
-    case "leather_jacket":
-      body = "variant16";
-      break;
-    case "tie":
-      body = "variant19";
-      break;
-    case "sweater_vest":
-      body = "variant14";
-      break;
-    case "button_up":
-      body = "variant21";
-      break;
-  }
-
-  let hairType = "";
-  switch (hair) {
-    case "hat":
-      hairType = "hat";
-      break;
-    case "short":
-      hairType = "variant13";
-      break;
-    case "ponytail":
-      hairType = "variant39";
-      break;
-    case "shoulder_length":
-      hairType = "variant28";
-      break;
-    case "buzzcut":
-      hairType = "variant60";
-      break;
-    case "long_hair_with_ribbon":
-      hairType = "variant46";
-      break;
-  }
-
-  if (glasses === "glasses") {
-    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=${body}&hair=${hairType}`;
-  } else if (glasses === "sunglasses") {
-    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=${body}&hair=${hairType}`;
-  } else if (glasses === "round_glasses") {
-    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=${body}&hair=${hairType}`;
-  } else {
-    return `https://api.dicebear.com/8.x/notionists/svg?body=${body}&hair=${hairType}`;
-  }
-}
-
-export async function GPT4(
-  prompt: string,
-  systemMessages?: string[],
-  model: any = "gpt-4"
-): Promise<any> {
-  const endpoint = "https://api.openai.com/v1/chat/completions";
-  const headers = {
-    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    "Content-Type": "application/json",
-  };
-
-  const _systemMessages =
-    systemMessages?.map((message) => {
-      return {
-        role: "system",
-        content: message,
-      };
-    }) || [];
-
-  const requestBody = {
-    model: model,
-    messages: [..._systemMessages, { role: "user", content: prompt }],
-  };
-
-  try {
-    const response = await axios.post(endpoint, requestBody, { headers });
-    const text = response.data.choices[0].message.content.trim();
-    return { response: response.data, text };
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to get OpenAI chat completion.");
-  }
 }
 
 //@ts-ignore
