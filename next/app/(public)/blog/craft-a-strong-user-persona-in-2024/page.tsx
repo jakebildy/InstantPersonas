@@ -53,6 +53,7 @@ export default function CraftStrongUserPersona() {
             width={400}
             alt="80/20 Rule for User Personas"
             className="mx-auto"
+            unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost">
             1. Use the 80/20 Rule
@@ -102,6 +103,7 @@ export default function CraftStrongUserPersona() {
             width={400}
             alt="How can customer motivations be used in a customer persona"
             className="mx-auto"
+            unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost">
             3. Understand your Customer Motivations
@@ -141,6 +143,7 @@ export default function CraftStrongUserPersona() {
             width={400}
             alt="Innovation Adoption Cycle in business"
             className="mx-auto"
+            unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost">
             4. Is your business innovative? If so, understand where in the
@@ -204,6 +207,7 @@ export default function CraftStrongUserPersona() {
             width={400}
             alt="Putting Customer Conversations into a persona"
             className="mx-auto"
+            unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost">
             5. Incorporate your Customer Conversations
@@ -223,6 +227,7 @@ export default function CraftStrongUserPersona() {
             width={400}
             alt="Facebook Audience Insights and user personas"
             className="mx-auto"
+            unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost">
             6. Is your business on Facebook/Instagram? Use Meta Audience
