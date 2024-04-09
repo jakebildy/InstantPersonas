@@ -1,4 +1,5 @@
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
+import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/template";
 
 import React from "react";
 
@@ -98,20 +99,19 @@ const TEST_PERSONA_ARCHETYPES = {
 };
 
 export default function page({}: Props) {
+  const randomColor = [
+    "blue",
+    "purple",
+    "red",
+    "yellow",
+    "green",
+    "brown",
+    "pink",
+  ] as const;
   return (
     <div className="w-screen h-screen grid place-items-center">
       <div className="flex gap-2">
         {TEST_PERSONA_ARCHETYPES.persona_archetypes.map((archetype) => {
-          const randomColor = [
-            "blue",
-            "purple",
-            "red",
-            "yellow",
-            "green",
-            "brown",
-            "pink",
-          ] as const;
-
           return (
             <PersonaAvatarPopover
               key={archetype.archetype_name}
@@ -120,6 +120,12 @@ export default function page({}: Props) {
             />
           );
         })}
+      </div>
+      <div className="w-[600px]">
+        <PersonaTemplate
+          archetype={TEST_PERSONA_ARCHETYPES.persona_archetypes[0]}
+          variant={randomColor[Math.floor(Math.random() * 7)]}
+        />
       </div>
     </div>
   );
