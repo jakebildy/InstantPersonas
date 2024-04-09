@@ -72,8 +72,8 @@ async function createPersona(productOrService: string) {
   interface UserPersona {
     name: string;
     clothing: casual | funky | hoodie | leather_jacket | tie | sweater_vest | button_up
-    glasses: none | glasses | sunglasses
-    hair: hat | short | ponytail | shoulder_length | buzzcut
+    glasses: none | glasses | sunglasses | round_glasses
+    hair: hat | short | ponytail | shoulder_length | buzzcut | long_hair_with_ribbon
     productDescription: string;
     gender: string;
     sections: [{label: string, description: string}];
@@ -213,12 +213,17 @@ function getRandomHeadshot(hair: string, glasses: string, clothing: string) {
     case "buzzcut":
       hairType = "variant60";
       break;
+    case "long_hair_with_ribbon":
+      hairType = "variant46";
+      break;
   }
 
   if (glasses === "glasses") {
     return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=${body}&hair=${hairType}`;
   } else if (glasses === "sunglasses") {
     return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=${body}&hair=${hairType}`;
+  } else if (glasses === "round_glasses") {
+    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=${body}&hair=${hairType}`;
   } else {
     return `https://api.dicebear.com/8.x/notionists/svg?body=${body}&hair=${hairType}`;
   }
