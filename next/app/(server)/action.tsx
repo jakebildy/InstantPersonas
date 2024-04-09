@@ -71,6 +71,9 @@ async function createPersona(productOrService: string) {
   
   interface UserPersona {
     name: string;
+    clothing: casual | funky | hoodie | leather_jacket | tie | sweater_vest | button_up
+    glasses: none | glasses | sunglasses
+    hair: hat | short | ponytail | shoulder_length | buzzcut
     productDescription: string;
     gender: string;
     sections: [{label: string, description: string}];
@@ -80,6 +83,9 @@ async function createPersona(productOrService: string) {
   For example:
   {
     "name": "John Doe",
+    "hair": "short",
+    "glasses": "none",
+    "clothing": "casual",
     "productDescription" : "Skiing App ⛷️"
     "gender" : "details",
     "sections": [{
@@ -152,14 +158,70 @@ async function createPersona(productOrService: string) {
     );
   }
 
-  userPersona.pictureURL = getRandomHeadshot(userPersona.gender);
+  userPersona.pictureURL = getRandomHeadshot(
+    userPersona.hair,
+    userPersona.glasses,
+    userPersona.clothing
+  );
   return userPersona;
 }
 
-function getRandomHeadshot(gender: string) {
-  return `https://instantpersonas.com/profiles/${gender.toLowerCase()}/${Math.ceil(
-    Math.random() * 78
-  )}.jpg`;
+function getRandomHeadshot(hair: string, glasses: string, clothing: string) {
+  // return `https://instantpersonas.com/profiles/${gender.toLowerCase()}/${Math.ceil(
+  //   Math.random() * 78
+  // )}.jpg`;
+
+  let body = "";
+  switch (clothing) {
+    case "casual":
+      body = "variant07";
+      break;
+    case "funky":
+      body = "variant02";
+      break;
+    case "hoodie":
+      body = "variant23";
+      break;
+    case "leather_jacket":
+      body = "variant16";
+      break;
+    case "tie":
+      body = "variant19";
+      break;
+    case "sweater_vest":
+      body = "variant14";
+      break;
+    case "button_up":
+      body = "variant21";
+      break;
+  }
+
+  let hairType = "";
+  switch (hair) {
+    case "hat":
+      hairType = "hat";
+      break;
+    case "short":
+      hairType = "variant13";
+      break;
+    case "ponytail":
+      hairType = "variant39";
+      break;
+    case "shoulder_length":
+      hairType = "variant28";
+      break;
+    case "buzzcut":
+      hairType = "variant60";
+      break;
+  }
+
+  if (glasses === "glasses") {
+    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=${body}&hair=${hairType}`;
+  } else if (glasses === "sunglasses") {
+    return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=${body}&hair=${hairType}`;
+  } else {
+    return `https://api.dicebear.com/8.x/notionists/svg?body=${body}&hair=${hairType}`;
+  }
 }
 
 export async function GPT4(

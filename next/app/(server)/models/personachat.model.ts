@@ -2,6 +2,9 @@ import mongoose, { Schema } from "mongoose";
 
 export interface UserPersona {
     name: string;
+    hair: string;
+    glasses: string;
+    body: string;
     gender: string;
     pictureURL: string;
     color: string;

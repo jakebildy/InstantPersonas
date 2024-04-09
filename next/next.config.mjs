@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['instantpersonas.com'],
+        domains: ['instantpersonas.com', 'api.dicebear.com'],
+        dangerouslyAllowSVG: true,
       },
 };
 
