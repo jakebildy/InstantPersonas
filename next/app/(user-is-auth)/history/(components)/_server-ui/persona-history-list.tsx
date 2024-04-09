@@ -1,15 +1,19 @@
-"use server";
+"use client";
 
 import api from "@/service/api.service";
 import PersonaHistoryCardList from "../_client-ui/persona-history-card-list";
 import Image from "next/image";
+import { useStytchUser } from "@stytch/nextjs";
 
 export async function PersonaHistoryList() {
-  const personas = await api.userPersona.getPersonaHistory();
+  const user = useStytchUser();
+  const personachats = await api.userPersona.getPersonaHistory(
+    user.user?.user_id
+  );
   return (
     <section>
-      {personas && personas.length > 0 ? (
-        <PersonaHistoryCardList personas={personas} />
+      {personachats && personachats.length > 0 ? (
+        <PersonaHistoryCardList personachats={personachats} />
       ) : (
         <div className="text-center">
           <Image
