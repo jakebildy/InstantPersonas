@@ -1,0 +1,13 @@
+import { NextResponse, NextRequest } from "next/server";
+
+const ENV = process.env.NEXT_PUBLIC_ENV;
+// Reroute on prod to home if trying to access /test
+export function middleware(request: NextRequest) {
+  if (ENV == "dev") {
+    return request;
+  } else return NextResponse.redirect(new URL("/", request.url));
+}
+
+export const config = {
+  matcher: "/test",
+};
