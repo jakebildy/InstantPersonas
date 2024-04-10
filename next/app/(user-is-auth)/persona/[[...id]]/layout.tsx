@@ -1,8 +1,6 @@
 "use client";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DashboardLayout from "@/components/dashboard";
-
 export default function Layout({
   chat,
   map,
