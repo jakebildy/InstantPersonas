@@ -11,7 +11,8 @@ import { initMongoDB } from "@/database/mongodb";
 import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
 import { getRandomHeadshot } from "./ai/persona_picture";
 import { GPT4 } from "./ai/gpt4";
-import { ASSISTANT_PROMPT } from "./ai/prompts";
+import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
+import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -19,108 +20,54 @@ const openai = new OpenAI({
 
 initMongoDB();
 
-// An example of a function that fetches flight information from an external API.
-async function createPersona(productOrService: string) {
-  const systemMessage = `You are an AI language model. Generate a User Persona in JSON format based on the following company description and Q & A::
-  Description: ${productOrService}
-  
-  Please structure your response in a clear and easily parsable JSON format. The beginning of the response should be "{" and it should end with "}".
-  
-  interface UserPersona {
-    name: string;
-    clothing: casual | funky | hoodie | leather_jacket | tie | sweater_vest | button_up
-    glasses: none | glasses | sunglasses | round_glasses
-    hair: hat | short | ponytail | shoulder_length | buzzcut | long_hair_with_ribbon
-    productDescription: string;
-    gender: string;
-    sections: [{label: string, description: string}];
-    shortDescriptors: [{label: string, description: string, emoji: string}];
-  }
-  
-  For example:
-  {
-    "name": "John Doe",
-    "hair": "short",
-    "glasses": "none",
-    "clothing": "casual",
-    "productDescription" : "Skiing App ⛷️"
-    "gender" : "details",
-    "sections": [{
-        {
-        "label": "Bio",
-        "description": "details"
-        },
-        {
-        "label": "Goals",
-        "description": "details"
-        },
-        {
-        "label": "Motivations",
-        "description": "details"
-        },
-        {
-        "label": "Pains",
-        "description": "details"
-        },
-        {
-        "label": "Devices",
-        "description": "details"
-        },
-        {
-        "label": "Brand Affiliations",
-        "description": "details"
-        }
-      ],
-      "shortDescriptors": [ 
-        "label": "Age",
-        "description": "details",
-        "emoji": "🧔"
-        },
-        {
-        "label": "Location",
-        "description": "details",
-        "emoji": "📍"
-        },
-        {
-        "label": "Occupation",
-        "description": "details",
-        "emoji": "💼"
-        },
-        {
-        "label": "Family Status",
-        "description": "details",
-        "emoji": "🏠"
-        }
-    ]
-  }
-  `;
+async function createArchetypes(business: string, targetProblem: string) {
+  const systemMessage = CREATE_PERSONA_PROMPT(business, targetProblem);
 
   const chatResponse = await GPT4(systemMessage);
   let responseText = chatResponse.text.trim();
+
+  let archetypes: any = [];
   let userPersona: any;
-  //TODO:
+
   try {
     if (!responseText.startsWith("{")) {
       responseText = responseText.substring(responseText.indexOf("{"));
     }
-    userPersona = JSON.parse(responseText);
-    if ((userPersona as any)["UserPersona"]) {
-      userPersona = (userPersona as any)["UserPersona"];
-      console.log("Had to fix USER PERSONA");
-    }
   } catch (error) {
     throw new Error(
-      "Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
+      "1. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
         responseText
     );
   }
+  try {
+    userPersona = JSON.parse(responseText);
+  } catch (error) {
+    throw new Error(
+      "2. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
+        responseText
+    );
+  }
+  for (let i = 0; i < userPersona["persona_archetypes"].length; i++) {
+    let archetype;
+    try {
+      archetype = userPersona["persona_archetypes"][i];
 
-  userPersona.pictureURL = getRandomHeadshot(
-    userPersona.hair,
-    userPersona.glasses,
-    userPersona.clothing
-  );
-  return userPersona;
+      console.log("archetype: " + archetype);
+    } catch (error) {
+      throw new Error(
+        "3. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
+          responseText
+      );
+    }
+    archetype.pictureURL = getRandomHeadshot(
+      archetype.persona_components.hair,
+      archetype.persona_components.glasses,
+      archetype.persona_components.clothing
+    );
+    archetypes.push(archetype);
+  }
+
+  return archetypes;
 }
 
 async function setInitialAIState(newAIState: any) {
@@ -187,17 +134,19 @@ async function submitUserMessage(userInput: string, userID: string) {
           "When the user has provided a product or service, create a persona.",
         parameters: z
           .object({
-            productOrService: z
+            business: z
               .string()
-              .describe(
-                "the product or service being offered (with an emoji to follow it, ex. Coffee Shop ☕️)"
-              ),
+              .describe("a detailed description of the business"),
+
+            targetProblem: z
+              .string()
+              .describe("the target problem the business is encountering"),
           })
           .required(),
-        render: async function* ({ productOrService }) {
+        render: async function* ({ business, targetProblem }) {
           yield <Loading loadingMessage={"Generating persona..."} />;
 
-          const persona = await createPersona(productOrService);
+          const archetypes = await createArchetypes(business, targetProblem);
 
           // Update the final AI state.
           aiState.done({
@@ -208,21 +157,27 @@ async function submitUserMessage(userInput: string, userID: string) {
                 role: "function",
                 name: "create_persona",
                 // Content can be any string to provide context to the LLM in the rest of the conversation.
-                content: JSON.stringify(persona),
+                content: JSON.stringify(archetypes),
               },
             ],
           });
 
-          if (userID) {
-            const personaChat: any = await PersonaChat.create({
-              aiState: aiState.get(),
-              user: userID,
-              aiSuggestedChats: [],
-              personas: persona,
-            });
-          }
+          // if (userID) {
+          //   const personaChat: any = await PersonaChat.create({
+          //     aiState: aiState.get(),
+          //     user: userID,
+          //     aiSuggestedChats: [],
+          //     personas: persona,
+          //   });
+          // }
 
-          return <PersonaCard persona={persona} />;
+          return (
+            <div className="flex flex-row">
+              {...archetypes.map((archetype: any) => {
+                return <PersonaAvatarPopover {...{ archetype }} />;
+              })}
+            </div>
+          );
         },
       },
       persona_content_consumption: {
