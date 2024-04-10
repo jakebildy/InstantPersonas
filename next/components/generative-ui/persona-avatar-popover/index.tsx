@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 
 export type PersonaArchetype = {
   archetype_name: string;
+  pictureURL: string;
   persona_components: {
     Motivations: string;
     Painpoints: string;
@@ -147,7 +148,7 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
       <PopoverTrigger asChild>
         <Avatar className={avatarVariants({ variant, size })}>
           <AvatarImage
-            src="/test-persona-avatar.jpg"
+            src={archetype.pictureURL}
             alt={[
               archetype.archetype_name.toLocaleLowerCase(),
               "persona avatar",

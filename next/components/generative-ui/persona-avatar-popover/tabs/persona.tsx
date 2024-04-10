@@ -35,7 +35,7 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
           })}
         >
           <AvatarImage
-            src="/test-persona-avatar.jpg"
+            src={archetype.pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
               " "
             )}
