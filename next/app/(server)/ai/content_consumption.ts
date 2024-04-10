@@ -9,7 +9,7 @@ const apify = new ApifyClient({
 });
 
 
-async function getContentConsumption(keyword: string): Promise<string[]> {
+export async function getContentConsumption(keyword: string): Promise<string[]> {
     try {
         // Prepare Actor input
         const input = {

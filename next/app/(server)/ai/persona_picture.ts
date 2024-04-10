@@ -45,15 +45,20 @@ export function getRandomHeadshot(hair: string, glasses: string, clothing: strin
         hairType = "variant46";
         break;
     }
-  
+    
+    // randomly pick a background color between these options
+    const backgroundColorOptions  = ["b6e3f4", "c0aede", "d1d4f9", "ffd5dc", "ffdfbf"];
+    const randomIndex = Math.floor(Math.random() * backgroundColorOptions.length);
+    const randomColor = backgroundColorOptions[randomIndex];
+
     if (glasses === "glasses") {
-      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=${body}&hair=${hairType}`;
+      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=${body}&hair=${hairType}&backgroundColor=${randomColor}`;
     } else if (glasses === "sunglasses") {
-      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=${body}&hair=${hairType}`;
+      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=${body}&hair=${hairType}&backgroundColor=${randomColor}`;
     } else if (glasses === "round_glasses") {
-      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=${body}&hair=${hairType}`;
+      return `https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=${body}&hair=${hairType}&backgroundColor=${randomColor}`;
     } else {
-      return `https://api.dicebear.com/8.x/notionists/svg?body=${body}&hair=${hairType}`;
+      return `https://api.dicebear.com/8.x/notionists/svg?body=${body}&hair=${hairType}&backgroundColor=${randomColor}`;
     }
   }
   

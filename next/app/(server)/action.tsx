@@ -4,15 +4,13 @@ import { z } from "zod";
 import { PersonaMessage } from "@/components/chat";
 import axios from "axios";
 import React from "react";
-import { PersonaCard } from "@/components/generative-ui/persona";
 import { Loading } from "@/components/generative-ui/loading";
-import { PersonaChat } from "./models/personachat.model";
 import { initMongoDB } from "@/database/mongodb";
-import { ChatCompletionAssistantMessageParam } from "openai/resources/index.mjs";
 import { getRandomHeadshot } from "./ai/persona_picture";
 import { GPT4 } from "./ai/gpt4";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
+import { getContentConsumption } from "./ai/content_consumption";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -144,7 +142,7 @@ async function submitUserMessage(userInput: string, userID: string) {
           })
           .required(),
         render: async function* ({ business, targetProblem }) {
-          yield <Loading loadingMessage={"Generating persona..."} />;
+          yield <Loading loadingMessage={"Generating personas..."} />;
 
           const archetypes = await createArchetypes(business, targetProblem);
 
@@ -200,15 +198,19 @@ async function submitUserMessage(userInput: string, userID: string) {
           const contentConsumption = await getContentConsumption(keyword);
 
           // Update the final AI state.
-          aiState.done([
+          aiState.done({
             ...aiState.get(),
-            {
-              role: "function",
-              name: "persona_content_consumption",
-              // Content can be any string to provide context to the LLM in the rest of the conversation.
-              content: JSON.stringify(contentConsumption),
-            },
-          ]);
+            messages: [
+              ...aiState.get().messages,
+
+              {
+                role: "function",
+                name: "persona_content_consumption",
+                // Content can be any string to provide context to the LLM in the rest of the conversation.
+                content: JSON.stringify(contentConsumption),
+              },
+            ],
+          });
 
           return (
             <div className="flex flex-row flex-wrap">
