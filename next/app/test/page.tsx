@@ -1,9 +1,10 @@
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
-import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/template";
+import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/templates/template";
 import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
 
 import React from "react";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
+import { PersonaWideTemplate } from "@/components/generative-ui/persona-avatar-popover/templates/template-2";
 
 type Props = {};
 

@@ -46,6 +46,7 @@ export const avatarVariants = cva(
         xl: "border-2 h-24 w-24 m-4",
         default: "h-14 w-14 border-4 hover:border-6 ring-offset-4 m-2",
         sm: "h-10 w-10 border-2 hover:border-4 ring-offset-4 m-2",
+        preview: "h-4 w-4 border-2 hover:border-3 ring-offset-4 m-2",
       },
       interactive: {
         true: "cursor-pointer hover:scale-110 hover:ring-1 hover:shadow-lg",
@@ -128,26 +129,6 @@ export const shadowVariants = cva("shadow-md", {
     variant: "blue",
   },
 });
-
-export const downloadButtonVariants = cva(
-  "p-1 hover:bg-slate-200 h-fit p-1 w-fit rounded-full text-black/50 hover:text-black/75",
-  {
-    variants: {
-      variant: {
-        blue: "hover:bg-pastel-blue/50 bg-pastel-blue/25",
-        purple: "hover:bg-pastel-purple/50 bg-pastel-purple/25",
-        red: "hover:bg-pastel-red/50 bg-pastel-red/25",
-        yellow: "hover:bg-pastel-yellow/50 bg-pastel-yellow/25",
-        green: "hover:bg-pastel-green/50 bg-pastel-green/25",
-        brown: "hover:bg-pastel-brown/50 bg-pastel-brown/25",
-        pink: "hover:bg-pastel-pink/50 bg-pastel-pink/25",
-      },
-    },
-    defaultVariants: {
-      variant: "blue",
-    },
-  }
-);
 
 export interface PersonaAvatarPopoverProps
   extends VariantProps<typeof avatarVariants> {

@@ -1,5 +1,5 @@
 import React from "react";
-import { avatarVariants, gradientVariants, PersonaArchetype } from ".";
+import { avatarVariants, gradientVariants, PersonaArchetype } from "..";
 import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/fcs-ui/fcs-separator";
@@ -86,6 +86,76 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
                 {key.replace(/_/g, " ")}
               </span>
               <span className="text-sm font-medium">{value}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export function PersonaTemplatePreview({
+  variant,
+  archetype,
+}: PersonaTemplateProps) {
+  const { archetype_name, persona_components, insights } = archetype;
+  const avatarFallbackName = archetype_name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("");
+  return (
+    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
+      <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-1 h-2 w-2" />
+      <div className="flex border-b">
+        <Avatar
+          className={avatarVariants({
+            variant,
+            size: "preview",
+            interactive: false,
+          })}
+        >
+          <AvatarImage
+            src="/test-persona-avatar.jpg"
+            alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
+              " "
+            )}
+          />
+          <AvatarFallback>{avatarFallbackName}</AvatarFallback>
+        </Avatar>
+
+        <div className="flex flex-col my-2">
+          <span className="text-muted-foreground font-semibold text-[4px]">
+            Archetype
+          </span>
+          <span className="font-bold text-[4.5px]">{archetype_name}</span>
+        </div>
+      </div>
+
+      <div
+        className={gradientVariants({
+          variant,
+          className: "flex flex-col p-2 rounded-lg m-1",
+        })}
+      >
+        <ul className="grid">
+          {Object.entries(persona_components).map(([key, value]) => (
+            <li key={key} className="flex flex-col mb-1">
+              <span className="text-muted-foreground font-semibold text-[3px]">
+                {key.replace(/_/g, " ")}
+              </span>
+              <span className="text-[3px] font-medium">{value}</span>
+            </li>
+          ))}
+        </ul>
+        <Separator text="insights" className=" scale-[33%]" />
+
+        <ul className=" grid grid-cols-2 w-full">
+          {Object.entries(insights).map(([key, value]) => (
+            <li key={key} className="flex flex-col mb-1">
+              <span className="text-muted-foreground font-semibold text-[3px]">
+                {key.replace(/_/g, " ")}
+              </span>
+              <span className="text-[2px] font-medium">{value}</span>
             </li>
           ))}
         </ul>
