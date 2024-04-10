@@ -10,7 +10,7 @@ if (!apiKey) throw new Error("Missing OpenAI API key.");
 export async function GPT4(
   prompt: string,
   systemMessages?: string[],
-  model: OpenAIModels = "gpt-4",
+  model: OpenAIModels = "gpt-3.5-turbo",
 ): Promise<any> {
   const endpoint = "https://api.openai.com/v1/chat/completions";
   const headers = {
