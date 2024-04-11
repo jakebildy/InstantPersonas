@@ -115,7 +115,7 @@ const api = {
       const response = await axios.get(baseUrl, { params });
 
       // Return the results from the response
-      return response.data.results;
+      return response.data.result;
     },
     updatePersona: async (
       persona: Persona,
