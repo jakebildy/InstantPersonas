@@ -16,8 +16,8 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
     .map((word) => word.charAt(0))
     .join("");
 
-  const [isDownloading, setIsDownloading] = useState(true);
-  const [showTemplateSelectModal, setShowTemplateSelectModal] = useState(true);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [showTemplateSelectModal, setShowTemplateSelectModal] = useState(false);
 
   const handleResolvedDownload = () => {
     setShowTemplateSelectModal(false);
