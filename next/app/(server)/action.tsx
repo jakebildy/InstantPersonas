@@ -149,6 +149,7 @@ async function submitUserMessage(userInput: string, userID: string) {
           // Update the final AI state.
           aiState.done({
             ...aiState.get(),
+            personas: archetypes,
             messages: [
               ...aiState.get().messages,
               {
@@ -250,6 +251,7 @@ const initialAIState: {
     personaCharacteristics: string[];
     thresholdRating: number; // 0-10
   };
+  personas: any[];
   messages: {
     role: "user" | "assistant" | "system" | "function";
     content: string;
@@ -259,6 +261,7 @@ const initialAIState: {
 } = {
   messages: [],
   business: "",
+  personas: [],
   targetProblem: "",
   threadKnowledge: {
     context: "",
