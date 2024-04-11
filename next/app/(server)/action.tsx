@@ -73,6 +73,11 @@ async function setInitialAIState(newAIState: any) {
   aiState.done(newAIState);
 }
 
+async function getCurrentAIState() {
+  const aiState = getMutableAIState<typeof AI>();
+  return aiState.get();
+}
+
 //@ts-ignore
 async function submitUserMessage(userInput: string, userID: string) {
   "use server";
@@ -282,6 +287,7 @@ export const AI = createAI({
   actions: {
     submitUserMessage,
     setInitialAIState,
+    getCurrentAIState,
   },
   // Each state can be any shape of object, but for chat applications
   // it makes sense to have an array of messages. Or you may prefer something like { id: number, messages: Message[] }
