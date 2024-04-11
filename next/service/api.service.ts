@@ -102,6 +102,26 @@ const api = {
         // Return the results from the response
         return response.data.results;
     },
+    getPersonaChat: async (chatID: string, id?: string): Promise<any> => {
+      // Define the base URL for the request
+      const baseUrl = "/api/get-persona-chat";
+
+      // Create an object to hold any query parameters
+      const params = {} as any;
+
+      // If an ID is provided, add it as a query parameter
+      if (id) {
+        params.id = id;
+      }
+
+      params.chatID = chatID;
+
+      // Make the GET request with the query parameters
+      const response = await axios.get(baseUrl, { params });
+
+      // Return the results from the response
+      return response.data.results;
+    },
     updatePersona: async (
       persona: Persona,
       historyID: string
