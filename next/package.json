@@ -47,7 +47,7 @@
     "@stytch/nextjs": "^18.0.0",
     "@stytch/vanilla-js": "^4.7.7",
     "@tabler/icons-react": "^3.1.0",
-    "ai": "^3.0.18",
+    "ai": "^3.0.21",
     "apify-client": "^2.9.3",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
