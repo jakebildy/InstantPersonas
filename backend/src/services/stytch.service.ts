@@ -1,6 +1,6 @@
 
 // import { User, UserI } from "../models/user.model";
-import { User, UserI } from "../models/user.model";
+import { User, UserI } from "../../../next/database/models/user.model";
 import dotenv from "dotenv";
 import jwt from 'jsonwebtoken';
 // import { findUserByEmail } from "./user.service";

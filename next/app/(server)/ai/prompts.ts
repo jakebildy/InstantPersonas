@@ -40,10 +40,12 @@ respond in the following format with 4 archetypes:
 	persona_characteristics: string; // the key characteristics which build the basis for the persona archetypes
 	persona_archetypes: [{
 		archetype_name: string;
-		persona_components: {
-            clothing: casual | funky | hoodie | leather_jacket | tie | sweater_vest | button_up
+		picture_components: {
+			clothing: casual | funky | hoodie | leather_jacket | tie | sweater_vest | button_up
             glasses: none | glasses | sunglasses | round_glasses
             hair: hat | short | ponytail | shoulder_length | buzzcut | long_hair_with_ribbon
+		}
+		persona_components: {
 			Motivations: string; // The driving forces behind the persona's efforts to reach their goal.
 			Painpoints: string; // Obstacles that stand in the way of achieving the goal.
 			Preferences_and_Needs: string; // Essential requirements that must be met to overcome barriers and adjust mindset (if negative).

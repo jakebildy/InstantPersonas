@@ -11,6 +11,7 @@ import { GPT4 } from "./ai/gpt4";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 import { getContentConsumption } from "./ai/content_consumption";
+import { createArchetypes } from "./ai/create_archetypes";
 
 function estimateGPTTurboCost({
   promptTokens,
@@ -37,56 +38,6 @@ const openai = new OpenAI({
 });
 
 initMongoDB();
-
-async function createArchetypes(business: string, targetProblem: string) {
-  const systemMessage = CREATE_PERSONA_PROMPT(business, targetProblem);
-
-  const chatResponse = await GPT4(systemMessage);
-  let responseText = chatResponse.text.trim();
-
-  let archetypes: any = [];
-  let userPersona: any;
-
-  try {
-    if (!responseText.startsWith("{")) {
-      responseText = responseText.substring(responseText.indexOf("{"));
-    }
-  } catch (error) {
-    throw new Error(
-      "1. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-        responseText
-    );
-  }
-  try {
-    userPersona = JSON.parse(responseText);
-  } catch (error) {
-    throw new Error(
-      "2. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-        responseText
-    );
-  }
-  for (let i = 0; i < userPersona["persona_archetypes"].length; i++) {
-    let archetype;
-    try {
-      archetype = userPersona["persona_archetypes"][i];
-
-      console.log("archetype: " + archetype);
-    } catch (error) {
-      throw new Error(
-        "3. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-          responseText
-      );
-    }
-    archetype.pictureURL = getRandomHeadshot(
-      archetype.persona_components.hair,
-      archetype.persona_components.glasses,
-      archetype.persona_components.clothing
-    );
-    archetypes.push(archetype);
-  }
-
-  return archetypes;
-}
 
 async function setInitialAIState(newAIState: any) {
   const aiState = getMutableAIState<typeof AI>();

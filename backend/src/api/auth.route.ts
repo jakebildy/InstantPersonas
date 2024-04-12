@@ -1,5 +1,5 @@
 import express, { Response } from "express";
-import { UserI } from "../models/user.model";
+import { UserI } from "../../../next/database/models/user.model";
 import { RequestI } from "../types/request";
 import { userAuth } from "../middleware/auth.middleware";
 export const router = express.Router();

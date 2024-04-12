@@ -3,7 +3,7 @@ import express, { Response } from "express";
 import { RequestI } from "../types/request";
 import * as PersonaService from "../services/persona.service";
 import { userAuth } from "../middleware/auth.middleware";
-import { UserI } from "../models/user.model";
+import { UserI } from "../../../next/database/models/user.model";
 
 export const router = express.Router();
 

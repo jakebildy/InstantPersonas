@@ -1,7 +1,7 @@
-import { UserI } from "../models/user.model";
+import { UserI } from "../../../next/database/models/user.model";
 import { SurveyQuestion } from "../types";
-import { GPT4 } from "./openai.service"; 
-import { PersonaHistory, UserPersona } from "../models/persona.model";
+import { GPT3point5 } from "./openai.service"; 
+import { PersonaHistory, UserPersona } from "../../../next/database/models/persona.model";
 import axios from "axios";
 const { ApifyClient } = require('apify-client');
 
@@ -233,7 +233,7 @@ export async function generateUserPersona(
   }
   `;
   
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
     let responseText = chatResponse.text.trim();
     let userPersona: UserPersona;
   //TODO:
@@ -268,7 +268,7 @@ export async function generateUserPersona(
   Respond either 'true' or 'false' to indicate if the user wants to change their persona.
   `;
   
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
 
     try {
         // try to convert chatResponse as boolean and return 
@@ -291,7 +291,7 @@ export async function generateUserPersona(
   Respond either 'true' or 'false' to indicate if the user provided details about a product or service.
   `;
   
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
 
     try {
         // try to convert chatResponse as boolean and return 
@@ -379,7 +379,7 @@ export async function updateUserPersona(
   }
   `;
   
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
     const responseText = chatResponse.text.trim();
     let userPersona: UserPersona;
     try {
@@ -442,7 +442,7 @@ export async function updateUserPersona(
     `;
 
     console.log(systemMessage);
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
 
     try {
       console.log("Chat Response: ", chatResponse.text.trim());
@@ -542,7 +542,7 @@ export async function deletePersona(
     `;
 
     console.log(systemMessage);
-    const chatResponse = await GPT4(systemMessage);
+    const chatResponse = await GPT3point5(systemMessage);
 
     try {
       console.log("Chat Response: ", chatResponse.text.trim());
