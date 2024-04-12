@@ -6,12 +6,12 @@ import { Button } from "../ui/button";
 
 type Props = {
   business: string;
-  target_problem: string;
+  targetProblem: string;
 };
 
 export default function ConfirmKnowledgeCard({
   business,
-  target_problem,
+  targetProblem,
 }: Props) {
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
@@ -39,15 +39,15 @@ export default function ConfirmKnowledgeCard({
           })}
         >
           <span className="text-black/75 font-semibold">Target Problem</span>
-          <span className="text-sm font-medium">{target_problem}</span>
+          <span className="text-sm font-medium">{targetProblem}</span>
         </div>
 
-        <Button className="mx-6" size="rounded">
+        {/* <Button className="mx-6" size="rounded">
           Accept Changes
         </Button>
         <Button variant={"destructive"} className="mx-6" size="rounded">
           Revert Changes
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

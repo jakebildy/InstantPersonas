@@ -12,6 +12,7 @@ import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
+import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
 
 function estimateGPTTurboCost({
   promptTokens,
@@ -103,9 +104,56 @@ async function submitUserMessage(userInput: string, userID: string) {
       return <PersonaMessage message={content} />;
     },
     tools: {
+      confirm_business_knowledge: {
+        description:
+          "Once you deeply understand the business, target problem, and customers, verify it before creating a persona. If the user doesn't confirm, ask for more information.",
+        parameters: z
+          .object({
+            business: z
+              .string()
+              .describe("a detailed description of the business"),
+
+            targetProblem: z
+              .string()
+              .describe("the target problem the business is encountering"),
+          })
+          .required(),
+        render: async function* ({ business, targetProblem }) {
+          // Update the final AI state.
+          aiState.done({
+            ...aiState.get(),
+            business: business,
+            targetProblem: targetProblem,
+            messages: [
+              ...aiState.get().messages,
+              {
+                role: "assistant",
+                content: `Does this cover the business and target problem or is something
+                missing?`,
+              },
+              {
+                role: "function",
+                name: "confirm_business_knowledge",
+                // Content can be any string to provide context to the LLM in the rest of the conversation.
+                content: JSON.stringify({ business, targetProblem }),
+              },
+            ],
+          });
+
+          return (
+            <div className="">
+              Does this cover the business and target problem or is something
+              missing?
+              <br></br>
+              <ConfirmKnowledgeCard {...{ business, targetProblem }} />
+            </div>
+          );
+        },
+      },
+
       create_persona: {
         description:
-          "When the user has provided a product or service, create a persona.",
+          "As soon as the user has confirmed the business and target problem, immediately create a persona.",
         parameters: z
           .object({
             business: z
