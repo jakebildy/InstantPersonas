@@ -6,10 +6,10 @@ type Props = { children: React.ReactNode };
 
 export default function Layout({ children }: Props) {
   return (
-    <>
+    <main className="min-h-screen">
       <Header />
       {children}
-      <Footer />
-    </>
+      <Footer className="absolute bottom-0 w-full" />
+    </main>
   );
 }
