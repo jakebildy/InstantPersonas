@@ -177,8 +177,8 @@ async function submitUserMessage(userInput: string, userID: string) {
 
           return (
             <div className="flex flex-row">
-              {...archetypes.map((archetype: any) => {
-                return <PersonaAvatarPopover {...{ archetype }} />;
+              {...archetypes.map((archetype: any, i: number) => {
+                return <PersonaAvatarPopover key={i} {...{ archetype }} />;
               })}
             </div>
           );
