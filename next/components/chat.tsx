@@ -171,9 +171,9 @@ export const PersonaMessage = ({
         />
       </div>
 
-      <p className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
         <ReactMarkdown className="foo">{message}</ReactMarkdown>
-      </p>
+      </div>
     </div>
   );
 };
