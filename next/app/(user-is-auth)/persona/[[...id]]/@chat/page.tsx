@@ -14,9 +14,9 @@ export default async function ChatPage({
 
   return (
     <div className="flex flex-col h-[calc(100vh-58px)] justify-center">
-      <div className="flex flex-row">{/* <ChatAvatars /> */}</div>
+      {/* <div className="flex flex-row"><ChatAvatars /></div> */}
       <Chat className="border rounded-lg min-h-[400px]" />
-      <SetPersonaAiState chat={chatHistory} />
+      {/* <SetPersonaAiState chat={chatHistory} /> */}
     </div>
   );
 }
