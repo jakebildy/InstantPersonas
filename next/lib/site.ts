@@ -25,15 +25,15 @@ export const SIDEBAR_LINKS = [
     icon: BanknotesIcon,
     label: "",
   },
-  {
-    title: "Become an Affiliate",
-    href: "/affiliate",
-    icon: FireIcon,
-    label: "",
-  },
+  // {
+  //   title: "Become an Affiliate",
+  //   href: "/affiliate",
+  //   icon: FireIcon,
+  //   label: "",
+  // },
   {
     title: "Send Feedback",
-    href: "https://forms.gle/7JRsj2FxffD3Uofm9",
+    href: "https://forms.gle/zei5QLdBTfTgssBv9",
     icon: PencilSquareIcon,
     label: "",
   },
