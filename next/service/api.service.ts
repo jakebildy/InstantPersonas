@@ -66,11 +66,11 @@ const api = {
 
   stripe: {
     isSubscriptionActive: async () => {
-      const response = await axios.get("api/stripe/subscription/active");
+      const response = await axios.get("api/subscription-status");
       return response.data;
     },
     getCustomerPortalUrl: async (): Promise<string> =>
-      (await axios.get("/api/stripe/portal")).data,
+      (await axios.get("/api/customer-portal")).data,
   },
 
   userPersona: {
@@ -85,22 +85,22 @@ const api = {
       return response.data;
     },
     getPersonaHistory: async (id?: string): Promise<any> => {
-        // Define the base URL for the request
-        const baseUrl = "/api/get-persona-history";
+      // Define the base URL for the request
+      const baseUrl = "/api/get-persona-history";
 
-        // Create an object to hold any query parameters
-        const params = {} as any;
+      // Create an object to hold any query parameters
+      const params = {} as any;
 
-        // If an ID is provided, add it as a query parameter
-        if (id) {
-          params.id = id;
-        }
+      // If an ID is provided, add it as a query parameter
+      if (id) {
+        params.id = id;
+      }
 
-        // Make the GET request with the query parameters
-        const response = await axios.get(baseUrl, { params });
+      // Make the GET request with the query parameters
+      const response = await axios.get(baseUrl, { params });
 
-        // Return the results from the response
-        return response.data.results;
+      // Return the results from the response
+      return response.data.results;
     },
     getPersonaChat: async (chatID: string): Promise<any> => {
       // Define the base URL for the request

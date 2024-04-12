@@ -1,8 +1,11 @@
-"use client";
+"use server";
 import DashboardLayout from "@/components/dashboard";
-import router from "next/router";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="bg-zinc-100">
       <DashboardLayout>{children}</DashboardLayout>
