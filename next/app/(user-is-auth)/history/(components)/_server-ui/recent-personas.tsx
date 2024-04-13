@@ -3,12 +3,19 @@
 import api from "@/service/api.service";
 import { RecentPersonasList } from "../_client-ui/recent-personas-list";
 import { useStytchUser } from "@stytch/nextjs";
+import { useEffect, useState } from "react";
 
-export async function RecentPersonas() {
+export function RecentPersonas() {
   const user = useStytchUser();
-  const personachats = await api.userPersona.getPersonaHistory(
-    user.user?.user_id
-  );
+  const [personachats, setPersonachats] = useState<any[] | null>(null);
+
+  useEffect(() => {
+    if (user.user) {
+      api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
+        setPersonachats(data);
+      });
+    }
+  }, [user.user]);
 
   return (
     <div>

@@ -1,7 +1,6 @@
 "use server";
 import Chat from "@/components/chat";
 import ChatAvatars from "@/components/chat-avatars";
-import SetPersonaAiState from "@/components/set-persona-ai-state";
 import api from "@/service/api.service";
 
 export default async function ChatPage({
@@ -14,9 +13,10 @@ export default async function ChatPage({
 
   return (
     <div className="flex flex-col h-[calc(100vh-58px)] justify-center">
-      {/* <div className="flex flex-row"><ChatAvatars /></div> */}
-      <Chat className="border rounded-lg min-h-[400px]" />
-      {/* <SetPersonaAiState chat={chatHistory} /> */}
+      {/* <div className="flex flex-row">
+        <ChatAvatars />
+      </div> */}
+      <Chat className="border rounded-lg min-h-[400px]" history={chatHistory} />
     </div>
   );
 }

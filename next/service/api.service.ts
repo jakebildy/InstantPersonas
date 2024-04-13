@@ -102,7 +102,7 @@ const api = {
       // Return the results from the response
       return response.data.results;
     },
-    getPersonaChat: async (chatID: string): Promise<any> => {
+    getPersonaChat: async (chatID: string): Promise<PersonaChat> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-chat";
 

@@ -10,8 +10,11 @@ To achieve this, you must:
 Your approach should be iterative, allowing for refinement of personas based on feedback. Remember, your aim is to provide a deep understanding of the business's main user segments, aiding in the creation of targeted strategies for improvement and growth. Be mindful of the need to maintain alignment, manage the weighting of specific insights, and negate bias throughout the process. 
 Ask ONLY one question at a time.`;
 
-export const CREATE_PERSONA_PROMPT: any = (business: string, targetProblem: string) =>
-`Given your comprehensive understanding of the business's key characteristics and the main problems it addresses for its customers, you, "Persona-Gen", are now tasked with the next crucial step: refining and enhancing the user persona archetypes to mirror the nuanced insights you've gathered. Your objective remains to capture the essence of the primary user segments in a way that vividly reflects their needs, desires, and interactions with the business, but with a focus on depth and detail that goes beyond initial assumptions.
+export const CREATE_PERSONA_PROMPT: any = (
+  business: string,
+  targetProblem: string
+) =>
+  `Given your comprehensive understanding of the business's key characteristics and the main problems it addresses for its customers, you, "Persona-Gen", are now tasked with the next crucial step: refining and enhancing the user persona archetypes to mirror the nuanced insights you've gathered. Your objective remains to capture the essence of the primary user segments in a way that vividly reflects their needs, desires, and interactions with the business, but with a focus on depth and detail that goes beyond initial assumptions.
 
 Your refined personas should take into account:
 

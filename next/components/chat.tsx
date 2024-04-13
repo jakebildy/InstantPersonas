@@ -6,6 +6,7 @@ import {
   HTMLAttributes,
   InputHTMLAttributes,
   memo,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -16,13 +17,16 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
-import { useUIState, useActions } from "ai/rsc";
+import { useUIState, useActions, useAIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import ReactMarkdown from "react-markdown";
 import { useStytchUser } from "@stytch/nextjs";
+import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { set } from "mongoose";
 
 type Props = {
   className?: string;
+  history: PersonaChat | null;
 };
 
 type MemoizedComponent = React.MemoExoticComponent<
@@ -33,12 +37,12 @@ type ComponentLookupTableType = {
   [role in ExtractField<Message, "role">]: MemoizedComponent;
 };
 
-export default function Chat({ className }: Props) {
+export default function Chat({ className, history }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
-
   const [messages, setMessages] = useUIState<typeof AI>();
-  const [input, setInput] = useState("");
+
   const { submitUserMessage } = useActions<typeof AI>();
+  const [input, setInput] = useState("");
   const user = useStytchUser();
 
   const keyBinds: CommandUserInputKeybind[] = [
@@ -72,17 +76,6 @@ export default function Chat({ className }: Props) {
               )
             )
           }
-          {/* {messages.map((message: Message, i) => {
-            const Component = componentLookupTable[message.role];
-            return Component ? (
-              <div
-                key={message.id}
-                className={cn("z-10", messages.length == i + 1 ? "pb-4" : "")}
-              >
-                <Component message={message} />
-              </div>
-            ) : null;
-          })} */}
         </div>
         <div ref={scrollBottomRef} />
       </ScrollArea>
@@ -116,34 +109,7 @@ export default function Chat({ className }: Props) {
         }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
-      >
-        {/* <div className="flex flex-col flex-wrap ">
-          <div className="flex gap-4 my-4 overflow-hidden flex-wrap">
-            {[
-              {
-                suggestion: "Change sections to generate",
-              },
-              {
-                suggestion: "Provide more details about the product or service",
-              },
-              {
-                suggestion: "I need a user persona for a product manager",
-              },
-              {
-                suggestion: "What is a user persona?",
-              },
-            ].map((userAction, i) => (
-              <Button
-                key={i}
-                variant={"secondary"}
-                className="text-white bg-gray-400/75 rounded-lg text-xs hover:bg-green-400"
-              >
-                {userAction.suggestion}
-              </Button>
-            ))}
-          </div>
-        </div> */}
-      </CommandUserInput>
+      ></CommandUserInput>
     </section>
   );
 }

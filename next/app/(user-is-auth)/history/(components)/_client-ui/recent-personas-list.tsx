@@ -1,6 +1,5 @@
 "use client";
 import { AnimatedTooltip } from "@/components/aceternity-ui/animated_tooltip";
-import { PersonaHistory } from "@/service/api.service";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 
 export function RecentPersonasList({ personachats }: { personachats: any[] }) {
