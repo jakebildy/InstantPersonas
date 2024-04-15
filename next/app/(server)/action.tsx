@@ -13,6 +13,7 @@ import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-
 import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
+import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
 
 function estimateGPTTurboCost({
   promptTokens,
@@ -45,7 +46,7 @@ async function setInitialAIState(newAIState: any) {
   aiState.done(newAIState);
 }
 
-async function getCurrentAIState() {
+async function getCurrentAIState(): Promise<any> {
   const aiState = getMutableAIState<typeof AI>();
   return aiState.get();
 }
@@ -203,6 +204,65 @@ async function submitUserMessage(userInput: string, userID: string) {
           );
         },
       },
+
+      update_persona: {
+        description:
+          "When the user wants to update a specific persona. Ensure you know which one to update.",
+        parameters: z
+          .object({
+            personaIndex: z
+              .number()
+              .describe(
+                "the index of the persona to update. don't ask the user for this, just ask them for the persona's name."
+              ),
+            updatedArchetypeValue: z
+              .string()
+              .describe("the new version of the changed field"),
+            updatedField: z
+              .string()
+              .describe(
+                "the field in the Archetype to update (ex. 'archetype_name')"
+              ),
+          })
+          .required(),
+        render: async function* ({
+          personaIndex,
+          updatedArchetypeValue,
+          updatedField,
+        }) {
+          // Update the final AI state.
+          aiState.done({
+            ...aiState.get(),
+            messages: [
+              ...aiState.get().messages,
+              {
+                role: "function",
+                name: "update_persona",
+                // Content can be any string to provide context to the LLM in the rest of the conversation.
+                content: JSON.stringify(personaIndex),
+              },
+            ],
+          });
+          console.log("!!!!! -> ->");
+          console.log(updatedField);
+          console.log(updatedArchetypeValue);
+          const newField = updatedField.replaceAll("persona_components.", "");
+          return (
+            <div>
+              <PersonaChangeDiffCard
+                origin_archetype={aiState.get().personas[personaIndex]}
+                updated_archetype={{
+                  persona_components: {
+                    [newField]: updatedArchetypeValue,
+                  },
+                  ...aiState.get().personas[personaIndex],
+                }}
+              />
+            </div>
+          );
+        },
+      },
+
       persona_content_consumption: {
         description:
           "When a persona has been created and the user wants to know how to target them, provide a display of what their content consumption might look like.",
