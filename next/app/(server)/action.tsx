@@ -9,7 +9,10 @@ import { initMongoDB } from "@/database/mongodb";
 import { getRandomHeadshot } from "./ai/persona_picture";
 import { GPT4 } from "./ai/gpt4";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
-import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
+import {
+  mapUrlBackgroundColorParamToVariant,
+  PersonaAvatarPopover,
+} from "@/components/generative-ui/persona-avatar-popover";
 import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
