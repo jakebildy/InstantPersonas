@@ -162,3 +162,49 @@ export function timeAgo(
   // Truncate the string and append an ellipsis if its length exceeds 'n'
   return str.length > n ? str.substring(0, n - 1).trim() + "..." : str;
 }
+
+/**
+ * Extracts a specific parameter from a URL using a regular expression.
+ *
+ * @param {string} url The URL to parse.
+ * @param {string} parameterName The name of the parameter to extract.
+ * @returns {string|null} The value of the parameter, or null if not found.
+ *
+ * This function simplifies the process of extracting parameters from URLs by using regular expressions.
+ * It supports the intent of providing a method to retrieve specific data points (parameters)
+ * from structured strings (URLs), which can be essential for configurations or processing dynamic web content.
+ */
+export function extractParameterFromURL(url: string, parameterName: string) {
+  // Define the regular expression dynamically based on the parameter name
+  const regex = new RegExp(`${parameterName}=([^&]*)`);
+
+  // Perform the matching operation
+  const match = url.match(regex);
+
+  // Return the matched group or null if no match is found
+  return match ? match[1] : null;
+}
+
+/**
+ * Converts a hex color string to an RGB array.
+ */
+export function hexToRgb(hex: string): [number, number, number] {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return [r, g, b];
+}
+
+/**
+ * Calculates the Euclidean distance between two RGB colors.
+ */
+export function colorDistance(
+  rgb1: [number, number, number],
+  rgb2: [number, number, number]
+): number {
+  return Math.sqrt(
+    (rgb1[0] - rgb2[0]) ** 2 +
+      (rgb1[1] - rgb2[1]) ** 2 +
+      (rgb1[2] - rgb2[2]) ** 2
+  );
+}

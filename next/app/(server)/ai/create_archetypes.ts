@@ -45,7 +45,7 @@ export async function createArchetypes(
           responseText
       );
     }
-    archetype.pictureURL = getRandomHeadshot(
+    archetype.pictureURL = await getRandomHeadshot(
       archetype.picture_components.hair,
       archetype.picture_components.glasses,
       archetype.picture_components.clothing

@@ -9,7 +9,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PersonStandingIcon, DownloadCloudIcon } from "lucide-react";
 import { PersonaTabs } from "./tabs";
 import { cva, VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import {
+  cn,
+  colorDistance,
+  extractParameterFromURL,
+  hexToRgb,
+} from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export type PersonaArchetype = {
@@ -27,6 +32,58 @@ export type PersonaArchetype = {
     Strategic_Recommendations: string;
   };
 };
+
+export const ColorVariantMap = {
+  blue: "#c7eaf1",
+  purple: "#d9cbfc",
+  red: "#ef9796",
+  yellow: "#fbe8b1",
+  green: "#c2e4bc",
+  brown: "#e6d3d0",
+  pink: "#eaa9c1",
+} as const;
+
+export type ColorVariant = keyof typeof ColorVariantMap;
+
+/**
+ * Finds the closest color variant based on a hex color.
+ */
+function findClosestColorVariant(hexColor: string): ColorVariant {
+  const colorRgb = hexToRgb(hexColor);
+  let closestColor: ColorVariant = "blue";
+  let smallestDistance = Number.MAX_VALUE;
+
+  for (const variant in ColorVariantMap) {
+    const variantRgb = hexToRgb(ColorVariantMap[variant as ColorVariant]);
+    const distance = colorDistance(colorRgb, variantRgb);
+    if (distance < smallestDistance) {
+      smallestDistance = distance;
+      closestColor = variant as ColorVariant;
+    }
+  }
+
+  return closestColor;
+}
+
+/**
+ * Maps a URL background color parameter to a color variant.
+ */
+export function mapUrlBackgroundColorParamToVariant({
+  url,
+  param = "backgroundColor",
+}: {
+  url: string;
+  param?: string;
+}): ColorVariant {
+  const color = extractParameterFromURL(url, param);
+  const hex = "#" + color;
+  if (color && /^#(?:[0-9a-fA-F]{3}){1,2}$/.test(hex)) {
+    return findClosestColorVariant(hex);
+  }
+
+  // If color is not valid hex, return a default color
+  return "blue"; // Assuming blue is the default; adjust as necessary
+}
 
 export const avatarVariants = cva(
   "ring-offset-transparent transition-all duration-500 ease shadow-md  ",
