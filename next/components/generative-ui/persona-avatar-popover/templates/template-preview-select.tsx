@@ -80,7 +80,7 @@ export default function TemplatePreviewSelect({
     setTemplateWidth(width);
     setShowScreen(true);
     setShowTemplate(true);
-    await delay(100); // Simulated processing delay
+    await delay(500); // Simulated processing delay
     console.log("Downloading...");
     convert();
     await delay(1000); // Simulated download delay

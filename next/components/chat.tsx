@@ -23,6 +23,11 @@ import ReactMarkdown from "react-markdown";
 import { useStytchUser } from "@stytch/nextjs";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { set } from "mongoose";
+import {
+  mapUrlBackgroundColorParamToVariant,
+  PersonaAvatarPopover,
+} from "./generative-ui/persona-avatar-popover";
+import { PersonStandingIcon } from "lucide-react";
 
 type Props = {
   className?: string;
@@ -39,7 +44,9 @@ type ComponentLookupTableType = {
 
 export default function Chat({ className, history }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
+  const [aiState, setAiState] = useAIState<typeof AI>();
   const [messages, setMessages] = useUIState<typeof AI>();
+  const [personas, setPersonas] = useState<any>([]);
 
   const { submitUserMessage } = useActions<typeof AI>();
   const [input, setInput] = useState("");
@@ -53,14 +60,38 @@ export default function Chat({ className, history }: Props) {
     },
   ];
 
+  useEffect(() => {
+    if (aiState) {
+      setPersonas(aiState.personas);
+    }
+    console.log(aiState);
+  }, [aiState, setPersonas]);
+
   return (
     <section
       className={cn(
-        "m-2 h-[calc(100%-56px)] w-[calc(100%-16px)] relative bg-background",
+        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] relative bg-background box-border",
         className
       )}
     >
-      <ScrollArea className="h-[calc(100%-56px)]">
+      {personas && personas.length > 0 ? (
+        <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
+          {personas.map((archetype: any, i: number) => {
+            const variant = mapUrlBackgroundColorParamToVariant({
+              url: archetype.pictureURL,
+            });
+            return (
+              <PersonaAvatarPopover
+                key={i}
+                {...{ archetype: archetype, variant: variant }}
+              />
+            );
+          })}
+          <PersonStandingIcon className="text-muted-foreground absolute right-0 m-8" />
+        </div>
+      ) : null}
+
+      <ScrollArea className="h-[calc(100%-70px)]">
         {/* 120px is the height of the input and suggestions */}
         <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
           <PersonaMessage

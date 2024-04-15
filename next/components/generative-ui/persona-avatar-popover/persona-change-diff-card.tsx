@@ -108,7 +108,7 @@ export function PersonaChangeDiffCard({
           })}
         >
           <AvatarImage
-            src="/test-persona-avatar.jpg"
+            src={updated_archetype.pictureURL}
             alt={[
               updated_archetype.archetype_name.toLocaleLowerCase(),
               "persona avatar",

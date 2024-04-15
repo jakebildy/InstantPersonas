@@ -1,4 +1,7 @@
 "use server";
+
+import { ColorVariantMap } from "@/components/generative-ui/persona-avatar-popover";
+
 export async function getRandomHeadshot(
   hair: string,
   glasses: string,
@@ -52,13 +55,10 @@ export async function getRandomHeadshot(
   }
 
   // randomly pick a background color between these options
-  const backgroundColorOptions = [
-    "b6e3f4",
-    "c0aede",
-    "d1d4f9",
-    "ffd5dc",
-    "ffdfbf",
-  ];
+  const backgroundColorOptions = Object.values(ColorVariantMap).map((color) =>
+    color.slice(1)
+  );
+
   const randomIndex = Math.floor(Math.random() * backgroundColorOptions.length);
   const randomColor = backgroundColorOptions[randomIndex];
 
