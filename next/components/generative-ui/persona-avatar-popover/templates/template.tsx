@@ -28,7 +28,8 @@ export interface PersonaTemplateProps
 }
 
 export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
-  const { archetype_name, persona_components, insights } = archetype;
+  const { archetype_name, persona_components, insights, pictureURL } =
+    archetype;
   const avatarFallbackName = archetype_name
     .split(" ")
     .map((word) => word.charAt(0))
@@ -45,7 +46,7 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
           })}
         >
           <AvatarImage
-            src="/test-persona-avatar.jpg"
+            src={pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
               " "
             )}
@@ -98,11 +99,13 @@ export function PersonaTemplatePreview({
   variant,
   archetype,
 }: PersonaTemplateProps) {
-  const { archetype_name, persona_components, insights } = archetype;
+  const { archetype_name, persona_components, insights, pictureURL } =
+    archetype;
   const avatarFallbackName = archetype_name
     .split(" ")
     .map((word) => word.charAt(0))
     .join("");
+
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
       <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-1 h-2 w-2" />
@@ -115,7 +118,7 @@ export function PersonaTemplatePreview({
           })}
         >
           <AvatarImage
-            src="/test-persona-avatar.jpg"
+            src={pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
               " "
             )}
