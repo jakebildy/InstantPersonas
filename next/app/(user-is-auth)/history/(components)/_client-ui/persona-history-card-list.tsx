@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { PersonaHistoryCard } from "./persona-history-card";
-import { PersonaHistory } from "@/service/api.service";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 

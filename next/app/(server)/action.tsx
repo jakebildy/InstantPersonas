@@ -327,7 +327,7 @@ async function submitUserMessage(userInput: string, userID: string) {
 }
 
 // Define the initial state of the AI. It can be any JSON object.
-const initialAIState: {
+export const initialAIState: {
   business: string;
   targetProblem: string;
   threadKnowledge: {
