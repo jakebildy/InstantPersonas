@@ -198,7 +198,15 @@ async function submitUserMessage(userInput: string, userID: string) {
           return (
             <div className="flex flex-row">
               {...archetypes.map((archetype: any, i: number) => {
-                return <PersonaAvatarPopover key={i} {...{ archetype }} />;
+                const variant = mapUrlBackgroundColorParamToVariant({
+                  url: archetype.pictureURL,
+                });
+                return (
+                  <PersonaAvatarPopover
+                    key={i}
+                    {...{ archetype: archetype, variant: variant }}
+                  />
+                );
               })}
             </div>
           );
