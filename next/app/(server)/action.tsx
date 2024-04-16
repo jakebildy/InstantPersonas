@@ -7,7 +7,7 @@ import React from "react";
 import { Loading } from "@/components/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
 import { getRandomHeadshot } from "./ai/persona_picture";
-import { GPT4 } from "./ai/gpt4";
+import { GPT4 } from "./ai/gpt";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import {
   mapUrlBackgroundColorParamToVariant,
@@ -110,7 +110,7 @@ async function submitUserMessage(userInput: string, userID: string) {
     tools: {
       confirm_business_knowledge: {
         description:
-          "Once you deeply understand the business, target problem, and customers, verify it before creating a persona.",
+          "Once you deeply understand the business, target problem, and customers. You need to be able to describe both in no less than one paragraph.",
         parameters: z
           .object({
             business: z
@@ -159,7 +159,7 @@ async function submitUserMessage(userInput: string, userID: string) {
 
       create_persona: {
         description:
-          "As soon as the user has confirmed the business and target problem, immediately create a persona.",
+          "Once you deeply understand the business, target problem, and customers, and the user has confirmed the business and target problem.",
         parameters: z
           .object({
             business: z
@@ -172,7 +172,13 @@ async function submitUserMessage(userInput: string, userID: string) {
           })
           .required(),
         render: async function* ({ business, targetProblem }) {
-          yield <Loading loadingMessage={"Generating personas..."} />;
+          yield (
+            <Loading
+              loadingMessage={
+                "Generating personas - this could take up to a minute..."
+              }
+            />
+          );
 
           const archetypes = await createArchetypes(business, targetProblem);
           console.log("archetypes", archetypes);
@@ -229,21 +235,14 @@ async function submitUserMessage(userInput: string, userID: string) {
               .describe(
                 "the index of the persona to update. don't ask the user for this, just ask them for the persona's name."
               ),
-            updatedArchetypeValue: z
-              .string()
-              .describe("the new version of the changed field"),
-            updatedField: z
+            updatedArchetype: z
               .string()
               .describe(
-                "the field in the Archetype to update (ex. 'archetype_name')"
+                "the updated archetype model in JSON format, in this format: {archetype_name: 'example', persona_components: {...}, ...}"
               ),
           })
           .required(),
-        render: async function* ({
-          personaIndex,
-          updatedArchetypeValue,
-          updatedField,
-        }) {
+        render: async function* ({ personaIndex, updatedArchetype }) {
           // Update the final AI state.
           aiState.done({
             ...aiState.get(),
@@ -258,19 +257,13 @@ async function submitUserMessage(userInput: string, userID: string) {
             ],
           });
           console.log("!!!!! -> ->");
-          console.log(updatedField);
-          console.log(updatedArchetypeValue);
-          const newField = updatedField.replaceAll("persona_components.", "");
+          console.log(updatedArchetype);
+
           return (
             <div className="w-[600px]">
               <PersonaChangeDiffCard
                 origin_archetype={aiState.get().personas[personaIndex]}
-                updated_archetype={{
-                  ...aiState.get().personas[personaIndex],
-                  persona_components: {
-                    [newField]: updatedArchetypeValue,
-                  },
-                }}
+                updated_archetype={JSON.parse(updatedArchetype)}
               />
             </div>
           );

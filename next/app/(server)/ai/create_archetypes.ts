@@ -1,5 +1,5 @@
 "use server";
-import { GPT4 } from "./gpt4";
+import { ChatGPT, GPT4 } from "./gpt";
 import { getRandomHeadshot } from "./persona_picture";
 import { CREATE_PERSONA_PROMPT } from "./prompts";
 
