@@ -149,7 +149,9 @@ async function submitUserMessage(userInput: string, userID: string) {
               Does this cover the business and target problem or is something
               missing?
               <br></br>
-              <ConfirmKnowledgeCard {...{ business, targetProblem }} />
+              <div className="w-[600px]">
+                <ConfirmKnowledgeCard {...{ business, targetProblem }} />
+              </div>
             </div>
           );
         },
@@ -259,14 +261,14 @@ async function submitUserMessage(userInput: string, userID: string) {
           console.log(updatedArchetypeValue);
           const newField = updatedField.replaceAll("persona_components.", "");
           return (
-            <div>
+            <div className="w-[600px]">
               <PersonaChangeDiffCard
                 origin_archetype={aiState.get().personas[personaIndex]}
                 updated_archetype={{
+                  ...aiState.get().personas[personaIndex],
                   persona_components: {
                     [newField]: updatedArchetypeValue,
                   },
-                  ...aiState.get().personas[personaIndex],
                 }}
               />
             </div>
