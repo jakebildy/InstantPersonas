@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 import { createAI, getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
-import { PersonaMessage } from "@/components/chat";
+import { PersonaInitial, PersonaMessage } from "@/components/chat";
 import React from "react";
 import { Loading } from "@/components/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
@@ -85,6 +85,7 @@ async function submitUserMessage(userInput: string, userID: string) {
 
       return <PersonaMessage message={content} />;
     },
+    initial: <PersonaInitial />,
     tools: {
       confirm_business_knowledge: {
         description:

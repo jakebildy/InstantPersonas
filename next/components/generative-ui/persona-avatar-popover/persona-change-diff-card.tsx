@@ -104,6 +104,7 @@ export function PersonaChangeDiffCard({
     });
 
   const [isRejected, setIsRejected] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
 
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
@@ -171,7 +172,9 @@ export function PersonaChangeDiffCard({
           )}
         </div>
       ) : null}
-      {!isRejected ? (
+      {isAccepted ? (
+        <div>Accepted Changes</div>
+      ) : !isRejected ? (
         <div>
           <Button
             className="mb-2 mx-6"

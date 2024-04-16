@@ -28,10 +28,8 @@ export async function createArchetypes(
   try {
     userPersona = JSON.parse(responseText);
   } catch (error) {
-    throw new Error(
-      "2. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-        responseText
-    );
+    console.log("error: " + error);
+    return await createArchetypes(business, targetProblem);
   }
   for (let i = 0; i < userPersona["persona_archetypes"].length; i++) {
     let archetype;
