@@ -8,6 +8,9 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import "../../App.css";
 import api from "@/services/api.service";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export const UserFeedbackDialog = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -31,102 +34,127 @@ export const UserFeedbackDialog = React.forwardRef<
         ref={ref}
         {...props}
       >
-        <h2 className="text-green-500 text-lg font-bold mb-5">
-          How many personas do you need to create in a year?
-        </h2>
-
-        {...options.map((option) => (
-          <div className="flex flex-row">
-            <Checkbox.Root
-              className="CheckboxRoot"
-              defaultChecked
-              id={option}
-              checked={selectedOptions.includes(option)}
-              onCheckedChange={
-                selectedOptions.includes(option)
-                  ? () =>
-                      setSelectedOptions(
-                        selectedOptions.filter((o) => o !== option)
-                      )
-                  : () => setSelectedOptions([...selectedOptions, option])
-              }
-              style={
-                selectedOptions.includes(option)
-                  ? {
-                      backgroundColor: "green",
-                      boxShadow: "none",
-                      marginRight: "10px",
-                      marginBottom: "10px",
-                    }
-                  : { marginRight: "10px", marginBottom: "10px" }
-              }
-            >
-              <Checkbox.Indicator className="CheckboxIndicator">
-                <CheckIcon />
-              </Checkbox.Indicator>
-            </Checkbox.Root>
-            <label className="Label" htmlFor={option}>
-              {option}
-            </label>
+        <div className="flex flex-col h-full justify-between">
+          <div className="flex-1 flex flex-col mb-5">
+            <h2 className="text-green-500 text-xl font-bold mb-5">
+              Can you describe the key deliverables you produce that are
+              critical for both internal collaboration and external client
+              engagement?
+            </h2>
+            <div className="w-full flex flex-col items-center gap-1.5 flex-1">
+              <Label htmlFor="deliverables" className="sr-only">
+                Can you describe the key deliverables you produce that are
+                critical for both internal collaboration and external client
+                engagement?
+              </Label>
+              <Textarea
+                id="deliverables"
+                placeholder="My most valuable core key deliverables are..."
+                className="w-full flex-1 placeholder:text-slate-700 shadow-lg"
+                value={selectedOptions[0]}
+                onChange={(e) =>
+                  setSelectedOptions([
+                    e.target.value,
+                    ...selectedOptions.slice(1),
+                  ])
+                }
+              />
+            </div>
           </div>
-        ))}
-
-        <div className="flex space-x-4 w-full justify-end pt-2">
-          <DialogPrimitive.Close asChild>
-            <Button variant={"secondary"}>Close</Button>
-          </DialogPrimitive.Close>
-          <Button
-            className="px-6"
-            type="submit"
-            onClick={async () => {
-              if (!submitting) {
-                try {
-                  setSubmitting(true);
-                  const response = await fetch(
-                    "https://hook.us1.make.com/nbx94dpphesjvgad4067yl0nyot2rscy",
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({ options: selectedOptions }),
-                    }
-                  );
-                  //? Uncomment to test loading state
-                  // await new Promise((resolve) => setTimeout(resolve, 10000));
-
-                  if (response.ok) {
-                    console.log("Response sent successfully");
-                    try {
-                      console.log("pending set as onboarded");
-                      const onboardedResponse = await api.auth.setOnBoarded();
-                      console.log("set as onboarded finished");
-                      if (onboardedResponse.ok) {
-                        console.log("User set as onboarded");
+          {/* {...options.map((option) => (
+            <div className="flex flex-row">
+              <Checkbox.Root
+                className="CheckboxRoot"
+                defaultChecked
+                id={option}
+                checked={selectedOptions.includes(option)}
+                onCheckedChange={
+                  selectedOptions.includes(option)
+                    ? () =>
+                        setSelectedOptions(
+                          selectedOptions.filter((o) => o !== option)
+                        )
+                    : () => setSelectedOptions([...selectedOptions, option])
+                }
+                style={
+                  selectedOptions.includes(option)
+                    ? {
+                        backgroundColor: "green",
+                        boxShadow: "none",
+                        marginRight: "10px",
+                        marginBottom: "10px",
                       }
-                    } catch (error) {
-                      console.error("Error setting user as onboarded:", error);
+                    : { marginRight: "10px", marginBottom: "10px" }
+                }
+              >
+                <Checkbox.Indicator className="CheckboxIndicator">
+                  <CheckIcon />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              <label className="Label" htmlFor={option}>
+                {option}
+              </label>
+            </div>
+          ))} */}
+          <div className="flex space-x-4 w-full justify-end pt-2">
+            <DialogPrimitive.Close asChild>
+              <Button variant={"secondary"}>Close</Button>
+            </DialogPrimitive.Close>
+            <Button
+              className="px-6"
+              type="submit"
+              onClick={async () => {
+                if (!submitting) {
+                  try {
+                    setSubmitting(true);
+                    const response = await fetch(
+                      "https://hook.us1.make.com/nbx94dpphesjvgad4067yl0nyot2rscy",
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ options: selectedOptions }),
+                      }
+                    );
+                    //? Uncomment to test loading state
+                    // await new Promise((resolve) => setTimeout(resolve, 10000));
+                    if (response.ok) {
+                      console.log("Response sent successfully");
+                      try {
+                        console.log("pending set as onboarded");
+                        const onboardedResponse = await api.auth.setOnBoarded();
+                        console.log("set as onboarded finished");
+                        if (onboardedResponse.ok) {
+                          console.log("User set as onboarded");
+                        }
+                      } catch (error) {
+                        console.error(
+                          "Error setting user as onboarded:",
+                          error
+                        );
+                      }
+                    } else {
+                      console.error(
+                        "Failed to send response:",
+                        response.status,
+                        response.statusText
+                      );
                     }
-                  } else {
+                  } catch (error) {
                     console.error(
-                      "Failed to send response:",
-                      response.status,
-                      response.statusText
+                      "An error occurred while sending the response:",
+                      error
                     );
                   }
-                } catch (error) {
-                  console.error(
-                    "An error occurred while sending the response:",
-                    error
-                  );
+                  setSubmitting(false);
+                  onFeedbackSubmit();
                 }
-                setSubmitting(false);
-                onFeedbackSubmit();
-              }
-            }}
-          >
-            Submit
-          </Button>
+              }}
+            >
+              Submit
+            </Button>
+          </div>
         </div>
 
         {children}
