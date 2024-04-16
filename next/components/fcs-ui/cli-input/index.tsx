@@ -5,7 +5,7 @@ import React, { RefObject, createRef, useRef } from "react";
 import { useAutoAdjustTextArea } from "./useAutoAdjustTextArea";
 import { KeyBind, useKeyboardShortcuts } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
-import { SendHorizontal } from "lucide-react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 type BaseKeyBind = Omit<KeyBind, "action">; // Base type without the action property
 
@@ -139,7 +139,7 @@ export const CommandUserInput = React.forwardRef<
             type="submit"
             variant={"link"}
           >
-            <SendHorizontal className="h-4 w-4 text-primary hover:text-OffWhite-light transition-colors duration-500" />
+            <PaperAirplaneIcon className="h-4 w-4 text-primary hover:text-OffWhite-light transition-colors duration-500" />
           </Button>
         </div>
       </form>

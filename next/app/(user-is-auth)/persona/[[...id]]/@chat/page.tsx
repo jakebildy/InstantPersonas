@@ -1,6 +1,5 @@
 "use server";
 import Chat from "@/components/chat";
-import ChatAvatars from "@/components/chat-avatars";
 import api from "@/service/api.service";
 
 export default async function ChatPage({

@@ -12,9 +12,9 @@ export default function SidebarLayout({
     <Tabs defaultValue="personaChat">
       {/* Main Header | 58px */}
       <div className="flex items-center px-4 py-2">
-        <h1 className="text-xl font-bold">User Personas</h1>
+        <h1 className="text-xl font-bold">Persona Creator</h1>
         <TabsList className="ml-auto">
-          <TabsTrigger
+          {/* <TabsTrigger
             value="personaChat"
             className="text-zinc-600 dark:text-zinc-200"
           >
@@ -22,7 +22,7 @@ export default function SidebarLayout({
           </TabsTrigger>
           <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
             Map
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
       </div>
       <Separator />

@@ -53,5 +53,7 @@ export async function createArchetypes(
     archetypes.push(archetype);
   }
 
+  console.log ("new archetypes: " + archetypes);
+
   return archetypes;
 }

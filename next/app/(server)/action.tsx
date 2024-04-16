@@ -110,7 +110,7 @@ async function submitUserMessage(userInput: string, userID: string) {
     tools: {
       confirm_business_knowledge: {
         description:
-          "Once you deeply understand the business, target problem, and customers, verify it before creating a persona. If the user doesn't confirm, ask for more information.",
+          "Once you deeply understand the business, target problem, and customers, verify it before creating a persona.",
         parameters: z
           .object({
             business: z
@@ -175,6 +175,7 @@ async function submitUserMessage(userInput: string, userID: string) {
           yield <Loading loadingMessage={"Generating personas..."} />;
 
           const archetypes = await createArchetypes(business, targetProblem);
+          console.log("archetypes", archetypes);
 
           // Update the final AI state.
           aiState.done({
