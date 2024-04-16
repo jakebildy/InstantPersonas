@@ -1,4 +1,5 @@
-import React, { HTMLAttributes } from "react";
+"use client";
+import React, { HTMLAttributes, useState } from "react";
 import { avatarVariants, gradientVariants, PersonaArchetype } from ".";
 import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,10 +13,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAIState } from "ai/rsc";
+import { AI } from "@/app/(server)/action";
 
 export interface PersonaChangeDiffCardProps {
   origin_archetype: PersonaArchetype;
   updated_archetype: PersonaArchetype;
+  personaIndex: number;
 }
 
 export const personaTemplateVariants = cva("bg-gradient-to-b ", {
@@ -69,9 +73,12 @@ const isEqual = (value1: any, value2: any): boolean => {
 export function PersonaChangeDiffCard({
   origin_archetype,
   updated_archetype,
+  personaIndex,
 }: PersonaChangeDiffCardProps) {
   // const { archetype_name, persona_components, insights } = origin_archetype;
   // const { archetype_name, persona_components, insights } = updated_archetype;
+
+  const [aiState, setAIState] = useAIState<typeof AI>();
 
   const avatarFallbackName = updated_archetype.archetype_name
     .split(" ")
@@ -95,6 +102,8 @@ export function PersonaChangeDiffCard({
       }
       return null;
     });
+
+  const [isRejected, setIsRejected] = useState(false);
 
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
@@ -162,10 +171,39 @@ export function PersonaChangeDiffCard({
           )}
         </div>
       ) : null}
-      <Button className="mb-2 mx-6">Accept Changes</Button>
-      <Button variant={"destructive"} className="mb-4 mx-6">
-        Revert Changes
-      </Button>
+      {!isRejected ? (
+        <div>
+          <Button
+            className="mb-2 mx-6"
+            onClick={() => {
+              setAIState({
+                ...aiState,
+                personas: aiState.personas.map(
+                  (persona: PersonaArchetype, i: number) => {
+                    if (i === personaIndex) {
+                      return updated_archetype;
+                    }
+                    return persona;
+                  }
+                ),
+              });
+            }}
+          >
+            Accept Changes
+          </Button>
+          <Button
+            variant={"destructive"}
+            className="mb-4 mx-6"
+            onClick={() => {
+              setIsRejected(true);
+            }}
+          >
+            Revert Changes
+          </Button>
+        </div>
+      ) : (
+        <div>Rejected Changes</div>
+      )}
     </div>
   );
 }

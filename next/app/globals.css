@@ -101,7 +101,7 @@
 }
 
 .loading-animation {
-  animation: loadAnimation 30s ease-in-out forwards;
+  animation: loadAnimation 60s ease-in-out forwards;
 }
 
 @keyframes loadAnimation {

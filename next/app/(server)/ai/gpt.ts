@@ -1,6 +1,27 @@
 "use server";
 import axios from "axios";
 
+function estimateGPTTurboCost({
+  promptTokens,
+  completionTokens,
+}: {
+  promptTokens: number;
+  completionTokens: number;
+}) {
+  const inputPricePerMillion = 10.0; // $10 per million input tokens
+  const outputPricePerMillion = 30.0; // $30 per million output tokens
+
+  // Calculate costs
+  const inputCost = (promptTokens / 1000000) * inputPricePerMillion;
+  const outputCost = (completionTokens / 1000000) * outputPricePerMillion;
+
+  // Total cost
+  const totalCost = inputCost + outputCost;
+
+  return totalCost;
+}
+
+
 export async function GPT4(
   prompt: string,
   systemMessages?: string[],

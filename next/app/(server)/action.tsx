@@ -2,41 +2,19 @@ import { OpenAI } from "openai";
 import { createAI, getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
 import { PersonaMessage } from "@/components/chat";
-import axios from "axios";
 import React from "react";
 import { Loading } from "@/components/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
-import { getRandomHeadshot } from "./ai/persona_picture";
-import { GPT4 } from "./ai/gpt";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import {
   mapUrlBackgroundColorParamToVariant,
+  PersonaArchetype,
   PersonaAvatarPopover,
 } from "@/components/generative-ui/persona-avatar-popover";
 import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
 import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
-
-function estimateGPTTurboCost({
-  promptTokens,
-  completionTokens,
-}: {
-  promptTokens: number;
-  completionTokens: number;
-}) {
-  const inputPricePerMillion = 10.0; // $10 per million input tokens
-  const outputPricePerMillion = 30.0; // $30 per million output tokens
-
-  // Calculate costs
-  const inputCost = (promptTokens / 1000000) * inputPricePerMillion;
-  const outputCost = (completionTokens / 1000000) * outputPricePerMillion;
-
-  // Total cost
-  const totalCost = inputCost + outputCost;
-
-  return totalCost;
-}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -264,6 +242,14 @@ async function submitUserMessage(userInput: string, userID: string) {
               <PersonaChangeDiffCard
                 origin_archetype={aiState.get().personas[personaIndex]}
                 updated_archetype={JSON.parse(updatedArchetype)}
+                personaIndex={personaIndex}
+                // onAccept={() => {
+                //   onPersonaChangeAccept(
+                //     personaIndex,
+                //     updatedArchetype,
+                //     aiState
+                //   );
+                // }}
               />
             </div>
           );
@@ -331,6 +317,25 @@ async function submitUserMessage(userInput: string, userID: string) {
     id: Date.now(),
     display: ui,
   };
+}
+
+async function onPersonaChangeAccept(
+  personaIndex: number,
+  updatedArchetype: string,
+  aiState: any
+) {
+  "use server";
+  aiState.done({
+    ...aiState.get(),
+    personas: aiState
+      .get()
+      .personas.map((persona: PersonaArchetype, i: number) => {
+        if (i === personaIndex) {
+          return JSON.parse(updatedArchetype);
+        }
+        return persona;
+      }),
+  });
 }
 
 // Define the initial state of the AI. It can be any JSON object.
