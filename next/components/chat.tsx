@@ -71,7 +71,7 @@ export default function Chat({ className, history }: Props) {
   return (
     <section
       className={cn(
-        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] relative bg-background box-border",
+        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] relative bg-background box-border overflow-hidden",
         className
       )}
     >
@@ -94,7 +94,7 @@ export default function Chat({ className, history }: Props) {
 
       <ScrollArea className="h-[calc(100%-70px)]">
         {/* 120px is the height of the input and suggestions */}
-        <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2">
+        <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2 overflow-hidden">
           <PersonaMessage
             message={`Describe your product or service, and I can create a user persona.`}
           />
@@ -113,7 +113,7 @@ export default function Chat({ className, history }: Props) {
       </ScrollArea>
 
       <CommandUserInput
-        className={"bottom-0 absolute w-[calc(100%-16px)] m-2"}
+        className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onSubmit={async (e) => {
@@ -142,6 +142,7 @@ export default function Chat({ className, history }: Props) {
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       ></CommandUserInput>
+      <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-white via-slate-50/75 to-transparent pointer-events-none" />
     </section>
   );
 }
@@ -158,14 +159,14 @@ export const PersonaMessage = ({
   return (
     <div className={cn("flex gap-2", className)} {...Props}>
       {/* 32px + 16px = 48px ~ image width + gap */}
-      <div className="flex items-center h-full w-[calc(32px+16px)]">
+      <div className="flex items-center h-8 w-8">
         <Image
           src={"/instant_personas_logo.png"}
           alt={"Instant Personas Logo"}
           width={32}
-          height={28}
+          height={32}
           priority
-          className={cn("object-contain")}
+          className={cn("object-contain min-w-8")}
         />
       </div>
 
