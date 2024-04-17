@@ -1,5 +1,6 @@
 "use client";
 import { AnimatedTooltip } from "@/components/aceternity-ui/animated_tooltip";
+import { limitTextToFirstDelimiter } from "@/lib/utils";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 
 export function RecentPersonasList({ personachats }: { personachats: any[] }) {
@@ -16,28 +17,30 @@ export function RecentPersonasList({ personachats }: { personachats: any[] }) {
     designation: string;
     image: string;
     href: string;
-  }[] = top10Personas.map((persona, i) => {
-    const firstName = persona.persona.name?.split(" ")[0] ?? "";
-    const lastRelevantDescriptor =
-      persona.persona.shortDescriptors
-        ?.filter((s: any) => ["Occupation", "Location"].includes(s.label))
-        .at(-1)?.description ??
-      persona.persona.shortDescriptors?.at(0)?.description ??
-      "";
+  }[] = top10Personas.map((chat, i) => {
+    // const firstName = chat.persona.archetype_name.split(" ")[0] ?? "";
+    // const lastRelevantDescriptor =
+    //   chat.persona.shortDescriptors
+    //     ?.filter((s: any) => ["Occupation", "Location"].includes(s.label))
+    //     .at(-1)?.description ??
+    //   chat.persona.shortDescriptors?.at(0)?.description ??
+    //   "";
 
-    const name =
-      firstName +
-      (lastRelevantDescriptor ? ` | ${lastRelevantDescriptor}` : "");
+    const name = chat.persona.archetype_name;
+    // firstName +
+    // (lastRelevantDescriptor ? ` | ${lastRelevantDescriptor}` : "");
 
-    const image = persona.persona.pictureURL ?? "/default-image-url.jpg"; // Assuming you have a default image URL
-    const designation = persona.persona.productDescription ?? "";
-
+    const image = chat.persona.pictureURL ?? "/test-persona-avatar.jpg";
+    // const designation = chat.persona.productDescription ?? "";
+    const designation = limitTextToFirstDelimiter(
+      chat.persona.persona_components.Mindset_and_Perspective ?? ""
+    );
     return {
       id: i,
       name,
       image,
       designation,
-      href: `/persona/${persona.id}`,
+      href: `/persona/${chat.id}`,
     } as const;
   });
 

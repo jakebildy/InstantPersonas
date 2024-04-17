@@ -2,27 +2,18 @@ import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
 import api, { PersonaHistory } from "@/service/api.service";
 import { TrashIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
   // Grab Occupation or Location, or the first descriptor, or fallback to empty string
-  const relevantPersonaInfo =
-    persona && persona.shortDescriptors && persona.shortDescriptors.length > 0
-      ? persona.shortDescriptors
-          .filter((s) => ["Occupation", "Location"].includes(s.label))
-          .at(-1)?.description ?? persona.shortDescriptors.at(0)?.description
-      : "";
-
   if (!persona) return null;
 
   return (
-    <div
+    <Link
       className={
         "ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
       }
-      onClick={(event) => {
-        window.location.href = "/persona/" + id;
-        event.stopPropagation(); // Stop event propagation
-      }}
+      href={"/persona/" + id}
     >
       <div className="flex items-center justify-center h-16 w-16">
         <Image
@@ -37,10 +28,10 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
       </div>
       <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
         <div>
-          {persona.name} | {relevantPersonaInfo ?? ""}
+          {persona.archetype_name}
           <br></br>
-          <span className="text-slate-700  font-normal">
-            {persona.productDescription}
+          <span className="text-slate-700 font-normal text-ellipsis">
+            {persona.persona_components.End_Goal}
           </span>
         </div>
       </div>
@@ -53,6 +44,6 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
         }}
         className="h-5 text-transparent ml-5 mr-5 group-hover:text-slate-600"
       />
-    </div>
+    </Link>
   );
 }

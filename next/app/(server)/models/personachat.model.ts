@@ -25,7 +25,7 @@ export interface PersonaChat {
 
 const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
   {
-    aiState: [{ type: Schema.Types.Mixed, required: false }],
+    aiState: { type: Schema.Types.Mixed, required: false },
     personas: [{ type: Schema.Types.Mixed, required: false }],
     aiSuggestedChats: [{ type: String, required: false }],
     user: { type: String, required: true },

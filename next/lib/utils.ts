@@ -216,3 +216,37 @@ export function colorDistance(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   7
 );
+
+/**
+ * Truncates the input text at the first occurrence of a period (.) or comma (,),
+ * and limits the output to a maximum of 50 characters without cutting off any words.
+ * Appends an ellipsis (...) if the length exceeds this limit.
+ *
+ * @param {string} text - The input text to be transformed.
+ * @returns {string} The transformed text, truncated without cutting off words and possibly appended with ellipsis.
+ *
+ * @example
+ * // returns 'Hello World...'
+ * transformText("Hello World, this is a sample text that will be truncated.");
+ *
+ * @example
+ * // returns 'Short text'
+ * transformText("Short text");
+ */
+export function limitTextToFirstDelimiter(text: string): string {
+  // Locate the first index of '.' or ','
+  const index = Math.min(
+    ...[".", ","].map((char) => text.indexOf(char)).filter((i) => i !== -1)
+  );
+
+  // Determine the segment of the text up to the found punctuation or full text if none
+  let result = index > -1 ? text.substring(0, index) : text;
+
+  // Append ellipsis without cutting off words if the text exceeds 50 characters
+  if (result.length > 50) {
+    const lastSpace = result.substring(0, 50).lastIndexOf(" ");
+    result = result.substring(0, lastSpace) + "...";
+  }
+
+  return result;
+}

@@ -1,29 +1,28 @@
+import { AIStateValidator } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
-import { PersonaChat, UserPersona } from "@/app/(server)/models/personachat.model";
+import { PersonaChat } from "@/app/(server)/models/personachat.model";
 
-export function convertPersonaChatsToPersonaWithIDs(personaChats: PersonaChat[]): PersonaWithID[] {
-    if (!personaChats) {
-        return [];
-    }
+export function convertPersonaChatsToPersonaWithIDs(
+  personaChats: PersonaChat[]
+): PersonaWithID[] {
+  console.log(personaChats);
+  if (!personaChats) {
+    return [];
+  }
 
-    const personas = personaChats
-    .filter((personaChat) => personaChat.personas !== undefined)
-    .map((personaChat) => personaChat.personas)
-    .filter((persona) => persona !== undefined)
-    .flat();
+  const personaWithIDs = personaChats
+    .map((personaChat) => {
+      const state = AIStateValidator.safeParse(personaChat.aiState);
+      if (!state.success) {
+        return null; //? Early return if parsing fails
+      }
+      //? Return the result of the inner map directly
+      return state.data.personas.map((persona) => {
+        return { persona: persona, id: personaChat._id ?? "" };
+      });
+    })
+    .flat()
+    .filter((persona): persona is PersonaWithID => persona !== null);
 
-    const personaIDs = personaChats
-        .map((personaChat) =>
-        Array(personaChat.personas!.filter((persona) => persona !== undefined).length).fill(personaChat._id)
-        )
-        .flat();
-
-    const personaWithIDs = personas.map((persona, i) => {
-        return {
-        persona: persona as UserPersona,
-        id: personaIDs[i],
-        };
-    });
-    
-    return personaWithIDs;
+  return personaWithIDs;
 }

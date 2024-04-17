@@ -39,7 +39,7 @@ export const AnimatedTooltip = ({
       {items.map((item, idx) => (
         <Link
           href={item.href || "/persona"}
-          key={item.id}
+          key={item.id + idx}
           className={"-mr-4  relative group"}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
