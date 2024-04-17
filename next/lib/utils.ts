@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { customAlphabet } from "nanoid";
 import * as React from "react";
 
 /**
@@ -208,3 +209,10 @@ export function colorDistance(
       (rgb1[2] - rgb2[2]) ** 2
   );
 }
+
+/**
+ * Creates a 7-character random string
+ */ export const nanoid = customAlphabet(
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  7
+);
