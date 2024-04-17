@@ -31,7 +31,7 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
           {persona.archetype_name}
           <br></br>
           <span className="text-slate-700 font-normal text-ellipsis">
-            {persona.persona_components.End_Goal}
+            Goal: {persona.persona_components.End_Goal}
           </span>
         </div>
       </div>
