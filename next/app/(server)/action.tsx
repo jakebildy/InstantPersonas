@@ -43,14 +43,26 @@ async function submitUserMessage(userInput: string, userID: string) {
     return;
   }
 
-  console.log("userInput", [
-    ...validatedAIState.data.messages,
-    {
-      id: nanoid(),
-      role: "user",
-      content: userInput,
-    },
-  ]);
+  // console.log("userInput", [
+  //   ...validatedAIState.data.messages,
+  //   {
+  //     id: nanoid(),
+  //     role: "user",
+  //     content: userInput,
+  //   },
+  // ]);
+
+  aiState.update({
+    ...validatedAIState.data,
+    messages: [
+      ...validatedAIState.data.messages,
+      {
+        id: nanoid(),
+        role: "user",
+        content: userInput,
+      },
+    ],
+  });
 
   // The `render()` creates a generated, streamable UI.
   // @ts-ignore
