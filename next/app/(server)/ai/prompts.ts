@@ -35,10 +35,9 @@ Here is your current understanding:
 
 ---
 
+respond in the following ECMA-404 JSON format with 4 archetypes:
 
-respond in the following format with 4 archetypes:
-
-{
+[{
 	context: string; // additional context needed to request specific information directly related to the user's inquiry. Encourage the user to provide additional context where needed, such as their role, target market, and primary goal for seeking information. 
 	persona_characteristics: string; // the key characteristics which build the basis for the persona archetypes
 	persona_archetypes: [{
@@ -60,5 +59,6 @@ Mindset_and_Perspective: string; // The persona's overall attitude and viewpoint
 			Strategic_Recommendations: string;
 		}
 	}]
-}
+},
+...]
 `;

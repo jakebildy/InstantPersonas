@@ -217,43 +217,43 @@ async function submitUserMessage(userInput: string, userID: string) {
             updatedArchetype: z
               .string()
               .describe(
-                "the updated archetype model in JSON format, in this format: {archetype_name: 'example', persona_components: {...}, ...}"
+                "the updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}"
               ),
           })
           .required(),
         render: async function* ({ personaIndex, updatedArchetype }) {
           // Update the final AI state.
-          aiState.done({
-            ...aiState.get(),
-            messages: [
-              ...aiState.get().messages,
-              {
-                role: "function",
-                name: "update_persona",
-                // Content can be any string to provide context to the LLM in the rest of the conversation.
-                content: JSON.stringify(personaIndex),
-              },
-            ],
-          });
-          console.log("!!!!! -> ->");
-          console.log(updatedArchetype);
 
-          return (
-            <div className="w-[600px]">
-              <PersonaChangeDiffCard
-                origin_archetype={aiState.get().personas[personaIndex]}
-                updated_archetype={JSON.parse(updatedArchetype)}
-                personaIndex={personaIndex}
-                // onAccept={() => {
-                //   onPersonaChangeAccept(
-                //     personaIndex,
-                //     updatedArchetype,
-                //     aiState
-                //   );
-                // }}
-              />
-            </div>
-          );
+          try {
+            updatedArchetype = JSON.parse(updatedArchetype);
+
+            aiState.done({
+              ...aiState.get(),
+              messages: [
+                ...aiState.get().messages,
+                {
+                  role: "function",
+                  name: "update_persona",
+                  // Content can be any string to provide context to the LLM in the rest of the conversation.
+                  content: JSON.stringify(personaIndex),
+                },
+              ],
+            });
+            console.log("!!!!! -> ->");
+            console.log(updatedArchetype);
+
+            return (
+              <div className="w-[600px]">
+                <PersonaChangeDiffCard
+                  origin_archetype={aiState.get().personas[personaIndex]}
+                  updated_archetype={JSON.parse(updatedArchetype)}
+                  personaIndex={personaIndex}
+                />
+              </div>
+            );
+          } catch {
+            //  FixJsonGPT
+          }
         },
       },
 
