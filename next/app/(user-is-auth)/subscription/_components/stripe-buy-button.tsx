@@ -18,7 +18,7 @@ interface StripeBuyButtonProps {
 }
 
 const testing = process.env.NEXT_PUBLIC_ENV === "dev";
-const STRIPE_PUBLIC_TOKEN = process.env.NEXT_PUBLIC_STRIPE_TOKEN;
+const STRIPE_PUBLIC_TOKEN = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_TOKEN;
 
 const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
   buyButtonId,

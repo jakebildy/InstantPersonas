@@ -65,8 +65,12 @@ const api = {
   },
 
   stripe: {
-    isSubscriptionActive: async () => {
-      const response = await axios.get("api/subscription-status");
+    isSubscriptionActive: async (userID: string) => {
+ 
+      const response = await axios.get("/api/subscription-status", {
+        params: { userID },
+      });
+
       return response.data;
     },
     getCustomerPortalUrl: async (): Promise<string> =>
