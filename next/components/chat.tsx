@@ -91,9 +91,9 @@ export default function Chat({ className }: Props) {
         </div>
       ) : null}
 
-      <ScrollArea className="h-[calc(100%-70px)]">
+      <ScrollArea className="h-[calc(100%)]">
         {/* 120px is the height of the input and suggestions */}
-        <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2 overflow-hidden">
+        <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
           <PersonaMessage
             message={`Describe your product or service, and I can create a user persona.`}
           />

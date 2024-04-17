@@ -198,14 +198,13 @@ async function submitUserMessage(userInput: string, userID: string) {
             ],
           });
 
-          // if (userID) {
-          //   const personaChat: any = await PersonaChat.create({
-          //     aiState: aiState.get(),
-          //     user: userID,
-          //     aiSuggestedChats: [],
-          //     personas: persona,
-          //   });
-          // }
+          if (userID) {
+            const personaChat: any = await PersonaChat.create({
+              aiState: aiState.get(),
+              user: userID,
+              aiSuggestedChats: [],
+            });
+          }
 
           return (
             <div className="flex flex-row">
@@ -413,6 +412,7 @@ export const AI: any = createAI({
 
   //     //! TODO - save chat to the database with chatId and UserId
   //     // await saveChat(chat);
+  //     console.log("chat", chat);
   //   } else {
   //     return;
   //   }
