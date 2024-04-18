@@ -1,7 +1,9 @@
+import "server-only";
+
 import { OpenAI } from "openai";
-import { createAI, getMutableAIState, render } from "ai/rsc";
+import { createAI, getAIState, getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
-import { PersonaInitial, PersonaMessage } from "@/components/chat";
+import { PersonaInitial, PersonaMessage, UserMessage } from "@/components/chat";
 import React from "react";
 import { Loading } from "@/components/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
@@ -15,6 +17,10 @@ import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
 import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
+import { PersonaChat, UserPersona } from "./models/personachat.model";
+import { nanoid } from "@/lib/utils";
+import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
+import posthog from "posthog-js";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -22,29 +28,36 @@ const openai = new OpenAI({
 
 initMongoDB();
 
-async function setInitialAIState(newAIState: any) {
-  const aiState = getMutableAIState<typeof AI>();
-  aiState.done(newAIState);
-}
-
-async function getCurrentAIState(): Promise<any> {
-  const aiState = getMutableAIState<typeof AI>();
-  return aiState.get();
-}
-
 //@ts-ignore
 async function submitUserMessage(userInput: string, userID: string) {
   "use server";
 
   //@ts-ignore
   const aiState = getMutableAIState<typeof AI>();
+  const validatedAIState = AIStateValidator.safeParse(aiState.get());
 
-  // Update the AI state with the new user message.
+  if (!validatedAIState.success) {
+    posthog.capture("error", {
+      error: validatedAIState.error,
+    });
+    return;
+  }
+
+  // console.log("userInput", [
+  //   ...validatedAIState.data.messages,
+  //   {
+  //     id: nanoid(),
+  //     role: "user",
+  //     content: userInput,
+  //   },
+  // ]);
+
   aiState.update({
-    ...aiState.get(),
+    ...validatedAIState.data,
     messages: [
-      ...aiState.get().messages,
+      ...validatedAIState.data.messages,
       {
+        id: nanoid(),
         role: "user",
         content: userInput,
       },
@@ -52,7 +65,7 @@ async function submitUserMessage(userInput: string, userID: string) {
   });
 
   // The `render()` creates a generated, streamable UI.
-  //@ts-ignore
+  // @ts-ignore
   const ui = render({
     model: "gpt-4-0125-preview",
     provider: openai,
@@ -61,7 +74,11 @@ async function submitUserMessage(userInput: string, userID: string) {
         role: "system",
         content: ASSISTANT_PROMPT,
       },
-      ...aiState.get().messages,
+      ...aiState.get().messages.map((message: any) => ({
+        role: message.role,
+        content: message.content,
+        name: message.name,
+      })),
     ],
     // `text` is called when an AI returns a text response (as opposed to a tool call).
     // Its content is streamed from the LLM, so this function will be called
@@ -75,6 +92,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             ...aiState.get().messages,
             {
               role: "assistant",
+              id: nanoid(),
               content,
             },
           ],
@@ -111,11 +129,13 @@ async function submitUserMessage(userInput: string, userID: string) {
               ...aiState.get().messages,
               {
                 role: "assistant",
+                id: nanoid(),
                 content: `Does this cover the business and target problem or is something
                 missing?`,
               },
               {
                 role: "function",
+                id: nanoid(),
                 name: "confirm_business_knowledge",
                 // Content can be any string to provide context to the LLM in the rest of the conversation.
                 content: JSON.stringify({ business, targetProblem }),
@@ -124,7 +144,7 @@ async function submitUserMessage(userInput: string, userID: string) {
           });
 
           return (
-            <div className="">
+            <div>
               Does this cover the business and target problem or is something
               missing?
               <br></br>
@@ -171,20 +191,20 @@ async function submitUserMessage(userInput: string, userID: string) {
               {
                 role: "function",
                 name: "create_persona",
+                id: nanoid(),
                 // Content can be any string to provide context to the LLM in the rest of the conversation.
                 content: JSON.stringify(archetypes),
               },
             ],
           });
 
-          // if (userID) {
-          //   const personaChat: any = await PersonaChat.create({
-          //     aiState: aiState.get(),
-          //     user: userID,
-          //     aiSuggestedChats: [],
-          //     personas: persona,
-          //   });
-          // }
+          if (userID) {
+            const personaChat: any = await PersonaChat.create({
+              aiState: aiState.get(),
+              user: userID,
+              aiSuggestedChats: [],
+            });
+          }
 
           return (
             <div className="flex flex-row">
@@ -224,34 +244,38 @@ async function submitUserMessage(userInput: string, userID: string) {
         render: async function* ({ personaIndex, updatedArchetype }) {
           // Update the final AI state.
 
-          try {
-            updatedArchetype = JSON.parse(updatedArchetype);
+          const personaDiffContent = {
+            index: personaIndex,
+            origin_archetype: aiState.get().personas[personaIndex],
+            updated_archetype: JSON.parse(updatedArchetype),
+          };
+                  try {
+          aiState.done({
+            ...aiState.get(),
+            messages: [
+              ...aiState.get().messages,
+              {
+                role: "function",
+                name: "update_persona",
+                id: nanoid(),
+                // Content can be any string to provide context to the LLM in the rest of the conversation.
+                content: JSON.stringify(personaDiffContent),
+              },
+            ],
+          });
+          console.log("!!!!! -> ->");
+          console.log(updatedArchetype);
 
-            aiState.done({
-              ...aiState.get(),
-              messages: [
-                ...aiState.get().messages,
-                {
-                  role: "function",
-                  name: "update_persona",
-                  // Content can be any string to provide context to the LLM in the rest of the conversation.
-                  content: JSON.stringify(personaIndex),
-                },
-              ],
-            });
-            console.log("!!!!! -> ->");
-            console.log(updatedArchetype);
-
-            return (
-              <div className="w-[600px]">
-                <PersonaChangeDiffCard
-                  origin_archetype={aiState.get().personas[personaIndex]}
-                  updated_archetype={JSON.parse(updatedArchetype)}
-                  personaIndex={personaIndex}
-                />
-              </div>
-            );
-          } catch {
+          return (
+            <div className="w-[600px]">
+              <PersonaChangeDiffCard
+                origin_archetype={personaDiffContent.origin_archetype}
+                updated_archetype={personaDiffContent.updated_archetype}
+                personaIndex={personaDiffContent.index}
+              />
+            </div>
+          );
+                } catch {
             //  FixJsonGPT
           }
         },
@@ -285,6 +309,7 @@ async function submitUserMessage(userInput: string, userID: string) {
               {
                 role: "function",
                 name: "persona_content_consumption",
+                id: nanoid(),
                 // Content can be any string to provide context to the LLM in the rest of the conversation.
                 content: JSON.stringify(contentConsumption),
               },
@@ -320,69 +345,159 @@ async function submitUserMessage(userInput: string, userID: string) {
   };
 }
 
-async function onPersonaChangeAccept(
-  personaIndex: number,
-  updatedArchetype: string,
-  aiState: any
-) {
-  "use server";
-  aiState.done({
-    ...aiState.get(),
-    personas: aiState
-      .get()
-      .personas.map((persona: PersonaArchetype, i: number) => {
-        if (i === personaIndex) {
-          return JSON.parse(updatedArchetype);
-        }
-        return persona;
-      }),
-  });
-}
-
-// Define the initial state of the AI. It can be any JSON object.
-export const initialAIState: {
-  business: string;
-  targetProblem: string;
-  threadKnowledge: {
-    context: string;
-    personaCharacteristics: string[];
-    thresholdRating: number; // 0-10
-  };
-  personas: any[];
-  messages: {
-    role: "user" | "assistant" | "system" | "function";
-    content: string;
-    id?: string;
-    name?: string;
-  }[];
-} = {
-  messages: [],
-  business: "",
-  personas: [],
-  targetProblem: "",
-  threadKnowledge: {
-    context: "",
-    personaCharacteristics: [],
-    thresholdRating: 0,
+export const AI: any = createAI({
+  actions: { submitUserMessage },
+  initialUIState: [],
+  initialAIState: {
+    chatId: nanoid(),
+    messages: [],
+    business: "",
+    personas: [],
+    targetProblem: "",
+    threadKnowledge: {
+      context: "",
+      personaCharacteristics: [],
+      thresholdRating: 0,
+    },
   },
-};
+  unstable_onGetUIState: async () => {
+    ("use server");
 
-// The initial UI state that the client will keep track of, which contains the message IDs and their UI nodes.
-const initialUIState: {
-  id: number;
-  display: React.ReactNode;
-}[] = [];
+    //!TODO - add auth accessible to the server with jwt
+    //? See auth function example: https://github.com/vercel/ai-chatbot/blob/main/auth.ts
+    //? See JWT example: https://github.com/vercel/ai-chatbot/blob/main/auth.config.ts
+    // const session = await auth();
+    const session = {
+      user: {
+        id: "123",
+      },
+    };
 
-// AI is a provider you wrap your application with so you can access AI and UI state in your components.
-//@ts-ignore
-export const AI = createAI({
-  actions: {
-    submitUserMessage,
-    setInitialAIState,
-    getCurrentAIState,
+    if (session && session.user) {
+      const aiState = getAIState();
+
+      if (aiState) {
+        const uiState = getUIStateFromAIState(aiState);
+        return uiState;
+      }
+    } else {
+      return;
+    }
   },
-  // Each state can be any shape of object, but for chat applications
-  // it makes sense to have an array of messages. Or you may prefer something like { id: number, messages: Message[] }
-  initialUIState,
-  initialAIState,
+  // unstable_onSetAIState: async ({ state, done }) => {
+  //   ("use server");
+
+  //   //!TODO - add auth accessible to the server with jwt
+  //   //? See auth function example: https://github.com/vercel/ai-chatbot/blob/main/auth.ts
+  //   //? See JWT example: https://github.com/vercel/ai-chatbot/blob/main/auth.config.ts
+  //   // const session = await auth();
+  //   const session = {
+  //     user: {
+  //       id: "123",
+  //     },
+  //   };
+
+  //   if (session && session.user) {
+  //     const { chatId, messages } = state;
+
+  //     const createdAt = new Date();
+  //     const userId = session.user.id as string;
+  //     const path = `/chat/${chatId}`;
+  //     const title = messages[0].content.substring(0, 100);
+
+  //     const chat: Chat = {
+  //       id: chatId,
+  //       title,
+  //       userId,
+  //       createdAt,
+  //       messages,
+  //       path,
+  //     };
+
+  //     //! TODO - save chat to the database with chatId and UserId
+  //     // await saveChat(chat);
+  //     console.log("chat", chat);
+  //   } else {
+  //     return;
+  //   }
+  // },
 });
+
+export const getUIStateFromAIState = (aiState: AIState) => {
+  const result = AIStateValidator.safeParse(aiState);
+
+  if (result.success) {
+    return aiState.messages
+      .filter((message) => message.role !== "system")
+      .map((message, index) => ({
+        id: `${aiState.chatId}-${index}`,
+        display:
+          message.role === "function" ? (
+            message.name === "confirm_business_knowledge" ? (
+              <div>
+                Does this cover the business and target problem or is something
+                missing?
+                <br></br>
+                <div className="w-[600px]">
+                  <ConfirmKnowledgeCard {...JSON.parse(message.content)} />
+                </div>
+              </div>
+            ) : message.name === "create_persona" ? (
+              <div className="flex flex-row">
+                {...JSON.parse(message.content).map(
+                  (archetype: any, i: number) => {
+                    const variant = mapUrlBackgroundColorParamToVariant({
+                      url: archetype.pictureURL,
+                    });
+                    return (
+                      <PersonaAvatarPopover
+                        key={i}
+                        {...{ archetype: archetype, variant: variant }}
+                      />
+                    );
+                  }
+                )}
+              </div>
+            ) : message.name === "update_persona" ? (
+              <div className="w-[600px]">
+                <PersonaChangeDiffCard
+                  origin_archetype={
+                    JSON.parse(message.content).origin_archetype
+                  }
+                  updated_archetype={
+                    JSON.parse(message.content).updated_archetype
+                  }
+                  personaIndex={JSON.parse(message.content).index}
+                />
+              </div>
+            ) : message.name === "persona_content_consumption" ? (
+              <div className="flex flex-row flex-wrap">
+                {JSON.parse(message.content).map((url: string) => {
+                  return (
+                    <iframe
+                      key={url}
+                      width="200"
+                      height="344"
+                      className="p-2"
+                      src={url}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  );
+                })}
+              </div>
+            ) : null
+          ) : message.role === "user" ? (
+            <UserMessage message={message.content} />
+          ) : (
+            <PersonaMessage message={message.content} />
+          ),
+      }));
+  } else {
+    posthog.capture("error", {
+      error: result.error,
+    });
+    return [];
+  }
+};

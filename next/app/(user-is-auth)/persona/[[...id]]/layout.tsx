@@ -16,12 +16,7 @@ export default async function Layout({
   const chatHistory = id ? await api.userPersona.getPersonaChat(id) : null;
 
   return (
-    <AI
-    // initialAIState={{
-    //   chatId: chatHistory?._id,
-    //   messages: chatHistory?.aiState.messages,
-    // }}
-    >
+    <AI initialAIState={chatHistory?.aiState}>
       <SidebarLayout chat={chat} map={map} />
     </AI>
   );

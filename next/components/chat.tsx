@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Message, useChat } from "ai/react";
 import {
   HTMLAttributes,
   InputHTMLAttributes,
@@ -29,10 +28,11 @@ import {
 } from "./generative-ui/persona-avatar-popover";
 import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
+import { Separator } from "./ui/separator";
+import { Message } from "@/app/(server)/models/ai-state-type-validators";
 
 type Props = {
   className?: string;
-  history: PersonaChat | null;
 };
 
 type MemoizedComponent = React.MemoExoticComponent<
@@ -43,12 +43,11 @@ type ComponentLookupTableType = {
   [role in ExtractField<Message, "role">]: MemoizedComponent;
 };
 
-export default function Chat({ className, history }: Props) {
+export default function Chat({ className }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
   const [aiState, setAiState] = useAIState<typeof AI>();
   const [messages, setMessages] = useUIState<typeof AI>();
   const [personas, setPersonas] = useState<any>([]);
-
   const { submitUserMessage } = useActions<typeof AI>();
   const [input, setInput] = useState("");
   const user = useStytchUser();
@@ -65,7 +64,7 @@ export default function Chat({ className, history }: Props) {
     if (aiState) {
       setPersonas(aiState.personas);
     }
-    console.log(aiState);
+    // console.log(aiState);
   }, [aiState, setPersonas]);
 
   return (
@@ -92,22 +91,15 @@ export default function Chat({ className, history }: Props) {
         </div>
       ) : null}
 
-      <ScrollArea className="h-[calc(100%-70px)]">
+      <ScrollArea className="h-[calc(100%)]">
         {/* 120px is the height of the input and suggestions */}
-        <div className="font-mono text-sm p-4 pb-[120px] flex flex-col gap-2 overflow-hidden">
+        <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
           <PersonaMessage
             message={`Describe your product or service, and I can create a user persona.`}
           />
-          {
-            // View messages in UI state
-            messages.map((message: any) =>
-              message.role == "user" ? (
-                <UserMessage key={message.id} message={message} />
-              ) : (
-                <div key={message.id}>{message.display}</div>
-              )
-            )
-          }
+          {messages.map((message: any) => (
+            <div key={message.id}>{message.display}</div>
+          ))}
         </div>
         <div ref={scrollBottomRef} />
       </ScrollArea>
@@ -199,7 +191,7 @@ export const PersonaInitial = () => {
   );
 };
 
-const UserMessage = ({
+export const UserMessage = ({
   message,
   className,
   ...Props

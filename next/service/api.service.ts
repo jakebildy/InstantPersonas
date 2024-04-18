@@ -88,7 +88,7 @@ const api = {
       });
       return response.data;
     },
-    getPersonaHistory: async (id?: string): Promise<any> => {
+    getPersonaHistory: async (id?: string): Promise<PersonaChat[]> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-history";
 
@@ -104,7 +104,15 @@ const api = {
       const response = await axios.get(baseUrl, { params });
 
       // Return the results from the response
-      return response.data.results;
+      const data = response.data.results;
+      //! TEMP: Check to make sure aiState is not an array
+      const history = data.map((chat: any) => {
+        if (Array.isArray(chat.aiState)) {
+          chat.aiState = chat.aiState[0];
+        }
+        return chat;
+      });
+      return history;
     },
     getPersonaChat: async (chatID: string): Promise<PersonaChat> => {
       // Define the base URL for the request
@@ -119,7 +127,13 @@ const api = {
       const response = await axios.get(baseUrl, { params });
 
       // Return the results from the response
-      return response.data.result;
+      const data = response.data.result;
+      //! TEMP: Check to make sure aiState is not an array
+      if (data && Array.isArray(data.aiState)) {
+        data.aiState = data.aiState[0];
+      }
+
+      return data;
     },
     updatePersona: async (
       persona: Persona,

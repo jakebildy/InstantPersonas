@@ -20,7 +20,7 @@ export default function PersonaHistoryCardList({
           .reverse()
           .map((persona, i) => (
             <motion.div
-              key={persona.id}
+              key={persona.id + i}
               initial={{
                 opacity: 0,
                 y: -50,
