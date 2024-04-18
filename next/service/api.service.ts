@@ -123,8 +123,7 @@ const api = {
       const response = await axios.get(baseUrl, { params });
 
       // Return the results from the response
-      const data = response.data.results;
-      console.log(data);
+      const data = response.data.result;
       //! TEMP: Check to make sure aiState is not an array
       if (data && Array.isArray(data.aiState)) {
         data.aiState = data.aiState[0];

@@ -64,7 +64,7 @@ export default function Chat({ className }: Props) {
     if (aiState) {
       setPersonas(aiState.personas);
     }
-    console.log(aiState);
+    // console.log(aiState);
   }, [aiState, setPersonas]);
 
   return (

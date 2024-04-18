@@ -5,7 +5,6 @@ import { PersonaChat } from "@/app/(server)/models/personachat.model";
 export function convertPersonaChatsToPersonaWithIDs(
   personaChats: PersonaChat[]
 ): PersonaWithID[] {
-  console.log(personaChats);
   if (!personaChats) {
     return [];
   }
