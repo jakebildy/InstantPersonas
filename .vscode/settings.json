@@ -1,12 +1,27 @@
 {
   "cSpell.words": ["clsx", "stytch"],
   "files.exclude": {
-    "**/.git": false,
-    "**/.svn": false,
-    "**/.hg": false,
-    "**/CVS": false,
-    "**/.DS_Store": false,
-    "**/Thumbs.db": false
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.next": true,
+    "**/node_modules": true,
+    "website": true,
+    "backend": true,
+    ".vscode": true,
+    "**/jest.config.js": true,
+    "**/next-env.d.ts": true,
+    "**/next.config.mjs": true,
+    "**/package.json": true,
+    "**/postcss.config.js": true,
+    "**/pnpm-lock.yaml": true,
+    "**/package-lock.json": true,
+    "**/tsconfig.json": true,
+    "**/components.json": true,
+    "**/.eslintrc.json": true
   },
   "explorerExclude.backup": {}
 }
