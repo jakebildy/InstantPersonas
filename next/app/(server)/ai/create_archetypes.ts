@@ -28,6 +28,7 @@ export async function createArchetypes(
   try {
     userPersona = JSON.parse(responseText);
   } catch (error) {
+    console.log ("response text: " + responseText)
     console.log("error: " + error);
     return await createArchetypes(business, targetProblem);
   }

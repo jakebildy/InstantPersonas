@@ -179,6 +179,8 @@ export function PersonaChangeDiffCard({
           <Button
             className="mb-2 mx-6"
             onClick={() => {
+              setIsAccepted(true);
+
               setAIState({
                 ...aiState,
                 personas: aiState.personas.map(

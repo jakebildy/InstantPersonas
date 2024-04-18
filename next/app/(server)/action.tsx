@@ -237,7 +237,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             updatedArchetype: z
               .string()
               .describe(
-                "the updated archetype model in JSON format, in this format: {archetype_name: 'example', persona_components: {...}, ...}"
+                "the updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}"
               ),
           })
           .required(),
@@ -249,6 +249,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             origin_archetype: aiState.get().personas[personaIndex],
             updated_archetype: JSON.parse(updatedArchetype),
           };
+                  try {
           aiState.done({
             ...aiState.get(),
             messages: [
@@ -274,6 +275,9 @@ async function submitUserMessage(userInput: string, userID: string) {
               />
             </div>
           );
+                } catch {
+            //  FixJsonGPT
+          }
         },
       },
 
