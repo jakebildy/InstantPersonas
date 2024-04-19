@@ -62,13 +62,18 @@ const api = {
       const response = await axios.put("/api/auth/onboarded");
       return response.data;
     },
+
+    createUserIfSignup : async (userID: string, email: string) => {
+      const response = await axios.post("/api/create-user-if-signup", { userID, email });
+      return response.data;
+    }
   },
 
   stripe: {
     isSubscriptionActive: async (userID: string) => {
  
       const response = await axios.get("/api/subscription-status", {
-        params: { userID },
+        params: { id: userID },
       });
 
       return response.data;

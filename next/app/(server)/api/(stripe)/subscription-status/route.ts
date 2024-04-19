@@ -1,16 +1,20 @@
-import { User } from "@/database/models/user.model";
+import { User } from "@/app/(server)/models/user.model";
 import stripe from "../stripe-config";
 
 const SITE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function GET(req: Request, { params }: { params: { userID: any } }) {
-  if (!params.userID) throw "User ID is not defined";
-  try { 
-    console.log("Checking subscription status for user: ", params.userID)
+export async function GET(req: Request,) {
+  const url = new URL(req.url)
 
-    // get the user from the UserID
-    const user = await User.findById(params.userID);
+  const userID = url.searchParams.get("id")
+  if (!userID) throw "User ID is not defined";
+  try { 
+    console.log("Checking subscription status for user: ", userID)
+    const user = await User.findById(userID);
+
+
     if (!user) throw "User not found";
+    console.log ("User: ", user);
     if (!user.stripeSubscriptionId) throw "User has no subscriptionId";
 
     const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);

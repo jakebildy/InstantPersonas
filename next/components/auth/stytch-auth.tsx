@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useStytchUser, useStytch } from "@stytch/nextjs";
+import api from "@/service/api.service";
 
 const OAUTH_TOKEN = "oauth";
 const MAGIC_LINKS_TOKEN = "magic_links";
@@ -44,6 +45,14 @@ export const Authenticate = () => {
       return;
     }
     if (user) {
+      // create a User model if it doesn't exist
+
+      // async function
+      const createUserIfSignup = async () => {
+        await api.auth.createUserIfSignup(user.user_id, user.emails[0].email);
+      };
+      createUserIfSignup();
+
       router.replace("/persona");
     }
   }, [router, user, isInitialized]);
