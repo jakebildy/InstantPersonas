@@ -18,7 +18,7 @@ export const UserFeedbackDialog = React.forwardRef<
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
   const [submitting, setSubmitting] = React.useState(false);
 
-  const options = ["One", "Two to four", "5 to 10", "10 to 20", "20+"];
+  // const options = ["One", "Two to four", "5 to 10", "10 to 20", "20+"];
 
   return (
     <DialogPortal>
