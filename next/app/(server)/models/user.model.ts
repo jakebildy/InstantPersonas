@@ -5,6 +5,7 @@ export interface UserI {
   email : string;
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
+  stytchID?: string;
 
   // Timestamps
   createdAt?: Date;
@@ -19,9 +20,10 @@ export type UserId = string | ObjectId | UserI;
 const UserSchema = new mongoose.Schema<UserI>(
   {
 
-    email: {type: String, unique: true, required: true},
+    email: {type: String, unique: false, required: true},
     stripeCustomerId: { type: String, unique: false, required: false },
     stripeSubscriptionId: { type: String, unique: false, required: false },
+    stytchID: { type: String, unique: true, required: false },
 
     onboarded: {type: Boolean, required: false},
   },

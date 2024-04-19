@@ -9,6 +9,7 @@ export interface UserI {
 
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
+  stytchID?: string;
 
   credits: number;
 
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema<UserI>(
 
     stripeCustomerId: { type: String, unique: false, required: false },
     stripeSubscriptionId: { type: String, unique: false, required: false },
+    stytchID: { type: String, unique: true, required: false },
 
     credits: { type: Number, required: true, default: 3, min: 0 },
 

@@ -64,7 +64,13 @@ const api = {
     },
 
     createUserIfSignup : async (userID: string, email: string) => {
-      const response = await axios.post("/api/create-user-if-signup", { userID, email });
+      const response = await axios.post("/api/create-user-if-signup", {
+        userID: userID,
+        email: email
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }});
       return response.data;
     }
   },

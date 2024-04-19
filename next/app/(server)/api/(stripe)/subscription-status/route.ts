@@ -10,7 +10,7 @@ export async function GET(req: Request,) {
   if (!userID) throw "User ID is not defined";
   try { 
     console.log("Checking subscription status for user: ", userID)
-    const user = await User.findById(userID);
+    const user = await User.findOne({stytchID: userID});
 
 
     if (!user) throw "User not found";
