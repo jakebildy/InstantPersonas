@@ -66,7 +66,11 @@ export function StripePlanCard({
       </ul>
       <StripeBuyButton
         buyButtonId={
-          popular
+          process.env.NEXT_PUBLIC_STRIPE_TEST_MODE === "true"
+            ? popular
+              ? "buy_btn_1P7PaSCtCkpcyaeH9pIp7ryc" //yearly
+              : "buy_btn_1P7PZnCtCkpcyaeH1W5Aty7T"
+            : popular
             ? "buy_btn_1OwXj6CtCkpcyaeHizOLRjdm" //yearly
             : "buy_btn_1OwXkNCtCkpcyaeHZB5J9raH"
         }

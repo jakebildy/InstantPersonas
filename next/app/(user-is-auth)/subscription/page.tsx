@@ -4,11 +4,13 @@ import api from "@/service/api.service";
 import ActiveSubscription from "./_components/(views)/active-subscription";
 import DashboardPricing from "./_components/(views)/pricing-page";
 import { useStytchUser } from "@stytch/nextjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import BarLoader from "react-spinners/BarLoader";
 export default function SubscriptionPage() {
   const { user } = useStytchUser();
 
-  let isSubscribed = false;
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // useEffect
   useEffect(() => {
@@ -18,10 +20,26 @@ export default function SubscriptionPage() {
       const userIsSubscribed = await api.stripe.isSubscriptionActive(
         user?.user_id as string
       );
-      isSubscribed = userIsSubscribed;
+      setIsSubscribed(userIsSubscribed);
+      setLoading(false);
     };
     checkSubscription();
   }, [user]);
 
-  return isSubscribed ? <ActiveSubscription /> : <DashboardPricing />;
+  return loading ? (
+    // center the bar loader in the middle of the screen
+    <div className="flex justify-center items-center h-full w-full mt-[200px]">
+      <div>
+        <div className="text-slate-500 mb-4">
+          Getting subscription status...
+        </div>
+
+        <BarLoader color="#36d7b7" height={10} width={200} />
+      </div>
+    </div>
+  ) : isSubscribed ? (
+    <ActiveSubscription />
+  ) : (
+    <DashboardPricing />
+  );
 }
