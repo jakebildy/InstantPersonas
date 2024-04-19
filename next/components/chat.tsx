@@ -30,6 +30,7 @@ import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
 import { Separator } from "./ui/separator";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
+import { useRouter } from "next/navigation";
 
 type Props = {
   className?: string;
@@ -45,12 +46,13 @@ type ComponentLookupTableType = {
 
 export default function Chat({ className }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
-  const [aiState, setAiState] = useAIState<typeof AI>();
+  const [aiState] = useAIState();
   const [messages, setMessages] = useUIState<typeof AI>();
   const [personas, setPersonas] = useState<any>([]);
   const { submitUserMessage } = useActions<typeof AI>();
   const [input, setInput] = useState("");
   const user = useStytchUser();
+  const router = useRouter();
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -66,6 +68,14 @@ export default function Chat({ className }: Props) {
     }
     // console.log(aiState);
   }, [aiState, setPersonas]);
+
+  useEffect(() => {
+    const messagesLength = aiState.messages?.length;
+    if (messagesLength === 2) {
+      router.refresh();
+    }
+    console.log("client", messages);
+  }, [aiState.messages, messages, router]);
 
   return (
     <section

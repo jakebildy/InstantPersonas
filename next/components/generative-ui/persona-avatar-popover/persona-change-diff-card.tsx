@@ -11,10 +11,14 @@ import {
   XIcon,
   LucideIcon,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, nanoid } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useAIState } from "ai/rsc";
+import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
+import { Message } from "@/app/(server)/models/ai-state-type-validators";
+import { fixJson } from "@/lib/fix-json";
+import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
+import posthog from "posthog-js";
 
 export interface PersonaChangeDiffCardProps {
   origin_archetype: PersonaArchetype;
@@ -79,6 +83,7 @@ export function PersonaChangeDiffCard({
   // const { archetype_name, persona_components, insights } = updated_archetype;
 
   const [aiState, setAIState] = useAIState<typeof AI>();
+  const [uiState, setUIState] = useUIState<typeof AI>();
 
   const avatarFallbackName = updated_archetype.archetype_name
     .split(" ")
@@ -88,23 +93,34 @@ export function PersonaChangeDiffCard({
   const renderDifferences = (
     origin: Record<string, any>,
     updated: Record<string, any>
-  ) =>
-    Object.entries(updated).map(([key, value]) => {
-      if (!isEqual(value, origin[key])) {
-        return (
-          <ShowChangeDifferences
-            key={key}
-            title={key.replace(/_/g, " ")}
-            origin={JSON.stringify(origin[key])}
-            updated={JSON.stringify(value)}
-          />
-        );
-      }
+  ) => {
+    if (origin === null || updated === null) {
       return null;
-    });
+    } else if (origin === undefined || updated === undefined) {
+      return null;
+    } else if (typeof origin !== "object" || typeof updated !== "object") {
+      return null;
+    } else {
+      Object.entries(updated).map(([key, value]) => {
+        if (!isEqual(value, origin[key])) {
+          return (
+            <ShowChangeDifferences
+              key={key}
+              title={key.replace(/_/g, " ")}
+              origin={JSON.stringify(origin[key])}
+              updated={JSON.stringify(value)}
+            />
+          );
+        }
+        return null;
+      });
+    }
+  };
 
   const [isRejected, setIsRejected] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
+
+  console.log(aiState);
 
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
@@ -173,25 +189,66 @@ export function PersonaChangeDiffCard({
         </div>
       ) : null}
       {isAccepted ? (
-        <div>Accepted Changes</div>
+        <div className="mb-2 mx-6 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gradient-to-b from-primary to-green-50 text-primary-foreground">
+          Accepted Changes
+        </div>
       ) : !isRejected ? (
         <div>
           <Button
-            className="mb-2 mx-6"
+            className="mb-2 mx-6 h-10"
             onClick={() => {
               setIsAccepted(true);
-
-              setAIState({
-                ...aiState,
-                personas: aiState.personas.map(
-                  (persona: PersonaArchetype, i: number) => {
-                    if (i === personaIndex) {
-                      return updated_archetype;
-                    }
-                    return persona;
+              const personas = aiState.personas.map(
+                (persona: PersonaArchetype, i: number) => {
+                  if (i === personaIndex) {
+                    return updated_archetype;
                   }
-                ),
-              });
+                  return persona;
+                }
+              );
+              // change Gourmet Feline Enthusiast to luxury cat lady
+
+              let jsonPersona = "";
+              try {
+                jsonPersona = JSON.stringify(personas);
+              } catch (error) {
+                try {
+                  jsonPersona = fixJson(JSON.stringify(personas));
+                } catch (error) {
+                  posthog.capture("error", {
+                    error: "error in parsing persona",
+                    persona: personas,
+                  });
+                }
+              }
+
+              const newAiState = {
+                ...aiState,
+                messages: [
+                  ...aiState.messages.map((message: Message) => {
+                    if (
+                      message.role === "function" &&
+                      message.name === "create_persona"
+                    ) {
+                      const updatedInLinePersonas = {
+                        ...message,
+                        // id: nanoid(),
+                        content: jsonPersona,
+                      };
+                      console.log("server ", updatedInLinePersonas);
+                      return updatedInLinePersonas;
+                    } else return message;
+                  }),
+                ],
+                personas: personas,
+              };
+
+              console.log("newAiState", getUIStateFromAIState(newAiState));
+
+              setAIState(newAiState);
+              setUIState((currentMessages: any) => [
+                ...getUIStateFromAIState(newAiState),
+              ]);
             }}
           >
             Accept Changes
