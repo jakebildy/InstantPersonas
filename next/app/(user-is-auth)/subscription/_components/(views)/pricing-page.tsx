@@ -1,8 +1,8 @@
-"use server";
+"use client";
 
 import { StripePlanCard } from "../stripe-plan-card";
 
-export default async function DashboardPricing() {
+export default function DashboardPricing() {
   const features = [
     "Unlimited User Personas",
     "Persona Chat - Powered by AI",

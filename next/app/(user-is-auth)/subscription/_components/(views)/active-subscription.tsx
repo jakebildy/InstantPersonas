@@ -1,6 +1,6 @@
-"use server";
+"use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import api from "@/service/api.service";
@@ -8,8 +8,17 @@ import { SIDEBAR_LINKS } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import * as PriceLoading from "@/public/price-loading.gif";
 
-export default async function ActiveSubscription() {
-  const stripeCustomerPortalLink = await api.stripe.getCustomerPortalUrl();
+export default function ActiveSubscription() {
+  let stripeCustomerPortalLink;
+
+  useEffect(() => {
+    const fetchStripeCustomerPortalLink = async () => {
+      stripeCustomerPortalLink = await api.stripe.getCustomerPortalUrl();
+      return stripeCustomerPortalLink;
+    };
+    fetchStripeCustomerPortalLink();
+  }, []);
+
   const feedbackLink = SIDEBAR_LINKS.find(
     (link) => link.title === "Send Feedback"
   )?.href;
