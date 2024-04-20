@@ -179,6 +179,7 @@ export function extractParameterFromURL(url: string, parameterName: string) {
   // Define the regular expression dynamically based on the parameter name
   const regex = new RegExp(`${parameterName}=([^&]*)`);
 
+  if (!url) return null;
   // Perform the matching operation
   const match = url.match(regex);
 

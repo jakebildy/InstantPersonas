@@ -21,6 +21,7 @@ import { PersonaChat, UserPersona } from "./models/personachat.model";
 import { nanoid } from "@/lib/utils";
 import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
 import posthog from "posthog-js";
+import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -249,33 +250,33 @@ async function submitUserMessage(userInput: string, userID: string) {
             origin_archetype: aiState.get().personas[personaIndex],
             updated_archetype: JSON.parse(updatedArchetype),
           };
-                  try {
-          aiState.done({
-            ...aiState.get(),
-            messages: [
-              ...aiState.get().messages,
-              {
-                role: "function",
-                name: "update_persona",
-                id: nanoid(),
-                // Content can be any string to provide context to the LLM in the rest of the conversation.
-                content: JSON.stringify(personaDiffContent),
-              },
-            ],
-          });
-          console.log("!!!!! -> ->");
-          console.log(updatedArchetype);
+          try {
+            aiState.done({
+              ...aiState.get(),
+              messages: [
+                ...aiState.get().messages,
+                {
+                  role: "function",
+                  name: "update_persona",
+                  id: nanoid(),
+                  // Content can be any string to provide context to the LLM in the rest of the conversation.
+                  content: JSON.stringify(personaDiffContent),
+                },
+              ],
+            });
+            console.log("!!!!! -> ->");
+            console.log(updatedArchetype);
 
-          return (
-            <div className="w-[600px]">
-              <PersonaChangeDiffCard
-                origin_archetype={personaDiffContent.origin_archetype}
-                updated_archetype={personaDiffContent.updated_archetype}
-                personaIndex={personaDiffContent.index}
-              />
-            </div>
-          );
-                } catch {
+            return (
+              <div className="w-[600px]">
+                <PersonaChangeDiffCard
+                  origin_archetype={personaDiffContent.origin_archetype}
+                  updated_archetype={personaDiffContent.updated_archetype}
+                  personaIndex={personaDiffContent.index}
+                />
+              </div>
+            );
+          } catch {
             //  FixJsonGPT
           }
         },
@@ -422,82 +423,3 @@ export const AI: any = createAI({
   //   }
   // },
 });
-
-export const getUIStateFromAIState = (aiState: AIState) => {
-  const result = AIStateValidator.safeParse(aiState);
-
-  if (result.success) {
-    return aiState.messages
-      .filter((message) => message.role !== "system")
-      .map((message, index) => ({
-        id: `${aiState.chatId}-${index}`,
-        display:
-          message.role === "function" ? (
-            message.name === "confirm_business_knowledge" ? (
-              <div>
-                Does this cover the business and target problem or is something
-                missing?
-                <br></br>
-                <div className="w-[600px]">
-                  <ConfirmKnowledgeCard {...JSON.parse(message.content)} />
-                </div>
-              </div>
-            ) : message.name === "create_persona" ? (
-              <div className="flex flex-row">
-                {...JSON.parse(message.content).map(
-                  (archetype: any, i: number) => {
-                    const variant = mapUrlBackgroundColorParamToVariant({
-                      url: archetype.pictureURL,
-                    });
-                    return (
-                      <PersonaAvatarPopover
-                        key={i}
-                        {...{ archetype: archetype, variant: variant }}
-                      />
-                    );
-                  }
-                )}
-              </div>
-            ) : message.name === "update_persona" ? (
-              <div className="w-[600px]">
-                <PersonaChangeDiffCard
-                  origin_archetype={
-                    JSON.parse(message.content).origin_archetype
-                  }
-                  updated_archetype={
-                    JSON.parse(message.content).updated_archetype
-                  }
-                  personaIndex={JSON.parse(message.content).index}
-                />
-              </div>
-            ) : message.name === "persona_content_consumption" ? (
-              <div className="flex flex-row flex-wrap">
-                {JSON.parse(message.content).map((url: string) => {
-                  return (
-                    <iframe
-                      key={url}
-                      width="200"
-                      height="344"
-                      className="p-2"
-                      src={url}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  );
-                })}
-              </div>
-            ) : null
-          ) : message.role === "user" ? (
-            <UserMessage message={message.content} />
-          ) : (
-            <PersonaMessage message={message.content} />
-          ),
-      }));
-  } else {
-    posthog.capture("error", {
-      error: result.error,
-    });
-    return [];
-  }
-};
