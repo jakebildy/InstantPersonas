@@ -19,13 +19,18 @@ export async function GET(req: Request,) {
 
     const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
     // Log subscription status with user's email.
+    console.log(subscription)
     console.log("Subscription status for user: ", user.email, subscription.status);
-    return Response.json(subscription.status === "active" || subscription.status === "trialing");
+    return Response.json({
+      status: subscription.status,
+      cancel_at_period_end: subscription.cancel_at_period_end,
+      interval: (subscription  as any).plan.interval,
+    });
   }
   catch (error) {
     console.log("Error retrieving subscription");
     console.log(error);
-    return Response.json(false);
+    return Response.json({status: "error"});
   }
 
 }

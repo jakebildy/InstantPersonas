@@ -82,10 +82,15 @@ const api = {
         params: { id: userID },
       });
 
-      return response.data;
+      return response.data as { status: string; cancel_at_period_end: boolean, interval : string };
     },
-    getCustomerPortalUrl: async (): Promise<string> =>
-      (await axios.get("/api/customer-portal")).data,
+    getCustomerPortalUrl: async (userID: string): Promise<string> => {
+      const response = await axios.get("/api/customer-portal", {
+        params: { id: userID },
+      });
+
+      return response.data.url;
+    },
   },
 
   userPersona: {

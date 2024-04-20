@@ -12,6 +12,10 @@ export default function SubscriptionPage() {
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [status, setStatus] = useState<string>("");
+  const [cancel_at_period_end, setCancelAtPeriodEnd] = useState<boolean>(false);
+  const [interval, setInterval] = useState<string>("");
+
   // useEffect
   useEffect(() => {
     if (!user) return;
@@ -20,7 +24,13 @@ export default function SubscriptionPage() {
       const userIsSubscribed = await api.stripe.isSubscriptionActive(
         user?.user_id as string
       );
-      setIsSubscribed(userIsSubscribed);
+      setIsSubscribed(
+        userIsSubscribed.status === "active" ||
+          userIsSubscribed.status === "trialing"
+      );
+      setStatus(userIsSubscribed.status);
+      setCancelAtPeriodEnd(userIsSubscribed.cancel_at_period_end);
+      setInterval(userIsSubscribed.interval);
       setLoading(false);
     };
     checkSubscription();
@@ -38,7 +48,11 @@ export default function SubscriptionPage() {
       </div>
     </div>
   ) : isSubscribed ? (
-    <ActiveSubscription />
+    <ActiveSubscription
+      status={status}
+      cancel_at_period_end={cancel_at_period_end}
+      interval={interval}
+    />
   ) : (
     <DashboardPricing />
   );
