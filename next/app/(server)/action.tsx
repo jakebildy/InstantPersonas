@@ -22,6 +22,7 @@ import { nanoid } from "@/lib/utils";
 import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
 import posthog from "posthog-js";
 import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
+import { fixJson } from "@/lib/fix-json";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -44,14 +45,7 @@ async function submitUserMessage(userInput: string, userID: string) {
     return;
   }
 
-  // console.log("userInput", [
-  //   ...validatedAIState.data.messages,
-  //   {
-  //     id: nanoid(),
-  //     role: "user",
-  //     content: userInput,
-  //   },
-  // ]);
+  // AI suggested messages
 
   aiState.update({
     ...validatedAIState.data,
@@ -277,7 +271,47 @@ async function submitUserMessage(userInput: string, userID: string) {
               </div>
             );
           } catch {
-            //  FixJsonGPT
+            try {
+              const newUpdatedArchetype = JSON.parse(
+                fixJson(updatedArchetype)
+              ) as PersonaArchetype;
+
+              const newPersonaDiffContent = {
+                index: personaIndex,
+                origin_archetype: aiState.get().personas[personaIndex],
+                updated_archetype: newUpdatedArchetype,
+              };
+
+              aiState.done({
+                ...aiState.get(),
+                messages: [
+                  ...aiState.get().messages,
+                  {
+                    role: "function",
+                    name: "update_persona",
+                    id: nanoid(),
+                    // Content can be any string to provide context to the LLM in the rest of the conversation.
+                    content: JSON.stringify(newPersonaDiffContent),
+                  },
+                ],
+              });
+
+              return (
+                <div className="w-[600px]">
+                  <PersonaChangeDiffCard
+                    origin_archetype={personaDiffContent.origin_archetype}
+                    updated_archetype={newPersonaDiffContent.updated_archetype}
+                    personaIndex={personaDiffContent.index}
+                  />
+                </div>
+              );
+            } catch {
+              return (
+                <div className="w-[600px]">
+                  Something went wrong. Please try again.
+                </div>
+              );
+            }
           }
         },
       },
