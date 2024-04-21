@@ -31,6 +31,9 @@ import BarLoader from "react-spinners/BarLoader";
 import { Separator } from "./ui/separator";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { useRouter } from "next/navigation";
+import { Dialog } from "@/components/ui/dialog";
+import api from "@/service/api.service";
+import SubscriptionPopup from "./subscription-popup";
 
 type Props = {
   className?: string;
@@ -53,6 +56,9 @@ export default function Chat({ className }: Props) {
   const [input, setInput] = useState("");
   const user = useStytchUser();
   const router = useRouter();
+  const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
+    useState<boolean>(false);
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -70,6 +76,21 @@ export default function Chat({ className }: Props) {
   }, [aiState, setPersonas]);
 
   useEffect(() => {
+    if (!user) return;
+    // make async call to check if user is subscribed
+    const checkSubscription = async () => {
+      const userIsSubscribed = await api.stripe.isSubscriptionActive(
+        user.user?.user_id as string
+      );
+      setIsSubscribed(
+        userIsSubscribed.status === "active" ||
+          userIsSubscribed.status === "trialing"
+      );
+    };
+    checkSubscription();
+  }, [user]);
+
+  useEffect(() => {
     const messagesLength = aiState.messages?.length;
     if (messagesLength === 2) {
       router.refresh();
@@ -84,6 +105,10 @@ export default function Chat({ className }: Props) {
         className
       )}
     >
+      <SubscriptionPopup
+        setOpenSubscriptionPopup={setShowSubscriptionPromptDialog}
+        openSubscriptionPopup={showSubscriptionPromptDialog}
+      />
       {personas && personas.length > 0 ? (
         <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
           {personas.map((archetype: any, i: number) => {
@@ -122,24 +147,28 @@ export default function Chat({ className }: Props) {
           e.preventDefault();
           setInput("");
 
-          // Add user message to UI state
-          setMessages((currentMessages: any) => [
-            ...currentMessages,
-            {
-              id: Date.now(),
-              display: <UserMessage message={input} />,
-            },
-          ]);
+          if (!isSubscribed) {
+            setShowSubscriptionPromptDialog(true);
+          } else {
+            // Add user message to UI state
+            setMessages((currentMessages: any) => [
+              ...currentMessages,
+              {
+                id: Date.now(),
+                display: <UserMessage message={input} />,
+              },
+            ]);
 
-          // Submit and get response message
-          const responseMessage = await submitUserMessage(
-            input,
-            user.user?.user_id
-          );
-          setMessages((currentMessages: any) => [
-            ...currentMessages,
-            responseMessage,
-          ]);
+            // Submit and get response message
+            const responseMessage = await submitUserMessage(
+              input,
+              user.user?.user_id
+            );
+            setMessages((currentMessages: any) => [
+              ...currentMessages,
+              responseMessage,
+            ]);
+          }
         }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
