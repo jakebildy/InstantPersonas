@@ -139,6 +139,47 @@ export default function Chat({ className }: Props) {
         <div ref={scrollBottomRef} />
       </ScrollArea>
 
+      {aiState.suggestedMessages === undefined ? (
+        <div />
+      ) : (
+        <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
+          {aiState.suggestedMessages.map((message: string) => {
+            return (
+              <div
+                className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
+                onClick={async () => {
+                  setInput("");
+
+                  if (!isSubscribed) {
+                    setShowSubscriptionPromptDialog(true);
+                  } else {
+                    // Add user message to UI state
+                    setMessages((currentMessages: any) => [
+                      ...currentMessages,
+                      {
+                        id: Date.now(),
+                        display: <UserMessage message={message} />,
+                      },
+                    ]);
+
+                    // Submit and get response message
+                    const responseMessage = await submitUserMessage(
+                      message,
+                      user.user?.user_id
+                    );
+                    setMessages((currentMessages: any) => [
+                      ...currentMessages,
+                      responseMessage,
+                    ]);
+                  }
+                }}
+              >
+                {message}
+              </div>
+            );
+          })}
+        </div>
+      )}
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}

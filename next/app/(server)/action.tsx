@@ -23,6 +23,7 @@ import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
 import posthog from "posthog-js";
 import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
 import { fixJson } from "@/lib/fix-json";
+import { GPT4 } from "./ai/gpt";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -44,8 +45,6 @@ async function submitUserMessage(userInput: string, userID: string) {
     });
     return;
   }
-
-  // AI suggested messages
 
   aiState.update({
     ...validatedAIState.data,
@@ -78,9 +77,29 @@ async function submitUserMessage(userInput: string, userID: string) {
     // `text` is called when an AI returns a text response (as opposed to a tool call).
     // Its content is streamed from the LLM, so this function will be called
     // multiple times with `content` being incremental.
-    text: ({ content, done }) => {
+    text: async ({ content, done }) => {
       // When it's the final content, mark the state as done and ready for the client to access.
       if (done) {
+        // aiState.done({
+        //   ...aiState.get(),
+        //   messages: [
+        //     ...aiState.get().messages,
+        //     {
+        //       role: "assistant",
+        //       id: nanoid(),
+        //       content,
+        //     },
+        //   ],
+        // });
+
+        // AI suggested messages
+
+        const suggestedMessages = await GPT4(
+          "come up with 3 suggested responses/answers for the user (no more than 10 words each) (separated by ••, don't number them) based on the following message from the persona-creator AI:" +
+            content
+        );
+
+        console.log("suggested messages: " + suggestedMessages.text);
         aiState.done({
           ...aiState.get(),
           messages: [
@@ -91,9 +110,10 @@ async function submitUserMessage(userInput: string, userID: string) {
               content,
             },
           ],
+          suggestedMessages: suggestedMessages.text.split("••"),
         });
 
-        // TODO: add to the database
+        // TODO: add to the database if archetypes made
       }
 
       return <PersonaMessage message={content} />;
@@ -120,6 +140,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             ...aiState.get(),
             business: business,
             targetProblem: targetProblem,
+            suggestedMessages: ["Yes", "No"],
             messages: [
               ...aiState.get().messages,
               {
@@ -181,6 +202,9 @@ async function submitUserMessage(userInput: string, userID: string) {
           aiState.done({
             ...aiState.get(),
             personas: archetypes,
+            suggestedMessages: [
+              "⭐️ Show me what content they all would consume",
+            ],
             messages: [
               ...aiState.get().messages,
               {
@@ -386,6 +410,7 @@ export const AI: any = createAI({
   initialAIState: {
     chatId: nanoid(),
     messages: [],
+    suggestedMessages: [],
     business: "",
     personas: [],
     targetProblem: "",
