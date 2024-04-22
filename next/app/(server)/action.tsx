@@ -32,7 +32,11 @@ const openai = new OpenAI({
 initMongoDB();
 
 //@ts-ignore
-async function submitUserMessage(userInput: string, userID: string) {
+async function submitUserMessage(
+  userInput: string,
+  userID: string,
+  personaChatID: string | undefined
+) {
   "use server";
 
   //@ts-ignore
@@ -113,7 +117,16 @@ async function submitUserMessage(userInput: string, userID: string) {
           suggestedMessages: suggestedMessages.text.split("•"),
         });
 
-        // TODO: add to the database if archetypes made
+        if (personaChatID) {
+          const personaChat = await PersonaChat.findOne({
+            _id: personaChatID,
+          });
+
+          if (personaChat) {
+            personaChat.aiState = aiState.get();
+            await personaChat.save();
+          }
+        }
       }
 
       return <PersonaMessage message={content} />;
@@ -158,6 +171,17 @@ async function submitUserMessage(userInput: string, userID: string) {
               },
             ],
           });
+
+          if (personaChatID) {
+            const personaChat = await PersonaChat.findOne({
+              _id: personaChatID,
+            });
+
+            if (personaChat) {
+              personaChat.aiState = aiState.get();
+              await personaChat.save();
+            }
+          }
 
           return (
             <div>
@@ -204,6 +228,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             personas: archetypes,
             suggestedMessages: [
               "⭐️ Show me what content they all would consume",
+              "Who would spend the most money?",
             ],
             messages: [
               ...aiState.get().messages,
@@ -285,6 +310,17 @@ async function submitUserMessage(userInput: string, userID: string) {
             console.log("!!!!! -> ->");
             console.log(updatedArchetype);
 
+            if (personaChatID) {
+              const personaChat = await PersonaChat.findOne({
+                _id: personaChatID,
+              });
+
+              if (personaChat) {
+                personaChat.aiState = aiState.get();
+                await personaChat.save();
+              }
+            }
+
             return (
               <div className="w-[600px]">
                 <PersonaChangeDiffCard
@@ -319,6 +355,17 @@ async function submitUserMessage(userInput: string, userID: string) {
                   },
                 ],
               });
+
+              if (personaChatID) {
+                const personaChat = await PersonaChat.findOne({
+                  _id: personaChatID,
+                });
+
+                if (personaChat) {
+                  personaChat.aiState = aiState.get();
+                  await personaChat.save();
+                }
+              }
 
               return (
                 <div className="w-[600px]">

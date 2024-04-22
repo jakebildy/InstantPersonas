@@ -37,6 +37,7 @@ import SubscriptionPopup from "./subscription-popup";
 
 type Props = {
   className?: string;
+  personaChatID: string | undefined;
 };
 
 type MemoizedComponent = React.MemoExoticComponent<
@@ -47,7 +48,7 @@ type ComponentLookupTableType = {
   [role in ExtractField<Message, "role">]: MemoizedComponent;
 };
 
-export default function Chat({ className }: Props) {
+export default function Chat({ className, personaChatID }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
   const [aiState] = useAIState();
   const [messages, setMessages] = useUIState<typeof AI>();
@@ -172,7 +173,8 @@ export default function Chat({ className }: Props) {
 
                     const responseMessage = await submitUserMessage(
                       message,
-                      user.user?.user_id
+                      user.user?.user_id,
+                      personaChatID
                     );
                     setMessages((currentMessages: any) => [
                       ...currentMessages,
@@ -212,7 +214,8 @@ export default function Chat({ className }: Props) {
             // Submit and get response message
             const responseMessage = await submitUserMessage(
               input,
-              user.user?.user_id
+              user.user?.user_id,
+              personaChatID
             );
             setMessages((currentMessages: any) => [
               ...currentMessages,
