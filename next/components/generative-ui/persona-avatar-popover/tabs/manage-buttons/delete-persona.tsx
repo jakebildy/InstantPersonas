@@ -21,6 +21,7 @@ import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import { useState } from "react";
 import posthog from "posthog-js";
+import { isEqual } from "lodash";
 
 export function DeletePersonaButton({
   variant,
@@ -29,16 +30,21 @@ export function DeletePersonaButton({
   const { archetype_name, persona_components, insights } = archetype;
   const [aiState, setAIState] = useAIState<typeof AI>();
   const [uiState, setUIState] = useUIState<typeof AI>();
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   const deletePersonaAction = () => {
     // Delete persona action
+    setIsSaving(true);
     const updatedPersonasArray = aiState.personas.filter(
-      (persona: PersonaArchetype) => persona.pictureURL !== archetype.pictureURL
+      (persona: PersonaArchetype) => {
+        return !isEqual(persona, archetype);
+      }
     );
     const serializedPersonas = serializePersonas(updatedPersonasArray);
     if (!serializedPersonas) {
       setError(true);
+      setIsSaving(false);
       posthog.capture("error", {
         error: "error in serializing personas when deleting persona",
         personas: updatedPersonasArray,
@@ -52,6 +58,7 @@ export function DeletePersonaButton({
 
     setAIState(newAIState);
     setUIState(newUIState);
+    setIsSaving(false);
   };
 
   return (
@@ -107,9 +114,11 @@ export function DeletePersonaButton({
             <PersonaTemplatePreview archetype={archetype} variant={variant} />
             <Button
               variant={"destructive"}
-              onClick={() => deletePersonaAction(archetype)}
+              onClick={() => deletePersonaAction()}
+              disabled={isSaving}
+              className={isSaving ? "cursor-not-allowed animate-pulse" : ""}
             >
-              Delete Persona
+              {isSaving ? "Deleting..." : "Delete Persona"}
             </Button>
           </>
         )}

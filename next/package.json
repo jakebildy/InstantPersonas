@@ -61,6 +61,7 @@
     "html2canvas": "^1.4.1",
     "i": "^0.3.7",
     "input-otp": "^1.2.4",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.350.0",
     "mongoose": "^8.3.0",
     "nanoid": "^5.0.7",
@@ -91,6 +92,7 @@
   "devDependencies": {
     "@types/downloadjs": "^1.4.6",
     "@types/jest": "^29.5.12",
+    "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.4",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
