@@ -36,14 +36,15 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
         </div>
       </div>
 
-      <TrashIcon
+      <div className="w-[30px]" />
+      {/* <TrashIcon
         onClick={(event: { stopPropagation: () => void }) => {
           event.stopPropagation();
           api.userPersona.deletePersona(id); //TODO: should this delete all the personas for this product?
           window.location.reload();
         }}
         className="h-5 text-transparent ml-5 mr-5 group-hover:text-slate-600"
-      />
+      /> */}
     </Link>
   );
 }

@@ -95,33 +95,58 @@ export function PersonaChangeDiffCard({
     origin: Record<string, any>,
     updated: Record<string, any>
   ) => {
-    if (origin === null || updated === null) {
+    if (
+      !origin ||
+      !updated ||
+      typeof origin !== "object" ||
+      typeof updated !== "object"
+    ) {
       return null;
-    } else if (origin === undefined || updated === undefined) {
-      return null;
-    } else if (typeof origin !== "object" || typeof updated !== "object") {
-      return null;
-    } else {
-      Object.entries(updated).map(([key, value]) => {
+    }
+
+    const changes = Object.entries(updated)
+      .map(([key, value]) => {
         if (!isEqual(value, origin[key])) {
           return (
             <ShowChangeDifferences
               key={key}
               title={key.replace(/_/g, " ")}
-              origin={JSON.stringify(origin[key])}
-              updated={JSON.stringify(value)}
+              origin={JSON.stringify(origin[key], null, 2)} // Adding pretty print
+              updated={JSON.stringify(value, null, 2)} // Adding pretty print
             />
           );
         }
         return null;
-      });
-    }
+      })
+      .filter((element) => element !== null); // Filter out null values
+
+    return (
+      <div>
+        {changes.length > 0 ? (
+          changes
+        ) : (
+          <p className="text-gray-400 text-xs">
+            No changes detected in this section.
+          </p>
+        )}
+      </div>
+    );
   };
 
   const [isRejected, setIsRejected] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
 
   console.log(aiState);
+
+  // check if messageID matches the aiState.messages most recent message ID
+  const mostRecentMsg = aiState.messages[aiState.messages.length - 1];
+  const isMostRecentMsg =
+    mostRecentMsg.role === "function" &&
+    mostRecentMsg.name === "update_persona" &&
+    isEqual(
+      JSON.parse(mostRecentMsg.content).updated_archetype,
+      updated_archetype
+    );
 
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
@@ -189,7 +214,9 @@ export function PersonaChangeDiffCard({
           )}
         </div>
       ) : null}
-      {isAccepted ? (
+      {!isMostRecentMsg ? (
+        <div />
+      ) : isAccepted ? (
         <div className="mb-2 mx-6 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gradient-to-b from-primary to-green-50 text-primary-foreground">
           Accepted Changes
         </div>
@@ -261,11 +288,13 @@ export function PersonaChangeDiffCard({
               setIsRejected(true);
             }}
           >
-            Revert Changes
+            Reject Changes
           </Button>
         </div>
       ) : (
-        <div>Rejected Changes</div>
+        <div className="ml-[20px] mb-[10px] mt-[10px] text-red-600">
+          Rejected Changes
+        </div>
       )}
     </div>
   );

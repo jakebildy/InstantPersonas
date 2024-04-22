@@ -281,7 +281,7 @@ async function submitUserMessage(
             updatedArchetype: z
               .string()
               .describe(
-                "the updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}"
+                "the COMPLETE updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}"
               ),
           })
           .required(),
@@ -291,8 +291,11 @@ async function submitUserMessage(
           const personaDiffContent = {
             index: personaIndex,
             origin_archetype: aiState.get().personas[personaIndex],
-            updated_archetype: JSON.parse(updatedArchetype),
+            updated_archetype: JSON.parse(updatedArchetype) as PersonaArchetype,
           };
+
+          console.log("persona diff content: " + personaDiffContent);
+
           try {
             aiState.done({
               ...aiState.get(),
@@ -309,6 +312,8 @@ async function submitUserMessage(
             });
             console.log("!!!!! -> ->");
             console.log(updatedArchetype);
+            console.log("not updated:");
+            console.log(aiState.get().personas[personaIndex]);
 
             if (personaChatID) {
               const personaChat = await PersonaChat.findOne({
@@ -342,6 +347,7 @@ async function submitUserMessage(
                 updated_archetype: newUpdatedArchetype,
               };
 
+              console.log("new persona diff content");
               aiState.done({
                 ...aiState.get(),
                 messages: [
@@ -370,9 +376,9 @@ async function submitUserMessage(
               return (
                 <div className="w-[600px]">
                   <PersonaChangeDiffCard
-                    origin_archetype={personaDiffContent.origin_archetype}
+                    origin_archetype={newPersonaDiffContent.origin_archetype}
                     updated_archetype={newPersonaDiffContent.updated_archetype}
-                    personaIndex={personaDiffContent.index}
+                    personaIndex={newPersonaDiffContent.index}
                   />
                 </div>
               );
