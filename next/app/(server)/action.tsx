@@ -311,7 +311,9 @@ async function submitUserMessage(
               ],
             });
             console.log("!!!!! -> ->");
-            console.log(updatedArchetype);
+            console.log(JSON.parse(updatedArchetype) as PersonaArchetype);
+            console.log("not updated:");
+            console.log(aiState.get().personas[personaIndex]);
 
             if (personaChatID) {
               const personaChat = await PersonaChat.findOne({

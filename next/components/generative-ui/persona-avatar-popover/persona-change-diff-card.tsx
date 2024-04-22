@@ -95,27 +95,42 @@ export function PersonaChangeDiffCard({
     origin: Record<string, any>,
     updated: Record<string, any>
   ) => {
-    if (origin === null || updated === null) {
+    if (
+      !origin ||
+      !updated ||
+      typeof origin !== "object" ||
+      typeof updated !== "object"
+    ) {
       return null;
-    } else if (origin === undefined || updated === undefined) {
-      return null;
-    } else if (typeof origin !== "object" || typeof updated !== "object") {
-      return null;
-    } else {
-      Object.entries(updated).map(([key, value]) => {
+    }
+
+    const changes = Object.entries(updated)
+      .map(([key, value]) => {
         if (!isEqual(value, origin[key])) {
           return (
             <ShowChangeDifferences
               key={key}
               title={key.replace(/_/g, " ")}
-              origin={JSON.stringify(origin[key])}
-              updated={JSON.stringify(value)}
+              origin={JSON.stringify(origin[key], null, 2)} // Adding pretty print
+              updated={JSON.stringify(value, null, 2)} // Adding pretty print
             />
           );
         }
         return null;
-      });
-    }
+      })
+      .filter((element) => element !== null); // Filter out null values
+
+    return (
+      <div>
+        {changes.length > 0 ? (
+          changes
+        ) : (
+          <p className="text-gray-400 text-xs">
+            No changes detected in this section.
+          </p>
+        )}
+      </div>
+    );
   };
 
   const [isRejected, setIsRejected] = useState(false);
