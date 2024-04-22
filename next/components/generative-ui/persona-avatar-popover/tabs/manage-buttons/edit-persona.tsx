@@ -10,7 +10,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PersonaArchetypeValidator, PersonaAvatarPopoverProps } from "../..";
+import {
+  gradientVariants,
+  PersonaArchetypeValidator,
+  PersonaAvatarPopoverProps,
+} from "../..";
 import { EditPersonaTemplate } from "../../templates/edit-template";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
@@ -24,6 +28,7 @@ import {
 } from "../../utils";
 import posthog from "posthog-js";
 import { useState } from "react";
+import { PersonStandingIcon } from "lucide-react";
 
 // setIsAccepted(true);
 // const personas = aiState.personas.map(
@@ -87,7 +92,6 @@ export function EditPersonaButton({
   const [uiState, setUIState] = useUIState<typeof AI>();
 
   const [error, setError] = useState<boolean>(false);
-  // const
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -148,20 +152,55 @@ export function EditPersonaButton({
             will be lost if you navigate away from this page!
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={onSubmit}>
-          <ScrollArea className="h-[50vh]">
-            <EditPersonaTemplate archetype={archetype} variant={variant} />
-          </ScrollArea>
-          <div className="flex items-center justify-between pt-4">
-            <Button variant={"secondary"}>Change Color</Button>
-            <div className="flex justify-end gap-2 items-center">
-              <DialogClose asChild>
-                <Button variant={"secondary"}>Cancel</Button>
-              </DialogClose>
-              <Button type="submit">Apply Edits & Save Changes!</Button>
+        {error ? (
+          <div
+            className={gradientVariants({
+              variant,
+              className:
+                "flex flex-col items-center justify-center gap-2 h-[50vh] rounded-lg m-2 p-8 relative",
+            })}
+          >
+            <PersonStandingIcon className="text-muted-foreground  m-6" />
+            <h3 className="font-jost font-bold text-xl">
+              Looks like there was a problem saving your persona ;(
+            </h3>
+            <span>
+              We&apos;ve automatically logged this error and are investigating
+              it
+            </span>
+            <div className="flex gap-8 my-4 items-center">
+              <Button
+                variant={"outline"}
+                className="bg-pastel-red/50 text-red-500"
+              >
+                Exit Editor
+              </Button>{" "}
+              or{" "}
+              <Button
+                variant={"outline"}
+                onClick={() => setError(false)}
+                className="bg-pastel-green/50 text-green-500"
+              >
+                Try Again?
+              </Button>
             </div>
           </div>
-        </form>
+        ) : (
+          <form onSubmit={onSubmit}>
+            <ScrollArea className="h-[50vh]">
+              <EditPersonaTemplate archetype={archetype} variant={variant} />
+            </ScrollArea>
+            <div className="flex items-center justify-between pt-4">
+              <Button variant={"secondary"}>Change Color</Button>
+              <div className="flex justify-end gap-2 items-center">
+                <DialogClose asChild>
+                  <Button variant={"secondary"}>Cancel</Button>
+                </DialogClose>
+                <Button type="submit">Apply Edits & Save Changes!</Button>
+              </div>
+            </div>
+          </form>
+        )}
       </DialogContent>
     </Dialog>
   );
