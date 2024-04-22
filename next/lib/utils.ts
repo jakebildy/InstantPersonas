@@ -188,6 +188,34 @@ export function extractParameterFromURL(url: string, parameterName: string) {
 }
 
 /**
+ * Replaces the value of a specified parameter in a URL.
+ *
+ * This function simplifies the process of replacing parameter values in URLs by using regular expressions.
+ * It supports modifying web content dynamically by altering URL parameters, essential for configurations
+ * or adapting to user inputs.
+ *
+ * @returns {string} The modified URL with the new parameter value, or the original URL if the parameter was not found.
+ */
+export function replaceParameterInURL({
+  url,
+  parameter,
+  value,
+}: {
+  url: string;
+  parameter: string;
+  value: string;
+}): string {
+  // Define the regular expression dynamically based on the parameter name
+  const regex = new RegExp(`(${parameter}=)[^&]*`);
+
+  // Check if the parameter exists; if not, return the original URL
+  if (!url.match(regex)) return url;
+
+  // Replace the existing parameter value with the new value
+  return url.replace(regex, `$1${value}`);
+}
+
+/**
  * Converts a hex color string to an RGB array.
  */
 export function hexToRgb(hex: string): [number, number, number] {

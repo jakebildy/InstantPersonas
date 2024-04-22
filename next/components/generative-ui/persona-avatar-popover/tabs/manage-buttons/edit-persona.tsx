@@ -11,12 +11,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  badgeVariants,
+  ColorVariant,
+  ColorVariantMap,
   gradientVariants,
+  PersonaArchetype,
   PersonaArchetypeValidator,
   PersonaAvatarPopoverProps,
 } from "../..";
 import { EditPersonaTemplate } from "../../templates/edit-template";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import {
@@ -30,59 +34,6 @@ import posthog from "posthog-js";
 import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
 
-// setIsAccepted(true);
-// const personas = aiState.personas.map(
-//   (persona: PersonaArchetype, i: number) => {
-//     if (i === personaIndex) {
-//       return updated_archetype;
-//     }
-//     return persona;
-//   }
-// );
-// // change Gourmet Feline Enthusiast to luxury cat lady
-
-// let jsonPersona = "";
-// try {
-//   jsonPersona = JSON.stringify(personas);
-// } catch (error) {
-//   try {
-//     jsonPersona = fixJson(JSON.stringify(personas));
-//   } catch (error) {
-//     posthog.capture("error", {
-//       error: "error in parsing persona",
-//       persona: personas,
-//     });
-//   }
-// }
-
-// const newAiState = {
-//   ...aiState,
-//   messages: [
-//     ...aiState.messages.map((message: Message) => {
-//       if (
-//         message.role === "function" &&
-//         message.name === "create_persona"
-//       ) {
-//         const updatedInLinePersonas = {
-//           ...message,
-//           // id: nanoid(),
-//           content: jsonPersona,
-//         };
-//         console.log("server ", updatedInLinePersonas);
-//         return updatedInLinePersonas;
-//       } else return message;
-//     }),
-//   ],
-//   personas: personas,
-// };it lo
-
-// console.log("newAiState", getUIStateFromAIState(newAiState));
-
-// setAIState(newAiState);
-// setUIState((currentMessages: any) => [
-//   ...getUIStateFromAIState(newAiState),
-// ]);
-
 export function EditPersonaButton({
   variant,
   archetype,
@@ -90,6 +41,11 @@ export function EditPersonaButton({
   const { archetype_name, persona_components, insights } = archetype;
   const [aiState, setAIState] = useAIState<typeof AI>();
   const [uiState, setUIState] = useUIState<typeof AI>();
+  const [localVariant, setLocalVariant] = useState<ColorVariant>(
+    variant as ColorVariant
+  );
+  const [localArchetype, setLocalArchetype] =
+    useState<PersonaArchetype>(archetype);
 
   const [error, setError] = useState<boolean>(false);
 
@@ -97,9 +53,16 @@ export function EditPersonaButton({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const unstructuredData = Object.fromEntries(formData.entries());
+    const embedVariant = {
+      pictureURL: replaceParameterInURL({
+        url: archetype.pictureURL,
+        parameter: "backgroundColor",
+        value: ColorVariantMap[localVariant as ColorVariant].substring(1), //removes the #
+      }),
+    };
 
     const structuredData = transformDataToStructure({
-      unstructuredData: unstructuredData,
+      unstructuredData: { ...unstructuredData, ...embedVariant },
       structuredData: archetype,
     });
 
@@ -136,8 +99,20 @@ export function EditPersonaButton({
     setUIState(newUIState);
   }
 
+  function variantOnChange(value: string) {
+    setLocalVariant(value as ColorVariant);
+    setLocalArchetype({
+      ...localArchetype,
+      pictureURL: replaceParameterInURL({
+        url: archetype.pictureURL,
+        parameter: "backgroundColor",
+        value: ColorVariantMap[value as ColorVariant].substring(1), //removes the #
+      }),
+    });
+  }
+
   return (
-    <Dialog>
+    <Dialog open={true}>
       <DialogTrigger asChild>
         <Button>Edit Persona</Button>
       </DialogTrigger>
@@ -156,7 +131,7 @@ export function EditPersonaButton({
         {error ? (
           <div
             className={gradientVariants({
-              variant,
+              variant: localVariant,
               className:
                 "flex flex-col items-center justify-center gap-2 h-[50vh] rounded-lg m-2 p-8 relative",
             })}
@@ -189,10 +164,23 @@ export function EditPersonaButton({
         ) : (
           <form onSubmit={onSubmit}>
             <ScrollArea className="h-[50vh]">
-              <EditPersonaTemplate archetype={archetype} variant={variant} />
+              <EditPersonaTemplate
+                archetype={localArchetype}
+                variant={localVariant}
+              />
             </ScrollArea>
             <div className="flex items-center justify-between pt-4">
-              <Button variant={"secondary"}>Change Color</Button>
+              <div className="flex items-center gap-2 flex-1">
+                <ChangeColorSelect
+                  value={localVariant}
+                  onChange={(value) => variantOnChange(value as ColorVariant)}
+                />
+                {archetype.pictureURL !== localArchetype.pictureURL ? (
+                  <span className="rounded-lg bg-pastel-red/25 border-pastel-red text-[9px] uppercase border px-2 text-red-500">
+                    unsaved changes
+                  </span>
+                ) : null}
+              </div>
               <div className="flex justify-end gap-2 items-center">
                 <DialogClose asChild>
                   <Button variant={"secondary"}>Cancel</Button>
@@ -204,5 +192,58 @@ export function EditPersonaButton({
         )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { replaceParameterInURL } from "@/lib/utils";
+
+function ChangeColorSelect({
+  value = "blue",
+  onChange,
+}: {
+  value?: ColorVariant;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant={"secondary"}>Change Color</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" side="top">
+        <DropdownMenuLabel>Select Archetype Color</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup
+          value={value}
+          onValueChange={onChange}
+          className="flex flex-col items-center"
+        >
+          {Object.entries(ColorVariantMap).map(([color, hex]) => (
+            <DropdownMenuRadioItem
+              value={color}
+              key={hex}
+              className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
+            >
+              <div
+                className={badgeVariants({
+                  variant: color as ColorVariant,
+                  className: "group-hover:animate-pulse",
+                })}
+              >
+                {color}
+              </div>
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
