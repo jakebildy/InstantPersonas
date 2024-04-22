@@ -8,14 +8,52 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PersonaAvatarPopoverProps } from "../..";
+import {
+  getSynchronizeStates,
+  gradientVariants,
+  PersonaArchetype,
+  PersonaAvatarPopoverProps,
+  serializePersonas,
+} from "../..";
 import { PersonaTemplatePreview } from "../../templates/template";
+import { PersonStandingIcon } from "lucide-react";
+import { useAIState, useUIState } from "ai/rsc";
+import { AI } from "@/app/(server)/action";
+import { useState } from "react";
+import posthog from "posthog-js";
 
 export function DeletePersonaButton({
   variant,
   archetype,
 }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;
+  const [aiState, setAIState] = useAIState<typeof AI>();
+  const [uiState, setUIState] = useUIState<typeof AI>();
+  const [error, setError] = useState<boolean>(false);
+
+  const deletePersonaAction = () => {
+    // Delete persona action
+    const updatedPersonasArray = aiState.personas.filter(
+      (persona: PersonaArchetype) => persona.pictureURL !== archetype.pictureURL
+    );
+    const serializedPersonas = serializePersonas(updatedPersonasArray);
+    if (!serializedPersonas) {
+      setError(true);
+      posthog.capture("error", {
+        error: "error in serializing personas when deleting persona",
+        personas: updatedPersonasArray,
+      });
+      return;
+    }
+    const { aiState: newAIState, uiState: newUIState } = getSynchronizeStates({
+      aiState,
+      serializedPersonas,
+    });
+
+    setAIState(newAIState);
+    setUIState(newUIState);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,8 +69,50 @@ export function DeletePersonaButton({
             account and remove its data from our servers.
           </DialogDescription>
         </DialogHeader>
-        <PersonaTemplatePreview archetype={archetype} variant={variant} />
-        <Button variant={"destructive"}>Delete Persona</Button>
+        {error ? (
+          <div
+            className={gradientVariants({
+              variant,
+              className:
+                "flex flex-col items-center justify-center gap-2 h-[50vh] rounded-lg m-2 p-8 relative",
+            })}
+          >
+            <PersonStandingIcon className="text-muted-foreground  m-6" />
+            <h3 className="font-jost font-bold text-xl">
+              Looks like there was a problem saving your persona ;(
+            </h3>
+            <span>
+              We&apos;ve automatically logged this error and are investigating
+              it
+            </span>
+            <div className="flex gap-8 my-4 items-center">
+              <Button
+                variant={"outline"}
+                className="bg-pastel-red/50 text-red-500"
+              >
+                Exit Editor
+              </Button>{" "}
+              or{" "}
+              <Button
+                variant={"outline"}
+                onClick={() => setError(false)}
+                className="bg-pastel-green/50 text-green-500"
+              >
+                Try Again?
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <PersonaTemplatePreview archetype={archetype} variant={variant} />
+            <Button
+              variant={"destructive"}
+              onClick={() => deletePersonaAction(archetype)}
+            >
+              Delete Persona
+            </Button>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );
