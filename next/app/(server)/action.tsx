@@ -311,7 +311,7 @@ async function submitUserMessage(
               ],
             });
             console.log("!!!!! -> ->");
-            console.log(JSON.parse(updatedArchetype) as PersonaArchetype);
+            console.log(updatedArchetype);
             console.log("not updated:");
             console.log(aiState.get().personas[personaIndex]);
 

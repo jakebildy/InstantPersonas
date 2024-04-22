@@ -138,6 +138,16 @@ export function PersonaChangeDiffCard({
 
   console.log(aiState);
 
+  // check if messageID matches the aiState.messages most recent message ID
+  const mostRecentMsg = aiState.messages[aiState.messages.length - 1];
+  const isMostRecentMsg =
+    mostRecentMsg.role === "function" &&
+    mostRecentMsg.name === "update_persona" &&
+    isEqual(
+      JSON.parse(mostRecentMsg.content).updated_archetype,
+      updated_archetype
+    );
+
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
       <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-6" />
@@ -204,7 +214,9 @@ export function PersonaChangeDiffCard({
           )}
         </div>
       ) : null}
-      {isAccepted ? (
+      {!isMostRecentMsg ? (
+        <div />
+      ) : isAccepted ? (
         <div className="mb-2 mx-6 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gradient-to-b from-primary to-green-50 text-primary-foreground">
           Accepted Changes
         </div>
@@ -276,11 +288,13 @@ export function PersonaChangeDiffCard({
               setIsRejected(true);
             }}
           >
-            Revert Changes
+            Reject Changes
           </Button>
         </div>
       ) : (
-        <div>Rejected Changes</div>
+        <div className="ml-[20px] mb-[10px] mt-[10px] text-red-600">
+          Rejected Changes
+        </div>
       )}
     </div>
   );
