@@ -5,6 +5,7 @@ import posthog from "posthog-js";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
+import { isEqual } from "lodash";
 
 /**
  * Transforms and merges structured and unstructured data objects into a single object.
@@ -125,13 +126,15 @@ function isObject(value: any): boolean {
 
 export function updatePersonaByName({
   personas,
+  oldPersona,
   updatedArchetype,
 }: {
   personas: PersonaArchetype[];
+  oldPersona: PersonaArchetype;
   updatedArchetype: PersonaArchetype;
 }): PersonaArchetype[] {
   return personas.map((persona) => {
-    if (persona.pictureURL === updatedArchetype.pictureURL) {
+    if (isEqual(persona, oldPersona)) {
       return { ...persona, ...updatedArchetype };
     }
     return persona;
