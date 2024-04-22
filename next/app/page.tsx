@@ -11,7 +11,9 @@ export default function Home() {
       <title>{"Detailed User Personas in Seconds | Try for Free"}</title>
       <LandingPage.header />
       <LandingPage.hero />
+      <LandingPage.productCarousel />
       <LandingPage.videoFeature />
+
       <LandingPage.callToAction />
       <LandingPage.pricing />
       <LandingPage.faqs />
