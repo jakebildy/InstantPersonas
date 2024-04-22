@@ -23,6 +23,7 @@ import { mapUrlBackgroundColorParamToVariant } from "./generative-ui/persona-ava
 
 type Props = {
   className?: string;
+  personaChatID: string | undefined;
 };
 
 type MemoizedComponent = React.MemoExoticComponent<
@@ -33,7 +34,7 @@ type ComponentLookupTableType = {
   [role in ExtractField<Message, "role">]: MemoizedComponent;
 };
 
-export default function Chat({ className }: Props) {
+export default function Chat({ className, personaChatID }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
   const [aiState] = useAIState();
   const [messages, setMessages] = useUIState<typeof AI>();
@@ -45,6 +46,9 @@ export default function Chat({ className }: Props) {
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
+    string[]
+  >([]);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -125,6 +129,52 @@ export default function Chat({ className }: Props) {
         <div ref={scrollBottomRef} />
       </ScrollArea>
 
+      {aiState.suggestedMessages === undefined ||
+      aiState.suggestedMessages === hiddenSuggestedMessages ? (
+        <div />
+      ) : (
+        <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
+          {aiState.suggestedMessages.map((message: string) => {
+            return (
+              <div
+                className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
+                onClick={async () => {
+                  setInput("");
+
+                  if (!isSubscribed) {
+                    setShowSubscriptionPromptDialog(true);
+                  } else {
+                    // Add user message to UI state
+                    setMessages((currentMessages: any) => [
+                      ...currentMessages,
+                      {
+                        id: Date.now(),
+                        display: <UserMessage message={message} />,
+                      },
+                    ]);
+
+                    // Submit and get response message
+
+                    setHiddenSuggestedMessages(aiState.suggestedMessages);
+
+                    const responseMessage = await submitUserMessage(
+                      message,
+                      user.user?.user_id,
+                      personaChatID
+                    );
+                    setMessages((currentMessages: any) => [
+                      ...currentMessages,
+                      responseMessage,
+                    ]);
+                  }
+                }}
+              >
+                {message}
+              </div>
+            );
+          })}
+        </div>
+      )}
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
@@ -145,10 +195,13 @@ export default function Chat({ className }: Props) {
               },
             ]);
 
+            setHiddenSuggestedMessages(aiState.suggestedMessages);
+
             // Submit and get response message
             const responseMessage = await submitUserMessage(
               input,
-              user.user?.user_id
+              user.user?.user_id,
+              personaChatID
             );
             setMessages((currentMessages: any) => [
               ...currentMessages,

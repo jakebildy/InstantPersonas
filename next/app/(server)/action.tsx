@@ -22,6 +22,8 @@ import { nanoid } from "@/lib/utils";
 import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
 import posthog from "posthog-js";
 import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
+import { fixJson } from "@/lib/fix-json";
+import { GPT4 } from "./ai/gpt";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -30,7 +32,11 @@ const openai = new OpenAI({
 initMongoDB();
 
 //@ts-ignore
-async function submitUserMessage(userInput: string, userID: string) {
+async function submitUserMessage(
+  userInput: string,
+  userID: string,
+  personaChatID: string | undefined
+) {
   "use server";
 
   //@ts-ignore
@@ -43,15 +49,6 @@ async function submitUserMessage(userInput: string, userID: string) {
     });
     return;
   }
-
-  // console.log("userInput", [
-  //   ...validatedAIState.data.messages,
-  //   {
-  //     id: nanoid(),
-  //     role: "user",
-  //     content: userInput,
-  //   },
-  // ]);
 
   aiState.update({
     ...validatedAIState.data,
@@ -84,9 +81,29 @@ async function submitUserMessage(userInput: string, userID: string) {
     // `text` is called when an AI returns a text response (as opposed to a tool call).
     // Its content is streamed from the LLM, so this function will be called
     // multiple times with `content` being incremental.
-    text: ({ content, done }) => {
+    text: async ({ content, done }) => {
       // When it's the final content, mark the state as done and ready for the client to access.
       if (done) {
+        // aiState.done({
+        //   ...aiState.get(),
+        //   messages: [
+        //     ...aiState.get().messages,
+        //     {
+        //       role: "assistant",
+        //       id: nanoid(),
+        //       content,
+        //     },
+        //   ],
+        // });
+
+        // AI suggested messages
+
+        const suggestedMessages = await GPT4(
+          "come up with 3 suggested responses/answers for the user (no more than 10 words each) (separated by •, don't number them) based on the following message from the persona-creator AI:" +
+            content
+        );
+
+        console.log("suggested messages: " + suggestedMessages.text);
         aiState.done({
           ...aiState.get(),
           messages: [
@@ -97,9 +114,19 @@ async function submitUserMessage(userInput: string, userID: string) {
               content,
             },
           ],
+          suggestedMessages: suggestedMessages.text.split("•"),
         });
 
-        // TODO: add to the database
+        if (personaChatID) {
+          const personaChat = await PersonaChat.findOne({
+            _id: personaChatID,
+          });
+
+          if (personaChat) {
+            personaChat.aiState = aiState.get();
+            await personaChat.save();
+          }
+        }
       }
 
       return <PersonaMessage message={content} />;
@@ -126,6 +153,7 @@ async function submitUserMessage(userInput: string, userID: string) {
             ...aiState.get(),
             business: business,
             targetProblem: targetProblem,
+            suggestedMessages: ["Yes", "No"],
             messages: [
               ...aiState.get().messages,
               {
@@ -143,6 +171,17 @@ async function submitUserMessage(userInput: string, userID: string) {
               },
             ],
           });
+
+          if (personaChatID) {
+            const personaChat = await PersonaChat.findOne({
+              _id: personaChatID,
+            });
+
+            if (personaChat) {
+              personaChat.aiState = aiState.get();
+              await personaChat.save();
+            }
+          }
 
           return (
             <div>
@@ -187,6 +226,10 @@ async function submitUserMessage(userInput: string, userID: string) {
           aiState.done({
             ...aiState.get(),
             personas: archetypes,
+            suggestedMessages: [
+              "⭐️ Show me what content they all would consume",
+              "Who would spend the most money?",
+            ],
             messages: [
               ...aiState.get().messages,
               {
@@ -267,6 +310,17 @@ async function submitUserMessage(userInput: string, userID: string) {
             console.log("!!!!! -> ->");
             console.log(updatedArchetype);
 
+            if (personaChatID) {
+              const personaChat = await PersonaChat.findOne({
+                _id: personaChatID,
+              });
+
+              if (personaChat) {
+                personaChat.aiState = aiState.get();
+                await personaChat.save();
+              }
+            }
+
             return (
               <div className="w-[600px]">
                 <PersonaChangeDiffCard
@@ -277,7 +331,58 @@ async function submitUserMessage(userInput: string, userID: string) {
               </div>
             );
           } catch {
-            //  FixJsonGPT
+            try {
+              const newUpdatedArchetype = JSON.parse(
+                fixJson(updatedArchetype)
+              ) as PersonaArchetype;
+
+              const newPersonaDiffContent = {
+                index: personaIndex,
+                origin_archetype: aiState.get().personas[personaIndex],
+                updated_archetype: newUpdatedArchetype,
+              };
+
+              aiState.done({
+                ...aiState.get(),
+                messages: [
+                  ...aiState.get().messages,
+                  {
+                    role: "function",
+                    name: "update_persona",
+                    id: nanoid(),
+                    // Content can be any string to provide context to the LLM in the rest of the conversation.
+                    content: JSON.stringify(newPersonaDiffContent),
+                  },
+                ],
+              });
+
+              if (personaChatID) {
+                const personaChat = await PersonaChat.findOne({
+                  _id: personaChatID,
+                });
+
+                if (personaChat) {
+                  personaChat.aiState = aiState.get();
+                  await personaChat.save();
+                }
+              }
+
+              return (
+                <div className="w-[600px]">
+                  <PersonaChangeDiffCard
+                    origin_archetype={personaDiffContent.origin_archetype}
+                    updated_archetype={newPersonaDiffContent.updated_archetype}
+                    personaIndex={personaDiffContent.index}
+                  />
+                </div>
+              );
+            } catch {
+              return (
+                <div className="w-[600px]">
+                  Something went wrong. Please try again.
+                </div>
+              );
+            }
           }
         },
       },
@@ -352,6 +457,7 @@ export const AI: any = createAI({
   initialAIState: {
     chatId: nanoid(),
     messages: [],
+    suggestedMessages: [],
     business: "",
     personas: [],
     targetProblem: "",
