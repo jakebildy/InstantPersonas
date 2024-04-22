@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
 import { PersonaAvatarPopoverProps } from "..";
+import { EditPersonaButton } from "./manage-buttons/edit-persona";
+import { DeletePersonaButton } from "./manage-buttons/delete-persona";
 
-export function ManageTab({ variant, archetype }: PersonaAvatarPopoverProps) {
-  const { archetype_name, persona_components, insights } = archetype;
+export function ManageTab({ ...Props }: PersonaAvatarPopoverProps) {
   return (
     <div className="flex flex-col gap-2 p-4">
-      <Button>Edit Persona</Button>
-      <Button variant={"destructive"}>Delete Persona</Button>
+      <EditPersonaButton {...Props} />
+      <DeletePersonaButton {...Props} />
     </div>
   );
 }

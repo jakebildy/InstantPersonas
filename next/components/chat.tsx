@@ -1,39 +1,25 @@
 "use client";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import {
-  HTMLAttributes,
-  InputHTMLAttributes,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { HTMLAttributes, memo, useEffect, useRef, useState } from "react";
 import {
   CommandUserInput,
   CommandUserInputKeybind,
 } from "@/components/fcs-ui/cli-input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "./ui/button";
 import { ExtractField } from "@/lib/types";
 import { useUIState, useActions, useAIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import ReactMarkdown from "react-markdown";
 import { useStytchUser } from "@stytch/nextjs";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
-import { set } from "mongoose";
-import {
-  mapUrlBackgroundColorParamToVariant,
-  PersonaAvatarPopover,
-} from "./generative-ui/persona-avatar-popover";
+import { PersonaAvatarPopover } from "./generative-ui/persona-avatar-popover";
 import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
-import { Separator } from "./ui/separator";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { useRouter } from "next/navigation";
-import { Dialog } from "@/components/ui/dialog";
 import api from "@/service/api.service";
 import SubscriptionPopup from "./subscription-popup";
+import { mapUrlBackgroundColorParamToVariant } from "./generative-ui/persona-avatar-popover/utils";
 
 type Props = {
   className?: string;

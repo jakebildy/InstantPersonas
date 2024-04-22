@@ -1,6 +1,6 @@
 "use client";
-import React, { HTMLAttributes, useState } from "react";
-import { avatarVariants, gradientVariants, PersonaArchetype } from ".";
+import React, { useState } from "react";
+import { PersonaArchetype } from ".";
 import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/fcs-ui/fcs-separator";
@@ -11,7 +11,7 @@ import {
   XIcon,
   LucideIcon,
 } from "lucide-react";
-import { cn, nanoid } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
@@ -19,6 +19,7 @@ import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { fixJson } from "@/lib/fix-json";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import posthog from "posthog-js";
+import { avatarVariants } from "./variants";
 
 export interface PersonaChangeDiffCardProps {
   origin_archetype: PersonaArchetype;

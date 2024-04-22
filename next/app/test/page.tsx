@@ -4,6 +4,7 @@ import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar
 
 import React from "react";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
+import { EditPersonaButton } from "@/components/generative-ui/persona-avatar-popover/tabs/manage-buttons/edit-persona";
 
 type Props = {};
 
@@ -107,28 +108,61 @@ const TEST_KNOWLEDGE_CONFIRMATION = {
     "The primary challenge is refining the smart thermostat's integration with a broad spectrum of smart home systems and devices to improve user experience, enhance automation and personalization capabilities, ensure broader compatibility, and address privacy and security concerns. This involves leveraging positive user feedback while addressing the noted areas for improvement.",
 };
 
-export default function page({}: Props) {
-  const randomColor = [
-    "blue",
-    "purple",
-    "red",
-    "yellow",
-    "green",
-    "brown",
-    "pink",
-  ] as const;
-  const difftest = {
-    ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0],
-    persona_components: {
-      ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0].persona_components,
-      End_Goal:
-        "To maintain a consistently comfortable home environment with minimal personal effort and maximum energy efficiency.",
+const TEST_EDIT_PERSONA_PROPS = {
+  archetype: {
+    archetype_name: "Gourmet Feline Enthusiast",
+    picture_components: {
+      clothing: "sweater_vest",
+      glasses: "glasses",
+      hair: "ponytail",
     },
-  };
+    persona_components: {
+      Motivations:
+        "Their motivation is to provide a delightful and enriching experience for their beloved cats, while ensuring the toys match their refined tastes and home decor.",
+      Painpoints:
+        "Difficulty in finding cat toys that are durable, well-made, and stylish, that don’t create a jarring visual contrast with their meticulously curated home environment.",
+      Preferences_and_Needs:
+        "High-end, aesthetically pleasing, and uniquely designed cat toys that offer engaging play for their pets.",
+      End_Goal:
+        "To provide the best lifestyle for their cats while maintaining their home's sophisticated aesthetics.",
+      Mindset_and_Perspective:
+        "They view their pets as an extension of themselves and their lifestyle, and they’re determined to provide the best possible care and happiness.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Gourmet Feline Enthusiasts prefer to shop online, appreciating detailed descriptions and professional photography that showcase product design and materials. They appreciate personalized customer service, with live chat or email support for any queries, and online customer reviews.",
+      Strategic_Recommendations:
+        "Focus on high-quality product photography and storytelling to help this persona visualize the products in their homes. Enhance customer service and consider implementing a loyalty program to reward their high spending.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant39&backgroundColor=c2e4bc",
+  },
+  variant: "green",
+};
+
+export default function page({}: Props) {
+  // const randomColor = [
+  //   "blue",
+  //   "purple",
+  //   "red",
+  //   "yellow",
+  //   "green",
+  //   "brown",
+  //   "pink",
+  // ] as const;
+  // const difftest = {
+  //   ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0],
+  //   persona_components: {
+  //     ...TEST_PERSONA_ARCHETYPES.persona_archetypes[0].persona_components,
+  //     End_Goal:
+  //       "To maintain a consistently comfortable home environment with minimal personal effort and maximum energy efficiency.",
+  //   },
+  // };
 
   return (
     <div className="w-screen min-h-screen grid place-items-center my-[100px] gap-8">
-      <div className="flex gap-2">
+      <EditPersonaButton {...TEST_EDIT_PERSONA_PROPS} />
+      {/* <div className="flex gap-2">
         {TEST_PERSONA_ARCHETYPES.persona_archetypes.map((archetype) => {
           return (
             <PersonaAvatarPopover
@@ -157,7 +191,7 @@ export default function page({}: Props) {
           business={TEST_KNOWLEDGE_CONFIRMATION.business}
           target_problem={TEST_KNOWLEDGE_CONFIRMATION.target_problem}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

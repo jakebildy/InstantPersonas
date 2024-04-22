@@ -1,7 +1,7 @@
 import {
   PersonaArchetype,
   PersonaArchetypeValidator,
-} from "@/components/generative-ui/persona-avatar-popover";
+} from "@/components/generative-ui/persona-avatar-popover/types";
 import { nanoid } from "@/lib/utils";
 import { z } from "zod";
 

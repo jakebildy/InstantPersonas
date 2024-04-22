@@ -1,13 +1,10 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  avatarVariants,
-  gradientVariants,
-  PersonaAvatarPopoverProps,
-} from "..";
+import { PersonaAvatarPopoverProps } from "..";
 import { useState } from "react";
 import { PersonaTemplateDownloadButton } from "../templates/persona-template-download-btn";
 import TemplatePreviewSelect from "../templates/template-preview-select";
+import { avatarVariants, gradientVariants } from "../variants";
 
 export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;

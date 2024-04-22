@@ -1,12 +1,10 @@
 import { UserMessage, PersonaMessage } from "@/components/chat";
 import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
-import {
-  mapUrlBackgroundColorParamToVariant,
-  PersonaAvatarPopover,
-} from "@/components/generative-ui/persona-avatar-popover";
+import { PersonaAvatarPopover } from "@/components/generative-ui/persona-avatar-popover";
 import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
 import posthog from "posthog-js";
 import { AIState, AIStateValidator } from "../models/ai-state-type-validators";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/generative-ui/persona-avatar-popover/utils";
 
 export const getUIStateFromAIState = (aiState: AIState) => {
   const result = AIStateValidator.safeParse(aiState);
