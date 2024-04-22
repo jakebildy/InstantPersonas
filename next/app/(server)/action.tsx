@@ -95,7 +95,7 @@ async function submitUserMessage(userInput: string, userID: string) {
         // AI suggested messages
 
         const suggestedMessages = await GPT4(
-          "come up with 3 suggested responses/answers for the user (no more than 10 words each) (separated by ••, don't number them) based on the following message from the persona-creator AI:" +
+          "come up with 3 suggested responses/answers for the user (no more than 10 words each) (separated by •, don't number them) based on the following message from the persona-creator AI:" +
             content
         );
 
@@ -110,7 +110,7 @@ async function submitUserMessage(userInput: string, userID: string) {
               content,
             },
           ],
-          suggestedMessages: suggestedMessages.text.split("••"),
+          suggestedMessages: suggestedMessages.text.split("•"),
         });
 
         // TODO: add to the database if archetypes made

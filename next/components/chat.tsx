@@ -59,6 +59,9 @@ export default function Chat({ className }: Props) {
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
+    string[]
+  >([]);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -139,7 +142,8 @@ export default function Chat({ className }: Props) {
         <div ref={scrollBottomRef} />
       </ScrollArea>
 
-      {aiState.suggestedMessages === undefined ? (
+      {aiState.suggestedMessages === undefined ||
+      aiState.suggestedMessages === hiddenSuggestedMessages ? (
         <div />
       ) : (
         <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
@@ -163,6 +167,9 @@ export default function Chat({ className }: Props) {
                     ]);
 
                     // Submit and get response message
+
+                    setHiddenSuggestedMessages(aiState.suggestedMessages);
+
                     const responseMessage = await submitUserMessage(
                       message,
                       user.user?.user_id
@@ -199,6 +206,8 @@ export default function Chat({ className }: Props) {
                 display: <UserMessage message={input} />,
               },
             ]);
+
+            setHiddenSuggestedMessages(aiState.suggestedMessages);
 
             // Submit and get response message
             const responseMessage = await submitUserMessage(
