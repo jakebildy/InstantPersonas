@@ -14,7 +14,7 @@
     ".vscode": true,
     "**/jest.config.js": true,
     "**/next-env.d.ts": true,
-    "**/next.config.mjs": true,
+    "**/next.config.mjs": false,
     "**/package.json": true,
     "**/postcss.config.js": true,
     "**/pnpm-lock.yaml": true,
