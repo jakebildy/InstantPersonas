@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import { StytchLoginForm } from "@/components/auth/stytch-login";
-import World from "@/components/aceternity-ui/globe";
 import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient_background_login";
-import { globeConfig, sampleArcs } from "@/lib/config/globe";
 import { InstantPersonas } from "@/components/instantPersonas";
+import ClientGlobe from "@/components/aceternity-ui/client-globe";
 
 export default function LoginPage() {
   return (
@@ -19,7 +18,7 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center">
         <BackgroundGradientAnimation>
           <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
-            <World data={sampleArcs} globeConfig={globeConfig} />;
+            <ClientGlobe />;
           </div>
         </BackgroundGradientAnimation>
       </div>

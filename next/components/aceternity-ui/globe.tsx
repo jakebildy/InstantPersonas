@@ -265,7 +265,7 @@ export function WebGLRendererConfig() {
   return null;
 }
 
-export default function World(props: WorldProps) {
+export function World(props: WorldProps) {
   const { globeConfig } = props;
   const scene = new Scene();
   scene.fog = new Fog(0xffffff, 400, 2000);
