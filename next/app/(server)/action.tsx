@@ -473,6 +473,7 @@ export const AI: any = createAI({
       thresholdRating: 0,
     },
   },
+  //@ts-ignore
   unstable_onGetUIState: async () => {
     ("use server");
 
