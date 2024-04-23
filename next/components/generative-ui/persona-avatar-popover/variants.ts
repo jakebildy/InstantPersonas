@@ -52,6 +52,30 @@ export const tabTriggerVariants = cva("rounded-full py-1 px-4 ", {
   },
 });
 
+export const badgeVariants = cva(
+  "rounded-full py-1 px-4 border uppercase text-xs text-center",
+  {
+    variants: {
+      variant: {
+        blue: "focus-visible:ring-pastel-blue ring-offset-pastel-blue/75 bg-pastel-blue/50 text-blue-500 border-pastel-blue group-hover:bg-pastel-blue",
+        purple:
+          "focus-visible:ring-pastel-purple ring-offset-pastel-purple/75 bg-pastel-purple/50 text-purple-500 border-pastel-purple group-hover:bg-pastel-purple",
+        red: "focus-visible:ring-pastel-red ring-offset-pastel-red/75 bg-pastel-red/50 text-red-500 border-pastel-red group-hover:bg-pastel-red",
+        yellow:
+          "focus-visible:ring-pastel-yellow ring-offset-pastel-yellow/75 bg-pastel-yellow/50 text-yellow-500 border-pastel-yellow group-hover:bg-pastel-yellow",
+        green:
+          "focus-visible:ring-pastel-green ring-offset-pastel-green/75 bg-pastel-green/50 text-green-500 border-pastel-green group-hover:bg-pastel-green",
+        brown:
+          "focus-visible:ring-pastel-brown ring-offset-pastel-brown/75 bg-pastel-brown/50 text-brown-500 border-pastel-brown group-hover:bg-pastel-brown",
+        pink: "focus-visible:ring-pastel-pink ring-offset-pastel-pink/75 bg-pastel-pink/50 text-pink-500 border-pastel-pink group-hover:bg-pastel-pink",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  }
+);
+
 export const gradientLightVariants = cva("bg-gradient-to-b ", {
   variants: {
     variant: {
