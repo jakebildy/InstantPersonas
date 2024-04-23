@@ -17,6 +17,7 @@ export function RecentPersonasList({ personachats }: { personachats: any[] }) {
     designation: string;
     image: string;
     href: string;
+    //@ts-ignore
   }[] = top10Personas.map((chat, i) => {
     // const firstName = chat.persona.archetype_name.split(" ")[0] ?? "";
     // const lastRelevantDescriptor =

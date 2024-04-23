@@ -18,6 +18,7 @@ export default function PersonaHistoryCardList({
         {personas
           .filter((persona) => persona.persona !== undefined)
           .reverse()
+          //@ts-ignore
           .map((persona, i) => (
             <motion.div
               key={persona.id + i}
