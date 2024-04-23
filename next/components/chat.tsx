@@ -134,9 +134,10 @@ export default function Chat({ className, personaChatID }: Props) {
         <div />
       ) : (
         <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
-          {aiState.suggestedMessages.map((message: string) => {
+          {aiState.suggestedMessages.map((message: string, index: number) => {
             return (
               <div
+                key={index}
                 className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
                 onClick={async () => {
                   setInput("");

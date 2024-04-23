@@ -8,36 +8,42 @@ export default function CallToActionSection() {
       name: "Marcus (Persona)",
       designation: "Software Engineer",
       image: "/unsplash-headshots/male-1.avif",
+      href: "/",
     },
     {
       id: 2,
       name: "Joe (Persona)",
       designation: "Product Manager",
       image: "/unsplash-headshots/male-2.avif",
+      href: "/",
     },
     {
       id: 3,
       name: "Jane (Persona)",
       designation: "TikTok Influencer",
       image: "/unsplash-headshots/female-1.avif",
+      href: "/",
     },
     {
       id: 4,
       name: "Emily (Persona)",
       designation: "UX Designer",
       image: "/unsplash-headshots/female-2.avif",
+      href: "/",
     },
     {
       id: 5,
       name: "Tyler (Persona)",
       designation: "Kombucha Brewer",
       image: "/unsplash-headshots/male-3.avif",
+      href: "/",
     },
     {
       id: 6,
       name: "Dora (Persona)",
       designation: "The Explorer",
       image: "/unsplash-headshots/female-3.avif",
+      href: "/",
     },
   ];
 

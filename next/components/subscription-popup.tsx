@@ -38,7 +38,7 @@ const SubscriptionPopup = ({
               <br></br>
               <br></br>•{" "}
               <b>Marketing Managers and UX Designers can save hours</b>{" "}
-              developing user personas and getting insights. Don't believe us?
+              developing user personas and getting insights. Don&apos;t believe us?
               Try it and find out.
             </p>
             <div className="flex space-x-4">

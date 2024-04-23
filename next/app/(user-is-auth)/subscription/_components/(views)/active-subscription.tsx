@@ -57,7 +57,7 @@ export default function ActiveSubscription({
         <div>
           <h2 className="text-md text-green-600">
             Your subscription will cancel at the end of the current billing
-            cycle. Renew now so you don't lose access!
+            cycle. Renew now so you don&apos;t lose access!
           </h2>
           {stripeCustomerPortalLink ? (
             <Button className="mt-4" variant={"default"} asChild>

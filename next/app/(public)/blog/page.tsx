@@ -7,7 +7,7 @@ type BlogPost = {
   lead: string;
 };
 
-export const BLOG_POSTS: BlogPost[] = [
+const BLOG_POSTS: BlogPost[] = [
   {
     name: "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)",
     slug: "craft-a-strong-user-persona-in-2024",
