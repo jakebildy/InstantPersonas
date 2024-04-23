@@ -1,10 +1,14 @@
 "use client";
 import React from "react";
 import { StytchLoginForm } from "@/components/auth/stytch-login";
-import { World } from "@/components/aceternity-ui/globe";
 import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient_background_login";
 import { globeConfig, sampleArcs } from "@/lib/config/globe";
 import { InstantPersonas } from "@/components/instantPersonas";
+
+//@ts-ignore
+const World = dynamic(() => import("@/components/aceternity-ui/globe"), {
+  ssr: false, // Disable server-side rendering for this component
+});
 
 export default function LoginPage() {
   return (
