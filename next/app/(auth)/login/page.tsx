@@ -4,7 +4,6 @@ import { StytchLoginForm } from "@/components/auth/stytch-login";
 import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient_background_login";
 import { globeConfig, sampleArcs } from "@/lib/config/globe";
 import { InstantPersonas } from "@/components/instantPersonas";
-import dynamic from "next/dynamic";
 import World from "@/components/aceternity-ui/globe";
 
 export default function LoginPage() {
@@ -20,7 +19,7 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center">
         <BackgroundGradientAnimation>
           <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
-            {/* <World data={sampleArcs} globeConfig={globeConfig} />; */}
+            <World data={sampleArcs} globeConfig={globeConfig} />;
           </div>
         </BackgroundGradientAnimation>
       </div>
