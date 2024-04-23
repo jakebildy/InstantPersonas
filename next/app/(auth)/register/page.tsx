@@ -19,8 +19,7 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center">
         <BackgroundGradientAnimation>
           <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
-            {/* @ts-ignore */}
-            <World data={sampleArcs} globeConfig={globeConfig} />;
+            {/* <World data={sampleArcs} globeConfig={globeConfig} />; */}
           </div>
         </BackgroundGradientAnimation>
       </div>

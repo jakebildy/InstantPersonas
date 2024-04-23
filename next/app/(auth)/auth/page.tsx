@@ -1,5 +1,6 @@
 import Authenticate from "@/components/auth/stytch-auth";
 
 export default function AuthenticatePage() {
-  return <Authenticate />;
+  const test = true;
+  return test ? <div>auth....</div> : <Authenticate />;
 }
