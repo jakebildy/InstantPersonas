@@ -1,7 +1,7 @@
 "use client";
 
 import api from "@/service/api.service";
-import PersonaHistoryCardList from "../_client-ui/persona-history-card-list";
+import PersonaHistoryCardList from "../(client-ui)/persona-history-card-list";
 import Image from "next/image";
 import { useStytchUser } from "@stytch/nextjs";
 

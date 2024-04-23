@@ -1,7 +1,7 @@
 "use client";
 
 import api from "@/service/api.service";
-import { RecentPersonasList } from "../_client-ui/recent-personas-list";
+import { RecentPersonasList } from "../(client-ui)/recent-personas-list";
 import { useStytchUser } from "@stytch/nextjs";
 import { useEffect, useState } from "react";
 
