@@ -22,6 +22,8 @@ import { AI } from "@/app/(server)/action";
 import { useState } from "react";
 import posthog from "posthog-js";
 import { isEqual } from "lodash";
+import { useParams } from "next/navigation";
+import api from "@/service/api.service";
 
 export function DeletePersonaButton({
   variant,
@@ -32,6 +34,8 @@ export function DeletePersonaButton({
   const [uiState, setUIState] = useUIState<typeof AI>();
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const params = useParams<{ id?: string[] }>();
+  const id = params.id ? params.id.at(-1) : undefined;
 
   const deletePersonaAction = () => {
     // Delete persona action
@@ -56,6 +60,21 @@ export function DeletePersonaButton({
       serializedPersonas,
     });
 
+    const update = async (state: {}) => {
+      if (id) {
+        const updatedState = await api.userPersona.updatePersonaChat(state, id);
+        if (!updatedState) {
+          setError(true);
+          posthog.capture("error", {
+            error: "error in updating persona state",
+            persona: state,
+          });
+          return;
+        }
+      }
+    };
+
+    update(newAIState);
     setAIState(newAIState);
     setUIState(newUIState);
     setIsSaving(false);

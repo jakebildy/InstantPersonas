@@ -1,3 +1,4 @@
+import { AIState } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import axios from "axios";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -63,26 +64,34 @@ const api = {
       return response.data;
     },
 
-    createUserIfSignup : async (userID: string, email: string) => {
-      const response = await axios.post("/api/create-user-if-signup", {
-        userID: userID,
-        email: email
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }});
+    createUserIfSignup: async (userID: string, email: string) => {
+      const response = await axios.post(
+        "/api/create-user-if-signup",
+        {
+          userID: userID,
+          email: email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return response.data;
-    }
+    },
   },
 
   stripe: {
     isSubscriptionActive: async (userID: string) => {
- 
       const response = await axios.get("/api/subscription-status", {
         params: { id: userID },
       });
 
-      return response.data as { status: string; cancel_at_period_end: boolean, interval : string };
+      return response.data as {
+        status: string;
+        cancel_at_period_end: boolean;
+        interval: string;
+      };
     },
     getCustomerPortalUrl: async (userID: string): Promise<string> => {
       const response = await axios.get("/api/customer-portal", {
@@ -151,6 +160,16 @@ const api = {
 
       return data;
     },
+    updatePersonaChat: async (
+      chat: AIState | {},
+      id: string
+    ): Promise<PersonaChat> => {
+      const response = await axios.post(`/api/update-persona-chat/${id}`, {
+        chat,
+      });
+      return response.data.result;
+    },
+
     updatePersona: async (
       persona: Persona,
       historyID: string

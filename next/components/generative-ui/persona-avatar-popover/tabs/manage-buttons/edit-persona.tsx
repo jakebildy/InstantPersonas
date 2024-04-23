@@ -44,6 +44,8 @@ export function EditPersonaButton({
   const [localVariant, setLocalVariant] = useState<ColorVariant>(
     variant as ColorVariant
   );
+  const params = useParams<{ id?: string[] }>();
+  const id = params.id ? params.id.at(-1) : undefined;
   const [localArchetype, setLocalArchetype] =
     useState<PersonaArchetype>(archetype);
 
@@ -95,6 +97,21 @@ export function EditPersonaButton({
       serializedPersonas,
     });
 
+    const update = async (state: {}) => {
+      if (id) {
+        const updatedState = await api.userPersona.updatePersonaChat(state, id);
+        if (!updatedState) {
+          setError(true);
+          posthog.capture("error", {
+            error: "error in updating persona state",
+            persona: state,
+          });
+          return;
+        }
+      }
+    };
+
+    update(newAIState);
     setAIState(newAIState);
     setUIState(newUIState);
   }
@@ -205,6 +222,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { replaceParameterInURL } from "@/lib/utils";
+import api from "@/service/api.service";
+import { useParams } from "next/navigation";
 
 function ChangeColorSelect({
   value = "blue",
