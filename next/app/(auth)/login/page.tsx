@@ -5,11 +5,7 @@ import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient
 import { globeConfig, sampleArcs } from "@/lib/config/globe";
 import { InstantPersonas } from "@/components/instantPersonas";
 import dynamic from "next/dynamic";
-
-//@ts-ignore
-const World = dynamic(() => import("@/components/aceternity-ui/globe"), {
-  ssr: false, // Disable server-side rendering for this component
-});
+import World from "@/components/aceternity-ui/globe";
 
 export default function LoginPage() {
   return (
@@ -24,7 +20,6 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center">
         <BackgroundGradientAnimation>
           <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
-            {/* @ts-ignore */}
             <World data={sampleArcs} globeConfig={globeConfig} />;
           </div>
         </BackgroundGradientAnimation>

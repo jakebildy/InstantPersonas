@@ -16,8 +16,7 @@ const MAGIC_LINKS_TOKEN = "magic_links";
  * The AuthenticatePage will detect the presence of a token in the query parameters, and attempt to authenticate it.
  *
  * On successful authentication, a session will be created and the user will be redirect to /profile.
- */
-export const Authenticate = () => {
+ */ function Authenticate() {
   const { user, isInitialized } = useStytchUser();
   const stytch = useStytch();
   const router = useRouter();
@@ -57,5 +56,7 @@ export const Authenticate = () => {
     }
   }, [router, user, isInitialized]);
 
-  return null;
-};
+  return <div></div>;
+}
+
+export default Authenticate;

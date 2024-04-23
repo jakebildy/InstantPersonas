@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { StytchLoginForm } from "@/components/auth/stytch-login";
-import { World } from "@/components/aceternity-ui/globe";
+import World from "@/components/aceternity-ui/globe";
 import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient_background_login";
 import { globeConfig, sampleArcs } from "@/lib/config/globe";
 import { InstantPersonas } from "@/components/instantPersonas";
