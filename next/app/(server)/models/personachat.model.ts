@@ -16,7 +16,6 @@ export interface UserPersona {
 
 export interface PersonaChat {
   aiState: AIState;
-  personas?: UserPersona[];
   aiSuggestedChats?: string[];
   user?: string;
   contentLastGeneratedAt?: Date;
@@ -26,7 +25,6 @@ export interface PersonaChat {
 const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
   {
     aiState: { type: Schema.Types.Mixed, required: false },
-    personas: [{ type: Schema.Types.Mixed, required: false }],
     aiSuggestedChats: [{ type: String, required: false }],
     user: { type: String, required: true },
     contentLastGeneratedAt: { type: Date, required: false },
