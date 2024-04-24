@@ -131,6 +131,12 @@ const api = {
       // Return the results from the response
       const data = response.data.results;
       //! TEMP: Check to make sure aiState is not an array
+
+      if (!data) {
+        return [];
+      }
+      
+      //@ts-ignore
       const history = data.map((chat: any) => {
         if (Array.isArray(chat.aiState)) {
           chat.aiState = chat.aiState[0];
