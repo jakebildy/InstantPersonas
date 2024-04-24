@@ -1,7 +1,7 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import axios from "axios";
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+// axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 axios.defaults.withCredentials = true;
 
 export interface UserI {
@@ -135,7 +135,7 @@ const api = {
       if (!data) {
         return [];
       }
-      
+
       //@ts-ignore
       const history = data.map((chat: any) => {
         if (Array.isArray(chat.aiState)) {
