@@ -115,35 +115,36 @@ const api = {
     },
     getPersonaHistory: async (id?: string): Promise<PersonaChat[]> => {
       // Define the base URL for the request
-      const baseUrl = "/api/get-persona-history";
+      return [];
+      // const baseUrl = "/api/get-persona-history";
 
-      // Create an object to hold any query parameters
-      const params = {} as any;
+      // // Create an object to hold any query parameters
+      // const params = {} as any;
 
-      // If an ID is provided, add it as a query parameter
-      if (id) {
-        params.id = id;
-      }
+      // // If an ID is provided, add it as a query parameter
+      // if (id) {
+      //   params.id = id;
+      // }
 
-      // Make the GET request with the query parameters
-      const response = await axios.get(baseUrl, { params });
+      // // Make the GET request with the query parameters
+      // const response = await axios.get(baseUrl, { params });
 
-      // Return the results from the response
-      const data = response.data.results;
-      //! TEMP: Check to make sure aiState is not an array
+      // // Return the results from the response
+      // const data = response.data.results;
+      // //! TEMP: Check to make sure aiState is not an array
 
-      if (!data) {
-        return [];
-      }
+      // if (!data) {
+      //   return [];
+      // }
 
-      //@ts-ignore
-      const history = data.map((chat: any) => {
-        if (Array.isArray(chat.aiState)) {
-          chat.aiState = chat.aiState[0];
-        }
-        return chat;
-      });
-      return history;
+      // //@ts-ignore
+      // const history = data.map((chat: any) => {
+      //   if (Array.isArray(chat.aiState)) {
+      //     chat.aiState = chat.aiState[0];
+      //   }
+      //   return chat;
+      // });
+      // return history;
     },
     getPersonaChat: async (chatID: string): Promise<PersonaChat> => {
       // Define the base URL for the request
