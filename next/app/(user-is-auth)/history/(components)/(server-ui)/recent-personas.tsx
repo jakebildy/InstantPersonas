@@ -5,7 +5,7 @@ import { RecentPersonasList } from "../(client-ui)/recent-personas-list";
 import { useStytchUser } from "@stytch/nextjs";
 import { useEffect, useState } from "react";
 
-export function RecentPersonas() {
+export function RecentPersonas({}: {}) {
   const user = useStytchUser();
   const [personachats, setPersonachats] = useState<any[] | null>(null);
 

@@ -5,7 +5,7 @@ import PersonaHistoryCardList from "../(client-ui)/persona-history-card-list";
 import Image from "next/image";
 import { useStytchUser } from "@stytch/nextjs";
 
-export async function PersonaHistoryList() {
+export async function PersonaHistoryList({}: {}) {
   const user = useStytchUser();
   const personachats = await api.userPersona.getPersonaHistory(
     user.user?.user_id

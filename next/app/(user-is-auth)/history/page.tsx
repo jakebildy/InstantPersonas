@@ -5,7 +5,7 @@ import { RecentPersonas } from "./(components)/(server-ui)/recent-personas";
 import { PersonaHistoryListSkeleton } from "./(components)/(server-ui)/persona-history-list-skeleton";
 import { PersonaHistoryList } from "./(components)/(server-ui)/persona-history-list";
 
-export default async function HistoryPage() {
+export default async function HistoryPage({}: {}) {
   return (
     <main>
       <Suspense fallback={<RecentPersonasSkeleton />}>
