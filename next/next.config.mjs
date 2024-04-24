@@ -6,7 +6,8 @@ const nextConfig = {
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
-  }
+  },
+  target: 'serverless'
 };
 
 export default nextConfig;
