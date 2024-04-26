@@ -24,6 +24,7 @@ import posthog from "posthog-js";
 import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
 import { fixJson } from "@/lib/fix-json";
 import { GPT4 } from "./ai/gpt";
+import mongoose from "mongoose";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -243,6 +244,9 @@ async function submitUserMessage(
           });
 
           if (userID) {
+            mongoose.connection.readyState === 1
+              ? console.log("Mongoose Connected")
+              : await initMongoDB();
             const personaChat: any = await PersonaChat.create({
               aiState: aiState.get(),
               user: userID,
