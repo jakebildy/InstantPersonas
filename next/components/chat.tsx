@@ -95,10 +95,10 @@ export default function Chat({ className, personaChatID }: Props) {
         className
       )}
     >
-      <SubscriptionPopup
+      {/* <SubscriptionPopup
         setOpenSubscriptionPopup={setShowSubscriptionPromptDialog}
         openSubscriptionPopup={showSubscriptionPromptDialog}
-      />
+      /> */}
       {personas && personas.length > 0 ? (
         <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
           {personas.map((archetype: any, i: number) => {
