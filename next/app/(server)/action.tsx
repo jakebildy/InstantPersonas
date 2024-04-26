@@ -244,9 +244,6 @@ async function submitUserMessage(
           });
 
           if (userID) {
-            mongoose.connection.readyState === 1
-              ? console.log("Mongoose Connected")
-              : await initMongoDB();
             const personaChat: any = await PersonaChat.create({
               aiState: aiState.get(),
               user: userID,
