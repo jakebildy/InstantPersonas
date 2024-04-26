@@ -37,15 +37,15 @@ export default function SubscriptionPage() {
   }, [user]);
 
   return loading ? (
-    // center the bar loader in the middle of the screen
-    <div className="flex justify-center items-center h-full w-full mt-[200px]">
-      <div>
-        <div className="text-slate-500 mb-4">
-          Getting subscription status...
-        </div>
+    <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
+      <div className="text-slate-500 mb-4">Getting subscription status...</div>
 
-        <BarLoader color="#36d7b7" height={10} width={200} />
-      </div>
+      <BarLoader
+        color="#36d7b7"
+        height={10}
+        width={500}
+        className="rounded-full"
+      />
     </div>
   ) : isSubscribed ? (
     <ActiveSubscription
