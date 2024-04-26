@@ -1,4 +1,6 @@
 import { User } from "@/app/(server)/models/user.model";
+import { initMongoDB } from "@/database/mongodb";
+import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export async function POST (req: any, res: NextApiResponse) {
@@ -8,6 +10,10 @@ export async function POST (req: any, res: NextApiResponse) {
   const { userID, email } = data;
   if (!userID) throw "User ID is not defined";
   if (!email) throw "User ID is not defined";
+
+  // check if mongodb is connected
+  //  if not, connect to mongodb
+  mongoose.connection.readyState === 1 ? console.log("Mongoose Connected") : await initMongoDB();
 
 //  after u have this. make sure the logic to update the stripe subscriptionID exists.
 
