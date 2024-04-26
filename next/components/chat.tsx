@@ -184,31 +184,31 @@ export default function Chat({ className, personaChatID }: Props) {
           e.preventDefault();
           setInput("");
 
-          if (!isSubscribed) {
-            setShowSubscriptionPromptDialog(true);
-          } else {
-            // Add user message to UI state
-            setMessages((currentMessages: any) => [
-              ...currentMessages,
-              {
-                id: Date.now(),
-                display: <UserMessage message={input} />,
-              },
-            ]);
+          // if (!isSubscribed) {
+          //   // setShowSubscriptionPromptDialog(true);
+          // } else {
+          // Add user message to UI state
+          setMessages((currentMessages: any) => [
+            ...currentMessages,
+            {
+              id: Date.now(),
+              display: <UserMessage message={input} />,
+            },
+          ]);
 
-            setHiddenSuggestedMessages(aiState.suggestedMessages);
+          setHiddenSuggestedMessages(aiState.suggestedMessages);
 
-            // Submit and get response message
-            const responseMessage = await submitUserMessage(
-              input,
-              user.user?.user_id,
-              personaChatID
-            );
-            setMessages((currentMessages: any) => [
-              ...currentMessages,
-              responseMessage,
-            ]);
-          }
+          // Submit and get response message
+          const responseMessage = await submitUserMessage(
+            input,
+            user.user?.user_id,
+            personaChatID
+          );
+          setMessages((currentMessages: any) => [
+            ...currentMessages,
+            responseMessage,
+          ]);
+          // }
         }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}

@@ -1,4 +1,6 @@
 import { User } from "@/app/(server)/models/user.model";
+import { initMongoDB } from "@/database/mongodb";
+import mongoose from "mongoose";
 import { NextApiResponse } from "next";
 import { headers } from "next/headers";
 import stripe from "stripe";
@@ -48,6 +50,7 @@ async function fulfillOrder(session: Session): Promise<void> {
     if (!stripeSubscriptionId) throw "Stripe subscription id is empty";
     if (!stytchID) throw "User id is empty";
   
+    mongoose.connection.readyState === 1 ? console.log("Mongoose Connected") : await initMongoDB();
     let user = await User.findOne({stytchID});
     if (!user) throw "User not found";
   

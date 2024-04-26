@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URL: string | undefined = process.env.MONGO_URL;
+const MONGO_URL: string | undefined = process.env.MONGODB_URI;
 
 // Connect to mongo db.
 export async function initMongoDB(): Promise<void> {
