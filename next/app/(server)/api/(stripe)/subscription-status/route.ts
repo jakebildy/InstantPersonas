@@ -1,12 +1,17 @@
 import { User } from "@/app/(server)/models/user.model";
 import stripe from "../stripe-config";
+import mongoose from "mongoose";
+import { initMongoDB } from "@/database/mongodb";
 
 export async function GET(req: Request,) {
   const url = new URL(req.url)
 
   const userID = url.searchParams.get("id")
   if (!userID) throw "User ID is not defined";
+
   try { 
+    mongoose.connection.readyState === 1 ? console.log("Mongoose Connected") : await initMongoDB();
+
     console.log("Checking subscription status for user: ", userID)
     const user = await User.findOne({stytchID: userID});
 
