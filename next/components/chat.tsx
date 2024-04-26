@@ -143,7 +143,7 @@ export default function Chat({ className, personaChatID }: Props) {
                   setInput("");
 
                   if (!isSubscribed) {
-                    setShowSubscriptionPromptDialog(true);
+                    // setShowSubscriptionPromptDialog(true);
                   } else {
                     // Add user message to UI state
                     setMessages((currentMessages: any) => [
