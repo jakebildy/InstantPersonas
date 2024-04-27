@@ -7,21 +7,27 @@ import { useStytchUser } from "@stytch/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { set } from "lodash";
+import { PersonaHistoryListSkeleton } from "./persona-history-list-skeleton";
 
 export function PersonaHistoryList({}: {}) {
   const user = useStytchUser();
   const [personachats, setPersonachats] = useState<PersonaChat[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (user.user) {
       api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
         setPersonachats(data);
       });
+      setLoading(false);
     }
   }, [user.user]);
   return (
     <section>
       {personachats && personachats.length > 0 ? (
         <PersonaHistoryCardList personachats={personachats} />
+      ) : loading ? (
+        <PersonaHistoryListSkeleton />
       ) : (
         <div className="grid place-items-center">
           <div className="text-center ">
