@@ -279,3 +279,8 @@ export function limitTextToFirstDelimiter(text: string): string {
 
   return result;
 }
+
+/**
+ * Determines whether the current environment is a test environment.
+ */
+export const IS_TEST_DEV_ENV = process.env.NEXT_PUBLIC_ENV === "dev";
