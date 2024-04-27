@@ -85,7 +85,6 @@ export default function Chat({ className, personaChatID }: Props) {
     if (messagesLength === 2) {
       router.refresh();
     }
-    console.log("client", messages);
   }, [aiState.messages, messages, router]);
 
   return (
