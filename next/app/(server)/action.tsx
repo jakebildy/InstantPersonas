@@ -32,6 +32,8 @@ const openai = new OpenAI({
 
 initMongoDB();
 
+export const maxDuration = 300;
+
 //@ts-ignore
 async function submitUserMessage(
   userInput: string,

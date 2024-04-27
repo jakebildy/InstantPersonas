@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "app/(server)/**/*": {
+      "maxDuration": 300
+    },
+    "app/(user-is-auth)/**/*": {
+      "maxDuration": 300
+    }
+  }
+}
