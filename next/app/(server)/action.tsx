@@ -410,7 +410,9 @@ async function submitUserMessage(
           .required(),
         render: async function* ({ keyword }) {
           yield (
-            <Loading loadingMessage={"Doing content consumption analysis..."} />
+            <Loading
+              loadingMessage={"Analyzing persona content consumption ..."}
+            />
           );
 
           const contentConsumption = await getContentConsumption(keyword);
@@ -435,16 +437,17 @@ async function submitUserMessage(
             <div className="flex flex-row flex-wrap">
               {contentConsumption.map((url: string) => {
                 return (
-                  <iframe
-                    key={url}
-                    width="200"
-                    height="344"
-                    className="p-2"
-                    src={url}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+                  <div key={url} className="border rounded-sm overflow-hidden">
+                    <iframe
+                      width="200"
+                      height="344"
+                      className="p-2"
+                      src={url}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
                 );
               })}
             </div>
