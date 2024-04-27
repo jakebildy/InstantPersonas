@@ -5,6 +5,7 @@ import { RecentPersonasList } from "../(client-ui)/recent-personas-list";
 import { useStytchUser } from "@stytch/nextjs";
 import { useEffect, useState } from "react";
 import { RecentPersonasSkeleton } from "./recent-personas-skeleton";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function RecentPersonas({}: {}) {
   const user = useStytchUser();
@@ -15,8 +16,8 @@ export function RecentPersonas({}: {}) {
     if (user.user) {
       api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
         setPersonachats(data);
+        setLoading(false);
       });
-      setLoading(false);
     }
   }, [user.user]);
 
@@ -27,13 +28,28 @@ export function RecentPersonas({}: {}) {
           ? "Recent Personas"
           : "History"}
       </h1>
-      {personachats && personachats.length > 0 ? (
-        <div className="flex flex-row items-center justify-center mt-20 w-full">
-          <RecentPersonasList personachats={personachats} />
-        </div>
-      ) : loading ? (
-        <RecentPersonasSkeleton />
-      ) : null}
+      <AnimatePresence mode="wait">
+        {personachats && personachats.length > 0 ? (
+          <motion.div
+            className="flex flex-row items-center justify-center mt-20 w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            key="recent-personas-list"
+          >
+            <RecentPersonasList personachats={personachats} />
+          </motion.div>
+        ) : loading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            key="recent-personas-skeleton"
+          >
+            <RecentPersonasSkeleton />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
