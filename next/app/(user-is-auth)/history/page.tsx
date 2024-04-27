@@ -9,8 +9,6 @@ export default async function HistoryPage({}: {}) {
   return (
     <main>
       <Suspense fallback={<RecentPersonasSkeleton />}>
-        {/*! Typescript Error with async RSC - Reference:
-        https://github.com/vercel/next.js/issues/42292#issuecomment-1298459024 */}
         <RecentPersonas />
       </Suspense>
       <div className="mt-10">

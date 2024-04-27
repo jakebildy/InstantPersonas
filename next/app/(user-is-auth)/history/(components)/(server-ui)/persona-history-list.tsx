@@ -5,12 +5,19 @@ import PersonaHistoryCardList from "../(client-ui)/persona-history-card-list";
 import Image from "next/image";
 import { useStytchUser } from "@stytch/nextjs";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { PersonaChat } from "@/app/(server)/models/personachat.model";
 
-export async function PersonaHistoryList({}: {}) {
+export function PersonaHistoryList({}: {}) {
   const user = useStytchUser();
-  const personachats = await api.userPersona.getPersonaHistory(
-    user.user?.user_id
-  );
+  const [personachats, setPersonachats] = useState<PersonaChat[]>([]);
+  useEffect(() => {
+    if (user.user) {
+      api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
+        setPersonachats(data);
+      });
+    }
+  }, [user.user]);
   return (
     <section>
       {personachats && personachats.length > 0 ? (
