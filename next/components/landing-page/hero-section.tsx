@@ -9,7 +9,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl"
+        className="mx-auto max-w-4xl font-display font-bold text-5xl tracking-tight text-slate-900 sm:text-7xl"
       >
         Understand your target audience in{" "}
         <span className="relative whitespace-nowrap text-green">
@@ -31,7 +31,8 @@ export default function HeroSection() {
         className="mx-auto mt-10 max-w-2xl text-lg tracking-tight text-slate-700"
       >
         Generate <b>comprehensive</b> user personas{" "}
-        <b>quickly and effortlessly</b>.
+        <b>quickly and effortlessly</b>. Marketing Managers and UX Designers can
+        save hours.
       </motion.p>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
