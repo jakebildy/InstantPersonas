@@ -93,15 +93,23 @@ export default function PricingSection() {
           <h2 className="text-base font-semibold leading-7 text-green-600">
             Pricing
           </h2>
+          {/* <img
+            style={{
+              height: "60px",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+            src="https://fonts.gstatic.com/s/e/notoemoji/latest/2615/512.webp"
+          /> */}
           <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Pricing plans for teams of&nbsp;all&nbsp;sizes
+            Industry-leading AI at the price of a coffee per month.
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          If you&apos;re not completely satisfied, cancel for free before the
-          free trial ends.
+          We know you'll love it. If you&apos;re not completely satisfied,{" "}
+          <b>cancel for free</b> before the free trial ends.
         </p>
-        <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
+        <div className="isolate mx-auto mt-8 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
           {/* InstantPersonas Pricing */}
           <Plan
             name="Monthly"
@@ -129,6 +137,10 @@ export default function PricingSection() {
             popular
           />
         </div>
+        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
+          Still not convinced? Our AI is so good we'll give you a{" "}
+          <b>30 day money back guarantee</b> if you aren't completely happy.
+        </p>
       </div>
     </div>
   );
