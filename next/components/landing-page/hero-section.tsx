@@ -41,7 +41,7 @@ export default function HeroSection() {
         className="mt-10 flex justify-center gap-x-6"
       >
         <Button variant={"slate"} size="rounded" asChild>
-          <Link href="/register">Get Started for Free</Link>
+          <Link href="/register">Try FREE Now</Link>
         </Button>
       </motion.div>
       <div className="mt-36 lg:mt-44" />
