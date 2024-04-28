@@ -1,6 +1,6 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 axios.defaults.withCredentials = true;
 
@@ -83,15 +83,24 @@ const api = {
 
   stripe: {
     isSubscriptionActive: async (userID: string) => {
-      const response = await axios.get("/api/subscription-status", {
-        params: { id: userID },
-      });
+      try {
+        const response = await axios.get("/api/subscription-status", {
+          params: { id: userID },
+        });
 
-      return response.data as {
-        status: string;
-        cancel_at_period_end: boolean;
-        interval: string;
-      };
+        return response.data as {
+          status: string;
+          cancel_at_period_end: boolean;
+          interval: string;
+        };
+      } catch (error: any) {
+        console.error("Error getting subscription status:", error.message);
+        return {
+          status: "inactive",
+          cancel_at_period_end: false,
+          interval: "month",
+        };
+      }
     },
     getCustomerPortalUrl: async (userID: string): Promise<string> => {
       const response = await axios.get("/api/customer-portal", {
@@ -150,9 +159,9 @@ const api = {
       const baseUrl = "/api/get-persona-chat";
 
       // Create an object to hold any query parameters
-      const params = {} as any;
-
-      params.chatID = chatID;
+      const params = {
+        id: chatID,
+      };
 
       // Make the GET request with the query parameters
       const response = await axios.get(baseUrl, { params });

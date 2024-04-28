@@ -1,7 +1,4 @@
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
-import { PERSONA_TEST_HISTORY } from "./test";
-import mongoose from "mongoose";
-import { initMongoDB } from "@/database/mongodb";
+import { getPersonaChat } from "./function";
 
 export async function GET(req: Request) {
   // a user can only get their own persona chats, filter by the provided userID in the request
@@ -10,10 +7,10 @@ export async function GET(req: Request) {
 
   const chatID = url.searchParams.get("chatID");
 
+  if (!chatID) throw "Chat ID is not defined";
   // Get MongoDB PersonaChats where user matches the provided userID
 
-  mongoose.connection.readyState === 1 ? console.log("Mongoose Connected") : await initMongoDB();
-  const personaChat = await PersonaChat.findOne({ _id: chatID });
+  const personaChat = await getPersonaChat(chatID);
 
   return Response.json({
     result: personaChat,
