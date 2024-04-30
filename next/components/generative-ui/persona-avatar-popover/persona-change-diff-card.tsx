@@ -18,7 +18,7 @@ import { AI } from "@/app/(server)/action";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { fixJson } from "@/lib/fix-json";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
-import { avatarVariants } from "./variants";
+import { avatarVariants } from "../../variants";
 import { usePostHog } from "posthog-js/react";
 
 export interface PersonaChangeDiffCardProps {

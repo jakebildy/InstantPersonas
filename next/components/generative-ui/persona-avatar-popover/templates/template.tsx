@@ -1,5 +1,5 @@
 import React from "react";
-import { avatarVariants, gradientVariants } from "../variants";
+import { avatarVariants, gradientVariants } from "../../../variants";
 import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/fcs-ui/fcs-separator";
