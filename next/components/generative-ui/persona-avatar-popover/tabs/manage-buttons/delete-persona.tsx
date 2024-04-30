@@ -20,10 +20,11 @@ import { PersonStandingIcon } from "lucide-react";
 import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import { useState } from "react";
-import posthog from "posthog-js";
+
 import { isEqual } from "lodash";
 import { useParams } from "next/navigation";
 import api from "@/service/api.service";
+import { usePostHog } from "posthog-js/react";
 
 export function DeletePersonaButton({
   variant,
@@ -36,6 +37,7 @@ export function DeletePersonaButton({
   const [error, setError] = useState<boolean>(false);
   const params = useParams<{ id?: string[] }>();
   const id = params.id ? params.id.at(-1) : undefined;
+  const posthog = usePostHog();
 
   const deletePersonaAction = () => {
     // Delete persona action

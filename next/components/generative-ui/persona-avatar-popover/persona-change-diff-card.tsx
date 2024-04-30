@@ -18,8 +18,8 @@ import { AI } from "@/app/(server)/action";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { fixJson } from "@/lib/fix-json";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
-import posthog from "posthog-js";
 import { avatarVariants } from "./variants";
+import { usePostHog } from "posthog-js/react";
 
 export interface PersonaChangeDiffCardProps {
   origin_archetype: PersonaArchetype;
@@ -137,6 +137,7 @@ export function PersonaChangeDiffCard({
   const [isAccepted, setIsAccepted] = useState(false);
 
   console.log(aiState);
+  const posthog = usePostHog();
 
   // check if messageID matches the aiState.messages most recent message ID
   const mostRecentMsg = aiState.messages[aiState.messages.length - 1];

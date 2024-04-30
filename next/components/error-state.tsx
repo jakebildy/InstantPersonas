@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
-import posthog from "posthog-js";
 import Image from "next/image";
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SIDEBAR_LINKS } from "@/lib/site";
+import { usePostHog } from "posthog-js/react";
 
 type Props = {
   onRetry: () => void;
@@ -13,6 +13,8 @@ type Props = {
 };
 
 export default function ErrorState({ error, onRetry }: Props) {
+  const posthog = usePostHog();
+
   useEffect(() => {
     if (!error) return;
     posthog.capture("error", {
@@ -21,7 +23,7 @@ export default function ErrorState({ error, onRetry }: Props) {
       digest: error.digest,
     });
     console.error(error);
-  }, [error]);
+  }, [error, posthog]);
 
   const feedbackLink = SIDEBAR_LINKS.find(
     (link) => link.title === "Send Feedback"

@@ -1,7 +1,6 @@
 import { fixJson } from "@/lib/fix-json";
 import { ColorVariant, ColorVariantMap, PersonaArchetype } from ".";
 import SecureJSON from "secure-json-parse";
-import posthog from "posthog-js";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
@@ -202,10 +201,7 @@ export function tryParseJsonWithRepair(
       const fixedJsonText = fixJson(jsonText);
       return SecureJSON.parse(fixedJsonText);
     } catch (error) {
-      posthog.capture("json-error", {
-        error: "error in parsing json",
-        persona: jsonText,
-      });
+      console.error("Error parsing JSON:", error);
     }
   }
 
@@ -217,11 +213,6 @@ export function serializePersonas(personas: PersonaArchetype[]): string | null {
     return JSON.stringify(personas);
   } catch (error) {
     console.error("Error serializing personas:", error);
-    posthog.capture("json-error", {
-      error: "Error serializing personas:",
-      message: error,
-      persona: personas,
-    });
     return null;
   }
 }

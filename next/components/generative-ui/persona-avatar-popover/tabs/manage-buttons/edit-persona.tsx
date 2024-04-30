@@ -30,7 +30,6 @@ import {
   tryParseJsonWithRepair,
   updatePersonaByName,
 } from "../../utils";
-import posthog from "posthog-js";
 import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
 
@@ -50,6 +49,7 @@ export function EditPersonaButton({
     useState<PersonaArchetype>(archetype);
 
   const [error, setError] = useState<boolean>(false);
+  const posthog = usePostHog();
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -224,6 +224,7 @@ import {
 import { replaceParameterInURL } from "@/lib/utils";
 import api from "@/service/api.service";
 import { useParams } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
 
 function ChangeColorSelect({
   value = "blue",

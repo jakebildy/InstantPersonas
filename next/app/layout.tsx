@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Jost } from "next/font/google";
 import StytchContext from "@/components/auth/stytch-context";
 import "./globals.css";
-import { PHProvider } from "@/components/post-hog-context";
+import { PHProvider, PostHogPageview } from "@/components/post-hog-context";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({
@@ -24,6 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jost.variable} font-sans`}>
+      <Suspense>
+        <PostHogPageview />
+      </Suspense>
       <PHProvider>
         <body className={inter.className}>
           <StytchContext>{children}</StytchContext>
