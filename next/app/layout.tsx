@@ -5,7 +5,7 @@ import StytchContext from "@/components/auth/stytch-context";
 import "./globals.css";
 
 const env = process.env.NEXT_PUBLIC_ENV;
-if (env && env === "dev" && typeof window !== "undefined") {
+if (env && env !== "dev") {
   posthog.init("phc_QxTf3l3deKC3s9gd21PXco5eBQIikFkZ8YEkl7kizrd", {
     api_host: "https://app.posthog.com",
   });
