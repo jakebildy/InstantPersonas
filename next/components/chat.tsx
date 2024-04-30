@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { HTMLAttributes, memo, useEffect, useRef, useState } from "react";
 import {
   CommandUserInput,
@@ -85,7 +85,6 @@ export default function Chat({ className, personaChatID }: Props) {
     if (messagesLength === 2) {
       router.refresh();
     }
-    console.log("client", messages);
   }, [aiState.messages, messages, router]);
 
   return (
@@ -95,10 +94,12 @@ export default function Chat({ className, personaChatID }: Props) {
         className
       )}
     >
-      {/* <SubscriptionPopup
+      <SubscriptionPopup
         setOpenSubscriptionPopup={setShowSubscriptionPromptDialog}
-        openSubscriptionPopup={showSubscriptionPromptDialog}
-      /> */}
+        openSubscriptionPopup={
+          IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog
+        }
+      />
       {personas && personas.length > 0 ? (
         <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
           {personas.map((archetype: any, i: number) => {
@@ -140,11 +141,10 @@ export default function Chat({ className, personaChatID }: Props) {
                 key={index}
                 className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
                 onClick={async () => {
-                  setInput("");
-
-                  if (!isSubscribed) {
+                  if (!isSubscribed && !IS_TEST_DEV_ENV) {
                     setShowSubscriptionPromptDialog(true);
                   } else {
+                    setInput("");
                     // Add user message to UI state
                     setMessages((currentMessages: any) => [
                       ...currentMessages,
@@ -182,33 +182,33 @@ export default function Chat({ className, personaChatID }: Props) {
         onChange={(e) => setInput(e.target.value)}
         onSubmit={async (e) => {
           e.preventDefault();
-          setInput("");
 
-          // if (!isSubscribed) {
-          //   // setShowSubscriptionPromptDialog(true);
-          // } else {
-          // Add user message to UI state
-          setMessages((currentMessages: any) => [
-            ...currentMessages,
-            {
-              id: Date.now(),
-              display: <UserMessage message={input} />,
-            },
-          ]);
+          if (!isSubscribed && !IS_TEST_DEV_ENV) {
+            setShowSubscriptionPromptDialog(true);
+          } else {
+            setInput("");
+            // Add user message to UI state
+            setMessages((currentMessages: any) => [
+              ...currentMessages,
+              {
+                id: Date.now(),
+                display: <UserMessage message={input} />,
+              },
+            ]);
 
-          setHiddenSuggestedMessages(aiState.suggestedMessages);
+            setHiddenSuggestedMessages(aiState.suggestedMessages);
 
-          // Submit and get response message
-          const responseMessage = await submitUserMessage(
-            input,
-            user.user?.user_id,
-            personaChatID
-          );
-          setMessages((currentMessages: any) => [
-            ...currentMessages,
-            responseMessage,
-          ]);
-          // }
+            // Submit and get response message
+            const responseMessage = await submitUserMessage(
+              input,
+              user.user?.user_id,
+              personaChatID
+            );
+            setMessages((currentMessages: any) => [
+              ...currentMessages,
+              responseMessage,
+            ]);
+          }
         }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}

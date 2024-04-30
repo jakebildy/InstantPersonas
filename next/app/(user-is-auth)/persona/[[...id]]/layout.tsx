@@ -1,7 +1,7 @@
 "use server";
 import { AI } from "@/app/(server)/action";
 import SidebarLayout from "../client-sidebar-layout";
-import api from "@/service/api.service";
+import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/function";
 
 export default async function Layout({
   chat,
@@ -13,7 +13,7 @@ export default async function Layout({
   params: { id?: string[] };
 }) {
   const id = params.id?.at(-1);
-  const chatHistory = id ? await api.userPersona.getPersonaChat(id) : null;
+  const chatHistory = id ? await getPersonaChat(id) : null;
 
   return (
     <AI initialAIState={chatHistory?.aiState}>
