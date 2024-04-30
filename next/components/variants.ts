@@ -126,15 +126,3 @@ export const shadowVariants = cva("shadow-md", {
     variant: "blue",
   },
 });
-
-export const ColorVariantMap = {
-  blue: "#c7eaf1",
-  purple: "#d9cbfc",
-  red: "#ef9796",
-  yellow: "#fbe8b1",
-  green: "#c2e4bc",
-  brown: "#e6d3d0",
-  pink: "#eaa9c1",
-} as const;
-
-export type ColorVariant = keyof typeof ColorVariantMap;

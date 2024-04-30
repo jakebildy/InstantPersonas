@@ -8,17 +8,14 @@ import {
   X,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import {
-  ColorVariant,
-  gradientLightVariants,
-  shadowVariants,
-} from "@/components/variants";
+import { gradientLightVariants, shadowVariants } from "@/components/variants";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn, delay } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { usePostHog } from "posthog-js/react";
+import { ColorVariant } from "./generative-ui/persona-avatar-popover";
 
 const JOB_CHOICES = ["Marketing", "UX Design", "Product Management", "Other"];
 
