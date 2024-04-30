@@ -20,11 +20,12 @@ import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar
 import { PersonaChat, UserPersona } from "./models/personachat.model";
 import { nanoid } from "@/lib/utils";
 import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
-import posthog from "posthog-js";
+// import posthog from "posthog-js";
 import { getUIStateFromAIState } from "./ai/get-ui-state-from-ai-state";
 import { fixJson } from "@/lib/fix-json";
 import { GPT4 } from "./ai/gpt";
 import mongoose from "mongoose";
+import PostHogClient from "./posthog";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -42,14 +43,21 @@ async function submitUserMessage(
 ) {
   "use server";
 
+  const posthog = PostHogClient();
+
   //@ts-ignore
   const aiState = getMutableAIState<typeof AI>();
   const validatedAIState = AIStateValidator.safeParse(aiState.get());
 
   if (!validatedAIState.success) {
-    posthog.capture("error", {
-      error: validatedAIState.error,
+    posthog.capture({
+      distinctId: userID,
+      event: "error",
+      properties: {
+        error: validatedAIState.error,
+      },
     });
+    await posthog.shutdown();
     return;
   }
 

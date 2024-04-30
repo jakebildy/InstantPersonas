@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Jost } from "next/font/google";
-import posthog from "posthog-js";
 import StytchContext from "@/components/auth/stytch-context";
 import "./globals.css";
-
-const env = process.env.NEXT_PUBLIC_ENV;
-if (env && env !== "dev") {
-  posthog.init("phc_QxTf3l3deKC3s9gd21PXco5eBQIikFkZ8YEkl7kizrd", {
-    api_host: "https://app.posthog.com",
-  });
-}
+import { PHProvider } from "@/components/post-hog-context";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({
@@ -31,9 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jost.variable} font-sans`}>
-      <body className={inter.className}>
-        <StytchContext>{children}</StytchContext>
-      </body>
+      <PHProvider>
+        <body className={inter.className}>
+          <StytchContext>{children}</StytchContext>
+        </body>
+      </PHProvider>
     </html>
   );
 }
