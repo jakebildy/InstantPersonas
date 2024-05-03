@@ -23,36 +23,50 @@ const MAGIC_LINKS_TOKEN = "magic_links";
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (stytch && !user && isInitialized) {
-      const token = searchParams.get("token");
-      const stytch_token_type = searchParams.get("stytch_token_type");
+    try {
+      if (stytch && !user && isInitialized) {
+        const token = searchParams.get("token");
+        const stytch_token_type = searchParams.get("stytch_token_type");
 
-      if (token && stytch_token_type === OAUTH_TOKEN) {
-        stytch.oauth.authenticate(token, {
-          session_duration_minutes: 60,
-        });
-      } else if (token && stytch_token_type === MAGIC_LINKS_TOKEN) {
-        stytch.magicLinks.authenticate(token, {
-          session_duration_minutes: 60,
-        });
+        if (token && stytch_token_type === OAUTH_TOKEN) {
+          stytch.oauth.authenticate(token, {
+            session_duration_minutes: 60,
+          });
+        } else if (token && stytch_token_type === MAGIC_LINKS_TOKEN) {
+          stytch.magicLinks.authenticate(token, {
+            session_duration_minutes: 60,
+          });
+        }
+      } else {
+        router.replace("/");
       }
+    } catch (error) {
+      console.error("Error creating user on signup: ", error);
+      router.replace("/");
     }
   }, [isInitialized, router, searchParams, stytch, user]);
 
   useEffect(() => {
-    if (!isInitialized) {
-      return;
-    }
-    if (user) {
-      // create a User model if it doesn't exist
+    try {
+      if (!isInitialized) {
+        return;
+      }
+      if (user) {
+        // create a User model if it doesn't exist
 
-      // async function
-      const createUserIfSignup = async () => {
-        await api.auth.createUserIfSignup(user.user_id, user.emails[0].email);
-      };
-      createUserIfSignup();
+        // async function
+        const createUserIfSignup = async () => {
+          await api.auth.createUserIfSignup(user.user_id, user.emails[0].email);
+        };
+        createUserIfSignup();
 
-      router.replace("/persona");
+        router.replace("/persona");
+      } else {
+        router.replace("/");
+      }
+    } catch (error) {
+      console.error("Error creating user on signup: ", error);
+      router.replace("/");
     }
   }, [router, user, isInitialized]);
 
