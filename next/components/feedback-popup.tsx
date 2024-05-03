@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { usePostHog } from "posthog-js/react";
 import { ColorVariant } from "./generative-ui/persona-avatar-popover";
+import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 
 const JOB_CHOICES = ["Marketing", "UX Design", "Product Management", "Other"];
 
@@ -150,9 +151,16 @@ const FeedbackPopup = ({
             : "unanswered",
         };
         posthog.capture("survey_completed", finialSurveyAnswers);
+        const currentDateFormatted = new Date().toISOString().slice(0, 10);
+        localStorage.setItem(
+          LOCAL_STORAGE_CONFIG.feedback.completed,
+          currentDateFormatted
+        );
         await delay(2500);
 
         setOpenFeedbackPopup(false);
+        await delay(1000);
+
         setSurveyStep("start");
       };
       sendSurveyAnswers();
