@@ -388,6 +388,9 @@ function OtherJob({
   goBack: () => void;
   onAnswerQuestion: (answer: string) => void;
 }) {
+  const replaceValueWithPlaceholderIfDefault = (value: string) =>
+    currentAnswer ? (currentAnswer === "Other" ? value : currentAnswer) : value;
+
   return (
     <motion.div
       className="flex flex-col items-center gap-2 cursor-pointer"
@@ -416,8 +419,8 @@ function OtherJob({
         transition={{ delay: 0.75, ease: "easeOut" }}
       >
         <Input
-          placeholder={currentAnswer || "Other..."}
-          value={currentAnswer || ""}
+          placeholder={replaceValueWithPlaceholderIfDefault("Other...")}
+          value={replaceValueWithPlaceholderIfDefault("")}
           onChange={(e) => onAnswerQuestion(e.target.value)}
         />
       </motion.div>
