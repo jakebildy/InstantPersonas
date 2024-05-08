@@ -1,5 +1,5 @@
 import Header from "@/components/landing-page/header";
-import Footer from "@/components/landing-page//footer";
+import Footer from "@/components/landing-page/footer";
 import HeroSection from "@/components/landing-page/hero-section";
 import VideoFeatureSection from "@/components/landing-page/video-feature-section";
 import CallToActionSection from "@/components/landing-page/call-to-action-section";

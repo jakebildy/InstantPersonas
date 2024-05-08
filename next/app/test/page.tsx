@@ -1,10 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { PersonStandingIcon, X } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FeedbackPopup from "@/components/feedback-popup";
+import { gradientLightVariants } from "@/components/variants";
+import { isMobile } from "react-device-detect";
+import { PreventMobile } from "@/components/prevent-mobile";
 
 type Props = {};
 
@@ -12,14 +15,15 @@ export default function PageTest({}: Props) {
   return (
     <div className="grid place-items-center h-screen w-screen">
       <Subscription />
-      <FeedbackPopup
+      {/* <FeedbackPopup
         openFeedbackPopup={true}
         setOpenFeedbackPopup={function (
           value: React.SetStateAction<boolean>
         ): void {
           throw new Error("Function not implemented.");
         }}
-      />
+      /> */}
+      {/* <PreventMobile /> */}
     </div>
   );
 }
