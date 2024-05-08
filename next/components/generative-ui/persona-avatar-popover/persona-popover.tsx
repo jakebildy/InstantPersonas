@@ -16,7 +16,7 @@ import {
   gradientLightVariants,
   shadowVariants,
   tabTriggerVariants,
-} from "./variants";
+} from "../../variants";
 import { PersonaArchetype } from "./types";
 
 export interface PersonaAvatarPopoverProps

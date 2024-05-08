@@ -50,17 +50,17 @@ export interface PersonaHistory {
 const api = {
   auth: {
     me: async () => {
-      const response = await axios.get("/api/auth/me");
+      const response = await axios.get("/api/user");
       return response.data;
     },
 
     logout: async () => {
-      const response = await axios.put("/api/auth/logout");
+      const response = await axios.put("/api/logout");
       return response.data;
     },
 
     setOnBoarded: async () => {
-      const response = await axios.put("/api/auth/onboarded");
+      const response = await axios.put("/api/onboarded");
       return response.data;
     },
 

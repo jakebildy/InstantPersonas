@@ -30,7 +30,6 @@ import {
   tryParseJsonWithRepair,
   updatePersonaByName,
 } from "../../utils";
-import posthog from "posthog-js";
 import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
 
@@ -44,12 +43,14 @@ export function EditPersonaButton({
   const [localVariant, setLocalVariant] = useState<ColorVariant>(
     variant as ColorVariant
   );
+  const [showDialog, setShowDialog] = useState<boolean>(false);
   const params = useParams<{ id?: string[] }>();
   const id = params.id ? params.id.at(-1) : undefined;
   const [localArchetype, setLocalArchetype] =
     useState<PersonaArchetype>(archetype);
 
   const [error, setError] = useState<boolean>(false);
+  const posthog = usePostHog();
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -114,6 +115,7 @@ export function EditPersonaButton({
     update(newAIState);
     setAIState(newAIState);
     setUIState(newUIState);
+    setShowDialog(false);
   }
 
   function variantOnChange(value: string) {
@@ -129,7 +131,7 @@ export function EditPersonaButton({
   }
 
   return (
-    <Dialog open={true}>
+    <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
         <Button>Edit Persona</Button>
       </DialogTrigger>
@@ -224,6 +226,7 @@ import {
 import { replaceParameterInURL } from "@/lib/utils";
 import api from "@/service/api.service";
 import { useParams } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
 
 function ChangeColorSelect({
   value = "blue",

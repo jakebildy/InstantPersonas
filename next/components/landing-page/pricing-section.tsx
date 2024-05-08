@@ -106,7 +106,7 @@ export default function PricingSection() {
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          We know you'll love it. If you&apos;re not completely satisfied,{" "}
+          We know you&apos;ll love it. If you&apos;re not completely satisfied,{" "}
           <b>cancel for free</b> before the free trial ends.
         </p>
         <div className="isolate mx-auto mt-8 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
@@ -138,8 +138,9 @@ export default function PricingSection() {
           />
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          Still not convinced? Our AI is so good we'll give you a{" "}
-          <b>30 day money back guarantee</b> if you aren't completely happy.
+          Still not convinced? Our AI is so good we&apos;ll give you a{" "}
+          <b>30 day money back guarantee</b> if you aren&apos;t completely
+          happy.
         </p>
       </div>
     </div>

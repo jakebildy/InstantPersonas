@@ -2,7 +2,7 @@ import { PersonStandingIcon } from "lucide-react";
 import React from "react";
 import { Separator } from "../fcs-ui/fcs-separator";
 import { Button } from "../ui/button";
-import { gradientVariants } from "./persona-avatar-popover/variants";
+import { gradientVariants } from "../variants";
 
 type Props = {
   business: string;

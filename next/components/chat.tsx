@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import api from "@/service/api.service";
 import SubscriptionPopup from "./subscription-popup";
 import { mapUrlBackgroundColorParamToVariant } from "./generative-ui/persona-avatar-popover/utils";
+import { usePostHog } from "posthog-js/react";
 
 type Props = {
   className?: string;
@@ -58,6 +59,8 @@ export default function Chat({ className, personaChatID }: Props) {
     },
   ];
 
+  const posthog = usePostHog();
+
   useEffect(() => {
     if (aiState) {
       setPersonas(aiState.personas);
@@ -72,13 +75,18 @@ export default function Chat({ className, personaChatID }: Props) {
       const userIsSubscribed = await api.stripe.isSubscriptionActive(
         user.user?.user_id as string
       );
+      posthog.identify(user.user?.user_id, {
+        email: user.user?.emails[0].email,
+        subscriptionType: userIsSubscribed ? "paid" : "free",
+        userSignupDate: user.user?.created_at,
+      });
       setIsSubscribed(
         userIsSubscribed.status === "active" ||
           userIsSubscribed.status === "trialing"
       );
     };
     checkSubscription();
-  }, [user]);
+  }, [posthog, user]);
 
   useEffect(() => {
     const messagesLength = aiState.messages?.length;

@@ -5,7 +5,7 @@ import { PersonStandingIcon } from "lucide-react";
 import { PersonaTemplateProps } from "./template";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { avatarVariants, gradientVariants } from "../variants";
+import { avatarVariants, gradientVariants } from "../../../variants";
 
 export function EditPersonaTemplate({
   variant,
