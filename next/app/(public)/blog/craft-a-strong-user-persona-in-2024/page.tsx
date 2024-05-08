@@ -1,3 +1,4 @@
+import TableOfContents from "@/components/blog/TableOfContents";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
@@ -9,6 +10,7 @@ export default function CraftStrongUserPersona() {
         }
       </title>
       <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <TableOfContents />
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
           <header className="mb-4 lg:mb-6 not-format">
             <address className="flex items-center mb-6 not-italic">
@@ -55,7 +57,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
             1. Use the 80/20 Rule
           </h2>
           <p>
@@ -78,7 +80,7 @@ export default function CraftStrongUserPersona() {
             alt="Incorporating Google Analytics into user personas"
             className="mx-auto"
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id={"1"}>
             2. Use your Google Analytics Data
           </h2>
           <p>
@@ -105,7 +107,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="2">
             3. Understand your Customer Motivations
           </h2>
           <p>
@@ -145,7 +147,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="3">
             4. Is your business innovative? If so, understand where in the
             Innovation Adoption Cycle your business falls.
           </h2>
@@ -209,7 +211,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="4">
             5. Incorporate your Customer Conversations
           </h2>
           <p>
@@ -229,7 +231,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="5">
             6. Is your business on Facebook/Instagram? Use Meta Audience
             Insights
           </h2>
