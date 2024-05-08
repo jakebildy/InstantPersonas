@@ -38,11 +38,11 @@ const MAGIC_LINKS_TOKEN = "magic_links";
           });
         }
       } else {
-        router.replace("/");
+        // router.replace("/");
       }
     } catch (error) {
       console.error("Error creating user on signup: ", error);
-      router.replace("/");
+      // router.replace("/");
     }
   }, [isInitialized, router, searchParams, stytch, user]);
 
@@ -62,11 +62,11 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 
         router.replace("/persona");
       } else {
-        router.replace("/");
+        // router.replace("/");
       }
     } catch (error) {
       console.error("Error creating user on signup: ", error);
-      router.replace("/");
+      // router.replace("/");
     }
   }, [router, user, isInitialized]);
 
