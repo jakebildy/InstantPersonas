@@ -43,6 +43,7 @@ export function EditPersonaButton({
   const [localVariant, setLocalVariant] = useState<ColorVariant>(
     variant as ColorVariant
   );
+  const [showDialog, setShowDialog] = useState<boolean>(false);
   const params = useParams<{ id?: string[] }>();
   const id = params.id ? params.id.at(-1) : undefined;
   const [localArchetype, setLocalArchetype] =
@@ -114,6 +115,7 @@ export function EditPersonaButton({
     update(newAIState);
     setAIState(newAIState);
     setUIState(newUIState);
+    setShowDialog(false);
   }
 
   function variantOnChange(value: string) {
@@ -129,7 +131,7 @@ export function EditPersonaButton({
   }
 
   return (
-    <Dialog open={true}>
+    <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
         <Button>Edit Persona</Button>
       </DialogTrigger>
