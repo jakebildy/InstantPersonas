@@ -8,13 +8,29 @@ import FeedbackPopup from "@/components/feedback-popup";
 import { gradientLightVariants } from "@/components/variants";
 import { isMobile } from "react-device-detect";
 import { PreventMobile } from "@/components/prevent-mobile";
+import SubscriptionPopup from "@/components/subscription-popup";
 
 type Props = {};
 
 export default function PageTest({}: Props) {
+  const [openSubscriptionPopup, setOpenSubscriptionPopup] =
+    React.useState(true);
+
   return (
     <div className="grid place-items-center h-screen w-screen">
-      <Subscription />
+      <Subscription2 />
+      <SubscriptionPopup
+        openSubscriptionPopup={openSubscriptionPopup}
+        setOpenSubscriptionPopup={setOpenSubscriptionPopup}
+      />
+      {/* <FeedbackPopup
+        openFeedbackPopup={false}
+        setOpenFeedbackPopup={function (
+          value: React.SetStateAction<boolean>
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      /> */}
       {/* <FeedbackPopup
         openFeedbackPopup={true}
         setOpenFeedbackPopup={function (
@@ -28,7 +44,7 @@ export default function PageTest({}: Props) {
   );
 }
 
-function Subscription() {
+function Subscription2() {
   return (
     <div className="bg-white rounded-md shadow-lg w-[90vw] max-w-2xl p-6 focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]">
       <h2 className="text-lg font-bold text-gray-800">
