@@ -5,6 +5,7 @@ type BlogPost = {
   name: string;
   slug: string;
   lead: string;
+  category: string;
 };
 
 const BLOG_POSTS: BlogPost[] = [
@@ -12,11 +13,13 @@ const BLOG_POSTS: BlogPost[] = [
     name: "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)",
     slug: "craft-a-strong-user-persona-in-2024",
     lead: "1. Use the 80/20 Rule: Your product or service likely appeals to a bunch of different kinds of people - that’s great, but it’s important to narrow down to a specific audience.",
+    category: "User Personas",
   },
   {
     name: "Everything You Need to Know About Topical Authority (2024)",
     slug: "topical-authority-ultimate-guide",
     lead: "Topical Authority refers to the level of expertise and credibility your site holds in a specific subject area. It's about depth and breadth of knowledge in a specific field, and how effectively you communicate that through your content.",
+    category: "SEO",
   },
 ];
 
@@ -40,6 +43,7 @@ export default function BlogPage() {
             <ArticleCard
               post={post}
               key={post.slug}
+              category={post.category}
               className={
                 BLOG_POSTS.length % 2 !== 0 && i == BLOG_POSTS.length - 1
                   ? "lg:col-span-2"
@@ -55,9 +59,11 @@ export default function BlogPage() {
 
 const ArticleCard = ({
   post,
+  category,
   className,
 }: {
   post: BlogPost;
+  category?: string;
   className?: string;
 }) => {
   return (
@@ -82,7 +88,7 @@ const ArticleCard = ({
             />
             <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path>
           </svg>
-          Article
+          {category}
         </span>
       </div>
       <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
