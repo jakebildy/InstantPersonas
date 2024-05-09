@@ -1,4 +1,5 @@
 import TableOfContents from "@/components/blog/TableOfContents";
+import { ReadMore } from "@/components/blog/readMore";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
@@ -318,6 +319,7 @@ export default function CraftStrongUserPersona() {
           </p>
         </article>
       </div>
+      <ReadMore currentSlug="craft-a-strong-user-persona-in-2024" />
     </main>
   );
 }

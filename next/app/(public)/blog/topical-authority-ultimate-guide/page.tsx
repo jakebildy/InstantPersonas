@@ -1,4 +1,5 @@
 import TableOfContents from "@/components/blog/TableOfContents";
+import { ReadMore } from "@/components/blog/readMore";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
@@ -113,6 +114,7 @@ export default function CraftStrongUserPersona() {
           </h2>
           <p>
             <iframe
+              style={{ maxWidth: "100%" }}
               width="640"
               height="365"
               src="https://www.youtube.com/embed/dS-woxIXe2g"
@@ -228,6 +230,7 @@ export default function CraftStrongUserPersona() {
           </p>
         </article>
       </div>
+      <ReadMore currentSlug="topical-authority-ultimate-guide" />
     </main>
   );
 }
