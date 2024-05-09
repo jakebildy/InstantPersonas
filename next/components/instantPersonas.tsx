@@ -28,7 +28,7 @@ export const InstantPersonas = ({ isCollapsed, className }: Props) => {
           className={cn("object-contain", isCollapsed ? "" : "mr-2")}
         />
         <h1 className={cn(isCollapsed ? "hidden" : "inline-block")}>
-          Instant Personas
+          InstantPersonas
         </h1>
       </Link>
     </div>
