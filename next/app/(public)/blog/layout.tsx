@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
     <main className="min-h-screen">
       <Header />
       {children}
-      <Footer className="absolute bottom-0 w-full" />
+      <Footer className=" bottom-0 w-full" />
     </main>
   );
 }

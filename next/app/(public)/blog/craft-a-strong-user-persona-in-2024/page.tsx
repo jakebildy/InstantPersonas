@@ -1,14 +1,32 @@
+import TableOfContents from "@/components/blog/TableOfContents";
+import { ReadMore } from "@/components/blog/readMore";
+import ReadingBar from "@/components/blog/readingBar";
+import { Share } from "@/components/blog/share";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
   return (
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+      <ReadingBar />
       <title>
         {
           "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)"
         }
       </title>
-      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+      <h1 className="sm:hidden px-4 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+        6 Tips to Use Business Data to Craft a Strong User Persona in 2024
+        (GUIDE)
+      </h1>
+      <Image
+        src={"/analytics.gif"}
+        height={400}
+        width={400}
+        alt="80/20 Rule for User Personas"
+        className="mx-auto sm:hidden"
+        unoptimized
+      />
+      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+        <TableOfContents />
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
           <header className="mb-4 lg:mb-6 not-format">
             <address className="flex items-center mb-6 not-italic">
@@ -41,7 +59,7 @@ export default function CraftStrongUserPersona() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               6 Tips to Use Business Data to Craft a Strong User Persona in 2024
               (GUIDE)
             </h1>
@@ -52,10 +70,10 @@ export default function CraftStrongUserPersona() {
             height={400}
             width={400}
             alt="80/20 Rule for User Personas"
-            className="mx-auto"
+            className="mx-auto max-sm:hidden"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
             1. Use the 80/20 Rule
           </h2>
           <p>
@@ -78,7 +96,7 @@ export default function CraftStrongUserPersona() {
             alt="Incorporating Google Analytics into user personas"
             className="mx-auto"
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id={"1"}>
             2. Use your Google Analytics Data
           </h2>
           <p>
@@ -105,7 +123,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="2">
             3. Understand your Customer Motivations
           </h2>
           <p>
@@ -145,7 +163,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="3">
             4. Is your business innovative? If so, understand where in the
             Innovation Adoption Cycle your business falls.
           </h2>
@@ -209,7 +227,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="4">
             5. Incorporate your Customer Conversations
           </h2>
           <p>
@@ -229,7 +247,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost">
+          <h2 className="text-3xl font-bold mb-3 font-jost" id="5">
             6. Is your business on Facebook/Instagram? Use Meta Audience
             Insights
           </h2>
@@ -302,8 +320,15 @@ export default function CraftStrongUserPersona() {
             to generate insights instantly based on a description of your
             business.
           </p>
+          <Share
+            url="https://instantpersonas.com/blog/craft-a-strong-user-persona-in-2024"
+            title={
+              " 6 Tips to Use Business Data to Craft a Strong User Persona in 2024"
+            }
+          />
         </article>
       </div>
+      <ReadMore currentSlug="craft-a-strong-user-persona-in-2024" />
     </main>
   );
 }

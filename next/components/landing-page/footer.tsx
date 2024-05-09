@@ -7,11 +7,11 @@ export default function Footer({ className }: { className?: string }) {
   return (
     <footer className={cn("bg-slate-50", className)}>
       <Container>
-        <div className="py-16">
+        <div className="sm:py-16 py-4">
           <div className="mx-auto grid place-items-center">
             <InstantPersonas isCollapsed={true} />
           </div>
-          <nav className="mt-10 text-sm" aria-label="quick links">
+          <nav className="mt-4 sm:mt-10 text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
               {[
                 { text: "Features", href: "/#features" },
@@ -35,9 +35,9 @@ export default function Footer({ className }: { className?: string }) {
             </div>
           </nav>
         </div>
-        <div className="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse justify-center ">
-          <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} InstantPersonas.com All
+        <div className="flex flex-col items-center border-t border-slate-400/10 py-4 sm:py-10 sm:flex-row-reverse justify-center ">
+          <p className="text-sm text-slate-500 sm:mt-0 max-sm:text-center">
+            Copyright &copy; {new Date().getFullYear()} InstantPersonas.com all
             rights reserved. By using this site, you agree to our{" "}
             <Link href="/terms-of-service" className="font-bold">
               Terms of Service

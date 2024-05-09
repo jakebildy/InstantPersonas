@@ -441,6 +441,17 @@ async function submitUserMessage(
             ],
           });
 
+          if (personaChatID) {
+            const personaChat = await PersonaChat.findOne({
+              _id: personaChatID,
+            });
+
+            if (personaChat) {
+              personaChat.aiState = aiState.get();
+              await personaChat.save();
+            }
+          }
+
           return (
             <div className="flex flex-row flex-wrap">
               {contentConsumption.map((url: string) => {
