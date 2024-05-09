@@ -2,6 +2,7 @@ import { PersonStandingIcon } from "lucide-react";
 import {
   BanknotesIcon,
   BookmarkIcon,
+  AcademicCapIcon,
   FireIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
@@ -14,7 +15,7 @@ export const SIDEBAR_LINKS = [
     label: "",
   },
   {
-    title: "History",
+    title: "Recent Personas",
     href: "/history",
     icon: BookmarkIcon,
     label: "",
@@ -37,6 +38,17 @@ export const SIDEBAR_LINKS = [
     icon: PencilSquareIcon,
     label: "",
   },
+] as const;
+
+
+export const SEO_LINKS = [
+  {
+    title: "Topical Authority",
+    href: "/topical-authority",
+    icon: AcademicCapIcon,
+    label: "",
+  },
+ 
 ] as const;
 
 export type SidebarLinkName = (typeof SIDEBAR_LINKS)[number]["title"];

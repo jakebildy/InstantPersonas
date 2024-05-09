@@ -24,6 +24,10 @@ export default function Header({ title }: Props) {
                   href: "/blog",
                 },
                 {
+                  text: "Topical Authority Builder",
+                  href: "/topical-authority-map",
+                },
+                {
                   text: "Pricing",
                   href: "/#pricing",
                 },
