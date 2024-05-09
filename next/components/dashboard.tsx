@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { InstantPersonas } from "@/components/instantPersonas";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useMediaQuery } from "@/lib/hooks";
-import { SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
+import { SEO_LINKS, SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
 import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
@@ -94,6 +94,17 @@ export default function DashboardLayout({
           <Nav
             isCollapsed={isCollapsed}
             links={SIDEBAR_LINKS.map((element) => ({
+              ...element,
+              variant: pathname === element.href ? "default" : "ghost",
+            }))}
+          />
+          <Separator />
+          <div className="text-slate-300 font-bold ml-5 text-xs mt-4">
+            {isCollapsed ? "SEO" : "SEO Tools"}
+          </div>
+          <Nav
+            isCollapsed={isCollapsed}
+            links={SEO_LINKS.map((element) => ({
               ...element,
               variant: pathname === element.href ? "default" : "ghost",
             }))}
