@@ -38,11 +38,7 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section
-      id="faq"
-      aria-labelledby="faq-title"
-      className="relative bg-white rounded-b-2xl"
-    >
+    <section id="faq" aria-labelledby="faq-title" className="relative bg-white">
       <BackgroundGradientAnimation>
         <Container className="relative mt-20">
           <div className="mx-auto max-w-2xl lg:mx-0">
