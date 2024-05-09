@@ -109,6 +109,16 @@ export default function CraftStrongUserPersona() {
             How to Measure Topical Authority?
           </h2>
           <p>
+            <iframe
+              width="640"
+              height="365"
+              src="https://www.youtube.com/embed/dS-woxIXe2g"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="mx-auto mr-0 ml-0 mb-6"
+            />
             <a href="https://www.growth-memo.com/p/how-to-measure-topical-authority">
               Kevin Indig
             </a>{" "}
@@ -126,9 +136,10 @@ export default function CraftStrongUserPersona() {
             3. Export all the keywords and then re-upload them into Keyword
             Explorer.
             <br></br> <br></br>
-            4. Access the section for traffic share by domains. 5. The resulting
-            traffic share equals the Topic Share, which is synonymous with
-            "Topical Authority".
+            4. Access the section for traffic share by domains.
+            <br></br> <br></br>
+            5. The resulting traffic share equals the Topic Share, which is
+            synonymous with "Topical Authority".
           </p>
 
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
