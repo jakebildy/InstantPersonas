@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useStytchUser, useStytch } from "@stytch/nextjs";
 import api from "@/service/api.service";
+import BarLoader from "react-spinners/BarLoader";
 
 const OAUTH_TOKEN = "oauth";
 const MAGIC_LINKS_TOKEN = "magic_links";
@@ -70,7 +71,22 @@ const MAGIC_LINKS_TOKEN = "magic_links";
     }
   }, [router, user, isInitialized]);
 
-  return <div></div>;
+  return <AuthFallback />;
+}
+
+export function AuthFallback() {
+  return (
+    <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
+      <div className="text-slate-500 mb-4">Getting subscription status...</div>
+
+      <BarLoader
+        color="#36d7b7"
+        height={10}
+        width={500}
+        className="rounded-full"
+      />
+    </div>
+  );
 }
 
 export default Authenticate;
