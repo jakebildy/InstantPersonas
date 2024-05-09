@@ -20,54 +20,44 @@ export function Share({ title, url }: { title: string; url: string }) {
 
       <TwitterShareButton title={title} url={url}>
         <motion.div
-          initial={{ scale: 1 }}
-          //    on hover scale to 1.1
-          whileHover={{ scale: 1.1 }}
+          initial={{ scale: 0.8 }}
+          whileHover={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
         >
-          <XIcon borderRadius={20} style={{ marginRight: "10px" }}></XIcon>
+          <XIcon borderRadius={20}></XIcon>
         </motion.div>
       </TwitterShareButton>
 
       <RedditShareButton title={title} url={url}>
         <motion.div
-          initial={{ scale: 1 }}
+          initial={{ scale: 0.8 }}
           //    on hover scale to 1.1
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
         >
-          <RedditIcon
-            borderRadius={20}
-            style={{ marginRight: "10px" }}
-          ></RedditIcon>
+          <RedditIcon borderRadius={20}></RedditIcon>
         </motion.div>
       </RedditShareButton>
 
       <EmailShareButton title={title} url={url}>
         <motion.div
-          initial={{ scale: 1 }}
+          initial={{ scale: 0.8 }}
           //    on hover scale to 1.1
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
         >
-          <EmailIcon
-            borderRadius={20}
-            style={{ marginRight: "10px" }}
-          ></EmailIcon>
+          <EmailIcon borderRadius={20}></EmailIcon>
         </motion.div>
       </EmailShareButton>
 
       <FacebookShareButton title={title} url={url}>
         <motion.div
-          initial={{ scale: 1 }}
+          initial={{ scale: 0.8 }}
           //    on hover scale to 1.1
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
         >
-          <FacebookIcon
-            borderRadius={20}
-            style={{ marginRight: "10px" }}
-          ></FacebookIcon>
+          <FacebookIcon borderRadius={20}></FacebookIcon>
         </motion.div>
       </FacebookShareButton>
     </div>
