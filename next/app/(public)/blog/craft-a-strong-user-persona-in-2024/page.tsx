@@ -1,5 +1,6 @@
 import TableOfContents from "@/components/blog/TableOfContents";
 import { ReadMore } from "@/components/blog/readMore";
+import { Share } from "@/components/blog/share";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
@@ -317,6 +318,12 @@ export default function CraftStrongUserPersona() {
             to generate insights instantly based on a description of your
             business.
           </p>
+          <Share
+            url="https://instantpersonas.com/blog/craft-a-strong-user-persona-in-2024"
+            title={
+              " 6 Tips to Use Business Data to Craft a Strong User Persona in 2024"
+            }
+          />
         </article>
       </div>
       <ReadMore currentSlug="craft-a-strong-user-persona-in-2024" />

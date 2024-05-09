@@ -1,5 +1,6 @@
 import TableOfContents from "@/components/blog/TableOfContents";
 import { ReadMore } from "@/components/blog/readMore";
+import { Share } from "@/components/blog/share";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
@@ -228,6 +229,10 @@ export default function CraftStrongUserPersona() {
             to generate insights instantly based on a description of your
             business.
           </p>
+          <Share
+            url="https://instantpersonas.com/blog/topical-authority-ultimate-guide"
+            title={"Everything You Need to Know About Topical Authority (2024)"}
+          />
         </article>
       </div>
       <ReadMore currentSlug="topical-authority-ultimate-guide" />
