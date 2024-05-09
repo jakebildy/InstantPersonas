@@ -13,6 +13,11 @@ const BLOG_POSTS: BlogPost[] = [
     slug: "craft-a-strong-user-persona-in-2024",
     lead: "1. Use the 80/20 Rule: Your product or service likely appeals to a bunch of different kinds of people - that’s great, but it’s important to narrow down to a specific audience.",
   },
+  {
+    name: "Everything You Need to Know About Topical Authority (2024)",
+    slug: "topical-authority-ultimate-guide",
+    lead: "Topical Authority refers to the level of expertise and credibility your site holds in a specific subject area. It's about depth and breadth of knowledge in a specific field, and how effectively you communicate that through your content.",
+  },
 ];
 
 export default function BlogPage() {
