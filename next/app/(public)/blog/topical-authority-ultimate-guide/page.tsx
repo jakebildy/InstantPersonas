@@ -126,9 +126,10 @@ export default function CraftStrongUserPersona() {
             Topical Authority. To determine Topic Share, which is essentially
             your Topical Authority, you need to calculate the traffic obtained
             from keywords within a given topic for you or your competitors.
-            Here's how you can do it using <b>Ahrefs</b>:<br></br> <br></br>
-            1. Input a primary term (for instance, "ecommerce") into the Keyword
-            Explorer.
+            Here&apos;s how you can do it using <b>Ahrefs</b>:<br></br>{" "}
+            <br></br>
+            1. Input a primary term (for instance,
+            &apos;&apos;ecommerce&apos;&apos;) into the Keyword Explorer.
             <br></br> <br></br>
             2. Navigate to Matching Terms and apply a filter for Volume greater
             than 10.
@@ -139,7 +140,7 @@ export default function CraftStrongUserPersona() {
             4. Access the section for traffic share by domains.
             <br></br> <br></br>
             5. The resulting traffic share equals the Topic Share, which is
-            synonymous with "Topical Authority".
+            synonymous with &apos;&apos;Topical Authority&apos;&apos;.
           </p>
 
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
@@ -153,11 +154,11 @@ export default function CraftStrongUserPersona() {
             specific keywords or topics, ensuring it matches search intent
             through keyword use and detailed coverage.
             <br></br> <br></br>
-            <b>Topical authority</b> evaluates a website's depth of expertise in
-            a subject, determined by extensive, quality content and reputable
-            backlinks. While relevance ensures content is appropriate for a
-            query, authority builds trust and credibility, enhancing a site’s
-            reputation and search rankings.
+            <b>Topical authority</b> evaluates a website&apos;s depth of
+            expertise in a subject, determined by extensive, quality content and
+            reputable backlinks. While relevance ensures content is appropriate
+            for a query, authority builds trust and credibility, enhancing a
+            site’s reputation and search rankings.
           </p>
 
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
@@ -168,13 +169,13 @@ export default function CraftStrongUserPersona() {
             it can significantly boost your SEO performance. Search engines like
             Google favor fresh, up-to-date content, and routinely updating your
             content signals to them that your site is active and current.
-            However, it's important not to update content just for the sake of
-            it. Here’s when you should update your content:
+            However, it&apos;s important not to update content just for the sake
+            of it. Here&apos;s when you should update your content:
             <br></br> <br></br>
             1. <b>Outdated Information</b>: If the information in your content
-            is outdated or no longer accurate, it's time to update. This could
-            include statistics, data, or references to events or trends that are
-            no longer relevant.
+            is outdated or no longer accurate, it&apos;s time to update. This
+            could include statistics, data, or references to events or trends
+            that are no longer relevant.
             <br></br> <br></br>
             2. <b>Change in Keyword Rankings</b>: If your content used to rank
             well for certain keywords but has since dropped in the rankings, it
@@ -191,7 +192,7 @@ export default function CraftStrongUserPersona() {
             <br></br> <br></br>
             Remember, the ultimate goal of updating content is to provide the
             best possible value to your audience. If updating a piece of content
-            will improve its usefulness to your readers, it's worth doing.
+            will improve its usefulness to your readers, it&apos;s worth doing.
             Refactoring an article into new subarticles can significantly
             improve your SEO performance by allowing you to cover more keywords
             and subtopics. Make sure all subarticles are interconnected and lead
