@@ -7,7 +7,10 @@ export default function CraftStrongUserPersona() {
       <title>
         {"Everything You Need to Know About Topical Authority (2024)"}
       </title>
-      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+      <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+        Everything You Need to Know About Topical Authority (2024)
+      </h1>
+      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
         <TableOfContents />
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
           <header className="mb-4 lg:mb-6 not-format">
@@ -41,7 +44,7 @@ export default function CraftStrongUserPersona() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               Everything You Need to Know About Topical Authority (2024)
             </h1>
           </header>

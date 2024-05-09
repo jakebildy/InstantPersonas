@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import "./tableOfContents.css";
 import { useHeadsObserver } from "./tableOfContentsHook";
+import { cn } from "@/lib/utils";
 
 function TableOfContents() {
   const [headings, setHeadings] = useState<any>([]);
@@ -43,7 +44,7 @@ function TableOfContents() {
   };
 
   return (
-    <nav className="table-of-contents">
+    <nav className="block overflow-auto max-h-[calc(100vh-70px)] sm:mt-[150px] sm:top-12 sm:sticky self-start p-4 sm:min-w-[220px] w-full sm:w-[220px]">
       <ul>
         <span className="font-bold text-xl text-black">Table of Contents</span>
         <div className="flex flex-row mt-5">
@@ -56,7 +57,10 @@ function TableOfContents() {
                   fontWeight: activeId === heading.id ? "bold" : "normal",
                   color: activeId === heading.id ? "green" : "gray",
                 }}
-                className={getClassName(heading.level)}
+                className={cn(
+                  getClassName(heading.level),
+                  "hover:text-green-700 hover:underline"
+                )}
               >
                 <a
                   href={`#${heading.id}`}

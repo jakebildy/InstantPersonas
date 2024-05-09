@@ -9,7 +9,19 @@ export default function CraftStrongUserPersona() {
           "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)"
         }
       </title>
-      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+      <h1 className="sm:hidden px-4 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+        6 Tips to Use Business Data to Craft a Strong User Persona in 2024
+        (GUIDE)
+      </h1>
+      <Image
+        src={"/analytics.gif"}
+        height={400}
+        width={400}
+        alt="80/20 Rule for User Personas"
+        className="mx-auto sm:hidden"
+        unoptimized
+      />
+      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
         <TableOfContents />
         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
           <header className="mb-4 lg:mb-6 not-format">
@@ -43,7 +55,7 @@ export default function CraftStrongUserPersona() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               6 Tips to Use Business Data to Craft a Strong User Persona in 2024
               (GUIDE)
             </h1>
@@ -54,7 +66,7 @@ export default function CraftStrongUserPersona() {
             height={400}
             width={400}
             alt="80/20 Rule for User Personas"
-            className="mx-auto"
+            className="mx-auto max-sm:hidden"
             unoptimized
           />
           <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
