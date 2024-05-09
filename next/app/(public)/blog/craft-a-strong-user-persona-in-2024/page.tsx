@@ -1,11 +1,13 @@
 import TableOfContents from "@/components/blog/TableOfContents";
 import { ReadMore } from "@/components/blog/readMore";
+import ReadingBar from "@/components/blog/readingBar";
 import { Share } from "@/components/blog/share";
 import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
   return (
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+      <ReadingBar />
       <title>
         {
           "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)"
