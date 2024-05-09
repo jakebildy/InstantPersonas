@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-type BlogPost = {
+export type BlogPost = {
   name: string;
   slug: string;
   lead: string;
@@ -57,7 +57,7 @@ export default function BlogPage() {
   );
 }
 
-export const ArticleCard = ({
+const ArticleCard = ({
   post,
   category,
   className,
