@@ -126,3 +126,113 @@ export const shadowVariants = cva("shadow-md", {
     variant: "blue",
   },
 });
+
+export const textLightColorVariants = cva("", {
+  variants: {
+    variant: {
+      blue: "text-blue-400",
+      purple: "text-purple-400",
+      red: "text-red-400",
+      yellow: "text-yellow-400",
+      green: "text-green-400",
+      brown: "text-brown-400",
+      pink: "text-pink-400",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
+export const textColorVariants = cva("", {
+  variants: {
+    variant: {
+      blue: "text-blue-900",
+      purple: "text-purple-900",
+      red: "text-red-900",
+      yellow: "text-yellow-900",
+      green: "text-green-900",
+      brown: "text-brown-900",
+      pink: "text-pink-900",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
+export const SurveyCardBackGroundElementRing = cva(
+  "border  size-[300px] rounded-full absolute -left-[50px] top-[100px] tilt-backward-left",
+  {
+    variants: {
+      variant: {
+        blue: "border-blue-600",
+        purple: "border-purple-600",
+        red: "border-red-600",
+        yellow: "border-yellow-600",
+        green: "border-green-600",
+        brown: "border-brown-600",
+        pink: "border-pink-600",
+      },
+      blur: {
+        true: "blur-[1px]",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+      blur: false,
+    },
+  }
+);
+
+export const SurveyCardBackGroundElementCircle = cva(
+  "size-[250px] rounded-full absolute -right-[25px] top-[50px] blur-2xl",
+  {
+    variants: {
+      variant: {
+        blue: "bg-blue-500",
+        purple: "bg-purple-500",
+        red: "bg-red-500",
+        yellow: "bg-yellow-500",
+        green: "bg-green-500",
+        brown: "bg-brown-500",
+        pink: "bg-pink-500",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  }
+);
+
+export const ButtonInnerHover = cva(
+  "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 hover:text-white transition-colors duration-300 ease-out font-semibold text-muted-foreground",
+  {
+    variants: {
+      variant: {
+        blue: "hover:bg-blue-500 ",
+        purple: "hover:bg-purple-500",
+        red: "hover:bg-red-500",
+        yellow: "hover:bg-yellow-500",
+        green: "hover:bg-green-500",
+        brown: "hover:bg-brown-500",
+        pink: "hover:bg-pink-500",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  }
+);
+
+export const ColorVariantMap = {
+  blue: "#c7eaf1",
+  purple: "#d9cbfc",
+  red: "#ef9796",
+  yellow: "#fbe8b1",
+  green: "#c2e4bc",
+  brown: "#e6d3d0",
+  pink: "#eaa9c1",
+} as const;
+
+export type ColorVariant = keyof typeof ColorVariantMap;

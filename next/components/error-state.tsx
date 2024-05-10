@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SIDEBAR_LINKS } from "@/lib/site";
+import { GOOGLE_FORM_FEEDBACK_LINK } from "@/lib/site";
 import { usePostHog } from "posthog-js/react";
 
 type Props = {
@@ -24,10 +24,6 @@ export default function ErrorState({ error, onRetry }: Props) {
     });
     console.error(error);
   }, [error, posthog]);
-
-  const feedbackLink = SIDEBAR_LINKS.find(
-    (link) => link.title === "Send Feedback"
-  )?.href;
 
   return (
     <AnimatePresence mode="wait">
@@ -60,9 +56,9 @@ export default function ErrorState({ error, onRetry }: Props) {
           transition={{ duration: 1, delay: 1.5 }}
           className="w-full flex gap-4 items-center justify-center"
         >
-          {feedbackLink ? (
+          {GOOGLE_FORM_FEEDBACK_LINK ? (
             <Button variant={"slate"} asChild>
-              <Link href={feedbackLink}>Send Feedback</Link>
+              <Link href={GOOGLE_FORM_FEEDBACK_LINK}>Send Feedback</Link>
             </Button>
           ) : null}
           <Button

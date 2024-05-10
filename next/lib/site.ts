@@ -33,10 +33,12 @@ export const SIDEBAR_LINKS = [
   // },
   {
     title: "Send Feedback",
-    href: "https://forms.gle/zei5QLdBTfTgssBv9",
+    href: "/feedback",
     icon: PencilSquareIcon,
     label: "",
   },
 ] as const;
+
+export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 
 export type SidebarLinkName = (typeof SIDEBAR_LINKS)[number]["title"];
