@@ -4,11 +4,8 @@ import { PersonStandingIcon, X } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import FeedbackPopup from "@/components/feedback-popup";
-import { gradientLightVariants } from "@/components/variants";
-import { isMobile } from "react-device-detect";
-import { PreventMobile } from "@/components/prevent-mobile";
 import SubscriptionPopup from "@/components/subscription-popup";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
 
 type Props = {};
 
@@ -31,14 +28,14 @@ export default function PageTest({}: Props) {
           throw new Error("Function not implemented.");
         }}
       /> */}
-      {/* <FeedbackPopup
+      <PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup
         openFeedbackPopup={true}
         setOpenFeedbackPopup={function (
           value: React.SetStateAction<boolean>
         ): void {
           throw new Error("Function not implemented.");
         }}
-      /> */}
+      />
       {/* <PreventMobile /> */}
     </div>
   );

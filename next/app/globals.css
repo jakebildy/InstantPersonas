@@ -113,6 +113,23 @@
   }
 }
 
+.tilt-backward-left {
+  /* Setting perspective to create depth */
+  perspective: 500px;
+
+  /* Apply transform within the square's own coordinate space */
+  transform-style: preserve-3d;
+  transform: rotateY(30deg) rotateX(45deg); /* Tilting backwards to the left */
+}
+.tilt-backward-right {
+  /* Setting perspective to create depth */
+  perspective: 500px;
+
+  /* Apply transform within the square's own coordinate space */
+  transform-style: preserve-3d;
+  transform: rotateY(29deg) rotateX(317deg); /* Tilting backwards to the left */
+}
+
 .DialogOverlay {
   background-color: var(--black-a9);
   position: fixed;

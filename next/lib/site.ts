@@ -33,7 +33,7 @@ export const SIDEBAR_LINKS = [
   // },
   {
     title: "Send Feedback",
-    href: "https://forms.gle/zei5QLdBTfTgssBv9",
+    href: "/feedback",
     icon: PencilSquareIcon,
     label: "",
   },
