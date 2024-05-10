@@ -5,6 +5,7 @@ import {
   AcademicCapIcon,
   FireIcon,
   PencilSquareIcon,
+  DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 
 export const SIDEBAR_LINKS = [
@@ -47,6 +48,12 @@ export const SEO_LINKS = [
     title: "Topical Authority",
     href: "/tools/topical-authority",
     icon: AcademicCapIcon,
+    label: "",
+  },
+  {
+    title: "Guest Post Finder",
+    href: "/tools/guest-post-finder",
+    icon: DocumentMagnifyingGlassIcon,
     label: "",
   },
 ] as const;
