@@ -23,7 +23,7 @@ export default async function ChatPage({
 
   console.log(id, personas, chatHistory);
   return (
-    <div className="flex flex-col justify-center gap-4 px-2">
+    <div className="flex flex-col justify-center gap-4 px-2 pb-10">
       {personas && personas.length > 0
         ? personas.map((persona, i) => (
             <PersonaTemplate
