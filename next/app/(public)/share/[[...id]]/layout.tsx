@@ -9,6 +9,7 @@ export default function layout({ children }: Props) {
     <>
       <LandingPage.header />
       <div className="grid place-items-center w-full h-full">{children}</div>
+      <LandingPage.footer />
     </>
   );
 }

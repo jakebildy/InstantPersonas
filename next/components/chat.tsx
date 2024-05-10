@@ -132,9 +132,10 @@ export default function Chat({ className, personaChatID }: Props) {
           IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog
         }
       />
-      <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
+
       {personas && personas.length > 0 ? (
         <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
+          <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
           {personas.map((archetype: any, i: number) => {
             const variant = mapUrlBackgroundColorParamToVariant({
               url: archetype.pictureURL,
