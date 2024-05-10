@@ -13,7 +13,12 @@ import { AI } from "@/app/(server)/action";
 import ReactMarkdown from "react-markdown";
 import { useStytchUser } from "@stytch/nextjs";
 import { PersonaAvatarPopover } from "./generative-ui/persona-avatar-popover";
-import { PersonStandingIcon } from "lucide-react";
+import {
+  CheckIcon,
+  CopyIcon,
+  PersonStandingIcon,
+  ShareIcon,
+} from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { useRouter } from "next/navigation";
@@ -21,6 +26,14 @@ import api from "@/service/api.service";
 import SubscriptionPopup from "./subscription-popup";
 import { mapUrlBackgroundColorParamToVariant } from "./generative-ui/persona-avatar-popover/utils";
 import { usePostHog } from "posthog-js/react";
+import { Button } from "@/components/ui/button";
+import { ButtonInnerHover, gradientLightVariants } from "@/components/variants";
+import { cx } from "class-variance-authority";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type Props = {
   className?: string;
@@ -50,6 +63,7 @@ export default function Chat({ className, personaChatID }: Props) {
   const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
     string[]
   >([]);
+  const [copied, setCopied] = useState(false);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -58,6 +72,8 @@ export default function Chat({ className, personaChatID }: Props) {
       modifier: ["ctrlKey", "metaKey"],
     },
   ];
+
+  const shareLink = `https://instantpersonas.com/share/${personaChatID}`;
 
   const posthog = usePostHog();
 
@@ -95,6 +111,14 @@ export default function Chat({ className, personaChatID }: Props) {
     }
   }, [aiState.messages, messages, router]);
 
+  const handleCopyLink = async () => {
+    await navigator.clipboard.writeText(shareLink);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
   return (
     <section
       className={cn(
@@ -108,6 +132,7 @@ export default function Chat({ className, personaChatID }: Props) {
           IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog
         }
       />
+      <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
       {personas && personas.length > 0 ? (
         <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
           {personas.map((archetype: any, i: number) => {
@@ -121,7 +146,55 @@ export default function Chat({ className, personaChatID }: Props) {
               />
             );
           })}
-          <PersonStandingIcon className="text-muted-foreground absolute right-0 m-8" />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className="hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md absolute right-0 m-8 group"
+              >
+                <span
+                  className={cx(
+                    ButtonInnerHover({ variant: "blue" }),
+                    gradientLightVariants({
+                      variant: "blue",
+                      className: "pl-5 flex items-center gap-2 text-sm",
+                    })
+                  )}
+                >
+                  Share{" "}
+                  <ShareIcon className="text-muted-foreground pb-0.5 size-4 group-hover:text-white transition-colors duration-300 ease-out" />
+                </span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="mx-2 shadow-4xl p-1 w-fit">
+              <div
+                className={gradientLightVariants({
+                  variant: "blue",
+                  className:
+                    "rounded-lg p-2 border border-input text-xs font-mono",
+                })}
+              >
+                {shareLink}
+              </div>
+              <Button
+                variant={"outline"}
+                onClick={handleCopyLink}
+                className="w-full gap-2 hover:text-primary rounded-lg hover:scale-100 h-fit  p-1 shadow-md group font-semibold text-muted-foreground text-sm hover:text-black transition-colors duration-300 ease-out mt-2"
+              >
+                {copied ? (
+                  <>
+                    Copied{" "}
+                    <CheckIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
+                  </>
+                ) : (
+                  <>
+                    Copy Link
+                    <CopyIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
+                  </>
+                )}
+              </Button>
+            </PopoverContent>
+          </Popover>
         </div>
       ) : null}
 
