@@ -281,6 +281,67 @@ export function limitTextToFirstDelimiter(text: string): string {
 }
 
 /**
- * Determines whether the current environment is a test environment.
+ * Flag indicating if the current environment is set to "dev" for test purposes.
+ * @type {boolean}
  */
 export const IS_TEST_DEV_ENV = process.env.NEXT_PUBLIC_ENV === "dev";
+
+export type NumericRangeConfig = {
+  ranges: ReadonlyArray<{
+    min: number;
+    max: number;
+    label: string;
+  }>;
+};
+// Use a conditional type to extract the label types from a given configuration.
+type LabelForRangeConfig<Config extends NumericRangeConfig> =
+  Config["ranges"][number]["label"];
+
+/**
+ * Function to map numeric values to corresponding labels based on provided configuration.
+ * It remains generic and automatically infers the label types from the configuration passed.
+ *
+ * @param {number | null} value - The numeric value to classify.
+ * @param {Config} config - Configuration defining labeled ranges.
+ * @returns {LabelForRangeConfig<Config> | null} - The label associated with the matching range, or null if no range matches.
+ */
+export function labelForValueInRange<Config extends NumericRangeConfig>(
+  value: number | null,
+  config: Config
+): LabelForRangeConfig<Config> | null {
+  if (typeof value !== "number") {
+    return null; // Handles non-number and null inputs by returning null
+  }
+
+  // Loop through the range definitions in the configuration to find a match
+  for (const range of config.ranges) {
+    if (value >= range.min && value < range.max) {
+      return range.label as LabelForRangeConfig<Config>; // Type cast to maintain strict type safety
+    }
+  }
+
+  return null; // Returns null if no range matches the value
+}
+
+/**
+ * Replaces the provided answer with a specified placeholder value if the answer equals the default value.
+ * If no answer is provided, the placeholder value is returned.
+ *
+ * @param {string} placeholder - The placeholder value to use if the answer is the default or absent.
+ * @param {string | null} userResponse - The user's response, which may be null.
+ * @param {string} defaultValue - The default value to check against the user's response.
+ * @returns {string} - The user response or the placeholder if the response is the default or absent.
+ */
+export function replaceValueWithPlaceholderIfDefault({
+  placeholder,
+  value,
+  defaultValue,
+}: {
+  placeholder: string;
+  value: string | null;
+  defaultValue: string;
+}): string {
+  // Return the placeholder if no response is provided or the response equals the default value,
+  // otherwise return the response itself.
+  return value ? (value === defaultValue ? placeholder : value) : placeholder;
+}

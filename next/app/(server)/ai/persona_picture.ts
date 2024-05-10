@@ -1,6 +1,6 @@
 "use server";
 
-import { ColorVariantMap } from "@/components/generative-ui/persona-avatar-popover";
+import { ColorVariantMap } from "@/components/variants";
 
 export async function getRandomHeadshot(
   hair: string,
