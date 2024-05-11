@@ -18,11 +18,13 @@ export default function PageTest({}: Props) {
 
   return (
     <div className="grid place-items-center h-screen w-screen">
-      <Subscription2 />
+      {/* <GuestPostOpportunitiesTool/> */}
+
+      {/* <Subscription2 />
       <SubscriptionPopup
         openSubscriptionPopup={openSubscriptionPopup}
         setOpenSubscriptionPopup={setOpenSubscriptionPopup}
-      />
+      /> */}
       {/* <FeedbackPopup
         openFeedbackPopup={false}
         setOpenFeedbackPopup={function (
