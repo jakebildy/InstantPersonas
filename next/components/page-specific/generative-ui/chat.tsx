@@ -139,7 +139,7 @@ export default function Chat({ className, personaChatID }: Props) {
               />
             );
           })}
-          <CopyLinkPopover link={shareLink} />
+          <CopyLinkPopover link={shareLink} className="absolute right-0 m-8" />
         </div>
       ) : null}
 

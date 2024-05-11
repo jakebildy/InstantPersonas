@@ -8,13 +8,15 @@ import { ShareIcon, CheckIcon, CopyIcon } from "lucide-react";
 import React from "react";
 import { ButtonInnerHover, gradientLightVariants } from "./variants";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = {
   link: string;
   onCopy?: () => void;
+  className?: string;
 };
 
-export default function CopyLinkPopover({ link, onCopy }: Props) {
+export default function CopyLinkPopover({ link, onCopy, className }: Props) {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopyLink = async () => {
@@ -31,7 +33,10 @@ export default function CopyLinkPopover({ link, onCopy }: Props) {
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md absolute right-0 m-8 group"
+          className={cn(
+            "hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md group",
+            className
+          )}
         >
           <span
             className={cx(
