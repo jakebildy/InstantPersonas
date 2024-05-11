@@ -11,7 +11,7 @@ import { set } from "lodash";
 import { PersonaHistoryListSkeleton } from "./persona-history-list-skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePostHog } from "posthog-js/react";
-import FeedbackPopup from "@/components/feedback-popup";
+import FeedbackPopup from "@/components/popups/feedback-popup";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 
 export function PersonaHistoryList({}: {}) {

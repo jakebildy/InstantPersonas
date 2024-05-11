@@ -1,5 +1,5 @@
 "use server";
-import Chat from "@/components/chat";
+import Chat from "@/components/page-specific/generative-ui/chat";
 
 export default async function ChatPage({
   params,

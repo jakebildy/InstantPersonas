@@ -1,4 +1,4 @@
-import Authenticate from "@/components/auth/stytch-auth";
+import Authenticate from "@/components/context/auth/stytch-auth";
 import { Suspense } from "react";
 import BarLoader from "react-spinners/BarLoader";
 

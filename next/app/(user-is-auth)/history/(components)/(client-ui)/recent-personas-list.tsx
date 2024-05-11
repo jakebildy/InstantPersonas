@@ -1,5 +1,5 @@
 "use client";
-import { AnimatedTooltip } from "@/components/aceternity-ui/animated_tooltip";
+import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
 import { limitTextToFirstDelimiter } from "@/lib/utils";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 

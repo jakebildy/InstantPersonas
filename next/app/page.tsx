@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import LandingPage from "@/components/landing-page";
+import LandingPage from "@/components/page-specific/landing-page";
 
 const env = process.env.NEXT_PUBLIC_ENV;
 
