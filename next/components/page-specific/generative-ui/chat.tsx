@@ -34,6 +34,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import CopyLinkPopover from "@/components/copy-link-popover";
 
 type Props = {
   className?: string;
@@ -63,7 +64,6 @@ export default function Chat({ className, personaChatID }: Props) {
   const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
     string[]
   >([]);
-  const [copied, setCopied] = useState(false);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -111,14 +111,6 @@ export default function Chat({ className, personaChatID }: Props) {
     }
   }, [aiState.messages, messages, router]);
 
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(shareLink);
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
-
   return (
     <section
       className={cn(
@@ -147,55 +139,7 @@ export default function Chat({ className, personaChatID }: Props) {
               />
             );
           })}
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className="hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md absolute right-0 m-8 group"
-              >
-                <span
-                  className={cx(
-                    ButtonInnerHover({ variant: "blue" }),
-                    gradientLightVariants({
-                      variant: "blue",
-                      className: "pl-5 flex items-center gap-2 text-sm",
-                    })
-                  )}
-                >
-                  Share{" "}
-                  <ShareIcon className="text-muted-foreground pb-0.5 size-4 group-hover:text-white transition-colors duration-300 ease-out" />
-                </span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="mx-2 shadow-4xl p-1 w-fit">
-              <div
-                className={gradientLightVariants({
-                  variant: "blue",
-                  className:
-                    "rounded-lg p-2 border border-input text-xs font-mono",
-                })}
-              >
-                {shareLink}
-              </div>
-              <Button
-                variant={"outline"}
-                onClick={handleCopyLink}
-                className="w-full gap-2 hover:text-primary rounded-lg hover:scale-100 h-fit  p-1 shadow-md group font-semibold text-muted-foreground text-sm hover:text-black transition-colors duration-300 ease-out mt-2"
-              >
-                {copied ? (
-                  <>
-                    Copied{" "}
-                    <CheckIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
-                  </>
-                ) : (
-                  <>
-                    Copy Link
-                    <CopyIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
-                  </>
-                )}
-              </Button>
-            </PopoverContent>
-          </Popover>
+          <CopyLinkPopover link={shareLink} />
         </div>
       ) : null}
 
