@@ -2,7 +2,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@radix-ui/react-popover";
+} from "@/components/ui/popover";
 import { cx } from "class-variance-authority";
 import { ShareIcon, CheckIcon, CopyIcon } from "lucide-react";
 import React from "react";
