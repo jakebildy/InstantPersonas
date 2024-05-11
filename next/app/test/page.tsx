@@ -4,7 +4,7 @@ import { PersonStandingIcon, X } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
 import { gradientLightVariants } from "@/components/variants";
 import { isMobile } from "react-device-detect";
 import { PreventMobile } from "@/components/page-specific/prevent-mobile";

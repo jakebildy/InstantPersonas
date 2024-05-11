@@ -10,7 +10,7 @@ import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { PersonaHistoryListSkeleton } from "./persona-history-list-skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePostHog } from "posthog-js/react";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 
 export function PersonaHistoryList({}: {}) {

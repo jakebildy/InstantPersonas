@@ -2,18 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { gradientLightVariants, gradientVariants } from "@/components/variants";
+import { gradientLightVariants } from "@/components/variants";
 import { cn, delay } from "@/lib/utils";
-import { MessageSquareHeartIcon, PersonStandingIcon } from "lucide-react";
-import { ArrowDownIcon } from "@radix-ui/react-icons";
+import { MessageSquareHeartIcon } from "lucide-react";
 import { usePostHog } from "posthog-js/react";
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { Loading } from "@/components/generative-ui/loading";
 import BarLoader from "react-spinners/BarLoader";
 import { AnimatePresence, motion } from "framer-motion";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { SurveyCard } from "@/components/survey/cards/survey-card";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
 
 export default function FeedbackPage() {
   const [miscFeedback, setMiscFeedback] = useState<string>("");

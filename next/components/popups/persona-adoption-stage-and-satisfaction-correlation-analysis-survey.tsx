@@ -6,14 +6,16 @@ import { gradientLightVariants, shadowVariants } from "@/components/variants";
 import { AnimatePresence } from "framer-motion";
 import { delay, IS_TEST_DEV_ENV, labelForValueInRange } from "@/lib/utils";
 import { usePostHog } from "posthog-js/react";
-import { ColorVariant } from "../generative-ui/persona-avatar-popover";
+import { ColorVariant } from "@/components/variants";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
-import { StartSurvey } from "./survey-steps/start-survey";
-import { EndSurvey } from "./survey-steps/end-survey";
-import { SurveyQuestionSelectInput } from "./survey-steps/questions/survey-select-input-question";
-import { SurveyQuestionSlider } from "./survey-steps/questions/survey-slider-question";
-import { SurveyQuestionTextInput } from "./survey-steps/questions/survey-text-input-question";
-import { SurveyQuestionTextArea } from "./survey-steps/questions/survey-textarea-question";
+import { StartSurvey } from "@/components/survey/survey-steps/start-survey";
+import { EndSurvey } from "@/components/survey/survey-steps/end-survey";
+import { SurveyQuestionSelectInput } from "@/components/survey/survey-steps/questions/survey-select-input-question";
+import { SurveyQuestionSlider } from "@/components/survey/survey-steps/questions/survey-slider-question";
+import { SurveyQuestionTextInput } from "@/components/survey/survey-steps/questions/survey-text-input-question";
+import { SurveyQuestionTextArea } from "@/components/survey/survey-steps/questions/survey-textarea-question";
+
+//TODO: Convert to Generic UI with Config
 
 const JOB_CHOICES = [
   "Marketing",
