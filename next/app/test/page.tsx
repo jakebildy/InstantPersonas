@@ -4,8 +4,11 @@ import { PersonStandingIcon, X } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SubscriptionPopup from "@/components/subscription-popup";
 import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import { gradientLightVariants } from "@/components/variants";
+import { isMobile } from "react-device-detect";
+import { PreventMobile } from "@/components/page-specific/prevent-mobile";
+import SubscriptionPopup from "@/components/popups/subscription-popup";
 
 type Props = {};
 

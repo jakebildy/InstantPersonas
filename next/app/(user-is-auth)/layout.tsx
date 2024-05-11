@@ -1,5 +1,5 @@
 "use server";
-import DashboardLayout from "@/components/dashboard";
+import DashboardLayout from "@/components/page-specific/dashboard/dashboard";
 
 export default async function Layout({
   children,
