@@ -77,7 +77,7 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 export function AuthFallback() {
   return (
     <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
-      <div className="text-slate-500 mb-4">Getting subscription status...</div>
+      <div className="text-slate-500 mb-4">Logging in...</div>
 
       <BarLoader
         color="#36d7b7"
