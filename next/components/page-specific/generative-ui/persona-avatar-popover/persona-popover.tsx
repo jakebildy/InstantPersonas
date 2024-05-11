@@ -22,14 +22,20 @@ import { PersonaArchetype } from "./types";
 export interface PersonaAvatarPopoverProps
   extends VariantProps<typeof avatarVariants> {
   archetype: PersonaArchetype;
+  allowManage?: boolean;
 }
 
 export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
-  const { variant, size, archetype } = props;
+  const { variant, size, archetype, allowManage } = props;
   const avatarFallbackName = archetype.archetype_name
     .split(" ")
     .map((word) => word.charAt(0))
     .join("");
+
+  //? Filters out the manage tab if component is being used outside of Chat AI Context to prevent unauthorized access and crashes
+  const safeFilteredTabs = PersonaTabs.filter((tab) =>
+    allowManage !== false ? tab : tab.title !== "Manage"
+  );
 
   return (
     <Popover>
@@ -57,7 +63,7 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
           <div className="w-full grid place-items-center">
             <PersonStandingIcon className="text-muted-foreground" />
             <TabsList className="rounded-full h-9 my-4">
-              {PersonaTabs.map((tab) => (
+              {safeFilteredTabs.map((tab) => (
                 <TabsTrigger
                   value={tab.title}
                   key={tab.title}
@@ -69,7 +75,7 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
             </TabsList>
           </div>
 
-          {PersonaTabs.map((tab) => (
+          {safeFilteredTabs.map((tab) => (
             <TabsContent value={tab.title} key={tab.title + "content"}>
               <ScrollArea
                 className={cn(
