@@ -6,6 +6,7 @@ import { Container } from "../container";
 import React, { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
+import { LANDING_HEADER_LINKS } from "@/lib/site";
 
 type Props = { title?: string };
 
@@ -17,26 +18,7 @@ export default function Header({ title }: Props) {
           <div className="flex items-center md:gap-x-12">
             <InstantPersonas />
             <div className="hidden md:flex md:gap-x-6">
-              {[
-                // { text: "Features", href: "/#features" },
-                {
-                  text: "Blog",
-                  href: "/blog",
-                },
-                {
-                  text: "SEO Opportunities",
-                  href: "/guest-post-opportunity-finder",
-                },
-                {
-                  text: "Topical Authority Builder",
-                  href: "/topical-authority-map",
-                },
-
-                {
-                  text: "Pricing",
-                  href: "/#pricing",
-                },
-              ].map((link) => (
+              {LANDING_HEADER_LINKS.map((link) => (
                 <Link
                   key={link.text}
                   href={link.href}

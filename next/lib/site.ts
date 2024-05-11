@@ -41,21 +41,42 @@ export const SIDEBAR_LINKS = [
   },
 ] as const;
 
-
 export const SEO_LINKS = [
   {
     title: "Topical Authority",
-    href: "/topical-authority",
+    href: "/tools/topical-authority",
     icon: AcademicCapIcon,
     label: "",
   },
   {
     title: "Guest Post Finder",
-    href: "/guest-post-finder",
+    href: "/tools/guest-post-finder",
     icon: DocumentMagnifyingGlassIcon,
     label: "",
   },
- 
 ] as const;
+
+export const LANDING_HEADER_LINKS = [
+  // { text: "Features", href: "/#features" },
+  {
+    text: "Blog",
+    href: "/blog",
+  },
+  {
+    text: "SEO Opportunities",
+    href: SEO_LINKS.find((link) => link.title === "Guest Post Finder")
+      ?.href as string,
+  },
+  {
+    text: "Topical Authority Builder",
+    href: SEO_LINKS.find((link) => link.title === "Topical Authority")
+      ?.href as string,
+  },
+
+  {
+    text: "Pricing",
+    href: "/#pricing",
+  },
+];
 
 export type SidebarLinkName = (typeof SIDEBAR_LINKS)[number]["title"];
