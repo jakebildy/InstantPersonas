@@ -48,6 +48,15 @@ export interface PersonaHistory {
 }
 
 const api = {
+  tools: {
+    findGuestPostOpportunities: async (persona: string): Promise<any[]> => {
+      const response = await axios.post("/api/guest-post-opportunities", {
+        persona,
+      });
+      console.log("response from guest post opportunities", response);
+      return response.data.items;
+    },
+  },
   auth: {
     me: async () => {
       const response = await axios.get("/api/user");
