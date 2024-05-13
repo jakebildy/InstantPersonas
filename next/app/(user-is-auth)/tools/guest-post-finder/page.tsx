@@ -1,8 +1,10 @@
-"use server";
+"use client";
 import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
-import { Suspense } from "react";
+import { useState } from "react";
 
-export default async function GuestPostOpportunityFinder({}: {}) {
+export default function GuestPostOpportunityFinder({}: {}) {
+  const [personaString, setPersonaString] = useState<string>("");
+
   return (
     <main>
       <div className="flex flex-col items-center h-full w-full min-h-screen">
@@ -15,7 +17,19 @@ export default async function GuestPostOpportunityFinder({}: {}) {
           Find the best opportunities for your niche here.
         </h2>
 
-        <GuestPostFinderTool persona={"a marketing manager"} />
+        <div className="flex flex-col items-center w-full mb-10">
+          <label className="text-sm text-gray-700">Enter your persona:</label>
+          <input
+            type="text"
+            className="border border-gray-300 rounded-md w-1/2 p-2"
+            placeholder="e.g. a marketing manager"
+            onChange={(e) => {
+              setPersonaString(e.target.value);
+            }}
+            value={personaString}
+          />
+        </div>
+        <GuestPostFinderTool persona={personaString} />
       </div>
     </main>
   );

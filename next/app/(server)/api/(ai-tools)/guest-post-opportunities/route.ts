@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import axios from "axios";
 import { NextResponse } from "next/server";
+import { GPT4 } from "@/app/(server)/ai/gpt";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -14,15 +15,29 @@ const SEARCH_CX = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CX;
 
 export async function POST(req: Request) {
 
-  //TODO: get gpt to figure out key word for this persona
+  if (req.body) {
+      // Parse the JSON body of the request
+      const body = await req.json();
 
+      // Access the 'persona' value from the body
+      const persona = body.persona;
 
- const response = await  axios
-  .get(
-    "https://www.googleapis.com/customsearch/v1?key=" + SEARCH_KEY + "&cx=" + SEARCH_CX + "&q=" +
-      'swimming + intitle:"write for us"'
-  );
+    const systemMessage =  "Given a persona, " + persona + ", find a keyword (one word) that the persona would be interested in. just return the keyword.";
 
-  return  NextResponse.json({items: response.data.items});
+    const chatResponse = await GPT4(systemMessage);
+
+    console.log("response: " + chatResponse.text.trim());
+
+    // replace ALL spaces with %20
+    const keywordEncoded = encodeURIComponent(chatResponse.text.trim());
+    const url = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
+
+    const response = await  axios
+      .get(
+        url
+      );
+
+      return  NextResponse.json({items: response.data.items});
+  }
   
 }
