@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       // Access the 'persona' value from the body
       const persona = body.persona;
 
-    const systemMessage =  "Given a persona, " + persona + ", find a keyword (one word) that the persona would be interested in. just return the keyword.";
+    const systemMessage =  "Given a persona, " + persona + ", find a keyword (two words) that would find a blog the persona would be interested in and other people wouldn't be. It shouldnt have another meaning in a different field. just return the keyword.";
 
     const chatResponse = await GPT4(systemMessage);
 
@@ -30,14 +30,20 @@ export async function POST(req: Request) {
 
     // replace ALL spaces with %20
     const keywordEncoded = encodeURIComponent(chatResponse.text.trim());
-    const url = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
+    const easyUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
+    const hardUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"guide"+inurl:blog`;
 
     const response = await  axios
       .get(
-        url
+        easyUrl
       );
 
-      return  NextResponse.json({items: response.data.items});
+      const response2 = await  axios
+      .get(
+        hardUrl
+      );
+
+      return  NextResponse.json({easyToSubmit: response.data.items, hardToSubmit: response2.data.items});
   }
   
 }

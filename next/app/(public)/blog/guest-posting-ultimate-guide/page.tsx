@@ -8,11 +8,9 @@ export default function CraftStrongUserPersona() {
   return (
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
       <ReadingBar />
-      <title>
-        {"Everything You Need to Know About Topical Authority (2024)"}
-      </title>
+      <title>{"The Ultimate Guide to Guest Posting (2024)"}</title>
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
-        Everything You Need to Know About Topical Authority (2024)
+        The Ultimate Guide to Guest Posting (2024)
       </h1>
       <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
         <TableOfContents />
@@ -237,7 +235,7 @@ export default function CraftStrongUserPersona() {
           />
         </article>
       </div>
-      <ReadMore currentSlug="topical-authority-ultimate-guide" />
+      <ReadMore currentSlug="guest-posting-ultimate-guide" />
     </main>
   );
 }

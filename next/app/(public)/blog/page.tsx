@@ -21,6 +21,12 @@ export const BLOG_POSTS: BlogPost[] = [
     lead: "Topical Authority refers to the level of expertise and credibility your site holds in a specific subject area. It's about depth and breadth of knowledge in a specific field, and how effectively you communicate that through your content.",
     category: "SEO",
   },
+  {
+    name: "Guest Posting Ultimate Guide (2024)",
+    slug: "guest-posting-ultimate-guide",
+    lead: "Topical Authority refers to the level of expertise and credibility your site holds in a specific subject area. It's about depth and breadth of knowledge in a specific field, and how effectively you communicate that through your content.",
+    category: "SEO",
+  },
 ];
 
 export default function BlogPage() {
@@ -46,7 +52,7 @@ export default function BlogPage() {
               category={post.category}
               className={
                 BLOG_POSTS.length % 2 !== 0 && i == BLOG_POSTS.length - 1
-                  ? "lg:col-span-2"
+                  ? "lg:col-span-1"
                   : ""
               }
             />

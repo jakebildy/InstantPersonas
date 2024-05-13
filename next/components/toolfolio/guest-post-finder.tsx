@@ -7,25 +7,57 @@ import { useState } from "react";
 export function GuestPostFinderTool({ persona }: { persona: string }) {
   const [loading, setIsLoading] = useState(false);
 
-  const [results, setResults] = useState<any[]>([]);
+  const [easyToSubmitResults, setEasyToSubmitResults] = useState<any[]>([]);
+  const [harderToSubmitResults, setHardToSubmitResults] = useState<any[]>([]);
+
+  const [selectedType, setSelectedType] = useState("easyToSubmit");
+  const results =
+    selectedType === "easyToSubmit"
+      ? easyToSubmitResults
+      : harderToSubmitResults;
 
   return (
     <div>
-      {results.length > 0 ? (
+      {easyToSubmitResults.length > 0 ? (
         <div className="mb-5">
-          <ul>
+          <button
+            className={
+              selectedType === "easyToSubmit"
+                ? " border-b-green-500 mr-4 text-green-500 border-2 border-transparent text-sm p-2 font-bold"
+                : "mr-4 text-gray-400 border-2 border-transparent text-sm p-2 font-bold"
+            }
+            onClick={() => {
+              setSelectedType("easyToSubmit");
+            }}
+          >
+            Easy to Submit
+          </button>
+          <button
+            className={
+              selectedType === "harderToSubmit"
+                ? " border-b-green-500 mr-4 text-green-500 border-2 border-transparent text-sm p-2 font-bold"
+                : "mr-4 text-gray-400 border-2 border-transparent text-sm p-2 font-bold"
+            }
+            onClick={() => {
+              setSelectedType("harderToSubmit");
+            }}
+          >
+            Harder to Submit
+          </button>
+
+          <ul className="pt-4 pl-2">
             <button
               className="text-sm font-bold text-blue-500 flex flex-row mb-2"
               onClick={() => {
                 const csv = results
-                  .map((result) => {
-                    return `${result.displayLink.replaceAll(
+                  .map((results) => {
+                    return `${results.displayLink.replaceAll(
                       ",",
                       ""
-                    )},${result.title.replaceAll(
+                    )},${results.title.replaceAll(
                       ",",
                       ""
-                    )},${result.snippet.replaceAll(",", "")}`;
+                    )},${results.snippet.replaceAll(",", "")}`;
                   })
                   .join("\n");
 
@@ -85,12 +117,13 @@ export function GuestPostFinderTool({ persona }: { persona: string }) {
           console.log(response);
 
           setIsLoading(false);
-          setResults(response);
+          setEasyToSubmitResults(response.easyToSubmit);
+          setHardToSubmitResults(response.hardToSubmit);
         }}
       >
         {loading
           ? "Searching..."
-          : results.length > 0
+          : easyToSubmitResults.length > 0
           ? "Find More Opportunities"
           : "Find Guest Post Opportunities"}
       </button>
