@@ -28,7 +28,7 @@ import {
 import { cx } from "class-variance-authority";
 import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
 import { TEST_PERSONA_HISTORY_DO_NOT_ALLOW_ON_PROD } from "@/tests/data/persona-history";
-import CopyLinkPopover from "@/components/copy-link-popover";
+import CopyLinkPopover from "@/components/ui/copy-link-popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {};
