@@ -168,7 +168,7 @@ export default function GuestPostingUltimateGuide() {
             accepted?
           </h2>
           <p>
-            Here’s one strategy. Use an SEO tool like Ahrefs and identify a
+            Here&apos;s one strategy. Use an SEO tool like Ahrefs and identify a
             topic where their competitor outranks them, effectively a gap in
             their{" "}
             <a
