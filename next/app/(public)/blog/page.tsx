@@ -52,7 +52,7 @@ export default function BlogPage() {
               category={post.category}
               className={
                 BLOG_POSTS.length % 2 !== 0 && i == BLOG_POSTS.length - 1
-                  ? "lg:col-span-1"
+                  ? "lg:col-span-2"
                   : ""
               }
             />
