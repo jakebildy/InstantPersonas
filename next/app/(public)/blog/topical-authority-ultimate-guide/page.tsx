@@ -11,6 +11,10 @@ export default function CraftStrongUserPersona() {
       <title>
         {"Everything You Need to Know About Topical Authority (2024)"}
       </title>
+      <meta
+        name="description"
+        content="Quickly learn how to build and measure topical authority with our comprehensive guide."
+      />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         Everything You Need to Know About Topical Authority (2024)
       </h1>

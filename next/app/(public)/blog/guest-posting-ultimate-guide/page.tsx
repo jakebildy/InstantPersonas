@@ -9,6 +9,10 @@ export default function GuestPostingUltimateGuide() {
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
       <ReadingBar />
       <title>{"The Ultimate Guide to Guest Posting (2024)"}</title>
+      <meta
+        name="description"
+        content="Everything you need to know to do guest posting right in 2024. Learn if you should you use AI to write posts, and more."
+      />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         The Ultimate Guide to Guest Posting (2024)
       </h1>

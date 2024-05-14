@@ -13,6 +13,10 @@ export default function CraftStrongUserPersona() {
           "6 Tips to Use Business Data to Craft a Strong User Persona in 2024 (GUIDE)"
         }
       </title>
+      <meta
+        name="description"
+        content="Quickly learn how to leverage your data to make good customer personas. Everything you need to know."
+      />
       <h1 className="sm:hidden px-4 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         6 Tips to Use Business Data to Craft a Strong User Persona in 2024
         (GUIDE)
