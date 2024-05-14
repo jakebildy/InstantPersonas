@@ -6,8 +6,8 @@ export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
 
   return (
-    <main>
-      <div className="flex flex-col items-center h-full w-full min-h-screen">
+    <section>
+      <div className="flex flex-col items-center h-full w-full">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Guest Post Opportunity Finder
         </h1>
@@ -31,6 +31,6 @@ export default function GuestPostOpportunityFinder({}: {}) {
         </div>
         <GuestPostFinderTool persona={personaString} />
       </div>
-    </main>
+    </section>
   );
 }

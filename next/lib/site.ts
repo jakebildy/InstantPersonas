@@ -81,4 +81,18 @@ export const LANDING_HEADER_LINKS = [
   },
 ];
 
+export const LANDING_FOOTER_LINKS = [
+  { text: "Features", href: "/#features" },
+  {
+    text: "Blog",
+    href: "/blog",
+  },
+  {
+    text: "Pricing",
+    href: "/#pricing",
+  },
+];
+
+export const BLOG_FOOTER_LINKS = LANDING_FOOTER_LINKS;
+
 export type SidebarLinkName = (typeof SIDEBAR_LINKS)[number]["title"];
