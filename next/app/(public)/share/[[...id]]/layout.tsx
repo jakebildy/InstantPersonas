@@ -1,5 +1,6 @@
 "use client";
-import LandingPage from "@/components/landing-page";
+
+import LandingPage from "@/components/page-specific/landing-page";
 import React from "react";
 
 type Props = { children: React.ReactNode };

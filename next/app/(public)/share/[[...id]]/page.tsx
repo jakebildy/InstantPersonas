@@ -1,10 +1,11 @@
 "use server";
 import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/function";
 import {
-  mapUrlBackgroundColorParamToVariant,
   PersonaArchetype,
-} from "@/components/generative-ui/persona-avatar-popover";
-import { PersonaTemplate } from "@/components/generative-ui/persona-avatar-popover/templates/template";
+  mapUrlBackgroundColorParamToVariant,
+} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { PersonaTemplate } from "@/components/page-specific/generative-ui/persona-avatar-popover/templates/template";
+
 import { notFound } from "next/navigation";
 
 export default async function ChatPage({

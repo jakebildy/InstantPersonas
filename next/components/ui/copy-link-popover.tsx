@@ -3,12 +3,11 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { cx } from "class-variance-authority";
 import { ShareIcon, CheckIcon, CopyIcon } from "lucide-react";
 import React from "react";
-import { ButtonInnerHover, gradientLightVariants } from "./variants";
-import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
+import { gradientLightVariants } from "../variants";
+import { Button } from "./button";
+import { GradientButton } from "./gradient-button";
 
 type Props = {
   link: string;
@@ -31,26 +30,9 @@ export default function CopyLinkPopover({ link, onCopy, className }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md group",
-            className
-          )}
-        >
-          <span
-            className={cx(
-              ButtonInnerHover({ variant: "blue" }),
-              gradientLightVariants({
-                variant: "blue",
-                className: "pl-5 flex items-center gap-2 text-sm",
-              })
-            )}
-          >
-            Share{" "}
-            <ShareIcon className="text-muted-foreground pb-0.5 size-4 group-hover:text-white transition-colors duration-300 ease-out" />
-          </span>
-        </Button>
+        <GradientButton Icon={ShareIcon} className={className}>
+          Share
+        </GradientButton>
       </PopoverTrigger>
       <PopoverContent className="mx-2 shadow-4xl p-1 w-fit">
         <div

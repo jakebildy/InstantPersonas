@@ -1,0 +1,88 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { cva, cx, VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import {
+  ButtonInnerHover,
+  ColorVariant,
+  gradientLightVariants,
+} from "../variants";
+import { LucideIcon } from "lucide-react";
+
+export const IconVariants = cva(
+  "text-muted-foreground pb-0.5 group-hover:text-white transition-colors duration-300 ease-out",
+  {
+    variants: {
+      size: {
+        sm: "size-4",
+        md: "size-6",
+        lg: "size-8",
+        xl: "size-10",
+      },
+    },
+    defaultVariants: {
+      size: "sm",
+    },
+  }
+);
+
+export interface GradientButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof IconVariants> {
+  variant?: ColorVariant;
+  iconClassName?: string;
+  Icon: LucideIcon;
+}
+
+/**
+ * Renders a customizable gradient button with an icon, supporting multiple color variants and interactive hover effects.
+ * Icons from: https://lucide.dev/icons/
+ */ export const GradientButton = React.forwardRef<
+  HTMLButtonElement,
+  GradientButtonProps
+>(
+  (
+    {
+      className,
+      iconClassName,
+      variant = "blue",
+      size,
+      Icon,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <Button
+        variant={"outline"}
+        className={cn(
+          "hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md group",
+          className
+        )}
+        ref={ref}
+        {...props}
+      >
+        <span
+          className={cx(
+            ButtonInnerHover({ variant: variant }),
+            gradientLightVariants({
+              variant: variant,
+              className: "pl-5 flex items-center gap-2 text-sm",
+            })
+          )}
+        >
+          {children}
+          <Icon
+            className={IconVariants({
+              size,
+              className: iconClassName,
+            })}
+          />
+        </span>
+      </Button>
+    );
+  }
+);
+
+GradientButton.displayName = "GradientButton";
