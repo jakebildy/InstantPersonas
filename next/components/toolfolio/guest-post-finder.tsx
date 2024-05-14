@@ -4,7 +4,13 @@ import { IconDownload } from "@tabler/icons-react";
 import axios from "axios";
 import { useState } from "react";
 
-export function GuestPostFinderTool({ persona }: { persona: string }) {
+export function GuestPostFinderTool({
+  input,
+  isSubscribed,
+}: {
+  input: string;
+  isSubscribed: boolean;
+}) {
   const [loading, setIsLoading] = useState(false);
 
   const [easyToSubmitResults, setEasyToSubmitResults] = useState<any[]>([]);
@@ -112,13 +118,13 @@ export function GuestPostFinderTool({ persona }: { persona: string }) {
         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
         onClick={async () => {
           setIsLoading(true);
-          console.log(
-            "Finding guest post opportunities for persona: ",
-            persona
-          );
+          console.log("Finding guest post opportunities for persona: ", input);
 
           //   api guest post
-          const response = await api.tools.findGuestPostOpportunities(persona);
+          const response = await api.tools.findGuestPostOpportunities(
+            input,
+            isSubscribed
+          );
           console.log(response);
 
           setIsLoading(false);

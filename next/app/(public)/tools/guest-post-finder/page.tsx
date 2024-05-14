@@ -110,7 +110,10 @@ export default function GuestPostOpportunityFinder({}: {}) {
             value={detailsInput}
           />
         </div>
-        <GuestPostFinderTool persona={personaString} />
+        <GuestPostFinderTool
+          input={personaString}
+          isSubscribed={userIsSubscribed}
+        />
       </div>
     </section>
   );
