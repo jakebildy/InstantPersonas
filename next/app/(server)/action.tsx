@@ -236,7 +236,6 @@ async function submitUserMessage(
 
           const archetypes = await createArchetypes(business, targetProblem);
           console.log("archetypes", archetypes);
-
           // Update the final AI state.
           aiState.done({
             ...aiState.get(),
