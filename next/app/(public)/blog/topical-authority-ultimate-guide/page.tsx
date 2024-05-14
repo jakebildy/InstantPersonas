@@ -87,17 +87,17 @@ export default function CraftStrongUserPersona() {
             subtopics. Each subtopic has content that links to the main topic,
             helping users and search engines understand the content.
           </p>
-          <Image
-            src={"/todo.gif"}
-            height={400}
-            width={400}
-            alt="build topical authority"
-            className="mx-auto"
-            unoptimized
-          />
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
             How to Get Topical Authority on your Site
           </h2>
+          <Image
+            src="/blogs/topical-authority/topical-authority-steps.png"
+            height={400}
+            width={400}
+            alt="Building Topical Authority"
+            className="mx-auto rounded-md my-5"
+            unoptimized
+          />
           <p>
             - <b>Step 1: Niche Down</b> Focus on one topic to establish
             expertise rather than covering multiple broad areas.
