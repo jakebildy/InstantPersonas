@@ -1,7 +1,7 @@
-import TableOfContents from "@/components/blog/TableOfContents";
-import { ReadMore } from "@/components/blog/readMore";
-import ReadingBar from "@/components/blog/readingBar";
-import { Share } from "@/components/blog/share";
+import TableOfContents from "@/components/page-specific/blog/TableOfContents";
+import { ReadMore } from "@/components/page-specific/blog/readMore";
+import ReadingBar from "@/components/page-specific/blog/readingBar";
+import { Share } from "@/components/page-specific/blog/share";
 import Image from "next/image";
 
 export default function GuestPostingUltimateGuide() {
