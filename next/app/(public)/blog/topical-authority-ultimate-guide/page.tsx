@@ -59,12 +59,20 @@ export default function CraftStrongUserPersona() {
             Topical Authority refers to the level of expertise and credibility
             your site holds in a specific subject area. It&apos;s about depth
             and breadth of knowledge in a specific field, and how effectively
-            you communicate that through your content. Building topical
-            authority means you have produced comprehensive, high-quality
-            content that covers your chosen subject in detail. This not only
-            establishes you as a thought leader in your field, but also signals
-            to search engines that your content is a valuable resource on the
-            subject, boosting your SEO rankings.
+            you communicate that through your content.
+            <Image
+              src="/blogs/topical-authority/what-is-topical-authority.png"
+              height={400}
+              width={400}
+              alt="Topical authority explained"
+              className="mx-auto rounded-md my-5"
+              unoptimized
+            />
+            Building topical authority means you have produced comprehensive,
+            high-quality content that covers your chosen subject in detail. This
+            not only establishes you as a thought leader in your field, but also
+            signals to search engines that your content is a valuable resource
+            on the subject, boosting your SEO rankings.
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"1"}>
             What is a Topical Authority Map?
