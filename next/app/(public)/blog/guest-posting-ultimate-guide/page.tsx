@@ -236,7 +236,7 @@ export default function GuestPostingUltimateGuide() {
             too.
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="9">
-            What’s the difference between guest posting vs niche edits?
+            What&apos;s the difference between guest posting vs niche edits?
           </h2>
           <p>
             Niche edits are a lot less effort than guest posting. Instead of
