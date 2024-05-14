@@ -171,6 +171,14 @@ export default function GuestPostingUltimateGuide() {
             How do I craft a compelling guest post pitch that is likely to be
             accepted?
           </h2>
+          <Image
+            src="/blogs/guest-posting/guest-post-pitching.gif"
+            height={400}
+            width={300}
+            alt="How to Pitch a Guest Post"
+            className="mx-auto rounded-md my-5"
+            unoptimized
+          />
           <p>
             Here&apos;s one strategy. Use an SEO tool like Ahrefs and identify a
             topic where their competitor outranks them, effectively a gap in
@@ -182,12 +190,26 @@ export default function GuestPostingUltimateGuide() {
               topical authority
             </a>
             . Send them a message making them aware of this, and offer to write
-            them an article covering this deeply for free.
+            them an article covering this deeply for free. This is a great way
+            to convey the value proposition of your post.
             <br></br>
             <br></br>
             Another useful tip - you want to demonstrate that you are an
             authority on a topic. If you have any way to demonstrate this, make
             sure to let them know.
+            <br></br>
+            <br></br>
+            Provide them with writing samples as well so they know your post
+            will be high quality.
+            <br></br>
+            <br></br>
+            Ensure your subject line is clear. MailChimp suggests the following
+            subject line formula:
+            <br></br>
+            <b>
+              Pitch for: Name of publication, name of the column and/or short
+              headline.
+            </b>
           </p>
 
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
