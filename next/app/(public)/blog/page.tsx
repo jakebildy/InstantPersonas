@@ -21,6 +21,12 @@ export const BLOG_POSTS: BlogPost[] = [
     lead: "Topical Authority refers to the level of expertise and credibility your site holds in a specific subject area. It's about depth and breadth of knowledge in a specific field, and how effectively you communicate that through your content.",
     category: "SEO",
   },
+  {
+    name: "The Ultimate Guide to Guest Posting (2024)",
+    slug: "guest-posting-ultimate-guide",
+    lead: "How do I know if a site is worth writing a guest post for? There’s a few things to consider. The most important question you should ask is, would your target audience even be reading this?",
+    category: "SEO",
+  },
 ];
 
 export default function BlogPage() {

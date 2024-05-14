@@ -52,7 +52,6 @@ export default function CraftStrongUserPersona() {
               Everything You Need to Know About Topical Authority (2024)
             </h1>
           </header>
-
           <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
             What is Topical Authority?
           </h2>
@@ -67,7 +66,6 @@ export default function CraftStrongUserPersona() {
             to search engines that your content is a valuable resource on the
             subject, boosting your SEO rankings.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"1"}>
             What is a Topical Authority Map?
           </h2>
@@ -77,7 +75,6 @@ export default function CraftStrongUserPersona() {
             subtopics. Each subtopic has content that links to the main topic,
             helping users and search engines understand the content.
           </p>
-
           <Image
             src={"/todo.gif"}
             height={400}
@@ -111,7 +108,6 @@ export default function CraftStrongUserPersona() {
             <br></br>- <b>Step 6: Connect Using Internal Links</b> Strategically
             link between articles to enhance topic authority and improve SEO.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
             How to Measure Topical Authority?
           </h2>
@@ -150,7 +146,6 @@ export default function CraftStrongUserPersona() {
             5. The resulting traffic share equals the Topic Share, which is
             synonymous with &apos;&apos;Topical Authority&apos;&apos;.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
             Topical Relevance vs Topical Authority
           </h2>
@@ -168,7 +163,6 @@ export default function CraftStrongUserPersona() {
             for a query, authority builds trust and credibility, enhancing a
             site’s reputation and search rankings.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
             Should you update old content?
           </h2>
@@ -209,7 +203,6 @@ export default function CraftStrongUserPersona() {
             and avoid any potential SEO issues, including{" "}
             <b>keyword cannabilization</b>.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
             What is Keyword Cannabilization?
           </h2>
@@ -221,6 +214,27 @@ export default function CraftStrongUserPersona() {
             ensure your keywords are distributed evenly across your content,
             avoiding overlaps, and enhancing the depth of your content.
           </p>
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="7">
+            Can you increase topical authority with backlinks or through guest
+            posting?
+          </h2>
+          If you get a lot of backlinks from high-authority sites in your niche,
+          it can help you increase your topical authority. These are called
+          topically relevant backlinks.
+          <br></br>
+          <br></br>
+          One of the best ways to get topically relevant backlinks is through
+          high-quality guest posts, allowing you to showcase your expertise on
+          other reputable platforms, and bring fresh eyes to your content. For a
+          deeper dive into how guest posting can transform your Topical
+          Authority and the best practices to follow, read{" "}
+          <a
+            href="https://instantpersonas.com/blog/guest-posting-ultimate-guide"
+            className="text-blue-500"
+          >
+            our detailed guide on guest posting
+          </a>
+          .
           <p>
             <br></br> <br></br>
             Want to make a comprehensive User Persona in 5 minutes?{" "}
