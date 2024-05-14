@@ -9,27 +9,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!user) return;
-    // make async call to check if user is subscribed
-    const checkSubscription = async () => {
-      const userIsSubscribed = await api.stripe.isSubscriptionActive(
-        user.user?.user_id as string
-      );
-      setIsSubscribed(
-        userIsSubscribed.status === "active" ||
-          userIsSubscribed.status === "trialing"
-      );
-      console.log("isSubscribed", userIsSubscribed);
-    };
-    checkSubscription();
-  }, [isSubscribed, user]);
 
   return (
     <main className="bg-zinc-100 min-h-screen">
-      {isSubscribed ? (
+      {user.user ? (
         <DashboardLayout>
           <ScrollArea className="h-[calc(100dvh-2px)]">{children}</ScrollArea>
         </DashboardLayout>
