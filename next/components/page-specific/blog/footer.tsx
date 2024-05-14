@@ -1,20 +1,20 @@
 import { cn } from "@/lib/utils";
-import { Container } from "./container";
+
 import { InstantPersonas } from "@/components/instantPersonas";
 import Link from "next/link";
-import { LANDING_FOOTER_LINKS } from "@/lib/site";
+import { BLOG_FOOTER_LINKS } from "@/lib/site";
 
-export default function Footer({ className }: { className?: string }) {
+export function BlogFooter({ className }: { className?: string }) {
   return (
-    <footer className={cn("bg-slate-50", className)}>
-      <Container>
-        <div className="sm:py-16 py-4">
+    <footer className={cn("bg-slate-50 ", className)}>
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="py-4">
           <div className="mx-auto grid place-items-center">
             <InstantPersonas isCollapsed={true} />
           </div>
-          <nav className="mt-4 sm:mt-10 text-sm" aria-label="quick links">
+          <nav className="mt-4 text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
-              {LANDING_FOOTER_LINKS.map((link) => (
+              {BLOG_FOOTER_LINKS.map((link) => (
                 <Link
                   key={link.text}
                   href={link.href}
@@ -36,7 +36,7 @@ export default function Footer({ className }: { className?: string }) {
             .
           </p>
         </div>
-      </Container>
+      </section>
     </footer>
   );
 }

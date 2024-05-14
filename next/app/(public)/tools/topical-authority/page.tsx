@@ -3,8 +3,8 @@ import { Suspense } from "react";
 
 export default async function HistoryPage({}: {}) {
   return (
-    <main>
-      <div className="flex flex-col items-center h-screen w-full">
+    <section>
+      <div className="flex flex-col items-center h-full w-full">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Topical Authority Builder
         </h1>
@@ -14,6 +14,6 @@ export default async function HistoryPage({}: {}) {
           write about for your personas.
         </h2>
       </div>
-    </main>
+    </section>
   );
 }
