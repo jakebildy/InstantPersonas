@@ -11,6 +11,10 @@ export default function CraftStrongUserPersona() {
       <title>
         {"Everything You Need to Know About Topical Authority (2024)"}
       </title>
+      <meta
+        name="description"
+        content="Quickly learn how to build and measure topical authority with our comprehensive guide."
+      />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         Everything You Need to Know About Topical Authority (2024)
       </h1>
@@ -52,7 +56,6 @@ export default function CraftStrongUserPersona() {
               Everything You Need to Know About Topical Authority (2024)
             </h1>
           </header>
-
           <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
             What is Topical Authority?
           </h2>
@@ -60,14 +63,21 @@ export default function CraftStrongUserPersona() {
             Topical Authority refers to the level of expertise and credibility
             your site holds in a specific subject area. It&apos;s about depth
             and breadth of knowledge in a specific field, and how effectively
-            you communicate that through your content. Building topical
-            authority means you have produced comprehensive, high-quality
-            content that covers your chosen subject in detail. This not only
-            establishes you as a thought leader in your field, but also signals
-            to search engines that your content is a valuable resource on the
-            subject, boosting your SEO rankings.
+            you communicate that through your content.
+            <Image
+              src="/blogs/topical-authority/what-is-topical-authority.png"
+              height={400}
+              width={400}
+              alt="Topical authority explained"
+              className="mx-auto rounded-md my-5"
+              unoptimized
+            />
+            Building topical authority means you have produced comprehensive,
+            high-quality content that covers your chosen subject in detail. This
+            not only establishes you as a thought leader in your field, but also
+            signals to search engines that your content is a valuable resource
+            on the subject, boosting your SEO rankings.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"1"}>
             What is a Topical Authority Map?
           </h2>
@@ -77,18 +87,17 @@ export default function CraftStrongUserPersona() {
             subtopics. Each subtopic has content that links to the main topic,
             helping users and search engines understand the content.
           </p>
-
-          <Image
-            src={"/todo.gif"}
-            height={400}
-            width={400}
-            alt="build topical authority"
-            className="mx-auto"
-            unoptimized
-          />
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
             How to Get Topical Authority on your Site
           </h2>
+          <Image
+            src="/blogs/topical-authority/topical-authority-steps.png"
+            height={400}
+            width={400}
+            alt="Building Topical Authority"
+            className="mx-auto rounded-md my-5"
+            unoptimized
+          />
           <p>
             - <b>Step 1: Niche Down</b> Focus on one topic to establish
             expertise rather than covering multiple broad areas.
@@ -111,7 +120,6 @@ export default function CraftStrongUserPersona() {
             <br></br>- <b>Step 6: Connect Using Internal Links</b> Strategically
             link between articles to enhance topic authority and improve SEO.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
             How to Measure Topical Authority?
           </h2>
@@ -150,7 +158,6 @@ export default function CraftStrongUserPersona() {
             5. The resulting traffic share equals the Topic Share, which is
             synonymous with &apos;&apos;Topical Authority&apos;&apos;.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
             Topical Relevance vs Topical Authority
           </h2>
@@ -168,7 +175,6 @@ export default function CraftStrongUserPersona() {
             for a query, authority builds trust and credibility, enhancing a
             site’s reputation and search rankings.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
             Should you update old content?
           </h2>
@@ -209,7 +215,6 @@ export default function CraftStrongUserPersona() {
             and avoid any potential SEO issues, including{" "}
             <b>keyword cannabilization</b>.
           </p>
-
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
             What is Keyword Cannabilization?
           </h2>
@@ -221,6 +226,27 @@ export default function CraftStrongUserPersona() {
             ensure your keywords are distributed evenly across your content,
             avoiding overlaps, and enhancing the depth of your content.
           </p>
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="7">
+            Can you increase topical authority with backlinks or through guest
+            posting?
+          </h2>
+          If you get a lot of backlinks from high-authority sites in your niche,
+          it can help you increase your topical authority. These are called
+          topically relevant backlinks.
+          <br></br>
+          <br></br>
+          One of the best ways to get topically relevant backlinks is through
+          high-quality guest posts, allowing you to showcase your expertise on
+          other reputable platforms, and bring fresh eyes to your content. For a
+          deeper dive into how guest posting can transform your Topical
+          Authority and the best practices to follow, read{" "}
+          <a
+            href="https://instantpersonas.com/blog/guest-posting-ultimate-guide"
+            className="text-blue-500"
+          >
+            our detailed guide on guest posting
+          </a>
+          .
           <p>
             <br></br> <br></br>
             Want to make a comprehensive User Persona in 5 minutes?{" "}
