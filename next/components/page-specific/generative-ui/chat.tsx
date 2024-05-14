@@ -34,7 +34,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import CopyLinkPopover from "@/components/copy-link-popover";
+import CopyLinkPopover from "@/components/ui/copy-link-popover";
 
 type Props = {
   className?: string;

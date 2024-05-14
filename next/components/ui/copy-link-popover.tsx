@@ -5,8 +5,8 @@ import {
 } from "@/components/ui/popover";
 import { ShareIcon, CheckIcon, CopyIcon } from "lucide-react";
 import React from "react";
-import { gradientLightVariants } from "./variants";
-import { Button } from "./ui/button";
+import { gradientLightVariants } from "../variants";
+import { Button } from "./button";
 import { GradientButton } from "./gradient-button";
 
 type Props = {
