@@ -64,7 +64,7 @@ export default function PageTest({}: Props) {
           value={personaString}
         />
       </div>
-      <GuestPostFinderTool persona={personaString} />
+      <GuestPostFinderTool input={personaString} isSubscribed={false} />
     </div>
   );
 }
