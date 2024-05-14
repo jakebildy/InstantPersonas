@@ -19,17 +19,49 @@ export async function POST(req: Request) {
       // Parse the JSON body of the request
       const body = await req.json();
 
-      // Access the 'persona' value from the body
-      const persona = body.persona;
+    if (body.paid !== undefined) { //TODO: change this to === undefined 
+      const persona = body.personas;
 
-    const systemMessage =  "Given a persona, " + persona + ", find a keyword (two words) that would find a blog the persona would be interested in and other people wouldn't be. It shouldnt have another meaning in a different field. just return the keyword.";
+      const systemMessage =  "Given a persona, " + persona + ", find a keyword (two words) that would find a blog the persona would be interested in and other people wouldn't be. It shouldnt have another meaning in a different field. just return the keyword.";
+
+      const chatResponse = await GPT4(systemMessage);
+
+      console.log("response: " + chatResponse.text.trim());
+
+      // replace ALL spaces with %20
+      const keywordEncoded = encodeURIComponent(chatResponse.text.trim());
+      const easyUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
+      const hardUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"guide"+inurl:blog`;
+
+      const response = await  axios
+        .get(
+          easyUrl
+        );
+
+        const response2 = await  axios
+        .get(
+          hardUrl
+        );
+
+      return  NextResponse.json({easyToSubmit: response.data.items, hardToSubmit: response2.data.items});
+    } else {
+         
+    const personas = body.persona; //TODO: change this to body.personas
+
+    const systemMessage =  "Given these personas, " + personas + ", find five keyword (two words max) that would find a blog at least one of the personas would be interested in and other people wouldn't be. It shouldnt have another meaning in a different field. just return the keywords, separated by commas. ex. 'swimming techniques, swimming gear'";
 
     const chatResponse = await GPT4(systemMessage);
 
     console.log("response: " + chatResponse.text.trim());
 
-    // replace ALL spaces with %20
-    const keywordEncoded = encodeURIComponent(chatResponse.text.trim());
+    const keywords = chatResponse.text.trim().split(",")
+
+    let easyToSubmit: any = [];
+    let hardToSubmit: any = [];
+
+    for (let i = 0; i < keywords.length; i++) {
+
+    const keywordEncoded = encodeURIComponent(keywords[i]);
     const easyUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
     const hardUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"guide"+inurl:blog`;
 
@@ -43,7 +75,12 @@ export async function POST(req: Request) {
         hardUrl
       );
 
-      return  NextResponse.json({easyToSubmit: response.data.items, hardToSubmit: response2.data.items});
+      easyToSubmit = easyToSubmit.concat(response.data.items);
+      hardToSubmit = hardToSubmit.concat(response2.data.items);
+    }
+    
+      return  NextResponse.json({easyToSubmit: easyToSubmit, hardToSubmit: hardToSubmit});
+    }
   }
   
 }

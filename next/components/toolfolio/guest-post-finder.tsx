@@ -13,8 +13,13 @@ export function GuestPostFinderTool({ persona }: { persona: string }) {
   const [selectedType, setSelectedType] = useState("easyToSubmit");
   const results =
     selectedType === "easyToSubmit"
-      ? easyToSubmitResults
-      : harderToSubmitResults;
+      ? // remove all where the displayLink is duplicate
+        easyToSubmitResults.filter(
+          (v, i, a) => a.findIndex((t) => t.displayLink === v.displayLink) === i
+        )
+      : harderToSubmitResults.filter(
+          (v, i, a) => a.findIndex((t) => t.displayLink === v.displayLink) === i
+        );
 
   return (
     <div>
