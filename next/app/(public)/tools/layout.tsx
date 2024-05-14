@@ -5,6 +5,7 @@ import { useStytchUser } from "@stytch/nextjs";
 import api from "@/service/api.service";
 import DashboardLayout from "@/components/page-specific/dashboard/dashboard";
 import { BlogFooter } from "@/components/page-specific/blog/footer";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
@@ -21,14 +22,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         userIsSubscribed.status === "active" ||
           userIsSubscribed.status === "trialing"
       );
+      console.log("isSubscribed", userIsSubscribed);
     };
     checkSubscription();
-  }, [user]);
+  }, [isSubscribed, user]);
 
   return (
     <main className="bg-zinc-100 min-h-screen">
       {isSubscribed ? (
-        <DashboardLayout>{children}</DashboardLayout>
+        <DashboardLayout>
+          <ScrollArea className="h-[calc(100dvh-2px)]">{children}</ScrollArea>
+        </DashboardLayout>
       ) : (
         <section className="flex flex-col justify-between h-screen">
           <LandingPage.header />
