@@ -75,8 +75,8 @@ export function TopicalAuthorityMap() {
         nodeTypes={nodeTypes}
       >
         <Background
-          variant={BackgroundVariant.Dots}
-          className="bg-blue-200"
+          variant={BackgroundVariant.Cross}
+          className="bg-white"
           gap={12}
           size={1}
         />
