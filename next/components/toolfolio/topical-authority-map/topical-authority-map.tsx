@@ -1,5 +1,4 @@
-// hello world
-
+"use client";
 import ReactFlow, {
   Background,
   BackgroundVariant,

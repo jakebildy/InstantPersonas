@@ -44,12 +44,12 @@ export const SIDEBAR_LINKS = [
 export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 
 export const SEO_LINKS = [
-  // {
-  //   title: "Topical Authority",
-  //   href: "/tools/topical-authority",
-  //   icon: AcademicCapIcon,
-  //   label: "",
-  // },
+  {
+    title: "Topical Authority",
+    href: "/tools/topical-authority",
+    icon: AcademicCapIcon,
+    label: "",
+  },
   {
     title: "Guest Post Finder",
     href: "/tools/guest-post-finder",

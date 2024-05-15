@@ -1,4 +1,5 @@
 "use server";
+import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-map/topical-authority-map";
 import { Suspense } from "react";
 
 export default async function HistoryPage({}: {}) {
@@ -8,11 +9,13 @@ export default async function HistoryPage({}: {}) {
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Topical Authority Builder
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400">
+        <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
           Topical Authority boosts your SEO by showing Google that you are an
           expert in your field. <br></br>Use our tool to find the best topics to
           write about for your personas.
         </h2>
+
+        <TopicalAuthorityMap />
       </div>
     </section>
   );
