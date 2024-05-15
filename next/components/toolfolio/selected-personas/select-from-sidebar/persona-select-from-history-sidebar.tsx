@@ -177,9 +177,7 @@ export function PersonaSelectFromHistorySidebar({
               ) : (
                 <>
                   {history.map((chat, i) =>
-                    chat.aiState.personas === undefined ? (
-                      <div />
-                    ) : (
+                    chat.aiState.personas === undefined ? null : (
                       <PersonaWidgetGroup
                         personas={chat.aiState.personas as PersonaArchetype[]}
                         selectedPersonas={selectedPersonas}
