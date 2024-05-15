@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { ArticleCard, BLOG_POSTS } from "../../blog/page";
 import * as SelectPersonaDemoGif from "@/public/persona-select-demo.gif";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -17,7 +18,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
   const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
     []
   );
-  const [userIsSubscribed, setUserIsSubscribed] = useState<boolean>(false);
+  const [userIsSubscribed, setUserIsSubscribed] = useState<boolean>(true);
 
   const user = useStytchUser();
   const posthog = usePostHog();
@@ -34,25 +35,25 @@ export default function GuestPostOpportunityFinder({}: {}) {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, detailsInput, userIsSubscribed]);
 
-  useEffect(() => {
-    if (user.user) {
-      const checkSubscription = async () => {
-        const userIsSubscribed = await api.stripe.isSubscriptionActive(
-          user.user?.user_id as string
-        );
-        posthog.identify(user.user?.user_id, {
-          email: user.user?.emails[0].email,
-          subscriptionType: userIsSubscribed ? "paid" : "free",
-          userSignupDate: user.user?.created_at,
-        });
-        setUserIsSubscribed(
-          userIsSubscribed.status === "active" ||
-            userIsSubscribed.status === "trialing"
-        );
-      };
-      checkSubscription();
-    }
-  }, [posthog, user.user]);
+  // useEffect(() => {
+  //   if (user.user) {
+  //     const checkSubscription = async () => {
+  //       const userIsSubscribed = await api.stripe.isSubscriptionActive(
+  //         user.user?.user_id as string
+  //       );
+  //       posthog.identify(user.user?.user_id, {
+  //         email: user.user?.emails[0].email,
+  //         subscriptionType: userIsSubscribed ? "paid" : "free",
+  //         userSignupDate: user.user?.created_at,
+  //       });
+  //       setUserIsSubscribed(
+  //         userIsSubscribed.status === "active" ||
+  //           userIsSubscribed.status === "trialing"
+  //       );
+  //     };
+  //     checkSubscription();
+  //   }
+  // }, [posthog, user.user]);
 
   return (
     <section className="flex-1 bg-gray-100">
@@ -86,7 +87,12 @@ export default function GuestPostOpportunityFinder({}: {}) {
             />
           ) : null}
           {userIsSubscribed ? (
-            <section className="border border-gray-300 rounded-md w-1/2 bg-white p-2 flex flex-col gap-2">
+            <section
+              className={cn(
+                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
+                selectedPersonas.length > 0 ? "w-1/2" : ""
+              )}
+            >
               {selectedPersonas.length > 0 ? (
                 selectedPersonas.map((persona, i) => (
                   <SelectArchetypeWidget
@@ -109,7 +115,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full">
+                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
                   <Image
                     src={SelectPersonaDemoGif}
                     alt={
