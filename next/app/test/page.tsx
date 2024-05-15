@@ -1,94 +1,70 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { PersonStandingIcon, X } from "lucide-react";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import SubscriptionPopup from "@/components/subscription-popup";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import React, { useState } from "react";
+
+import {
+  mapUrlBackgroundColorParamToVariant,
+  PersonaArchetype,
+  PersonaAvatarPopover,
+} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
+import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 
 type Props = {};
 
 export default function PageTest({}: Props) {
   const [openSubscriptionPopup, setOpenSubscriptionPopup] =
     React.useState(true);
-
-  return (
-    <div className="grid place-items-center h-screen w-screen">
-      <Subscription2 />
-      <SubscriptionPopup
-        openSubscriptionPopup={openSubscriptionPopup}
-        setOpenSubscriptionPopup={setOpenSubscriptionPopup}
-      />
-      {/* <FeedbackPopup
-        openFeedbackPopup={false}
-        setOpenFeedbackPopup={function (
-          value: React.SetStateAction<boolean>
-        ): void {
-          throw new Error("Function not implemented.");
-        }}
-      /> */}
-      <PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup
-        openFeedbackPopup={true}
-        setOpenFeedbackPopup={function (
-          value: React.SetStateAction<boolean>
-        ): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
-      {/* <PreventMobile /> */}
-    </div>
+  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
+    []
   );
-}
+  const [personaString, setPersonaString] = useState<string>("");
 
-function Subscription2() {
   return (
-    <div className="bg-white rounded-md shadow-lg w-[90vw] max-w-2xl p-6 focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]">
-      <h2 className="text-lg font-bold text-gray-800">
-        Save hours or your money back.
+    <div className="flex flex-col items-center h-screen w-screen relative">
+      <PersonaSelectFromHistorySidebar
+        selectedPersonas={selectedPersonas}
+        setSelectedPersonas={setSelectedPersonas}
+        className="absolute top-4 right-4"
+      />
+      <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+        Guest Post Opportunity Finder
+      </h1>
+      <h2 className="text-center mt-4 text-xs text-slate-400 mb-16">
+        Writing Guest Posts is a great way to build backlinks and authority.
+        <br />
+        Find the best opportunities for your niche here.
       </h2>
-      <p className="text-sm text-gray-600">
-        To use Instant Personas, start your free trial! You can cancel at any
-        time.
-      </p>
-      <div className="grid place-items-center md:grid-cols-5 gap-4 mt-4">
-        <div className="w-[200px] h-[200px] md:col-span-2">
-          <Image
-            src="/metrics.gif"
-            alt="free subscription"
-            className="object-contain"
-            width={200}
-            height={200}
-          />
-        </div>
-        <div className="md:col-span-3 flex flex-col items-center gap-8">
-          <ul className="list-disc space-y-4">
-            <li>
-              <b className=" text-semibold">
-                Try for <span className="text-green-500">FREE</span>
-              </b>{" "}
-              for 3 days.
-            </li>
-            <li>
-              <b className="text-semibold">Money Back Guarantee</b> for 30 days
-            </li>
-            <li>
-              <b className="text-semibold">
-                Marketing Managers and UX Designers can save hours
-              </b>{" "}
-              developing user personas and getting insights. Don&apos;t believe
-              us? Try it and find out.
-            </li>
-          </ul>
-          <Button variant={"green"} asChild className="w-full">
-            <Link href={"/subscription"}>Try for Free</Link>
-          </Button>
-        </div>
+      {selectedPersonas.map((persona, i) => (
+        <PersonaAvatarPopover
+          key={i}
+          archetype={persona}
+          size={"sm"}
+          variant={mapUrlBackgroundColorParamToVariant({
+            url: persona.pictureURL,
+          })}
+        />
+      ))}
+      {/* 
+      {
+        personas: selectedPersonas,
+        details: personasString,
+        paid: true
+
+      } */}
+
+      <div className="flex flex-col items-center w-full mb-10">
+        {/* <label className="text-sm text-gray-700">Enter your persona:</label> */}
+        <input
+          type="text"
+          className="border border-gray-300 rounded-md w-1/2 p-2"
+          placeholder="e.g. a marketing manager"
+          onChange={(e) => {
+            setPersonaString(e.target.value);
+          }}
+          value={personaString}
+        />
       </div>
-      <button className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </button>
+      <GuestPostFinderTool input={personaString} isSubscribed={false} />
     </div>
   );
 }

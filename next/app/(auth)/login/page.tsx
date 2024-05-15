@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { StytchLoginForm } from "@/components/auth/stytch-login";
-import { BackgroundGradientAnimation } from "@/components/aceternity-ui/gradient_background_login";
+import { StytchLoginForm } from "@/components/context/auth/stytch-login";
+import { BackgroundGradientAnimation } from "@/components/ui/aceternity/gradient_background_login";
 import { InstantPersonas } from "@/components/instantPersonas";
-import ClientGlobe from "@/components/aceternity-ui/client-globe";
+import ClientGlobe from "@/components/ui/aceternity/client-globe";
 
 export default function LoginPage() {
   return (

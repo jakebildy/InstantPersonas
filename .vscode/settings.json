@@ -21,7 +21,12 @@
     "**/package-lock.json": true,
     "**/tsconfig.json": true,
     "**/components.json": true,
-    "**/.eslintrc.json": true
+    "**/.eslintrc.json": true,
+    "screenshot0.png": true,
+    "screenshot1.png": true,
+    "screenshot2.png": true,
+    "screenshot3.png": true,
+    "screenshot4.png": true
   },
   "explorerExclude.backup": {}
 }

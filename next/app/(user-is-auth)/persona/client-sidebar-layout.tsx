@@ -1,7 +1,7 @@
 "use client";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PreventMobile } from "@/components/prevent-mobile";
+import { PreventMobile } from "@/components/page-specific/prevent-mobile";
 export default function SidebarLayout({
   chat,
   map,

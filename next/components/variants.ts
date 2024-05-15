@@ -127,6 +127,23 @@ export const shadowVariants = cva("shadow-md", {
   },
 });
 
+export const textPastelColorVariants = cva("", {
+  variants: {
+    variant: {
+      blue: "text-pastel-blue",
+      purple: "text-pastel-purple",
+      red: "text-pastel-red",
+      yellow: "text-pastel-yellow",
+      green: "text-pastel-green",
+      brown: "text-pastel-brown",
+      pink: "text-pastel-pink",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export const textLightColorVariants = cva("", {
   variants: {
     variant: {

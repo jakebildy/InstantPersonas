@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {
   ButtonInnerHover,
+  ColorVariant,
   gradientLightVariants,
   gradientVariants,
   SurveyCardBackGroundElementCircle,
@@ -14,7 +15,7 @@ import { PersonStandingIcon } from "lucide-react";
 import { ArrowDownIcon } from "@radix-ui/react-icons";
 import { usePostHog } from "posthog-js/react";
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { ColorVariant } from "../../generative-ui/persona-avatar-popover";
+
 import { MaxLengthArray } from "@/lib/types";
 import { cx } from "class-variance-authority";
 // import { AnimatePresence, motion } from "framer-motion";

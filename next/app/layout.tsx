@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Jost } from "next/font/google";
-import StytchContext from "@/components/auth/stytch-context";
+import StytchContext from "@/components/context/auth/stytch-context";
 import "./globals.css";
-import { PHProvider, PostHogPageview } from "@/components/post-hog-context";
+import {
+  PHProvider,
+  PostHogPageview,
+} from "@/components/context/analytics/post-hog-context";
 import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });

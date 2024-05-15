@@ -1,4 +1,4 @@
-import { ColorVariant } from "@/components/generative-ui/persona-avatar-popover";
+import { ColorVariant } from "@/components/variants";
 import { motion } from "framer-motion";
 import { LaughIcon } from "lucide-react";
 

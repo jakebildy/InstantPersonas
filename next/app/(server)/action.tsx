@@ -3,20 +3,24 @@ import "server-only";
 import { OpenAI } from "openai";
 import { createAI, getAIState, getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
-import { PersonaInitial, PersonaMessage, UserMessage } from "@/components/chat";
+import {
+  PersonaInitial,
+  PersonaMessage,
+  UserMessage,
+} from "@/components/page-specific/generative-ui/chat";
 import React from "react";
-import { Loading } from "@/components/generative-ui/loading";
+import { Loading } from "@/components/page-specific/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
 import { ASSISTANT_PROMPT, CREATE_PERSONA_PROMPT } from "./ai/prompts";
 import {
   mapUrlBackgroundColorParamToVariant,
   PersonaArchetype,
   PersonaAvatarPopover,
-} from "@/components/generative-ui/persona-avatar-popover";
+} from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { getContentConsumption } from "./ai/content_consumption";
 import { createArchetypes } from "./ai/create_archetypes";
-import ConfirmKnowledgeCard from "@/components/generative-ui/confirm-knowledge-card";
-import { PersonaChangeDiffCard } from "@/components/generative-ui/persona-avatar-popover/persona-change-diff-card";
+import ConfirmKnowledgeCard from "@/components/page-specific/generative-ui/confirm-knowledge-card";
+import { PersonaChangeDiffCard } from "@/components/page-specific/generative-ui/persona-avatar-popover/persona-change-diff-card";
 import { PersonaChat, UserPersona } from "./models/personachat.model";
 import { nanoid } from "@/lib/utils";
 import { AIState, AIStateValidator } from "./models/ai-state-type-validators";
@@ -232,7 +236,6 @@ async function submitUserMessage(
 
           const archetypes = await createArchetypes(business, targetProblem);
           console.log("archetypes", archetypes);
-
           // Update the final AI state.
           aiState.done({
             ...aiState.get(),

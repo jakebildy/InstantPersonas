@@ -1,11 +1,11 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect, useState } from "react";
-import LandingPage from "@/components/landing-page";
+import LandingPage from "@/components/page-specific/landing-page";
 import { useStytchUser } from "@stytch/nextjs";
 import api from "@/service/api.service";
-import ErrorState from "@/components/error-state";
-import DashboardLayout from "@/components/dashboard";
+import ErrorState from "@/components/page-specific/error-state";
+import DashboardLayout from "@/components/page-specific/dashboard/dashboard";
 
 export default function Error({
   error,

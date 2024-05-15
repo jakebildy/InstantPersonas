@@ -1,6 +1,5 @@
-import { ColorVariant } from "@/components/generative-ui/persona-avatar-popover";
 import { Button } from "@/components/ui/button";
-import { gradientLightVariants } from "@/components/variants";
+import { ColorVariant, gradientLightVariants } from "@/components/variants";
 import { motion } from "framer-motion";
 import { PersonStandingIcon } from "lucide-react";
 

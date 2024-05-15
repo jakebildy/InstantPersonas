@@ -1,7 +1,7 @@
-import TableOfContents from "@/components/blog/TableOfContents";
-import { ReadMore } from "@/components/blog/readMore";
-import ReadingBar from "@/components/blog/readingBar";
-import { Share } from "@/components/blog/share";
+import TableOfContents from "@/components/page-specific/blog/TableOfContents";
+import { ReadMore } from "@/components/page-specific/blog/readMore";
+import ReadingBar from "@/components/page-specific/blog/readingBar";
+import { Share } from "@/components/page-specific/blog/share";
 import Image from "next/image";
 
 export default function GuestPostingUltimateGuide() {
@@ -155,15 +155,13 @@ export default function GuestPostingUltimateGuide() {
             How do I find relevant blogs or websites to submit guest posts to?
           </h2>
           <p>
-            We&apos;re building a free tool to do this for you. Shoot me an
-            email if you want early access:
-            <br></br>
-            <br></br>
+            We built you a free tool to find tons of great guest posting
+            opportunities. No signup needed -{" "}
             <a
-              href="mailto:jacob@instantpersonas.com"
+              href="https://instantpersonas.com/tools/guest-post-finder"
               className="text-blue-500"
             >
-              jacob@instantpersonas.com
+              check it out here.
             </a>
           </p>
 
