@@ -99,7 +99,12 @@ export default function DashboardLayout({
             }))}
           />
           <Separator />
-          <div className="text-slate-300 font-bold ml-5 text-xs mt-4">
+          <div
+            className={cn(
+              "text-slate-300 font-bold  text-xs mt-4",
+              isCollapsed ? "text-center" : "ml-5 text-left"
+            )}
+          >
             {isCollapsed ? "SEO" : "SEO Tools"}
           </div>
           <Nav
