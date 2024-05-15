@@ -109,7 +109,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full">
+                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
                   <Image
                     src={SelectPersonaDemoGif}
                     alt={
