@@ -176,14 +176,18 @@ export function PersonaSelectFromHistorySidebar({
                 </div>
               ) : (
                 <>
-                  {history.map((chat, i) => (
-                    <PersonaWidgetGroup
-                      personas={chat.aiState.personas as PersonaArchetype[]}
-                      selectedPersonas={selectedPersonas}
-                      setSelectedPersonas={setSelectedPersonas}
-                      key={i}
-                    />
-                  ))}
+                  {history.map((chat, i) =>
+                    chat.aiState.personas === undefined ? (
+                      <div />
+                    ) : (
+                      <PersonaWidgetGroup
+                        personas={chat.aiState.personas as PersonaArchetype[]}
+                        selectedPersonas={selectedPersonas}
+                        setSelectedPersonas={setSelectedPersonas}
+                        key={i}
+                      />
+                    )
+                  )}
                 </>
               )}
             </div>
