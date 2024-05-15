@@ -114,15 +114,15 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <Link href="#features" className="block w-full p-2">
-              Features
-            </Link>
-            <Link href="#testimonials" className="block w-full p-2">
-              Testimonials
-            </Link>
-            <Link href="#pricing" className="block w-full p-2">
-              Pricing
-            </Link>
+            {LANDING_HEADER_LINKS.map((link) => (
+              <Link
+                key={link.text}
+                href={link.href}
+                className="block w-full p-2"
+              >
+                {link.text}
+              </Link>
+            ))}
             <hr className="m-2 border-slate-300/40" />
             <Link href="/login" className="block w-full p-2">
               Sign in
