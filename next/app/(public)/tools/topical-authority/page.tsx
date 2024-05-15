@@ -1,8 +1,56 @@
-"use server";
+"use client";
+import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-map/topical-authority-map";
-import { Suspense } from "react";
+import api from "@/service/api.service";
+import { useStytchUser } from "@stytch/nextjs";
+import { usePostHog } from "posthog-js/react";
+import { Suspense, useEffect, useState } from "react";
 
-export default async function HistoryPage({}: {}) {
+export default function HistoryPage({}: {}) {
+  const [personaString, setPersonaString] = useState<string>("");
+  const [detailsInput, setDetailsInput] = useState<string>("");
+  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
+    []
+  );
+  const [userIsSubscribed, setUserIsSubscribed] = useState<boolean>(false);
+
+  const user = useStytchUser();
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    const results = userIsSubscribed
+      ? {
+          personas: selectedPersonas.map(
+            (persona) => persona.persona_components.Motivations
+          ),
+          details: detailsInput,
+          paid: userIsSubscribed,
+        }
+      : detailsInput;
+
+    setPersonaString(JSON.stringify(results));
+  }, [selectedPersonas, detailsInput, userIsSubscribed]);
+
+  useEffect(() => {
+    if (user.user) {
+      const checkSubscription = async () => {
+        const userIsSubscribed = await api.stripe.isSubscriptionActive(
+          user.user?.user_id as string
+        );
+        posthog.identify(user.user?.user_id, {
+          email: user.user?.emails[0].email,
+          subscriptionType: userIsSubscribed ? "paid" : "free",
+          userSignupDate: user.user?.created_at,
+        });
+        setUserIsSubscribed(
+          userIsSubscribed.status === "active" ||
+            userIsSubscribed.status === "trialing"
+        );
+      };
+      checkSubscription();
+    }
+  }, [posthog, user.user]);
+
   return (
     <section className="flex-1">
       <div className="flex flex-col items-center h-full w-full">

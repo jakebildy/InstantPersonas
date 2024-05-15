@@ -48,33 +48,32 @@ export const SEO_LINKS = [
     title: "Topical Authority",
     href: "/tools/topical-authority",
     icon: AcademicCapIcon,
+    category: "SEO",
+    lead: "Find topically relevant keywords",
+
     label: "",
   },
   {
     title: "Guest Post Finder",
     href: "/tools/guest-post-finder",
+    category: "Blogging",
+    lead: "Find guest post opportunities in your niche",
     icon: DocumentMagnifyingGlassIcon,
     label: "",
   },
 ] as const;
 
+export type SEOLINK = (typeof SEO_LINKS)[number];
+
 export const LANDING_HEADER_LINKS = [
-  // { text: "Features", href: "/#features" },
   {
     text: "Blog",
     href: "/blog",
   },
   {
     text: "Free SEO Tools",
-    href: SEO_LINKS.find((link) => link.title === "Guest Post Finder")
-      ?.href as string,
+    href: "/tools",
   },
-  // {
-  //   text: "Topical Authority Builder",
-  //   href: SEO_LINKS.find((link) => link.title === "Topical Authority")
-  //     ?.href as string,
-  // },
-
   {
     text: "Pricing",
     href: "/#pricing",
