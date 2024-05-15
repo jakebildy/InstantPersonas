@@ -143,7 +143,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
         />
 
         {!userIsSubscribed ? (
-          <div className="mt-[100px] mb-[20px]">
+          <div className="my-20 flex-1 flex flex-col justify-end">
             <div className="text-center text-slate-400 text-sm">
               Check out our comprehensive guide on Guest Posting to learn more:
               <br />
