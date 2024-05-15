@@ -7,6 +7,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
+    // TODO: change font to jost?
     <main className="bg-zinc-100">
       <DashboardLayout>{children}</DashboardLayout>
     </main>
