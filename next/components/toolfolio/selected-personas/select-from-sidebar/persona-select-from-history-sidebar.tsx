@@ -202,7 +202,7 @@ function EmptyState() {
     <div className=" mb-4 flex flex-col w-full gap-2 px-2">
       <span className="text-center text-sm font-medium">No Personas Found</span>
       <Button variant={"green"} className="w-full" asChild>
-        <Link href="/login">Create a Persona</Link>
+        <Link href="/persona">Create a Persona</Link>
       </Button>
     </div>
   );
