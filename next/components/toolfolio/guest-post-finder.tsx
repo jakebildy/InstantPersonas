@@ -2,6 +2,8 @@
 import api from "@/service/api.service";
 import { IconDownload } from "@tabler/icons-react";
 import axios from "axios";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+
 import { useState } from "react";
 
 export function GuestPostFinderTool({
@@ -50,10 +52,23 @@ export function GuestPostFinderTool({
                 : "mr-4 text-gray-400 border-2 border-transparent text-sm p-2 font-bold"
             }
             onClick={() => {
-              setSelectedType("harderToSubmit");
+              if (!isSubscribed) {
+                alert(
+                  "Unlock hundreds of high quality guest post opportunities by starting your free trial."
+                );
+              } else {
+                setSelectedType("harderToSubmit");
+              }
             }}
           >
-            Harder to Submit
+            <div className="flex flex-row">
+              Harder to Submit
+              {!isSubscribed ? (
+                <LockClosedIcon className=" text-gray-400 h-4 ml-1" />
+              ) : (
+                ""
+              )}
+            </div>
           </button>
 
           <ul className="pt-4 pl-2">
@@ -114,30 +129,56 @@ export function GuestPostFinderTool({
         </div>
       ) : null}
 
-      <button
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
-        onClick={async () => {
-          setIsLoading(true);
-          console.log("Finding guest post opportunities for persona: ", input);
+      <div className="text-center">
+        {easyToSubmitResults.length > 0 && !isSubscribed
+          ? "Sign up to see tons of results, get deep audience insights, and more!"
+          : ""}
+        <br />
+        <button
+          className={
+            input === `""` ||
+            input === "" ||
+            input === '{"personas":[],"details":"","paid":true}'
+              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
+              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
+          }
+          onClick={async () => {
+            if (
+              input === `""` ||
+              input === "" ||
+              input === '{"personas":[],"details":"","paid":true}'
+            )
+              return;
+            if (easyToSubmitResults.length > 0 && !isSubscribed) {
+              // go to signup
+              window.open("https://www.instantpersonas.com/", "_blank");
+            } else {
+              setIsLoading(true);
+              console.log(
+                "Finding guest post opportunities for persona: ",
+                input
+              );
 
-          //   api guest post
-          const response = await api.tools.findGuestPostOpportunities(
-            input,
-            isSubscribed
-          );
-          console.log(response);
+              //   api guest post
+              const response = await api.tools.findGuestPostOpportunities(
+                input,
+                isSubscribed
+              );
+              console.log(response);
 
-          setIsLoading(false);
-          setEasyToSubmitResults(response.easyToSubmit);
-          setHardToSubmitResults(response.hardToSubmit);
-        }}
-      >
-        {loading
-          ? "Searching..."
-          : easyToSubmitResults.length > 0
-          ? "Find More Opportunities"
-          : "Find Guest Post Opportunities"}
-      </button>
+              setIsLoading(false);
+              setEasyToSubmitResults(response.easyToSubmit);
+              setHardToSubmitResults(response.hardToSubmit);
+            }
+          }}
+        >
+          {loading
+            ? "Searching..."
+            : easyToSubmitResults.length > 0
+            ? "Find More Opportunities"
+            : "Find Guest Post Opportunities"}
+        </button>
+      </div>
     </div>
   );
 }

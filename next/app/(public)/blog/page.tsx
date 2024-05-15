@@ -63,7 +63,7 @@ export default function BlogPage() {
   );
 }
 
-const ArticleCard = ({
+export const ArticleCard = ({
   post,
   category,
   className,

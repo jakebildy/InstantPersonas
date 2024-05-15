@@ -155,15 +155,13 @@ export default function GuestPostingUltimateGuide() {
             How do I find relevant blogs or websites to submit guest posts to?
           </h2>
           <p>
-            We&apos;re building a free tool to do this for you. Shoot me an
-            email if you want early access:
-            <br></br>
-            <br></br>
+            We built you a free tool to find tons of great guest posting
+            opportunities. No signup needed -{" "}
             <a
-              href="mailto:jacob@instantpersonas.com"
+              href="https://instantpersonas.com/tools/guest-post-finder"
               className="text-blue-500"
             >
-              jacob@instantpersonas.com
+              check it out here.
             </a>
           </p>
 

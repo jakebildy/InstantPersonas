@@ -7,6 +7,7 @@ import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
+import { ArticleCard, BLOG_POSTS } from "../../blog/page";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -52,7 +53,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
   }, [posthog, user.user]);
 
   return (
-    <section className="flex-1">
+    <section className="flex-1 bg-gray-100">
       <div className="flex flex-col items-center h-full w-full">
         {userIsSubscribed ? (
           <PersonaSelectFromHistorySidebar
@@ -98,7 +99,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
           <label className="text-sm text-gray-700 my-2">
             {userIsSubscribed
               ? "Enter any extra details"
-              : "Enter your persona:"}
+              : "Describe your customer persona:"}
           </label>
           <input
             type="text"
@@ -114,6 +115,24 @@ export default function GuestPostOpportunityFinder({}: {}) {
           input={personaString}
           isSubscribed={userIsSubscribed}
         />
+
+        {!userIsSubscribed ? (
+          <div className="mt-[100px] mb-[20px]">
+            <div className="text-center text-slate-400 text-sm">
+              Check out our comprehensive guide on Guest Posting to learn more:
+              <br />
+              <br />
+            </div>
+            <ArticleCard
+              post={BLOG_POSTS[2]}
+              key={BLOG_POSTS[2].slug}
+              category={BLOG_POSTS[2].category}
+              className={"lg:col-span-1 max-w-[600px]"}
+            />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     </section>
   );
