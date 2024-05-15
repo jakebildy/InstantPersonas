@@ -48,6 +48,9 @@ export const SEO_LINKS = [
     title: "Topical Authority",
     href: "/tools/topical-authority",
     icon: AcademicCapIcon,
+    category: "SEO",
+    lead: "Find topically relevant keywords",
+
     label: "",
   },
   {
