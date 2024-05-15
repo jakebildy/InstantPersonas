@@ -24,10 +24,10 @@ function TopicalLinkNode({ data, isConnectable }: any) {
         />
         <div className="p-1 text-center">
           <b>Everything you Need to Know About Backlinks (2024)</b>
-          <div className="p-4 bg-green-200 text-black mt-5 text-sm rounded-sm">
+          {/* <div className="p-4 bg-green-200 text-black mt-5 text-sm rounded-sm">
             Quickly learn how to build and measure topical authority with our
             comprehensive guide.
-          </div>
+          </div> */}
         </div>
         <Handle
           type="source"
