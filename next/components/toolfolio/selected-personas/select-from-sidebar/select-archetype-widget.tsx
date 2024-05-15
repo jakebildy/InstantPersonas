@@ -64,8 +64,13 @@ export function SelectArchetypeWidget({
               />
               <AvatarFallback>{avatarFallbackName}</AvatarFallback>
             </Avatar>
-            <div className="py-2">
-              <p className="text-sm font-semibold text-gray-700">
+            <div
+              className={cn(
+                "py-2",
+                isSelected ? "max-w-[180px]" : "max-w-[200px]"
+              )}
+            >
+              <p className="text-sm font-semibold text-gray-700  truncate ">
                 {archetype.archetype_name}
               </p>
               <p className="text-xs text-gray-500">Click to view details</p>
