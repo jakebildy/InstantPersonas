@@ -54,6 +54,17 @@ export default function GuestPostOpportunityFinder({}: {}) {
 
   return (
     <section className="flex-1 bg-gray-100">
+      {!userIsSubscribed ? (
+        <div>
+          <title>Site Finder for Guest Posts | Free & Niche-Specific</title>
+          <meta
+            name="description"
+            content="Instantly find niche sites to pitch your guest posts to. No signup required. Supercharge your SEO efforts."
+          />
+        </div>
+      ) : (
+        <div />
+      )}
       <div className="flex flex-col items-center h-full w-full">
         {userIsSubscribed ? (
           <PersonaSelectFromHistorySidebar
