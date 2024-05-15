@@ -23,15 +23,29 @@ export function GuestPostFinderTool({
     selectedType === "easyToSubmit"
       ? // remove all where the displayLink is duplicate
         easyToSubmitResults.filter(
-          (v, i, a) => a.findIndex((t) => t.displayLink === v.displayLink) === i
+          (v, i, a) =>
+            a.findIndex(
+              (t) =>
+                t.displayLink &&
+                v.displayLink &&
+                t.displayLink === v.displayLink
+            ) === i
         )
       : harderToSubmitResults.filter(
-          (v, i, a) => a.findIndex((t) => t.displayLink === v.displayLink) === i
+          (v, i, a) =>
+            a.findIndex(
+              (t) =>
+                t.displayLink &&
+                v.displayLink &&
+                t.displayLink === v.displayLink
+            ) === i
         );
 
   return (
     <div>
-      {easyToSubmitResults.length > 0 ? (
+      {loading ? (
+        "Looking for guest post opportunities..."
+      ) : easyToSubmitResults.length > 0 ? (
         <div className="mb-5">
           <button
             className={
@@ -101,6 +115,7 @@ export function GuestPostFinderTool({
             >
               <IconDownload style={{ height: "20px" }} /> Download as CSV
             </button>
+
             {results.map((result) => (
               <li
                 className="text-blue-500 border p-5 rounded-md bg-white"
