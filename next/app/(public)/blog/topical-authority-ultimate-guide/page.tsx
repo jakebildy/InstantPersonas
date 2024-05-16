@@ -83,9 +83,18 @@ export default function CraftStrongUserPersona() {
           </h2>
           <p>
             A Topical Authority Map is a diagram showing how all your content on
-            a certain topic links together. It shows the main topic and related
-            subtopics. Each subtopic has content that links to the main topic,
-            helping users and search engines understand the content.
+            a certain topic links together.
+            <Image
+              src="/blogs/topical-authority/topical_authority_map_steps.png"
+              height={600}
+              width={500}
+              alt="How to make a Topical authority map"
+              className="mx-auto rounded-md my-5"
+              unoptimized
+            />
+            It shows the main topic and related subtopics. Each subtopic has
+            content that links to the main topic, helping users and search
+            engines understand the content.
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
             How to Get Topical Authority on your Site
