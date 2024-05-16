@@ -1,9 +1,9 @@
 export const TOPICAL_AUTHORITY_PROMPT = ({
-  personas,
+  category,
 }: {
-  personas: string;
+  category: string;
 }) => `
-give me 5 semantically relevant but unique topics under a main category that these personas would be interested in ${personas}, and for each,
+give me 5 semantically relevant but unique topics under a main category that these personas would be interested in ${category}, and for each,
 give me 10 different variations of the topic that each address a different search intent. 
 Make it in table format with the following columns: 
   column 1: The unique semantically related topic, 

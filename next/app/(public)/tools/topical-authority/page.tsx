@@ -4,7 +4,7 @@ import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-ma
 import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function HistoryPage({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");

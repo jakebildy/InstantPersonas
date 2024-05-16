@@ -311,3 +311,20 @@ export function TopicalAuthorityMap() {
     </div>
   );
 }
+
+//! The following is the code to call the ai function to generate the map
+//! Setup setState and personaString input to the function
+//  <Button
+//    onClick={async () => {
+//      const { output } = await generateTopicalAuthority({
+//        input: personaString,
+//        paid: userIsSubscribed,
+//      });
+
+//      for await (const delta of readStreamableValue(output)) {
+//        setState((currentGeneration) => `${currentGeneration}${delta}`);
+//      }
+//    }}
+//  >
+//    Submit
+//  </Button>;
