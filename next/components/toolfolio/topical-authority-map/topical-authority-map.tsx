@@ -309,13 +309,13 @@ export function TopicalAuthorityMap({
         {!loading ? "Submit" : "Creating..."}
       </Button>
 
-      <div
-        style={{ height: "50vh" }}
-        className=" border border-gray-300 w-full"
-      >
-        {responseData.length === 0 ? (
-          <div />
-        ) : (
+      {responseData.length === 0 ? (
+        <div />
+      ) : (
+        <div
+          style={{ height: "50vh" }}
+          className=" border border-gray-300 w-full"
+        >
           <ReactFlow
             nodes={mapTableToNodes(responseData)}
             edges={mapTableToEdges(responseData)}
@@ -333,56 +333,61 @@ export function TopicalAuthorityMap({
               size={1}
             />
           </ReactFlow>
-        )}
-      </div>
-      <div className="m-10 overflow-hidden">
-        <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
-          <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-            <tr className="">
-              <th className="whitespace-nowrap rounded-l-lg py-3 pl-3 text-sm font-normal text-[#212B36]">
-                Unique Topic
-              </th>
-              <th className="whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]">
-                Sub-Topic
-              </th>
-              <th className="whitespace-nowrap py-3 text-sm font-normal text-[#212B36]">
-                Blog Title
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {responseData.map((row, i) => {
-              return (
-                <tr
-                  key={i}
-                  className="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
-                >
-                  <td className={"px-2 py-2 text-sm font-normal"}>
-                    <div
-                      className="rounded-lg p-2"
-                      style={{
-                        backgroundColor:
-                          Object.values(ColorVariantMap)[
-                            convertToCategoryIndex(row[0]) %
-                              Object.values(ColorVariantMap).length
-                          ],
-                      }}
-                    >
-                      {row[0]}
-                    </div>
-                  </td>
-                  <td className="px-1 py-4 text-sm font-normal text-[#637381]">
-                    {row[1]}
-                  </td>
-                  <td className="px-1 py-4 text-sm font-normal text-[#637381]">
-                    {row[2]}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+        </div>
+      )}
+
+      {responseData.length === 0 ? (
+        <div />
+      ) : (
+        <div className="m-10 overflow-hidden">
+          <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
+            <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
+              <tr className="">
+                <th className="whitespace-nowrap rounded-l-lg py-3 pl-3 text-sm font-normal text-[#212B36]">
+                  Unique Topic
+                </th>
+                <th className="whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]">
+                  Sub-Topic
+                </th>
+                <th className="whitespace-nowrap py-3 text-sm font-normal text-[#212B36]">
+                  Blog Title
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {responseData.map((row, i) => {
+                return (
+                  <tr
+                    key={i}
+                    className="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
+                  >
+                    <td className={"px-2 py-2 text-sm font-normal"}>
+                      <div
+                        className="rounded-lg p-2"
+                        style={{
+                          backgroundColor:
+                            Object.values(ColorVariantMap)[
+                              convertToCategoryIndex(row[0]) %
+                                Object.values(ColorVariantMap).length
+                            ],
+                        }}
+                      >
+                        {row[0]}
+                      </div>
+                    </td>
+                    <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+                      {row[1]}
+                    </td>
+                    <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+                      {row[2]}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
