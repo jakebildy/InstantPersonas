@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { ArticleCard, BLOG_POSTS } from "../../blog/page";
 import * as SelectPersonaDemoGif from "@/public/persona-select-demo.gif";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -86,7 +87,12 @@ export default function GuestPostOpportunityFinder({}: {}) {
             />
           ) : null}
           {userIsSubscribed ? (
-            <section className="border border-gray-300 rounded-md w-1/2 bg-white p-2 flex flex-col gap-2">
+            <section
+              className={cn(
+                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
+                selectedPersonas.length > 0 ? "w-1/2" : ""
+              )}
+            >
               {selectedPersonas.length > 0 ? (
                 selectedPersonas.map((persona, i) => (
                   <SelectArchetypeWidget
@@ -109,7 +115,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full">
+                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
                   <Image
                     src={SelectPersonaDemoGif}
                     alt={
