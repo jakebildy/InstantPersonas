@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
-      content: TOPICAL_AUTHORITY_PROMPT({ category: personas }),
+      content: TOPICAL_AUTHORITY_PROMPT({ personas: personas }),
     },
   ];
 
