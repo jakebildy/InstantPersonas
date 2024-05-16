@@ -22,8 +22,7 @@ export default function ToolsPage({}: Props) {
             free tools. No signup required.
             <br></br>
             <br></br>
-            <div className=" text-xs">
-              {" "}
+            <div className="text-xs">
               P.S. our paid software is even better. 😉
             </div>
           </p>
