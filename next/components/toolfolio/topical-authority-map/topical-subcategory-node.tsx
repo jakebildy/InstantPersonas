@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Handle, Position } from "reactflow";
 
-function TopicalLinkNode({ data, isConnectable }: any) {
+function TopicalSubcategoryNode({ data, isConnectable }: any) {
   const [title, setTitle] = useState(data.title);
 
   const onChange = useCallback((evt: any) => {
@@ -10,7 +10,7 @@ function TopicalLinkNode({ data, isConnectable }: any) {
   }, []);
 
   return (
-    <div className="rounded-md shadow-lg h-[90px]">
+    <div className="rounded-md shadow-lg">
       <div className="bg-gray-200 h-[20px] flex flex-row space-x-1 rounded-t-sm">
         {/* three circles in a row, red yellow and green like the window of a mac */}
         <div className="w-[10px] h-[10px] ml-2 mt-1 rounded-full bg-red-500"></div>
@@ -20,7 +20,7 @@ function TopicalLinkNode({ data, isConnectable }: any) {
       <div className="bg-white w-[200px] rounded-b-sm">
         <Handle
           type="target"
-          position={Position.Top}
+          position={Position.Left}
           isConnectable={isConnectable}
         />
         <div className="p-1 text-center">
@@ -31,7 +31,7 @@ function TopicalLinkNode({ data, isConnectable }: any) {
             style={{
               backgroundColor: data.color,
               resize: "none",
-              height: "60px",
+              height: "90px",
               overflow: "auto",
             }}
           />
@@ -46,4 +46,4 @@ function TopicalLinkNode({ data, isConnectable }: any) {
   );
 }
 
-export default TopicalLinkNode;
+export default TopicalSubcategoryNode;
