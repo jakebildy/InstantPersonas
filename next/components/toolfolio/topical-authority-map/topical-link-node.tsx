@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 import { Handle, Position } from "reactflow";
 
-const handleStyle = { left: 10 };
-
 function TopicalLinkNode({ data, isConnectable }: any) {
   const onChange = useCallback((evt: any) => {
     console.log(evt.target.value);
@@ -23,23 +21,11 @@ function TopicalLinkNode({ data, isConnectable }: any) {
           isConnectable={isConnectable}
         />
         <div className="p-1 text-center">
-          <b>Everything you Need to Know About Backlinks (2024)</b>
-          {/* <div className="p-4 bg-green-200 text-black mt-5 text-sm rounded-sm">
-            Quickly learn how to build and measure topical authority with our
-            comprehensive guide.
-          </div> */}
+          <b>{data.title}</b>
         </div>
         <Handle
           type="source"
           position={Position.Bottom}
-          id="a"
-          style={handleStyle}
-          isConnectable={isConnectable}
-        />
-        <Handle
-          type="source"
-          position={Position.Bottom}
-          id="b"
           isConnectable={isConnectable}
         />
       </div>

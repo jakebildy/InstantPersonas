@@ -13,19 +13,19 @@ const initialNodes = [
     id: "node-1",
     type: "topicalLink",
     position: { x: 0, y: 400 },
-    data: { value: 123 },
+    data: { title: "SEO" },
   },
   {
     id: "node-2",
     type: "topicalLink",
     position: { x: 0, y: 0 },
-    data: { value: 123 },
+    data: { title: "Topical Authority" },
   },
   {
     id: "node-3",
     type: "topicalLink",
     position: { x: 300, y: 400 },
-    data: { value: 123 },
+    data: { title: "Backlinks" },
   },
 ];
 const initialEdges = [
@@ -33,14 +33,9 @@ const initialEdges = [
     id: "e1-2",
     source: "node-2",
     target: "node-1",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      width: 20,
-      height: 20,
-      color: "#FF0072",
-    },
+    type: "smoothstep",
     style: {
-      strokeWidth: 2,
+      strokeWidth: 3,
       stroke: "#FF0072",
     },
   },
@@ -48,14 +43,9 @@ const initialEdges = [
     id: "e2-3",
     source: "node-2",
     target: "node-3",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      width: 20,
-      height: 20,
-      color: "#FF0072",
-    },
+    type: "smoothstep",
     style: {
-      strokeWidth: 2,
+      strokeWidth: 3,
       stroke: "#FF0072",
     },
   },
