@@ -90,10 +90,7 @@ export function TopicalAuthorityMap() {
           </thead>
           <tbody>
             <tr className="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl">
-              <td
-                className="px-1 py-4 text-sm font-normal text-[#7e7ef8]"
-                // style="color:#DD6107"
-              >
+              <td className="px-1 py-4 text-sm font-normal text-[#7e7ef8]">
                 Customer Journey Mapping
               </td>
               <td className="px-1 py-4 text-sm font-normal text-[#637381]">
