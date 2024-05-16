@@ -18,9 +18,11 @@ export async function generateTopicalAuthority({
   const allowFullAccess = paid === true;
 
   (async () => {
-    const { textStream } = await streamText({
+    const { textStream, warnings, finishReason, usage } = await streamText({
       model: openai(allowFullAccess ? "gpt-4o" : "gpt-3.5-turbo-16k-0613"),
       prompt: TOPICAL_AUTHORITY_PROMPT({ category: input }),
+      maxTokens: 4096, // (max limit for completion tokens 3.5) https://platform.openai.com/docs/models/gpt-3-5-turbo
+      maxRetries: 3,
     });
 
     for await (const delta of textStream) {
@@ -28,6 +30,9 @@ export async function generateTopicalAuthority({
     }
 
     stream.done();
+    // console.log("Topical Authority AI usage: ", await usage);
+    // console.log("Topical Authority AI finish reason: ", await finishReason);
+    // console.log("Topical Authority AI warnings: ", await warnings);
   })();
 
   return { output: stream.value };
