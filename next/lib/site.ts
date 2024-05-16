@@ -49,7 +49,7 @@ export const SEO_LINKS = [
     href: "/tools/topical-authority",
     icon: AcademicCapIcon,
     category: "SEO",
-    lead: "Find topically relevant keywords",
+    lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
 
     label: "",
   },
