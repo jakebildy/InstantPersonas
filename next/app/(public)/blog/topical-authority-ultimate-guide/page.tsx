@@ -94,7 +94,16 @@ export default function CraftStrongUserPersona() {
             />
             It shows the main topic and related subtopics. Each subtopic has
             content that links to the main topic, helping users and search
-            engines understand the content.
+            engines understand the content. These subtopics should appeal to
+            your user persona, which should guide the creation of your topical
+            authority map. Read more about{" "}
+            <a
+              href="https://instantpersonas.com/blog/craft-a-strong-user-persona-in-2024"
+              className=" text-blue-500"
+            >
+              making user personas here
+            </a>
+            .
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
             How to Get Topical Authority on your Site
