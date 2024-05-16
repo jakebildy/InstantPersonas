@@ -71,7 +71,7 @@ export default function HistoryPage({}: {}) {
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4"
+              className="xl:absolute top-4 right-4 z-50"
             />
           ) : null}
           {userIsSubscribed ? (
@@ -103,7 +103,7 @@ export default function HistoryPage({}: {}) {
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
+                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center min-h-[600px] min-w-[800px]">
                   {/* <Image
                     src={SelectPersonaDemoGif}
                     alt={
