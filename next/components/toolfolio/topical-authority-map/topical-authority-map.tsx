@@ -310,8 +310,8 @@ export function TopicalAuthorityMap({
       </Button>
 
       <div
-        style={{ width: "100vw", height: "50vh" }}
-        className=" border border-gray-300"
+        style={{ height: "50vh" }}
+        className=" border border-gray-300 w-full"
       >
         {responseData.length === 0 ? (
           <div />
