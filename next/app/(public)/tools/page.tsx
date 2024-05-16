@@ -18,12 +18,11 @@ export default function ToolsPage({}: Props) {
             Reach Your Audience Quickly with Our Free SEO Tools
           </h2>
           <p className="font-light text-gray-500 sm:text-xl ">
-            SEO is hard. We want to make it easier for you, so we created these
-            free tools. No signup required.
+            We want to make SEO easier for you, so we created these free tools.
+            No signup required.
             <br></br>
             <br></br>
-            <div className=" text-xs">
-              {" "}
+            <div className="text-xs">
               P.S. our paid software is even better. 😉
             </div>
           </p>
