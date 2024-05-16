@@ -17,7 +17,10 @@ function TopicalLinkNode({ data, isConnectable }: any) {
         <div className="w-[10px] h-[10px] mt-1 rounded-full bg-yellow-400"></div>
         <div className="w-[10px] h-[10px] mt-1 rounded-full bg-green-500"></div>
       </div>
-      <div className="bg-white w-[200px] rounded-b-sm">
+      <div
+        className="w-[200px] rounded-b-sm"
+        style={{ backgroundColor: data.color }}
+      >
         <Handle
           type="target"
           position={Position.Top}

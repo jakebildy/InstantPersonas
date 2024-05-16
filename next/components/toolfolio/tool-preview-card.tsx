@@ -49,7 +49,7 @@ export const ToolPreviewCard = ({
           </svg>
         </Link>
       </div>
-      <tool.icon className="absolute size-[200px] left-0 bottom-0 -translate-x-10 translate-y-1/4 text-gray-500/10 z-0" />
+      <tool.icon className="absolute size-[200px] right-14 bottom-0 translate-x-10 translate-y-1/4 text-gray-500/10 z-0" />
     </article>
   );
 };
