@@ -9,6 +9,10 @@ import "reactflow/dist/style.css";
 import TopicalLinkNode from "./topical-link-node";
 import TopicalSubcategoryNode from "./topical-subcategory-node";
 import { ColorVariantMap } from "@/components/variants";
+import { Button } from "@/components/ui/button";
+import { generateTopicalAuthority } from "@/app/(server)/api/(ai-tools)/topical-authority/action";
+import { readStreamableValue } from "ai/rsc";
+import { useState } from "react";
 
 const nodeTypes = {
   topicalLink: TopicalLinkNode,
@@ -182,7 +186,13 @@ export function mapTableToNodes(data: string[][]) {
     ...categories.map((category, i) => ({
       id: `node-${i + 1}`,
       type: "topicalLink",
-      data: { title: category, color: categoryColors.get(category) },
+      data: {
+        title: category,
+        color:
+          Object.values(ColorVariantMap)[
+            i % Object.values(ColorVariantMap).length
+          ],
+      },
       position: { x: i * 600 + 150, y: 100 },
     })),
     // Subcategories
@@ -225,7 +235,10 @@ export function mapTableToEdges(data: string[][]) {
         animated: false,
         type: "smoothstep",
         style: {
-          stroke: categoryColors.get(categories[categoryIndex - 1]),
+          stroke:
+            Object.values(ColorVariantMap)[
+              (categoryIndex - 1) % Object.values(ColorVariantMap).length
+            ],
           strokeWidth: 8,
         },
       };
@@ -233,38 +246,96 @@ export function mapTableToEdges(data: string[][]) {
   ];
 }
 
-// This gets a unique color for each category
-const categoryColors = new Map<string, string>();
-// @ts-ignore
-const categories = [...new Set(TABLE_DUMMY_DATA.map((row) => row[0]))];
-categories.forEach((category, i) => {
-  categoryColors.set(
-    category,
-    Object.values(ColorVariantMap)[i % Object.values(ColorVariantMap).length]
-  );
-});
+export function TopicalAuthorityMap({
+  personaString,
+  userIsSubscribed,
+}: {
+  personaString: string;
+  userIsSubscribed: boolean;
+}) {
+  const [responseData, setResponseData] = useState<string[][]>([]);
+  const [loading, setLoading] = useState(false);
 
-export function TopicalAuthorityMap() {
+  function convertToCategoryIndex(category: string) {
+    //@ts-ignore
+    let categories = [...new Set(responseData.map((row) => row[0]))];
+    return categories.indexOf(category);
+  }
+
   return (
     <div className="mb-10">
-      <div
-        style={{ width: "80vw", height: "80vh" }}
-        className=" borderborder-gray-300"
+      <Button
+        // align in center
+        className={
+          loading ? "mx-auto flex mb-4 bg-gray-400" : "mx-auto flex mb-4"
+        }
+        onClick={async () => {
+          if (!loading) {
+            const { output } = await generateTopicalAuthority({
+              input: personaString,
+              paid: true, //TODO: for whatever reason when paid is false, the output doesn't appear to work right
+            });
+            let responseString = "";
+
+            setLoading(true);
+
+            for await (const delta of readStreamableValue(output)) {
+              responseString = `${responseString}${delta}`;
+
+              // if it is a valid array of arrays when separated by commas and newlines, then set the response data
+              let potentialData = responseString
+                .split("\n")
+                .map((row) => row.split(","));
+
+              // remove first row
+              potentialData.shift();
+
+              console.log(potentialData);
+              // check if all the rows have the same length
+              if (
+                potentialData.every(
+                  (row) =>
+                    row.length === potentialData[0].length && row.length === 3
+                )
+              ) {
+                console.log("setting response data");
+                setResponseData(potentialData);
+              }
+            }
+            setLoading(false);
+          }
+        }}
       >
-        <ReactFlow
-          nodes={mapTableToNodes(TABLE_DUMMY_DATA)}
-          edges={mapTableToEdges(TABLE_DUMMY_DATA)}
-          nodeTypes={nodeTypes}
-        >
-          <Background
-            variant={BackgroundVariant.Cross}
-            className="bg-white"
-            gap={12}
-            size={1}
-          />
-        </ReactFlow>
+        {!loading ? "Submit" : "Creating..."}
+      </Button>
+
+      <div
+        style={{ width: "100vw", height: "50vh" }}
+        className=" border border-gray-300"
+      >
+        {responseData.length === 0 ? (
+          <div />
+        ) : (
+          <ReactFlow
+            nodes={mapTableToNodes(responseData)}
+            edges={mapTableToEdges(responseData)}
+            nodeTypes={nodeTypes}
+            zoomOnScroll={false}
+            elementsSelectable={false}
+            defaultViewport={{ x: 400, y: 50, zoom: 0.3 }}
+            maxZoom={4}
+            minZoom={0.1}
+          >
+            <Background
+              variant={BackgroundVariant.Cross}
+              className="bg-transparent"
+              gap={12}
+              size={1}
+            />
+          </ReactFlow>
+        )}
       </div>
-      <div className="mt-24 m-10 overflow-hidden">
+      <div className="m-10 overflow-hidden">
         <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
           <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
             <tr className="">
@@ -280,7 +351,7 @@ export function TopicalAuthorityMap() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_DUMMY_DATA.map((row, i) => {
+            {responseData.map((row, i) => {
               return (
                 <tr
                   key={i}
@@ -290,7 +361,11 @@ export function TopicalAuthorityMap() {
                     <div
                       className="rounded-lg p-2"
                       style={{
-                        backgroundColor: categoryColors.get(row[0]),
+                        backgroundColor:
+                          Object.values(ColorVariantMap)[
+                            convertToCategoryIndex(row[0]) %
+                              Object.values(ColorVariantMap).length
+                          ],
                       }}
                     >
                       {row[0]}
