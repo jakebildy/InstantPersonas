@@ -146,6 +146,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
         <GuestPostFinderTool
           input={personaString}
           isSubscribed={userIsSubscribed}
+          noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
 
         {!userIsSubscribed ? (
