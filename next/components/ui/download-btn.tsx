@@ -29,16 +29,23 @@ export const downloadButtonVariants = cva(
   }
 );
 
-export interface PersonaTemplateDownloadButtonProps
+export interface DownloadButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof downloadButtonVariants> {
   loading?: boolean;
   selectingTemplate?: boolean;
   onCancel?: () => void;
+  placeholders?: {
+    selecting?: string;
+    downloading?: string;
+    default?: string;
+    stop?: string;
+  };
 }
 
-export function PersonaTemplateDownloadButton({
+export function DownloadButton({
   variant,
+  placeholders,
   loading,
   selectingTemplate,
   onCancel,
@@ -47,7 +54,7 @@ export function PersonaTemplateDownloadButton({
   onMouseLeave,
   className,
   ...Props
-}: PersonaTemplateDownloadButtonProps) {
+}: DownloadButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -83,22 +90,25 @@ export function PersonaTemplateDownloadButton({
         isHovered ? (
           <>
             <BanIcon className="h-4 w-4 animate-pulse text-red-500" />{" "}
-            <span className="animate-pulse text-red-500">Stop Download</span>
+            <span className="animate-pulse text-red-500">
+              {placeholders?.stop ?? "Stop Download"}
+            </span>
           </>
         ) : loading ? (
           <>
             <LoaderIcon className="h-4 w-4 animate-spin" />{" "}
-            <span>Downloading...</span>
+            <span>{placeholders?.downloading ?? "Downloading..."}</span>
           </>
         ) : (
           <>
             <MousePointerSquareDashedIcon className="h-4 w-4 animate-pulse" />{" "}
-            <span>Selecting a Template...</span>
+            <span>{placeholders?.selecting ?? "Selecting a Template..."}</span>
           </>
         )
       ) : (
         <>
-          <DownloadCloudIcon className="h-4 w-4" /> <span>Download</span>
+          <DownloadCloudIcon className="h-4 w-4" />{" "}
+          <span>{placeholders?.default ?? "Download"}</span>
         </>
       )}
     </Button>

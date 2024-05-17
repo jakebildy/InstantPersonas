@@ -2,7 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PersonaAvatarPopoverProps } from "..";
 import { useState } from "react";
-import { PersonaTemplateDownloadButton } from "../templates/persona-template-download-btn";
+import { DownloadButton } from "@/components/ui/download-btn";
 import TemplatePreviewSelect from "../templates/template-preview-select";
 import { avatarVariants, gradientVariants } from "@/components/variants";
 
@@ -48,7 +48,7 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
             <span className="font-bold">{archetype_name}</span>
           </div>
 
-          <PersonaTemplateDownloadButton
+          <DownloadButton
             variant={variant}
             onClick={() => setShowTemplateSelectModal(true)}
             onCancel={handleResolvedDownload}
