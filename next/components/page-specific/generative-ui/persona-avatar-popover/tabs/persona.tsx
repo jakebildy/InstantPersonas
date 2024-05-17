@@ -2,7 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PersonaAvatarPopoverProps } from "..";
 import { useState } from "react";
-import { DownloadButton } from "@/components/ui/download-btn";
+import { DownloadButton } from "@/components/download/download-btn";
 import TemplatePreviewSelect from "../templates/template-preview-select";
 import { avatarVariants, gradientVariants } from "@/components/variants";
 
