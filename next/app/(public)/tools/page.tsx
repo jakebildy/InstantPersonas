@@ -22,9 +22,9 @@ export default function ToolsPage({}: Props) {
             No signup required.
             <br></br>
             <br></br>
-            <div className="text-xs">
+            <span className="text-xs">
               P.S. our paid software is even better. 😉
-            </div>
+            </span>
           </p>
         </div>
         <div className="grid gap-8 lg:grid-cols-2">
