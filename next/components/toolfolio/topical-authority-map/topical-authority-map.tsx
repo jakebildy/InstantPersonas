@@ -25,6 +25,11 @@ import { string } from "zod";
 import { PersonStandingIcon } from "lucide-react";
 import { TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD } from "./test-data";
 import { cx } from "class-variance-authority";
+import { DownloadButton } from "@/components/download/download-btn";
+import TemplatePreviewSelect from "@/components/download/template-preview-select";
+import * as TopicalAuthorityMapGrayBackgroundPreviewImage from "./topical-authority-map-gray-background-preview.jpeg";
+import * as TopicalAuthorityMapTransparentBackgroundPreviewImage from "./topical-authority-map-transparent-background-preview.jpeg";
+import * as CSVPreviewImage from "./topical-authority-table-preview.png";
 
 const nodeTypes = {
   topicalLink: TopicalLinkNode,
@@ -113,8 +118,17 @@ export function TopicalAuthorityMap({
   userIsSubscribed: boolean;
   noInput: boolean;
 }) {
-  const [responseData, setResponseData] = useState<string[][]>([]);
+  const [responseData, setResponseData] = useState<string[][]>(
+    TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD
+  );
   const [loading, setLoading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [showTemplateSelectModal, setShowTemplateSelectModal] = useState(false);
+
+  const handleResolvedDownload = () => {
+    setShowTemplateSelectModal(false);
+    setIsDownloading(false);
+  };
 
   function convertToCategoryIndex(category: string) {
     let categories = [...new Set(responseData.map((row) => row[0]))];
@@ -128,6 +142,33 @@ export function TopicalAuthorityMap({
       keyof typeof ColorVariantMap
     >;
     return keys[index];
+  }
+
+  function handleDownloadCsv() {
+    // Convert array of strings to CSV format, escaping double quotes
+    const csvContent = responseData
+      .map((row) =>
+        row.map((item) => `"${item.replace(/"/g, '""')}"`).join(",")
+      )
+      .join("\r\n");
+
+    // Create a Blob with the CSV content
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+    // Create a link element to download the blob
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "sample-data.csv"); // Renamed for clarity
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+
+    // Trigger the download
+    link.click();
+
+    // Clean up by removing the link and revoking the object URL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -182,16 +223,103 @@ export function TopicalAuthorityMap({
           : "Creating..."}
       </Button>
 
-      {responseData.length === 0 ? null : (
-        <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
-          <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+      <div className=" border border-gray-300  h-[50vh] rounded-xl relative">
+        <DownloadButton
+          variant={"purple"}
+          onClick={() => setShowTemplateSelectModal(true)}
+          onCancel={handleResolvedDownload}
+          loading={isDownloading}
+          selectingTemplate={showTemplateSelectModal}
+          className="absolute top-4 left-4 z-50"
+        />
+        <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+        {responseData.length === 0 ? null : showTemplateSelectModal ? (
+          <div className="h-full p-2">
+            <TemplatePreviewSelect
+              className="pt-20 text-center"
+              header="Choose a template to download your Topical Authority Map."
+              subHeader="CSV and PNG formats available."
+              variant={"purple"}
+              isLoading={isDownloading}
+              onLoadingChange={setIsDownloading}
+              onSuccess={handleResolvedDownload}
+              onError={handleResolvedDownload}
+              downloadTemplateOptions={[
+                {
+                  type: "component",
+                  img: {
+                    src: TopicalAuthorityMapGrayBackgroundPreviewImage,
+                    width: 800,
+                    height: 285,
+                  },
+                  label: "Topical Authority Map Image - Gray Background",
+                  width: 2000,
+                  component: (
+                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative bg-gray-100">
+                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                      <ReactFlow
+                        nodes={mapTableToNodes(responseData)}
+                        edges={mapTableToEdges(responseData)}
+                        nodeTypes={nodeTypes}
+                        zoomOnScroll={false}
+                        elementsSelectable={false}
+                        fitView={true}
+                      >
+                        <Background
+                          variant={BackgroundVariant.Cross}
+                          gap={12}
+                          size={1}
+                        />
+                      </ReactFlow>
+                    </div>
+                  ),
+                },
+                {
+                  type: "component",
+                  img: {
+                    src: TopicalAuthorityMapTransparentBackgroundPreviewImage,
+                    width: 800,
+                    height: 285,
+                  },
+                  label: "Topical Authority Map Image - Transparent Background",
+                  width: 2000,
+                  component: (
+                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
+                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                      <ReactFlow
+                        nodes={mapTableToNodes(responseData)}
+                        edges={mapTableToEdges(responseData)}
+                        nodeTypes={nodeTypes}
+                        zoomOnScroll={false}
+                        elementsSelectable={false}
+                        fitView={true}
+                      />
+                    </div>
+                  ),
+                },
+                {
+                  type: "text",
+                  label: "Topical Authority Table -> CSV",
+                  img: {
+                    src: CSVPreviewImage,
+                    width: 400,
+                    height: 285,
+                  },
+                  onDownload: () => {
+                    handleDownloadCsv();
+                  },
+                },
+              ]}
+            />
+          </div>
+        ) : (
           <ReactFlow
             nodes={mapTableToNodes(responseData)}
             edges={mapTableToEdges(responseData)}
             nodeTypes={nodeTypes}
             zoomOnScroll={false}
             elementsSelectable={false}
-            defaultViewport={{ x: 400, y: 50, zoom: 0.3 }}
+            fitView={true}
             maxZoom={4}
             minZoom={0.1}
           >
@@ -202,8 +330,8 @@ export function TopicalAuthorityMap({
               size={1}
             />
           </ReactFlow>
-        </div>
-      )}
+        )}
+      </div>
 
       {responseData.length === 0 ? null : (
         <div className="m-10 overflow-hidden">
