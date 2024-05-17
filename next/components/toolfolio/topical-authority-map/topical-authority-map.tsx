@@ -118,9 +118,7 @@ export function TopicalAuthorityMap({
   userIsSubscribed: boolean;
   noInput: boolean;
 }) {
-  const [responseData, setResponseData] = useState<string[][]>(
-    TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD
-  );
+  const [responseData, setResponseData] = useState<string[][]>([]);
   const [loading, setLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [showTemplateSelectModal, setShowTemplateSelectModal] = useState(false);
@@ -172,7 +170,7 @@ export function TopicalAuthorityMap({
   }
 
   return (
-    <div className="mb-10">
+    <div className="mb-10 w-1/2">
       <Button
         disabled={noInput}
         className={cn(
@@ -223,115 +221,118 @@ export function TopicalAuthorityMap({
           : "Creating..."}
       </Button>
 
-      <div className=" border border-gray-300  h-[50vh] rounded-xl relative">
-        <DownloadButton
-          variant={"purple"}
-          onClick={() => setShowTemplateSelectModal(true)}
-          onCancel={handleResolvedDownload}
-          loading={isDownloading}
-          selectingTemplate={showTemplateSelectModal}
-          className="absolute top-4 left-4 z-50"
-        />
-        <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
-        {responseData.length === 0 ? null : showTemplateSelectModal ? (
-          <div className="h-full p-2">
-            <TemplatePreviewSelect
-              className="pt-20 text-center"
-              header="Choose a template to download your Topical Authority Map."
-              subHeader="CSV and PNG formats available."
-              variant={"purple"}
-              isLoading={isDownloading}
-              onLoadingChange={setIsDownloading}
-              onSuccess={handleResolvedDownload}
-              onError={handleResolvedDownload}
-              downloadTemplateOptions={[
-                {
-                  type: "component",
-                  img: {
-                    src: TopicalAuthorityMapGrayBackgroundPreviewImage,
-                    width: 800,
-                    height: 285,
+      {noInput || responseData.length <= 0 ? null : (
+        <div className=" border border-gray-300  h-[50vh] rounded-xl relative">
+          <DownloadButton
+            variant={"purple"}
+            onClick={() => setShowTemplateSelectModal(true)}
+            onCancel={handleResolvedDownload}
+            loading={isDownloading}
+            selectingTemplate={showTemplateSelectModal}
+            className="absolute top-4 left-4 z-50"
+          />
+          <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+          {responseData.length === 0 ? null : showTemplateSelectModal ? (
+            <div className="h-full p-2">
+              <TemplatePreviewSelect
+                className="pt-20 text-center"
+                header="Choose a template to download your Topical Authority Map."
+                subHeader="CSV and PNG formats available."
+                variant={"purple"}
+                isLoading={isDownloading}
+                onLoadingChange={setIsDownloading}
+                onSuccess={handleResolvedDownload}
+                onError={handleResolvedDownload}
+                downloadTemplateOptions={[
+                  {
+                    type: "component",
+                    img: {
+                      src: TopicalAuthorityMapGrayBackgroundPreviewImage,
+                      width: 800,
+                      height: 285,
+                    },
+                    label: "Topical Authority Map Image - Gray Background",
+                    width: 2000,
+                    component: (
+                      <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative bg-gray-100">
+                        <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                        <ReactFlow
+                          nodes={mapTableToNodes(responseData)}
+                          edges={mapTableToEdges(responseData)}
+                          nodeTypes={nodeTypes}
+                          zoomOnScroll={false}
+                          elementsSelectable={false}
+                          fitView={true}
+                        >
+                          <Background
+                            variant={BackgroundVariant.Cross}
+                            gap={12}
+                            size={1}
+                          />
+                        </ReactFlow>
+                      </div>
+                    ),
                   },
-                  label: "Topical Authority Map Image - Gray Background",
-                  width: 2000,
-                  component: (
-                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative bg-gray-100">
-                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
-                      <ReactFlow
-                        nodes={mapTableToNodes(responseData)}
-                        edges={mapTableToEdges(responseData)}
-                        nodeTypes={nodeTypes}
-                        zoomOnScroll={false}
-                        elementsSelectable={false}
-                        fitView={true}
-                      >
-                        <Background
-                          variant={BackgroundVariant.Cross}
-                          gap={12}
-                          size={1}
+                  {
+                    type: "component",
+                    img: {
+                      src: TopicalAuthorityMapTransparentBackgroundPreviewImage,
+                      width: 800,
+                      height: 285,
+                    },
+                    label:
+                      "Topical Authority Map Image - Transparent Background",
+                    width: 2000,
+                    component: (
+                      <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
+                        <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                        <ReactFlow
+                          nodes={mapTableToNodes(responseData)}
+                          edges={mapTableToEdges(responseData)}
+                          nodeTypes={nodeTypes}
+                          zoomOnScroll={false}
+                          elementsSelectable={false}
+                          fitView={true}
                         />
-                      </ReactFlow>
-                    </div>
-                  ),
-                },
-                {
-                  type: "component",
-                  img: {
-                    src: TopicalAuthorityMapTransparentBackgroundPreviewImage,
-                    width: 800,
-                    height: 285,
+                      </div>
+                    ),
                   },
-                  label: "Topical Authority Map Image - Transparent Background",
-                  width: 2000,
-                  component: (
-                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
-                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
-                      <ReactFlow
-                        nodes={mapTableToNodes(responseData)}
-                        edges={mapTableToEdges(responseData)}
-                        nodeTypes={nodeTypes}
-                        zoomOnScroll={false}
-                        elementsSelectable={false}
-                        fitView={true}
-                      />
-                    </div>
-                  ),
-                },
-                {
-                  type: "text",
-                  label: "Topical Authority Table -> CSV",
-                  img: {
-                    src: CSVPreviewImage,
-                    width: 400,
-                    height: 285,
+                  {
+                    type: "text",
+                    label: "Topical Authority Table -> CSV",
+                    img: {
+                      src: CSVPreviewImage,
+                      width: 400,
+                      height: 285,
+                    },
+                    onDownload: () => {
+                      handleDownloadCsv();
+                    },
                   },
-                  onDownload: () => {
-                    handleDownloadCsv();
-                  },
-                },
-              ]}
-            />
-          </div>
-        ) : (
-          <ReactFlow
-            nodes={mapTableToNodes(responseData)}
-            edges={mapTableToEdges(responseData)}
-            nodeTypes={nodeTypes}
-            zoomOnScroll={false}
-            elementsSelectable={false}
-            fitView={true}
-            maxZoom={4}
-            minZoom={0.1}
-          >
-            <Background
-              variant={BackgroundVariant.Cross}
-              className="bg-transparent"
-              gap={12}
-              size={1}
-            />
-          </ReactFlow>
-        )}
-      </div>
+                ]}
+              />
+            </div>
+          ) : (
+            <ReactFlow
+              nodes={mapTableToNodes(responseData)}
+              edges={mapTableToEdges(responseData)}
+              nodeTypes={nodeTypes}
+              zoomOnScroll={false}
+              elementsSelectable={false}
+              fitView={true}
+              maxZoom={4}
+              minZoom={0.1}
+            >
+              <Background
+                variant={BackgroundVariant.Cross}
+                className="bg-transparent"
+                gap={12}
+                size={1}
+              />
+            </ReactFlow>
+          )}
+        </div>
+      )}
 
       {responseData.length === 0 ? null : (
         <div className="m-10 overflow-hidden">
