@@ -7,6 +7,7 @@ import {
   PostHogPageview,
 } from "@/components/context/analytics/post-hog-context";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({
@@ -33,7 +34,10 @@ export default function RootLayout({
       </Suspense>
       <PHProvider>
         <body className={inter.className}>
-          <StytchContext>{children}</StytchContext>
+          <StytchContext>
+            {children}
+            <Toaster />
+          </StytchContext>
         </body>
       </PHProvider>
     </html>

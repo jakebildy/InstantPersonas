@@ -134,6 +134,7 @@ export default function HistoryPage({}: {}) {
         <TopicalAuthorityMap
           userIsSubscribed={userIsSubscribed}
           personaString={personaString}
+          noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
       </div>
     </section>

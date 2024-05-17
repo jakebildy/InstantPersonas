@@ -8,171 +8,30 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import TopicalLinkNode from "./topical-link-node";
 import TopicalSubcategoryNode from "./topical-subcategory-node";
-import { ColorVariantMap } from "@/components/variants";
+import {
+  badgeVariants,
+  ColorVariant,
+  ColorVariantMap,
+  shadowVariants,
+  gradientLightVariants,
+} from "@/components/variants";
 import { Button } from "@/components/ui/button";
 import { generateTopicalAuthority } from "@/app/(server)/api/(ai-tools)/topical-authority/action";
 import { readStreamableValue } from "ai/rsc";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { useHandleCopy } from "@/lib/hooks";
+import { string } from "zod";
+import { PersonStandingIcon } from "lucide-react";
+import { TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD } from "./test-data";
+import { cx } from "class-variance-authority";
 
 const nodeTypes = {
   topicalLink: TopicalLinkNode,
   subcategory: TopicalSubcategoryNode,
 };
 
-const TABLE_DUMMY_DATA = [
-  [
-    "Demographic Analysis",
-    "How to Conduct Demographic Analysis",
-    "Unveil Hidden Patterns: Master Demographic Analysis Like a Pro!",
-  ],
-  [
-    "Demographic Analysis",
-    "Benefits of Demographic Analysis in Marketing",
-    "Boost Your Sales Overnight with These Demographic Insights!",
-  ],
-  [
-    "Demographic Analysis",
-    "Tools for Demographic Analysis",
-    "Top 5 Tools That Can Transform Your Audience Understanding!",
-  ],
-  [
-    "Demographic Analysis",
-    "Demographic Trends Shaping 2024",
-    "Stay Ahead: Discover the Demographic Trends of 2024!",
-  ],
-  [
-    "Demographic Analysis",
-    "Case Studies in Effective Demographic Analysis",
-    "Real Success Stories: How Demographic Analysis Pays Off!",
-  ],
-  [
-    "Demographic Analysis",
-    "Integrating Demographic Data with CRM",
-    "Double Your Impact: Integrate Demographics with CRM Effortlessly!",
-  ],
-  [
-    "Demographic Analysis",
-    "Demographic Analysis for Product Development",
-    "Design Winning Products with These Demographic Secrets!",
-  ],
-  [
-    "Demographic Analysis",
-    "How to Interpret Demographic Data",
-    "Decode the Secrets: Become a Wizard in Demographic Data Interpretation!",
-  ],
-  [
-    "Demographic Analysis",
-    "Age-specific Marketing Strategies",
-    "Age is Just a Number? Not in Marketing! Unlock Age-Specific Strategies!",
-  ],
-  [
-    "Demographic Analysis",
-    "Gender-focused Marketing Insights",
-    "Why Ignoring Gender-focused Marketing Could Cost You Millions!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Introduction to Psychographic Segmentation",
-    "Unlock the Mind: The Power of Psychographic Segmentation Revealed!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Tools for Psychographic Analysis",
-    "Transform Your Strategy with These Psychographic Tools!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Using Psychographics to Tailor Content",
-    "Content That Converts: Tailoring with Psychographics!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Differences Between Demographics and Psychographics",
-    "Demographics vs. Psychographics: What's Best for Your Business?",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Psychographics in Digital Marketing",
-    "Revolutionize Your Digital Campaigns with Psychographics!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "How to Gather Psychographic Data",
-    "Gather Psychographic Data Like a Pro: Tips and Tricks!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Analyzing Customer Values and Lifestyles",
-    "Know Your Customer: Analyzing Values and Lifestyles for Better Engagement!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Behavioral Insights from Psychographics",
-    "Behavioral Secrets: Unlock Insights Through Psychographics!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Psychographics for Niche Marketing",
-    "Dominate Your Niche: The Secret Weapon of Psychographic Marketing!",
-  ],
-  [
-    "Psychographic Segmentation",
-    "Psychographics for International Markets",
-    "Go Global: Use Psychographics to Conquer International Markets!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Basics of Customer Journey Mapping",
-    "Map the Magic: The Customer Journey Uncovered!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Key Stages in the Customer Journey",
-    "Critical Stages: Your Guide to the Customer Journey!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Tools for Mapping the Customer Journey",
-    "The Best Tools to Map Your Customer’s Every Move!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Integrating Touchpoints in Journey Mapping",
-    "Maximize Impact: Integrate Touchpoints in Your Journey Mapping!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Using Journey Maps to Improve Customer Experience",
-    "Enhance Your CX: Master the Art of Journey Mapping!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Case Studies of Effective Journey Mapping",
-    "Learn from the Best: Top Journey Mapping Case Studies!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Personalizing Experiences with Journey Maps",
-    "Personalize Like Never Before: Leverage Journey Maps!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Predicting Future Behaviors with Journey Maps",
-    "Predict Customer Behavior with Precision Using Journey Maps!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Role of AI in Enhancing Journey Maps",
-    "AI and Journey Mapping: A Future-Focused Partnership!",
-  ],
-  [
-    "Customer Journey Mapping",
-    "Challenges in Customer Journey Mapping",
-    "Overcome These Common Pitfalls in Customer Journey Mapping!",
-  ],
-];
 export function mapTableToNodes(data: string[][]) {
-  //@ts-ignore
   const categories = [...new Set(data.map((row) => row[0]))]; // unique categories
 
   return [
@@ -212,7 +71,6 @@ export function mapTableToNodes(data: string[][]) {
 }
 
 export function mapTableToEdges(data: string[][]) {
-  //@ts-ignore
   const categories = [...new Set(data.map((row) => row[0]))];
 
   return [
@@ -249,26 +107,37 @@ export function mapTableToEdges(data: string[][]) {
 export function TopicalAuthorityMap({
   personaString,
   userIsSubscribed,
+  noInput,
 }: {
   personaString: string;
   userIsSubscribed: boolean;
+  noInput: boolean;
 }) {
   const [responseData, setResponseData] = useState<string[][]>([]);
   const [loading, setLoading] = useState(false);
 
   function convertToCategoryIndex(category: string) {
-    //@ts-ignore
     let categories = [...new Set(responseData.map((row) => row[0]))];
     return categories.indexOf(category);
+  }
+
+  function getVariantByIndex(
+    index: number
+  ): keyof typeof ColorVariantMap | undefined {
+    const keys = Object.keys(ColorVariantMap) as Array<
+      keyof typeof ColorVariantMap
+    >;
+    return keys[index];
   }
 
   return (
     <div className="mb-10">
       <Button
-        // align in center
-        className={
-          loading ? "mx-auto flex mb-4 bg-gray-400" : "mx-auto flex mb-4"
-        }
+        disabled={noInput}
+        className={cn(
+          "mx-auto flex mb-5 font-bold py-2 px-4 rounded-full text-white",
+          loading || noInput ? "bg-gray-400" : "bg-green-500 hover:bg-green-700"
+        )}
         onClick={async () => {
           if (!loading) {
             const { output } = await generateTopicalAuthority({
@@ -306,16 +175,16 @@ export function TopicalAuthorityMap({
           }
         }}
       >
-        {!loading ? "Submit" : "Creating..."}
+        {!loading
+          ? noInput
+            ? "Enter Details to Create Topical Authority Map"
+            : "Create Topical Authority Map"
+          : "Creating..."}
       </Button>
 
-      {responseData.length === 0 ? (
-        <div />
-      ) : (
-        <div
-          style={{ height: "50vh" }}
-          className=" border border-gray-300 w-full"
-        >
+      {responseData.length === 0 ? null : (
+        <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
+          <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
           <ReactFlow
             nodes={mapTableToNodes(responseData)}
             edges={mapTableToEdges(responseData)}
@@ -336,9 +205,7 @@ export function TopicalAuthorityMap({
         </div>
       )}
 
-      {responseData.length === 0 ? (
-        <div />
-      ) : (
+      {responseData.length === 0 ? null : (
         <div className="m-10 overflow-hidden">
           <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
             <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
@@ -357,31 +224,16 @@ export function TopicalAuthorityMap({
             <tbody>
               {responseData.map((row, i) => {
                 return (
-                  <tr
+                  <TopicalAuthorityTableRow
                     key={i}
-                    className="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
-                  >
-                    <td className={"px-2 py-2 text-sm font-normal"}>
-                      <div
-                        className="rounded-lg p-2"
-                        style={{
-                          backgroundColor:
-                            Object.values(ColorVariantMap)[
-                              convertToCategoryIndex(row[0]) %
-                                Object.values(ColorVariantMap).length
-                            ],
-                        }}
-                      >
-                        {row[0]}
-                      </div>
-                    </td>
-                    <td className="px-1 py-4 text-sm font-normal text-[#637381]">
-                      {row[1]}
-                    </td>
-                    <td className="px-1 py-4 text-sm font-normal text-[#637381]">
-                      {row[2]}
-                    </td>
-                  </tr>
+                    category={row[0]}
+                    subcategory={row[1]}
+                    blogTitle={row[2]}
+                    variant={getVariantByIndex(
+                      convertToCategoryIndex(row[0]) %
+                        Object.keys(ColorVariantMap).length
+                    )}
+                  />
                 );
               })}
             </tbody>
@@ -392,19 +244,55 @@ export function TopicalAuthorityMap({
   );
 }
 
-//! The following is the code to call the ai function to generate the map
-//! Setup setState and personaString input to the function
-//  <Button
-//    onClick={async () => {
-//      const { output } = await generateTopicalAuthority({
-//        input: personaString,
-//        paid: userIsSubscribed,
-//      });
+function TopicalAuthorityTableRow({
+  category,
+  subcategory,
+  blogTitle,
+  variant = "blue",
+}: {
+  category: string;
+  subcategory: string;
+  blogTitle: string;
+  variant?: ColorVariant;
+}) {
+  const { handleCopy } = useHandleCopy();
 
-//      for await (const delta of readStreamableValue(output)) {
-//        setState((currentGeneration) => `${currentGeneration}${delta}`);
-//      }
-//    }}
-//  >
-//    Submit
-//  </Button>;
+  return (
+    <tr
+      className={cx(
+        shadowVariants({
+          variant,
+          className:
+            "cursor-pointer bg-[#f6f8fa] hover:shadow-2xl hover:bg-gray-200 ",
+        }),
+        gradientLightVariants({
+          variant,
+          className: "bg-gradient-to-r",
+        })
+      )}
+      onClick={() =>
+        handleCopy({
+          type: "Blog Topic",
+          text: `${category}\n${subcategory}\n${blogTitle}`,
+        })
+      }
+    >
+      <td className={"px-2 py-2 text-sm font-normal"}>
+        <div
+          className={badgeVariants({
+            variant,
+            className: "rounded-lg text-left normal-case",
+          })}
+        >
+          {category}
+        </div>
+      </td>
+      <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+        {subcategory}
+      </td>
+      <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+        {blogTitle}
+      </td>
+    </tr>
+  );
+}
