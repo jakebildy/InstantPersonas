@@ -5,6 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useStytchUser, useStytch } from "@stytch/nextjs";
 import api from "@/service/api.service";
 import BarLoader from "react-spinners/BarLoader";
+import {
+  ColorVariantMap,
+  ColorVariant,
+  gradientVariants,
+} from "@/components/variants";
+import { PersonStandingIcon } from "lucide-react";
 
 const OAUTH_TOKEN = "oauth";
 const MAGIC_LINKS_TOKEN = "magic_links";
@@ -75,16 +81,34 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 }
 
 export function AuthFallback() {
-  return (
-    <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
-      <div className="text-slate-500 mb-4">Logging in...</div>
+  const variantIndex = Math.floor(
+    Math.random() * Object.keys(ColorVariantMap).length
+  );
+  const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
 
-      <BarLoader
-        color="#36d7b7"
-        height={10}
-        width={500}
-        className="rounded-full"
-      />
+  return (
+    <div
+      className={gradientVariants({
+        variant: variant,
+        className:
+          "grid grid-cols-3 place-items-center h-screen w-screen p-4 gap-4 overflow-hidden relative backdrop-blur-[100px]",
+      })}
+    >
+      <div />
+      <div className="flex flex-col justify-between items-center h-3/4">
+        <PersonStandingIcon className="size-10 text-black opacity-75" />
+        <div className="text-center flex flex-col gap-1">
+          <p>Logging into...</p>
+          <h1 className="text-4xl font-bold">InstantPersonas</h1>
+          <p className="text-sm">This may take a few seconds.</p>
+        </div>
+        <BarLoader
+          color={ColorVariantMap[variant]}
+          height={10}
+          width={500}
+          className="rounded-full"
+        />
+      </div>
     </div>
   );
 }
