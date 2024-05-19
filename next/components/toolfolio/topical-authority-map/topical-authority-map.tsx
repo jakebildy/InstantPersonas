@@ -2,9 +2,9 @@
 import ReactFlow, {
   Background,
   BackgroundVariant,
-  MarkerType,
+  useEdgesState,
+  useNodesState,
 } from "reactflow";
-
 import "reactflow/dist/style.css";
 import TopicalLinkNode from "./topical-link-node";
 import TopicalSubcategoryNode from "./topical-subcategory-node";
@@ -21,9 +21,11 @@ import { readStreamableValue } from "ai/rsc";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useHandleCopy } from "@/lib/hooks";
-import { string } from "zod";
 import { PersonStandingIcon } from "lucide-react";
-import { TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD } from "./test-data";
+import {
+  TOPICAL_AUTHORITY_TEST_DATA_DO_NOT_USE_IN_PROD,
+  TOPICAL_AUTHORITY_TEST_INVALID_DATA_DO_NOT_USE_IN_PROD,
+} from "./test-data";
 import { cx } from "class-variance-authority";
 import { DownloadButton } from "@/components/download/download-btn";
 import TemplatePreviewSelect from "@/components/download/template-preview-select";
@@ -169,6 +171,43 @@ export function TopicalAuthorityMap({
     URL.revokeObjectURL(url);
   }
 
+  function validateDataPotentialData(data: string[][]) {
+    const VALID_ROW_LENGTH = 3;
+    const everyRowIsValid = data.every(
+      (row) => row.length === VALID_ROW_LENGTH
+    );
+
+    if (everyRowIsValid) {
+      return data;
+    } else {
+      return data
+        .map((row) => {
+          if (row.length === VALID_ROW_LENGTH) {
+            return row;
+          } else if (row.length > VALID_ROW_LENGTH) {
+            //? We presume that the blog title has commas in it, and will join the blog title back together
+            const blogTitle = row.slice(2).join(" ");
+            row.splice(2, row.length - 2, blogTitle);
+            return row;
+          } else {
+            //? we can presume that something has done wrong with the generation and will remove the row
+            return null;
+          }
+        })
+        .filter((row) => row !== null);
+    }
+  }
+
+  const [nodes, setNodes, onNodesChange] = useNodesState([
+    {
+      id: "node-0",
+      type: "topicalLink",
+      data: { title: "Blog" },
+      position: { x: 150, y: -100 },
+    },
+  ]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
   return (
     <div className="mb-10 w-1/2">
       <Button
@@ -198,17 +237,11 @@ export function TopicalAuthorityMap({
               // remove first row
               potentialData.shift();
 
-              console.log(potentialData);
-              // check if all the rows have the same length
-              if (
-                potentialData.every(
-                  (row) =>
-                    row.length === potentialData[0].length && row.length === 3
-                )
-              ) {
-                console.log("setting response data");
-                setResponseData(potentialData);
-              }
+              const validatedData = validateDataPotentialData(potentialData);
+              // console.log("Validated Data", validatedData);
+              setResponseData(validatedData);
+              setNodes(mapTableToNodes(validatedData));
+              setEdges(mapTableToEdges(validatedData));
             }
             setLoading(false);
           }
@@ -221,7 +254,7 @@ export function TopicalAuthorityMap({
           : "Creating..."}
       </Button>
 
-      {noInput || responseData.length <= 0 ? null : (
+      {responseData.length <= 0 ? null : (
         <div className=" border border-gray-300  h-[50vh] rounded-xl relative">
           <DownloadButton
             variant={"purple"}
@@ -314,14 +347,20 @@ export function TopicalAuthorityMap({
             </div>
           ) : (
             <ReactFlow
-              nodes={mapTableToNodes(responseData)}
-              edges={mapTableToEdges(responseData)}
+              nodes={nodes}
+              edges={edges}
               nodeTypes={nodeTypes}
               zoomOnScroll={false}
               elementsSelectable={false}
-              fitView={true}
+              defaultViewport={{
+                zoom: 0.25,
+                x: 50,
+                y: 200,
+              }}
               maxZoom={4}
               minZoom={0.1}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
             >
               <Background
                 variant={BackgroundVariant.Cross}
