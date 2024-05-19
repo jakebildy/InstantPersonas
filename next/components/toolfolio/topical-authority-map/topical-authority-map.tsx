@@ -171,7 +171,14 @@ export function TopicalAuthorityMap({
     URL.revokeObjectURL(url);
   }
 
-  function validateDataPotentialData(data: string[][]) {
+  /**
+   * Validates and potentially corrects a 2D array of strings, ensuring each sub-array has exactly three elements.
+   * If a sub-array has more than three elements, it combines the extra elements into a single string.
+   * If a sub-array has fewer than three elements, it removes that sub-array.
+   *
+   * @param {string[][]} data - The 2D array of strings to validate and correct.
+   * @returns {string[][]} - The validated and corrected 2D array of strings.
+   */ function validateDataPotentialData(data: string[][]): string[][] {
     const VALID_ROW_LENGTH = 3;
     const everyRowIsValid = data.every(
       (row) => row.length === VALID_ROW_LENGTH
@@ -194,7 +201,7 @@ export function TopicalAuthorityMap({
             return null;
           }
         })
-        .filter((row) => row !== null);
+        .filter((row): row is string[] => row !== null);
     }
   }
 
