@@ -8,7 +8,7 @@ import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
 import { ArticleCard, BLOG_POSTS } from "../../blog/page";
-import * as SelectPersonaDemoGif from "@/public/persona-select-demo.gif";
+import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
