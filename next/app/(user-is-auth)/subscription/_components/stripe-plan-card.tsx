@@ -1,6 +1,6 @@
 "use client";
-import { useStytchUser } from "@stytch/nextjs";
 import StripeBuyButton from "./stripe-buy-button";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 type StripePlanCardProps = {
   name: string;
@@ -19,9 +19,9 @@ export function StripePlanCard({
   features,
   popular,
 }: StripePlanCardProps) {
-  const { user } = useStytchUser();
+  const { user } = useInstantPersonasUser();
 
-  if (!user || !user.user_id) return null;
+  if (!user) return null;
 
   return (
     <div className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-6 text-left">
@@ -74,7 +74,7 @@ export function StripePlanCard({
             ? "buy_btn_1OwXj6CtCkpcyaeHizOLRjdm" //yearly
             : "buy_btn_1OwXkNCtCkpcyaeHZB5J9raH"
         }
-        id={user.user_id}
+        id={user.id}
         email={user.emails[0].email}
       />
     </div>

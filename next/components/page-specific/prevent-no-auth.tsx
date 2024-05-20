@@ -4,13 +4,12 @@ import { PersonStandingIcon } from "lucide-react";
 import React from "react";
 import Link from "next/link";
 import { gradientLightVariants } from "@/components/variants";
-import { useStytchUser } from "@stytch/nextjs";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export function PreventNotAuth() {
-  const { user, isInitialized } = useStytchUser();
+  const { isLoggedIn } = useInstantPersonasUser();
 
-  const userNotAuthenticated = !user;
-  if (userNotAuthenticated) {
+  if (!isLoggedIn) {
     return (
       <div className="w-screen h-screen fixed p-4 grid place-items-center inset-0 bg-pastel-blue/75 backdrop-blur-lg z-[999]">
         <div className="text-center text-gray-700 flex flex-col items-center gap-1 max-w-[90vw]">

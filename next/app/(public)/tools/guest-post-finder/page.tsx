@@ -11,6 +11,7 @@ import { ArticleCard, BLOG_POSTS } from "../../blog/page";
 import * as SelectPersonaDemoGif from "@/public/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -18,46 +19,23 @@ export default function GuestPostOpportunityFinder({}: {}) {
   const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
     []
   );
-  const [userIsSubscribed, setUserIsSubscribed] = useState<boolean>(false);
-
-  const user = useStytchUser();
-  const posthog = usePostHog();
+  const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
-    const results = userIsSubscribed
+    const results = isSubscribed
       ? {
           personas: selectedPersonas,
           details: detailsInput,
-          paid: userIsSubscribed,
+          paid: isSubscribed,
         }
       : detailsInput;
 
     setPersonaString(JSON.stringify(results));
-  }, [selectedPersonas, detailsInput, userIsSubscribed]);
-
-  useEffect(() => {
-    if (user.user) {
-      const checkSubscription = async () => {
-        const userIsSubscribed = await api.stripe.isSubscriptionActive(
-          user.user?.user_id as string
-        );
-        posthog.identify(user.user?.user_id, {
-          email: user.user?.emails[0].email,
-          subscriptionType: userIsSubscribed ? "paid" : "free",
-          userSignupDate: user.user?.created_at,
-        });
-        setUserIsSubscribed(
-          userIsSubscribed.status === "active" ||
-            userIsSubscribed.status === "trialing"
-        );
-      };
-      checkSubscription();
-    }
-  }, [posthog, user.user]);
+  }, [selectedPersonas, detailsInput, isSubscribed]);
 
   return (
     <section className="flex-1 bg-gray-100">
-      {!userIsSubscribed ? (
+      {!isSubscribed ? (
         <div>
           <title>Site Finder for Guest Posts | Free & Niche-Specific</title>
           <meta
@@ -79,14 +57,14 @@ export default function GuestPostOpportunityFinder({}: {}) {
         </h2>
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
-          {userIsSubscribed ? (
+          {isSubscribed ? (
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
               className="xl:absolute top-4 right-4"
             />
           ) : null}
-          {userIsSubscribed ? (
+          {isSubscribed ? (
             <section
               className={cn(
                 "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
@@ -129,7 +107,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
             </section>
           ) : null}
           <label className="text-sm text-gray-700 my-2">
-            {userIsSubscribed
+            {isSubscribed
               ? "Enter any extra details"
               : "Describe your customer persona:"}
           </label>
@@ -145,11 +123,11 @@ export default function GuestPostOpportunityFinder({}: {}) {
         </div>
         <GuestPostFinderTool
           input={personaString}
-          isSubscribed={userIsSubscribed}
+          isSubscribed={isSubscribed}
           noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
 
-        {!userIsSubscribed ? (
+        {!isSubscribed ? (
           <div className="my-20 flex-1 flex flex-col justify-end">
             <div className="text-center text-slate-400 text-sm">
               Check out our comprehensive guide on Guest Posting to learn more:
