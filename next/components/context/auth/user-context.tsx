@@ -121,10 +121,3 @@ export const useInstantPersonasUser = () => {
   }
   return context;
 };
-
-//  const { isLoggedIn } = useInstantPersonasUser();
-//  useEffect(() => {
-//    if (!isLoggedIn) {
-//      router.replace("/");
-//    }
-//  }, [isLoggedIn, router]);
