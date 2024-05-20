@@ -39,8 +39,8 @@ export async function POST(req: Request) {
       const response2 = await axios.get(hardUrl);
 
       return NextResponse.json({
-        easyToSubmit: response.data.items,
-        hardToSubmit: response2.data.items,
+        easyToSubmit: response.data.items ?? [],
+        hardToSubmit: response2.data.items ?? [],
       });
     } else {
       const personas = body.personas;
@@ -68,8 +68,8 @@ export async function POST(req: Request) {
 
         const response2 = await axios.get(hardUrl);
 
-        easyToSubmit = easyToSubmit.concat(response.data.items);
-        hardToSubmit = hardToSubmit.concat(response2.data.items);
+        easyToSubmit = easyToSubmit.concat(response.data.items ?? []);
+        hardToSubmit = hardToSubmit.concat(response2.data.items ?? []);
       }
 
       return NextResponse.json({
