@@ -70,6 +70,7 @@ export default function TemplatePreviewSelect({
   });
 
   const [templateWidth, setTemplateWidth] = useState<number>(600);
+  const [templateHeight, setTemplateHeight] = useState<number>(1000);
   const [component, setComponent] = useState<React.ReactNode | null>();
 
   function mapTemplateOptionToDownloadConfig(
@@ -80,6 +81,9 @@ export default function TemplatePreviewSelect({
         return {
           onClick: () => {
             setTemplateWidth(template.width);
+            if (template.height) {
+              setTemplateHeight(template.height);
+            }
             setComponent(template.component);
           },
         };
@@ -93,7 +97,8 @@ export default function TemplatePreviewSelect({
       className={cn(
         gradientVariants({
           variant,
-          className: "p-4 overflow-auto rounded-lg h-full ",
+          className:
+            "p-4 overflow-auto rounded-lg h-full w-full scrollbar-hidden",
         }),
         className
       )}
@@ -148,12 +153,17 @@ export default function TemplatePreviewSelect({
         })}
       </div>
       {overlayIsVisible ? <DownloadingOverlay /> : null}
-      <div id="download-template-component-area" ref={downloadTemplateRef}>
-        {downloadTemplateComponentIsMounted ? (
-          <div className={"w-[600px] visible"} style={{ width: templateWidth }}>
-            {component ? component : null}
-          </div>
-        ) : null}
+      <div className="absolute">
+        <div id="download-template-component-area" ref={downloadTemplateRef}>
+          {downloadTemplateComponentIsMounted ? (
+            <div
+              className={"w-[600px] visible overflow-visible "}
+              style={{ width: templateWidth }}
+            >
+              {component ? component : null}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
