@@ -101,7 +101,7 @@ function MiscFeedbackForum({
       };
       IS_TEST_DEV_ENV
         ? console.log(feedback)
-        : posthog.capture("survey_completed", {
+        : posthog.capture("feedback_form_completed", {
             misc_feedback: feedback,
           });
       await delay(2500);

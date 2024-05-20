@@ -44,37 +44,36 @@ export const SIDEBAR_LINKS = [
 export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 
 export const SEO_LINKS = [
-  // {
-  //   title: "Topical Authority",
-  //   href: "/tools/topical-authority",
-  //   icon: AcademicCapIcon,
-  //   label: "",
-  // },
+  {
+    title: "Topical Authority",
+    href: "/tools/topical-authority",
+    icon: AcademicCapIcon,
+    category: "SEO",
+    lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
+
+    label: "",
+  },
   {
     title: "Guest Post Finder",
     href: "/tools/guest-post-finder",
+    category: "Blogging",
+    lead: "Find guest post opportunities in your niche",
     icon: DocumentMagnifyingGlassIcon,
     label: "",
   },
 ] as const;
 
+export type SEOLINK = (typeof SEO_LINKS)[number];
+
 export const LANDING_HEADER_LINKS = [
-  // { text: "Features", href: "/#features" },
   {
     text: "Blog",
     href: "/blog",
   },
   {
     text: "Free SEO Tools",
-    href: SEO_LINKS.find((link) => link.title === "Guest Post Finder")
-      ?.href as string,
+    href: "/tools",
   },
-  // {
-  //   text: "Topical Authority Builder",
-  //   href: SEO_LINKS.find((link) => link.title === "Topical Authority")
-  //     ?.href as string,
-  // },
-
   {
     text: "Pricing",
     href: "/#pricing",

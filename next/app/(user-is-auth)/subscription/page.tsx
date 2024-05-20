@@ -1,42 +1,14 @@
 "use client";
 
-import api from "@/service/api.service";
 import ActiveSubscription from "./_components/(views)/active-subscription";
 import DashboardPricing from "./_components/(views)/pricing-page";
-import { useStytchUser } from "@stytch/nextjs";
-import { useEffect, useState } from "react";
 import BarLoader from "react-spinners/BarLoader";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+
 export default function SubscriptionPage() {
-  const { user } = useStytchUser();
+  const { user, isSubscribed } = useInstantPersonasUser();
 
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const [status, setStatus] = useState<string>("");
-  const [cancel_at_period_end, setCancelAtPeriodEnd] = useState<boolean>(false);
-  const [interval, setInterval] = useState<string>("");
-
-  // useEffect
-  useEffect(() => {
-    if (!user) return;
-    // make async call to check if user is subscribed
-    const checkSubscription = async () => {
-      const userIsSubscribed = await api.stripe.isSubscriptionActive(
-        user?.user_id as string
-      );
-      setIsSubscribed(
-        userIsSubscribed.status === "active" ||
-          userIsSubscribed.status === "trialing"
-      );
-      setStatus(userIsSubscribed.status);
-      setCancelAtPeriodEnd(userIsSubscribed.cancel_at_period_end);
-      setInterval(userIsSubscribed.interval);
-      setLoading(false);
-    };
-    checkSubscription();
-  }, [user]);
-
-  return loading ? (
+  return !user ? (
     <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
       <div className="text-slate-500 mb-4">Getting subscription status...</div>
 
@@ -49,9 +21,9 @@ export default function SubscriptionPage() {
     </div>
   ) : isSubscribed ? (
     <ActiveSubscription
-      status={status}
-      cancel_at_period_end={cancel_at_period_end}
-      interval={interval}
+      status={user.subscription.status}
+      cancel_at_period_end={user.subscription.cancel_at_period_end}
+      interval={user.subscription.interval}
     />
   ) : (
     <DashboardPricing />

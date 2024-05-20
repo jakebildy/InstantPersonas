@@ -11,30 +11,15 @@ import { ExtractField } from "@/lib/types";
 import { useUIState, useActions, useAIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
 import ReactMarkdown from "react-markdown";
-import { useStytchUser } from "@stytch/nextjs";
 import { PersonaAvatarPopover } from "./persona-avatar-popover";
-import {
-  CheckIcon,
-  CopyIcon,
-  PersonStandingIcon,
-  ShareIcon,
-} from "lucide-react";
+import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
 import { Message } from "@/app/(server)/models/ai-state-type-validators";
 import { useRouter } from "next/navigation";
-import api from "@/service/api.service";
 import SubscriptionPopup from "@/components/popups/subscription-popup";
 import { mapUrlBackgroundColorParamToVariant } from "./persona-avatar-popover/utils";
-import { usePostHog } from "posthog-js/react";
-import { Button } from "@/components/ui/button";
-import { ButtonInnerHover, gradientLightVariants } from "@/components/variants";
-import { cx } from "class-variance-authority";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import CopyLinkPopover from "@/components/ui/copy-link-popover";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 type Props = {
   className?: string;
@@ -56,11 +41,10 @@ export default function Chat({ className, personaChatID }: Props) {
   const [personas, setPersonas] = useState<any>([]);
   const { submitUserMessage } = useActions<typeof AI>();
   const [input, setInput] = useState("");
-  const user = useStytchUser();
+  const { user, isSubscribed } = useInstantPersonasUser();
   const router = useRouter();
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
     string[]
   >([]);
@@ -75,34 +59,11 @@ export default function Chat({ className, personaChatID }: Props) {
 
   const shareLink = `https://instantpersonas.com/share/${personaChatID}`;
 
-  const posthog = usePostHog();
-
   useEffect(() => {
     if (aiState) {
       setPersonas(aiState.personas);
     }
-    // console.log(aiState);
   }, [aiState, setPersonas]);
-
-  useEffect(() => {
-    if (!user) return;
-    // make async call to check if user is subscribed
-    const checkSubscription = async () => {
-      const userIsSubscribed = await api.stripe.isSubscriptionActive(
-        user.user?.user_id as string
-      );
-      posthog.identify(user.user?.user_id, {
-        email: user.user?.emails[0].email,
-        subscriptionType: userIsSubscribed ? "paid" : "free",
-        userSignupDate: user.user?.created_at,
-      });
-      setIsSubscribed(
-        userIsSubscribed.status === "active" ||
-          userIsSubscribed.status === "trialing"
-      );
-    };
-    checkSubscription();
-  }, [posthog, user]);
 
   useEffect(() => {
     const messagesLength = aiState.messages?.length;
@@ -184,15 +145,17 @@ export default function Chat({ className, personaChatID }: Props) {
 
                     setHiddenSuggestedMessages(aiState.suggestedMessages);
 
-                    const responseMessage = await submitUserMessage(
-                      message,
-                      user.user?.user_id,
-                      personaChatID
-                    );
-                    setMessages((currentMessages: any) => [
-                      ...currentMessages,
-                      responseMessage,
-                    ]);
+                    if (user) {
+                      const responseMessage = await submitUserMessage(
+                        message,
+                        user.id,
+                        personaChatID
+                      );
+                      setMessages((currentMessages: any) => [
+                        ...currentMessages,
+                        responseMessage,
+                      ]);
+                    }
                   }
                 }}
               >
@@ -225,15 +188,17 @@ export default function Chat({ className, personaChatID }: Props) {
             setHiddenSuggestedMessages(aiState.suggestedMessages);
 
             // Submit and get response message
-            const responseMessage = await submitUserMessage(
-              input,
-              user.user?.user_id,
-              personaChatID
-            );
-            setMessages((currentMessages: any) => [
-              ...currentMessages,
-              responseMessage,
-            ]);
+            if (user) {
+              const responseMessage = await submitUserMessage(
+                input,
+                user.id,
+                personaChatID
+              );
+              setMessages((currentMessages: any) => [
+                ...currentMessages,
+                responseMessage,
+              ]);
+            }
           }
         }}
         keyBinds={keyBinds}

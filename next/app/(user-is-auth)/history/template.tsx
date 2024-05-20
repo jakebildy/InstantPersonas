@@ -3,18 +3,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useStytchUser } from "@stytch/nextjs";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const { user, isInitialized } = useStytchUser();
+  const { isLoggedIn } = useInstantPersonasUser();
   const router = useRouter();
 
-  // If the Stytch SDK no longer has a User then redirect to login; for example after logging out.
   useEffect(() => {
-    if (isInitialized && !user) {
+    if (!isLoggedIn) {
       router.replace("/");
     }
-  }, [user, isInitialized, router]);
+  }, [isLoggedIn, router]);
 
   return (
     <motion.div

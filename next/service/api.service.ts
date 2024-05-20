@@ -1,51 +1,9 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
 // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 axios.defaults.withCredentials = true;
-
-export interface UserI {
-  _id?: string;
-  email: string;
-
-  stripeCustomerId?: string;
-  stripeSubscriptionId?: string;
-
-  credits: number;
-
-  // Affiliate info.
-  promoCode?: string;
-
-  // Timestamps
-  createdAt?: Date;
-  updatedAt?: Date;
-
-  // Onboarding
-  onboarded?: boolean;
-}
-
-export interface Persona {
-  name: string;
-  productDescription?: string;
-  gender: string; //required for getting the pictureURL
-  pictureURL: string;
-  color: string;
-  shortDescriptors: { label: string; description: string; emoji: string }[];
-  sections: { label: string; description: string }[];
-}
-
-export interface Message {
-  sender: "bot" | "user";
-  text: string;
-  _id?: string;
-}
-export interface PersonaHistory {
-  messageHistory: Message[];
-  persona?: Persona;
-  aiSuggestedChats?: string[];
-  contentLastGeneratedAt?: string;
-  _id: string;
-}
 
 const api = {
   tools: {
@@ -62,20 +20,21 @@ const api = {
     },
   },
   auth: {
-    me: async () => {
-      const response = await axios.get("/api/user");
-      return response.data;
-    },
+    //? These are old routes from AiConsultingTools which haven't been reimplemented yet
+    // me: async () => {
+    //   const response = await axios.get("/api/user");
+    //   return response.data;
+    // },
 
-    logout: async () => {
-      const response = await axios.put("/api/logout");
-      return response.data;
-    },
+    // logout: async () => {
+    //   const response = await axios.put("/api/logout");
+    //   return response.data;
+    // },
 
-    setOnBoarded: async () => {
-      const response = await axios.put("/api/onboarded");
-      return response.data;
-    },
+    // setOnBoarded: async () => {
+    //   const response = await axios.put("/api/onboarded");
+    //   return response.data;
+    // },
 
     createUserIfSignup: async (userID: string, email: string) => {
       const response = await axios.post(
@@ -95,17 +54,13 @@ const api = {
   },
 
   stripe: {
-    isSubscriptionActive: async (userID: string) => {
+    isSubscriptionActive: async (userID: string): Promise<UserSubscription> => {
       try {
         const response = await axios.get("/api/subscription-status", {
           params: { id: userID },
         });
 
-        return response.data as {
-          status: string;
-          cancel_at_period_end: boolean;
-          interval: string;
-        };
+        return response.data as UserSubscription;
       } catch (error: any) {
         console.error("Error getting subscription status:", error.message);
         return {
@@ -125,16 +80,6 @@ const api = {
   },
 
   userPersona: {
-    messagePersona: async (
-      newMessage: string,
-      historyID?: string
-    ): Promise<PersonaHistory> => {
-      const response = await axios.post("/api/message-persona", {
-        newMessage,
-        historyID,
-      });
-      return response.data;
-    },
     getPersonaHistory: async (id?: string): Promise<PersonaChat[]> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-history";
@@ -199,9 +144,9 @@ const api = {
     },
 
     updatePersona: async (
-      persona: Persona,
+      persona: PersonaChat["aiState"],
       historyID: string
-    ): Promise<PersonaHistory> => {
+    ): Promise<PersonaChat> => {
       const response = await axios.post("/api/update-persona", {
         persona,
         historyID,
