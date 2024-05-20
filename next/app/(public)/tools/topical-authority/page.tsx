@@ -8,6 +8,8 @@ import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
+import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
+import Image from "next/image";
 
 export default function HistoryPage({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -103,15 +105,15 @@ export default function HistoryPage({}: {}) {
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center min-h-[600px] min-w-[800px]">
-                  {/* <Image
-                    src={SelectPersonaDemoGif}
+                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
+                  <Image
+                    src={TopicalAuthorityDemoGif}
                     alt={
                       "Select Personas or Enter Details to Generate Guest Posts"
                     }
                     width={800}
                     height={600}
-                  /> */}
+                  />
                 </div>
               )}
             </section>
