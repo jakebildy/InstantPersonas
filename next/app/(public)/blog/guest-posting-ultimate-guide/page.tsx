@@ -155,6 +155,17 @@ export default function GuestPostingUltimateGuide() {
             How do I find relevant blogs or websites to submit guest posts to?
           </h2>
           <p>
+            <iframe
+              style={{ maxWidth: "100%" }}
+              width="640"
+              height="365"
+              src="https://www.youtube.com/embed/EUnq_csVcVM"
+              title="Find Free Guest Post Opportunities"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="mx-auto mr-0 ml-0 mb-6"
+            />
             We built you a free tool to find tons of great guest posting
             opportunities. No signup needed -{" "}
             <a

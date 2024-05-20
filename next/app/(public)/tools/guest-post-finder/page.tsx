@@ -33,6 +33,27 @@ export default function GuestPostOpportunityFinder({}: {}) {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
+
+  useEffect(() => {
+    if (user.user) {
+      const checkSubscription = async () => {
+        const userIsSubscribed = await api.stripe.isSubscriptionActive(
+          user.user?.user_id as string
+        );
+        posthog.identify(user.user?.user_id, {
+          email: user.user?.emails[0].email,
+          subscriptionType: userIsSubscribed ? "paid" : "free",
+          userSignupDate: user.user?.created_at,
+        });
+        setUserIsSubscribed(
+          userIsSubscribed.status === "active" ||
+            userIsSubscribed.status === "trialing"
+        );
+      };
+      checkSubscription();
+    }
+  }, [posthog, user.user]);
+
   return (
     <section className="flex-1 bg-gray-100">
       {!isSubscribed ? (

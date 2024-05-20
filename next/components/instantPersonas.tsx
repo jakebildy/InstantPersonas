@@ -19,14 +19,16 @@ export const InstantPersonas = ({ isCollapsed, className }: Props) => {
       )}
     >
       <Link href={"/"} className="flex items-center text-left">
-        <Image
-          src={"/instant_personas_logo.png"}
-          alt={"Instant Personas Logo"}
-          width={32}
-          height={28}
-          priority
-          className={cn("object-contain", isCollapsed ? "" : "mr-2")}
-        />
+        <div className="h-[32px] w-[32px] mr-2">
+          <Image
+            src={"/instant_personas_logo.png"}
+            alt={"Instant Personas Logo"}
+            width={100}
+            height={100}
+            priority
+            className={cn("object-contain", isCollapsed ? "" : "mr-2")}
+          />
+        </div>
         <h1 className={cn(isCollapsed ? "hidden" : "inline-block")}>
           InstantPersonas
         </h1>
