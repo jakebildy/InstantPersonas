@@ -22,15 +22,17 @@ export function GuestPostFinderTool({
   const results =
     selectedType === "easyToSubmit"
       ? // remove all where the displayLink is duplicate
-        easyToSubmitResults.filter(
-          (v, i, a) =>
-            a.findIndex(
-              (t) =>
-                t.displayLink &&
-                v.displayLink &&
-                t.displayLink === v.displayLink
-            ) === i
-        )
+        easyToSubmitResults.length === 0
+        ? []
+        : easyToSubmitResults.filter(
+            (v, i, a) =>
+              a.findIndex(
+                (t) =>
+                  t.displayLink &&
+                  v.displayLink &&
+                  t.displayLink === v.displayLink
+              ) === i
+          )
       : harderToSubmitResults.filter(
           (v, i, a) =>
             a.findIndex(
@@ -45,6 +47,9 @@ export function GuestPostFinderTool({
     <div>
       {loading ? (
         "Looking for guest post opportunities..."
+      ) : harderToSubmitResults.length > 0 &&
+        easyToSubmitResults.length === 0 ? (
+        "We didn't find any easy guest post opportunities for this persona. Try refining your search!"
       ) : easyToSubmitResults.length > 0 ? (
         <div className="mb-5">
           <button
