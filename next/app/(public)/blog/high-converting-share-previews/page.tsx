@@ -15,6 +15,15 @@ export default function HighConvertingSharePreviews() {
         name="description"
         content="Social previews are what your link will look like when shared on social media. Don't miss the 7 steps to make them high converting."
       />
+      <meta property="og:type" content="article" />
+      <meta
+        property="og:title"
+        content="High Converting Social Share Previews: Your Complete Guide (2024)"
+      />
+      <meta
+        property="og:description"
+        content="Social previews are what your link will look like when shared on social media. Don't miss the 7 steps to make them high converting."
+      />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         High Converting Social Share Previews: Your Complete Guide (2024)
       </h1>
