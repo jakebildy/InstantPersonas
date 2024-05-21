@@ -53,7 +53,7 @@ export default function BestAIToolsForSEO() {
                 </div> */}
             </address>
             <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
-              The Best AI Tools to Boost SEO in 2024 - Complete Guide
+              The Best Ways to Boost SEO with AI in 2024 - Complete Guide
             </h1>
           </header>
           Here are a bunch of ways you can use AI to level up your SEO.
