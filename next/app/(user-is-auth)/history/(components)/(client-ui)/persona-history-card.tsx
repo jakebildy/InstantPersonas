@@ -1,6 +1,4 @@
 import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
-import api, { PersonaHistory } from "@/service/api.service";
-import { TrashIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

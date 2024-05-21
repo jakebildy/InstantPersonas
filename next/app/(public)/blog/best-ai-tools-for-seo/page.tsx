@@ -77,7 +77,14 @@ export default function BestAIToolsForSEO() {
             time intensive. That&apos;s where AI comes in. We built a free tool
             to find you niche-specific guest posting opportunities with AI. Just
             describe your target audience and we&apos;ll do the heavy lifting.
-            You can check it out here.
+            You can{" "}
+            <a
+              href="https://instantpersonas.com/tools/guest-post-finder"
+              className=" text-blue-500"
+            >
+              check it out here
+            </a>
+            .
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="1">
             Install an AI Chatbot on your Site to Boost SEO
@@ -111,6 +118,14 @@ export default function BestAIToolsForSEO() {
             ProductHunt. Here were the results:
             <br></br>
             <br></br>
+            <Image
+              src="/blogs/ai-for-seo/lead-magnet-search-console.png"
+              height={400}
+              width={800}
+              alt="InstantPersonas Lead Magnet Results"
+              className="mx-auto rounded-md my-5"
+              unoptimized
+            />
             <br></br>
             <br></br>
             Tons of sites started linking back to our free lead magnet. I

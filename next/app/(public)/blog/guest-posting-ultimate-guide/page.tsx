@@ -117,6 +117,16 @@ export default function GuestPostingUltimateGuide() {
             indication that the site likely accepts pretty much anything and is
             therefore not likely to be a strong backlink.
             <br></br>
+            <br></br>
+            There are other ways you can leverage AI to boost your SEO however.
+            Check out our{" "}
+            <a
+              href="https://instantpersonas.com/blog/best-ai-tools-for-seo"
+              className="text-blue-500"
+            >
+              comprehensive guide here
+            </a>
+            .<br></br>
             <br></br> As more information comes out about AI and SEO, I&apos;ll
             come back and update this article.
           </p>

@@ -218,7 +218,10 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
         if (IS_TEST_DEV_ENV) {
           console.log(finialSurveyAnswers);
         } else {
-          posthog.capture("survey_completed", finialSurveyAnswers);
+          posthog.capture(
+            "persona-adoption-stage-and-satisfaction-correlation-analysis-survey_completed",
+            finialSurveyAnswers
+          );
           const currentDateFormatted = new Date().toISOString().slice(0, 10);
           // Local storage to prevent showing the feedback dialog again for 60 days (see logic in history list page)
           localStorage.setItem(

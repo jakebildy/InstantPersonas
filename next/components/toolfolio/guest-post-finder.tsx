@@ -9,9 +9,11 @@ import { useState } from "react";
 export function GuestPostFinderTool({
   input,
   isSubscribed,
+  noInput,
 }: {
   input: string;
   isSubscribed: boolean;
+  noInput: boolean;
 }) {
   const [loading, setIsLoading] = useState(false);
 
@@ -156,36 +158,32 @@ export function GuestPostFinderTool({
         <br />
         <button
           className={
-            input === `""` ||
-            input === "" ||
-            input === '{"personas":[],"details":"","paid":true}'
+            noInput
               ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
               : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
           }
           onClick={async () => {
-            if (
-              input === `""` ||
-              input === "" ||
-              input === '{"personas":[],"details":"","paid":true}'
-            )
-              return;
+            if (noInput) return;
+            if (easyToSubmitResults.length > 0 && !isSubscribed) {
+              // go to signup
+              window.open("https://www.instantpersonas.com/", "_blank");
+            } else {
+              setIsLoading(true);
+              console.log(
+                "Finding guest post opportunities for persona: ",
+                input
+              );
+              //   api guest post
+              const response = await api.tools.findGuestPostOpportunities(
+                input,
+                isSubscribed
+              );
+              console.log(response);
 
-            setIsLoading(true);
-            console.log(
-              "Finding guest post opportunities for persona: ",
-              input
-            );
-
-            //   api guest post
-            const response = await api.tools.findGuestPostOpportunities(
-              input,
-              isSubscribed
-            );
-            console.log(response);
-
-            setIsLoading(false);
-            setEasyToSubmitResults(response.easyToSubmit);
-            setHardToSubmitResults(response.hardToSubmit);
+              setIsLoading(false);
+              setEasyToSubmitResults(response.easyToSubmit);
+              setHardToSubmitResults(response.hardToSubmit);
+            }
           }}
         >
           {loading
