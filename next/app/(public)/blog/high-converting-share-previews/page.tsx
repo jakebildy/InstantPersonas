@@ -140,13 +140,13 @@ export default function HighConvertingSharePreviews() {
             <i>twitter:description</i>, <i>twitter:image</i>, etc.) .
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
-            What does it mean if a preview is “cached”?
+            What does it mean if a preview is &apos;&apos;cached&apos;&apos;?
           </h2>
           <p>
-            When a preview is "cached," it means the website saved a copy of it
-            to show faster. This helps the preview load quickly when shared
-            again. However, if the original content changes, the preview might
-            not update right away.
+            When a preview is &apos;&apos;cached,&apos;&apos; it means the
+            website saved a copy of it to show faster. This helps the preview
+            load quickly when shared again. However, if the original content
+            changes, the preview might not update right away.
             <br></br>
             <br></br>
             Different sites cache social share previews for different amounts of
