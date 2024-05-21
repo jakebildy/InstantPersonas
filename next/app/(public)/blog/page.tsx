@@ -33,6 +33,12 @@ export const BLOG_POSTS: BlogPost[] = [
     lead: "Here’s a bunch of ways you can use AI tools to level up your SEO. 1. Finding Guest Post Opportunities with AI",
     category: "SEO",
   },
+  {
+    name: "High Converting Social Share Previews: Your Complete Guide (2024)",
+    slug: "high-converting-share-previews",
+    lead: "Social previews are what your link will look like when shared on social media. Don't miss the 7 steps to make them high converting.",
+    category: "SEO",
+  },
 ];
 
 export default function BlogPage() {
@@ -51,7 +57,7 @@ export default function BlogPage() {
           </p>
         </div>
         <div className="grid gap-8 lg:grid-cols-2">
-          {BLOG_POSTS.map((post, i) => (
+          {BLOG_POSTS.reverse().map((post, i) => (
             <ArticleCard
               post={post}
               key={post.slug}

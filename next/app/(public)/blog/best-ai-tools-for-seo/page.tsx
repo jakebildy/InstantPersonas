@@ -11,7 +11,7 @@ export default function BestAIToolsForSEO() {
       <title>{"The Best AI Tools to Boost SEO in 2024 - Complete Guide"}</title>
       <meta
         name="description"
-        content="Not just content writing! The best AI SEO tools for for content optimization, audience insights, and more. We cover all the best AI tools for SEO with tips."
+        content="Not just content writing! The best AI SEO tools for for content optimization, audience insights, and more. Don't miss the best AI tips for SEO."
       />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         The Best AI Tools to Boost SEO in 2024 - Complete Guide
@@ -54,7 +54,7 @@ export default function BestAIToolsForSEO() {
               The Best AI Tools to Boost SEO in 2024 - Complete Guide
             </h1>
           </header>
-          Here’s a bunch of ways you can use AI tools to level up your SEO.
+          Here are a bunch of ways you can use AI to level up your SEO.
           <br></br>
           <br></br>
           <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>

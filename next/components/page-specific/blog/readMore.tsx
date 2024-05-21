@@ -8,8 +8,9 @@ export function ReadMore({ currentSlug }: { currentSlug: string }) {
       {/* divider */}
 
       <div className="grid gap-8 lg:grid-cols-2 mx-10 mt-10">
-        {BLOG_POSTS.filter((post) => post.slug != currentSlug).map(
-          (post, i) => (
+        {BLOG_POSTS.reverse()
+          .filter((post) => post.slug != currentSlug)
+          .map((post, i) => (
             <ArticleCard
               post={post}
               key={post.slug}
@@ -20,8 +21,7 @@ export function ReadMore({ currentSlug }: { currentSlug: string }) {
                   : ""
               }
             />
-          )
-        )}
+          ))}
       </div>
     </div>
   );
