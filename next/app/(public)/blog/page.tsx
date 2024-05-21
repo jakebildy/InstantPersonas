@@ -27,6 +27,12 @@ export const BLOG_POSTS: BlogPost[] = [
     lead: "How do I know if a site is worth writing a guest post for? There’s a few things to consider. The most important question you should ask is, would your target audience even be reading this?",
     category: "SEO",
   },
+  {
+    name: "The Best AI Tools to Boost SEO in 2024 - Complete Guide",
+    slug: "best-ai-tools-for-seo",
+    lead: "Here’s a bunch of ways you can use AI tools to level up your SEO. 1. Finding Guest Post Opportunities with AI",
+    category: "SEO",
+  },
 ];
 
 export default function BlogPage() {
