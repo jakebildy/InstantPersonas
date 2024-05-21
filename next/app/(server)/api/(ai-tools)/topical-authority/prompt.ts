@@ -10,4 +10,5 @@ Make it in table format with the following columns:
   column 2: the different variations on it, 
   column 3: an intriguing, clickbait style title.
   Return nothing but the table in the form of comma separated values.
+  ex. "topic1, variation1, title1,\ntopic1, variation2, title2, ..."
 `;
