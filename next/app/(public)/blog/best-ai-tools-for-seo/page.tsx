@@ -13,7 +13,7 @@ export default function BestAIToolsForSEO() {
       </title>
       <meta
         name="description"
-        content="Not just content writing! The best AI SEO tools for for content optimization, audience insights, and more. Don't miss the best AI tips for SEO."
+        content="Not just content writing! We'll show you the best AI SEO tools for for content optimization, audience insights, and more. Don't miss the top AI tips for SEO."
       />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
         The Best Ways to Boost SEO with AI in 2024 - Complete Guide
