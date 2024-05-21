@@ -11,6 +11,9 @@ import { useEffect, useState } from "react";
 import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
 import Image from "next/image";
 
+export const runtime = "edge";
+export const maxDuration = 300; // 5 minutes
+
 export default function HistoryPage({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
