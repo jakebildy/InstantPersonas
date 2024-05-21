@@ -5,6 +5,8 @@ import { openai } from "@ai-sdk/openai";
 import { createStreamableValue } from "ai/rsc";
 import { TOPICAL_AUTHORITY_PROMPT } from "./prompt";
 
+export const maxDuration = 300; // 5 minutes
+
 export async function generateTopicalAuthority({
   input,
   paid,
