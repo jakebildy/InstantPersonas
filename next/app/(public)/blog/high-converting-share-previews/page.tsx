@@ -139,7 +139,7 @@ export default function HighConvertingSharePreviews() {
             <b>Twitter Card tags</b> (<i>twitter:title</i>,{" "}
             <i>twitter:description</i>, <i>twitter:image</i>, etc.) .
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
             What does it mean if a preview is &apos;&apos;cached&apos;&apos;?
           </h2>
           <p>
@@ -154,7 +154,7 @@ export default function HighConvertingSharePreviews() {
             eventually it should update automatically.
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
             Do Social Shares Boost Topical Authority?
           </h2>
           <p>
