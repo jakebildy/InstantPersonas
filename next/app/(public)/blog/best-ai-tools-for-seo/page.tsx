@@ -8,13 +8,15 @@ export default function BestAIToolsForSEO() {
   return (
     <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
       <ReadingBar />
-      <title>{"The Best AI Tools to Boost SEO in 2024 - Complete Guide"}</title>
+      <title>
+        {"The Best Ways to Boost SEO with AI in 2024 - Complete Guide"}
+      </title>
       <meta
         name="description"
         content="Not just content writing! The best AI SEO tools for for content optimization, audience insights, and more. Don't miss the best AI tips for SEO."
       />
       <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
-        The Best AI Tools to Boost SEO in 2024 - Complete Guide
+        The Best Ways to Boost SEO with AI in 2024 - Complete Guide
       </h1>
       <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
         <TableOfContents />
@@ -217,7 +219,9 @@ export default function BestAIToolsForSEO() {
           </p>
           <Share
             url="https://instantpersonas.com/blog/best-ai-tools-for-seo"
-            title={"The Best AI Tools to Boost SEO in 2024 - Complete Guide"}
+            title={
+              " The Best Ways to Boost SEO with AI in 2024 - Complete Guide"
+            }
           />
         </article>
       </div>

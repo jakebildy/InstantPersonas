@@ -28,7 +28,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "SEO",
   },
   {
-    name: "The Best AI Tools to Boost SEO in 2024 - Complete Guide",
+    name: "The Best Ways to Boost SEO with AI in 2024 - Complete Guide",
     slug: "best-ai-tools-for-seo",
     lead: "Here’s a bunch of ways you can use AI tools to level up your SEO. 1. Finding Guest Post Opportunities with AI",
     category: "SEO",
