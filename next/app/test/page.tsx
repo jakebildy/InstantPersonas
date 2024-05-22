@@ -1,6 +1,5 @@
 "use client";
 import { AuthFallback } from "@/components/context/auth/stytch-auth";
-import { Avatar } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -27,10 +26,26 @@ import {
   SendIcon,
   ThumbsUp,
   ThumbsUpIcon,
+  UploadCloudIcon,
 } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import BarLoader from "react-spinners/BarLoader";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Props = {};
 
@@ -70,58 +85,198 @@ const OG_SOCIAL_PREVIEW_TEMPLATE_TABS = [
     content: LinkedInPreview,
   },
   {
-    title: "Preview",
-    description: "View generic preview here.",
-    content: Preview,
+    title: "Pintrest",
+    description: "View Pintrest preview here.",
+    content: PintrestPreview,
   },
 ] as const;
 
 export default function PageTest({}: Props) {
   const variant = "blue";
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    setTitle(OG_PREVIEW_TEST.title);
+    setDescription(OG_PREVIEW_TEST.description);
+    setUrl(OG_PREVIEW_TEST.url);
+    setImage(OG_PREVIEW_TEST.image);
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen relative overflow-hidden">
-      <Tabs
-        defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
-        className="w-full max-w-xl"
-      >
-        <div className="w-full grid place-items-center">
-          <PersonStandingIcon className="text-muted-foreground" />
-          <TabsList className="rounded-full h-9 my-4">
-            {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
-              <TabsTrigger
-                value={tab.title}
-                key={tab.title}
-                className={tabTriggerVariants({ variant })}
-              >
-                {tab.title}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+    <div className="flex flex-col items-center justify-center h-screen w-screen relative ">
+      <section className="flex flex-row items-center justify-center flex-wrap p-8 gap-8 h-full w-full">
+        <div
+          className={cn(
+            gradientLightVariants({
+              variant,
+              className:
+                "flex flex-col w-full items-center border rounded-lg shadow-md max-w-xl",
+            })
+          )}
+        >
+          <form className="flex flex-col p-4 gap-2">
+            <div>
+              <h2 className="text-lg font-bold">Edit</h2>
+              <p className="text-sm">
+                Customize how your content appears on search engines and social
+                platforms. Modify the title, description, and image to optimize
+                visibility and engagement.
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="url">URL</Label>
+              <Input
+                id="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="Title">Title</Label>
+              <Input
+                id="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <span className="text-xs font-medium">
+                Recommended: <span className="font-light">60 characters</span>
+              </span>
+            </div>
+
+            <div>
+              <Label htmlFor="Description">Description</Label>
+              <Input
+                id="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <span className="text-xs font-medium">
+                Recommended: <span className="font-light">160 characters</span>
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="Image">Image</Label>
+
+                <span className="text-xs font-medium">
+                  Recommended:{" "}
+                  <span className="font-light">1200 x 630 pixels</span>
+                </span>
+              </div>
+
+              <UploadImage
+                currentImageUrl={image}
+                onUpload={(newImageUrl) => setImage(newImageUrl)}
+              />
+            </div>
+          </form>
         </div>
 
-        {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
-          <TabsContent
-            value={tab.title}
-            key={tab.title + "content"}
-            className="w-full"
+        <div className="flex-1 flex flex-col items-center relative">
+          <Tabs
+            defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
+            className="w-full max-w-xl"
           >
-            <ScrollArea
-              className={cn(
-                gradientLightVariants({
-                  variant,
-                  className: "grid border rounded-lg shadow-md ",
-                })
-              )}
-            >
-              <tab.content {...OG_PREVIEW_TEST} />
-            </ScrollArea>
+            <div className="w-full grid place-items-center">
+              <PersonStandingIcon className="text-muted-foreground" />
+              <TabsList className="rounded-full h-9 my-4">
+                {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
+                  <TabsTrigger
+                    value={tab.title}
+                    key={tab.title}
+                    className={tabTriggerVariants({ variant })}
+                  >
+                    {tab.title}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
 
-            <p className="text-sm text-muted-foreground text-center my-4">
-              {tab.description}
-            </p>
-          </TabsContent>
-        ))}
-      </Tabs>
+            {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
+              <TabsContent
+                value={tab.title}
+                key={tab.title + "content"}
+                className="w-full"
+              >
+                <ScrollArea
+                  className={cn(
+                    gradientLightVariants({
+                      variant,
+                      className: "grid border rounded-lg shadow-md ",
+                    })
+                  )}
+                >
+                  <tab.content
+                    {...{
+                      url,
+                      title,
+                      description,
+                      image,
+                    }}
+                  />
+                </ScrollArea>
+
+                <p className="text-sm text-muted-foreground text-center my-4">
+                  {tab.description}
+                </p>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+
+export function UploadImage({
+  currentImageUrl,
+  onUpload,
+}: {
+  currentImageUrl: string;
+  onUpload: (url: string) => void;
+}) {
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      const newURL = URL.createObjectURL(file);
+      onUpload(newURL);
+    },
+    [onUpload]
+  );
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const inputDisplayText = isDragActive
+    ? ">.< Drop the file here..."
+    : "Drag or click to upload image";
+
+  return (
+    <div>
+      <div
+        {...getRootProps()}
+        className="cursor-pointer border-dashed border h-[200px] grid place-items-center text-xs border-border/50 rounded-md bg-transparent px-3 py-2 hover:border-black/25 hover:shadow-md shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-500"
+      >
+        <input {...getInputProps()} />
+        <div className="flex flex-col justify-center items-center gap-4">
+          <div className="relative w-full h-full aspect-[400/209] max-w-[400px]">
+            {currentImageUrl ? (
+              <Image src={currentImageUrl} alt="OG Image Preview" fill={true} />
+            ) : null}
+          </div>
+          <p className={"text-foreground"}>{inputDisplayText}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -148,7 +303,7 @@ function IMessagePreview({
       </div>
       <div className="flex flex-col border  rounded-2xl overflow-hidden max-w-full">
         <div className="relative w-full h-56">
-          <Image src={image} alt="OG Image" fill={true} />
+          {image ? <Image src={image} alt="OG Image" fill={true} /> : null}
         </div>
 
         <div className="flex p-4 items-center space-x-4 bg-white">
@@ -619,6 +774,78 @@ function LinkedInPreview({
             </span>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function PintrestPreview({
+  url,
+  title,
+  description,
+  image,
+}: OGPreviewMetadata) {
+  const now = new Date();
+  // formatted as h:mm PM and MM DD, YYYY
+  const formattedTime = now.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  const formattedDate = now.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <div className="grid grid-cols-4 p-4 gap-2">
+      <div className="col-span-1 flex flex-col gap-2">
+        <div className="bg-pastel-blue/50 rounded-md w-full h-80" />
+        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
+        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
+      </div>
+      <div className="col-span-2 flex flex-col gap-2">
+        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
+        <div>
+          <div className="bg-pastel-blue/50 rounded-md w-full h-40 relative overflow-hidden cursor-pointer">
+            <Image src={image} alt="OG Image" fill={true} />
+          </div>
+          <div className="px-[6px] pt-2 pb-1">
+            <div className="mb-2 overflow-hidden cursor-zoom-in flex flex-col">
+              <span className="font-semibold text-xs truncate">{title}</span>
+              <span className="text-[10px] leading-[10px] max-h-5 truncate">
+                {url}
+              </span>
+            </div>
+            <div className="item-center flex flex-row -mx-[3px] group max-h-6 cursor-pointer">
+              <div
+                className="flex items-center size-6 mx-[3px] rounded-full"
+                aria-hidden="true"
+              >
+                <Image
+                  src={"/instant_personas_logo.png"}
+                  alt={"Instant Personas Logo"}
+                  width={24}
+                  height={24}
+                  priority
+                  className={"object-contain"}
+                />
+              </div>
+              <div className="mx-[3px] mb-0.5 flex items-center">
+                <span className="mx-0.5 text-[10px] leading-[10px] max-h-5 group-hover:underline">
+                  InstantPersonas
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-pastel-blue/50 rounded-md w-full flex-1" />
+      </div>
+      <div className="col-span-1 flex flex-col gap-2">
+        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
+        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
+        <div className="bg-pastel-blue/50 rounded-md w-full h-80" />
       </div>
     </div>
   );
