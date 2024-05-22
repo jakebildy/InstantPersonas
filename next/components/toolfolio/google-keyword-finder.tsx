@@ -27,6 +27,7 @@ export function GoogleKeywordFinderTool({
   const [loading, setIsLoading] = useState(false);
 
   const [keywordResults, setKeywordResults] = useState<any[]>([]);
+  const [hasCompleted, setHasCompleted] = useState(false);
 
   const [selectedType, setSelectedType] = useState("easyToSubmit");
 
@@ -34,7 +35,7 @@ export function GoogleKeywordFinderTool({
     <div>
       {loading ? (
         "Looking for keywords..."
-      ) : keywordResults.length === 0 ? (
+      ) : keywordResults.length === 0 && hasCompleted ? (
         "We didn't find any good keywords for this persona. Try refining your search!"
       ) : keywordResults.length > 0 ? (
         <div className="mb-5">
@@ -140,7 +141,7 @@ export function GoogleKeywordFinderTool({
                 isSubscribed
               );
               console.log(response);
-
+              setHasCompleted(true);
               setIsLoading(false);
               // sort by search volume
               response.keywords.sort((a: any, b: any) => {
