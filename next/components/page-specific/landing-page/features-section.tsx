@@ -7,7 +7,7 @@ export default function FeaturesSection() {
     {
       title: "Guest Post Opportunity Finder",
       description:
-        "Find guest post opportunities in your niche and boost your SEO. Download as a CSV and check the Domain Authority of each site.",
+        "Find guest post opportunities that your persona would read and boost your SEO. Download as a CSV and check the Domain Authority of each site.",
       link: "/tools/guest-post-finder/",
     },
     {
@@ -20,6 +20,12 @@ export default function FeaturesSection() {
       title: "TikTok Content Analysis",
       description:
         "See what content your persona is engaging with on TikTok. Use it to inform your content strategy.",
+      link: "/register/",
+    },
+    {
+      title: "Google Keyword Finder",
+      description:
+        "Find the best niche keywords for your personas. See their search volume, competitiveness and CPC.",
       link: "/register/",
     },
   ];
