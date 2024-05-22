@@ -22,11 +22,13 @@ type InstantPersonasUserContextType =
       user: InstantPersonasUser;
       isLoggedIn: true;
       isSubscribed: boolean;
+      isInitialized: boolean;
     }
   | {
       user: null;
       isLoggedIn: false;
       isSubscribed: false;
+      isInitialized: boolean;
     };
 
 // Create the context with default values
@@ -97,11 +99,13 @@ export const InstantPersonasUserProvider = ({
           user: instantPersonasUser,
           isLoggedIn: true,
           isSubscribed: isSubscribed,
+          isInitialized: isInitialized,
         } as const)
       : ({
           user: null,
           isLoggedIn: false,
           isSubscribed: false,
+          isInitialized: isInitialized,
         } as const);
 
   return (

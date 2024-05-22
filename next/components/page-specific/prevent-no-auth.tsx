@@ -7,9 +7,9 @@ import { gradientLightVariants } from "@/components/variants";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export function PreventNotAuth() {
-  const { isLoggedIn } = useInstantPersonasUser();
+  const { isLoggedIn, isInitialized } = useInstantPersonasUser();
 
-  if (!isLoggedIn) {
+  if (!isInitialized && !isLoggedIn) {
     return (
       <div className="w-screen h-screen fixed p-4 grid place-items-center inset-0 bg-pastel-blue/75 backdrop-blur-lg z-[999]">
         <div className="text-center text-gray-700 flex flex-col items-center gap-1 max-w-[90vw]">
