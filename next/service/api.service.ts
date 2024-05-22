@@ -18,6 +18,17 @@ const api = {
       console.log("response from guest post opportunities", response);
       return response.data;
     },
+    findGoogleKeywords: async (
+      personas: string,
+      paid: boolean
+    ): Promise<any> => {
+      const response = await axios.post("/api/google-keywords", {
+        personas,
+        paid,
+      });
+      console.log("response from google keywords api", response);
+      return response.data;
+    },
   },
   auth: {
     //? These are old routes from AiConsultingTools which haven't been reimplemented yet
