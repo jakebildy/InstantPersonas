@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
 import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -21,44 +22,21 @@ export default function HistoryPage({}: {}) {
   const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
     []
   );
-  const [userIsSubscribed, setUserIsSubscribed] = useState<boolean>(false);
-
-  const user = useStytchUser();
-  const posthog = usePostHog();
+  const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
-    const results = userIsSubscribed
+    const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
             (persona) => persona.persona_components.Motivations
           ),
           details: detailsInput,
-          paid: userIsSubscribed,
+          paid: isSubscribed,
         }
       : detailsInput;
 
     setPersonaString(JSON.stringify(results));
-  }, [selectedPersonas, detailsInput, userIsSubscribed]);
-
-  useEffect(() => {
-    if (user.user) {
-      const checkSubscription = async () => {
-        const userIsSubscribed = await api.stripe.isSubscriptionActive(
-          user.user?.user_id as string
-        );
-        posthog.identify(user.user?.user_id, {
-          email: user.user?.emails[0].email,
-          subscriptionType: userIsSubscribed ? "paid" : "free",
-          userSignupDate: user.user?.created_at,
-        });
-        setUserIsSubscribed(
-          userIsSubscribed.status === "active" ||
-            userIsSubscribed.status === "trialing"
-        );
-      };
-      checkSubscription();
-    }
-  }, [posthog, user.user]);
+  }, [selectedPersonas, detailsInput, isSubscribed]);
 
   return (
     <section className="flex-1">
@@ -71,14 +49,14 @@ export default function HistoryPage({}: {}) {
         </h2>
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
-          {userIsSubscribed ? (
+          {isSubscribed ? (
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
               className="xl:absolute top-4 right-4 z-50"
             />
           ) : null}
-          {userIsSubscribed ? (
+          {isSubscribed ? (
             <section
               className={cn(
                 "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
@@ -121,7 +99,7 @@ export default function HistoryPage({}: {}) {
             </section>
           ) : null}
           <label className="text-sm text-gray-700 my-2">
-            {userIsSubscribed
+            {isSubscribed
               ? "Enter any extra details"
               : "Describe your customer persona:"}
           </label>
@@ -137,7 +115,7 @@ export default function HistoryPage({}: {}) {
         </div>
         <GoogleKeywordFinderTool
           input={personaString}
-          isSubscribed={userIsSubscribed}
+          isSubscribed={isSubscribed}
           noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
       </div>
