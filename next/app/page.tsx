@@ -12,7 +12,7 @@ export default function Home() {
       <LandingPage.header />
       <LandingPage.hero />
       <LandingPage.productCarousel />
-      {/* <LandingPage.videoFeature /> */}
+      <LandingPage.features />
 
       <LandingPage.pricing />
       <LandingPage.callToAction />
