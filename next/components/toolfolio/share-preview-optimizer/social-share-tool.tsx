@@ -48,148 +48,151 @@ export default function SocialShareTool({}: Props) {
 
   return (
     <section className="flex flex-col justify-center relative p-8 gap-8 w-full">
-      <div
-        className={cn(
-          gradientLightVariants({
-            variant,
-            className:
-              "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
-          })
-        )}
-      >
-        <Tabs
-          defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
-          className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md"
+      <div className="flex-1 w-full flex items-center justify-center">
+        <div
+          className={cn(
+            gradientLightVariants({
+              variant,
+              className:
+                "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
+            })
+          )}
         >
-          <div className="w-full place-items-center hidden lg:grid">
-            <PersonStandingIcon className="text-muted-foreground" />
-            <TabsList className="rounded-full h-9 my-4">
-              {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
-                <TabsTrigger
-                  value={tab.title}
-                  key={tab.title}
-                  className={tabTriggerVariants({ variant })}
-                >
-                  {tab.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center  w-full min-h-[700px] ">
-            <div
-              className={cn(
-                gradientLightVariants({
-                  variant,
-                  className:
-                    "flex flex-col w-full items-center justify-start border rounded-lg shadow-md max-w-2xl",
-                })
-              )}
-            >
-              <form className="flex flex-col p-4 gap-2 ">
-                <div>
-                  <h2 className="text-lg font-bold">Edit</h2>
-                  <p className="text-sm">
-                    Customize how your content appears on search engines and
-                    social platforms. Modify the title, description, and image
-                    to optimize visibility and engagement.
-                  </p>
-                </div>
-                <div>
-                  <Label htmlFor="url">URL</Label>
-                  <Input
-                    id="url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="Title">Title</Label>
-                  <Input
-                    id="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <span className="text-xs font-medium">
-                    Recommended:{" "}
-                    <span className="font-light">60 characters</span>
-                  </span>
-                </div>
-                <div>
-                  <Label htmlFor="Description">Description</Label>
-                  <Input
-                    id="Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                  <span className="text-xs font-medium">
-                    Recommended:{" "}
-                    <span className="font-light">160 characters</span>
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="Image">Image</Label>
+          <Tabs
+            defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
+            className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md"
+          >
+            <div className="w-full flex items-center justify-center mb-4 lg:mb-0">
+              <PersonStandingIcon className="text-muted-foreground" />
+            </div>
+
+            <div className="w-full place-items-center hidden lg:grid">
+              <TabsList className="rounded-full h-9 my-4">
+                {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
+                  <TabsTrigger
+                    value={tab.title}
+                    key={tab.title}
+                    className={tabTriggerVariants({ variant })}
+                  >
+                    {tab.title}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center  w-full min-h-[700px] ">
+              <div
+                className={cn(
+                  gradientLightVariants({
+                    variant,
+                    className:
+                      "flex flex-col w-full items-center justify-start border rounded-lg shadow-md max-w-2xl",
+                  })
+                )}
+              >
+                <form className="flex flex-col p-4 gap-2 ">
+                  <div>
+                    <h2 className="text-lg font-bold">Edit</h2>
+                    <p className="text-sm">
+                      Customize how your content appears on search engines and
+                      social platforms. Modify the title, description, and image
+                      to optimize visibility and engagement.
+                    </p>
+                  </div>
+                  <div>
+                    <Label htmlFor="url">URL</Label>
+                    <Input
+                      id="url"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="Title">Title</Label>
+                    <Input
+                      id="Title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
                     <span className="text-xs font-medium">
                       Recommended:{" "}
-                      <span className="font-light">1200 x 630 pixels</span>
+                      <span className="font-light">60 characters</span>
                     </span>
                   </div>
-                  <UploadImage
-                    currentImageUrl={image}
-                    onUpload={(newImageUrl) => setImage(newImageUrl)}
-                  />
-                </div>
-              </form>
-            </div>
-            {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
-              <TabsContent
-                value={tab.title}
-                key={tab.title + "content"}
-                className="w-full max-w-xl lg:mt-0"
-              >
-                <div className="flex-1 flex flex-col items-center lg:items-start w-full h-full">
-                  <div className="w-full place-items-center grid lg:hidden">
-                    <PersonStandingIcon className="text-muted-foreground" />
-                    <TabsList className="rounded-full h-9 my-4">
-                      {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
-                        <TabsTrigger
-                          value={tab.title}
-                          key={tab.title}
-                          className={tabTriggerVariants({ variant })}
-                        >
-                          {tab.title}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-                  </div>
-                  <ScrollArea
-                    className={cn(
-                      gradientLightVariants({
-                        variant,
-                        className:
-                          "grid border rounded-lg shadow-md w-full h-full",
-                      })
-                    )}
-                  >
-                    <tab.content
-                      {...{
-                        url,
-                        title,
-                        description,
-                        image,
-                      }}
+                  <div>
+                    <Label htmlFor="Description">Description</Label>
+                    <Input
+                      id="Description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                     />
-                  </ScrollArea>
-                </div>
-                <p className="text-sm text-muted-foreground text-center my-4 ">
-                  {tab.description}
-                </p>
-              </TabsContent>
-            ))}
-          </div>
-        </Tabs>
+                    <span className="text-xs font-medium">
+                      Recommended:{" "}
+                      <span className="font-light">160 characters</span>
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="Image">Image</Label>
+                      <span className="text-xs font-medium">
+                        Recommended:{" "}
+                        <span className="font-light">1200 x 630 pixels</span>
+                      </span>
+                    </div>
+                    <UploadImage
+                      currentImageUrl={image}
+                      onUpload={(newImageUrl) => setImage(newImageUrl)}
+                    />
+                  </div>
+                </form>
+              </div>
+              {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
+                <TabsContent
+                  value={tab.title}
+                  key={tab.title + "content"}
+                  className="w-full max-w-xl lg:mt-0"
+                >
+                  <div className="flex-1 flex flex-col items-center lg:items-start w-full h-full">
+                    <div className="w-full place-items-center grid lg:hidden">
+                      <TabsList className="rounded-full h-9 my-4">
+                        {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
+                          <TabsTrigger
+                            value={tab.title}
+                            key={tab.title}
+                            className={tabTriggerVariants({ variant })}
+                          >
+                            {tab.title}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                    </div>
+                    <ScrollArea
+                      className={cn(
+                        gradientLightVariants({
+                          variant,
+                          className:
+                            "grid border rounded-lg shadow-md w-full h-full",
+                        })
+                      )}
+                    >
+                      <tab.content
+                        {...{
+                          url,
+                          title,
+                          description,
+                          image,
+                        }}
+                      />
+                    </ScrollArea>
+                    <p className="text-sm text-muted-foreground text-center my-4 w-full ">
+                      {tab.description}
+                    </p>
+                  </div>
+                </TabsContent>
+              ))}
+            </div>
+          </Tabs>
+        </div>
       </div>
-
       <div className="flex-1 w-full flex items-center justify-center">
         <div
           className={cn(
