@@ -144,7 +144,7 @@ export function InstagramHashtagFinderTool({
 
       <div className="text-center">
         {hashtagResults.length > 0 && !isSubscribed
-          ? "Sign up to not miss out on hashtag volume, deeper insights, and get ahead of your competition!"
+          ? "Sign up to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
           : ""}
         <br />
         <button
