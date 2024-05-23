@@ -110,17 +110,6 @@ export default function BestAIToolsForSEO() {
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"2"}>
             Finding Niche Instagram Hashtags with AI
           </h2>
-          {/* <iframe
-            style={{ maxWidth: "100%" }}
-            width="640"
-            height="365"
-            src="https://www.youtube.com/embed/EUnq_csVcVM"
-            title="Find Free Guest Post Opportunities"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="mx-auto mr-0 ml-0 mb-6"
-          /> */}
           <p>
             Instagram hashtags are a great way to get your content in front of a
             new audience and attract people to build an engaged community.
@@ -241,6 +230,25 @@ export default function BestAIToolsForSEO() {
             .<br></br>
             <br></br>TLDR: it can be a great assistant, but human-written
             content is probably better.
+          </p>
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"6"}>
+            Finding Niche Google Keywords with AI
+          </h2>
+          <p>
+            Finding high quality niche-specific Google Keywords is an essential
+            part of any SEO strategy. Especially if you want to build topical
+            authority, you need to know which keywords to target. There are a
+            variety of ways to find good Google search keywords (Ahrefs has some
+            useful tools), but the easiest way is using this{" "}
+            <a
+              href="https://instantpersonas.com/tools/google-keyword-finder"
+              className=" text-blue-500"
+            >
+              free Google Keyword Finder
+            </a>{" "}
+            to find the Google keywords that your audience would be searching.
+            Try it out for free! To see search volume and competitiveness
+            however, you will need to start a free trial.
           </p>
           <p>
             <br></br> <br></br>
