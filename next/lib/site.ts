@@ -6,6 +6,7 @@ import {
   FireIcon,
   PencilSquareIcon,
   DocumentMagnifyingGlassIcon,
+  KeyIcon,
 } from "@heroicons/react/24/solid";
 
 export const SIDEBAR_LINKS = [
@@ -59,6 +60,14 @@ export const SEO_LINKS = [
     category: "Blogging",
     lead: "Find guest post opportunities in your niche",
     icon: DocumentMagnifyingGlassIcon,
+    label: "",
+  },
+  {
+    title: "Google Keyword Finder",
+    href: "/tools/google-keyword-finder",
+    category: "SEO",
+    lead: "Find the best Google keywords for your target audience",
+    icon: KeyIcon,
     label: "",
   },
 ] as const;

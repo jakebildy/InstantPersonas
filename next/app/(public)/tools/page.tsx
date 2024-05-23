@@ -6,7 +6,7 @@ type Props = {};
 
 export default function ToolsPage({}: Props) {
   return (
-    <section className="flex-1">
+    <section className="flex-1 bg-white">
       <title>Instant Personas | Free SEO Tools</title>
       <meta
         name="description"

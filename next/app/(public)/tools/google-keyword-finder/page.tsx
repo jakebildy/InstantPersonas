@@ -8,8 +8,9 @@ import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
-import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
+import * as TopicalAuthorityDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
+import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export const runtime = "edge";
@@ -22,9 +23,6 @@ export default function HistoryPage({}: {}) {
     []
   );
   const { isSubscribed } = useInstantPersonasUser();
-
-  const user = useStytchUser();
-  const posthog = usePostHog();
 
   useEffect(() => {
     const results = isSubscribed
@@ -44,14 +42,11 @@ export default function HistoryPage({}: {}) {
     <section className="flex-1">
       <div className="flex flex-col items-center h-full w-full bg-gray-100">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
-          Topical Authority Builder
+          Google Keyword Finder
         </h1>
         <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
-          Topical Authority boosts your SEO by showing Google that you are an
-          expert in your field. <br></br>Use our tool to find the best topics to
-          write about for your personas.
+          Discover keywords and their search volume for your target audience
         </h2>
-
         <div className="flex flex-col items-center w-full mb-10 gap-2">
           {isSubscribed ? (
             <PersonaSelectFromHistorySidebar
@@ -117,9 +112,9 @@ export default function HistoryPage({}: {}) {
             value={detailsInput}
           />
         </div>
-        <TopicalAuthorityMap
-          userIsSubscribed={isSubscribed}
-          personaString={personaString}
+        <GoogleKeywordFinderTool
+          input={personaString}
+          isSubscribed={isSubscribed}
           noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
       </div>
