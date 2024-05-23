@@ -47,7 +47,7 @@ export function HtmlExportPreview({
         Clipboard
       </Button>
 
-      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md">
+      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md max-w-2xl lg:max-w-none">
         <CodeInput code={htmlCode ?? "No code"} theme="slack-ochin" />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>

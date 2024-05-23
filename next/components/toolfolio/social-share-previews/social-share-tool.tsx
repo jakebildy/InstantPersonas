@@ -48,10 +48,18 @@ export default function SocialShareTool({}: Props) {
 
   return (
     <section className="flex flex-col justify-center relative p-8 gap-8 w-full">
-      <div className="relative pb-10">
+      <div
+        className={cn(
+          gradientLightVariants({
+            variant,
+            className:
+              "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
+          })
+        )}
+      >
         <Tabs
           defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
-          className="w-full flex flex-col items-center "
+          className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md"
         >
           <div className="w-full place-items-center hidden lg:grid">
             <PersonStandingIcon className="text-muted-foreground" />
@@ -182,16 +190,16 @@ export default function SocialShareTool({}: Props) {
         </Tabs>
       </div>
 
-      <div
-        className={cn(
-          gradientLightVariants({
-            variant,
-            className:
-              "flex flex-col w-full h-fit items-center border rounded-lg shadow-md",
-          })
-        )}
-      >
-        <ScrollArea className="w-full flex-1 min-w-0">
+      <div className="flex-1 w-full flex items-center justify-center">
+        <div
+          className={cn(
+            gradientLightVariants({
+              variant,
+              className:
+                "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md ",
+            })
+          )}
+        >
           <HtmlExportPreview
             {...{
               url,
@@ -200,8 +208,7 @@ export default function SocialShareTool({}: Props) {
               image,
             }}
           />
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        </div>
       </div>
     </section>
   );
