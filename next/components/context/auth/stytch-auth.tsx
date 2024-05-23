@@ -89,7 +89,7 @@ export function AuthFallback() {
   return (
     <div
       className={gradientVariants({
-        variant: variant,
+        variant: "green",
         className:
           "grid grid-cols-3 place-items-center h-screen w-screen p-4 gap-4 overflow-hidden relative backdrop-blur-[100px]",
       })}
