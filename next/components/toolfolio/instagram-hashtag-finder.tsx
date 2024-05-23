@@ -91,9 +91,9 @@ export function InstagramHashtagFinderTool({
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
                   <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
                     <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
-                      <th className="px-2 py-3">Hashtag</th>
-                      <th className="px-2 py-3">Volume</th>
-                      <th className="px-2 py-3">
+                      <th className="px-2 py-3 text-center">Hashtag</th>
+                      <th className="px-2 py-3 text-center">Volume</th>
+                      <th className="px-2 py-3 text-center">
                         Average Number of Likes on Top Posts{" "}
                         <InfoTooltip text="This is an estimate. Try to target hashtags that get a similar number of likes to your posts" />
                       </th>
@@ -238,17 +238,17 @@ function InstagramHashtagTableRow({
           #{hashtag}
         </div>
       </td>
-      <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+      <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)}k
       </td>
       {!isSubscribed ? (
-        <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+        <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
           <a href="https://instantpersonas.com/register">
             Sign Up to View (3 days FREE)
           </a>
         </td>
       ) : (
-        <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+        <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
           {Math.round(averageLikesOfTopPosts)}
         </td>
       )}
