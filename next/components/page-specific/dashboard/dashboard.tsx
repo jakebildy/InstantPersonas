@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { InstantPersonas } from "@/components/instantPersonas";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useMediaQuery } from "@/lib/hooks";
-import { SEO_LINKS, SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
+import { SEO_LINKS as TOOLS, SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
 import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
@@ -109,10 +109,29 @@ export default function DashboardLayout({
           </div>
           <Nav
             isCollapsed={isCollapsed}
-            links={SEO_LINKS.map((element) => ({
+            links={TOOLS.filter(
+              (tool) => tool.category === "SEO" || tool.category === "Blogging"
+            ).map((element) => ({
               ...element,
               variant: pathname === element.href ? "default" : "ghost",
             }))}
+          />
+          <div
+            className={cn(
+              "text-slate-300 font-bold  text-xs mt-4",
+              isCollapsed ? "text-center" : "ml-5 text-left"
+            )}
+          >
+            {isCollapsed ? "Social\nMedia" : "Social Media Marketing Tools"}
+          </div>
+          <Nav
+            isCollapsed={isCollapsed}
+            links={TOOLS.filter((tool) => tool.category === "Marketing").map(
+              (element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })
+            )}
           />
         </ResizablePanel>
         <ResizableHandle withHandle disabled={!canExpandSidebar} />

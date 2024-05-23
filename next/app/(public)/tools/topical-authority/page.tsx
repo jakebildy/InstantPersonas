@@ -42,6 +42,17 @@ export default function HistoryPage({}: {}) {
 
   return (
     <section className="flex-1">
+      {!isSubscribed ? (
+        <div>
+          <title>Topical Authority Map Generator | Free</title>
+          <meta
+            name="description"
+            content="Quickly generate a topical authority map for your target audience. No signup required. Boost your SEO efforts."
+          />
+        </div>
+      ) : (
+        <div />
+      )}
       <div className="flex flex-col items-center h-full w-full bg-gray-100">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Topical Authority Builder

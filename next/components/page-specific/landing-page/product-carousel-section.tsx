@@ -95,7 +95,7 @@ export default function ProductCarouselSection() {
               </CarouselContent>
               <CarouselNext />
             </Carousel>
-            <h2 className="font-display text-xl tracking-tight text-white pt-20">
+            <h2 className="font-display text-xl tracking-tight text-white pt-10">
               Easily download and share your personas.
             </h2>
           </div>

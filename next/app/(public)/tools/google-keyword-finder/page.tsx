@@ -40,6 +40,17 @@ export default function HistoryPage({}: {}) {
 
   return (
     <section className="flex-1">
+      {!isSubscribed ? (
+        <div>
+          <title>Google Keyword Finder | Free & Niche-Specific</title>
+          <meta
+            name="description"
+            content="Quickly find niche-specific Google Keywords. Don't miss out on these keywords!"
+          />
+        </div>
+      ) : (
+        <div />
+      )}
       <div className="flex flex-col items-center h-full w-full bg-gray-100">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Google Keyword Finder

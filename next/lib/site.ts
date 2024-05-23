@@ -7,6 +7,7 @@ import {
   PencilSquareIcon,
   DocumentMagnifyingGlassIcon,
   KeyIcon,
+  HashtagIcon,
 } from "@heroicons/react/24/solid";
 
 export const SIDEBAR_LINKS = [
@@ -68,6 +69,14 @@ export const SEO_LINKS = [
     category: "SEO",
     lead: "Find the best Google keywords for your target audience",
     icon: KeyIcon,
+    label: "",
+  },
+  {
+    title: "Instagram Hashtag Finder",
+    href: "/tools/instagram-hashtag-finder",
+    category: "Marketing",
+    lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
+    icon: HashtagIcon,
     label: "",
   },
 ] as const;

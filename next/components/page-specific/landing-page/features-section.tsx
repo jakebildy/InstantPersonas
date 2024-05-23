@@ -28,6 +28,12 @@ export default function FeaturesSection() {
         "Find the best niche keywords for your personas. See their search volume, competitiveness and CPC.",
       link: "/register/",
     },
+    {
+      title: "Instagram Hashtag Finder",
+      description:
+        "Find the best niche Instagram hashtags for your personas. See their volume and competitiveness.",
+      link: "/tools/instagram-hashtag-finder",
+    },
   ];
 
   return (
