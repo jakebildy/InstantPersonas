@@ -64,47 +64,63 @@ export function GoogleKeywordFinderTool({
             </button>
             Data for US Searches 🇺🇸
             {keywordResults.length === 0 ? null : (
-              <div className="m-10 ">
+              <div className=" w-full">
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
                   <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-                    <tr className="">
-                      <th className="whitespace-nowrap rounded-l-lg py-3 pl-3 text-sm font-normal text-[#212B36]">
-                        Keyword
-                      </th>
-                      <th className="whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]">
-                        Search Volume
-                      </th>
-                      <th className="whitespace-nowrap py-3 text-sm font-normal text-[#212B36]">
-                        Cost Per Click
-                      </th>
-                      <th className="whitespace-nowrap py-3 text-sm font-normal text-[#212B36]">
-                        Competition
-                      </th>
+                    <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
+                      <th className="px-2 py-3">Keyword</th>
+                      <th className="px-2 py-3">Search Volume</th>
+                      <th className="px-2 py-3">Cost Per Click</th>
+                      <th className="px-2 py-3">Competition</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {keywordResults.map((keyword, i) => {
-                      return (
-                        <GoogleKeywordTableRow
-                          key={i}
-                          keyword={keyword.keyword}
-                          searchVolume={keyword.search_volume}
-                          cpc={keyword.cpc}
-                          competition={keyword.competition}
-                          isSubscribed={isSubscribed}
-                          variant={
-                            keyword.competition === "LOW"
-                              ? "green"
-                              : keyword.competition === "MEDIUM"
-                              ? "blue"
-                              : keyword.competition === "HIGH"
-                              ? "pink"
-                              : "purple"
-                            // "blue"
+                    {keywordResults
+                      .sort((keywordA, keywordB) => {
+                        // sort by competition HIGH -> MEDIUM -> LOW -> unknown / else
+                        if (keywordA.competition === "HIGH") {
+                          return -1;
+                        } else if (keywordA.competition === "MEDIUM") {
+                          if (keywordB.competition === "HIGH") {
+                            return 1;
+                          } else {
+                            return -1;
                           }
-                        />
-                      );
-                    })}
+                        } else if (keywordA.competition === "LOW") {
+                          if (
+                            keywordB.competition === "HIGH" ||
+                            keywordB.competition === "MEDIUM"
+                          ) {
+                            return 1;
+                          } else {
+                            return -1;
+                          }
+                        } else {
+                          return 1;
+                        }
+                      })
+                      .map((keyword, i) => {
+                        return (
+                          <GoogleKeywordTableRow
+                            key={i}
+                            keyword={keyword.keyword}
+                            searchVolume={keyword.search_volume}
+                            cpc={keyword.cpc}
+                            competition={keyword.competition}
+                            isSubscribed={isSubscribed}
+                            variant={
+                              keyword.competition === "LOW"
+                                ? "green"
+                                : keyword.competition === "MEDIUM"
+                                ? "blue"
+                                : keyword.competition === "HIGH"
+                                ? "pink"
+                                : "purple"
+                              // "blue"
+                            }
+                          />
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>
