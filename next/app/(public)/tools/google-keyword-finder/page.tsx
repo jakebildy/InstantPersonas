@@ -8,7 +8,7 @@ import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
-import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
+import * as TopicalAuthorityDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
@@ -47,7 +47,6 @@ export default function HistoryPage({}: {}) {
         <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
           Discover keywords and their search volume for your target audience
         </h2>
-
         <div className="flex flex-col items-center w-full mb-10 gap-2">
           {isSubscribed ? (
             <PersonaSelectFromHistorySidebar

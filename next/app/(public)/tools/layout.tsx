@@ -6,12 +6,18 @@ import api from "@/service/api.service";
 import DashboardLayout from "@/components/page-specific/dashboard/dashboard";
 import { BlogFooter } from "@/components/page-specific/blog/footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
+  const { isSubscribed } = useInstantPersonasUser();
 
   return (
-    <main className="bg-zinc-100 min-h-screen">
+    <main
+      className={
+        isSubscribed ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
+      }
+    >
       {user.user ? (
         <DashboardLayout>
           <ScrollArea className="h-[calc(100dvh-2px)]">{children}</ScrollArea>

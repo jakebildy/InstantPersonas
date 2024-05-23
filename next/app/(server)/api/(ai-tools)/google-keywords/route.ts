@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       const systemMessage =
         "Given these personas, " +
         personas +
-        ", find 20 Google search keywords at least one of the personas would be interested in and other people wouldn't be. ONLY return the keywords, separated by commas. this is an example response: 'swimming techniques, swimming gear'";
+        ", find 50 Google search keywords at least one of the personas would be searching and other people wouldn't be. At least half should be three words or less. ONLY return the keywords, separated by commas. this is an example response: 'swimming techniques, swimming gear'";
 
       const chatResponse = await GPT4(systemMessage);
 
