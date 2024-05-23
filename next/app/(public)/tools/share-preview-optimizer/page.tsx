@@ -9,7 +9,7 @@ import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
-import SocialShareTool from "@/components/toolfolio/social-share-previews/social-share-tool";
+import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
