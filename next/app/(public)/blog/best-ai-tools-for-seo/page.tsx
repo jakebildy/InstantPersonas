@@ -108,6 +108,41 @@ export default function BestAIToolsForSEO() {
             it, however.
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"2"}>
+            Finding Niche Instagram Hashtags with AI
+          </h2>
+          {/* <iframe
+            style={{ maxWidth: "100%" }}
+            width="640"
+            height="365"
+            src="https://www.youtube.com/embed/EUnq_csVcVM"
+            title="Find Free Guest Post Opportunities"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="mx-auto mr-0 ml-0 mb-6"
+          /> */}
+          <p>
+            Instagram hashtags are a great way to get your content in front of a
+            new audience and attract people to build an engaged community.
+            However, knowing which Instagram hashtags to use and target is
+            challenging. You can use this{" "}
+            <a
+              href="https://instantpersonas.com/tools/instagram-hashtag-finder"
+              className=" text-blue-500"
+            >
+              free Instagram Hashtag Finder
+            </a>{" "}
+            to find the Instagram hashtags in your niche and see their volume.
+            Just describe your target audience.
+            <br></br>
+            <br></br>
+            Additionally, if you start a free trial, you are able to also see
+            the average number of likes of the top posts, which gives you a good
+            indication of which hashtags to target (you want your posts to be
+            able to get enough likes to display if someone searches that
+            hashtag).
+          </p>
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"3"}>
             Build AI Powered Tools as Lead Magnets
           </h2>
           <p>
@@ -153,7 +188,7 @@ export default function BestAIToolsForSEO() {
             same results with zero marketing. With some marketing, however, this
             is a fantastic strategy to grow your website.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
             Use AI to Understand your Target Audience and Find Insights
           </h2>
           <p>
@@ -191,7 +226,7 @@ export default function BestAIToolsForSEO() {
             </a>
             , free for 3 days.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
             Is Content Creation with AI a Good Idea?
           </h2>
           <p>
