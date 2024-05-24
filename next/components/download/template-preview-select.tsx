@@ -92,6 +92,14 @@ export default function TemplatePreviewSelect({
     }
   }
 
+  useEffect(() => {
+    if (downloadTemplateOptions.length === 1) {
+      handleDownload(
+        mapTemplateOptionToDownloadConfig(downloadTemplateOptions[0])
+      );
+    }
+  }, [downloadTemplateOptions, handleDownload]);
+
   return (
     <div
       className={cn(
@@ -137,11 +145,6 @@ export default function TemplatePreviewSelect({
                     height={option.img.height}
                     alt={option.label + " Download Template"}
                     className="group-hover:blur-sm transition-all duration-200 ease-out"
-                    // Adds a blur placeholder effect for images that are statically imported
-                    // Uses a negative check for string type to determine if the image is statically imported
-                    {...(typeof option.img !== "string"
-                      ? { placeholder: "blur" }
-                      : {})}
                   />
                   <span className="animate-pulse hidden group-hover:block font-semibold text-xs text-black/75 z-[60] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     {option.label}

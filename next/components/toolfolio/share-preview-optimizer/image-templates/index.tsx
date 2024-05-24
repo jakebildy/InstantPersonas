@@ -1,0 +1,5 @@
+import { INSTANT_PERSONAS_OG_BLOG_IMAGE_TEMPLATE_CONFIG } from "./instant-personas-blog";
+
+export const IMAGE_TEMPLATES = [
+  INSTANT_PERSONAS_OG_BLOG_IMAGE_TEMPLATE_CONFIG,
+] as const;
