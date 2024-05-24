@@ -15,10 +15,10 @@ export default function GlobalError({
   const { isSubscribed } = useInstantPersonasUser();
 
   return (
-    <section>
+    <section className="h-screen">
       {isSubscribed ? (
         <DashboardLayout>
-          <div className="grid place-items-center w-full h-full">
+          <div className="grid place-items-center w-full h-full flex-1">
             <ErrorState error={error} onRetry={reset} />
           </div>
         </DashboardLayout>

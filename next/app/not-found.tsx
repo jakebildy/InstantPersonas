@@ -10,10 +10,10 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <section>
+    <section className="h-screen">
       {isSubscribed ? (
         <DashboardLayout>
-          <div className="grid place-items-center w-full h-full">
+          <div className="grid place-items-center w-full h-full flex-1">
             <ErrorState onRetry={() => router.push("/")} />
           </div>
         </DashboardLayout>
