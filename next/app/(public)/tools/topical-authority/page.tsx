@@ -73,7 +73,7 @@ export default function HistoryPage({}: {}) {
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-50"
+              className="xl:absolute top-4 right-4 z-[100]"
             />
           ) : null}
           {userIsSubscribed ? (
