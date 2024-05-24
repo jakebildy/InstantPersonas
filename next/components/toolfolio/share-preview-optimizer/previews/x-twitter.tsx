@@ -8,6 +8,7 @@ import {
 } from "@radix-ui/react-icons";
 import { OGPreviewMetadata } from "../social-share-tool";
 import Image from "next/image";
+import { GetDomainFromString } from "../utils";
 
 export function XPreview({
   url,
@@ -27,6 +28,8 @@ export function XPreview({
     day: "numeric",
     year: "numeric",
   });
+
+  const domain = GetDomainFromString(url);
 
   return (
     <article role="article" className="py-3 px-4">
@@ -76,7 +79,9 @@ export function XPreview({
             </span>
           </div>
         </div>
-        <span className="min-w-0 text-xs text-gray-600 w-full">From {url}</span>
+        <span className="min-w-0 text-xs text-gray-600 w-full">
+          From {domain}
+        </span>
       </div>
       <div className="flex my-4 text-sm">
         <time
