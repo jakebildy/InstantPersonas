@@ -23,7 +23,9 @@ export default function GuestPostOpportunityFinder({}: {}) {
   useEffect(() => {
     const results = isSubscribed
       ? {
-          personas: selectedPersonas,
+          personas: selectedPersonas.map(
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }
@@ -68,8 +70,8 @@ export default function GuestPostOpportunityFinder({}: {}) {
           {isSubscribed ? (
             <section
               className={cn(
-                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
-                selectedPersonas.length > 0 ? "w-1/2" : ""
+                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2 transition-all duration-300",
+                selectedPersonas.length > 0 ? "w-1/2 mt-10" : ""
               )}
             >
               {selectedPersonas.length > 0 ? (

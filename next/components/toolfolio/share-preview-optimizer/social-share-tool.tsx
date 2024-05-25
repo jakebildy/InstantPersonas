@@ -354,6 +354,14 @@ function OptimizeCopywriting({
         )}
         onClick={async () => {
           if (!loading) {
+            IS_TEST_DEV_ENV
+              ? console.log(
+                  "DEV ONLY LOGS:",
+                  "Optimizing copywriting for persona: ",
+                  input
+                )
+              : null;
+
             const { output } = await generateSocialShareCopywriting({
               personas: input,
               title: title,
@@ -366,6 +374,13 @@ function OptimizeCopywriting({
 
             for await (const delta of readStreamableValue(output)) {
               responseString = `${responseString}${delta}`;
+              IS_TEST_DEV_ENV
+                ? console.log(
+                    "DEV ONLY LOGS:",
+                    "Response String: ",
+                    responseString
+                  )
+                : null;
               parse(
                 responseString,
                 {

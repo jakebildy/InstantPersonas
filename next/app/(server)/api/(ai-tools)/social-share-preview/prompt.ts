@@ -31,5 +31,9 @@ Make it in table format with the following columns:
   column 3: an intriguing description playing off the title.
   column 4: insights into why this helps to optimize click through rates and is intriguing to the persona.
   column 5: potential cons.
-  Return nothing but the table in the form of comma separated values. Do not include any quotes which would break the CSV format. USE ":" as a delimiter.
+  Return nothing but the table in the form of comma separated values. Do not include any quotes which would break the CSV format. USE ":" as a delimiter. The first row should be the column headers: "Target Persona",
+  "Suggested Title",
+  "Suggested Description",
+  "Insights",
+  "Potential Pitfalls",
 `;
