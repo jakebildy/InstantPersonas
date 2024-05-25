@@ -7,12 +7,14 @@ import {
   ColorVariantMap,
   gradientLightVariants,
   gradientVariants,
+  shadowVariants,
   tabTriggerVariants,
 } from "@/components/variants";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import {
   ArrowDown,
   ArrowUp,
+  CopyIcon,
   EyeIcon,
   EyeOffIcon,
   LayoutTemplateIcon,
@@ -34,7 +36,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { IMAGE_TEMPLATES } from "./image-templates";
+import { IMAGE_TEMPLATES } from "./image-template-editor/image-templates";
 import { DownloadIcon } from "@radix-ui/react-icons";
 import {
   Collapsible,
@@ -52,8 +54,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import TemplatePreviewSelect from "@/components/download/template-preview-select";
 import { b64toBlob } from "./utils";
+import { ImageTemplateEditorDialog } from "./image-template-editor/image-template-editor-dialog";
+import { readStreamableValue } from "ai/rsc";
+import { generateSocialShareCopywriting } from "@/app/(server)/api/(ai-tools)/social-share-preview/action";
+import { useHandleCopy } from "@/lib/hooks";
+import { cx } from "class-variance-authority";
 
-type Props = {};
+type Props = {
+  input: string;
+  isSubscribed: boolean;
+  noInput: boolean;
+};
 
 export type OGPreviewMetadata = {
   url: string;
@@ -70,24 +81,18 @@ const OG_PREVIEW_TEST: OGPreviewMetadata = {
   image: "/test-og-preview.png",
 };
 
-export default function SocialShareTool({}: Props) {
+export default function SocialShareTool({
+  input,
+  isSubscribed,
+  noInput,
+}: Props) {
+  // State management for open-graph metadata
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [image, setImage] = useState("");
 
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [showTemplateSelectModal, setShowTemplateSelectModal] = useState(false);
-
-  const handleResolvedDownload = () => {
-    setShowTemplateSelectModal(false);
-    setIsDownloading(false);
-  };
-
-  const [variant, setVariant] = useState<ColorVariant>("blue");
-  const [selectedTemplate, setSelectedTemplate] = useState("");
-  const [editTemplateSectionIsOpen, setEditTemplateSectionIsOpen] =
-    useState<boolean>(false);
+  const variant = "blue";
 
   useEffect(() => {
     setTitle(OG_PREVIEW_TEST.title);
@@ -98,6 +103,17 @@ export default function SocialShareTool({}: Props) {
 
   return (
     <section className="flex flex-col justify-center relative p-8 gap-8 w-full">
+      <OptimizeCopywriting
+        {...{
+          url,
+          title,
+          description,
+          image,
+          input,
+          noInput: noInput && title !== "" && description !== "",
+          variant,
+        }}
+      />
       <div className="flex-1 w-full flex items-center justify-center">
         <div
           className={cn(
@@ -195,307 +211,26 @@ export default function SocialShareTool({}: Props) {
                     />
 
                     <Separator text="or" className="py-2" />
-                    <Dialog
-                    // open={true}
-                    >
-                      <DialogTrigger asChild>
+
+                    <ImageTemplateEditorDialog
+                      trigger={
                         <Button
                           variant={"blue"}
                           className="flex gap-2 flex-1 peer group"
-                          onClick={() => {
-                            //? Reset the selected template if the button is clicked again
-                            //? Selected Template is used to show edit view in dialog, after which image is updated
-                            setSelectedTemplate("");
-                          }}
                         >
                           <LayoutTemplateIcon className="group-hover:text-slate-100 text-white size-4" />{" "}
                           Choose Template
                         </Button>
-                      </DialogTrigger>
-                      <DialogContent
-                        className={gradientVariants({
-                          variant,
-                          className:
-                            "w-full max-w-4xl h-full max-h-[90vh] p-4 flex flex-col",
-                        })}
-                      >
-                        <DialogHeader>
-                          <DialogTitle>Choose Template</DialogTitle>
-                          <DialogDescription>
-                            Select a template to use as the image for your
-                            social preview.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className=" flex-1 max-h-fit overflow-hidden bg-white rounded-md shadow-lg">
-                          <ScrollArea className="flex-1 h-full">
-                            {
-                              //? If a template is selected, show the edit view
-                              selectedTemplate ? (
-                                showTemplateSelectModal ? (
-                                  <TemplatePreviewSelect
-                                    className="pt-20 text-center"
-                                    header="Choose a template to download your Topical Authority Map."
-                                    subHeader="CSV and PNG formats available."
-                                    variant={"purple"}
-                                    isLoading={isDownloading}
-                                    onLoadingChange={setIsDownloading}
-                                    onSuccess={(data) => {
-                                      handleResolvedDownload();
-
-                                      console.log({
-                                        b64Data: data.split("base64,")[1],
-                                        contentType:
-                                          data
-                                            .split("data:")[0]
-                                            .replace(";", "") ?? "image/png",
-                                      });
-
-                                      const newURL = URL.createObjectURL(
-                                        b64toBlob({
-                                          b64Data: data.split("base64,")[1],
-                                          contentType: data
-                                            .split("data:")[0]
-                                            .replace(";", ""),
-                                        })
-                                      );
-                                      setImage(newURL);
-                                    }}
-                                    onError={handleResolvedDownload}
-                                    downloadTemplateOptions={[
-                                      {
-                                        type: "component",
-                                        img: {
-                                          src:
-                                            IMAGE_TEMPLATES.find(
-                                              (template, i) => {
-                                                template.title ===
-                                                  selectedTemplate;
-                                              }
-                                            )?.image || "/forest.gif",
-                                          width: 800,
-                                          height: 285,
-                                        },
-                                        label: "1200 x 600",
-                                        width: 1200,
-                                        height: 600,
-                                        component: IMAGE_TEMPLATES.map(
-                                          (template, i) => {
-                                            if (
-                                              template.title ===
-                                              selectedTemplate
-                                            ) {
-                                              return (
-                                                <template.imageTemplate
-                                                  variant={variant}
-                                                  key={i}
-                                                  {...{
-                                                    url,
-                                                    title,
-                                                    description,
-                                                    image,
-                                                    setImage,
-                                                  }}
-                                                />
-                                              );
-                                            }
-                                          }
-                                        ),
-                                      },
-                                    ]}
-                                  />
-                                ) : (
-                                  <div className="flex-1 p-2">
-                                    {IMAGE_TEMPLATES.map((template, i) => {
-                                      if (template.title === selectedTemplate) {
-                                        return (
-                                          <template.preview
-                                            variant={variant}
-                                            size="md"
-                                            key={i}
-                                            {...{
-                                              url,
-                                              title,
-                                              description,
-                                              image,
-                                              setImage,
-                                            }}
-                                          />
-                                        );
-                                      }
-                                    })}
-
-                                    <form className="flex flex-col p-4 gap-2 ">
-                                      <Collapsible
-                                        open={editTemplateSectionIsOpen}
-                                        onOpenChange={
-                                          setEditTemplateSectionIsOpen
-                                        }
-                                      >
-                                        <CollapsibleTrigger className="group">
-                                          <div className="text-left flex gap-2 justify-between transition-colors duration-200">
-                                            <div className="group-hover:animate-pulse">
-                                              <h2 className="text-lg font-bold">
-                                                Edit Template
-                                              </h2>
-                                              <p className="text-sm">
-                                                Customize how your content
-                                                appears on search engines and
-                                                social platforms. Modify the
-                                                title, description, and image to
-                                                optimize visibility and
-                                                engagement.{" "}
-                                                <span className="text-blue-500 font-bold border-b  border-transparent group-hover:border-blue-500 inline-flex gap-2 items-center">
-                                                  {editTemplateSectionIsOpen
-                                                    ? "Click here to hide"
-                                                    : "Click here to show"}
-                                                  {!editTemplateSectionIsOpen ? (
-                                                    <ArrowDown className="group-hover:animate-pulse size-3" />
-                                                  ) : (
-                                                    <ArrowUp className="group-hover:animate-pulse size-3" />
-                                                  )}
-                                                </span>
-                                              </p>
-                                            </div>
-                                            {!editTemplateSectionIsOpen ? (
-                                              <EyeOffIcon className="group-hover:animate-pulse" />
-                                            ) : (
-                                              <EyeIcon className="group-hover:animate-pulse" />
-                                            )}
-                                          </div>
-                                        </CollapsibleTrigger>
-                                        <CollapsibleContent>
-                                          <div>
-                                            <Label htmlFor="url">URL</Label>
-                                            <Input
-                                              id="url"
-                                              value={url}
-                                              onChange={(e) =>
-                                                setUrl(e.target.value)
-                                              }
-                                            />
-                                          </div>
-                                          <div>
-                                            <Label htmlFor="Title">Title</Label>
-                                            <Input
-                                              id="Title"
-                                              value={title}
-                                              onChange={(e) =>
-                                                setTitle(e.target.value)
-                                              }
-                                            />
-                                            <span className="text-xs font-medium">
-                                              Recommended:{" "}
-                                              <span className="font-light">
-                                                60 characters
-                                              </span>
-                                            </span>
-                                          </div>
-                                          <div>
-                                            <Label htmlFor="Description">
-                                              Description
-                                            </Label>
-                                            <Input
-                                              id="Description"
-                                              value={description}
-                                              onChange={(e) =>
-                                                setDescription(e.target.value)
-                                              }
-                                            />
-                                            <span className="text-xs font-medium">
-                                              Recommended:{" "}
-                                              <span className="font-light">
-                                                160 characters
-                                              </span>
-                                            </span>
-                                          </div>
-                                          <ChangeColorSelect
-                                            value={variant}
-                                            onChange={(newVariant) =>
-                                              setVariant(
-                                                newVariant as ColorVariant
-                                              )
-                                            }
-                                          />
-                                          <div className="flex flex-col gap-1">
-                                            <div className="flex items-center justify-between">
-                                              <Label htmlFor="Image">
-                                                Image
-                                              </Label>
-                                              <span className="text-xs font-medium">
-                                                Recommended:{" "}
-                                                <span className="font-light">
-                                                  1200 x 630 pixels
-                                                </span>
-                                              </span>
-                                            </div>
-
-                                            <UploadImage
-                                              currentImageUrl={image}
-                                              onUpload={(newImageUrl) =>
-                                                setImage(newImageUrl)
-                                              }
-                                            />
-                                          </div>
-                                        </CollapsibleContent>
-                                      </Collapsible>
-
-                                      <Separator className="py-2" />
-                                      <Button
-                                        variant={"blue"}
-                                        className="flex gap-2 flex-1 peer group"
-                                        onClick={() =>
-                                          setShowTemplateSelectModal(true)
-                                        }
-                                      >
-                                        <DownloadIcon className="group-hover:text-slate-100 text-white size-4" />{" "}
-                                        Download & Save Template
-                                      </Button>
-                                    </form>
-                                  </div>
-                                )
-                              ) : (
-                                <div className="grid grid-cols-3 gap-4 p-4">
-                                  {IMAGE_TEMPLATES.map((template, i) => (
-                                    <button
-                                      key={i}
-                                      className="flex flex-col border  rounded-md overflow-hidden max-w-full p-1 bg-white hover:bg-gray-200 transition-colors duration-200"
-                                      onClick={() => {
-                                        setSelectedTemplate(template.title);
-                                      }}
-                                      tabIndex={0}
-                                    >
-                                      <div className="relative w-full h-36">
-                                        <template.preview
-                                          size="sm"
-                                          variant={variant}
-                                          {...{
-                                            url,
-                                            title,
-                                            description,
-                                            image,
-                                          }}
-                                        />
-                                      </div>
-
-                                      <div className="flex p-1 items-center space-x-4 ">
-                                        <div className="flex flex-col flex-1 min-w-0">
-                                          <p className="text-sm font-medium truncate">
-                                            {template.title}
-                                          </p>
-                                          <p className="text-xs text-base-500 text-gray-400">
-                                            {template.description}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </button>
-                                  ))}
-                                </div>
-                              )
-                            }
-                          </ScrollArea>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                      }
+                      url={url}
+                      title={title}
+                      description={description}
+                      image={image}
+                      setImage={setImage}
+                      setTitle={setTitle}
+                      setDescription={setDescription}
+                      setUrl={setUrl}
+                    />
                   </div>
                 </form>
               </div>
@@ -571,44 +306,210 @@ export default function SocialShareTool({}: Props) {
   );
 }
 
-function ChangeColorSelect({
-  value = "blue",
-  onChange,
-}: {
-  value?: ColorVariant;
-  onChange: (value: string) => void;
+import { parse } from "csv-parse";
+
+const TABLE_COLUMNS = [
+  "Target Persona",
+  "Suggested Title",
+  "Suggested Description",
+  "Insights",
+  "Potential Pitfalls",
+] as const;
+
+type TableRowData = { [key in (typeof TABLE_COLUMNS)[number]]: string };
+
+function OptimizeCopywriting({
+  url,
+  title,
+  description,
+  image,
+  input,
+  noInput,
+  variant,
+}: OGPreviewMetadata & {
+  noInput: boolean;
+  input: string;
+  variant: ColorVariant;
 }) {
+  // State management for ai response
+  const [responseData, setResponseData] = useState<TableRowData[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  function getVariantByIndex(
+    index: number
+  ): keyof typeof ColorVariantMap | undefined {
+    const keys = Object.keys(ColorVariantMap) as Array<
+      keyof typeof ColorVariantMap
+    >;
+    return keys[index];
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"secondary"}>Change Color</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" side="top">
-        <DropdownMenuLabel>Select Archetype Color</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup
-          value={value}
-          onValueChange={onChange}
-          className="flex flex-col items-center"
-        >
-          {Object.entries(ColorVariantMap).map(([color, hex]) => (
-            <DropdownMenuRadioItem
-              value={color}
-              key={hex}
-              className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
-            >
-              <div
-                className={badgeVariants({
-                  variant: color as ColorVariant,
-                  className: "group-hover:animate-pulse",
-                })}
-              >
-                {color}
+    <>
+      <Button
+        disabled={noInput}
+        className={cn(
+          "mx-auto flex mb-5 font-bold py-2 px-4 rounded-full text-white",
+          loading || noInput ? "bg-gray-400" : "bg-green-500 hover:bg-green-700"
+        )}
+        onClick={async () => {
+          if (!loading) {
+            const { output } = await generateSocialShareCopywriting({
+              personas: input,
+              title: title,
+              description: description,
+              paid: true, //TODO: for whatever reason when paid is false, the output doesn't appear to work right
+            });
+            let responseString = "";
+
+            setLoading(true);
+
+            for await (const delta of readStreamableValue(output)) {
+              responseString = `${responseString}${delta}`;
+              parse(
+                responseString,
+                {
+                  delimiter: ":",
+                  from_line: 2,
+                  columns: TABLE_COLUMNS as unknown as string[],
+                },
+                function (err, records) {
+                  if (err && IS_TEST_DEV_ENV) {
+                    console.error(err);
+                  } else {
+                    IS_TEST_DEV_ENV ? console.log(records) : null;
+                    setResponseData(records);
+                  }
+                }
+              );
+            }
+            setLoading(false);
+          }
+        }}
+      >
+        {!loading
+          ? noInput
+            ? "Enter Details to Optimize Copywriting"
+            : "Optimize Copywriting"
+          : "Creating..."}
+      </Button>
+      {responseData.length > 0 ? (
+        <div className="flex-1 w-full flex items-center justify-center">
+          <div
+            className={cn(
+              gradientLightVariants({
+                variant,
+                className:
+                  "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4",
+              })
+            )}
+          >
+            <div className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md">
+              <div className="w-full flex items-center justify-center mb-4">
+                <PersonStandingIcon className="text-muted-foreground" />
               </div>
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+
+              <div className="overflow-hidden">
+                <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
+                  <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
+                    <tr>
+                      {TABLE_COLUMNS.map((column, i) => (
+                        <th
+                          key={i}
+                          className={cn(
+                            "whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]",
+                            i === 0 ? "rounded-l-lg" : "",
+                            i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
+                          )}
+                        >
+                          {column}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {responseData.map((row, i) => {
+                      return (
+                        <TableRow
+                          key={i}
+                          data={row}
+                          variant={getVariantByIndex(
+                            i % Object.keys(ColorVariantMap).length
+                          )}
+                        />
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function TableRow({
+  data,
+  variant = "blue",
+}: {
+  data: TableRowData;
+  variant?: ColorVariant;
+}) {
+  const { handleCopy } = useHandleCopy();
+
+  return (
+    <tr
+      className={cx(
+        shadowVariants({
+          variant,
+          className: "cursor-pointer bg-[#f6f8fa]",
+        }),
+        gradientLightVariants({
+          variant,
+          className: "bg-gradient-to-r",
+        })
+      )}
+    >
+      {Object.keys(data).map((column, i) => {
+        const value = data[column as keyof TableRowData];
+
+        return (
+          <td
+            key={i}
+            className={cn(
+              "px-1 py-4 text-sm font-normal text-[#637381] p-1 ",
+              i === 0 ? "rounded-l-lg" : "",
+              i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
+            )}
+            role="button"
+            tabIndex={0}
+            onClick={() =>
+              handleCopy({
+                type: column,
+                text: value,
+              })
+            }
+          >
+            <div className=" hover:bg-white p-2 pr-6 rounded-md group relative hover:shadow-md">
+              <CopyIcon className="absolute size-4 right-2 top-2 text-black group-hover:animate-pulse opacity-0 group-hover:opacity-100" />
+              {i === 0 ? (
+                <div
+                  className={badgeVariants({
+                    variant,
+                    className: "rounded-lg text-left normal-case",
+                  })}
+                >
+                  {value}
+                </div>
+              ) : (
+                value
+              )}
+            </div>
+          </td>
+        );
+      })}
+    </tr>
   );
 }
