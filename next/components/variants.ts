@@ -252,4 +252,6 @@ export const ColorVariantMap = {
   pink: "#eaa9c1",
 } as const;
 
+export const ColorVariants = Object.keys(ColorVariantMap) as ColorVariant[];
+
 export type ColorVariant = keyof typeof ColorVariantMap;

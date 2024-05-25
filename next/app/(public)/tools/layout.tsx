@@ -20,7 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     >
       {user.user ? (
         <DashboardLayout>
-          <ScrollArea className="h-[calc(100dvh-2px)]">{children}</ScrollArea>
+          <ScrollArea className="h-[calc(100dvh-2px)]">
+            <div className="h-full w-full flex-1">{children}</div>
+          </ScrollArea>
         </DashboardLayout>
       ) : (
         <section className="flex flex-col justify-between h-screen">

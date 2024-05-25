@@ -1,21 +1,18 @@
 "use client";
 import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-map/topical-authority-map";
-import { cn } from "@/lib/utils";
-import api from "@/service/api.service";
-import { useStytchUser } from "@stytch/nextjs";
-import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
-import * as TopicalAuthorityDemoGif from "@/public/tools/topical-authority-demo.gif";
+import { ArticleCard, BLOG_POSTS } from "../../blog/page";
+import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
+import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
 
-export const runtime = "edge";
-export const maxDuration = 300; // 5 minutes
-
-export default function HistoryPage({}: {}) {
+export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
   const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
@@ -23,15 +20,12 @@ export default function HistoryPage({}: {}) {
   );
   const { isSubscribed } = useInstantPersonasUser();
 
-  const user = useStytchUser();
-  const posthog = usePostHog();
-
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            (persona) => persona.persona_components.Motivations
-          ),
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }
@@ -41,26 +35,28 @@ export default function HistoryPage({}: {}) {
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
   return (
-    <section className="flex-1">
+    <section className="flex-1 bg-gray-100">
       {!isSubscribed ? (
         <div>
-          <title>Topical Authority Map Generator | Free</title>
+          <title>
+            Generated & Optimized Social Media Share | Free & Niche-Specific
+          </title>
           <meta
             name="description"
-            content="Quickly generate a topical authority map for your target audience. No signup required. Boost your SEO efforts."
+            content="Instantly generate and optimize social media share previews. No signup required. Supercharge your social media efforts."
           />
         </div>
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full bg-gray-100">
+      <div className="flex flex-col items-center h-full w-full">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
-          Topical Authority Builder
+          Social Media Share Preview Generator
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
-          Topical Authority boosts your SEO by showing Google that you are an
-          expert in your field. <br></br>Use our tool to find the best topics to
-          write about for your personas.
+        <h2 className="text-center mt-4 text-xs text-slate-400 ">
+          Generate and optimize social media share previews for your content.
+          <br />
+          Improve your click-through rates and engagement.
         </h2>
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
@@ -74,8 +70,8 @@ export default function HistoryPage({}: {}) {
           {isSubscribed ? (
             <section
               className={cn(
-                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
-                selectedPersonas.length > 0 ? "w-1/2" : ""
+                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2 transition-all duration-300",
+                selectedPersonas.length > 0 ? "w-1/2 mt-10" : ""
               )}
             >
               {selectedPersonas.length > 0 ? (
@@ -102,9 +98,9 @@ export default function HistoryPage({}: {}) {
               ) : (
                 <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
                   <Image
-                    src={TopicalAuthorityDemoGif}
+                    src={SelectPersonaDemoGif}
                     alt={
-                      "Select Personas or Enter Details to Generate Guest Posts"
+                      "Select Personas or Enter Details to Optimize Social Media Share Previews"
                     }
                     width={800}
                     height={600}
@@ -128,11 +124,30 @@ export default function HistoryPage({}: {}) {
             value={detailsInput}
           />
         </div>
-        <TopicalAuthorityMap
-          userIsSubscribed={isSubscribed}
-          personaString={personaString}
+        <SocialPreviewIntegrationShowcase className="min-w-[500px] relative my-10" />
+        <SocialShareTool
+          input={personaString}
+          isSubscribed={isSubscribed}
           noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
+
+        {/* {!isSubscribed ? (
+          <div className="my-20 flex-1 flex flex-col justify-end">
+            <div className="text-center text-slate-400 text-sm">
+              Check out our comprehensive guide on Guest Posting to learn more:
+              <br />
+              <br />
+            </div>
+            <ArticleCard
+              post={BLOG_POSTS[2]}
+              key={BLOG_POSTS[2].slug}
+              category={BLOG_POSTS[2].category}
+              className={"lg:col-span-1 max-w-[600px]"}
+            />
+          </div>
+        ) : (
+          <div />
+        )} */}
       </div>
     </section>
   );

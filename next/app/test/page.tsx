@@ -1,22 +1,15 @@
 "use client";
-import { AuthFallback } from "@/components/context/auth/stytch-auth";
-import {
-  ColorVariant,
-  ColorVariantMap,
-  gradientVariants,
-  textPastelColorVariants,
-} from "@/components/variants";
-import { cn } from "@/lib/utils";
-import { PersonStandingIcon } from "lucide-react";
-import React, { useState } from "react";
-import BarLoader from "react-spinners/BarLoader";
+
+import { TemplateEditView } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-template-edit-view";
+import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
+import React, { useEffect, useState } from "react";
 
 type Props = {};
 
 export default function PageTest({}: Props) {
   return (
-    <div className="flex flex-col items-center h-screen w-screen relative overflow-hidden">
-      <AuthFallback />
+    <div className="flex flex-col items-center justify-center h-screen w-screen relative ">
+      <SocialPreviewIntegrationShowcase />
     </div>
   );
 }

@@ -22,6 +22,7 @@ const buttonVariants = cva(
           "bg-green-500 text-white hover:text-slate-100 hover:bg-green-600",
         slate:
           "bg-slate-900 text-white hover:bg-slate-700 hover:text-slate-100 active:bg-slate-800 active:text-slate-300",
+        blue: "bg-blue-500 text-white hover:bg-blue-800 hover:text-white active:bg-blue-900 active:text-white",
       },
       size: {
         rounded:

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { VariantProps } from "class-variance-authority";
 import { useToPng } from "@hugocxl/react-to-image";
@@ -72,6 +72,7 @@ export default function TemplatePreviewSelect({
   const [templateWidth, setTemplateWidth] = useState<number>(600);
   const [templateHeight, setTemplateHeight] = useState<number>(1000);
   const [component, setComponent] = useState<React.ReactNode | null>();
+  const hasDownloadedSingleTemplate = useRef(false);
 
   function mapTemplateOptionToDownloadConfig(
     template: DownloadTemplateOptionConfig
@@ -91,6 +92,22 @@ export default function TemplatePreviewSelect({
         return { onDownload: template.onDownload };
     }
   }
+
+  useEffect(() => {
+    if (!hasDownloadedSingleTemplate.current) {
+      if (downloadTemplateOptions.length === 1 && overlayIsVisible === false) {
+        console.log(
+          "Downloading single template...",
+          downloadTemplateOptions[0]
+        );
+        const template = downloadTemplateOptions[0];
+        const config = mapTemplateOptionToDownloadConfig(template);
+        handleDownload(config);
+        // Set the flag to true
+        hasDownloadedSingleTemplate.current = true;
+      }
+    }
+  }, [downloadTemplateOptions, handleDownload, overlayIsVisible]);
 
   return (
     <div
@@ -137,11 +154,6 @@ export default function TemplatePreviewSelect({
                     height={option.img.height}
                     alt={option.label + " Download Template"}
                     className="group-hover:blur-sm transition-all duration-200 ease-out"
-                    // Adds a blur placeholder effect for images that are statically imported
-                    // Uses a negative check for string type to determine if the image is statically imported
-                    {...(typeof option.img !== "string"
-                      ? { placeholder: "blur" }
-                      : {})}
                   />
                   <span className="animate-pulse hidden group-hover:block font-semibold text-xs text-black/75 z-[60] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     {option.label}
@@ -173,6 +185,7 @@ type TemplateSelectStateProps = {
   onLoadingChange?: (loading: boolean) => void;
   onSuccess?: (data: string) => unknown;
   onError?: (error: string) => unknown;
+  fileName?: string;
 };
 
 type HandleDownloadConfig = {
@@ -181,10 +194,11 @@ type HandleDownloadConfig = {
   fileName?: string;
 };
 
-function useTemplateSelectState({
+export function useTemplateSelectState({
   onLoadingChange,
   onSuccess,
   onError,
+  fileName = "InstantPersonas-template.png",
 }: TemplateSelectStateProps) {
   const [
     downloadTemplateComponentIsMounted,
@@ -196,7 +210,7 @@ function useTemplateSelectState({
     useToPng<HTMLDivElement>({
       onSuccess: async (data) => {
         const link = document.createElement("a");
-        link.download = "InstantPersonas-template.jpeg";
+        link.download = fileName;
         link.href = data;
         link.click();
         setDownloadTemplateComponentIsMounted(false);
@@ -249,7 +263,7 @@ function useTemplateSelectState({
   ] as const;
 }
 
-function DownloadingOverlay({
+export function DownloadingOverlay({
   variant = "blue",
   placeholder = "Downloading...",
 }: {

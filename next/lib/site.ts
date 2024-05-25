@@ -1,4 +1,4 @@
-import { PersonStandingIcon } from "lucide-react";
+import { MessageSquareShareIcon, PersonStandingIcon } from "lucide-react";
 import {
   BanknotesIcon,
   BookmarkIcon,
@@ -45,6 +45,7 @@ export const SIDEBAR_LINKS = [
 
 export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 
+// Search icons at https://lucide.dev/icons
 export const SEO_LINKS = [
   {
     title: "Topical Authority",
@@ -77,6 +78,14 @@ export const SEO_LINKS = [
     category: "Marketing",
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
+    label: "",
+  },
+  {
+    title: "Share Preview Optimizer",
+    href: "/tools/share-preview-optimizer",
+    category: "SEO",
+    lead: "Generate and optimize social media share previews for your content.",
+    icon: MessageSquareShareIcon,
     label: "",
   },
 ] as const;
