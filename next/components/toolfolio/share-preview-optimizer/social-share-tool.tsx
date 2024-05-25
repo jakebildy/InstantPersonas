@@ -375,9 +375,11 @@ function OptimizeCopywriting({
                 },
                 function (err, records) {
                   if (err && IS_TEST_DEV_ENV) {
-                    console.error(err);
+                    console.error("DEV ONLY LOGS:", err);
                   } else {
-                    IS_TEST_DEV_ENV ? console.log(records) : null;
+                    IS_TEST_DEV_ENV
+                      ? console.log("DEV ONLY LOGS:", records)
+                      : null;
                     setResponseData(records);
                   }
                 }
