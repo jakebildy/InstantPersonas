@@ -1,20 +1,13 @@
 "use client";
 import {
   ColorVariant,
-  ColorVariantMap,
-  ColorVariants,
-  gradientLightVariants,
   gradientVariants,
   shadowVariants,
-  SurveyCardBackGroundElementCircle,
-  SurveyCardBackGroundElementRing,
-  tabTriggerVariants,
   textColorVariants,
   textPastelColorVariants,
 } from "@/components/variants";
 import { OGPreviewMetadata } from "../../social-share-tool";
 import Image from "next/image";
-import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
 import { GetDomainFromString } from "../../utils";
 import { cx } from "class-variance-authority";
@@ -26,9 +19,7 @@ export function InstantPersonasOGBlogImageTemplate({
   title,
   description,
   image,
-}: OGPreviewMetadata & {
-  variant?: ColorVariant;
-}) {
+}: OpenGraphImageTemplateProps) {
   const domain = GetDomainFromString(url);
 
   return (
@@ -122,10 +113,7 @@ export function InstantPersonasOGBlogImageTemplatePreview({
   description,
   image,
   size,
-}: OGPreviewMetadata & {
-  size: "sm" | "md";
-  variant?: ColorVariant;
-}) {
+}: OpenGraphImageTemplatePreviewProps) {
   const domain = GetDomainFromString(url);
 
   return (
@@ -225,6 +213,10 @@ export function InstantPersonasOGBlogImageTemplatePreview({
 
 import * as InstantPersonasBlogOGImage from "./instant-personas-blog-template-preview.png";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import {
+  OpenGraphImageTemplatePreviewProps,
+  OpenGraphImageTemplateProps,
+} from ".";
 
 export const INSTANT_PERSONAS_OG_BLOG_IMAGE_TEMPLATE_CONFIG = {
   title: "Instant Personas Blog",
