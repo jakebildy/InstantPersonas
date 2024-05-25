@@ -6,14 +6,13 @@ import {
   textColorVariants,
   textPastelColorVariants,
 } from "@/components/variants";
-import { OGPreviewMetadata } from "../../social-share-tool";
 import Image from "next/image";
 import { PersonStandingIcon } from "lucide-react";
-import { GetDomainFromString } from "../../utils";
+import { GetDomainFromString } from "../../../utils";
 import { cx } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-export function InstantPersonasOGBlogImageTemplate({
+export function InstantPersonasBasicTemplate({
   variant = "blue",
   url,
   title,
@@ -106,7 +105,7 @@ function PersonaIconBackgroundElement({ variant }: { variant: ColorVariant }) {
   );
 }
 
-export function InstantPersonasOGBlogImageTemplatePreview({
+export function InstantPersonasBasicTemplatePreview({
   variant = "blue",
   url,
   title,
@@ -211,17 +210,17 @@ export function InstantPersonasOGBlogImageTemplatePreview({
   );
 }
 
-import * as InstantPersonasBlogOGImage from "./instant-personas-blog-template-preview.png";
+import * as ImagePreview from "./template-preview.png";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import {
   OpenGraphImageTemplatePreviewProps,
   OpenGraphImageTemplateProps,
-} from ".";
+} from "..";
 
-export const INSTANT_PERSONAS_OG_BLOG_IMAGE_TEMPLATE_CONFIG = {
-  title: "Instant Personas Blog",
-  description: "OG Image Template for the Instant Personas Blog",
-  image: InstantPersonasBlogOGImage as StaticImport,
-  imageTemplate: InstantPersonasOGBlogImageTemplate,
-  preview: InstantPersonasOGBlogImageTemplatePreview,
+export const INSTANT_PERSONAS_BASIC_IMAGE_TEMPLATE_CONFIG = {
+  title: "Instant Personas Basic",
+  description: "Our Standard Image Template for Instant Personas",
+  image: ImagePreview as StaticImport,
+  imageTemplate: InstantPersonasBasicTemplate,
+  preview: InstantPersonasBasicTemplatePreview,
 } as const;
