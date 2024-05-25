@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { VariantProps } from "class-variance-authority";
 import { useToPng } from "@hugocxl/react-to-image";
@@ -72,6 +72,7 @@ export default function TemplatePreviewSelect({
   const [templateWidth, setTemplateWidth] = useState<number>(600);
   const [templateHeight, setTemplateHeight] = useState<number>(1000);
   const [component, setComponent] = useState<React.ReactNode | null>();
+  const hasDownloadedSingleTemplate = useRef(false);
 
   function mapTemplateOptionToDownloadConfig(
     template: DownloadTemplateOptionConfig
@@ -93,12 +94,20 @@ export default function TemplatePreviewSelect({
   }
 
   useEffect(() => {
-    if (downloadTemplateOptions.length === 1) {
-      handleDownload(
-        mapTemplateOptionToDownloadConfig(downloadTemplateOptions[0])
-      );
+    if (!hasDownloadedSingleTemplate.current) {
+      if (downloadTemplateOptions.length === 1 && overlayIsVisible === false) {
+        console.log(
+          "Downloading single template...",
+          downloadTemplateOptions[0]
+        );
+        const template = downloadTemplateOptions[0];
+        const config = mapTemplateOptionToDownloadConfig(template);
+        handleDownload(config);
+        // Set the flag to true
+        hasDownloadedSingleTemplate.current = true;
+      }
     }
-  }, [downloadTemplateOptions, handleDownload]);
+  }, [downloadTemplateOptions, handleDownload, overlayIsVisible]);
 
   return (
     <div
@@ -176,6 +185,7 @@ type TemplateSelectStateProps = {
   onLoadingChange?: (loading: boolean) => void;
   onSuccess?: (data: string) => unknown;
   onError?: (error: string) => unknown;
+  fileName?: string;
 };
 
 type HandleDownloadConfig = {
@@ -184,10 +194,11 @@ type HandleDownloadConfig = {
   fileName?: string;
 };
 
-function useTemplateSelectState({
+export function useTemplateSelectState({
   onLoadingChange,
   onSuccess,
   onError,
+  fileName = "InstantPersonas-template.png",
 }: TemplateSelectStateProps) {
   const [
     downloadTemplateComponentIsMounted,
@@ -199,7 +210,7 @@ function useTemplateSelectState({
     useToPng<HTMLDivElement>({
       onSuccess: async (data) => {
         const link = document.createElement("a");
-        link.download = "InstantPersonas-template.jpeg";
+        link.download = fileName;
         link.href = data;
         link.click();
         setDownloadTemplateComponentIsMounted(false);
@@ -252,7 +263,7 @@ function useTemplateSelectState({
   ] as const;
 }
 
-function DownloadingOverlay({
+export function DownloadingOverlay({
   variant = "blue",
   placeholder = "Downloading...",
 }: {

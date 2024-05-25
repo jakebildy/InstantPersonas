@@ -122,9 +122,9 @@ export default function GuestPostOpportunityFinder({}: {}) {
           />
         </div>
         <SocialShareTool
-        // input={personaString}
-        // isSubscribed={isSubscribed}
-        // noInput={selectedPersonas.length === 0 && detailsInput === ""}
+          input={personaString}
+          isSubscribed={isSubscribed}
+          noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
 
         {/* {!isSubscribed ? (

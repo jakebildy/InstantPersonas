@@ -12,11 +12,11 @@ import {
   textColorVariants,
   textPastelColorVariants,
 } from "@/components/variants";
-import { OGPreviewMetadata } from "../social-share-tool";
+import { OGPreviewMetadata } from "../../social-share-tool";
 import Image from "next/image";
 import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
-import { GetDomainFromString } from "../utils";
+import { GetDomainFromString } from "../../utils";
 import { cx } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 

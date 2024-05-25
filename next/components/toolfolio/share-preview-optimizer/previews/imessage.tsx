@@ -21,8 +21,8 @@ export function IMessagePreview({
       <div className="ml-auto px-4 py-2 mb-3 text-sm text-white bg-blue-500 rounded-2xl">
         <span>Check out this website!</span>
       </div>
-      <div className="flex flex-col border  rounded-2xl overflow-hidden max-w-full">
-        <div className="relative w-full h-56">
+      <div className="flex flex-col border rounded-2xl overflow-hidden max-w-full">
+        <div className="relative w-full  aspect-[1200/600]">
           {image ? <Image src={image} alt="OG Image" fill={true} /> : null}
         </div>
 
