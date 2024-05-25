@@ -6,6 +6,7 @@ import { IconProps } from "@radix-ui/react-icons/dist/types";
 import React, { forwardRef, HTMLAttributes, useRef } from "react";
 import { PersonStandingIcon } from "lucide-react";
 import { BRAND_ICONS } from "@/components/brand-icons";
+import Image from "next/image";
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -57,8 +58,16 @@ export function SocialPreviewIntegrationShowcase({
           <Circle ref={div2Ref}>
             <BRAND_ICONS.LinkedIn className="size-6" />
           </Circle>
-          <Circle ref={div4Ref} className="h-16 w-16">
-            <PersonStandingIcon className="size-6" />
+          <Circle ref={div4Ref} className="size-16">
+            <Image
+              src={"/instant_personas_logo.png"}
+              alt={"Instant Personas Logo"}
+              width={64}
+              height={64}
+              priority
+              className={"object-contain size-16"}
+            />
+            {/* <PersonStandingIcon className="size-6" /> */}
           </Circle>
           <Circle ref={div6Ref}>
             <BRAND_ICONS.Discord className="h-6 w-6" />
