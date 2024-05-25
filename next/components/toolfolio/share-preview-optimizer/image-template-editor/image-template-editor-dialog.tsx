@@ -1,6 +1,6 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ColorVariant } from "@/components/variants";
+import { ColorVariant, gradientLightVariants } from "@/components/variants";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dialog,
@@ -18,7 +18,6 @@ import { TemplateEditView } from "./image-template-edit-view";
 import { TemplateSelectionGallery } from "./image-template-gallery";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, LoaderIcon } from "lucide-react";
-import { set } from "lodash";
 
 interface ImageTemplateEditorDialogProps
   extends OGPreviewMetadata,
@@ -82,7 +81,10 @@ export function ImageTemplateEditorDialog({
         {trigger}
       </DialogTrigger>
       <DialogContent
-        className={`w-full max-w-4xl h-full max-h-[90vh] p-4 flex flex-col`}
+        className={gradientLightVariants({
+          variant,
+          className: "w-full max-w-4xl h-full max-h-[90vh] p-4 flex flex-col",
+        })}
       >
         <DialogHeader>
           <DialogTitle>
