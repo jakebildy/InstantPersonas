@@ -108,7 +108,7 @@ export function TemplateEditView({
               )}
             </div>
           </CollapsibleTrigger>
-          <CollapsibleContent>
+          <CollapsibleContent className="flex flex-col gap-2">
             <div>
               <Label htmlFor="url">URL</Label>
               <Input
@@ -139,10 +139,17 @@ export function TemplateEditView({
                 Recommended: <span className="font-light">160 characters</span>
               </span>
             </div>
-            <ChangeColorSelect
-              value={variant}
-              onChange={(newVariant) => setVariant(newVariant as ColorVariant)}
-            />
+            <div>
+              <Label htmlFor="ColorVariantChange">Change Color</Label>
+              <ChangeColorSelect
+                id="ColorVariantChange"
+                value={variant}
+                onChange={(newVariant) =>
+                  setVariant(newVariant as ColorVariant)
+                }
+              />
+            </div>
+
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
                 <Label htmlFor="Image">Image</Label>
@@ -172,44 +179,46 @@ export function TemplateEditView({
   );
 }
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 function ChangeColorSelect({
   value = "blue",
   onChange,
+  id,
 }: {
   value?: ColorVariant;
   onChange: (value: string) => void;
+  id?: string;
 }) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"secondary"}>Change Color</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" side="top">
-        <DropdownMenuLabel>Select Archetype Color</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup
-          value={value}
-          onValueChange={onChange}
-          className="flex flex-col items-center"
-        >
-          {Object.entries(ColorVariantMap).map(([color, hex]) => (
-            <DropdownMenuRadioItem
-              value={color}
-              key={hex}
-              className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className="w-full" id={id}>
+        <SelectValue placeholder="Change Color" />
+      </SelectTrigger>
+      <SelectContent>
+        {Object.entries(ColorVariantMap).map(([color, hex]) => (
+          <SelectItem
+            value={color}
+            key={hex}
+            className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
+          >
+            <div
+              className={badgeVariants({
+                variant: color as ColorVariant,
+                className: "group-hover:animate-pulse",
+              })}
             >
-              <div
-                className={badgeVariants({
-                  variant: color as ColorVariant,
-                  className: "group-hover:animate-pulse",
-                })}
-              >
-                {color}
-              </div>
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+              {color}
+            </div>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
