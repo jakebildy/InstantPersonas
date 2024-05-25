@@ -532,7 +532,7 @@ export const BRAND_ICONS = {
       </g>
     </svg>
   ),
-  Pintrest: (props: IconProps) => (
+  Pinterest: (props: IconProps) => (
     <svg
       height="800px"
       width="800px"

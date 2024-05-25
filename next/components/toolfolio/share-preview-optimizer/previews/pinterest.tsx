@@ -1,7 +1,7 @@
 import { OGPreviewMetadata } from "../social-share-tool";
 import Image from "next/image";
 
-export function PintrestPreview({
+export function PinterestPreview({
   url,
   title,
   description,
@@ -61,8 +61,8 @@ export function PintrestPreview({
   );
 }
 
-export const PINTREST_CONFIG = {
-  title: "Pintrest",
-  description: "View Pintrest preview here.",
-  content: PintrestPreview,
+export const PINTEREST_CONFIG = {
+  title: "Pinterest",
+  description: "View Pinterest preview here.",
+  content: PinterestPreview,
 } as const;

@@ -2,9 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/magicui/animated-beam";
-import { IconProps } from "@radix-ui/react-icons/dist/types";
 import React, { forwardRef, HTMLAttributes, useRef } from "react";
-import { PersonStandingIcon } from "lucide-react";
 import { BRAND_ICONS } from "@/components/brand-icons";
 import Image from "next/image";
 
@@ -75,7 +73,7 @@ export function SocialPreviewIntegrationShowcase({
         </div>
         <div className="flex flex-row items-center justify-between">
           <Circle ref={div3Ref}>
-            <BRAND_ICONS.Pintrest className="h-6 w-6" />
+            <BRAND_ICONS.Pinterest className="h-6 w-6" />
           </Circle>
           <Circle ref={div7Ref}>
             <BRAND_ICONS.messenger className="h-6 w-6" />

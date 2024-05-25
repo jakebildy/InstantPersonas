@@ -1,4 +1,4 @@
-import { PINTREST_CONFIG } from "./pintrest";
+import { PINTEREST_CONFIG } from "./pinterest";
 import { IMESSAGE_CONFIG } from "./imessage";
 import { DISCORD_CONFIG } from "./discord";
 import { X_CONFIG } from "./x-twitter";
@@ -9,7 +9,7 @@ export const SOCIAL_SHARE_PREVIEWS = {
   twitter: X_CONFIG,
   linkedin: LINKEDIN_CONFIG,
   discord: DISCORD_CONFIG,
-  pintrest: PINTREST_CONFIG,
+  pinterest: PINTEREST_CONFIG,
 } as const;
 
 export const OG_SOCIAL_PREVIEW_TEMPLATE_TABS = [
