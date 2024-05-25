@@ -56,18 +56,18 @@ export function InstantPersonasOGBlogImageTemplate({
           className={textColorVariants({
             variant,
             className:
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center gap-4",
+              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center gap-4 w-full",
           })}
         >
           <PersonStandingIcon className="size-14" />
           <div>
-            <h1 className="text-3xl font-bold">{title}</h1>
-            <p className="text-lg">{description}</p>
+            <h1 className=" text-4xl font-bold">{title}</h1>
+            <p className="text-2xl">{description}</p>
             <span
               className={textColorVariants({
                 variant,
                 className:
-                  "inline-flex my-4 items-center justify-center whitespace-nowrap rounded-full px-6 py-1.5 text-sm font-medium bg-white text-foreground shadow-lg",
+                  "inline-flex my-4 items-center justify-center whitespace-nowrap rounded-full px-6 py-1.5 text-2xl font-medium bg-white text-foreground shadow-lg",
               })}
             >
               {domain}
