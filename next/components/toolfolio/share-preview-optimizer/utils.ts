@@ -1,9 +1,14 @@
 export function GetDomainFromString(url: string) {
+  if (!url) {
+    return "";
+  }
+
   const domainParts = url
     .replace("https://", "")
     .replace("http://", "")
     .split(".");
-  let domain = domainParts[0] + "." + domainParts[1];
+
+  let domain = domainParts[0] + (domainParts[1] ? "." + domainParts[1] : "");
   return domain;
 }
 
