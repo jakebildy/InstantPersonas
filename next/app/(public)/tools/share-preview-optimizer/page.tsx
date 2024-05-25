@@ -10,6 +10,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
+import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
@@ -50,7 +51,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Social Media Share Preview Generator
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 mb-16">
+        <h2 className="text-center mt-4 text-xs text-slate-400 ">
           Generate and optimize social media share previews for your content.
           <br />
           Improve your click-through rates and engagement.
@@ -121,6 +122,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
             value={detailsInput}
           />
         </div>
+        <SocialPreviewIntegrationShowcase className="min-w-[500px] relative my-10" />
         <SocialShareTool
           input={personaString}
           isSubscribed={isSubscribed}
