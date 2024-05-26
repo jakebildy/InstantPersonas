@@ -100,6 +100,18 @@ const config = {
             backgroundPosition: "350% 50%, 350% 50%",
           },
         },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        ripple: {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "50%": {
+            transform: "translate(-50%, -50%) scale(0.9)",
+          },
+        },
         moveHorizontal: {
           "0%": {
             transform: "translateX(-50%) translateY(-10%)",
@@ -138,6 +150,8 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         aurora: "aurora 60s linear infinite",
+        grid: "grid 15s linear infinite",
+        ripple: "ripple 3400ms ease infinite",
 
         first: "moveVertical 30s ease infinite",
         second: "moveInCircle 20s reverse infinite",
