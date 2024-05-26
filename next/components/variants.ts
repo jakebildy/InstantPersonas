@@ -242,6 +242,63 @@ export const ButtonInnerHover = cva(
   }
 );
 
+export const Border600 = cva("border", {
+  variants: {
+    variant: {
+      blue: "border-blue-600",
+      purple: "border-purple-600",
+      red: "border-red-600",
+      yellow: "border-yellow-600",
+      green: "border-green-600",
+      brown: "border-brown-600",
+      pink: "border-pink-600",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
+export const gradientGridTitleTextVariants = cva(
+  "bg-gradient-to-b bg-clip-text text-center text-7xl font-bold tracking-tighter text-transparent",
+  {
+    variants: {
+      variant: {
+        blue: "from-pastel-blue via-[#475a78] to-[#4c435b]",
+        purple: "from-[#3f00f4] to-[#ee6cf5]",
+        red: "from-[#EE5A24] to-[#EA2027]",
+        yellow: "from-[#ffd319] to-[#ff2975]",
+        green: "from-[#A2D240] to-[#1B8B00]",
+        brown: "from-[#210D10] to-[#802201]",
+        pink: " from-[#FF1053]  to-[#EE5166] ",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  }
+);
+
+export const gradientGridTextVariants = cva(
+  "text-center text-4xl font-semibold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br ",
+  {
+    variants: {
+      variant: {
+        blue: "from-black to-gray-500",
+        purple: "from-black to-[#ee6cf5]",
+        red: "from-[#210D10] to-[#EA2027]",
+        yellow: "from-yellow-900 to-[#ff2975]",
+        green: "from-green-900 to-[#1B8B00]",
+        brown: "from-[#210D10] to-[#802201]",
+        pink: "from-black to-[#FF1053]",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  }
+);
+
 export const ColorVariantMap = {
   blue: "#c7eaf1",
   purple: "#d9cbfc",
