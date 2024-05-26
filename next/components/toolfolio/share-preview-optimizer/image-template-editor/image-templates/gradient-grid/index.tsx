@@ -173,7 +173,7 @@ export function GradientGridTemplatePreview({
                 variant,
                 className: cn(
                   "pointer-events-none whitespace-pre-wrap font-semibold z-10 bg-gradient-to-tl",
-                  isSmall ? "text-[10px] " : "text-3xl"
+                  isSmall ? "text-[10px] leading-[12px] " : "text-3xl"
                 ),
               })}
             >
