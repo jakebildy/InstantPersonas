@@ -95,6 +95,7 @@ const AccordionItem = React.forwardRef(
     </Accordion.Item>
   )
 );
+AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = React.forwardRef(
   ({ children, className, ...props }: any, forwardedRef) => (
@@ -118,6 +119,7 @@ const AccordionTrigger = React.forwardRef(
     </Accordion.Header>
   )
 );
+AccordionTrigger.displayName = "AccordionTrigger";
 
 const AccordionContent = React.forwardRef(
   ({ children, className, ...props }: any, forwardedRef) => (
@@ -133,3 +135,4 @@ const AccordionContent = React.forwardRef(
     </Accordion.Content>
   )
 );
+AccordionContent.displayName = "AccordionContent";
