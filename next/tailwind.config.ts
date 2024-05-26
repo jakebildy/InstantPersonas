@@ -92,6 +92,7 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        
         aurora: {
           from: {
             backgroundPosition: "50% 50%, 50% 50%",

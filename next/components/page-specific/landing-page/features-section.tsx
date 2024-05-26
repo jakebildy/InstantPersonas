@@ -34,6 +34,12 @@ export default function FeaturesSection() {
         "Find the best niche Instagram hashtags for your personas. See their volume and competitiveness.",
       link: "/tools/instagram-hashtag-finder",
     },
+    {
+      title: "Social Share Preview Optimizer",
+      description:
+        "Generate and optimize social media share previews for your content. These are the previews people see when they share your content.",
+      link: "/tools/share-preview-optimizer",
+    },
   ];
 
   return (
