@@ -8,16 +8,16 @@ export function PinterestPreview({
   image,
 }: OGPreviewMetadata) {
   return (
-    <div className="grid grid-cols-4 p-4 gap-2">
+    <div className="grid grid-cols-5 p-4 gap-2">
       <div className="col-span-1 flex flex-col gap-2">
         <div className="bg-pastel-blue/50 rounded-md w-full h-80" />
         <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
         <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
       </div>
-      <div className="col-span-2 flex flex-col gap-2">
-        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
+      <div className="col-span-3 flex flex-col gap-2">
+        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
         <div>
-          <div className="bg-pastel-blue/50 rounded-md w-full h-40 relative overflow-hidden cursor-pointer">
+          <div className="bg-pastel-blue/50 rounded-md w-full  relative overflow-hidden cursor-pointer aspect-[2/1]">
             <Image src={image} alt="OG Image" fill={true} />
           </div>
           <div className="px-[6px] pt-2 pb-1">
