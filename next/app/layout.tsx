@@ -18,7 +18,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Instant Personas | Get Started",
+  title: "InstantPersonas | Get Started",
   description:
     "Save hours understanding your customers with our User Persona generator.",
 };

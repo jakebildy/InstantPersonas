@@ -43,7 +43,7 @@ const SubscriptionPopup = ({
             </h2>
           </div>
           <p className="text-sm text-gray-600">
-            To use Instant Personas, start your free trial!{" "}
+            To use InstantPersonas, start your free trial!{" "}
             <i className="underline">You can cancel at any time</i>.
           </p>
 

@@ -75,7 +75,7 @@ export type OGPreviewMetadata = {
 
 const OG_PREVIEW_TEST: OGPreviewMetadata = {
   url: "instantpersonas.com",
-  title: "Instant Personas | Get Started",
+  title: "InstantPersonas | Get Started",
   description:
     "Save hours understanding your customers with our User Persona generator.",
   image: "/test-og-preview.png",

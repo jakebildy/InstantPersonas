@@ -44,14 +44,14 @@ export const BLOG_POSTS: BlogPost[] = [
 export default function BlogPage() {
   return (
     <section className="bg-white ">
-      <title>Instant Personas Blog | Marketing Insights</title>
+      <title>InstantPersonas Blog | Marketing Insights</title>
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
             Understand and Reach your Audience Quickly
           </h2>
           <p className="font-light text-gray-500 sm:text-xl ">
-            Instant Personas helps you understand your audience better, so you
+            InstantPersonas helps you understand your audience better, so you
             can create more effective marketing campaigns. Here we will share
             some tips and tricks.
           </p>

@@ -8,6 +8,12 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
+    question: "Why not just use ChatGPT?",
+
+    answer:
+      "Asking ChatGPT to create a persona for you won’t provide you with anything valuable. Why? Because ChatGPT simply does not understand your business well enough to be useful. Instead of you asking ChatGPT, InstantPersonas asks **you**. It won’t make you a persona until it thinks it knows enough to actually provide you with meaningful insights. It also doesn’t just make one, it has enough insight into customer psychology to create four different archetypes representing the different customer types you have. Once it creates your personas, it integrates into live data from Google Search, Meta and other platforms to provide you with tools to actually reach these people. This is not just a simple ChatGPT wrapper like so many other AI tools out there.",
+  },
+  {
     question: "Can I customize the personas after the AI generates it?",
     answer:
       "Yep! You can easily change the text and download it after. You can also change them simply by talking to our AI. Good personas should be adjusted as you learn more, so we've built our tool specifically with this in mind.",
@@ -36,6 +42,11 @@ const faqs = [
     question: "How does InstantPersonas save me time?",
     answer:
       "InstantPersonas uses AI-powered technology to instantly generate User Personas. Just by talking to our AI, you're able to figure out gaps in your understanding of your target market, and adjust accordingly. You're also able to connect these personas to our SEO and marketing tools to reach your audience faster.",
+  },
+  {
+    question: "Where is InstantPersonas going? What’s the vision?",
+    answer:
+      "We want to democratize marketing. The big players in the game are getting better at what they do and it’s become almost impossible to compete. Small businesses and marketing agencies have become beholden to the whims of Big Tech. This makes it harder to make something new, or start a business, or help others market. Marketing as a small business or marketing agency should feel doable. It should be straightforward. And you know what? Marketing should be fun. We think democratizing marketing makes the world more of a meritocracy by letting smaller companies with good products get exposure. We think this is a good thing. Thanks for being part of our journey.",
   },
 ];
 
