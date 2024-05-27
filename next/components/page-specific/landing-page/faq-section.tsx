@@ -11,7 +11,7 @@ const faqs = [
     question: "Why not just use ChatGPT?",
 
     answer:
-      "Asking ChatGPT to create a persona for you won’t provide you with anything valuable. Why? Because ChatGPT simply does not understand your business well enough to be useful. Instead of you asking ChatGPT, InstantPersonas asks **you**. It won’t make you a persona until it thinks it knows enough to actually provide you with meaningful insights. It also doesn’t just make one, it has enough insight into customer psychology to create four different archetypes representing the different customer types you have. Once it creates your personas, it integrates into live data from Google Search, Meta and other platforms to provide you with tools to actually reach these people. This is not just a simple ChatGPT wrapper like so many other AI tools out there.",
+      "Asking ChatGPT to create a persona for you won’t provide you with anything valuable. Why? Because ChatGPT simply does not understand your business well enough to be useful. Instead of you asking ChatGPT, InstantPersonas asks YOU. It won’t make you a persona until it thinks it knows enough to actually provide you with meaningful insights. It also doesn’t just make one, it has enough insight into customer psychology to create four different archetypes representing the different customer types you have. Once it creates your personas, it integrates into live data from Google Search, Meta and other platforms to provide you with tools to actually reach these people. This is not just a simple ChatGPT wrapper like so many other AI tools out there.",
   },
   {
     question: "Can I customize the personas after the AI generates it?",
@@ -45,7 +45,7 @@ const faqs = [
   },
   {
     question: "Can I become an affiliate?",
-    answer: "Shoot me an email at jacob@instantpersonas.com and we can chat.",
+    answer: "Reach out to jacob@instantpersonas.com and we can chat.",
   },
   {
     question: "Where is InstantPersonas going? What’s the vision?",
@@ -59,7 +59,7 @@ export default function FaqSection() {
     <section id="faq" aria-labelledby="faq-title" className=" bg-white">
       {/* <BackgroundGradientAnimation> */}
       {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
-      <Container className=" mt-20 text-center w-screen h-full">
+      <Container className=" mt-20 text-center w-screen h-[130%]">
         <div className="mx-auto ">
           <h2
             id="faq-title"
