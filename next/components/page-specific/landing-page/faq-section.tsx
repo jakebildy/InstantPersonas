@@ -59,7 +59,7 @@ export default function FaqSection() {
     <section id="faq" aria-labelledby="faq-title" className=" bg-white">
       {/* <BackgroundGradientAnimation> */}
       {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
-      <Container className=" mt-20 text-center w-screen h-[150%]">
+      <Container className=" mt-20 text-center w-screen h-[100%]">
         <div className="mx-auto ">
           <h2
             id="faq-title"
