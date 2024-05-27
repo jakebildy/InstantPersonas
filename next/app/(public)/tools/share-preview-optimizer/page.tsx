@@ -35,29 +35,27 @@ export default function GuestPostOpportunityFinder({}: {}) {
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
   return (
-    <section className="flex-1 bg-gray-100">
+    <section className="flex-1">
       {!isSubscribed ? (
         <div>
-          <title>
-            Generated & Optimized Social Media Share | Free & Niche-Specific
-          </title>
+          <title>Make the Best Social Media Share Previews | 100% Free</title>
           <meta
             name="description"
-            content="Instantly generate and optimize social media share previews. No signup required. Supercharge your social media efforts."
+            content="Ensure your site is ready for sharing on LinkedIn, X, iMessage, Pinterest and more. No signup required. Supercharge your social media efforts."
           />
         </div>
       ) : (
         <div />
       )}
       <div className="flex flex-col items-center h-full w-full">
-        <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
-          Social Media Share Preview Generator
+        <h1 className="text-5xl text-gray-700 text-center pt-10 font-bold">
+          <b className="text-green-600">Optimize</b> your<br></br>Social Media{" "}
+          <b className="text-green-600">Share Previews</b>
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 ">
-          Generate and optimize social media share previews for your content.
-          <br />
-          Improve your click-through rates and engagement.
-        </h2>
+        <h1 className="text-center mt-4 text-md ">
+          Ensure your site is ready for sharing on LinkedIn, X, iMessage,
+          Pinterest and more.
+        </h1>
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
           {isSubscribed ? (
@@ -112,7 +110,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
           <label className="text-sm text-gray-700 my-2">
             {isSubscribed
               ? "Enter any extra details"
-              : "Describe your customer persona:"}
+              : "Describe your customer persona to improve your copy:"}
           </label>
           <input
             type="text"
@@ -125,6 +123,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
           />
         </div>
         <SocialPreviewIntegrationShowcase className="min-w-[500px] relative my-10" />
+
         <SocialShareTool
           input={personaString}
           isSubscribed={isSubscribed}
