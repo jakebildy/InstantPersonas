@@ -44,6 +44,10 @@ const faqs = [
       "InstantPersonas uses AI-powered technology to instantly generate User Personas. Just by talking to our AI, you're able to figure out gaps in your understanding of your target market, and adjust accordingly. You're also able to connect these personas to our SEO and marketing tools to reach your audience faster.",
   },
   {
+    question: "Can I become an affiliate?",
+    answer: "Shoot me an email at jacob@instantpersonas.com and we can chat.",
+  },
+  {
     question: "Where is InstantPersonas going? What’s the vision?",
     answer:
       "We want to democratize marketing. The big players in the game are getting better at what they do and it’s become almost impossible to compete. Small businesses and marketing agencies have become beholden to the whims of Big Tech. This makes it harder to make something new, or start a business, or help others market. Marketing as a small business or marketing agency should feel doable. It should be straightforward. And you know what? Marketing should be fun. We think democratizing marketing makes the world more of a meritocracy by letting smaller companies with good products get exposure. We think this is a good thing. Thanks for being part of our journey.",
