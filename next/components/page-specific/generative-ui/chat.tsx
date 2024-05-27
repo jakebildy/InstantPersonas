@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
-import { HTMLAttributes, memo, useEffect, useRef, useState } from "react";
+import { HTMLAttributes, memo, use, useEffect, useRef, useState } from "react";
 import {
   CommandUserInput,
   CommandUserInputKeybind,
@@ -48,6 +48,7 @@ export default function Chat({ className, personaChatID }: Props) {
   const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
     string[]
   >([]);
+  const [shareLink, setShareLink] = useState<string | undefined>(undefined);
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -57,7 +58,16 @@ export default function Chat({ className, personaChatID }: Props) {
     },
   ];
 
-  const shareLink = `https://instantpersonas.com/share/${personaChatID}`;
+  useEffect(() => {
+    // Update the share link when the personaChatID changes or when aiState's chatId changes
+    setShareLink(
+      personaChatID
+        ? `https://instantpersonas.com/share/${personaChatID}`
+        : aiState.chatId
+        ? `https://instantpersonas.com/share/${aiState.chatId}`
+        : undefined
+    );
+  }, [personaChatID, aiState.chatId]);
 
   useEffect(() => {
     if (aiState) {
@@ -100,7 +110,12 @@ export default function Chat({ className, personaChatID }: Props) {
               />
             );
           })}
-          <CopyLinkPopover link={shareLink} className="absolute right-0 m-8" />
+          {shareLink ? (
+            <CopyLinkPopover
+              link={shareLink}
+              className="absolute right-0 m-8"
+            />
+          ) : null}
         </div>
       ) : null}
 
