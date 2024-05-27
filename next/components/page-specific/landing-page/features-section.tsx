@@ -5,37 +5,37 @@ import { HoverEffect } from "@/components/ui/aceternity/card_hover_effect";
 export default function FeaturesSection() {
   const projects = [
     {
-      title: "Guest Post Opportunity Finder",
+      title: "Find Niche-Specific Guest Post Opportunities",
       description:
         "Find guest post opportunities that your persona would read and boost your SEO. Download as a CSV and check the Domain Authority of each site.",
       link: "/tools/guest-post-finder/",
     },
     {
-      title: "Topical Authority Map Generator",
+      title: "Build Topical Authority",
       description:
         "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
       link: "/tools/topical-authority",
     },
     {
-      title: "TikTok Content Analysis",
+      title: "See what TikTok Content your Audience Consumes",
       description:
         "See what content your persona is engaging with on TikTok. Use it to inform your content strategy.",
       link: "/register/",
     },
     {
-      title: "Google Keyword Finder",
+      title: "Find the Best Google Keywords",
       description:
         "Find the best niche keywords for your personas. See their search volume, competitiveness and CPC.",
       link: "/register/",
     },
     {
-      title: "Instagram Hashtag Finder",
+      title: "Find the Best Instagram Hashtags",
       description:
         "Find the best niche Instagram hashtags for your personas. See their volume and competitiveness.",
       link: "/tools/instagram-hashtag-finder",
     },
     {
-      title: "Social Share Preview Optimizer",
+      title: "Optimize your Social Media Share Previews",
       description:
         "Generate and optimize social media share previews for your content. These are the previews people see when they share your content.",
       link: "/tools/share-preview-optimizer",
