@@ -254,6 +254,7 @@ export default function SocialShareTool({
                         ))}
                       </TabsList>
                     </div>
+
                     <ScrollArea
                       className={cn(
                         gradientLightVariants({
@@ -282,6 +283,7 @@ export default function SocialShareTool({
           </Tabs>
         </div>
       </div>
+
       <div className="flex-1 w-full flex items-center justify-center">
         <div
           className={cn(
@@ -292,6 +294,9 @@ export default function SocialShareTool({
             })
           )}
         >
+          <h2 className=" text-md font-bold mt-4">
+            The Open Graph meta tags and Twitter cards tags for your content
+          </h2>
           <HtmlExportPreview
             {...{
               url,
@@ -346,6 +351,11 @@ function OptimizeCopywriting({
 
   return (
     <>
+      <h2 className="text-center mt-4 text-xs text-slate-400 ">
+        Generate and optimize social media share previews for your content.
+        <br />
+        Improve your click-through rates and engagement.
+      </h2>
       <Button
         disabled={noInput}
         className={cn(
