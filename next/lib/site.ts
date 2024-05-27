@@ -8,6 +8,7 @@ import {
   DocumentMagnifyingGlassIcon,
   KeyIcon,
   HashtagIcon,
+  ChartBarSquareIcon,
 } from "@heroicons/react/24/solid";
 
 export const SIDEBAR_LINKS = [
@@ -86,6 +87,14 @@ export const SEO_LINKS = [
     category: "SEO",
     lead: "Generate and optimize social media share previews for your content.",
     icon: MessageSquareShareIcon,
+    label: "",
+  },
+  {
+    title: "Headline Analyzer",
+    href: "/tools/headline-analyzer",
+    category: "Blogging",
+    lead: "Find the best titles",
+    icon: ChartBarSquareIcon,
     label: "",
   },
 ] as const;
