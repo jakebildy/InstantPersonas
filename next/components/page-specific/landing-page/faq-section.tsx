@@ -59,7 +59,7 @@ export default function FaqSection() {
     <section id="faq" aria-labelledby="faq-title" className=" bg-white">
       {/* <BackgroundGradientAnimation> */}
       {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
-      <Container className=" mt-20 text-center w-screen h-[130%]">
+      <Container className=" mt-20 text-center w-screen h-[150%]">
         <div className="mx-auto ">
           <h2
             id="faq-title"
@@ -87,7 +87,13 @@ export default function FaqSection() {
                 key={faqIndex}
               >
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
+                <AccordionContent>
+                  {faq.answer.split("\n\n").map((paragraph, index) => (
+                    <p key={index} className="mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                </AccordionContent>
                 <div className="h-0.5 w-full bg-gray-100  border-none" />
               </AccordionItem>
             ))}
