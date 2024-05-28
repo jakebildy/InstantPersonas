@@ -118,7 +118,12 @@ export function LinkedInPreview({
         <div className="pt-[53.73%] h-0 max-w-full relative">
           <div className="top-0 left-0 absolute w-full h-full -outline-offset-1 cursor-pointer">
             <div className="relative w-full h-full">
-              <Image src={image} alt="OG Image" fill={true} />
+              <Image
+                src={image ?? "/tools/no-image-placeholder.svg"}
+                alt="OG Image"
+                className={image ? "" : "object-cover"}
+                fill={true}
+              />
             </div>
           </div>
         </div>

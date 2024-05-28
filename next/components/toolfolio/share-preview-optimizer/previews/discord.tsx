@@ -122,7 +122,12 @@ export function DiscordPreview({
               >
                 <div className="flex flex-row flex-auto w-full h-full">
                   <div className="max-w-[400px] w-full aspect-[400/209] relative overflow-hidden rounded-sm cursor-pointer">
-                    <Image src={image} alt="OG Image" fill={true} />
+                    <Image
+                      src={image ?? "/tools/no-image-placeholder.svg"}
+                      alt="OG Image"
+                      className={image ? "" : "object-cover"}
+                      fill={true}
+                    />
                   </div>
                 </div>
               </div>

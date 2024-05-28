@@ -18,7 +18,12 @@ export function PinterestPreview({
         <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
         <div>
           <div className="bg-pastel-blue/50 rounded-md w-full  relative overflow-hidden cursor-pointer aspect-[2/1]">
-            <Image src={image} alt="OG Image" fill={true} />
+            <Image
+              src={image ?? "/tools/no-image-placeholder.svg"}
+              alt="OG Image"
+              className={image ? "" : "object-cover"}
+              fill={true}
+            />
           </div>
           <div className="px-[6px] pt-2 pb-1">
             <div className="mb-2 overflow-hidden cursor-zoom-in flex flex-col">

@@ -23,7 +23,14 @@ export function IMessagePreview({
       </div>
       <div className="flex flex-col border rounded-2xl overflow-hidden max-w-full">
         <div className="relative w-full  aspect-[1200/600]">
-          {image ? <Image src={image} alt="OG Image" fill={true} /> : null}
+          {image ? (
+            <Image
+              src={image ?? "/tools/no-image-placeholder.svg"}
+              alt="OG Image"
+              className={image ? "" : "object-cover"}
+              fill={true}
+            />
+          ) : null}
         </div>
 
         <div className="flex p-4 items-center space-x-4 bg-white">

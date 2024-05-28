@@ -69,7 +69,12 @@ export function XPreview({
             <div className="pb-[52.5%] w-full" />
             <div className="absolute w-full h-full">
               <div className="relative w-full h-full">
-                <Image src={image} alt="OG Image" fill={true} />
+                <Image
+                  src={image ?? "/tools/no-image-placeholder.svg"}
+                  alt="OG Image"
+                  className={image ? "" : "object-cover"}
+                  fill={true}
+                />
               </div>
             </div>
           </div>
