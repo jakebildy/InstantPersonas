@@ -10,6 +10,7 @@ export type SurveyQuestionTemplateProps = {
   goBack?: () => void;
   initialAnimation?: boolean;
   isLastQuestion?: boolean;
+  finishButtonText?: string;
 };
 
 export function SurveyQuestionTemplate({
@@ -19,6 +20,7 @@ export function SurveyQuestionTemplate({
   goBack,
   initialAnimation = false,
   isLastQuestion = false,
+  finishButtonText = "Finish Survey!",
 }: SurveyQuestionTemplateProps) {
   return (
     <>
@@ -71,7 +73,7 @@ export function SurveyQuestionTemplate({
                 "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 hover:bg-blue-500 hover:text-white transition-colors duration-150 ease-out font-semibold text-muted-foreground ",
             })}
           >
-            {isLastQuestion ? "Finish Survey!" : "Next Question "}
+            {isLastQuestion ? finishButtonText : "Next Question "}
           </motion.span>
         </Button>
       </motion.div>

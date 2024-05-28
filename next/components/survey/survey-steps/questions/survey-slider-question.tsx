@@ -7,14 +7,15 @@ import { SurveyQuestionTemplate } from "./survey-question-template";
 import { MaxLengthArray } from "@/lib/types";
 
 export type SurveyQuestionSliderProps = {
-  variant: ColorVariant;
-  title: string;
-  rangeLabels: MaxLengthArray<string, 3>; //! If you want to change the number of labels, make edits to layout on line 80
-  currentAnswer: string | null;
-  onSkipQuestion: () => void;
-  goBack?: () => void;
-  onAnswerQuestion: (answer: string) => void;
-  isLastQuestion?: boolean;
+  variant: ColorVariant; //? Style variant
+  title: string; //? Question title
+  rangeLabels: MaxLengthArray<string, 3>; //? Labels for the slider will be at [0%, 50%, 100%]
+  //! If you want to change the number of labels, make edits to layout on line 80
+  currentAnswer: string | null; //? Current answer
+  onSkipQuestion: () => void; //? Function to skip the question, should activate logic to switch to the next question
+  goBack?: () => void; //? Function to go back to the previous question
+  onAnswerQuestion: (answer: string) => void; //? Function to answer the question, should be some setState function
+  isLastQuestion?: boolean; //? If this is the last question, show the submit button instead of the "Next Question" button
 };
 
 export function SurveyQuestionSlider({

@@ -7,14 +7,15 @@ import { MaxLengthArray } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export type SurveyQuestionSelectInputProps = {
-  title: string;
-  currentAnswer: string;
-  choices: MaxLengthArray<string, 4> | Readonly<MaxLengthArray<string, 4>>; // Include "Other" as a choice and
-  variant: ColorVariant;
-  onSkipQuestion: () => void;
-  goBack?: () => void;
-  onAnswerQuestion: (answer: string) => void;
-  isLastQuestion?: boolean;
+  title: string; //? Question title
+  currentAnswer: string; //? Current answer
+  choices: MaxLengthArray<string, 4> | Readonly<MaxLengthArray<string, 4>>; //? Choices for the question, should be an array of strings, max length of 4
+  // Include "Other" as a choice if you want to allow users to input their own answer
+  variant: ColorVariant; //? Style variant
+  onSkipQuestion: () => void; //? Function to skip the question, should activate logic to switch to the next question
+  goBack?: () => void; //? Function to go back to the previous question
+  onAnswerQuestion: (answer: string) => void; //? Function to answer the question, should be some setState function
+  isLastQuestion?: boolean; //? If this is the last question, show the submit button instead of the "Next Question" button
 };
 
 export function SurveyQuestionSelectInput({
