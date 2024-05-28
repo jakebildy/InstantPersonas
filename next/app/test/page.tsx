@@ -35,6 +35,7 @@ import { ImageWindowTemplate } from "@/components/toolfolio/share-preview-optimi
 import { TwoColumnTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/two-column";
 import { ColorGradientLeftTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/color-gradient-left";
 import { FunShapesTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/fun-shapes";
+import { GitSimpleTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/git-simple";
 
 type Props = {};
 
@@ -133,97 +134,6 @@ export default function PageTest({}: Props) {
       <Button variant={"outline"} onClick={() => changeVariant()}>
         Change Variant
       </Button>
-    </div>
-  );
-}
-
-function GitSimpleTemplate({
-  variant = "blue",
-  url,
-  title,
-  description,
-  image,
-}: OpenGraphImageTemplateProps) {
-  const [domain, lastPart] = splitUrl(url);
-
-  return (
-    <div className="w-[1200px] h-[600px]  grid grid-cols-3 place-items-center border p-10 rounded-lg shadow-md relative overflow-hidden bg-white">
-      <p
-        className={textColorVariants({
-          variant,
-          className:
-            "z-20 text-2xl absolute top-0 left-0 p-10  text-opacity-90",
-        })}
-      >
-        {description}
-      </p>
-      <div
-        className={textColorVariants({
-          variant,
-          className: "relative w-full h-full overflow-hidden col-span-2",
-        })}
-      >
-        <div
-          className={textColorVariants({
-            variant,
-            className:
-              "z-20 py-4 text-left grid place-items-center gap-4 w-full h-full ",
-          })}
-        >
-          <div className="flex flex-col w-full gap-4">
-            <h1 className="z-20 text-5xl font-bold">{title}</h1>
-
-            <div className="bg-white rounded-full p-1 shadow-lg w-fit">
-              <span
-                className={cx(
-                  gradientLightVariants({
-                    variant,
-                    className:
-                      "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
-                  }),
-                  textColorVariants({
-                    variant,
-                  })
-                )}
-              >
-                Read more <ArrowRightIcon className="size-8" />
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className=" p-2 col-span-1 flex  w-full h-1/2 relative">
-        <div className=" relative rounded-md overflow-hidden shadow-md border h-full flex-1">
-          <Image
-            src={image}
-            alt={title}
-            fill={true}
-            className=" object-cover z-0"
-            priority
-          />
-        </div>
-      </div>
-      <span
-        className={
-          "z-20 text-2xl absolute bottom-0 left-0 p-10  text-opacity-90 inline-flex"
-        }
-      >
-        {domain}{" "}
-        <span
-          className={textColorVariants({
-            variant,
-            className: "font-semibold empty:hidden",
-          })}
-        >
-          {lastPart}
-        </span>
-      </span>
-      <div
-        className={background600({
-          variant,
-          className: "absolute bottom-0 left-0 h-4 w-full",
-        })}
-      />
     </div>
   );
 }
