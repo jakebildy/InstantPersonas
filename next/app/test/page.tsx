@@ -30,6 +30,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import GridPattern from "@/components/ui/magicui/grid-pattern";
+import { BlackGradientBottomTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/black-gradient-bottom";
+import { ImageWindowTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/image-window";
 
 type Props = {};
 
@@ -132,109 +134,6 @@ export default function PageTest({}: Props) {
   );
 }
 
-function BlackGradientBottomTemplate({
-  variant = "blue",
-  url,
-  title,
-  description,
-  image,
-}: OpenGraphImageTemplateProps) {
-  const domain = GetDomainFromString(url);
-
-  return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
-      <div
-        className={"relative w-full h-full border rounded-lg overflow-hidden "}
-      >
-        <div
-          className={
-            "text-white z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center gap-4 w-full"
-          }
-        >
-          <div className="flex flex-col items-center">
-            <h1 className="z-20 text-white text-4xl font-bold">{title}</h1>
-            <p className="z-20 text-2xl">{description}</p>
-            <div className="bg-white rounded-full p-1 shadow-lg mt-8 w-fit">
-              <span
-                className={gradientLightVariants({
-                  variant,
-                  className:
-                    "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
-                })}
-              >
-                Read more <ArrowRightIcon className="size-8" />
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Image
-        src={image}
-        alt={title}
-        fill={true}
-        className=" object-cover brightness-50 z-0"
-        priority
-      />
-      <div className="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent z-0" />
-    </div>
-  );
-}
-
-function ImageWindowTemplate({
-  variant = "blue",
-  url,
-  title,
-  description,
-  image,
-}: OpenGraphImageTemplateProps) {
-  const domain = GetDomainFromString(url);
-
-  return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
-      <div
-        className={"relative w-full h-full border rounded-lg overflow-hidden "}
-      >
-        <div
-          className={textColorVariants({
-            variant,
-            className:
-              "z-20 absolute top-0 left-1/2 -translate-x-1/2 h-[300px] py-4 text-center p-4 grid place-items-center gap-4 w-full",
-          })}
-        >
-          <div className="flex flex-col items-center gap-4">
-            <h1 className="z-20 text-6xl font-bold">{title}</h1>
-            <p className="z-20 text-2xl">{description}</p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white rounded-full p-1 shadow-lg  w-fit absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-30">
-        <span
-          className={gradientLightVariants({
-            variant,
-            className:
-              "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
-          })}
-        >
-          Read more <ArrowRightIcon className="size-8" />
-        </span>
-      </div>
-      <div className="z-10 w-[90%] h-1/2 absolute bottom-0 left-1/2 -translate-x-1/2 bg-white p-2 rounded-t-md border shadow-lg">
-        <div className=" h-[600px] relative rounded-md overflow-hidden shadow-md border">
-          <Image
-            src={image}
-            alt={title}
-            fill={true}
-            className=" object-cover z-0"
-            priority
-          />
-        </div>
-      </div>
-      <div className="absolute top-0 h-3/4 bg-gradient-to-b from-white to-transparent w-full z-10" />
-      <RadialGradient size={1200} from={ColorVariantMap[variant]} />
-    </div>
-  );
-}
-
 function TwoColumnTemplate({
   variant = "blue",
   url,
@@ -245,7 +144,7 @@ function TwoColumnTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid grid-cols-2 place-items-center border rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid grid-cols-2 place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
       <div className={"relative w-full h-full overflow-hidden "}>
         <div
           className={textColorVariants({
@@ -296,7 +195,7 @@ function ColorGradientLeftTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
       <div
         className={"relative w-full h-full border rounded-lg overflow-hidden "}
       >
@@ -350,7 +249,7 @@ function FunShapesTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
       <div
         className={gradientVariants({
           variant,
@@ -465,7 +364,7 @@ function GitSimpleTemplate({
   const [domain, lastPart] = splitUrl(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid grid-cols-3 place-items-center border p-10 rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid grid-cols-3 place-items-center border p-10 rounded-lg shadow-md relative overflow-hidden bg-white">
       <p
         className={textColorVariants({
           variant,
@@ -556,7 +455,7 @@ function TitleSquiggleTemplate({
   const [domain, lastPart] = splitUrl(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border  rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid place-items-center border  rounded-lg shadow-md relative overflow-hidden bg-white">
       <Image
         src={image}
         alt={title}

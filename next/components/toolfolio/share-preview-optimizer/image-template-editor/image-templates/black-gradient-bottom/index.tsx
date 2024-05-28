@@ -17,7 +17,7 @@ export function BlackGradientBottomTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
+    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
       <div
         className={"relative w-full h-full border rounded-lg overflow-hidden "}
       >
@@ -66,7 +66,7 @@ export function BlackGradientBottomTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="w-full h-full aspect-[2/1] grid place-items-center border rounded-md shadow-sm relative overflow-hidden">
+    <div className="w-full h-full aspect-[2/1] grid place-items-center border rounded-md shadow-sm relative overflow-hidden bg-white">
       <div
         className={"relative w-full h-full border rounded-md overflow-hidden "}
       >

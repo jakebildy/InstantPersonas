@@ -78,7 +78,7 @@ export function ImageWindowTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="size-full aspect-[2/1] grid place-items-center border rounded-lg shadow-md relative overflow-hidden">
+    <div className="size-full aspect-[2/1] grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
       <div
         className={"relative w-full h-full border rounded-lg overflow-hidden "}
       >
