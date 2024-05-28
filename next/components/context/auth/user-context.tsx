@@ -15,6 +15,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { set } from "lodash";
 import { usePostHog } from "posthog-js/react";
 import api from "@/service/api.service";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
 
 // Define the context shape
 type InstantPersonasUserContextType =
@@ -63,6 +64,7 @@ export const InstantPersonasUserProvider = ({
       setIsLoggedIn(false);
     } else if (user) {
       const getSubscription = async () => {
+        IS_TEST_DEV_ENV && console.log("DEV: Getting subscription status");
         const subscription = await api.stripe.isSubscriptionActive(
           user.user_id as string
         );
