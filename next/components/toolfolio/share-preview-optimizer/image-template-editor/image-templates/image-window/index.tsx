@@ -149,7 +149,7 @@ export function ImageWindowTemplatePreview({
   );
 }
 
-import * as ImagePreview from "../template-preview.png";
+import * as ImagePreview from "./template-preview.png";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { cn } from "@/lib/utils";
 
