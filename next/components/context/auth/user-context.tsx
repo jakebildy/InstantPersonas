@@ -11,7 +11,7 @@ import {
   InstantPersonasUser,
   UserSubscriptionStatus,
 } from "./user-context.types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { set } from "lodash";
 import { usePostHog } from "posthog-js/react";
 import api from "@/service/api.service";
@@ -55,6 +55,7 @@ export const InstantPersonasUserProvider = ({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const { user, isInitialized } = useStytchUser();
+  const pathname = usePathname();
   const posthog = usePostHog();
 
   useEffect(() => {
@@ -70,11 +71,13 @@ export const InstantPersonasUserProvider = ({
           subscription.status
         );
 
-        posthog.identify(user.user_id, {
-          email: user.emails[0].email,
-          subscriptionType: activeSubscription ? "paid" : "free",
-          userSignupDate: user.created_at,
-        });
+        if (user.user_id !== instantPersonasUser?.id) {
+          posthog.identify(user.user_id, {
+            email: user.emails[0].email,
+            subscriptionType: activeSubscription ? "paid" : "free",
+            userSignupDate: user.created_at,
+          });
+        }
 
         const formattedUser: InstantPersonasUser = {
           id: user.user_id,
@@ -91,7 +94,14 @@ export const InstantPersonasUserProvider = ({
 
       getSubscription();
     }
-  }, [user, isInitialized, posthog]);
+  }, [
+    user,
+    user?.user_id,
+    isInitialized,
+    posthog,
+    pathname,
+    instantPersonasUser?.id,
+  ]);
 
   const data: InstantPersonasUserContextType =
     isLoggedIn && instantPersonasUser !== null
