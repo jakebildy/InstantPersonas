@@ -1,6 +1,6 @@
 "use client";
 import { PersonStandingIcon } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ColorVariant,
   gradientVariants,
@@ -37,6 +37,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 
 export function PersonaSelectFromHistorySidebar({
   selectedPersonas,
@@ -54,25 +55,72 @@ export function PersonaSelectFromHistorySidebar({
   const [userError, setUserError] = React.useState<string | null>(null);
 
   const user = useStytchUser();
+  const userRef = useRef<string | null>();
 
   useEffect(() => {
-    if (user.user) {
+    if (!user.user) {
+      setLoading(false);
+      setUserError("User not found");
+      return;
+    }
+    const UID = user.user.user_id;
+    //? If is first fetch, or user has changed, get personas
+    if (UID !== userRef.current) {
       setLoading(true);
       setUserError(null);
+      //? Indicates that we tried to fetch user's persona history
+      userRef.current = UID;
       try {
+        console.log("Fetching user history");
         api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
           setHistory(data);
           setLoading(false);
+          //? If no personas are selected, (first fetch), update from local storage
+          if (selectedPersonas.length === 0) {
+            console.log("No personas selected, updating from local storage");
+            const localSelectedPersonaNames: string[] = JSON.parse(
+              localStorage.getItem(
+                LOCAL_STORAGE_CONFIG.tools.selectedPersonas
+              ) ?? "[]"
+            );
+            console.log("localSelectedPersonaNames", localSelectedPersonaNames);
+            if (localSelectedPersonaNames.length > 0) {
+              console.log(
+                "Updating selected personas from local storage",
+                data
+                  .map((chat) => chat.aiState.personas)
+                  .flat()
+                  .filter((persona) =>
+                    localSelectedPersonaNames.includes(persona.archetype_name)
+                  )
+              );
+              setSelectedPersonas(
+                data
+                  .map((chat) => chat.aiState.personas)
+                  .flat()
+                  .filter((persona) =>
+                    localSelectedPersonaNames.includes(persona.archetype_name)
+                  )
+              );
+            }
+          }
         });
       } catch (error) {
         console.log(error);
         setUserError("Error fetching user history");
       }
-    } else {
-      setLoading(false);
-      setUserError("User not found");
     }
-  }, [user.user]);
+  }, [history, selectedPersonas.length, setSelectedPersonas, user.user]);
+
+  useEffect(() => {
+    if (selectedPersonas.length === 0) {
+      return;
+    }
+    localStorage.setItem(
+      LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
+      JSON.stringify(selectedPersonas.map((persona) => persona.archetype_name))
+    );
+  }, [selectedPersonas]);
 
   return (
     <Sheet>

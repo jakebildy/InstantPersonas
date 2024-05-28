@@ -6,6 +6,7 @@ import {
 } from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -86,6 +87,20 @@ export function SelectArchetypeWidget({
           onClick={(e) => {
             e.stopPropagation();
             isSelected ? onDeselect() : onSelect();
+            const localSelectedPersonaNames: string[] = JSON.parse(
+              localStorage.getItem(
+                LOCAL_STORAGE_CONFIG.tools.selectedPersonas
+              ) ?? "[]"
+            );
+            localStorage.setItem(
+              LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
+              JSON.stringify(
+                localSelectedPersonaNames.filter(
+                  (archetype_name) =>
+                    archetype_name !== archetype.archetype_name
+                )
+              )
+            );
           }}
         >
           {isSelected ? "Selected" : "Select"}
