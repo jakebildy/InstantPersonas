@@ -50,7 +50,7 @@ const faqs = [
   {
     question: "Where is InstantPersonas going? What’s the vision?",
     answer:
-      "We want to democratize marketing. The big players in the game are getting better at what they do and it’s become almost impossible to compete. Small businesses and marketing agencies have become beholden to the whims of Big Tech.\n\n This makes it harder to make something new, or start a business, or help others market.\n\n Marketing as a small business or marketing agency should feel doable. It should be straightforward. And you know what? Marketing should be fun. \n\nWe think democratizing marketing makes the world more of a meritocracy by letting smaller companies with good products get exposure. We think this is a good thing. \n\nThanks for being part of our journey.",
+      "We want to democratize marketing. As the industry's giants continually refine their strategies, it's becoming increasingly hard for smaller players to compete. Small businesses and marketing agencies often find themselves at the mercy of Big Tech's ever-changing landscape.\n\n This makes it harder to make something new, or start a business, or help others market.\n\n Marketing as a small business or marketing agency should feel doable. It should be straightforward. And you know what? Marketing should be fun. \n\nWe believe that by democratizing marketing, we can create a more meritocratic world where smaller companies with excellent products can gain the exposure they deserve. \n\nThanks for being part of our journey!",
   },
 ];
 
