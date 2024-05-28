@@ -5,14 +5,14 @@ import { SurveyQuestionTemplate } from "./survey-question-template";
 import { Input } from "@/components/ui/input";
 
 export type SurveyQuestionTextInputProps = {
-  variant: ColorVariant;
-  title: string;
-  currentAnswer: string;
-  inputPlaceholder: string;
-  onSkipQuestion: () => void;
-  goBack?: () => void;
-  onAnswerQuestion: (answer: string) => void;
-  isLastQuestion?: boolean;
+  variant: ColorVariant; //? Style variant
+  title: string; //? Question title
+  currentAnswer: string; //? Current answer
+  inputPlaceholder: string; //? Placeholder for the input
+  onSkipQuestion: () => void; //? Function to skip the question, should activate logic to switch to the next question
+  goBack?: () => void; //? Function to go back to the previous question
+  onAnswerQuestion: (answer: string) => void; //? Function to answer the question, should be some setState function
+  isLastQuestion?: boolean; //? If this is the last question, show the submit button instead of the "Next Question" button
 };
 
 export function SurveyQuestionTextInput({
