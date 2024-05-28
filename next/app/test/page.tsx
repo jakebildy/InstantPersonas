@@ -34,6 +34,7 @@ import { BlackGradientBottomTemplate } from "@/components/toolfolio/share-previe
 import { ImageWindowTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/image-window";
 import { TwoColumnTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/two-column";
 import { ColorGradientLeftTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/color-gradient-left";
+import { FunShapesTemplate } from "@/components/toolfolio/share-preview-optimizer/image-template-editor/image-templates/fun-shapes";
 
 type Props = {};
 
@@ -132,121 +133,6 @@ export default function PageTest({}: Props) {
       <Button variant={"outline"} onClick={() => changeVariant()}>
         Change Variant
       </Button>
-    </div>
-  );
-}
-
-function FunShapesTemplate({
-  variant = "blue",
-  url,
-  title,
-  description,
-  image,
-}: OpenGraphImageTemplateProps) {
-  const domain = GetDomainFromString(url);
-
-  return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
-      <div
-        className={gradientVariants({
-          variant,
-          className:
-            "relative w-full h-full border rounded-lg overflow-hidden z-10",
-        })}
-      >
-        <div
-          className={textColorVariants({
-            variant,
-            className:
-              " z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center  grid-cols-2 gap-4 w-full",
-          })}
-        >
-          <div className="flex flex-col items-center col-start-2">
-            <h1 className="z-20 text-4xl font-bold">{title}</h1>
-            <p className="z-20 text-2xl">{description}</p>
-            <div className="bg-white rounded-full p-1 shadow-lg mt-8 w-fit">
-              <span
-                className={gradientLightVariants({
-                  variant,
-                  className:
-                    "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
-                })}
-              >
-                Read more <ArrowRightIcon className="size-8" />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          className="z-10 aspect-[2/1] w-[800px] h-[400px] absolute bottom-[90px] -left-[200px] bg-white p-2 rounded-t-md border shadow-lg"
-          style={{
-            transform: "rotate(-6deg)",
-          }}
-        >
-          <Image
-            src={image}
-            alt={title}
-            fill={true}
-            className=" object-cover z-0"
-            priority
-          />
-        </div>
-        {/* Circle top left */}
-        <div
-          className={background600({
-            variant,
-            className:
-              "absolute -top-[45px]  -left-[45px] size-[190px] rounded-full opacity-25 z-0 shadow-sm",
-          })}
-        />
-        <div
-          className={background600({
-            variant,
-            className:
-              "absolute -top-[45px]  -left-[45px] size-[190px] rounded-full opacity-25 z-0 shadow-sm blur-sm",
-          })}
-        />
-        {/* Square with a semicircular protrusion Bottom Middle */}
-        <div
-          className={background600({
-            variant,
-            className:
-              " w-[190px] h-[200px] rounded-t-full absolute -bottom-[80px]  left-1/2 -translate-x-1/2  opacity-20  z-0 shadow-sm blur-sm",
-          })}
-        />
-
-        {/* Square Bottom Middle  */}
-        <div
-          className={background600({
-            variant,
-            className:
-              "size-[180px] absolute -bottom-[105px]  left-1/2 -translate-x-[calc(50%+186px)] rounded-sm shadow-[1px]  opacity-10  z-0 shadow-sm",
-          })}
-        />
-        {/* Square with a semicircular protrusion Middle Left */}
-        <div
-          className={background600({
-            variant,
-            className:
-              " size-[160px] rounded-r-full absolute bottom-[60px] right-[50px]  opacity-5  z-0 shadow-sm",
-          })}
-        />
-        <div
-          className={background600({
-            variant,
-            className:
-              "size-[160px] rounded-r-full absolute bottom-[60px] right-[50px]  opacity-5  z-0 shadow-sm blur-sm",
-          })}
-        />
-        {/* Left-sided Semi-circle Top 3/4-ths */}
-        <div
-          className={background600({
-            variant,
-            className:
-              "absolute -top-10 right-1/4  h-[190px] w-[95px] rounded-l-full opacity-20 z-0 shadow-sm",
-          })}
-        />
-      </div>
     </div>
   );
 }

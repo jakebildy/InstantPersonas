@@ -6,6 +6,7 @@ import { BLACK_GRADIENT_BOTTOM_IMAGE_TEMPLATE_CONFIG } from "./black-gradient-bo
 import { IMAGE_WINDOW_IMAGE_TEMPLATE_CONFIG } from "./image-window";
 import { TWO_COLUMN_IMAGE_TEMPLATE_CONFIG } from "./two-column";
 import { COLOR_GRADIENT_LEFT_IMAGE_TEMPLATE_CONFIG } from "./color-gradient-left";
+import { FUN_SHAPES_IMAGE_TEMPLATE_CONFIG } from "./fun-shapes";
 
 export const IMAGE_TEMPLATES = [
   INSTANT_PERSONAS_BASIC_IMAGE_TEMPLATE_CONFIG,
@@ -14,6 +15,7 @@ export const IMAGE_TEMPLATES = [
   IMAGE_WINDOW_IMAGE_TEMPLATE_CONFIG,
   TWO_COLUMN_IMAGE_TEMPLATE_CONFIG,
   COLOR_GRADIENT_LEFT_IMAGE_TEMPLATE_CONFIG,
+  FUN_SHAPES_IMAGE_TEMPLATE_CONFIG,
 ] as const;
 
 export type OpenGraphImageTemplateProps = OGPreviewMetadata & {
