@@ -28,7 +28,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useStytchUser } from "@stytch/nextjs";
 import api from "@/service/api.service";
@@ -38,6 +38,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
+import { PersonaBusinessArchetype } from "../types";
+import { Description } from "@radix-ui/react-dialog";
 
 export function PersonaSelectFromHistorySidebar({
   selectedPersonas,
@@ -45,8 +47,10 @@ export function PersonaSelectFromHistorySidebar({
   className,
   variant = "blue",
 }: {
-  selectedPersonas: PersonaArchetype[];
-  setSelectedPersonas: React.Dispatch<React.SetStateAction<PersonaArchetype[]>>;
+  selectedPersonas: PersonaBusinessArchetype[];
+  setSelectedPersonas: React.Dispatch<
+    React.SetStateAction<PersonaBusinessArchetype[]>
+  >;
   className?: string;
   variant?: ColorVariant;
 }) {
@@ -71,37 +75,53 @@ export function PersonaSelectFromHistorySidebar({
       //? Indicates that we tried to fetch user's persona history
       userRef.current = UID;
       try {
-        console.log("Fetching user history");
+        IS_TEST_DEV_ENV ? console.log("DEV: Fetching user history") : null;
         api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
           setHistory(data);
           setLoading(false);
           //? If no personas are selected, (first fetch), update from local storage
           if (selectedPersonas.length === 0) {
-            console.log("No personas selected, updating from local storage");
+            IS_TEST_DEV_ENV
+              ? console.log(
+                  "DEV: No personas selected, updating from local storage"
+                )
+              : null;
             const localSelectedPersonaNames: string[] = JSON.parse(
               localStorage.getItem(
                 LOCAL_STORAGE_CONFIG.tools.selectedPersonas
               ) ?? "[]"
             );
-            console.log("localSelectedPersonaNames", localSelectedPersonaNames);
+            IS_TEST_DEV_ENV
+              ? console.log(
+                  "DEV: localSelectedPersonaNames",
+                  localSelectedPersonaNames
+                )
+              : null;
             if (localSelectedPersonaNames.length > 0) {
-              console.log(
-                "Updating selected personas from local storage",
-                data
-                  .map((chat) => chat.aiState.personas)
-                  .flat()
-                  .filter((persona) =>
-                    localSelectedPersonaNames.includes(persona.archetype_name)
+              const localSelectedPersonas = data
+                //? Ensure persona are of type PersonaBusinessArchetype[]
+                .flatMap((chat) =>
+                  chat.aiState.personas.map((persona) => ({
+                    ...persona,
+                    business: {
+                      description: chat.aiState.business,
+                      target_problem: chat.aiState.targetProblem,
+                    },
+                  }))
+                )
+                //? Find only personas that are not in local storage
+                .filter((persona) =>
+                  localSelectedPersonaNames.includes(persona.archetype_name)
+                );
+
+              IS_TEST_DEV_ENV
+                ? console.log(
+                    "DEV: Updating selected personas from local storage",
+                    localSelectedPersonas
                   )
-              );
-              setSelectedPersonas(
-                data
-                  .map((chat) => chat.aiState.personas)
-                  .flat()
-                  .filter((persona) =>
-                    localSelectedPersonaNames.includes(persona.archetype_name)
-                  )
-              );
+                : null;
+
+              setSelectedPersonas(localSelectedPersonas);
             }
           }
         });
@@ -137,7 +157,7 @@ export function PersonaSelectFromHistorySidebar({
         className={gradientVariants({
           variant,
           className:
-            "w-[400px] sm:w-[540px] rounded-tl-md rounded-bl-md flex flex-col gap-4 p-0",
+            "w-[400px] sm:w-[540px] rounded-tl-md rounded-bl-md flex flex-col gap-4 p-0 z-[100]",
         })}
       >
         <SheetHeader>
@@ -227,7 +247,15 @@ export function PersonaSelectFromHistorySidebar({
                   {history.map((chat, i) =>
                     chat.aiState.personas === undefined ? null : (
                       <PersonaWidgetGroup
-                        personas={chat.aiState.personas as PersonaArchetype[]}
+                        personas={
+                          chat.aiState.personas.map((archetype) => ({
+                            ...archetype,
+                            business: {
+                              description: chat.aiState.business,
+                              target_problem: chat.aiState.targetProblem,
+                            },
+                          })) as PersonaBusinessArchetype[]
+                        }
                         selectedPersonas={selectedPersonas}
                         setSelectedPersonas={setSelectedPersonas}
                         key={i}
@@ -289,9 +317,11 @@ function PersonaWidgetGroup({
   selectedPersonas,
   setSelectedPersonas,
 }: {
-  personas: PersonaArchetype[];
-  selectedPersonas: PersonaArchetype[];
-  setSelectedPersonas: React.Dispatch<React.SetStateAction<PersonaArchetype[]>>;
+  personas: PersonaBusinessArchetype[];
+  selectedPersonas: PersonaBusinessArchetype[];
+  setSelectedPersonas: React.Dispatch<
+    React.SetStateAction<PersonaBusinessArchetype[]>
+  >;
 }) {
   const allPersonasInChatSelected = personas.every((persona) =>
     selectedPersonas.includes(persona)

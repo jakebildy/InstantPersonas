@@ -11,13 +11,14 @@ import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
 import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
+import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
-    []
-  );
+  const [selectedPersonas, setSelectedPersonas] = useState<
+    PersonaBusinessArchetype[]
+  >([]);
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
       ? {
           personas: selectedPersonas.map(
             ({ pictureURL, ...rest }) => rest
-          ) as Omit<PersonaArchetype, "pictureURL">[],
+          ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }
@@ -62,7 +63,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-[100]"
+              className="xl:absolute top-4 right-4 z-[50]"
             />
           ) : null}
           {isSubscribed ? (

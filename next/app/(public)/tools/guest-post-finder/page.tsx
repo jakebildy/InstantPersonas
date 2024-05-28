@@ -9,19 +9,22 @@ import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
-    []
-  );
+  const [selectedPersonas, setSelectedPersonas] = useState<
+    PersonaBusinessArchetype[]
+  >([]);
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
-          personas: selectedPersonas,
+          personas: selectedPersonas.map(
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }
@@ -58,7 +61,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-[100]"
+              className="xl:absolute top-4 right-4 z-[50]"
             />
           ) : null}
           {isSubscribed ? (

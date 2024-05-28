@@ -1,17 +1,13 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-map/topical-authority-map";
 import { cn } from "@/lib/utils";
-import api from "@/service/api.service";
-import { useStytchUser } from "@stytch/nextjs";
-import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
 import * as TopicalAuthorityDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -19,17 +15,17 @@ export const maxDuration = 300; // 5 minutes
 export default function HistoryPage({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
-    []
-  );
+  const [selectedPersonas, setSelectedPersonas] = useState<
+    PersonaBusinessArchetype[]
+  >([]);
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            (persona) => persona.persona_components.Motivations
-          ),
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }

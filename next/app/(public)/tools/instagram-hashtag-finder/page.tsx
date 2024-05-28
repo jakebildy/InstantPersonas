@@ -13,6 +13,7 @@ import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { InstagramHashtagFinderTool } from "@/components/toolfolio/instagram-hashtag-finder";
+import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -20,17 +21,17 @@ export const maxDuration = 300; // 5 minutes
 export default function InstagramHashtagFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
-    []
-  );
+  const [selectedPersonas, setSelectedPersonas] = useState<
+    PersonaBusinessArchetype[]
+  >([]);
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            (persona) => persona.persona_components.Motivations
-          ),
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
         }
