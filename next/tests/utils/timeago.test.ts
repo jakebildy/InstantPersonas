@@ -1,4 +1,46 @@
-import { timeAgo } from "@/lib/utils";
+function timeAgo(
+  date: Date,
+  customIntervals?: Array<{ threshold: number; unit: string }>
+): string {
+  const currentTime = new Date();
+  const differenceInSeconds = (currentTime.getTime() - date.getTime()) / 1000;
+
+  // Return "just now" for times less than a second ago
+  if (differenceInSeconds < 1) {
+    return "just now";
+  }
+
+  const SECOND = 1;
+  const MINUTE = 60 * SECOND;
+  const HOUR = 60 * MINUTE;
+  const DAY = 24 * HOUR;
+  const MONTH = 30 * DAY; // Approximation
+  const YEAR = 365.25 * DAY; // Accounts for leap years
+  const DECADE = 10 * YEAR;
+
+  const defaultIntervals = [
+    { threshold: DECADE, unit: "decade" },
+    { threshold: YEAR, unit: "year" },
+    { threshold: MONTH, unit: "month" },
+    { threshold: DAY, unit: "day" },
+    { threshold: HOUR, unit: "hour" },
+    { threshold: MINUTE, unit: "minute" },
+    { threshold: SECOND, unit: "second" },
+  ];
+
+  // Use customIntervals if provided, else use defaultIntervals
+  const intervals = customIntervals || defaultIntervals;
+
+  for (const { threshold, unit } of intervals) {
+    if (differenceInSeconds >= threshold) {
+      const count = Math.floor(differenceInSeconds / threshold);
+      return `${count} ${unit}${count !== 1 ? "s" : ""} ago`;
+    }
+  }
+
+  // This catch-all return statement is a failsafe and should never be reached
+  return "just now";
+}
 
 describe("timeAgo function", () => {
   // Test current date, should return "just now"

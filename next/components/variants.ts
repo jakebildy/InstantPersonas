@@ -276,6 +276,40 @@ export const Border600 = cva("border", {
   },
 });
 
+export const background600 = cva("", {
+  variants: {
+    variant: {
+      blue: "bg-blue-600",
+      purple: "bg-purple-600",
+      red: "bg-red-600",
+      yellow: "bg-yellow-600",
+      green: "bg-green-600",
+      brown: "bg-brown-600",
+      pink: "bg-pink-600",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
+export const SVG600 = cva("", {
+  variants: {
+    variant: {
+      blue: "fill-blue-600/70 stroke-blue-600",
+      purple: "fill-purple-600/70 stroke-purple-600",
+      red: "fill-red-600/70 stroke-red-600",
+      yellow: "fill-yellow-600/70 stroke-yellow-600",
+      green: "fill-green-600/70 stroke-green-600",
+      brown: "fill-brown-600/70 stroke-brown-600",
+      pink: "fill-pink-600/70 stroke-pink-600",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export const gradientGridTitleTextVariants = cva(
   "bg-gradient-to-b bg-clip-text text-center text-7xl font-bold tracking-tighter text-transparent",
   {

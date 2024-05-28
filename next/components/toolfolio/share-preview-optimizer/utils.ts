@@ -39,3 +39,44 @@ export function b64toBlob({
   const blob = new Blob(byteArrays, { type: contentType });
   return blob;
 }
+
+/**
+ * Splits a URL into its base URL and the last part of its path.
+ *
+ * @param {string} inputUrl - The URL to be split.
+ * @returns {[string, string]} - A tuple where the first element is the base URL and the second element is the last path segment.
+ */
+export function splitUrl(inputUrl: string): [string, string] {
+  // Ensure the URL has a protocol; if not, prepend 'http://'
+  if (!inputUrl.match(/^https?:\/\//)) {
+    inputUrl = "http://" + inputUrl;
+  }
+
+  // Parse the URL to access various components
+  const parsedUrl = new URL(inputUrl);
+
+  // Extract hostname (and port if any), protocol, pathname
+  const protocol = parsedUrl.protocol;
+  const host = parsedUrl.host;
+  const path = parsedUrl.pathname;
+
+  // Normalize path to remove any trailing slash for consistency
+  const normalizedPath = path.replace(/\/$/, "");
+
+  // Split the path into parts
+  const pathParts = normalizedPath.split("/").filter((part) => part !== "");
+
+  // Determine the last part of the path
+  const lastPathSegment = pathParts.pop() || "";
+
+  // Conditionally add a trailing slash to the base URL only if there are remaining path parts
+  const baseUrl = `${protocol}//${host}${
+    pathParts.length > 0
+      ? "/" + pathParts.join("/") + "/"
+      : lastPathSegment
+      ? "/"
+      : ""
+  }`;
+
+  return [baseUrl, lastPathSegment];
+}
