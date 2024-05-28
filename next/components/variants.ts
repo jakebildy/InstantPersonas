@@ -110,6 +110,23 @@ export const gradientVariants = cva("bg-gradient-to-b ", {
   },
 });
 
+export const gradientDarkVariants = cva("bg-gradient-to-b ", {
+  variants: {
+    variant: {
+      blue: "from-blue-900 to-blue-900/25",
+      purple: "from-purple-900 to-purple-900/25",
+      red: "from-red-900 to-red-900/25",
+      yellow: "from-yellow-900 to-yellow-900/25",
+      green: "from-green-900 to-green-900/25",
+      brown: "from-brown-900 to-brown-900/25",
+      pink: "from-pink-900 to-pink-900/25",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export const shadowVariants = cva("shadow-md", {
   variants: {
     variant: {
