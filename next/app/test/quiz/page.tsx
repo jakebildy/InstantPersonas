@@ -13,7 +13,7 @@ export default function PageTest({}: Props) {
   const variant = "blue";
   return (
     <div className="flex flex-col gap-4 items-center justify-center relative px-4 pb-10">
-      <div className="flex-1 flex flex-col gap-4 items-center justify-center relative bg-gray-100 p-10 rounded-2xl overflow-hidden">
+      <div className="flex-1 flex flex-col gap-4 items-center justify-center relative bg-gray-100 p-10 rounded-2xl overflow-hidden shadow-inner">
         <section
           className={shadowVariants({
             variant: variant,
