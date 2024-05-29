@@ -6,7 +6,7 @@ import {
   CommandUserInput,
   CommandUserInputKeybind,
 } from "@/components/ui/fcs/cli-input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ExtractField } from "@/lib/types";
 import { useUIState, useActions, useAIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
@@ -20,6 +20,8 @@ import SubscriptionPopup from "@/components/popups/subscription-popup";
 import { mapUrlBackgroundColorParamToVariant } from "./persona-avatar-popover/utils";
 import CopyLinkPopover from "@/components/ui/copy-link-popover";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import useMeasure from "react-use-measure";
+import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
 type Props = {
   className?: string;
@@ -82,10 +84,36 @@ export default function Chat({ className, personaChatID }: Props) {
     }
   }, [aiState.messages, messages, router]);
 
+  const [scrollContainerRef, bounds] = useMeasure();
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  const [scrollAreaIsAtTop, setScrollAreaIsAtTop] = useState(true);
+
+  useEffect(() => {
+    const checkScrollTop = () => {
+      if (scrollAreaRef.current) {
+        setScrollAreaIsAtTop(scrollAreaRef.current.scrollTop === 0);
+      }
+    };
+
+    // Add event listener
+    const currentRef = scrollAreaRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", checkScrollTop);
+    }
+
+    // Remove event listener on cleanup
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener("scroll", checkScrollTop);
+      }
+    };
+  }, [scrollAreaRef]);
+
   return (
     <section
       className={cn(
-        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] relative bg-background box-border overflow-hidden",
+        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] flex flex-col relative bg-background box-border overflow-hidden",
         className
       )}
     >
@@ -97,89 +125,64 @@ export default function Chat({ className, personaChatID }: Props) {
       />
 
       {personas && personas.length > 0 ? (
-        <div className="flex items-center justify-center m-2 w-full mx-auto border-b pb-2 relative">
-          <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
-          {personas.map((archetype: any, i: number) => {
-            const variant = mapUrlBackgroundColorParamToVariant({
-              url: archetype.pictureURL,
-            });
-            return (
-              <PersonaAvatarPopover
-                key={i}
-                {...{ archetype: archetype, variant: variant }}
+        <div className="w-full p-2 sticky top-0">
+          <div className="flex items-center justify-center w-full mx-auto border-b pb-2 relative">
+            <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
+            {personas.map((archetype: any, i: number) => {
+              const variant = mapUrlBackgroundColorParamToVariant({
+                url: archetype.pictureURL,
+              });
+              return (
+                <PersonaAvatarPopover
+                  key={i}
+                  {...{ archetype: archetype, variant: variant }}
+                />
+              );
+            })}
+            {shareLink ? (
+              <CopyLinkPopover
+                link={shareLink}
+                className="absolute right-0 m-8"
               />
-            );
-          })}
-          {shareLink ? (
-            <CopyLinkPopover
-              link={shareLink}
-              className="absolute right-0 m-8"
-            />
-          ) : null}
+            ) : null}
+          </div>
         </div>
       ) : null}
 
-      <ScrollArea className="h-[calc(100%)]">
-        {/* 120px is the height of the input and suggestions */}
-        <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
-          <PersonaMessage
-            message={`Describe your product or service, and I can create a user persona.`}
-          />
-          {messages.map((message: any) => (
-            <div key={message.id}>{message.display}</div>
-          ))}
-        </div>
-        <div ref={scrollBottomRef} />
-      </ScrollArea>
+      <div className="h-full flex-1" ref={scrollContainerRef}>
+        <ScrollAreaPrimitive.Root
+          className={cn("relative overflow-hidden")}
+          style={{
+            height: bounds.height,
+            width: "100%",
+          }}
+        >
+          <ScrollAreaPrimitive.Viewport
+            className="h-full w-full rounded-[inherit]"
+            ref={scrollAreaRef}
+          >
+            <div
+              className={cn(
+                "absolute top-0 w-full h-20 z-50 bg-gradient-to-b from-white via-slate-50/75 to-transparent pointer-events-none transition-opacity duration-300 ease-out",
+                scrollAreaIsAtTop ? "opacity-0" : "opacity-100"
+              )}
+            />
+            {/* 120px is the height of the input and suggestions */}
+            <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
+              <PersonaMessage
+                message={`Describe your product or service, and I can create a user persona.`}
+              />
+              {messages.map((message: any) => (
+                <div key={message.id}>{message.display}</div>
+              ))}
+            </div>
+            <div ref={scrollBottomRef} />
+          </ScrollAreaPrimitive.Viewport>
+          <ScrollBar />
+          <ScrollAreaPrimitive.Corner />
+        </ScrollAreaPrimitive.Root>
+      </div>
 
-      {aiState.suggestedMessages === undefined ||
-      aiState.suggestedMessages === hiddenSuggestedMessages ? (
-        <div />
-      ) : (
-        <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
-          {aiState.suggestedMessages.map((message: string, index: number) => {
-            return (
-              <div
-                key={index}
-                className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
-                onClick={async () => {
-                  if (!isSubscribed && !IS_TEST_DEV_ENV) {
-                    setShowSubscriptionPromptDialog(true);
-                  } else {
-                    setInput("");
-                    // Add user message to UI state
-                    setMessages((currentMessages: any) => [
-                      ...currentMessages,
-                      {
-                        id: Date.now(),
-                        display: <UserMessage message={message} />,
-                      },
-                    ]);
-
-                    // Submit and get response message
-
-                    setHiddenSuggestedMessages(aiState.suggestedMessages);
-
-                    if (user) {
-                      const responseMessage = await submitUserMessage(
-                        message,
-                        user.id,
-                        personaChatID
-                      );
-                      setMessages((currentMessages: any) => [
-                        ...currentMessages,
-                        responseMessage,
-                      ]);
-                    }
-                  }
-                }}
-              >
-                {message}
-              </div>
-            );
-          })}
-        </div>
-      )}
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
@@ -218,7 +221,57 @@ export default function Chat({ className, personaChatID }: Props) {
         }}
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
-      ></CommandUserInput>
+      >
+        {" "}
+        {aiState.suggestedMessages === undefined ||
+        aiState.suggestedMessages === hiddenSuggestedMessages ? (
+          <div />
+        ) : (
+          <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
+            {aiState.suggestedMessages.map((message: string, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
+                  onClick={async () => {
+                    if (!isSubscribed && !IS_TEST_DEV_ENV) {
+                      setShowSubscriptionPromptDialog(true);
+                    } else {
+                      setInput("");
+                      // Add user message to UI state
+                      setMessages((currentMessages: any) => [
+                        ...currentMessages,
+                        {
+                          id: Date.now(),
+                          display: <UserMessage message={message} />,
+                        },
+                      ]);
+
+                      // Submit and get response message
+
+                      setHiddenSuggestedMessages(aiState.suggestedMessages);
+
+                      if (user) {
+                        const responseMessage = await submitUserMessage(
+                          message,
+                          user.id,
+                          personaChatID
+                        );
+                        setMessages((currentMessages: any) => [
+                          ...currentMessages,
+                          responseMessage,
+                        ]);
+                      }
+                    }
+                  }}
+                >
+                  {message}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </CommandUserInput>
       <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-white via-slate-50/75 to-transparent pointer-events-none" />
     </section>
   );
@@ -291,13 +344,4 @@ export const UserMessage = ({
       </p>
     </div>
   );
-};
-
-const componentLookupTable: ComponentLookupTableType = {
-  user: memo(UserMessage),
-  assistant: memo(PersonaMessage),
-  function: memo(PersonaMessage),
-  system: memo(PersonaMessage),
-  tool: memo(PersonaMessage),
-  data: memo(PersonaMessage),
 };

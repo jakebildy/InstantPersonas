@@ -7,9 +7,9 @@ export default async function ChatPage({
   params: { id?: string[] };
 }) {
   return (
-    <div className="flex flex-col h-[calc(100vh-58px)] justify-center">
+    <div className="flex flex-col flex-1 h-full justify-center">
       <Chat
-        className="border rounded-lg min-h-[400px]"
+        className="border rounded-lg min-h-[400px] h-full flex-1"
         personaChatID={params.id?.at(-1)}
       />
     </div>

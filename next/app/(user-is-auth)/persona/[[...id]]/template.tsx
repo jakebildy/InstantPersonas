@@ -17,7 +17,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
         }}
         transition={{ type: "spring", duration: 1 }}
       >
-        <ScrollArea className="h-[calc(100vh-58px)]">{children}</ScrollArea>
+        <ScrollArea className="h-[calc(100vh-58px)]">
+          <div className="h-[calc(100vh-58px)] flex flex-col">{children}</div>
+        </ScrollArea>
       </motion.div>
     </>
   );

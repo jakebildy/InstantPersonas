@@ -55,11 +55,11 @@ export default function DashboardLayout({
       >
         {/* Sidebar */}
         <ResizablePanel
-          defaultSize={defaultLayout[0]}
+          defaultSize={18}
           collapsedSize={navCollapsedSize}
           collapsible={true}
-          minSize={16}
-          maxSize={canExpandSidebar ? 20 : 16}
+          minSize={18}
+          maxSize={canExpandSidebar ? 25 : 18}
           onCollapse={() => {
             setIsCollapsed(true);
             document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
@@ -78,7 +78,7 @@ export default function DashboardLayout({
             "bg-background",
             isCollapsed
               ? "min-w-[50px] max-w-[80px] transition-all duration-300 ease-in-out"
-              : "min-w-[210px] max-w-[300px]",
+              : "min-w-[240px] max-w-[350px]",
             !canExpandSidebar && "max-w-[50px]"
           )}
         >
@@ -135,9 +135,7 @@ export default function DashboardLayout({
           />
         </ResizablePanel>
         <ResizableHandle withHandle disabled={!canExpandSidebar} />
-        <ResizablePanel defaultSize={defaultLayout[2]}>
-          {children}
-        </ResizablePanel>
+        <ResizablePanel defaultSize={82}>{children}</ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>
   );
