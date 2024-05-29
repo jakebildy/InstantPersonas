@@ -49,6 +49,45 @@ export default function MetaBlueprintPracticePage() {
         content="Build your marketing knowledge with these practice exams for Meta
         Blueprint certifications. Don't miss these questions!"
       />
+      <meta
+        property="og:url"
+        content="instantpersonas.com/meta-blueprint-practice-exams"
+      />
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:title"
+        content="Free Facebook Blueprint Practice Exams"
+      />
+      <meta
+        property="og:description"
+        content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
+      />
+      <meta
+        property="og:image"
+        content="blob:https://instantpersonas.com/497bd956-ff80-49ba-a3ae-a4f1aade0ef6"
+      />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta
+        property="twitter:domain"
+        content="instantpersonas.com/meta-blueprint-practice-exams"
+      />
+      <meta
+        property="twitter:url"
+        content="instantpersonas.com/meta-blueprint-practice-exams"
+      />
+      <meta
+        name="twitter:title"
+        content="Free Facebook Blueprint Practice Exams"
+      />
+      <meta
+        name="twitter:description"
+        content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
+      />
+      <meta
+        name="twitter:image"
+        content="blob:https://instantpersonas.com/497bd956-ff80-49ba-a3ae-a4f1aade0ef6"
+      />
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
@@ -76,8 +115,20 @@ export default function MetaBlueprintPracticePage() {
         </div>
         <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
           We help you understand your target audience and market more
-          succesfully. We're not associated with Meta.
+          succesfully.
         </p>
+        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+          Learn how to supercharge your marketing by creating detailed personas{" "}
+          <a className="text-blue-600" href="https://instantpersonas.com/">
+            here
+          </a>
+          .
+        </p>
+
+        <div className="text-xs text-center text-gray-500 font-light">
+          We&apos;re not associated with Meta. This is not an official exam but
+          is designed to help you prepare for the real thing.
+        </div>
       </div>
     </section>
   );
