@@ -169,16 +169,12 @@ export function GuestPostFinderTool({
               window.open("https://www.instantpersonas.com/", "_blank");
             } else {
               setIsLoading(true);
-              console.log(
-                "Finding guest post opportunities for persona: ",
-                input
-              );
+
               //   api guest post
               const response = await api.tools.findGuestPostOpportunities(
                 input,
                 isSubscribed
               );
-              console.log(response);
 
               setIsLoading(false);
               setEasyToSubmitResults(response.easyToSubmit);

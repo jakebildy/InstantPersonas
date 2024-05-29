@@ -147,16 +147,13 @@ export function GoogleKeywordFinderTool({
               window.open("https://www.instantpersonas.com/", "_blank");
             } else {
               setIsLoading(true);
-              console.log(
-                "Finding guest post opportunities for persona: ",
-                input
-              );
+
               //   api guest post
               const response = await api.tools.findGoogleKeywords(
                 input,
                 isSubscribed
               );
-              console.log(response);
+
               setHasCompleted(true);
               setIsLoading(false);
               // sort by search volume

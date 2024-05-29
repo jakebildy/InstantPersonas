@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { generateTopicalAuthority } from "@/app/(server)/api/(ai-tools)/topical-authority/action";
 import { readStreamableValue } from "ai/rsc";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { useHandleCopy } from "@/lib/hooks";
 import { PersonStandingIcon } from "lucide-react";
 import {
@@ -245,7 +245,6 @@ export function TopicalAuthorityMap({
               potentialData.shift();
 
               const validatedData = validateDataPotentialData(potentialData);
-              // console.log("Validated Data", validatedData);
               setResponseData(validatedData);
               setNodes(mapTableToNodes(validatedData));
               setEdges(mapTableToEdges(validatedData));
@@ -318,7 +317,8 @@ export function TopicalAuthorityMap({
                         maxZoom={4}
                         minZoom={0.1}
                         onInit={(instance) => {
-                          console.log("onInit", instance);
+                          IS_TEST_DEV_ENV &&
+                            console.log("DEV: map onInit", instance);
                           setTimeout(() => instance.fitView(), 0);
                         }}
                         onNodesChange={onNodesChange}
@@ -368,7 +368,8 @@ export function TopicalAuthorityMap({
                         maxZoom={4}
                         minZoom={0.1}
                         onInit={(instance) => {
-                          console.log("onInit", instance);
+                          IS_TEST_DEV_ENV &&
+                            console.log("DEV: map onInit", instance);
                           setTimeout(() => instance.fitView(), 0);
                         }}
                         onNodesChange={onNodesChange}
