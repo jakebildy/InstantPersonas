@@ -1,7 +1,7 @@
 "use client";
 import QuizBuilder, { QuizBuilderSchema } from "@/components/quiz/quiz-builder";
 
-export const MARKETING_SCIENCE_PROFESSIONAL_TEST: QuizBuilderSchema = {
+const MARKETING_SCIENCE_PROFESSIONAL_TEST: QuizBuilderSchema = {
   title: "Marketing Science Professional Practice Exam",
   description:
     "Test your knowledge of digital marketing with this practice exam for Meta Blueprint's Marketing Science Professional certification.",

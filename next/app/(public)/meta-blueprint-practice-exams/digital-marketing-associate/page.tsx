@@ -1,9 +1,7 @@
 "use client";
 import QuizBuilder, { QuizBuilderSchema } from "@/components/quiz/quiz-builder";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 
-export const DIGITAL_MARKETING_TEST: QuizBuilderSchema = {
+const DIGITAL_MARKETING_TEST: QuizBuilderSchema = {
   title: "Digital Marketing Associate Practice Exam",
   description:
     "Test your knowledge of digital marketing with this practice exam for Meta Blueprint's Digital Marketing Associate certification.",

@@ -1,7 +1,7 @@
 "use client";
 import QuizBuilder, { QuizBuilderSchema } from "@/components/quiz/quiz-builder";
 
-export const COMMUNITY_MANAGER_TEST: QuizBuilderSchema = {
+const COMMUNITY_MANAGER_TEST: QuizBuilderSchema = {
   title: "Community Manager Practice Exam",
   description:
     "Test your knowledge of digital marketing with this practice exam for Meta Blueprint's Community Manager certification.",

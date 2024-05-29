@@ -1,9 +1,7 @@
 "use client";
 import QuizBuilder, { QuizBuilderSchema } from "@/components/quiz/quiz-builder";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 
-export const MEDIA_PLANNING_PROFESSIONAL_TEST: QuizBuilderSchema = {
+const MEDIA_PLANNING_PROFESSIONAL_TEST: QuizBuilderSchema = {
   title: "Media Planning Professional Practice Exam",
   description:
     "Test your knowledge of digital marketing with this practice exam for Meta Blueprint's Media Planning Professional certification.",
