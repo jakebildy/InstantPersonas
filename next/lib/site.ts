@@ -114,8 +114,12 @@ export const LANDING_FOOTER_LINKS = [
     href: "/blog",
   },
   {
-    text: "Pricing",
-    href: "/#pricing",
+    text: "Free SEO Tools",
+    href: "/tools",
+  },
+  {
+    text: "Meta Blueprint Practice Exams",
+    href: "/meta-blueprint-practice-exams",
   },
 ];
 
