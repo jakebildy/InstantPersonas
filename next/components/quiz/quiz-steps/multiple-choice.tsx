@@ -58,7 +58,7 @@ export function QuizQuestionMultipleChoiceInput({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, x: -200 }}
                 transition={{ delay: 0.5 + (i + 1) * 0.25, ease: "easeOut" }}
-                className="col-span-1 w-full"
+                className="col-span-2 sm:col-span-1 w-full"
                 layoutId={"choice" + i}
               >
                 <Button
@@ -69,8 +69,8 @@ export function QuizQuestionMultipleChoiceInput({
                       (choice === "Other" &&
                         currentAnswer &&
                         !choices.includes(currentAnswer))
-                      ? "bg-blue-600 text-white hover:bg-blue-500 hover:text-white"
-                      : ""
+                      ? "bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-[10px] sm:text-sm"
+                      : " text-[10px] sm:text-sm"
                   )}
                   onClick={() => {
                     onAnswerQuestion(currentAnswer === choice ? "" : choice);
