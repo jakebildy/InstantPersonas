@@ -91,6 +91,7 @@ export default function DashboardLayout({
             <InstantPersonas isCollapsed={isCollapsed} />
           </div>
           <Separator />
+
           <Nav
             isCollapsed={isCollapsed}
             links={SIDEBAR_LINKS.map((element) => ({
@@ -105,16 +106,16 @@ export default function DashboardLayout({
               isCollapsed ? "text-center" : "ml-5 text-left"
             )}
           >
-            {isCollapsed ? "SEO" : "SEO Tools"}
+            {isCollapsed ? "Create" : "Content Creation"}
           </div>
           <Nav
             isCollapsed={isCollapsed}
-            links={TOOLS.filter(
-              (tool) => tool.category === "SEO" || tool.category === "Blogging"
-            ).map((element) => ({
-              ...element,
-              variant: pathname === element.href ? "default" : "ghost",
-            }))}
+            links={TOOLS.filter((tool) => tool.section === "Create").map(
+              (element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })
+            )}
           />
           <div
             className={cn(
@@ -122,11 +123,11 @@ export default function DashboardLayout({
               isCollapsed ? "text-center" : "ml-5 text-left"
             )}
           >
-            {isCollapsed ? "Social\nMedia" : "Social Media Marketing Tools"}
+            {isCollapsed ? "Reach" : "Reach Your Audience"}
           </div>
           <Nav
             isCollapsed={isCollapsed}
-            links={TOOLS.filter((tool) => tool.category === "Marketing").map(
+            links={TOOLS.filter((tool) => tool.section === "Reach").map(
               (element) => ({
                 ...element,
                 variant: pathname === element.href ? "default" : "ghost",

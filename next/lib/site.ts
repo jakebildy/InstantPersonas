@@ -53,8 +53,8 @@ export const SEO_LINKS = [
     icon: AcademicCapIcon,
     category: "SEO",
     lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
-
     label: "",
+    section: "Create"
   },
   {
     title: "Guest Post Finder",
@@ -63,6 +63,7 @@ export const SEO_LINKS = [
     lead: "Find guest post opportunities in your niche",
     icon: DocumentMagnifyingGlassIcon,
     label: "",
+    section: "Reach"
   },
   {
     title: "Google Keyword Finder",
@@ -71,6 +72,7 @@ export const SEO_LINKS = [
     lead: "Find the best Google keywords for your target audience",
     icon: KeyIcon,
     label: "",
+    section: "Reach"
   },
   {
     title: "Instagram Hashtag Finder",
@@ -79,6 +81,7 @@ export const SEO_LINKS = [
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
     label: "",
+    section: "Reach"
   },
   {
     title: "Share Preview Optimizer",
@@ -87,6 +90,7 @@ export const SEO_LINKS = [
     lead: "Generate and optimize social media share previews for your content.",
     icon: MessageSquareShareIcon,
     label: "",
+    section: "Create"
   },
 ] as const;
 
