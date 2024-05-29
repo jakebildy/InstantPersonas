@@ -367,8 +367,8 @@ export default function CreativeStrategyProfessionalPage() {
         </p>
 
         <div className="text-xs text-center text-gray-500 font-light">
-          We're not associated with Meta. This is not an official exam but is
-          designed to help you prepare for the real thing.
+          We&apos;re not associated with Meta. This is not an official exam but
+          is designed to help you prepare for the real thing.
         </div>
       </div>
     </section>

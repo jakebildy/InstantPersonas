@@ -317,6 +317,10 @@ export default function MarketingScienceProfessionalPage() {
       <title>
         Free Practice Exam - Meta Blueprint Marketing Science Professional
       </title>
+      <meta
+        name="description"
+        content="Free practice exam for Meta Blueprint Marketing Science Professional certification."
+      />
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
@@ -346,8 +350,8 @@ export default function MarketingScienceProfessionalPage() {
         </p>
 
         <div className="text-xs text-center text-gray-500 font-light">
-          We're not associated with Meta. This is not an official exam but is
-          designed to help you prepare for the real thing.
+          We&apos;re not associated with Meta. This is not an official exam but
+          is designed to help you prepare for the real thing.
         </div>
       </div>
     </section>
