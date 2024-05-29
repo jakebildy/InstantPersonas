@@ -157,7 +157,7 @@ export function PersonaSelectFromHistorySidebar({
         className={gradientVariants({
           variant,
           className:
-            "w-[400px] sm:w-[540px] rounded-tl-md rounded-bl-md flex flex-col gap-4 p-0 z-[100]",
+            "w-[400px] sm:w-[540px] rounded-tl-md rounded-bl-md flex flex-col gap-4 p-0",
         })}
       >
         <SheetHeader>
@@ -247,15 +247,13 @@ export function PersonaSelectFromHistorySidebar({
                   {history.map((chat, i) =>
                     chat.aiState.personas === undefined ? null : (
                       <PersonaWidgetGroup
-                        personas={
-                          chat.aiState.personas.map((archetype) => ({
-                            ...archetype,
-                            business: {
-                              description: chat.aiState.business,
-                              target_problem: chat.aiState.targetProblem,
-                            },
-                          })) as PersonaBusinessArchetype[]
-                        }
+                        personas={chat.aiState.personas.map((archetype) => ({
+                          ...archetype,
+                          business: {
+                            description: chat.aiState.business,
+                            target_problem: chat.aiState.targetProblem,
+                          },
+                        }))}
                         selectedPersonas={selectedPersonas}
                         setSelectedPersonas={setSelectedPersonas}
                         key={i}
@@ -312,6 +310,8 @@ function PersonaWidgetGroupSkeleton() {
   );
 }
 
+import { isEqual } from "lodash";
+
 function PersonaWidgetGroup({
   personas,
   selectedPersonas,
@@ -323,9 +323,13 @@ function PersonaWidgetGroup({
     React.SetStateAction<PersonaBusinessArchetype[]>
   >;
 }) {
+  // Checking if all personas are selected based on deep equality
   const allPersonasInChatSelected = personas.every((persona) =>
-    selectedPersonas.includes(persona)
+    selectedPersonas.some((selectedPersona) =>
+      isEqual(selectedPersona, persona)
+    )
   );
+
   return (
     <div
       className={cn(
@@ -336,21 +340,29 @@ function PersonaWidgetGroup({
       )}
     >
       {personas.map((persona, i) => {
+        // Determining if the current persona is selected based on deep equality
+        const isSelected = selectedPersonas.some((selectedPersona) =>
+          isEqual(selectedPersona, persona)
+        );
+
         return (
           <SelectArchetypeWidget
-            isSelected={selectedPersonas.includes(persona)}
+            isSelected={isSelected}
             archetype={persona}
             key={i}
             onSelect={() => {
-              setSelectedPersonas((prevSelectedPersonas) => [
-                ...prevSelectedPersonas,
-                persona,
-              ]);
+              setSelectedPersonas((prevSelectedPersonas) => {
+                // To prevent adding duplicates, first check if not already selected
+                if (!prevSelectedPersonas.some((p) => isEqual(p, persona))) {
+                  return [...prevSelectedPersonas, persona];
+                }
+                return prevSelectedPersonas;
+              });
             }}
             onDeselect={() => {
               setSelectedPersonas((prevSelectedPersonas) =>
                 prevSelectedPersonas.filter(
-                  (activePersona) => activePersona !== persona
+                  (activePersona) => !isEqual(activePersona, persona)
                 )
               );
             }}
