@@ -62,10 +62,7 @@ export default function MetaBlueprintPracticePage() {
         property="og:description"
         content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
       />
-      <meta
-        property="og:image"
-        content="blob:https://instantpersonas.com/497bd956-ff80-49ba-a3ae-a4f1aade0ef6"
-      />
+      <meta property="og:image" content="/og/meta_blueprint.png" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta
@@ -84,10 +81,7 @@ export default function MetaBlueprintPracticePage() {
         name="twitter:description"
         content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
       />
-      <meta
-        name="twitter:image"
-        content="blob:https://instantpersonas.com/497bd956-ff80-49ba-a3ae-a4f1aade0ef6"
-      />
+      <meta name="twitter:image" content="/og/meta_blueprint.png" />
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
