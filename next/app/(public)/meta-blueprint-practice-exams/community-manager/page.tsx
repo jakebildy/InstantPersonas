@@ -339,6 +339,10 @@ export default function CommunityManagerPage() {
   return (
     <section className="bg-white ">
       <title>Free Practice Exam - Meta Blueprint Community Manager</title>
+      <meta
+        name="description"
+        content="Free practice exam for Meta Blueprint Community Manager certification."
+      />
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
           <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
