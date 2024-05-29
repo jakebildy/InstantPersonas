@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export type PracticeExam = {
+type PracticeExam = {
   name: string;
   slug: string;
   category: string;
 };
 
-export const PRACTICE_TESTS: PracticeExam[] = [
+const PRACTICE_TESTS: PracticeExam[] = [
   {
     name: "Digital Marketing Associate",
     slug: "digital-marketing-associate",
@@ -134,7 +134,7 @@ export default function MetaBlueprintPracticePage() {
   );
 }
 
-export const ArticleCard = ({
+const ArticleCard = ({
   post,
   category,
   className,
