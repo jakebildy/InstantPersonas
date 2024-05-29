@@ -1,12 +1,5 @@
-import Authenticate, {
-  AuthFallback,
-} from "@/components/context/auth/stytch-auth";
-import { Suspense } from "react";
+import Authenticate from "@/components/context/auth/stytch-auth";
 
 export default function AuthenticatePage() {
-  return (
-    <Suspense fallback={<AuthFallback />}>
-      <Authenticate />
-    </Suspense>
-  );
+  return <Authenticate />;
 }
