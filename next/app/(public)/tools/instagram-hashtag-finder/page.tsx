@@ -24,7 +24,7 @@ export default function InstagramHashtagFinder({}: {}) {
   const [selectedPersonas, setSelectedPersonas] = useState<
     PersonaBusinessArchetype[]
   >([]);
-  const { isSubscribed } = useInstantPersonasUser();
+  const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
@@ -53,7 +53,7 @@ export default function InstagramHashtagFinder({}: {}) {
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full bg-gray-100">
+      <div className="flex flex-col items-center h-full w-full ">
         <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Instagram Hashtag Finder
         </h1>
@@ -128,6 +128,7 @@ export default function InstagramHashtagFinder({}: {}) {
         <InstagramHashtagFinderTool
           input={personaString}
           isSubscribed={isSubscribed}
+          isLoggedIn={isLoggedIn}
           noInput={selectedPersonas.length === 0 && detailsInput === ""}
         />
       </div>

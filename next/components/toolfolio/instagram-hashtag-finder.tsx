@@ -19,10 +19,12 @@ import InfoTooltip from "../ui/info-tooltip";
 export function InstagramHashtagFinderTool({
   input,
   isSubscribed,
+  isLoggedIn,
   noInput,
 }: {
   input: string;
   isSubscribed: boolean;
+  isLoggedIn: boolean;
   noInput: boolean;
 }) {
   const [loading, setIsLoading] = useState(false);
@@ -119,6 +121,7 @@ export function InstagramHashtagFinderTool({
                               hashtag.averageLikesOfTopPosts
                             }
                             isSubscribed={isSubscribed}
+                            isLoggedIn={isLoggedIn}
                             variant={
                               hashtag.averageLikesOfTopPosts < 100
                                 ? "green"
@@ -143,8 +146,10 @@ export function InstagramHashtagFinderTool({
       ) : null}
 
       <div className="text-center">
-        {hashtagResults.length > 0 && !isSubscribed
+        {hashtagResults.length > 0 && !isSubscribed && !isLoggedIn
           ? "Sign up to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
+          : hashtagResults.length > 0 && !isSubscribed
+          ? "Start your free trial to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
           : ""}
         <br />
         <button
@@ -191,12 +196,14 @@ function InstagramHashtagTableRow({
   averageLikesOfTopPosts,
   variant = "blue",
   isSubscribed = true,
+  isLoggedIn = true,
 }: {
   hashtag: string;
   volume: number;
   averageLikesOfTopPosts: number;
   variant?: ColorVariant;
   isSubscribed?: boolean;
+  isLoggedIn?: boolean;
 }) {
   const { handleCopy } = useHandleCopy();
 
@@ -238,10 +245,16 @@ function InstagramHashtagTableRow({
       <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)}k
       </td>
-      {!isSubscribed ? (
+      {!isSubscribed && !isLoggedIn ? (
         <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
           <a href="https://instantpersonas.com/register">
             Sign Up to View (3 days FREE)
+          </a>
+        </td>
+      ) : !isSubscribed ? (
+        <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+          <a href="https://instantpersonas.com/subscription">
+            Start Trial to View (3 days FREE)
           </a>
         </td>
       ) : (
