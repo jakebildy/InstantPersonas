@@ -64,6 +64,12 @@ type Props = {
   input: string;
   isSubscribed: boolean;
   noInput: boolean;
+  detailsInput: string;
+  setDetailsInput: React.Dispatch<React.SetStateAction<string>>;
+  selectedPersonas: PersonaBusinessArchetype[];
+  setSelectedPersonas: React.Dispatch<
+    React.SetStateAction<PersonaBusinessArchetype[]>
+  >;
 };
 
 export type OGPreviewMetadata = {
@@ -85,6 +91,10 @@ export default function SocialShareTool({
   input,
   isSubscribed,
   noInput,
+  detailsInput,
+  setDetailsInput,
+  selectedPersonas,
+  setSelectedPersonas,
 }: Props) {
   // State management for open-graph metadata
   const [title, setTitle] = useState("");
@@ -101,26 +111,19 @@ export default function SocialShareTool({
     setImage(OG_PREVIEW_TEST.image);
   }, []);
 
+  const titleInputRef = React.useRef<HTMLInputElement>(null);
+  const descriptionInputRef = React.useRef<HTMLInputElement>(null);
+  const detailsInputRef = React.useRef<HTMLInputElement>(null);
+
   return (
     <section className="flex flex-col justify-center relative p-8 gap-8 w-full">
-      <OptimizeCopywriting
-        {...{
-          url,
-          title,
-          description,
-          image,
-          input,
-          noInput: noInput && title !== "" && description !== "",
-          variant,
-        }}
-      />
       <div className="flex-1 w-full flex items-center justify-center">
         <div
           className={cn(
             gradientLightVariants({
               variant,
               className:
-                "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
+                "flex flex-col w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
             })
           )}
         >
@@ -178,6 +181,7 @@ export default function SocialShareTool({
                       id="Title"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
+                      ref={titleInputRef}
                     />
                     <span className="text-xs font-medium">
                       Recommended:{" "}
@@ -190,6 +194,7 @@ export default function SocialShareTool({
                       id="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
+                      ref={detailsInputRef}
                     />
                     <span className="text-xs font-medium">
                       Recommended:{" "}
@@ -290,13 +295,96 @@ export default function SocialShareTool({
             gradientLightVariants({
               variant,
               className:
-                "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md ",
+                "flex flex-col gap-2 w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
             })
           )}
         >
-          <h2 className=" text-md font-bold mt-4">
-            The Open Graph meta tags and Twitter cards tags for your content
-          </h2>
+          <div className="flex flex-col gap-2 p-2 items-center w-full">
+            <label className="text-lg font-bold">
+              {isSubscribed
+                ? "Enter any extra details"
+                : "Describe your customer persona to improve your copy:"}
+            </label>
+            <h2 className="text-center text-xs text-slate-400 ">
+              Generate and optimize social media share previews for your
+              content.
+              <br />
+              Improve your click-through rates and engagement.
+            </h2>
+            {isSubscribed ? (
+              <PersonaSelectFromHistorySidebar
+                selectedPersonas={selectedPersonas}
+                setSelectedPersonas={setSelectedPersonas}
+                className="xl:absolute top-4 right-4 z-[50] max-xl:my-4"
+              />
+            ) : null}
+            <Input
+              type="text"
+              className="w-1/2"
+              placeholder="e.g. a marketing manager"
+              onChange={(e) => {
+                setDetailsInput(e.target.value);
+              }}
+              value={detailsInput}
+              ref={detailsInputRef}
+            />
+          </div>
+
+          <OptimizeCopywriting
+            {...{
+              url,
+              title,
+              description,
+              image,
+              input,
+              noInput: noInput || title === "" || description === "",
+              variant,
+            }}
+          />
+          <div className="text-center flex flex-col gap-1 text-xs text-gray-400 cursor-help animate-pulse">
+            {noInput ? (
+              <span
+                onClick={() => detailsInputRef.current?.focus()}
+                onMouseOver={() => detailsInputRef.current?.focus()}
+              >
+                Missing Details to Optimize Copy
+              </span>
+            ) : null}
+            {title === "" ? (
+              <span
+                onClick={() => titleInputRef.current?.focus()}
+                onMouseOver={() => titleInputRef.current?.focus()}
+              >
+                Missing Image Title
+              </span>
+            ) : null}
+            {description === "" ? (
+              <span
+                onClick={() => descriptionInputRef.current?.focus()}
+                onMouseOver={() => descriptionInputRef.current?.focus()}
+              >
+                Missing Image Description
+              </span>
+            ) : null}
+          </div>
+        </div>
+      </div>
+      <div className="flex-1 w-full flex items-center justify-center">
+        <div
+          className={cn(
+            gradientLightVariants({
+              variant,
+              className:
+                "flex flex-col w-full h-fit items-center border rounded-lg p-4 shadow-md ",
+            })
+          )}
+        >
+          <div className="p-2">
+            <h2 className="text-md font-bold">
+              The Open Graph meta tags and Twitter cards tags for your content
+            </h2>
+          </div>
+
           <HtmlExportPreview
             {...{
               url,
@@ -312,6 +400,9 @@ export default function SocialShareTool({
 }
 
 import { parse } from "csv-parse";
+import { PersonaSelectFromHistorySidebar } from "../selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { PersonaBusinessArchetype } from "../selected-personas/types";
 
 const TABLE_COLUMNS = [
   "Target Persona",
@@ -351,11 +442,6 @@ function OptimizeCopywriting({
 
   return (
     <>
-      <h2 className="text-center mt-4 text-xs text-slate-400 ">
-        Generate and optimize social media share previews for your content.
-        <br />
-        Improve your click-through rates and engagement.
-      </h2>
       <Button
         disabled={noInput}
         className={cn(
@@ -421,55 +507,43 @@ function OptimizeCopywriting({
           : "Creating..."}
       </Button>
       {responseData.length > 0 ? (
-        <div className="flex-1 w-full flex items-center justify-center">
-          <div
-            className={cn(
-              gradientLightVariants({
-                variant,
-                className:
-                  "flex flex-col w-fit lg:w-full h-fit items-center border rounded-lg shadow-md relative p-4",
-              })
-            )}
-          >
-            <div className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md">
-              <div className="w-full flex items-center justify-center mb-4">
-                <PersonStandingIcon className="text-muted-foreground" />
-              </div>
+        <div className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md">
+          <div className="w-full flex items-center justify-center mb-4">
+            <PersonStandingIcon className="text-muted-foreground" />
+          </div>
 
-              <div className="overflow-hidden">
-                <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
-                  <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-                    <tr>
-                      {TABLE_COLUMNS.map((column, i) => (
-                        <th
-                          key={i}
-                          className={cn(
-                            "whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]",
-                            i === 0 ? "rounded-l-lg" : "",
-                            i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
-                          )}
-                        >
-                          {column}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {responseData.map((row, i) => {
-                      return (
-                        <TableRow
-                          key={i}
-                          data={row}
-                          variant={getVariantByIndex(
-                            i % Object.keys(ColorVariantMap).length
-                          )}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div className="overflow-hidden">
+            <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
+              <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
+                <tr>
+                  {TABLE_COLUMNS.map((column, i) => (
+                    <th
+                      key={i}
+                      className={cn(
+                        "whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]",
+                        i === 0 ? "rounded-l-lg" : "",
+                        i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
+                      )}
+                    >
+                      {column}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {responseData.map((row, i) => {
+                  return (
+                    <TableRow
+                      key={i}
+                      data={row}
+                      variant={getVariantByIndex(
+                        i % Object.keys(ColorVariantMap).length
+                      )}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       ) : null}

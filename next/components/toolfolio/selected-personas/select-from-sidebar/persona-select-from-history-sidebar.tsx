@@ -58,25 +58,24 @@ export function PersonaSelectFromHistorySidebar({
   const [loading, setLoading] = React.useState(true);
   const [userError, setUserError] = React.useState<string | null>(null);
 
-  const user = useStytchUser();
+  const { user, isSubscribed } = useInstantPersonasUser();
   const userRef = useRef<string | null>();
 
   useEffect(() => {
-    if (!user.user) {
+    if (!user) {
       setLoading(false);
       setUserError("User not found");
       return;
     }
-    const UID = user.user.user_id;
     //? If is first fetch, or user has changed, get personas
-    if (UID !== userRef.current) {
+    if (user.id !== userRef.current && isSubscribed) {
       setLoading(true);
       setUserError(null);
       //? Indicates that we tried to fetch user's persona history
-      userRef.current = UID;
+      userRef.current = user.id;
       try {
         IS_TEST_DEV_ENV ? console.log("DEV: Fetching user history") : null;
-        api.userPersona.getPersonaHistory(user.user.user_id).then((data) => {
+        api.userPersona.getPersonaHistory(user.id).then((data) => {
           setHistory(data);
           setLoading(false);
           //? If no personas are selected, (first fetch), update from local storage
@@ -130,7 +129,13 @@ export function PersonaSelectFromHistorySidebar({
         setUserError("Error fetching user history");
       }
     }
-  }, [history, selectedPersonas.length, setSelectedPersonas, user.user]);
+  }, [
+    history,
+    isSubscribed,
+    selectedPersonas.length,
+    setSelectedPersonas,
+    user,
+  ]);
 
   useEffect(() => {
     if (selectedPersonas.length === 0) {
@@ -311,6 +316,8 @@ function PersonaWidgetGroupSkeleton() {
 }
 
 import { isEqual } from "lodash";
+import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 function PersonaWidgetGroup({
   personas,

@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import { highlight } from "sugar-high";
 import { getHighlighter } from "shiki";
@@ -61,8 +61,15 @@ export const CodeInput = ({
 
     const updateCode = async () => {
       if (codeRef.current) {
+        // Ensure the reference is not null
         const highlightedCode = await highlightToHtml(code);
-        codeRef.current.innerHTML = highlightedCode;
+        if (codeRef.current) {
+          // Double-check to prevent errors during async operations
+          codeRef.current.innerHTML = highlightedCode;
+        }
+      } else {
+        IS_TEST_DEV_ENV &&
+          console.error("The code block does not exist when trying to update.");
       }
     };
 

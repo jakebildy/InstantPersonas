@@ -37,17 +37,17 @@ export function HtmlExportPreview({
 <!-- Meta Tags Generated & Optimized via https://www.instantpersonas.com -->`;
 
   return (
-    <div className="rounded-md relative w-full gap-4 flex flex-col p-4">
+    <div className="rounded-md relative w-full gap-4 flex flex-col items-center p-4">
       <Button
         variant={"blue"}
         onClick={() => handleCopyCode(htmlCode ?? "")}
-        className="flex gap-2 flex-1 peer order-2 group"
+        className="flex gap-2 flex-1 peer order-2 group w-full"
       >
         <CopyIcon className="group-hover:text-slate-100 text-white" /> Copy to
         Clipboard
       </Button>
 
-      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md max-w-2xl lg:max-w-none">
+      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
         <CodeInput code={htmlCode ?? "No code"} theme="slack-ochin" />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
