@@ -22,6 +22,7 @@ import CopyLinkPopover from "@/components/ui/copy-link-popover";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import useMeasure from "react-use-measure";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
+import { motion } from "framer-motion";
 
 type Props = {
   className?: string;
@@ -110,6 +111,12 @@ export default function Chat({ className, personaChatID }: Props) {
     };
   }, [scrollAreaRef]);
 
+  const calculateProgressBarWidth = (numMessages: number) => {
+    const a = 0.9;
+    const b = -Math.log(0.1) / 8;
+    return a * (1 - Math.exp(-b * numMessages));
+  };
+
   return (
     <section
       className={cn(
@@ -122,6 +129,21 @@ export default function Chat({ className, personaChatID }: Props) {
         openSubscriptionPopup={
           IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog
         }
+      />
+
+      <motion.div
+        animate={{
+          opacity: personas && personas.length > 0 ? 0 : 1,
+          width: `${
+            personas && personas.length > 0
+              ? 100
+              : calculateProgressBarWidth(aiState.messages?.length) * 100
+          }%`,
+        }}
+        transition={{
+          opacity: { delay: 2, duration: 0.5 },
+        }}
+        className="absolute top-0 h-2 bg-green-500 rounded-full z-[400]"
       />
 
       {personas && personas.length > 0 ? (
@@ -182,7 +204,6 @@ export default function Chat({ className, personaChatID }: Props) {
           <ScrollAreaPrimitive.Corner />
         </ScrollAreaPrimitive.Root>
       </div>
-
       <CommandUserInput
         className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
         value={input}
