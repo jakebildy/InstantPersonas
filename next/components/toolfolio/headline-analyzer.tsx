@@ -132,10 +132,10 @@ export function HeadlineAnalyzerTool({
                 </div>
               ) : (
                 <div>
-                  You're using the power word(s){" "}
+                  You&apos;re using the power word(s){" "}
                   <b>
                     {powerWordsIncluded.map((word) => (
-                      <div>
+                      <div key={word}>
                         <b>{word}</b>
                       </div>
                     ))}
@@ -272,7 +272,7 @@ export function HeadlineAnalyzerTool({
                 people see when they search for your headline on Google.
               </div>
               {serpData.map((result: any, i) => (
-                <div className="flex flex-row border-b border-gray-200">
+                <div key={i} className="flex flex-row border-b border-gray-200">
                   <div className="mr-4 ml-2 text-green-600 font-bold text-2xl">
                     #{i + 1}
                   </div>
