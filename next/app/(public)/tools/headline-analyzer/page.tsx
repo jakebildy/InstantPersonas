@@ -57,13 +57,13 @@ export default function GuestPostOpportunityFinder({}: {}) {
         </h2>
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
-          {isSubscribed ? (
+          {/* {isSubscribed ? (
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
               setSelectedPersonas={setSelectedPersonas}
               className="xl:absolute top-4 right-4 z-[100]"
             />
-          ) : null}
+          ) : null} */}
           <label className="text-sm text-gray-700 my-2">
             Enter your Headline:
           </label>

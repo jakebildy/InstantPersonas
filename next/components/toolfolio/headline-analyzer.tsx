@@ -22,13 +22,13 @@ export function HeadlineAnalyzerTool({
 }) {
   const [loading, setIsLoading] = useState(false);
   const [hasReturnedAnalysis, setHasReturnedAnalysis] = useState(false);
-  const [numSyllables, setNumSyllables] = useState(0);
+  // const [numSyllables, setNumSyllables] = useState(0);
   const [engagingness, setEngagingness] = useState(0);
   const [skimmability, setSkimmability] = useState(false);
   const [clarity, setClarity] = useState(0);
-  const [powerWords, setPowerWords] = useState([]);
   const [powerWordsIncluded, setPowerWordsIncluded] = useState([]);
   const [serpData, setSerpData] = useState([]);
+  const [difficultyScore, setDifficultyScore] = useState(0);
 
   useEffect(() => {
     setHasReturnedAnalysis(false);
@@ -90,30 +90,43 @@ export function HeadlineAnalyzerTool({
             <BentoGridDiv>
               <b>Difficulty Score</b>
               {/* Average the estimated page rank for the (last four search results * 0.5 +  0.5* pagerank * Headline Score) */}
-
+              <ReactSpeedometer
+                value={difficultyScore}
+                minValue={0}
+                maxValue={100}
+                width={230}
+                height={140}
+                // change the colors around so its green then a light greenish yellow  then yellow than orange then red if its high
+                segmentColors={[
+                  "#008000",
+                  "#ADFF2F",
+                  "#FFFF00",
+                  "#FFA500",
+                  "#FF0000",
+                ]}
+              />
               <div className="text-slate-600 text-xs">
-                Our own proprietary metric that estimates how difficult this
-                title will be to get in the first page of results on Google.
-                Scored from 1-100 (where 1 is unbelievably easy and 100 is
-                impossible).
+                Our own metric that estimates how difficult this title will be
+                to get in the first page of results on Google. Scored from 1-100
+                (where 1 is easy and 100 is impossible).
               </div>
             </BentoGridDiv>
-            <BentoGridDiv className="md:col-span-2">
+            <BentoGridDiv className="md:col-span-1">
               <b>Power Words</b>
               {powerWordsIncluded.length === 0 ||
               (powerWordsIncluded.length === 1 &&
                 (powerWordsIncluded[0] == "" ||
                   powerWordsIncluded[0] == "none")) ? (
                 <div>
-                  <div className="mb-2">
+                  <div className="text-slate-600 text-xs mb-2">
                     Great headlines include one power word. Try including one of
                     these words:
                   </div>
-                  {powerWords.map((word) => (
+                  {/* {powerWords.map((word) => (
                     <div>
                       <b>{word}</b>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               ) : (
                 <div>
@@ -130,13 +143,13 @@ export function HeadlineAnalyzerTool({
               )}
 
               <div className="text-slate-600 text-xs">
-                Power words help you create engaging headlines. Power words can
-                trigger emotions, curiousity, and distinguish your content from
-                others. Some examples include: "free", "new" and "proven".
+                Power words can trigger emotions, curiousity, and distinguish
+                your content from others. Some examples include: "free", "new"
+                and "proven".
               </div>
             </BentoGridDiv>
 
-            <BentoGridDiv>
+            {/* <BentoGridDiv>
               <b>Readability</b>
               <b className="text-green-600 text-2xl">
                 {calculateReadability(
@@ -150,7 +163,7 @@ export function HeadlineAnalyzerTool({
                 an 8th grade level. If your niche is more technical, you may
                 want to aim for a higher grade level.
               </div>
-            </BentoGridDiv>
+            </BentoGridDiv> */}
             <BentoGridDiv>
               <b>Skimmability</b>
 
@@ -244,11 +257,11 @@ export function HeadlineAnalyzerTool({
                 estimations powered by AI.
               </div>
             </BentoGridDiv>
-            <BentoGridDiv>
+            {/* <BentoGridDiv>
               <b>Relevance to Persona(s)</b>
 
               {!isSubscribed && <div>Start your Free Trial to Unlock This</div>}
-            </BentoGridDiv>
+            </BentoGridDiv> */}
             <BentoGridDiv className="md:col-span-3 md:row-span-4">
               <b>Search Engine Results Page (SERP)</b>
               <div className="text-slate-600 text-xs">
@@ -297,15 +310,15 @@ export function HeadlineAnalyzerTool({
             );
             // console.log(response);
 
-            setNumSyllables(response.syllables);
+            // setNumSyllables(response.syllables);
             setEngagingness(response.engagingness); // 1-4
             setClarity(response.clarity); // 1-4
-            setSkimmability(response.skimmability === "true"); // true or false
+            setSkimmability(response.skimmability); // true or false
             setIsLoading(false);
             setHasReturnedAnalysis(true);
-            setPowerWords(response.powerWords);
             setPowerWordsIncluded(response.powerWordsIncluded);
             setSerpData(response.serpData);
+            setDifficultyScore(response.difficultyScore);
           }}
         >
           {loading ? "Analyzing..." : "Analyze Headline"}
