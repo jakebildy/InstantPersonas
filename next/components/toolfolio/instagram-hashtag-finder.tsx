@@ -166,9 +166,12 @@ export function InstagramHashtagFinderTool({
           }
           onClick={async () => {
             if (noInput) return;
-            if (hashtagResults.length > 0 && !isSubscribed) {
+            if (hashtagResults.length > 0 && !isSubscribed && !isLoggedIn) {
               // go to signup
               window.open("https://www.instantpersonas.com/", "_blank");
+            } else if (hashtagResults.length > 0 && !isSubscribed) {
+              // go to subscription
+              window.open("https://www.instantpersonas.com/subscription");
             } else {
               setIsLoading(true);
 
