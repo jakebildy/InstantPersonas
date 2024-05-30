@@ -40,6 +40,15 @@ const api = {
       console.log("response from instagram hashtags api", response);
       return response.data;
     },
+    analyzeHeadline: async (headline: string, paid: boolean): Promise<any> => {
+      const response = await axios.post("/api/headline-analyzer", {
+        headline,
+        paid,
+      });
+      console.log("response from headline analyzer api", response);
+      return response.data;
+    },
+    
   },
   auth: {
     //? These are old routes from AiConsultingTools which haven't been reimplemented yet

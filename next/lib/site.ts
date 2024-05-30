@@ -8,6 +8,7 @@ import {
   DocumentMagnifyingGlassIcon,
   KeyIcon,
   HashtagIcon,
+  ChartBarSquareIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
@@ -92,6 +93,14 @@ export const SEO_LINKS = [
     icon: MessageSquareShareIcon,
     label: "",
     section: "Create",
+  },
+  {
+    title: "Headline Analyzer",
+    href: "/tools/headline-analyzer",
+    category: "Blogging",
+    lead: "Find the best titles",
+    icon: ChartBarSquareIcon,
+    label: "",
   },
 ] as const;
 
