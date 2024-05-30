@@ -101,6 +101,7 @@ export const SEO_LINKS = [
     lead: "Find the best titles",
     icon: ChartBarSquareIcon,
     label: "",
+    section: "Create",
   },
 ] as const;
 
