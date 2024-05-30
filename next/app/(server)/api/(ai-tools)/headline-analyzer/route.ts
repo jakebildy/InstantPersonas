@@ -14,6 +14,21 @@ const calculateDifficultyScore = (pageRanks: any) => {
   return Math.round(total / pageRanks.length / 10) + 10;
 }
 
+function checkSkimmability(headline: string, topic: string): boolean {
+  // Split the headline into words
+  const words = headline.split(' ');
+
+  // Get the first three and last three words
+  const firstThree = words.slice(0, 3);
+  const lastThree = words.slice(-3);
+
+  // Check if the topic is mentioned in the first or last three words
+  const skimmable = firstThree.some(word => topic.includes(word)) || lastThree.some(word => topic.includes(word));
+
+  return skimmable;
+}
+
+
 export async function POST(req: Request) {
   if (req.body) {
     // Parse the JSON body of the request
@@ -26,10 +41,18 @@ export async function POST(req: Request) {
         headline +
         `, respond in the following ECMA-404 JSON format: 
 
-        { skimmability: boolean //is the keyword/topic found in the first or last three words of the headline
+        {
+          topic: string //find the topic, it must be a substring of the headline and match exactly. 
           engagingness: integer //an integer from 1-4 where 4 is EXTREMELY engaging headline/title, 3 is engaging, 2 is somewhat engaging, 1 is not engaging
           clarity: integer //an integer from 1-4 where 4 is EXTREMELY clear headline/title, 1 is not clear at all
         }
+
+        example response:
+        "{
+          "topic": "Dog Toys",
+          "engagingness": 4,
+          "clarity": 3
+        }"
         `;
 
 
@@ -37,6 +60,7 @@ export async function POST(req: Request) {
 
       // convert from json to object
       try {
+        console.log ("response: " + chatResponse.text.trim());
         var values = JSON.parse(chatResponse.text.trim());
       
 
@@ -91,7 +115,7 @@ export async function POST(req: Request) {
       const POWER_WORDS_INCLUDED =  headline.split(" ").map((word: string) => word.toLowerCase()).filter((word : string) => POWER_WORDS.map((pw) => pw.toLowerCase()).includes(word));
 
       return NextResponse.json({
-        skimmability: values["skimmability"],
+        skimmability: checkSkimmability(headline, values["topic"]),
         engagingness: values["engagingness"],
         clarity: values["clarity"],
         // check if the headline includes any of the above power words: 
