@@ -45,11 +45,14 @@ export function InstagramHashtagFinderTool({
               <button
                 className="text-sm font-bold text-blue-500 flex flex-row mb-2"
                 onClick={() => {
-                  if (!isSubscribed) {
+                  if (!isSubscribed && !isLoggedIn) {
                     window.open(
                       "https://www.instantpersonas.com/register",
                       "_blank"
                     );
+                    return;
+                  } else if (!isSubscribed) {
+                    window.open("https://www.instantpersonas.com/subscription");
                     return;
                   }
                   const csv = hashtagResults
