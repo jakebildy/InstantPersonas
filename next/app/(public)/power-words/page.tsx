@@ -2,18 +2,17 @@ import { InstantPersonas } from "@/components/instantPersonas";
 import { Separator } from "@/components/ui/separator";
 import { POWER_WORDS } from "@/util/util";
 
-export default function TermsOfService() {
+export default function PowerWords() {
   return (
     <main className="bg-gradient-to-b from-slate-50 to-green-50">
-      <title>Power Words for Headlines</title>
+      <title>300 Best Power Words for Headlines</title>
       <meta
         name="description"
         content="Use these power words in your headlines to increase engagement and conversions."
       />
       <div className="mx-auto px-4 py-8 flex flex-col max-w-2xl gap-4 ">
-        <InstantPersonas className="text-3xl" />
         <h1 className="text-3xl font-bold flex gap-4">
-          Power Words for Headlines
+          300 Best Power Words for Headlines
         </h1>
         <p>
           <strong>

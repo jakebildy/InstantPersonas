@@ -74,7 +74,19 @@ export default function HighConvertingSharePreviews() {
             6. <b>The description needs to capture their attention</b> and
             convince them to click. Read up on copywriting tips.
             <br></br> <br></br>
-            7. <b>Use engaging visuals</b>.
+            7. <b>Use engaging visuals</b>.<br></br> <br></br>
+            8.{" "}
+            <b>
+              Use power words to increase conversions! We have a list of 300 of
+              them{" "}
+              <a
+                href="https://instantpersonas.com/power-words"
+                className=" text-blue-500"
+              >
+                here
+              </a>
+            </b>
+            .
           </p>
           <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"2"}>
             Why are social share images important?

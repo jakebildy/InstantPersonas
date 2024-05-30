@@ -146,8 +146,9 @@ export function HeadlineAnalyzerTool({
 
               <div className="text-slate-600 text-xs">
                 Power words can trigger emotions, curiousity, and distinguish
-                your content from others. Some examples include: "free", "new"
-                and "proven".
+                your content from others. Some examples include:
+                &apos;&apos;free&apos;&apos;, &apos;&apos;new&apos;&apos; and
+                &apos;&apos;proven&apos;&apos;.
               </div>
             </BentoGridDiv>
 
