@@ -19,10 +19,12 @@ import InfoTooltip from "../ui/info-tooltip";
 export function InstagramHashtagFinderTool({
   input,
   isSubscribed,
+  isLoggedIn,
   noInput,
 }: {
   input: string;
   isSubscribed: boolean;
+  isLoggedIn: boolean;
   noInput: boolean;
 }) {
   const [loading, setIsLoading] = useState(false);
@@ -33,7 +35,10 @@ export function InstagramHashtagFinderTool({
   return (
     <div>
       {loading ? (
-        "Looking for hashtags - this may take a minute or two..."
+        <span className="loading loading01">
+          Looking for hashtags - this may take a minute or two <span>.</span>{" "}
+          <span>.</span> <span>.</span>
+        </span>
       ) : hashtagResults.length === 0 && hasCompleted ? (
         "We didn't find any good hashtags for this persona. Try refining your search!"
       ) : hashtagResults.length > 0 ? (
@@ -43,11 +48,14 @@ export function InstagramHashtagFinderTool({
               <button
                 className="text-sm font-bold text-blue-500 flex flex-row mb-2"
                 onClick={() => {
-                  if (!isSubscribed) {
+                  if (!isSubscribed && !isLoggedIn) {
                     window.open(
                       "https://www.instantpersonas.com/register",
                       "_blank"
                     );
+                    return;
+                  } else if (!isSubscribed) {
+                    window.open("https://www.instantpersonas.com/subscription");
                     return;
                   }
                   const csv = hashtagResults
@@ -119,6 +127,7 @@ export function InstagramHashtagFinderTool({
                               hashtag.averageLikesOfTopPosts
                             }
                             isSubscribed={isSubscribed}
+                            isLoggedIn={isLoggedIn}
                             variant={
                               hashtag.averageLikesOfTopPosts < 100
                                 ? "green"
@@ -143,8 +152,10 @@ export function InstagramHashtagFinderTool({
       ) : null}
 
       <div className="text-center">
-        {hashtagResults.length > 0 && !isSubscribed
+        {hashtagResults.length > 0 && !isSubscribed && !isLoggedIn
           ? "Sign up to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
+          : hashtagResults.length > 0 && !isSubscribed
+          ? "Start your free trial to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
           : ""}
         <br />
         <button
@@ -155,9 +166,12 @@ export function InstagramHashtagFinderTool({
           }
           onClick={async () => {
             if (noInput) return;
-            if (hashtagResults.length > 0 && !isSubscribed) {
+            if (hashtagResults.length > 0 && !isSubscribed && !isLoggedIn) {
               // go to signup
               window.open("https://www.instantpersonas.com/", "_blank");
+            } else if (hashtagResults.length > 0 && !isSubscribed) {
+              // go to subscription
+              window.open("https://www.instantpersonas.com/subscription");
             } else {
               setIsLoading(true);
 
@@ -191,12 +205,14 @@ function InstagramHashtagTableRow({
   averageLikesOfTopPosts,
   variant = "blue",
   isSubscribed = true,
+  isLoggedIn = true,
 }: {
   hashtag: string;
   volume: number;
   averageLikesOfTopPosts: number;
   variant?: ColorVariant;
   isSubscribed?: boolean;
+  isLoggedIn?: boolean;
 }) {
   const { handleCopy } = useHandleCopy();
 
@@ -238,10 +254,16 @@ function InstagramHashtagTableRow({
       <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)}k
       </td>
-      {!isSubscribed ? (
+      {!isSubscribed && !isLoggedIn ? (
         <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
           <a href="https://instantpersonas.com/register">
             Sign Up to View (3 days FREE)
+          </a>
+        </td>
+      ) : !isSubscribed ? (
+        <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+          <a href="https://instantpersonas.com/subscription">
+            Start Trial to View (3 days FREE)
           </a>
         </td>
       ) : (

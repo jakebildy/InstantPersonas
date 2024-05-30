@@ -10,12 +10,12 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
-  const { isSubscribed } = useInstantPersonasUser();
+  const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
 
   return (
     <main
       className={
-        isSubscribed ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
+        isLoggedIn ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
       }
     >
       {user.user ? (
