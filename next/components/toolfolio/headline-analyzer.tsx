@@ -122,11 +122,13 @@ export function HeadlineAnalyzerTool({
                     Great headlines include one power word. Try including one of
                     these words:
                   </div>
-                  {/* {powerWords.map((word) => (
-                    <div>
-                      <b>{word}</b>
-                    </div>
-                  ))} */}
+                  <a
+                    href="/power-words/"
+                    target="_blank"
+                    className="text-blue-600 text-xl"
+                  >
+                    Click to view power words
+                  </a>
                 </div>
               ) : (
                 <div>
@@ -288,14 +290,14 @@ export function HeadlineAnalyzerTool({
 
       <div className="text-center">
         {!isSubscribed && hasReturnedAnalysis
-          ? "Sign up to get 10x more results, get deep audience insights, and more!"
+          ? "Sign up to understand your audience better and increase conversions!"
           : ""}
         <br />
         <button
           className={
             noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
+              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
+              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
           }
           onClick={async () => {
             setIsLoading(true);

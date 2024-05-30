@@ -3,105 +3,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { ChatGPT } from "@/app/(server)/ai/gpt";
-
-// Create an OpenAI API client (that's edge friendly!)
-const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-});
-
-const POWER_WORDS = [
-  "Exclusive", "Revealed", "Secrets",
-  "Ultimate", "Proven", "Essential",
-  "Unleashed", "Discover", "Breakthrough",
-  "Shocking", "Insider", "Elite",
-  "Uncovered", "Powerful", "Guaranteed",
-  "Transformative", "Instant", "Revolutionary",
-  "Unbelievable", "Top", "Best",
-  "Must-have", "Limited", "Special",
-  "Rare", "Unique", "Unprecedented",
-  "Premium", "Urgent", "Exclusive",
-  "Today", "Now", "Latest",
-  "New", "Free", "Bonus",
-  "Offer", "Sensational", "Astonishing",
-  "Incredible", "Jaw-dropping", "Unmissable",
-  "Essential", "Critical", "Vital",
-  "Pivotal", "Game-changer", "Spotlight",
-  "Trending", "Hot", "Popular",
-  "Featured", "Special", "Limited-time",
-  "Hurry", "Last chance", "Countdown",
-  "Zen", "Profound", "Awe-inspiring",
-  "Extraordinary", "Thrive", "Victory",
-  "Effortless", "Jubilant", "Brilliant",
-  "Heartwarming", "Light", "Empower",
-  "Healthy", "Cheer", "Legendary",
-  "Astounding", "Blissful", "Inspiring",
-  "Alive", "Wonderful", "Celebrate",
-  "Bravery", "Amazing", "Playful",
-  "Laugh", "Hilarious", "Fun",
-  "Ridiculous", "Wild", "Absurd",
-  "Ludicrous", "Farce", "Whimsical",
-  "Funniest", "Hilarity", "Comical",
-  "Amusement", "Silly", "Jokes",
-  "Outlandish", "Luxurious", "Cultivated",
-  "Expensive", "Glamorous", "Enchanting",
-  "Crave", "Sophisticated", "Urbane",
-  "Enthralling", "Members-only", "Desire",
-  "Magnetic", "Hidden", "Private",
-  "Refined", "Elite", "Thrilling",
-  "Charismatic", "Allure", "Exclusive",
-  "Suave", "Embrace", "Never-before-seen",
-  "Worldly", "Captivating", "Undeniable",
-  "Inexplicable", "Eventful", "Ageless",
-  "Lasting", "Memorable", "Historic",
-  "Unforgettable", "Forever", "Enduring",
-  "Monumental", "Eternal", "Distinguished",
-  "Timeless", "Illustrious", "Everlasting",
-  "Significant", "Remarkable", "Miracle",
-  "Introducing", "Wanted", "Magic",
-  "Shocking", "Insider", "Revolutionary",
-  "Suddenly", "Unusual", "Discover",
-  "Life-changing", "Now", "Sensational",
-  "Hurry", "Weird", "Latest",
-  "Odd", "Announcing", "Spell-binding",
-  "Gorgeous", "Heavenly", "Radiant",
-  "Pleasing", "Swoon-worthy", "Beautiful",
-  "Appealing", "Stunning", "Classy",
-  "Dazzling", "Bewitching", "Graceful",
-  "Handsome", "Breathtaking", "Tantalizing",
-  "Marvelous", "Intoxicating", "Lovely",
-  "Grand", "Sublime", "Results",
-  "Endorsed", "Verified", "Privacy",
-  "Legitimate", "Sample", "Fool-proof",
-  "No-questions-asked", "Official", "Tested",
-  "Risk-free", "Guaranteed", "Secure",
-  "Ensured", "Authentic", "Unconditional",
-  "Honesty", "Proven", "Trial",
-  "Refund", "Expert", "Professional",
-  "Certified", "Scientific", "Protected",
-  "Worldwide", "Reliable", "Studies",
-  "Recognized", "Best-selling", "Respected",
-  "No-strings-attached", "Efficiency", "Cheat-sheet",
-  "Minimal", "Tips", "Stress-free",
-  "Hacks", "Step-by-step", "Accessible",
-  "Cinch", "Easy", "Simple",
-  "Painless", "No-hassle", "Tricks",
-  "On-demand", "Straightforward", "Adventure",
-  "Change", "Beyond", "Revive",
-  "Win", "Master", "Tenacious",
-  "Convert", "Defy", "After",
-  "Renew", "Overcome", "Journey",
-  "Fearless", "Complete", "Success",
-  "Achieve", "Fix", "Confront",
-  "Freedom", "Dominate", "Victory",
-  "Fulfill", "Learn", "Triumph",
-  "Courageous", "Validate", "Energetic",
-  "Ignite", "Quick-start", "Blast",
-  "Speed", "Contest", "Bolt",
-  "Jumpstart", "Electrify", "Launch",
-  "Kick-off", "Amp", "Supercharge",
-  "Boost", "Dash"
-];
-
+import { POWER_WORDS } from "@/util/util";
 
 const calculateDifficultyScore = (pageRanks: any) => {
   let total = 0;
@@ -186,7 +88,7 @@ export async function POST(req: Request) {
       const DIFFICULTY_SCORE = calculateDifficultyScore(pageRanks.data.tasks[0].result[0].items);
 
       // split the headline up into each word and compare the lower case word with the list of power words
-      const POWER_WORDS_INCLUDED =  headline.split(" ").map((word: string) => word.toLowerCase()).filter((word : string) => POWER_WORDS.includes(word));
+      const POWER_WORDS_INCLUDED =  headline.split(" ").map((word: string) => word.toLowerCase()).filter((word : string) => POWER_WORDS.map((pw) => pw.toLowerCase()).includes(word));
 
       return NextResponse.json({
         skimmability: values["skimmability"],
