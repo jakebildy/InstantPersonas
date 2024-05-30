@@ -20,16 +20,18 @@ import { IS_TEST_DEV_ENV } from "@/lib/utils";
 // Define the context shape
 type InstantPersonasUserContextType =
   | {
-      user: InstantPersonasUser;
-      isLoggedIn: true;
-      isSubscribed: boolean;
-      isInitialized: boolean;
+      user: InstantPersonasUser; // The user object
+      isLoggedIn: true; // Whether the user is logged in, ensures user is not null
+      isSubscribed: boolean; // Whether the user has an active subscription
+      isInitialized: boolean; // Whether the stytch user object has been initialized
+      isLoading: boolean; // Whether the user object is still loading
     }
   | {
       user: null;
       isLoggedIn: false;
       isSubscribed: false;
       isInitialized: boolean;
+      isLoading: boolean;
     };
 
 // Create the context with default values
@@ -55,11 +57,14 @@ export const InstantPersonasUserProvider = ({
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   const { user, isInitialized } = useStytchUser();
   const pathname = usePathname();
   const posthog = usePostHog();
 
   useEffect(() => {
+    setLoading(true);
     if (isInitialized && !user) {
       setIsLoggedIn(false);
     } else if (user) {
@@ -96,6 +101,7 @@ export const InstantPersonasUserProvider = ({
 
       getSubscription();
     }
+    setLoading(false);
   }, [
     user,
     user?.user_id,
@@ -112,12 +118,14 @@ export const InstantPersonasUserProvider = ({
           isLoggedIn: true,
           isSubscribed: isSubscribed,
           isInitialized: isInitialized,
+          isLoading: loading,
         } as const)
       : ({
           user: null,
           isLoggedIn: false,
           isSubscribed: false,
           isInitialized: isInitialized,
+          isLoading: loading,
         } as const);
 
   return (
