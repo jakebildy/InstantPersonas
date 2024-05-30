@@ -254,7 +254,7 @@ function InstagramHashtagTableRow({
       <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)}k
       </td>
-      {!isSubscribed && !isLoggedIn ? (
+      {/* {!isSubscribed && !isLoggedIn ? (
         <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
           <a href="https://instantpersonas.com/register">
             Sign Up to View (3 days FREE)
@@ -266,11 +266,11 @@ function InstagramHashtagTableRow({
             Start Trial to View (3 days FREE)
           </a>
         </td>
-      ) : (
-        <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
-          {Math.round(averageLikesOfTopPosts)}
-        </td>
-      )}
+      ) : ( */}
+      <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+        {Math.round(averageLikesOfTopPosts)}
+      </td>
+      {/* )} */}
     </tr>
   );
 }
