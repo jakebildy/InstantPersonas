@@ -19,7 +19,7 @@ export const InstantPersonas = ({ isCollapsed, className }: Props) => {
       )}
     >
       <Link href={"/"} className="flex items-center text-left">
-        <div className="h-[32px] w-[32px] mr-2">
+        <div className={cn("h-[32px] w-[32px]", isCollapsed ? "" : "mr-2")}>
           <Image
             src={"/instant_personas_logo.png"}
             alt={"Instant Personas Logo"}
