@@ -35,7 +35,10 @@ export function InstagramHashtagFinderTool({
   return (
     <div>
       {loading ? (
-        "Looking for hashtags - this may take a minute or two..."
+        <span className="loading loading01">
+          Looking for hashtags - this may take a minute or two <span>.</span>{" "}
+          <span>.</span> <span>.</span>
+        </span>
       ) : hashtagResults.length === 0 && hasCompleted ? (
         "We didn't find any good hashtags for this persona. Try refining your search!"
       ) : hashtagResults.length > 0 ? (
