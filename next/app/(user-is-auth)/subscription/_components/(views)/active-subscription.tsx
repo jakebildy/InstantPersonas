@@ -40,18 +40,20 @@ export default function ActiveSubscription({
   )?.href;
   return (
     <section className="align-center text-center text-gray-700 font-bold flex flex-col gap-10 py-14">
-      <h1 className="text-3xl">
-        Your Subscription is{" "}
-        {cancel_at_period_end ? (
-          <span className="text-red-600">Ending Soon!!</span>
-        ) : (
-          <span className="text-green-600">Active!</span>
-        )}
+      <div className="flex flex-col items-center gap-2">
+        <h1 className="text-3xl">
+          Your Subscription is{" "}
+          {cancel_at_period_end ? (
+            <span className="text-red-600">Ending Soon!!</span>
+          ) : (
+            <span className="text-green-600">Active!</span>
+          )}
+        </h1>
         <h2 className="text-sm">
           Your subscription is currently {status} and renews on a{" "}
           {interval === "month" ? "monthly" : "yearly"} basis.
         </h2>
-      </h1>
+      </div>
 
       {cancel_at_period_end ? (
         <div>
