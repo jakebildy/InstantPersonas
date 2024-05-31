@@ -284,6 +284,9 @@ dependencies:
   secure-json-parse:
     specifier: ^2.7.0
     version: 2.7.0
+  server-only:
+    specifier: ^0.0.1
+    version: 0.0.1
   sharp:
     specifier: ^0.33.4
     version: 0.33.4
@@ -9180,6 +9183,10 @@ packages:
   /seroval@1.0.5:
     resolution: {integrity: sha512-TM+Z11tHHvQVQKeNlOUonOWnsNM+2IBwZ4vwoi4j3zKzIpc5IDw8WPwCfcc8F17wy6cBcJGbZbFOR0UCuTZHQA==}
     engines: {node: '>=10'}
+    dev: false
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
     dev: false
 
   /set-function-length@1.2.2:
