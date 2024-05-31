@@ -54,8 +54,14 @@ export default function InstagramHashtagFinder({}: {}) {
         <div />
       )}
       <div className="flex flex-col items-center h-full w-full ">
-        <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+        {/* <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
           Instagram Hashtag Finder
+        </h1> */}
+        <h1 className="text-5xl text-gray-700 text-center pt-10 font-bold">
+          Find the Best<br></br>{" "}
+          <b className="bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 inline-block text-transparent bg-clip-text leading-relaxed">
+            Instagram Hashtags
+          </b>
         </h1>
         <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
           Discover hashtags and their search volume for your target audience
