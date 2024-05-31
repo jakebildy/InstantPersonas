@@ -1,20 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { AIState } from "./ai-state-type-validators";
 
-export interface UserPersona {
-  name: string;
-  hair: string;
-  glasses: string;
-  body: string;
-  gender: string;
-  pictureURL: string;
-  color: string;
-  productDescription?: string;
-  sections: [{ label: string; description: string }];
-  shortDescriptors: [{ label: string; description: string; emoji: string }];
-}
-
-export interface PersonaChat {
+export interface PersonaChatType {
   aiState: AIState;
   aiSuggestedChats?: string[];
   user?: string;
@@ -22,7 +9,7 @@ export interface PersonaChat {
   _id?: string;
 }
 
-const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
+const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   {
     aiState: { type: Schema.Types.Mixed, required: false },
     aiSuggestedChats: [{ type: String, required: false }],

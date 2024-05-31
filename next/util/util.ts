@@ -1,9 +1,9 @@
 import { AIStateValidator } from "@/app/(server)/models/ai-state-type-validators";
 import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 
 export function convertPersonaChatsToPersonaWithIDs(
-  personaChats: PersonaChat[]
+  personaChats: PersonaChatType[]
 ): PersonaWithID[] {
   if (!personaChats) {
     return [];

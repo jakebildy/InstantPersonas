@@ -1,6 +1,5 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
-import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
 // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -85,7 +84,6 @@ const api = {
       console.log("response from instagram accounts api", response);
       return response.data;
     },
-    
   },
   auth: {
     //? These are old routes from AiConsultingTools which haven't been reimplemented yet
@@ -148,7 +146,7 @@ const api = {
   },
 
   userPersona: {
-    getPersonaHistory: async (id?: string): Promise<PersonaChat[]> => {
+    getPersonaHistory: async (id?: string): Promise<PersonaChatType[]> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-history";
 
@@ -180,7 +178,7 @@ const api = {
       });
       return history;
     },
-    getPersonaChat: async (chatID: string): Promise<PersonaChat> => {
+    getPersonaChat: async (chatID: string): Promise<PersonaChatType> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-chat";
 
@@ -204,7 +202,7 @@ const api = {
     updatePersonaChat: async (
       chat: AIState | {},
       id: string
-    ): Promise<PersonaChat> => {
+    ): Promise<PersonaChatType> => {
       const response = await axios.post(`/api/update-persona-chat/${id}`, {
         chat,
       });
@@ -212,9 +210,9 @@ const api = {
     },
 
     updatePersona: async (
-      persona: PersonaChat["aiState"],
+      persona: PersonaChatType["aiState"],
       historyID: string
-    ): Promise<PersonaChat> => {
+    ): Promise<PersonaChatType> => {
       const response = await axios.post("/api/update-persona", {
         persona,
         historyID,
@@ -250,10 +248,10 @@ const api = {
       if (!data) {
         return [];
       }
-      
+
       return data;
     },
-  
+
     updateDocument: async (
       content: string,
       title: string,
@@ -264,7 +262,7 @@ const api = {
         content,
         title,
       });
-      console.log ("response from update document", response)
+      console.log("response from update document", response);
       return response.data.result;
     },
 
@@ -274,24 +272,19 @@ const api = {
       });
       return response.data;
     },
-    deleteDocument: async (
-      id: string
-    ): Promise<DocumentDraft> => {
-
+    deleteDocument: async (id: string): Promise<DocumentDraft> => {
       // Create an object to hold any query parameters
       const params = {
         id: id,
       };
 
       const response = await axios.delete(`/api/delete-document`, {
-        params
+        params,
       });
-      console.log ("response from delete document", response)
+      console.log("response from delete document", response);
       return response.data.result;
     },
   },
-
- 
 };
 
 export default api;
