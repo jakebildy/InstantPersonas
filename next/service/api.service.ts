@@ -1,5 +1,5 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
 // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -102,7 +102,7 @@ const api = {
   },
 
   userPersona: {
-    getPersonaHistory: async (id?: string): Promise<PersonaChat[]> => {
+    getPersonaHistory: async (id?: string): Promise<PersonaChatType[]> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-history";
 
@@ -134,7 +134,7 @@ const api = {
       });
       return history;
     },
-    getPersonaChat: async (chatID: string): Promise<PersonaChat> => {
+    getPersonaChat: async (chatID: string): Promise<PersonaChatType> => {
       // Define the base URL for the request
       const baseUrl = "/api/get-persona-chat";
 
@@ -158,7 +158,7 @@ const api = {
     updatePersonaChat: async (
       chat: AIState | {},
       id: string
-    ): Promise<PersonaChat> => {
+    ): Promise<PersonaChatType> => {
       const response = await axios.post(`/api/update-persona-chat/${id}`, {
         chat,
       });
@@ -166,9 +166,9 @@ const api = {
     },
 
     updatePersona: async (
-      persona: PersonaChat["aiState"],
+      persona: PersonaChatType["aiState"],
       historyID: string
-    ): Promise<PersonaChat> => {
+    ): Promise<PersonaChatType> => {
       const response = await axios.post("/api/update-persona", {
         persona,
         historyID,

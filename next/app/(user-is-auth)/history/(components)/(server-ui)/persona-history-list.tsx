@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useStytchUser } from "@stytch/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { PersonaHistoryListSkeleton } from "./persona-history-list-skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePostHog } from "posthog-js/react";
@@ -15,7 +15,7 @@ import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 
 export function PersonaHistoryList({}: {}) {
   const user = useStytchUser();
-  const [personachats, setPersonachats] = useState<PersonaChat[]>([]);
+  const [personachats, setPersonachats] = useState<PersonaChatType[]>([]);
   const [loading, setLoading] = useState(true);
   const [showUserFeedbackDialog, setShowUserFeedbackDialog] = useState(false);
   const posthog = usePostHog();

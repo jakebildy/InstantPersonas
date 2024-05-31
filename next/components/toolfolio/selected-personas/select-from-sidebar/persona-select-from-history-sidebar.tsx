@@ -32,7 +32,7 @@ import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useStytchUser } from "@stytch/nextjs";
 import api from "@/service/api.service";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import BarLoader from "react-spinners/BarLoader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ export function PersonaSelectFromHistorySidebar({
   className?: string;
   variant?: ColorVariant;
 }) {
-  const [history, setHistory] = React.useState<PersonaChat[]>([]);
+  const [history, setHistory] = React.useState<PersonaChatType[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [userError, setUserError] = React.useState<string | null>(null);
 
