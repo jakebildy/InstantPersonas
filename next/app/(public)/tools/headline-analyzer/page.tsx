@@ -36,10 +36,10 @@ export default function GuestPostOpportunityFinder({}: {}) {
     <section className="flex-1">
       {!isSubscribed ? (
         <div>
-          <title>Headline Analzyer to Boost SEO | Free & No Signup</title>
+          <title>Free Headline Analyzer | No Signup, Boost SEO Fast</title>
           <meta
             name="description"
-            content="Instantly find niche sites to pitch your guest posts to. No signup required. Supercharge your SEO efforts."
+            content="See how difficult it is to rank for your headline and more. Don't miss out on these insights to boost your SEO!"
           />
         </div>
       ) : (
