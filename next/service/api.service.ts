@@ -31,7 +31,7 @@ const api = {
     },
     findGoogleKeywordsDocumentEditor: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/google-keywords-blog", {
         personas,
@@ -75,7 +75,7 @@ const api = {
     },
     generatePersonaThoughts: async (
       text: string,
-      personas: string
+      personas: string,
     ): Promise<any> => {
       const response = await axios.post("/api/persona-thoughts", {
         text,
@@ -86,7 +86,7 @@ const api = {
     },
     findInstagramAccounts: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/instagram-accounts", {
         personas,
@@ -266,7 +266,7 @@ const api = {
     updateDocument: async (
       content: string,
       title: string,
-      id: string
+      id: string,
     ): Promise<DocumentDraft> => {
       const response = await axios.post(`/api/update-document/`, {
         documentID: id,
