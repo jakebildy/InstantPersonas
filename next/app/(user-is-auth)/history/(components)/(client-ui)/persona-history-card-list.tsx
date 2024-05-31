@@ -2,13 +2,13 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { PersonaHistoryCard } from "./persona-history-card";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 
 export default function PersonaHistoryCardList({
   personachats,
 }: {
-  personachats: PersonaChat[];
+  personachats: PersonaChatType[];
 }) {
   const personas = convertPersonaChatsToPersonaWithIDs(personachats);
 
