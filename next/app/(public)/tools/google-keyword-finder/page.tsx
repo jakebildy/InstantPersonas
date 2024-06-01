@@ -9,7 +9,6 @@ import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-f
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
-export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
 export default function HistoryPage({}: {}) {

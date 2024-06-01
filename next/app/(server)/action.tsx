@@ -407,75 +407,75 @@ async function submitUserMessage(
         },
       },
 
-      persona_content_consumption: {
-        description:
-          "When a persona has been created and the user wants to know how to target them, provide a display of what their content consumption might look like.",
-        parameters: z
-          .object({
-            keyword: z
-              .string()
-              .describe(
-                "a keyword that the persona might search for (ex. 'coffee')"
-              ),
-          })
-          .required(),
-        render: async function* ({ keyword }) {
-          yield (
-            <Loading
-              loadingMessage={"Analyzing persona content consumption ..."}
-            />
-          );
+      // persona_content_consumption: {
+      //   description:
+      //     "When a persona has been created and the user wants to know how to target them, provide a display of what their content consumption might look like.",
+      //   parameters: z
+      //     .object({
+      //       keyword: z
+      //         .string()
+      //         .describe(
+      //           "a keyword that the persona might search for (ex. 'coffee')"
+      //         ),
+      //     })
+      //     .required(),
+      //   render: async function* ({ keyword }) {
+      //     yield (
+      //       <Loading
+      //         loadingMessage={"Analyzing persona content consumption ..."}
+      //       />
+      //     );
 
-          const contentConsumption = await getContentConsumption(keyword);
+      //     const contentConsumption = await getContentConsumption(keyword);
 
-          // Update the final AI state.
-          aiState.done({
-            ...aiState.get(),
-            messages: [
-              ...aiState.get().messages,
+      //     // Update the final AI state.
+      //     aiState.done({
+      //       ...aiState.get(),
+      //       messages: [
+      //         ...aiState.get().messages,
 
-              {
-                role: "function",
-                name: "persona_content_consumption",
-                id: nanoid(),
-                // Content can be any string to provide context to the LLM in the rest of the conversation.
-                content: JSON.stringify(contentConsumption),
-              },
-            ],
-          });
+      //         {
+      //           role: "function",
+      //           name: "persona_content_consumption",
+      //           id: nanoid(),
+      //           // Content can be any string to provide context to the LLM in the rest of the conversation.
+      //           content: JSON.stringify(contentConsumption),
+      //         },
+      //       ],
+      //     });
 
-          if (personaChatID) {
-            const personaChat = await PersonaChat.findOne({
-              _id: personaChatID,
-            });
+      //     if (personaChatID) {
+      //       const personaChat = await PersonaChat.findOne({
+      //         _id: personaChatID,
+      //       });
 
-            if (personaChat) {
-              personaChat.aiState = aiState.get();
-              await personaChat.save();
-            }
-          }
+      //       if (personaChat) {
+      //         personaChat.aiState = aiState.get();
+      //         await personaChat.save();
+      //       }
+      //     }
 
-          return (
-            <div className="flex flex-row flex-wrap">
-              {contentConsumption.map((url: string) => {
-                return (
-                  <div key={url} className="border rounded-sm overflow-hidden">
-                    <iframe
-                      width="200"
-                      height="344"
-                      className="p-2"
-                      src={url}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        },
-      },
+      //     return (
+      //       <div className="flex flex-row flex-wrap">
+      //         {contentConsumption.map((url: string) => {
+      //           return (
+      //             <div key={url} className="border rounded-sm overflow-hidden">
+      //               <iframe
+      //                 width="200"
+      //                 height="344"
+      //                 className="p-2"
+      //                 src={url}
+      //                 frameBorder="0"
+      //                 allow="accelerometer; autoplay: false; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      //                 allowFullScreen
+      //               ></iframe>
+      //             </div>
+      //           );
+      //         })}
+      //       </div>
+      //     );
+      //   },
+      // },
     },
   });
 

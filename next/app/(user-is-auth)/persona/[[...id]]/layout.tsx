@@ -12,12 +12,8 @@ export default async function Layout({
   map: React.ReactNode;
   params: { id?: string[] };
 }) {
-  const id = params.id?.at(-1);
-  const chatHistory = id ? await getPersonaChat(id) : null;
+  // const id = params.id?.at(-1);
+  // const chatHistory = id ? await getPersonaChat(id) : null;
 
-  return (
-    <AI initialAIState={chatHistory?.aiState}>
-      <SidebarLayout chat={chat} map={map} />
-    </AI>
-  );
+  return <SidebarLayout chat={chat} map={map} />;
 }
