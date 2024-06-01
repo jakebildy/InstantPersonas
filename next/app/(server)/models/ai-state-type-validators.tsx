@@ -30,6 +30,7 @@ export const AIStateValidator = z.object({
   }),
   personas: z.array(PersonaArchetypeValidator).default([]),
   messages: z.array(MessageValidator).default([]),
+  suggestedMessages: z.array(z.string()).default([]),
 });
 
 export type AIState = {
@@ -43,6 +44,7 @@ export type AIState = {
   };
   personas: PersonaArchetype[];
   messages: Message[];
+  suggestedMessages: string[];
 };
 
 export type UIState = {
