@@ -15,7 +15,6 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { InstagramHashtagFinderTool } from "@/components/toolfolio/instagram-hashtag-finder";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
-export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
 export default function InstagramHashtagFinder({}: {}) {
