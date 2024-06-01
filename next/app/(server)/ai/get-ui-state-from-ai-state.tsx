@@ -1,13 +1,14 @@
-import {
-  UserMessage,
-  PersonaMessage,
-} from "@/components/page-specific/generative-ui/chat";
-import ConfirmKnowledgeCard from "@/components/page-specific/generative-ui/confirm-knowledge-card";
-import { PersonaAvatarPopover } from "@/components/page-specific/generative-ui/persona-avatar-popover";
-import { PersonaChangeDiffCard } from "@/components/page-specific/generative-ui/persona-avatar-popover/persona-change-diff-card";
+import ConfirmKnowledgeCard from "@/components/page-specific/generative-ui/messages/assistant/tool-responses/confirm_business_knowledge/confirm-knowledge-card";
+
 import posthog from "posthog-js";
-import { AIState, AIStateValidator } from "../models/ai-state-type-validators";
-import { mapUrlBackgroundColorParamToVariant } from "@/components/page-specific/generative-ui/persona-avatar-popover/utils";
+import { AIState, AIStateValidator } from "../models/persona-ai.model";
+import {
+  mapUrlBackgroundColorParamToVariant,
+  PersonaAvatarPopover,
+} from "@/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover";
+import { PersonaChangeDiffCard } from "@/components/page-specific/generative-ui/messages/assistant/tool-responses/update_persona/persona-change-diff-card";
+import { UserMessage } from "@/components/page-specific/generative-ui/messages/user/user-message";
+import { AssistantMessage } from "@/components/page-specific/generative-ui/messages/assistant/assistant-message";
 
 export const getUIStateFromAIState = (aiState: AIState) => {
   const result = AIStateValidator.safeParse(aiState);
@@ -77,7 +78,7 @@ export const getUIStateFromAIState = (aiState: AIState) => {
           ) : message.role === "user" ? (
             <UserMessage message={message.content} />
           ) : (
-            <PersonaMessage message={message.content} />
+            <AssistantMessage message={message.content} />
           ),
       }));
   } else {

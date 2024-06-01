@@ -9,12 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  PersonaArchetype,
-  PersonaArchetypeValidator,
-  PersonaAvatarPopoverProps,
-} from "../..";
-import { EditPersonaTemplate } from "../../templates/edit-template";
+import { PersonaAvatarPopoverProps } from "../..";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
@@ -45,6 +40,11 @@ import {
   ColorVariantMap,
   gradientVariants,
 } from "@/components/variants";
+import { EditPersonaTemplate } from "../../templates/edit-template";
+import {
+  PersonaArchetype,
+  PersonaArchetypeValidator,
+} from "@/app/(server)/models/persona-ai.model";
 
 export function EditPersonaButton({
   variant,

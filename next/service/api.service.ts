@@ -1,4 +1,4 @@
-import { AIState } from "@/app/(server)/models/ai-state-type-validators";
+import { AIState } from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
