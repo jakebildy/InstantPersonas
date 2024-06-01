@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:next/components/persona-archetype-generic/persona-avatar-popover/tabs/insights.tsx
-import { PersonaAvatarPopoverProps } from "../";
-========
 import { PersonaAvatarPopoverProps } from "../persona-popover";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/tabs/insights.tsx
 
 export function InsightsTab({ variant, archetype }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;

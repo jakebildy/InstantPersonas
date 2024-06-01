@@ -1,16 +1,6 @@
 import { fixJson } from "@/lib/fix-json";
 import SecureJSON from "secure-json-parse";
 import {
-<<<<<<<< HEAD:next/components/persona-archetype-generic/utils.ts
-  ClientMessage,
-  Message,
-  PersonaArchetype,
-} from "@/app/(server)/models/persona-ai.model";
-import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
-import { isEqual } from "lodash";
-import { ColorVariant, ColorVariantMap } from "@/components/variants";
-import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
-========
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
@@ -18,9 +8,8 @@ import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-st
 import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
 import { isEqual } from "lodash";
 import { ColorVariant, ColorVariantMap } from "@/components/variants";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/utils.ts
 
-/**pnpm
+/**
  * Transforms and merges structured and unstructured data objects into a single object.
  * This function acts as a coordinator that calls specific functions to handle merging operations
  * and to collect any remaining unstructured data.
@@ -156,7 +145,10 @@ export function updatePersonaByName({
 
 type SynchronizeStates = {
   aiState: {};
-  uiState: ClientMessage[];
+  uiState: {
+    id: string;
+    display: JSX.Element | null;
+  }[];
 };
 
 export function getSynchronizeStates({
@@ -184,7 +176,7 @@ export function getSynchronizeStates({
 
   return {
     aiState: newAiState,
-    uiState: getUIStateFromAIState(newAiState) as ClientMessage[],
+    uiState: getUIStateFromAIState(newAiState),
   };
 }
 
