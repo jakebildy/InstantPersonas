@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { PersonaArchetype } from "../types";
 import { VariantProps } from "class-variance-authority";
 import { PersonaTemplate } from "./template";
 import { useToPng } from "@hugocxl/react-to-image";
@@ -11,6 +10,7 @@ import { DownloadCloudIcon } from "lucide-react";
 import * as PersonaTemplate2x3 from "./persona-template-600w.jpeg";
 import * as PersonaTemplate4x3 from "./persona-template-900w.jpeg";
 import { gradientVariants } from "@/components/variants";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 
 export interface TemplatePreviewSelectProps
   extends VariantProps<typeof gradientVariants> {

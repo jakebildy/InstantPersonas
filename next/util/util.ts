@@ -1,4 +1,4 @@
-import { AIStateValidator } from "@/app/(server)/models/ai-state-type-validators";
+import { AIStateValidator } from "@/app/(server)/models/persona-ai.model";
 import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 

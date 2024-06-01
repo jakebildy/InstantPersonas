@@ -7,7 +7,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PersonStandingIcon } from "lucide-react";
-import { PersonaTabs } from "./tabs";
 import { VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
@@ -17,7 +16,8 @@ import {
   shadowVariants,
   tabTriggerVariants,
 } from "@/components/variants";
-import { PersonaArchetype } from "./types";
+import { PersonaTabs } from "./tabs";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 
 export interface PersonaAvatarPopoverProps
   extends VariantProps<typeof avatarVariants> {

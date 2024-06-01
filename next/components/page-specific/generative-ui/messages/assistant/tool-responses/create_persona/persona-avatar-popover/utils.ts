@@ -1,10 +1,13 @@
 import { fixJson } from "@/lib/fix-json";
-import { ColorVariant, ColorVariantMap, PersonaArchetype } from ".";
 import SecureJSON from "secure-json-parse";
-import { Message } from "@/app/(server)/models/ai-state-type-validators";
+import {
+  Message,
+  PersonaArchetype,
+} from "@/app/(server)/models/persona-ai.model";
 import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
 import { isEqual } from "lodash";
+import { ColorVariant, ColorVariantMap } from "@/components/variants";
 
 /**
  * Transforms and merges structured and unstructured data objects into a single object.

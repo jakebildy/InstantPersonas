@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { AIState } from "./ai-state-type-validators";
+import { AIState } from "./persona-ai.model";
 
 export interface PersonaChatType {
   aiState: AIState;

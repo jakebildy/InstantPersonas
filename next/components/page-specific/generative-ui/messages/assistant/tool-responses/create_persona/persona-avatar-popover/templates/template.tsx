@@ -4,7 +4,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/fcs/fcs-separator";
 import { PersonStandingIcon } from "lucide-react";
-import { PersonaArchetype } from "../types";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 
 export const personaTemplateVariants = cva("bg-gradient-to-b ", {
   variants: {

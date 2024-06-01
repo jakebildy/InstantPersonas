@@ -1,4 +1,4 @@
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { PersonaArchetype } from "./persona-ai.model";
 
 export interface PersonaWithID {
   persona: PersonaArchetype;

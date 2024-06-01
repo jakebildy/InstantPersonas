@@ -10,11 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import {
   getSynchronizeStates,
-  PersonaArchetype,
   PersonaAvatarPopoverProps,
   serializePersonas,
 } from "../..";
-import { PersonaTemplatePreview } from "../../templates/template";
 import { PersonStandingIcon } from "lucide-react";
 import { useAIState, useUIState } from "ai/rsc";
 import { AI } from "@/app/(server)/action";
@@ -25,6 +23,8 @@ import { useParams } from "next/navigation";
 import api from "@/service/api.service";
 import { usePostHog } from "posthog-js/react";
 import { gradientVariants } from "@/components/variants";
+import { PersonaTemplatePreview } from "../../templates/template";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 
 export function DeletePersonaButton({
   variant,
