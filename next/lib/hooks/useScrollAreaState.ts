@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 type ScrollAreaState = {
   is: {
@@ -23,26 +23,36 @@ export const useScrollAreaState = () => {
   });
 
   useLayoutEffect(() => {
+    /**
+     * Updates the scroll state by calculating the scroll position percentage
+     * and determining whether the scroll is at the top, middle, or bottom.
+     */
     const updateScrollState = () => {
+      // Reference to the scrollable area
       const scrollArea = ref.current;
       if (scrollArea) {
-        setState((prevState) => {
+        setState((previousState) => {
+          // Retrieve the necessary scroll metrics
           const scrollTop = scrollArea.scrollTop;
           const scrollHeight = scrollArea.scrollHeight;
           const clientHeight = scrollArea.clientHeight;
 
-          const percent = Math.round(
-            (scrollTop / (scrollHeight - clientHeight)) * 100
+          // Calculate the maximum scrollable distance, ensuring no division by zero
+          const maxScrollableDistance = scrollHeight - clientHeight || 1;
+          // Calculate the scroll percentage
+          const scrollPercentage = Math.round(
+            (scrollTop / maxScrollableDistance) * 100
           );
 
+          // Return the updated state with the new scroll information
           return {
-            ...prevState,
+            ...previousState,
             is: {
-              atTop: percent === 0,
-              atMiddle: percent > 0 && percent < 100,
-              atBottom: percent === 100,
+              atTop: scrollPercentage === 0,
+              atMiddle: scrollPercentage > 0 && scrollPercentage < 100,
+              atBottom: scrollPercentage === 100,
             },
-            percent,
+            percent: scrollPercentage,
           };
         });
       }
@@ -73,10 +83,6 @@ export const useScrollAreaState = () => {
       resizeObserver.disconnect();
     };
   }, [ref]);
-
-  useEffect(() => {
-    console.log("Scroll Area State", state);
-  }, [state]);
 
   return [ref, state] as const;
 };
