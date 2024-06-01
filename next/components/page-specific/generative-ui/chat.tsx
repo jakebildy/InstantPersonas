@@ -24,6 +24,7 @@ import useMeasure from "react-use-measure";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { motion } from "framer-motion";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
+import { useScrollAreaState } from "@/lib/hooks";
 
 type Props = {
   className?: string;
@@ -57,31 +58,19 @@ export default function Chat({ className }: Props) {
     },
   ];
 
-  const [scrollContainerRef, bounds] = useMeasure();
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  const [scrollAreaIsAtTop, setScrollAreaIsAtTop] = useState(true);
+  //! useMeasure is currently not working as expected as of 2024-06-01
+  //? The bounds are not updating correctly, https://github.com/streamich/react-use/issues/2522
+  // const [scrollContainerRef, bounds] = useMeasure();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setContainerHeight] = useState<number>(0);
 
   useEffect(() => {
-    const checkScrollTop = () => {
-      if (scrollAreaRef.current) {
-        setScrollAreaIsAtTop(scrollAreaRef.current.scrollTop === 0);
-      }
-    };
-
-    // Add event listener
-    const currentRef = scrollAreaRef.current;
-    if (currentRef) {
-      currentRef.addEventListener("scroll", checkScrollTop);
+    if (scrollContainerRef.current) {
+      setContainerHeight(scrollContainerRef.current.clientHeight);
     }
+  }, []);
 
-    // Remove event listener on cleanup
-    return () => {
-      if (currentRef) {
-        currentRef.removeEventListener("scroll", checkScrollTop);
-      }
-    };
-  }, [scrollAreaRef]);
+  const [scrollAreaRef, scrollAreaState] = useScrollAreaState();
 
   const calculateProgressBarWidth = (numMessages: number) => {
     const a = 0.9;
@@ -156,11 +145,15 @@ export default function Chat({ className }: Props) {
         </div>
       ) : null}
 
-      <div className="h-full flex-1" ref={scrollContainerRef}>
+      <div
+        className="h-full flex-1"
+        ref={scrollContainerRef}
+        id={"scroll-container-bounds"}
+      >
         <ScrollAreaPrimitive.Root
           className={cn("relative overflow-hidden")}
           style={{
-            height: bounds.height,
+            height: containerHeight,
             width: "100%",
           }}
         >
@@ -171,7 +164,7 @@ export default function Chat({ className }: Props) {
             <div
               className={cn(
                 "absolute top-0 w-full h-20 z-50 bg-gradient-to-b from-white via-slate-50/75 to-transparent pointer-events-none transition-opacity duration-300 ease-out",
-                scrollAreaIsAtTop ? "opacity-0" : "opacity-100"
+                scrollAreaState.is.atTop ? "opacity-0" : "opacity-100"
               )}
             />
             {/* 120px is the height of the input and suggestions */}
@@ -205,6 +198,7 @@ export default function Chat({ className }: Props) {
               ...currentMessages,
               {
                 id: Date.now(),
+                role: "user",
                 display: <UserMessage message={input} />,
               },
             ]);
@@ -228,7 +222,6 @@ export default function Chat({ className }: Props) {
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       >
-        {" "}
         {aiState.suggestedMessages === undefined ||
         aiState.suggestedMessages === hiddenSuggestedMessages ? (
           <div />
