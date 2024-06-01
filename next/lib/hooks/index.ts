@@ -8,3 +8,4 @@ export * from "./useInterval";
 export * from "./useContinuousDebounce";
 export * from "./useHandleCopy";
 export * from "./useHashParams";
+export * from "./useScrollAreaState";
