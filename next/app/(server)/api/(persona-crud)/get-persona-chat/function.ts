@@ -1,4 +1,4 @@
-import "server-only";
+"use server";
 
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/database/mongodb";

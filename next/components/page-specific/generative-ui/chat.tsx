@@ -23,35 +23,31 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import useMeasure from "react-use-measure";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { motion } from "framer-motion";
+import { usePersonaChat } from "@/components/context/persona/chat-context";
 
 type Props = {
   className?: string;
-  personaChatID: string | undefined;
 };
 
-type MemoizedComponent = React.MemoExoticComponent<
-  (props: MessageComponentProps) => JSX.Element | null
->;
-
-type ComponentLookupTableType = {
-  [role in ExtractField<Message, "role">]: MemoizedComponent;
-};
-
-export default function Chat({ className, personaChatID }: Props) {
+export default function Chat({ className }: Props) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
-  const [aiState] = useAIState();
-  const [messages, setMessages] = useUIState<typeof AI>();
-  const [personas, setPersonas] = useState<any>([]);
-  const { submitUserMessage } = useActions<typeof AI>();
+
   const [input, setInput] = useState("");
   const { user, isSubscribed } = useInstantPersonasUser();
-  const router = useRouter();
   const [showSubscriptionPromptDialog, setShowSubscriptionPromptDialog] =
     useState<boolean>(false);
   const [hiddenSuggestedMessages, setHiddenSuggestedMessages] = useState<
     string[]
   >([]);
-  const [shareLink, setShareLink] = useState<string | undefined>(undefined);
+  const {
+    chatId,
+    shareLink,
+    aiState,
+    personas,
+    messages,
+    setMessages,
+    submitUserMessage,
+  } = usePersonaChat();
 
   const keyBinds: CommandUserInputKeybind[] = [
     {
@@ -60,30 +56,6 @@ export default function Chat({ className, personaChatID }: Props) {
       modifier: ["ctrlKey", "metaKey"],
     },
   ];
-
-  useEffect(() => {
-    // Update the share link when the personaChatID changes or when aiState's chatId changes
-    setShareLink(
-      personaChatID
-        ? `https://instantpersonas.com/share/${personaChatID}`
-        : aiState.chatId
-        ? `https://instantpersonas.com/share/${aiState.chatId}`
-        : undefined
-    );
-  }, [personaChatID, aiState.chatId]);
-
-  useEffect(() => {
-    if (aiState) {
-      setPersonas(aiState.personas);
-    }
-  }, [aiState, setPersonas]);
-
-  useEffect(() => {
-    const messagesLength = aiState.messages?.length;
-    if (messagesLength === 2) {
-      router.refresh();
-    }
-  }, [aiState.messages, messages, router]);
 
   const [scrollContainerRef, bounds] = useMeasure();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -116,6 +88,19 @@ export default function Chat({ className, personaChatID }: Props) {
     const b = -Math.log(0.1) / 8;
     return a * (1 - Math.exp(-b * numMessages));
   };
+
+  if (!aiState) {
+    return (
+      <section
+        className={cn(
+          "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] flex flex-col relative bg-background box-border overflow-hidden",
+          className
+        )}
+      >
+        No state{" "}
+      </section>
+    );
+  }
 
   return (
     <section
@@ -231,7 +216,7 @@ export default function Chat({ className, personaChatID }: Props) {
               const responseMessage = await submitUserMessage(
                 input,
                 user.id,
-                personaChatID
+                chatId
               );
               setMessages((currentMessages: any) => [
                 ...currentMessages,
@@ -276,7 +261,7 @@ export default function Chat({ className, personaChatID }: Props) {
                         const responseMessage = await submitUserMessage(
                           message,
                           user.id,
-                          personaChatID
+                          chatId
                         );
                         setMessages((currentMessages: any) => [
                           ...currentMessages,
