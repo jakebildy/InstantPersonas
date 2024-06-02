@@ -10,6 +10,7 @@ import {
   HashtagIcon,
   ChartBarSquareIcon,
   ChatBubbleLeftRightIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
@@ -84,6 +85,15 @@ export const SEO_LINKS = [
     category: "Marketing",
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
+    label: "",
+    section: "Reach",
+  },
+  {
+    title: "Instagram Account Finder",
+    href: "/tools/instagram-account-finder",
+    category: "Marketing",
+    lead: "Find Instagram accounts in your niche. See engagement and filter by size.",
+    icon: UsersIcon,
     label: "",
     section: "Reach",
   },
