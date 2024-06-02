@@ -9,6 +9,7 @@ import {
   KeyIcon,
   HashtagIcon,
   ChartBarSquareIcon,
+  ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
@@ -40,7 +41,8 @@ export const SIDEBAR_LINKS = [
   {
     title: "Send Feedback",
     href: "/feedback",
-    icon: PencilSquareIcon,
+    // icon: PencilSquareIcon,
+    icon: ChatBubbleLeftRightIcon,
     label: "",
   },
 ] as const;
