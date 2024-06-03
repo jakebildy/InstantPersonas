@@ -9,10 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-<<<<<<<< HEAD:next/components/persona-archetype-generic/persona-avatar-popover/tabs/manage-buttons/edit-persona.tsx
-========
-import { PersonaAvatarPopoverProps } from "../..";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/tabs/manage-buttons/edit-persona.tsx
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
 import { useState } from "react";
@@ -36,10 +32,7 @@ import {
   ColorVariantMap,
   gradientVariants,
 } from "@/components/variants";
-<<<<<<<< HEAD:next/components/persona-archetype-generic/persona-avatar-popover/tabs/manage-buttons/edit-persona.tsx
 import {
-  AIState,
-  ClientMessage,
   PersonaArchetype,
   PersonaArchetypeValidator,
 } from "@/app/(server)/models/persona-ai.model";
@@ -52,14 +45,6 @@ import {
 } from "@/components/persona-archetype-generic/utils";
 import { PersonaAvatarPopoverProps } from "../../persona-popover";
 import { EditPersonaTemplate } from "../../templates/edit-template";
-import { ValueOrUpdater } from "@/lib/types";
-========
-import { EditPersonaTemplate } from "../../templates/edit-template";
-import {
-  PersonaArchetype,
-  PersonaArchetypeValidator,
-} from "@/app/(server)/models/persona-ai.model";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/tabs/manage-buttons/edit-persona.tsx
 
 export function EditPersonaButton({
   variant,
@@ -141,8 +126,8 @@ export function EditPersonaButton({
     };
 
     update(newAIState);
-    setAIState(newAIState as ValueOrUpdater<AIState>);
-    setUIState(newUIState as ClientMessage[]);
+    setAIState(newAIState);
+    setUIState(newUIState);
     setShowDialog(false);
   }
 

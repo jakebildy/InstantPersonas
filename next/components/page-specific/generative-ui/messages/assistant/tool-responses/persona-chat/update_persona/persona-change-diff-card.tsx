@@ -1,10 +1,6 @@
 "use client";
 import React, { useState } from "react";
-<<<<<<<< HEAD:next/components/page-specific/generative-ui/messages/assistant/tool-responses/persona-chat/update_persona/persona-change-diff-card.tsx
-import { cva } from "class-variance-authority";
-========
 import { cva, VariantProps } from "class-variance-authority";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/update_persona/persona-change-diff-card.tsx
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/fcs/fcs-separator";
 import {
@@ -17,13 +13,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAIState, useUIState } from "ai/rsc";
-<<<<<<<< HEAD:next/components/page-specific/generative-ui/messages/assistant/tool-responses/persona-chat/update_persona/persona-change-diff-card.tsx
 import {
   ClientMessage,
-========
-import { AI } from "@/app/(server)/action";
-import {
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/update_persona/persona-change-diff-card.tsx
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";

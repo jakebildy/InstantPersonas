@@ -8,14 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-<<<<<<<< HEAD:next/components/persona-archetype-generic/persona-avatar-popover/tabs/manage-buttons/delete-persona.tsx
-========
-import {
-  getSynchronizeStates,
-  PersonaAvatarPopoverProps,
-  serializePersonas,
-} from "../..";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/tabs/manage-buttons/delete-persona.tsx
 import { PersonStandingIcon } from "lucide-react";
 import { useAIState, useUIState } from "ai/rsc";
 import { useState } from "react";
@@ -24,12 +16,7 @@ import { useParams } from "next/navigation";
 import api from "@/service/api.service";
 import { usePostHog } from "posthog-js/react";
 import { gradientVariants } from "@/components/variants";
-<<<<<<<< HEAD:next/components/persona-archetype-generic/persona-avatar-popover/tabs/manage-buttons/delete-persona.tsx
-import {
-  AIState,
-  ClientMessage,
-  PersonaArchetype,
-} from "@/app/(server)/models/persona-ai.model";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import { AI } from "@/app/(server)/ai/ai-server-action";
 import {
   serializePersonas,
@@ -37,11 +24,6 @@ import {
 } from "@/components/persona-archetype-generic/utils";
 import { PersonaAvatarPopoverProps } from "../../persona-popover";
 import { PersonaTemplatePreview } from "../../templates/template";
-import { ValueOrUpdater } from "@/lib/types";
-========
-import { PersonaTemplatePreview } from "../../templates/template";
-import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
->>>>>>>> 9032273 (refactor(generative-ui): message folder structure and imports (fixed issue)):next/components/page-specific/generative-ui/messages/assistant/tool-responses/create_persona/persona-avatar-popover/tabs/manage-buttons/delete-persona.tsx
 
 export function DeletePersonaButton({
   variant,
@@ -94,8 +76,8 @@ export function DeletePersonaButton({
     };
 
     update(newAIState);
-    setAIState(newAIState as ValueOrUpdater<AIState>);
-    setUIState(newUIState as ClientMessage[]);
+    setAIState(newAIState);
+    setUIState(newUIState);
     setIsSaving(false);
   };
 
