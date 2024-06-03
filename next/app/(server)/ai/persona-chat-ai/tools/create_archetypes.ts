@@ -1,7 +1,7 @@
 "use server";
-import { ChatGPT, GPT4 } from "./gpt";
-import { getRandomHeadshot } from "./persona_picture";
-import { CREATE_PERSONA_PROMPT } from "./prompts";
+import { ChatGPT, GPT4 } from "../utils/gpt";
+import { getRandomHeadshot } from "../utils/persona_picture";
+import { CREATE_PERSONA_PROMPT } from "../utils/prompts";
 
 export async function createArchetypes(
   business: string,
@@ -28,7 +28,7 @@ export async function createArchetypes(
   try {
     userPersona = JSON.parse(responseText);
   } catch (error) {
-    console.log ("response text: " + responseText)
+    console.log("response text: " + responseText);
     console.log("error: " + error);
     return await createArchetypes(business, targetProblem);
   }
@@ -52,7 +52,7 @@ export async function createArchetypes(
     archetypes.push(archetype);
   }
 
-  console.log ("new archetypes: " + archetypes);
+  console.log("new archetypes: " + archetypes);
 
   return archetypes;
 }

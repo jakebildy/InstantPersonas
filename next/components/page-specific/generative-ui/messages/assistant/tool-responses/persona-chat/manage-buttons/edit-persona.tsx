@@ -9,16 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PersonaAvatarPopoverProps } from "../..";
+import { PersonaAvatarPopoverProps } from "../persona-avatar-popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
-import { AI } from "@/app/(server)/action";
 import {
   getSynchronizeStates,
   serializePersonas,
   transformDataToStructure,
   updatePersonaByName,
-} from "../../utils";
+} from "../../../../../../../persona-archetype-generic/utils";
 import { useState } from "react";
 import { PersonStandingIcon } from "lucide-react";
 import {
@@ -40,11 +39,12 @@ import {
   ColorVariantMap,
   gradientVariants,
 } from "@/components/variants";
-import { EditPersonaTemplate } from "../../templates/edit-template";
+import { EditPersonaTemplate } from "../templates/edit-template";
 import {
   PersonaArchetype,
   PersonaArchetypeValidator,
 } from "@/app/(server)/models/persona-ai.model";
+import { AI } from "@/app/(server)/ai/ai-server-action";
 
 export function EditPersonaButton({
   variant,

@@ -66,10 +66,6 @@ type Props = {
   noInput: boolean;
   detailsInput: string;
   setDetailsInput: React.Dispatch<React.SetStateAction<string>>;
-  selectedPersonas: PersonaBusinessArchetype[];
-  setSelectedPersonas: React.Dispatch<
-    React.SetStateAction<PersonaBusinessArchetype[]>
-  >;
 };
 
 export type OGPreviewMetadata = {
@@ -93,8 +89,6 @@ export default function SocialShareTool({
   noInput,
   detailsInput,
   setDetailsInput,
-  selectedPersonas,
-  setSelectedPersonas,
 }: Props) {
   // State management for open-graph metadata
   const [title, setTitle] = useState("");
@@ -312,11 +306,7 @@ export default function SocialShareTool({
               Improve your click-through rates and engagement.
             </h2>
             {isSubscribed ? (
-              <PersonaSelectFromHistorySidebar
-                selectedPersonas={selectedPersonas}
-                setSelectedPersonas={setSelectedPersonas}
-                className="xl:absolute top-4 right-4 z-[50] max-xl:my-4"
-              />
+              <PersonaSelectFromHistorySidebar className="xl:absolute top-4 right-4 z-[50] max-xl:my-4" />
             ) : null}
             <Input
               type="text"

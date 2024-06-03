@@ -1,9 +1,14 @@
 "use client";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
 import { limitTextToFirstDelimiter } from "@/lib/utils";
 import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
 
-export function RecentPersonasList({ personachats }: { personachats: any[] }) {
+export function RecentPersonasList({
+  personachats,
+}: {
+  personachats: PersonaChatType[];
+}) {
   const personas = convertPersonaChatsToPersonaWithIDs(personachats);
   const top10Personas = personas
     .slice(0)
@@ -17,19 +22,8 @@ export function RecentPersonasList({ personachats }: { personachats: any[] }) {
     designation: string;
     image: string;
     href: string;
-    //@ts-ignore
   }[] = top10Personas.map((chat, i) => {
-    // const firstName = chat.persona.archetype_name.split(" ")[0] ?? "";
-    // const lastRelevantDescriptor =
-    //   chat.persona.shortDescriptors
-    //     ?.filter((s: any) => ["Occupation", "Location"].includes(s.label))
-    //     .at(-1)?.description ??
-    //   chat.persona.shortDescriptors?.at(0)?.description ??
-    //   "";
-
     const name = chat.persona.archetype_name;
-    // firstName +
-    // (lastRelevantDescriptor ? ` | ${lastRelevantDescriptor}` : "");
 
     const image = chat.persona.pictureURL ?? "/test-persona-avatar.jpg";
     // const designation = chat.persona.productDescription ?? "";
@@ -42,7 +36,7 @@ export function RecentPersonasList({ personachats }: { personachats: any[] }) {
       image,
       designation,
       href: `/persona/${chat.id}`,
-    } as const;
+    };
   });
 
   return <AnimatedTooltip items={convertedPersonas} />;
