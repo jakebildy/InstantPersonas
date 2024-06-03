@@ -12,7 +12,7 @@ import * as TopicalAuthorityDemoGif from "@/public/tools/persona-select-demo.gif
 import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
-import { InstagramHashtagFinderTool } from "@/components/toolfolio/instagram-hashtag-finder";
+import { InstagramAccountFinderTool } from "@/components/toolfolio/instagram-account-finder";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 
 export const runtime = "edge";
@@ -149,7 +149,7 @@ export default function InstagramAccountFinder({}: {}) {
             <div className="mt-2">followers</div>
           </div>
         </div>
-        <InstagramHashtagFinderTool
+        <InstagramAccountFinderTool
           input={personaString}
           isSubscribed={isSubscribed}
           isLoggedIn={isLoggedIn}

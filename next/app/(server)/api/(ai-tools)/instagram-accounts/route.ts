@@ -43,41 +43,53 @@ export async function POST(req: Request) {
 
 
 
-      let relevantAccounts: any = [];
+      let relevantAccountIDs: any = [];
+      let accounts: any = [];
 
       if (!items) {
         console.log("No items found in the dataset");
         return NextResponse.json({
-          accounts: relevantAccounts,
+          accounts: relevantAccountIDs,
         });
       }
       items.forEach((item: any) => {
           // console.dir(item);
 
-          // Calculate average like count for the top posts in a hashtag
-          let totalLikes = 0;
-          let totalPosts = 0;
-          let averageLikes = null;
+       
           if (item.topPosts) {
         
             item.topPosts.forEach((post: any) => {
-              totalLikes += post.likesCount;
-              totalPosts++;
+              // totalLikes += post.likesCount;
+              // totalPosts++;
+
+              console.log("post: ", post);
+              console.log ("ownerId", post.ownerId)
+              relevantAccountIDs.push(post.ownerId);
             });
-          
-            averageLikes = totalLikes / totalPosts;
+
           }
 
           // hashtagResults.push({"hashtag": item.name, "volume": item.postsCount, "averageLikesOfTopPosts": averageLikes});
       });
 
+      const input2 = {
+        "usernames": relevantAccountIDs
+      };
+
+      const run2 = await apify.actor("dSCLg0C3YEZ83HzYX").call(input2);
+      const response2 = await apify.dataset(run2.defaultDatasetId).listItems();
+
+      response2.items.forEach((item: any) => {
+        console.log("ITEM: ", item);
+        accounts.push(item);
+      });
 
       // console.log( "hashtagResults: ", hashtagResults)
 
       
 
       return NextResponse.json({
-        accounts: relevantAccounts,
+        accounts: accounts,
       });
     }
   }
