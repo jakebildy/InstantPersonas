@@ -40,7 +40,7 @@ export function InstagramAccountFinderTool({
           <span>.</span> <span>.</span>
         </span>
       ) : accountResults.length === 0 && hasCompleted ? (
-        "We didn't find any good hashtags for this persona. Try refining your search!"
+        "We didn't find any good accounts for this persona. Try refining your search!"
       ) : accountResults.length > 0 ? (
         <div className="mb-5">
           <ul className="pt-4 pl-2">
@@ -81,18 +81,6 @@ export function InstagramAccountFinderTool({
               >
                 <IconDownload style={{ height: "20px" }} /> Download as CSV
                 {!isSubscribed ? " (Paid Feature)" : ""}
-              </button>
-              <button
-                className="text-sm font-bold text-blue-500 flex flex-row mb-2 ml-4"
-                onClick={() => {
-                  // const hashtags = accountResults
-                  //   .map((result) => `#${result.hashtag}`)
-                  //   .join(" ");
-                  // navigator.clipboard.writeText(hashtags);
-                  console.log(accountResults[0]);
-                }}
-              >
-                Copy all Hashtags
               </button>
             </div>
             {accountResults.length === 0 ? null : (
@@ -243,15 +231,7 @@ function InstagramAccountTableRow({
         })
       )}
       onClick={() => {
-        // if (isSubscribed)
-        // handleCopy({
-        //   type: "Hashtag",
-        //   text: `#${hashtag}\nVolume:   ${
-        //     Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)
-        //   }k\nAverage Likes of Top Posts: ${Math.round(
-        //     averageLikesOfTopPosts
-        //   )}`,
-        // });
+        window.open(`https://www.instagram.com/${username}`);
       }}
     >
       <td className={"px-2 py-2 text-sm font-normal"}>
@@ -261,12 +241,12 @@ function InstagramAccountTableRow({
             className: "rounded-lg text-left normal-case",
           })}
         >
-          {/* <img
+          <img
             src={profilePic}
             crossOrigin="anonymous"
             alt="profile pic"
             className="w-8 h-8 rounded-full mr-2"
-          /> */}
+          />
           @{username}
         </div>
       </td>

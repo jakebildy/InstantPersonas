@@ -133,7 +133,7 @@ export default function InstagramAccountFinder({}: {}) {
             }}
             value={detailsInput}
           />
-          <div className="flex flex-row font-bold text-slate-800 text-xs mt-10">
+          {/* <div className="flex flex-row font-bold text-slate-800 text-xs mt-10">
             <div className="mt-2">Find accounts with</div>
             <input
               placeholder="min followers"
@@ -147,7 +147,7 @@ export default function InstagramAccountFinder({}: {}) {
               className="border border-gray-300 rounded-md w-1/4 p-2 ml-2 mr-2"
             ></input>
             <div className="mt-2">followers</div>
-          </div>
+          </div> */}
         </div>
         <InstagramAccountFinderTool
           input={personaString}
