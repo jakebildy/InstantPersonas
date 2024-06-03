@@ -66,7 +66,9 @@ export const InstantPersonasUserProvider = ({
   useEffect(() => {
     setLoading(true);
     if (isInitialized && !user) {
+      setInstantPersonasUser(null);
       setIsLoggedIn(false);
+      setIsSubscribed(false);
     } else if (user) {
       const getSubscription = async () => {
         IS_TEST_DEV_ENV && console.log("DEV: Getting subscription status");
