@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import Image from "next/image";
 import {
   ExclamationTriangleIcon,
@@ -22,6 +22,8 @@ export const SystemDevInfo = ({
   ...Props
 }: SystemComponentProps) => {
   const [expanded, setExpanded] = useState(false);
+
+  if (!IS_TEST_DEV_ENV) return null;
 
   return (
     <div className={cn("flex gap-2 w-full pt-2", className)} {...Props}>
