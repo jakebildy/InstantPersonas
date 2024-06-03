@@ -47,7 +47,7 @@ export default function InstagramAccountFinder({}: {}) {
           <title>Instagram Account Finder | Free & Niche-Specific</title>
           <meta
             name="description"
-            content="Quickly find Instagram hashtags and their volume. No signup required. Don't miss out on these hashtags!"
+            content="Quickly find Instagram accounts in your niche. Discover competitors, collaborators, and influencers."
           />
         </div>
       ) : (
@@ -110,7 +110,7 @@ export default function InstagramAccountFinder({}: {}) {
                   <Image
                     src={TopicalAuthorityDemoGif}
                     alt={
-                      "Select Personas or Enter Details to Generate Guest Posts"
+                      "Select Personas or Enter Details to Find Instagram Accounts"
                     }
                     width={800}
                     height={600}

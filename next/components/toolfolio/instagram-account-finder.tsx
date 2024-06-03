@@ -241,12 +241,12 @@ function InstagramAccountTableRow({
             className: "rounded-lg text-left normal-case",
           })}
         >
-          <img
+          {/* <img
             src={profilePic}
             crossOrigin="anonymous"
             alt="profile pic"
             className="w-8 h-8 rounded-full mr-2"
-          />
+          /> */}
           @{username}
         </div>
       </td>
