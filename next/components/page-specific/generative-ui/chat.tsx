@@ -9,15 +9,13 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ExtractField } from "@/lib/types";
 import { useUIState, useActions, useAIState } from "ai/rsc";
-import { AI } from "@/app/(server)/action";
+
 import ReactMarkdown from "react-markdown";
-import { PersonaAvatarPopover } from "./persona-avatar-popover";
 import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
-import { Message } from "@/app/(server)/models/ai-state-type-validators";
+import { ClientMessage, Message } from "@/app/(server)/models/persona-ai.model";
 import { useRouter } from "next/navigation";
 import SubscriptionPopup from "@/components/popups/subscription-popup";
-import { mapUrlBackgroundColorParamToVariant } from "./persona-avatar-popover/utils";
 import CopyLinkPopover from "@/components/ui/copy-link-popover";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import useMeasure from "react-use-measure";
@@ -25,6 +23,15 @@ import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { motion } from "framer-motion";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
 import { useScrollAreaState } from "@/lib/hooks";
+import { UserMessage } from "./messages/user/user-message";
+import { AssistantMessage } from "./messages/assistant/assistant-message";
+
+import { mapUrlBackgroundColorParamToVariant } from "../../persona-archetype-generic/utils";
+import { SystemErrorMessage } from "./messages/system/system-error-message";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { PersonaAvatarPopover } from "../../persona-archetype-generic/persona-avatar-popover";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 type Props = {
   className?: string;
@@ -47,7 +54,8 @@ export default function Chat({ className }: Props) {
     personas,
     messages,
     setMessages,
-    submitUserMessage,
+    submitPersonaChatUserMessage,
+    resetChatId,
   } = usePersonaChat();
 
   const keyBinds: CommandUserInputKeybind[] = [
@@ -123,7 +131,15 @@ export default function Chat({ className }: Props) {
       {personas && personas.length > 0 ? (
         <div className="w-full p-2 sticky top-0">
           <div className="flex items-center justify-center w-full mx-auto border-b pb-2 relative">
-            <PersonStandingIcon className="text-muted-foreground absolute left-0 m-8" />
+            <GradientButton
+              Icon={PersonStandingIcon}
+              className={"absolute left-0 m-8"}
+              variant="green"
+              onClick={() => resetChatId()}
+            >
+              New Chat
+            </GradientButton>
+
             {personas.map((archetype: any, i: number) => {
               const variant = mapUrlBackgroundColorParamToVariant({
                 url: archetype.pictureURL,
@@ -169,7 +185,7 @@ export default function Chat({ className }: Props) {
             />
             {/* 120px is the height of the input and suggestions */}
             <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
-              <PersonaMessage
+              <AssistantMessage
                 message={`Describe your product or service, and I can create a user persona.`}
               />
               {messages.map((message: any) => (
@@ -194,7 +210,7 @@ export default function Chat({ className }: Props) {
           } else {
             setInput("");
             // Add user message to UI state
-            setMessages((currentMessages: any) => [
+            setMessages((currentMessages: ClientMessage[]) => [
               ...currentMessages,
               {
                 id: Date.now(),
@@ -203,18 +219,45 @@ export default function Chat({ className }: Props) {
               },
             ]);
 
+            console.log("RM: input:", input);
+
             setHiddenSuggestedMessages(aiState.suggestedMessages);
 
             // Submit and get response message
+            console.log("RM: user:", user);
             if (user) {
-              const responseMessage = await submitUserMessage(
+              console.log("RM: user:", user);
+              const responseMessage = await submitPersonaChatUserMessage(
                 input,
                 user.id,
                 chatId
               );
-              setMessages((currentMessages: any) => [
+              setMessages((currentMessages: ClientMessage[]) => [
                 ...currentMessages,
                 responseMessage,
+              ]);
+            } else {
+              setMessages((currentMessages: ClientMessage[]) => [
+                ...currentMessages,
+                {
+                  id: Date.now(),
+                  role: "assistant",
+                  display: (
+                    <SystemErrorMessage
+                      message={
+                        <div className="flex flex-col w-full gap-2">
+                          <span>
+                            Looks like your session is no longer valid, please
+                            log in again!
+                          </span>
+                          <Button variant={"outline"} size={"sm"} asChild>
+                            <Link href="/login">Log in</Link>
+                          </Button>
+                        </div>
+                      }
+                    />
+                  ),
+                },
               ]);
             }
           }
@@ -251,11 +294,12 @@ export default function Chat({ className }: Props) {
                       setHiddenSuggestedMessages(aiState.suggestedMessages);
 
                       if (user) {
-                        const responseMessage = await submitUserMessage(
-                          message,
-                          user.id,
-                          chatId
-                        );
+                        const responseMessage =
+                          await submitPersonaChatUserMessage(
+                            message,
+                            user.id,
+                            chatId
+                          );
                         setMessages((currentMessages: any) => [
                           ...currentMessages,
                           responseMessage,
@@ -275,72 +319,3 @@ export default function Chat({ className }: Props) {
     </section>
   );
 }
-
-interface MessageComponentProps extends HTMLAttributes<HTMLDivElement> {
-  message: string;
-}
-
-export const PersonaMessage = ({
-  message,
-  className,
-  ...Props
-}: MessageComponentProps) => {
-  return (
-    <div className={cn("flex gap-2", className)} {...Props}>
-      {/* 32px + 16px = 48px ~ image width + gap */}
-      <div className="flex items-center h-8 w-8">
-        <Image
-          src={"/instant_personas_logo.png"}
-          alt={"Instant Personas Logo"}
-          width={32}
-          height={32}
-          priority
-          className={cn("object-contain min-w-8")}
-        />
-      </div>
-
-      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        <ReactMarkdown className="foo">{message}</ReactMarkdown>
-      </div>
-    </div>
-  );
-};
-
-export const PersonaInitial = () => {
-  return (
-    <div className={cn("flex gap-2")}>
-      {/* 32px + 16px = 48px ~ image width + gap */}
-      <div className="flex items-center h-full w-[calc(32px+16px)]">
-        <Image
-          src={"/instant_personas_logo.png"}
-          alt={"Instant Personas Logo"}
-          width={32}
-          height={28}
-          priority
-          className={cn("object-contain")}
-        />
-      </div>
-
-      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        <BarLoader color="#36d7b7" />
-      </div>
-    </div>
-  );
-};
-
-export const UserMessage = ({
-  message,
-  className,
-  ...Props
-}: MessageComponentProps) => {
-  return (
-    <div
-      className={cn("flex gap-2 justify-end items-center", className)}
-      {...Props}
-    >
-      <p className="flex items-center bg-blue-600 text-white p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
-        {message}
-      </p>
-    </div>
-  );
-};

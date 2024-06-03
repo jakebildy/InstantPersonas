@@ -1,7 +1,4 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
-import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
-import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useEffect, useState } from "react";
 import { ArticleCard, BLOG_POSTS } from "../../blog/page";
@@ -12,13 +9,12 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
 import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
@@ -94,8 +90,6 @@ export default function GuestPostOpportunityFinder({}: {}) {
 
         <SocialShareTool
           input={personaString}
-          selectedPersonas={selectedPersonas}
-          setSelectedPersonas={setSelectedPersonas}
           detailsInput={detailsInput}
           setDetailsInput={setDetailsInput}
           isSubscribed={isSubscribed}

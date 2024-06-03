@@ -1,5 +1,4 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
@@ -10,13 +9,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export default function GuestPostOpportunityFinder({}: {}) {
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
@@ -58,11 +56,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
 
         <div className="flex flex-col items-center w-full mb-10 gap-2">
           {isSubscribed ? (
-            <PersonaSelectFromHistorySidebar
-              selectedPersonas={selectedPersonas}
-              setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-[50]"
-            />
+            <PersonaSelectFromHistorySidebar className="xl:absolute top-4 right-4 z-[50]" />
           ) : null}
           {isSubscribed ? (
             <section

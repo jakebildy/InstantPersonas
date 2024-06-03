@@ -1,4 +1,4 @@
-import { PersonaAvatarPopoverProps } from "../persona-popover";
+import { PersonaAvatarPopoverProps } from "../";
 
 export function InsightsTab({ variant, archetype }: PersonaAvatarPopoverProps) {
   const { archetype_name, persona_components, insights } = archetype;

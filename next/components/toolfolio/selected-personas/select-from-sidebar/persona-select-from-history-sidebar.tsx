@@ -6,11 +6,6 @@ import {
   gradientVariants,
   textPastelColorVariants,
 } from "@/components/variants";
-import {
-  mapUrlBackgroundColorParamToVariant,
-  PersonaArchetype,
-  PersonaAvatarPopover,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
@@ -30,7 +25,6 @@ import { Separator } from "@/components/ui/separator";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { useStytchUser } from "@stytch/nextjs";
 import api from "@/service/api.service";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import BarLoader from "react-spinners/BarLoader";
@@ -39,113 +33,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 import { PersonaBusinessArchetype } from "../types";
-import { Description } from "@radix-ui/react-dialog";
 
 export function PersonaSelectFromHistorySidebar({
-  selectedPersonas,
-  setSelectedPersonas,
   className,
   variant = "blue",
 }: {
-  selectedPersonas: PersonaBusinessArchetype[];
-  setSelectedPersonas: React.Dispatch<
-    React.SetStateAction<PersonaBusinessArchetype[]>
-  >;
   className?: string;
   variant?: ColorVariant;
 }) {
-  const [history, setHistory] = React.useState<PersonaChatType[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [userError, setUserError] = React.useState<string | null>(null);
-
-  const { user, isSubscribed } = useInstantPersonasUser();
-  const userRef = useRef<string | null>();
-
-  useEffect(() => {
-    if (!user) {
-      setLoading(false);
-      setUserError("User not found");
-      return;
-    }
-    //? If is first fetch, or user has changed, get personas
-    if (user.id !== userRef.current && isSubscribed) {
-      setLoading(true);
-      setUserError(null);
-      //? Indicates that we tried to fetch user's persona history
-      userRef.current = user.id;
-      try {
-        IS_TEST_DEV_ENV ? console.log("DEV: Fetching user history") : null;
-        api.userPersona.getPersonaHistory(user.id).then((data) => {
-          setHistory(data);
-          setLoading(false);
-          //? If no personas are selected, (first fetch), update from local storage
-          if (selectedPersonas.length === 0) {
-            IS_TEST_DEV_ENV
-              ? console.log(
-                  "DEV: No personas selected, updating from local storage"
-                )
-              : null;
-            const localSelectedPersonaNames: string[] = JSON.parse(
-              localStorage.getItem(
-                LOCAL_STORAGE_CONFIG.tools.selectedPersonas
-              ) ?? "[]"
-            );
-            IS_TEST_DEV_ENV
-              ? console.log(
-                  "DEV: localSelectedPersonaNames",
-                  localSelectedPersonaNames
-                )
-              : null;
-            if (localSelectedPersonaNames.length > 0) {
-              const localSelectedPersonas = data
-                //? Ensure persona are of type PersonaBusinessArchetype[]
-                .flatMap((chat) =>
-                  chat.aiState.personas.map((persona) => ({
-                    ...persona,
-                    business: {
-                      description: chat.aiState.business,
-                      target_problem: chat.aiState.targetProblem,
-                    },
-                  }))
-                )
-                //? Find only personas that are not in local storage
-                .filter((persona) =>
-                  localSelectedPersonaNames.includes(persona.archetype_name)
-                );
-
-              IS_TEST_DEV_ENV
-                ? console.log(
-                    "DEV: Updating selected personas from local storage",
-                    localSelectedPersonas
-                  )
-                : null;
-
-              setSelectedPersonas(localSelectedPersonas);
-            }
-          }
-        });
-      } catch (error) {
-        console.log(error);
-        setUserError("Error fetching user history");
-      }
-    }
-  }, [
-    history,
-    isSubscribed,
-    selectedPersonas.length,
-    setSelectedPersonas,
-    user,
-  ]);
-
-  useEffect(() => {
-    if (selectedPersonas.length === 0) {
-      return;
-    }
-    localStorage.setItem(
-      LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
-      JSON.stringify(selectedPersonas.map((persona) => persona.archetype_name))
-    );
-  }, [selectedPersonas]);
+  const { selectedPersonas, setSelectedPersonas, loading, error, history } =
+    usePersonaChatHistory();
 
   return (
     <Sheet>
@@ -243,7 +140,7 @@ export function PersonaSelectFromHistorySidebar({
           </div>
           <div className="flex-1 max-h-full overflow-auto px-2 py-6 scrollbar-track-hidden">
             <div className="flex flex-col gap-2">
-              {loading || userError || history.length < 1 ? (
+              {loading || error || history.length < 1 ? (
                 <div className="px-2 flex items-center justify-center w-full">
                   {loading ? <LoadingState /> : <EmptyState />}
                 </div>
@@ -316,8 +213,9 @@ function PersonaWidgetGroupSkeleton() {
 }
 
 import { isEqual } from "lodash";
-import { useInstantPersonasUser } from "@/components/context/auth/user-context";
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
+import { PersonaAvatarPopover } from "@/components/persona-archetype-generic/persona-avatar-popover";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 function PersonaWidgetGroup({
   personas,

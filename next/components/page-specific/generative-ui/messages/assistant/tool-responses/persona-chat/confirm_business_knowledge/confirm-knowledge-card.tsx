@@ -1,18 +1,15 @@
 import { PersonStandingIcon } from "lucide-react";
-import React from "react";
-import { Separator } from "@/components/ui/fcs/fcs-separator";
-import { Button } from "@/components/ui/button";
 import { gradientVariants } from "@/components/variants";
 
-type Props = {
+export type ConfirmKnowledgeCardProps = {
   business: string;
   targetProblem: string;
 };
 
-export default function ConfirmKnowledgeCard({
+export function ConfirmKnowledgeCard({
   business,
   targetProblem,
-}: Props) {
+}: ConfirmKnowledgeCardProps) {
   return (
     <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background z-0">
       <div className="flex gap-2 border-b p-4">
@@ -41,13 +38,6 @@ export default function ConfirmKnowledgeCard({
           <span className="text-black/75 font-semibold">Target Problem</span>
           <span className="text-sm font-medium">{targetProblem}</span>
         </div>
-
-        {/* <Button className="mx-6" size="rounded">
-          Accept Changes
-        </Button>
-        <Button variant={"destructive"} className="mx-6" size="rounded">
-          Revert Changes
-        </Button> */}
       </div>
     </div>
   );

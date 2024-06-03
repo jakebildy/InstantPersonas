@@ -1,20 +1,14 @@
-"use server";
-import { Suspense } from "react";
-import { RecentPersonasSkeleton } from "./(components)/(server-ui)/recent-personas-skeleton";
-import { RecentPersonas } from "./(components)/(server-ui)/recent-personas";
-import { PersonaHistoryListSkeleton } from "./(components)/(server-ui)/persona-history-list-skeleton";
-import { PersonaHistoryList } from "./(components)/(server-ui)/persona-history-list";
+"use client";
 
-export default async function HistoryPage({}: {}) {
+import { PersonaHistoryList } from "./(components)/(client-ui)/persona-history-list";
+import { RecentPersonas } from "./(components)/(client-ui)/recent-personas";
+
+export default function HistoryPage({}: {}) {
   return (
     <main>
-      <Suspense fallback={<RecentPersonasSkeleton />}>
-        <RecentPersonas />
-      </Suspense>
+      <RecentPersonas />
       <div className="mt-10">
-        <Suspense fallback={<PersonaHistoryListSkeleton />}>
-          <PersonaHistoryList />
-        </Suspense>
+        <PersonaHistoryList />
       </div>
     </main>
   );

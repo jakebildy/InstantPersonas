@@ -13,6 +13,7 @@ export function convertPersonaChatsToPersonaWithIDs(
     .map((personaChat) => {
       const state = AIStateValidator.safeParse(personaChat.aiState);
       if (!state.success) {
+        console.error("Error parsing AI state", personaChat, state.error);
         return null; //? Early return if parsing fails
       }
       //? Return the result of the inner map directly

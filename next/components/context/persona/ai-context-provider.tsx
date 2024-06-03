@@ -1,8 +1,9 @@
 "use server";
 
-import { AI } from "@/app/(server)/action";
+import { AI } from "@/app/(server)/ai/ai-server-action";
 import { PersonaChatProvider } from "./chat-context";
 import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/function";
+import { PersonaChatHistoryProvider } from "./history-context";
 
 //? This has to be in its own file because it must be used server side
 
@@ -14,7 +15,7 @@ export async function AIContextProvider({
   return (
     <AI>
       <PersonaChatProvider fetchChatWithId={getPersonaChat}>
-        {children}
+        <PersonaChatHistoryProvider>{children}</PersonaChatHistoryProvider>
       </PersonaChatProvider>
     </AI>
   );
