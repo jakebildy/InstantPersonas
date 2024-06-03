@@ -7,7 +7,7 @@ import React from "react";
 import { Loading } from "@/components/page-specific/generative-ui/loading";
 import { initMongoDB } from "@/database/mongodb";
 import { createArchetypes } from "./tools/create_archetypes";
-import { nanoid } from "@/lib/utils";
+import { IS_TEST_DEV_ENV, nanoid } from "@/lib/utils";
 import { fixJson } from "@/lib/fix-json";
 import { getMessageSuggestions } from "./tools/suggested_messages";
 import { PERSONA_CHAT_AI_COMPONENT_MAP } from "@/components/page-specific/generative-ui/messages";
@@ -155,13 +155,12 @@ export async function submitPersonaChatUserMessage(
                   id: nanoid(),
                   content: `Does this cover the business and target problem or is something
                 missing?`,
-                },
-                {
-                  role: "function",
-                  id: nanoid(),
-                  name: "confirm_business_knowledge",
-                  // Content can be any string to provide context to the LLM in the rest of the conversation.
-                  content: JSON.stringify({ business, targetProblem }),
+                  tool_calls: [
+                    {
+                      name: "confirm_business_knowledge",
+                      arguments: JSON.stringify({ business, targetProblem }),
+                    },
+                  ],
                 },
               ],
             });
@@ -223,11 +222,15 @@ export async function submitPersonaChatUserMessage(
               messages: [
                 ...aiState.get().messages,
                 {
-                  role: "function",
-                  name: "create_persona",
+                  role: "assistant",
                   id: nanoid(),
-                  // Content can be any string to provide context to the LLM in the rest of the conversation.
-                  content: JSON.stringify(archetypes),
+                  content: ``,
+                  tool_calls: [
+                    {
+                      name: "create_persona",
+                      arguments: JSON.stringify(archetypes),
+                    },
+                  ],
                 },
               ],
             });
@@ -281,11 +284,15 @@ export async function submitPersonaChatUserMessage(
                 messages: [
                   ...aiState.get().messages,
                   {
-                    role: "function",
-                    name: "update_persona",
+                    role: "assistant",
                     id: nanoid(),
-                    // Content can be any string to provide context to the LLM in the rest of the conversation.
-                    content: JSON.stringify(personaDiffContent),
+                    content: ``,
+                    tool_calls: [
+                      {
+                        name: "update_persona",
+                        arguments: JSON.stringify(personaDiffContent),
+                      },
+                    ],
                   },
                 ],
               });
@@ -381,7 +388,20 @@ export async function submitPersonaChatUserMessage(
 
     return {
       id: Date.now(),
-      display: ui,
+      display: IS_TEST_DEV_ENV ? (
+        <>
+          {ui}{" "}
+          <PERSONA_CHAT_AI_COMPONENT_MAP.system.dev_info
+            message={aiState
+              .get()
+              .messages.map((m: any) => m.content)
+              .join("\n")}
+            state={JSON.stringify(aiState.get())}
+          />
+        </>
+      ) : (
+        ui
+      ),
     };
   } catch (error: any) {
     console.error("Error in submitPersonaChatUserMessage", error);

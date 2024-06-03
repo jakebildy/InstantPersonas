@@ -125,13 +125,12 @@ export async function submitPersonaChatUserMessage(
                   id: nanoid(),
                   content: `Does this cover the business and target problem or is something
                       missing?`,
-                },
-                {
-                  role: "tool",
-                  id: nanoid(),
-                  name: "confirm_business_knowledge",
-                  // Content can be any string to provide context to the LLM in the rest of the conversation.
-                  content: JSON.stringify({ business, targetProblem }),
+                  tool_calls: [
+                    {
+                      name: "confirm_business_knowledge",
+                      arguments: JSON.stringify({ business, targetProblem }),
+                    },
+                  ],
                 },
               ],
             });
