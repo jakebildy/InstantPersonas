@@ -17,6 +17,7 @@ import { Loading } from "@/components/page-specific/generative-ui/loading";
 import { fixJson } from "@/lib/fix-json";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "./initial-ai-state";
 import { getMessageSuggestions } from "./tools/suggested_messages";
+import { InstantPersonasSystemPrompt } from "./utils/instant-personas-system-prompt";
 
 export async function submitPersonaChatUserMessage(
   userInput: string,
@@ -54,6 +55,7 @@ export async function submitPersonaChatUserMessage(
     const result = await streamUI({
       model: openai("gpt-4-turbo"),
       messages: [...messages, { role: "user", content: input }],
+      system: InstantPersonasSystemPrompt(),
       text: async ({ content, done }: { content: string; done: boolean }) => {
         if (done) {
           const suggestedMessages = await getMessageSuggestions(
@@ -183,7 +185,6 @@ export async function submitPersonaChatUserMessage(
             );
           },
         },
-
         update_persona: {
           description:
             "When the user wants to update a specific persona. Ensure you know which one to update.",
