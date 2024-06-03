@@ -16,6 +16,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           rotateX: 0,
         }}
         transition={{ type: "spring", duration: 1 }}
+        key={"persona"}
       >
         <ScrollArea className="h-[calc(100vh-58px)]">
           <div className="h-[calc(100vh-58px)] flex flex-col">{children}</div>
