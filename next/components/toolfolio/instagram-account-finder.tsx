@@ -36,8 +36,11 @@ export function InstagramAccountFinderTool({
     <div>
       {loading ? (
         <span className="loading loading01">
-          Looking for accounts - this may take a minute or two <span>.</span>{" "}
-          <span>.</span> <span>.</span>
+          Looking for the best accounts - this will take a minute or two{" "}
+          <span>.</span> <span>.</span> <span>.</span>
+          <br></br>
+          <br></br>
+          Stay on this page!
         </span>
       ) : accountResults.length === 0 && hasCompleted ? (
         "We didn't find any good accounts for this persona. Try refining your search!"
@@ -84,18 +87,16 @@ export function InstagramAccountFinderTool({
               </button>
             </div>
             {accountResults.length === 0 ? null : (
-              <div className=" w-full">
+              <div className=" w-full px-2">
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
                   <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-                    <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
-                      <th className="px-2 py-3 text-center">Username</th>
-                      <th className="px-2 py-3 text-center">Full Name</th>
+                    <tr className="w-full text-xs font-normal whitespace-nowrap  text-[#212B36]">
+                      <th className="px-2 py-3 text-center">Account</th>
+                      {/* <th className="px-2 py-3 text-center">Full Name</th> */}
                       <th className="px-2 py-3 text-center">Followers</th>
                       <th className="px-2 py-3 text-center">Following</th>
-                      <th className="px-2 py-3 text-center">Average Likes</th>
-                      <th className="px-2 py-3 text-center">
-                        Average Comments
-                      </th>
+                      <th className="px-2 py-3 text-center">Avg. Likes</th>
+                      <th className="px-2 py-3 text-center">Avg. Comments</th>
                       <th className="px-2 py-3 text-center">Bio</th>
                     </tr>
                   </thead>
@@ -130,7 +131,19 @@ export function InstagramAccountFinderTool({
                                 .reduce((a: number, b: number) => a + b) /
                               account.latestPosts.length
                             }
-                            variant={"blue"}
+                            variant={
+                              account.followersCount > 1000000
+                                ? "red"
+                                : account.followersCount > 100000
+                                ? "yellow"
+                                : account.followersCount > 10000
+                                ? "green"
+                                : account.followersCount > 1000
+                                ? "blue"
+                                : account.followersCount > 100
+                                ? "purple"
+                                : "pink"
+                            }
                           />
                         );
                       })}
@@ -238,21 +251,24 @@ function InstagramAccountTableRow({
         <div
           className={badgeVariants({
             variant,
-            className: "rounded-lg text-left normal-case",
+            className: "rounded-lg flex flex-row normal-case",
           })}
         >
-          {/* <img
-            src={profilePic}
+          <img
+            src={"https://corsproxy.io/?" + profilePic}
             crossOrigin="anonymous"
             alt="profile pic"
-            className="w-8 h-8 rounded-full mr-2"
-          /> */}
-          @{username}
+            className="w-8 h-8 rounded-full mr-2 border-white border-2 shadow-lg"
+          />
+          <div className="text-left">
+            <b>{name}</b>
+            <br></br>@{username}
+          </div>
         </div>
       </td>
-      <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+      {/* <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {name}
-      </td>
+      </td> */}
       <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
         {followers}
       </td>

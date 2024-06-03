@@ -40,6 +40,13 @@ export default function InstagramAccountFinder({}: {}) {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
+  //Redirect to login if not logged in
+  useEffect(() => {
+    if (!isLoggedIn) {
+      window.location.href = "/login";
+    }
+  }, [isLoggedIn]);
+
   return (
     <section className="flex-1">
       {!isSubscribed ? (
