@@ -45,12 +45,17 @@ export async function submitPersonaChatUserMessage(
     };
   }
 
-  const messages = validatedAIState.data.messages.map((message) => ({
-    role: message.role === "function" ? "tool" : message.role,
-    content: message.content,
-  })) as CoreMessage[];
+  const messages = history.get().messages;
 
-  // console.log("Submit called on server: messages", history.get());
+  // const messages = validatedAIState.data.messages.map((message) => ({
+  //   role: message.role === "function" ? "tool" : message.role,
+  //   content: message.content.replace(/\\n/g, "\n"),
+  // })) as CoreMessage[];
+
+  console.log("Submit called on server: messages", [
+    ...messages,
+    { role: "user", content: input },
+  ]);
   try {
     const result = await streamUI({
       model: openai("gpt-4-turbo"),
@@ -325,8 +330,15 @@ export async function submitPersonaChatUserMessage(
       role: "assistant",
       display: result.value,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in submitPersonaChatUserMessage", error);
+
+    // console.error(
+    //   "Error in submitPersonaChatUserMessage: Messages:",
+    //   error.requestBodyValues.messages.length,
+    //   "Values: \n",
+    //   error.requestBodyValues.messages
+    // );
     return {
       id: nanoid(),
       role: "assistant",
