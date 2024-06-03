@@ -1,11 +1,8 @@
-import {
-  avatarVariants,
-  gradientVariants,
-  mapUrlBackgroundColorParamToVariant,
-  PersonaArchetype,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { avatarVariants, gradientVariants } from "@/components/variants";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";

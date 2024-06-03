@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import axios from "axios";
 import { NextResponse } from "next/server";
-import { GPT4 } from "@/app/(server)/ai/gpt";
+import { GPT4 } from "@/app/(server)/ai/persona-chat-ai/utils/gpt";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({

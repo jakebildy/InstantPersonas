@@ -1,6 +1,6 @@
-import { EditPersonaButton } from "./manage-buttons/edit-persona";
+import { PersonaAvatarPopoverProps } from "../";
 import { DeletePersonaButton } from "./manage-buttons/delete-persona";
-import { PersonaAvatarPopoverProps } from "../persona-popover";
+import { EditPersonaButton } from "./manage-buttons/edit-persona";
 
 export function ManageTab({ ...Props }: PersonaAvatarPopoverProps) {
   return (

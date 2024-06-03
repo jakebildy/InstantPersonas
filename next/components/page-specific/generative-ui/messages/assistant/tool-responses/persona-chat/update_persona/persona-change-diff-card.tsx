@@ -13,15 +13,15 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAIState, useUIState } from "ai/rsc";
-import { AI } from "@/app/(server)/action";
 import {
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
 import { fixJson } from "@/lib/fix-json";
-import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import { avatarVariants } from "@/components/variants";
 import { usePostHog } from "posthog-js/react";
+import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
+import { AI } from "@/app/(server)/ai/ai-server-action";
 
 export interface PersonaChangeDiffCardProps {
   origin_archetype: PersonaArchetype;

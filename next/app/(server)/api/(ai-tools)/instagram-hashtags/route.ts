@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import axios from "axios";
 import { NextResponse } from "next/server";
-import { GPT4 } from "@/app/(server)/ai/gpt";
+import { GPT4 } from "@/app/(server)/ai/persona-chat-ai/utils/gpt";
 
 const { ApifyClient } = require("apify-client");
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
       // Prepare Actor input
       const input = {
-        "hashtags": chatResponse.text.trim().split(/,\s*/)
+        hashtags: chatResponse.text.trim().split(/,\s*/),
       };
 
       const run = await apify.actor("cHedUknx10dsaavpI").call(input);
@@ -49,29 +49,29 @@ export async function POST(req: Request) {
         });
       }
       items.forEach((item: any) => {
-          // console.dir(item);
+        // console.dir(item);
 
-          // Calculate average like count for the top posts in a hashtag
-          let totalLikes = 0;
-          let totalPosts = 0;
-          let averageLikes = null;
-          if (item.topPosts) {
-        
-            item.topPosts.forEach((post: any) => {
-              totalLikes += post.likesCount;
-              totalPosts++;
-            });
-          
-            averageLikes = totalLikes / totalPosts;
-          }
+        // Calculate average like count for the top posts in a hashtag
+        let totalLikes = 0;
+        let totalPosts = 0;
+        let averageLikes = null;
+        if (item.topPosts) {
+          item.topPosts.forEach((post: any) => {
+            totalLikes += post.likesCount;
+            totalPosts++;
+          });
 
-          hashtagResults.push({"hashtag": item.name, "volume": item.postsCount, "averageLikesOfTopPosts": averageLikes});
+          averageLikes = totalLikes / totalPosts;
+        }
+
+        hashtagResults.push({
+          hashtag: item.name,
+          volume: item.postsCount,
+          averageLikesOfTopPosts: averageLikes,
+        });
       });
 
-
-      console.log( "hashtagResults: ", hashtagResults)
-
-      
+      console.log("hashtagResults: ", hashtagResults);
 
       return NextResponse.json({
         hashtags: hashtagResults,

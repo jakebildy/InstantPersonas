@@ -2,6 +2,8 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PreventMobile } from "@/components/page-specific/prevent-mobile";
+import { Button } from "@/components/ui/button";
+import { ChatBubbleIcon } from "@radix-ui/react-icons";
 export default function SidebarLayout({
   chat,
   map,
@@ -14,8 +16,8 @@ export default function SidebarLayout({
       {/* Main Header | 58px */}
       <div className="flex items-center px-4 py-2">
         <h1 className="text-xl font-bold">Persona Creator</h1>
-        <TabsList className="ml-auto">
-          {/* <TabsTrigger
+        {/* <TabsList className="ml-auto">
+          <TabsTrigger
             value="personaChat"
             className="text-zinc-600 dark:text-zinc-200"
           >
@@ -23,8 +25,8 @@ export default function SidebarLayout({
           </TabsTrigger>
           <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
             Map
-          </TabsTrigger> */}
-        </TabsList>
+          </TabsTrigger>
+        </TabsList> */}
       </div>
       <Separator />
       <TabsContent value="personaChat" className="m-0">

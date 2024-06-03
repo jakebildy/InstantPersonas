@@ -1,28 +1,21 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { TopicalAuthorityMap } from "@/components/toolfolio/topical-authority-map/topical-authority-map";
 import { cn } from "@/lib/utils";
-import api from "@/service/api.service";
-import { useStytchUser } from "@stytch/nextjs";
-import { usePostHog } from "posthog-js/react";
 import { useEffect, useState } from "react";
 import * as TopicalAuthorityDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
-import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { InstagramHashtagFinderTool } from "@/components/toolfolio/instagram-hashtag-finder";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export const maxDuration = 300; // 5 minutes
 
 export default function InstagramHashtagFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
 
   useEffect(() => {
@@ -61,11 +54,7 @@ export default function InstagramHashtagFinder({}: {}) {
         </h2>
         <div className="flex flex-col items-center w-full mb-10 gap-2">
           {isSubscribed ? (
-            <PersonaSelectFromHistorySidebar
-              selectedPersonas={selectedPersonas}
-              setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-50"
-            />
+            <PersonaSelectFromHistorySidebar className="xl:absolute top-4 right-4 z-50" />
           ) : null}
           {isSubscribed ? (
             <section

@@ -8,23 +8,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  getSynchronizeStates,
-  PersonaAvatarPopoverProps,
-  serializePersonas,
-} from "../..";
 import { PersonStandingIcon } from "lucide-react";
 import { useAIState, useUIState } from "ai/rsc";
-import { AI } from "@/app/(server)/action";
 import { useState } from "react";
-
 import { isEqual } from "lodash";
 import { useParams } from "next/navigation";
 import api from "@/service/api.service";
 import { usePostHog } from "posthog-js/react";
 import { gradientVariants } from "@/components/variants";
-import { PersonaTemplatePreview } from "../../templates/template";
 import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
+import { AI } from "@/app/(server)/ai/ai-server-action";
+import {
+  serializePersonas,
+  getSynchronizeStates,
+} from "@/components/persona-archetype-generic/utils";
+import { PersonaAvatarPopoverProps } from "../../persona-popover";
+import { PersonaTemplatePreview } from "../../templates/template";
 
 export function DeletePersonaButton({
   variant,

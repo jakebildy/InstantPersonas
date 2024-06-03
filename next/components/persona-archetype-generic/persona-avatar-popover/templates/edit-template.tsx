@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/fcs/fcs-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PersonStandingIcon } from "lucide-react";
 import { PersonaTemplateProps } from "./template";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { avatarVariants, gradientVariants } from "@/components/variants";
 

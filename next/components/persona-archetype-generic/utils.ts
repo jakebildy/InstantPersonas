@@ -4,12 +4,12 @@ import {
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
-import { getUIStateFromAIState } from "@/app/(server)/ai/get-ui-state-from-ai-state";
 import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
 import { isEqual } from "lodash";
 import { ColorVariant, ColorVariantMap } from "@/components/variants";
+import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
 
-/**
+/**pnpm
  * Transforms and merges structured and unstructured data objects into a single object.
  * This function acts as a coordinator that calls specific functions to handle merging operations
  * and to collect any remaining unstructured data.
