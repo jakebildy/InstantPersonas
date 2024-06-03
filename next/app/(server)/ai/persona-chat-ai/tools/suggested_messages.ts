@@ -20,7 +20,7 @@ export async function getMessageSuggestions(
           z
             .string()
             .describe(
-              "The suggested message the user would send, should be a short question."
+              "The suggested message the user would send, should be a short question or response placeholder to help the user answer."
             )
         )
         .length(3),
