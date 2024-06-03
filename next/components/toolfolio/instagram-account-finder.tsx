@@ -61,25 +61,34 @@ export function InstagramAccountFinderTool({
                     window.open("https://www.instantpersonas.com/subscription");
                     return;
                   }
-                  // const csv = accountResults
-                  //   .map((result) => {
-                  //     return `#${result.hashtag},${
-                  //       Math.round(result.volume / 1000) === 0
-                  //         ? "<1"
-                  //         : Math.round(result.volume / 1000)
-                  //     }k,${Math.round(result.averageLikesOfTopPosts)}`;
-                  //   })
-                  //   .join("\n");
-                  // //   add a new row of headers before
-                  // const headers = "Hashtag,Volume,Average Likes of Top Posts";
-                  // const csvWithHeaders = headers + "\n" + csv;
-                  // const blob = new Blob([csvWithHeaders], { type: "text/csv" });
-                  // const url = window.URL.createObjectURL(blob);
-                  // const a = document.createElement("a");
-                  // a.href = url;
-                  // a.download = "instagram-hashtag-results.csv";
-                  // a.click();
-                  // window.URL.revokeObjectURL(url);
+                  const csv = accountResults
+                    .map((result) => {
+                      return `@${result.username},${result.fullName},${
+                        result.followersCount
+                      },${result.followsCount},${Math.round(
+                        result.latestPosts
+                          .map((post: any) => post.likesCount)
+                          .reduce((a: number, b: number) => a + b) /
+                          result.latestPosts.length
+                      )},${Math.round(
+                        result.latestPosts
+                          .map((post: any) => post.commentsCount)
+                          .reduce((a: number, b: number) => a + b) /
+                          result.latestPosts.length
+                      )},${result.biography.replace(/[\n,]/g, "")}`;
+                    })
+                    .join("\n");
+                  //   add a new row of headers before
+                  const headers =
+                    "Username,Display Name,Followers,Following,Average Likes,Average Comments,Bio";
+                  const csvWithHeaders = headers + "\n" + csv;
+                  const blob = new Blob([csvWithHeaders], { type: "text/csv" });
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "instagram-accounts-results.csv";
+                  a.click();
+                  window.URL.revokeObjectURL(url);
                 }}
               >
                 <IconDownload style={{ height: "20px" }} /> Download as CSV
@@ -104,7 +113,7 @@ export function InstagramAccountFinderTool({
                     {accountResults
 
                       // // sort by average likes of top posts
-                      .sort((a, b) => a.followersCount - b.followersCount)
+                      .sort((a, b) => b.followersCount - a.followersCount)
                       .map((account, i) => {
                         return (
                           <InstagramAccountTableRow
