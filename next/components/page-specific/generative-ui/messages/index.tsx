@@ -12,6 +12,7 @@ import { PersonaChangeDiffCard } from "./assistant/tool-responses/persona-chat/u
 import { PersonaChangeDiffCardWithWidth } from "./assistant/tool-responses/persona-chat/update_persona/change-card-with-width";
 import { VideoContentList } from "./assistant/tool-responses/persona-chat/persona_content_consumption/video-content";
 import { ConfirmKnowledgeCardWithMessage } from "./assistant/tool-responses/persona-chat/confirm_business_knowledge/confirm-knowledge-card-with-message";
+import { SystemDevInfo } from "./system/system-dev-info";
 
 type AIMessageRoles = ExtractField<CoreMessage, "role">;
 
@@ -39,6 +40,7 @@ export const PERSONA_CHAT_AI_COMPONENT_MAP = {
   },
   system: {
     error: SystemErrorMessage,
+    dev_info: SystemDevInfo,
   },
   assistant: {
     loading: AssistantMessageLoading,
