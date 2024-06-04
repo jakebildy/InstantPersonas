@@ -48,6 +48,13 @@ const api = {
       console.log("response from headline analyzer api", response);
       return response.data;
     },
+    autocomplete: async (text: string): Promise<any> => {
+      const response = await axios.post("/api/autocomplete", {
+        text,
+      });
+      console.log("response from autocomplete api", response);
+      return response.data;
+    },
     findInstagramAccounts: async (
       personas: string,
       paid: boolean
