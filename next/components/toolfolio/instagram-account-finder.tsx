@@ -15,6 +15,7 @@ import {
 import { useHandleCopy } from "@/lib/hooks";
 import { cx } from "class-variance-authority";
 import InfoTooltip from "../ui/info-tooltip";
+import { LoadingThreeMin } from "../page-specific/generative-ui/loading";
 
 export function InstagramAccountFinderTool({
   input,
@@ -36,8 +37,11 @@ export function InstagramAccountFinderTool({
     <div className="text-center">
       {loading ? (
         <span className="loading loading01">
-          Looking for the best accounts - this will take a minute or two{" "}
-          <span>.</span> <span>.</span> <span>.</span>
+          <LoadingThreeMin
+            loadingMessage={
+              "Looking for the best accounts - this will take a minute or two..."
+            }
+          />
           <br></br>
           <br></br>
           Stay on this page!
