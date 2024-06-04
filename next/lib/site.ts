@@ -3,7 +3,6 @@ import {
   BanknotesIcon,
   BookmarkIcon,
   AcademicCapIcon,
-  FireIcon,
   PencilSquareIcon,
   DocumentMagnifyingGlassIcon,
   KeyIcon,
@@ -42,7 +41,6 @@ export const SIDEBAR_LINKS = [
   {
     title: "Send Feedback",
     href: "/feedback",
-    // icon: PencilSquareIcon,
     icon: ChatBubbleLeftRightIcon,
     label: "",
   },
@@ -52,6 +50,16 @@ export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 
 // Search icons at https://lucide.dev/icons
 export const SEO_LINKS = [
+  {
+    title: "Document Editor",
+    href: "/tools/document-editor",
+    category: "Blogging",
+    lead: "Easily write documents targeting your personas",
+    icon: PencilSquareIcon,
+    label: "",
+    section: "Create",
+    isFreeTool: false,
+  },
   {
     title: "Topical Authority",
     href: "/tools/topical-authority",
