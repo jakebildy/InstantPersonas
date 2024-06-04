@@ -33,7 +33,7 @@ export function InstagramAccountFinderTool({
   const [hasCompleted, setHasCompleted] = useState(false);
 
   return (
-    <div>
+    <div className="text-center">
       {loading ? (
         <span className="loading loading01">
           Looking for the best accounts - this will take a minute or two{" "}
@@ -63,9 +63,12 @@ export function InstagramAccountFinderTool({
                   }
                   const csv = accountResults
                     .map((result) => {
-                      return `@${result.username},${result.fullName},${
-                        result.followersCount
-                      },${result.followsCount},${Math.round(
+                      return `@${result.username},${result.fullName.replace(
+                        /[\n,]/g,
+                        ""
+                      )},${result.followersCount},${
+                        result.followsCount
+                      },${Math.round(
                         result.latestPosts
                           .map((post: any) => post.likesCount)
                           .reduce((a: number, b: number) => a + b) /
@@ -114,6 +117,7 @@ export function InstagramAccountFinderTool({
 
                       // // sort by average likes of top posts
                       .sort((a, b) => b.followersCount - a.followersCount)
+                      .filter((account) => account.latestPosts !== undefined)
                       .map((account, i) => {
                         return (
                           <InstagramAccountTableRow
