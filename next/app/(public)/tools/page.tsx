@@ -28,18 +28,20 @@ export default function ToolsPage({}: Props) {
           </p>
         </div>
         <div className="grid gap-8 lg:grid-cols-2">
-          {SEO_LINKS.map((tool, i) => (
-            <ToolPreviewCard
-              tool={tool}
-              key={tool.href}
-              category={tool.category}
-              className={
-                SEO_LINKS.length % 2 !== 0 && i == SEO_LINKS.length - 1
-                  ? "lg:col-span-2"
-                  : ""
-              }
-            />
-          ))}
+          {SEO_LINKS.filter((link) => link.isFreeTool === true).map(
+            (tool, i) => (
+              <ToolPreviewCard
+                tool={tool}
+                key={tool.href}
+                category={tool.category}
+                className={
+                  SEO_LINKS.length % 2 !== 0 && i == SEO_LINKS.length - 1
+                    ? "lg:col-span-2"
+                    : ""
+                }
+              />
+            )
+          )}
         </div>
       </div>
     </section>

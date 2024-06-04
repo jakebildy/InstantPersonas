@@ -10,6 +10,7 @@ import {
   HashtagIcon,
   ChartBarSquareIcon,
   ChatBubbleLeftRightIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
@@ -59,6 +60,7 @@ export const SEO_LINKS = [
     lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
     label: "",
     section: "Create",
+    isFreeTool: true,
   },
   {
     title: "Guest Post Finder",
@@ -68,6 +70,7 @@ export const SEO_LINKS = [
     icon: DocumentMagnifyingGlassIcon,
     label: "",
     section: "Reach",
+    isFreeTool: true,
   },
   {
     title: "Google Keyword Finder",
@@ -77,6 +80,7 @@ export const SEO_LINKS = [
     icon: KeyIcon,
     label: "",
     section: "Reach",
+    isFreeTool: true,
   },
   {
     title: "Instagram Hashtag Finder",
@@ -86,6 +90,17 @@ export const SEO_LINKS = [
     icon: HashtagIcon,
     label: "",
     section: "Reach",
+    isFreeTool: true,
+  },
+  {
+    title: "Instagram Account Finder",
+    href: "/tools/instagram-account-finder",
+    category: "Marketing",
+    lead: "Find Instagram accounts in your niche. See engagement and filter by size.",
+    icon: UsersIcon,
+    label: "",
+    section: "Reach",
+    isFreeTool: false,
   },
   {
     title: "Share Preview Optimizer",
@@ -95,6 +110,7 @@ export const SEO_LINKS = [
     icon: MessageSquareShareIcon,
     label: "",
     section: "Create",
+    isFreeTool: true,
   },
   {
     title: "Headline Analyzer",
@@ -104,6 +120,7 @@ export const SEO_LINKS = [
     icon: ChartBarSquareIcon,
     label: "",
     section: "Create",
+    isFreeTool: true,
   },
 ] as const;
 

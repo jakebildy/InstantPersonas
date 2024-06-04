@@ -31,10 +31,12 @@ export function SelectArchetypeWidget({
     url: archetype.pictureURL,
   });
   // Fallback to initials if no avatar is available
-  const avatarFallbackName = archetype.archetype_name
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
+  const avatarFallbackName =
+    archetype.archetype_name ||
+    "Persona Archetype"
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
 
   return (
     <motion.div
@@ -59,7 +61,9 @@ export function SelectArchetypeWidget({
               <AvatarImage
                 src={archetype.pictureURL}
                 alt={[
-                  archetype.archetype_name.toLocaleLowerCase(),
+                  (
+                    archetype.archetype_name || "Persona Archetype"
+                  ).toLocaleLowerCase(),
                   "persona avatar",
                 ].join(" ")}
               />

@@ -104,6 +104,10 @@
   animation: loadAnimation 60s ease-in-out forwards;
 }
 
+.loading-animation-3min {
+  animation: loadAnimation 180s ease-in-out forwards;
+}
+
 @keyframes loadAnimation {
   from {
     width: 3%;

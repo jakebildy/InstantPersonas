@@ -48,6 +48,17 @@ const api = {
       console.log("response from headline analyzer api", response);
       return response.data;
     },
+    findInstagramAccounts: async (
+      personas: string,
+      paid: boolean
+    ): Promise<any> => {
+      const response = await axios.post("/api/instagram-accounts", {
+        personas,
+        paid,
+      });
+      console.log("response from instagram accounts api", response);
+      return response.data;
+    },
     
   },
   auth: {
