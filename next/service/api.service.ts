@@ -1,4 +1,5 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
+import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
@@ -223,6 +224,50 @@ const api = {
 
     deletePersona: async (id: string) => {
       const response = await axios.delete(`/api/delete-persona/${id}`);
+      return response.data;
+    },
+  },
+  documentEditor: {
+    getDocuments: async (id?: string): Promise<DocumentDraft[]> => {
+      // Define the base URL for the request
+      const baseUrl = "/api/get-documents";
+
+      // Create an object to hold any query parameters
+      const params = {} as any;
+
+      // If an ID is provided, add it as a query parameter
+      if (id) {
+        params.id = id;
+      }
+
+      // Make the GET request with the query parameters
+      const response = await axios.get(baseUrl, { params });
+
+      // Return the results from the response
+      const data = response.data.results;
+      //! TEMP: Check to make sure aiState is not an array
+
+      if (!data) {
+        return [];
+      }
+      
+      return data;
+    },
+  
+    updateDocument: async (
+      content: string,
+      id: string
+    ): Promise<PersonaChat> => {
+      const response = await axios.post(`/api/update-document/${id}`, {
+        content,
+      });
+      return response.data.result;
+    },
+
+    createDocument: async (userID: string) => {
+      const response = await axios.post(`/api/create-document`, {
+        userID,
+      });
       return response.data;
     },
   },
