@@ -13,7 +13,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
-export const SIDEBAR_LINKS = [
+
+export const UNDERSTAND_TOOLS = [
   {
     title: "Persona Creator",
     href: "/persona",
@@ -26,6 +27,9 @@ export const SIDEBAR_LINKS = [
     icon: BookmarkIcon,
     label: "",
   },
+] as const;
+
+export const SIDEBAR_LINKS = [
   {
     title: "Subscription",
     href: "/subscription",
@@ -67,7 +71,7 @@ export const SEO_LINKS = [
     category: "SEO",
     lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -87,7 +91,7 @@ export const SEO_LINKS = [
     lead: "Find the best Google keywords for your target audience",
     icon: KeyIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -97,7 +101,7 @@ export const SEO_LINKS = [
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -117,7 +121,7 @@ export const SEO_LINKS = [
     lead: "Generate and optimize social media share previews for your content.",
     icon: MessageSquareShareIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -127,7 +131,7 @@ export const SEO_LINKS = [
     lead: "Find the best titles",
     icon: ChartBarSquareIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
 ] as const;
