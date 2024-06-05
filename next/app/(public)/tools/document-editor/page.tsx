@@ -5,7 +5,12 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
-import { useEditor, EditorContent, FloatingMenu } from "@tiptap/react";
+import {
+  useEditor,
+  EditorContent,
+  FloatingMenu,
+  mergeAttributes,
+} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Document from "@tiptap/extension-document";
 import Underline from "@tiptap/extension-underline";
@@ -27,6 +32,7 @@ import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-f
 import { EmojiReplacer } from "./EmojiReplacer";
 import { HeadlineAnalyzerTool } from "@/components/toolfolio/headline-analyzer";
 import HeadlineAnalysisPopup from "./HeadlineAnalysisPopup";
+import Heading from "@tiptap/extension-heading";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -60,7 +66,40 @@ export default function DocumentEditor({}: {}) {
   }, [selectedPersonas, title, isSubscribed]);
 
   const editor = useEditor({
-    extensions: [StarterKit, Document, Underline, Image, Link, EmojiReplacer],
+    extensions: [
+      StarterKit,
+      Document,
+      Underline,
+      Image,
+      Link,
+      EmojiReplacer,
+      Heading.configure({
+        HTMLAttributes: {
+          class: "text-2xl",
+        },
+      }),
+
+      Heading.configure({ levels: [1, 2] }).extend({
+        levels: [1, 2],
+        renderHTML({ node, HTMLAttributes }) {
+          const level = this.options.levels.includes(node.attrs.level)
+            ? node.attrs.level
+            : this.options.levels[0];
+          const classes = {
+            1: "text-4xl",
+            2: "text-2xl",
+          };
+          return [
+            `h${level}`,
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+              //@ts-ignore
+              class: `${classes[level]}`,
+            }),
+            0,
+          ];
+        },
+      }),
+    ],
 
     content: "<p>Hello World! 🌎️</p>",
   });
