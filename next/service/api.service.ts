@@ -29,6 +29,17 @@ const api = {
       console.log("response from google keywords api", response);
       return response.data;
     },
+    findGoogleKeywordsDocumentEditor: async (
+      personas: string,
+      paid: boolean
+    ): Promise<any> => {
+      const response = await axios.post("/api/google-keywords-blog", {
+        personas,
+        paid,
+      });
+      console.log("response from google keywords blog api", response);
+      return response.data;
+    },
     findInstagramHashtags: async (
       personas: string,
       paid: boolean

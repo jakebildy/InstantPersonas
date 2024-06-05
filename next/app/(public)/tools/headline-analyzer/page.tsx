@@ -134,6 +134,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
           /> */}
         </div>
         <HeadlineAnalyzerTool
+          isPopup={false}
           headline={headlineString}
           input={personaString}
           isSubscribed={isSubscribed}

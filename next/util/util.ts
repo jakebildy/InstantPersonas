@@ -165,3 +165,8 @@ export const POWER_WORDS = [
   "Kick-off", "Amp", "Supercharge",
   "Boost", "Dash"
 ];
+
+export const removeFillerWords = (text: string) => {
+  const fillerWords = /\b(the|a|an|in|on|at)\b/g;
+  return text.toLowerCase().replace(fillerWords, "").replace(/\s+/g, " ").trim();
+};

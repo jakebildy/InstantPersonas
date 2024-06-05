@@ -14,15 +14,20 @@ import {
 } from "../variants";
 import { useHandleCopy } from "@/lib/hooks";
 import { cx } from "class-variance-authority";
+import { removeFillerWords } from "@/util/util";
 
 export function GoogleKeywordFinderTool({
   input,
   isSubscribed,
   noInput,
+  isSidebar,
+  blog,
 }: {
   input: string;
   isSubscribed: boolean;
   noInput: boolean;
+  isSidebar?: boolean;
+  blog?: string;
 }) {
   const [loading, setIsLoading] = useState(false);
 
@@ -62,7 +67,7 @@ export function GoogleKeywordFinderTool({
             >
               <IconDownload style={{ height: "20px" }} /> Download as CSV
             </button>
-            Data for US Searches 🇺🇸
+            {isSidebar ? <div /> : "Data for US Searches 🇺🇸"}
             {keywordResults.length === 0 ? null : (
               <div className=" w-full">
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
@@ -70,8 +75,16 @@ export function GoogleKeywordFinderTool({
                     <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
                       <th className="px-2 py-3">Keyword</th>
                       <th className="px-2 py-3">Search Volume</th>
-                      <th className="px-2 py-3">Cost Per Click</th>
-                      <th className="px-2 py-3">Competition</th>
+                      {isSidebar ? (
+                        <div />
+                      ) : (
+                        <th className="px-2 py-3">Cost Per Click</th>
+                      )}
+                      {isSidebar ? (
+                        <div />
+                      ) : (
+                        <th className="px-2 py-3">Competition</th>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -99,6 +112,7 @@ export function GoogleKeywordFinderTool({
                           return 1;
                         }
                       })
+
                       .map((keyword, i) => {
                         return (
                           <GoogleKeywordTableRow
@@ -108,6 +122,8 @@ export function GoogleKeywordFinderTool({
                             cpc={keyword.cpc}
                             competition={keyword.competition}
                             isSubscribed={isSubscribed}
+                            isSidebar={isSidebar}
+                            blog={blog}
                             variant={
                               keyword.competition === "LOW"
                                 ? "green"
@@ -149,10 +165,18 @@ export function GoogleKeywordFinderTool({
               setIsLoading(true);
 
               //   api guest post
-              const response = await api.tools.findGoogleKeywords(
-                input,
-                isSubscribed
-              );
+              let response;
+              if (isSidebar) {
+                response = await api.tools.findGoogleKeywordsDocumentEditor(
+                  input,
+                  isSubscribed
+                );
+              } else {
+                response = await api.tools.findGoogleKeywords(
+                  input,
+                  isSubscribed
+                );
+              }
 
               setHasCompleted(true);
               setIsLoading(false);
@@ -180,6 +204,8 @@ function GoogleKeywordTableRow({
   searchVolume,
   cpc,
   competition,
+  isSidebar,
+  blog,
   variant = "blue",
   isSubscribed = true,
 }: {
@@ -187,6 +213,8 @@ function GoogleKeywordTableRow({
   searchVolume: number;
   cpc: number;
   competition: number;
+  blog?: string;
+  isSidebar?: boolean;
   variant?: ColorVariant;
   isSubscribed?: boolean;
 }) {
@@ -213,14 +241,35 @@ function GoogleKeywordTableRow({
       }
     >
       <td className={"px-2 py-2 text-sm font-normal"}>
-        <div
-          className={badgeVariants({
-            variant,
-            className: "rounded-lg text-left normal-case",
-          })}
-        >
-          {keyword}
-        </div>
+        {isSidebar ? (
+          // replace all filler words, the, a, an, in, on, at, etc. in the blog with ""
+          removeFillerWords(blog!)
+            .toLowerCase()
+
+            .includes(keyword.toLowerCase()) ? (
+            <div
+              className={badgeVariants({
+                variant,
+                className: "rounded-lg text-left normal-case",
+              })}
+            >
+              {keyword}
+            </div>
+          ) : (
+            <div className={"rounded-lg text-left normal-case text-xs ml-4"}>
+              {keyword}
+            </div>
+          )
+        ) : (
+          <div
+            className={badgeVariants({
+              variant,
+              className: "rounded-lg text-left normal-case",
+            })}
+          >
+            {keyword}
+          </div>
+        )}
       </td>
       {!isSubscribed ? (
         <td className="px-1 py-4 text-sm font-normal text-[#637381]">
@@ -234,10 +283,18 @@ function GoogleKeywordTableRow({
         </td>
       )}
 
-      <td className="px-1 py-4 text-sm font-normal text-[#637381]">{cpc}</td>
-      <td className="px-1 py-4 text-sm font-normal text-[#637381]">
-        {competition}
-      </td>
+      {isSidebar ? (
+        <div />
+      ) : (
+        <td className="px-1 py-4 text-sm font-normal text-[#637381]">{cpc}</td>
+      )}
+      {isSidebar ? (
+        <div />
+      ) : (
+        <td className="px-1 py-4 text-sm font-normal text-[#637381]">
+          {competition}
+        </td>
+      )}
     </tr>
   );
 }

@@ -87,7 +87,7 @@ export const SEO_LINKS = [
     lead: "Find the best Google keywords for your target audience",
     icon: KeyIcon,
     label: "",
-    section: "Reach",
+    section: "Create",
     isFreeTool: true,
   },
   {
@@ -97,7 +97,7 @@ export const SEO_LINKS = [
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
     label: "",
-    section: "Reach",
+    section: "Create",
     isFreeTool: true,
   },
   {
