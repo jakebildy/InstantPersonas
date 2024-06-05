@@ -24,6 +24,7 @@ import { IconH3 } from "@tabler/icons-react";
 import { IconBold } from "@tabler/icons-react";
 import { IconItalic } from "@tabler/icons-react";
 import { IconUnderline } from "@tabler/icons-react";
+import { IconBrandYoutubeFilled } from "@tabler/icons-react";
 import api from "@/service/api.service";
 import { motion } from "framer-motion";
 import { CodeInput } from "@/components/ui/fcs/code-block";
@@ -33,6 +34,9 @@ import { EmojiReplacer } from "./EmojiReplacer";
 import { HeadlineAnalyzerTool } from "@/components/toolfolio/headline-analyzer";
 import HeadlineAnalysisPopup from "./HeadlineAnalysisPopup";
 import Heading from "@tiptap/extension-heading";
+import ImageResize from "tiptap-extension-resize-image";
+import Youtube from "@tiptap/extension-youtube";
+import { Markdown } from "tiptap-markdown";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -48,7 +52,7 @@ export default function DocumentEditor({}: {}) {
   const [lastTypedTime, setLastTypedTime] = useState(Date.now());
   const [showCommandMenu, setShowCommandMenu] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [view, setView] = useState<"editor" | "html">("editor");
+  const [view, setView] = useState<"editor" | "html" | "markdown">("editor");
   const [title, setTitle] = useState<string>("Untitled Blog");
 
   useEffect(() => {
@@ -65,6 +69,18 @@ export default function DocumentEditor({}: {}) {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, title, isSubscribed]);
 
+  const addYoutubeVideo = () => {
+    const url = prompt("Enter YouTube URL");
+
+    if (url) {
+      editor!.commands.setYoutubeVideo({
+        src: url,
+        width: 320 || 640,
+        height: 180 || 480,
+      });
+    }
+  };
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -73,6 +89,12 @@ export default function DocumentEditor({}: {}) {
       Image,
       Link,
       EmojiReplacer,
+      ImageResize,
+      Markdown,
+      Youtube.configure({
+        controls: false,
+        nocookie: true,
+      }),
       Heading.configure({
         HTMLAttributes: {
           class: "text-2xl",
@@ -229,6 +251,18 @@ export default function DocumentEditor({}: {}) {
                       >
                         View HTML
                       </button>
+                      <button
+                        className={
+                          view === "markdown"
+                            ? "hover:bg-green-200 border-b-2 border-green-400 text-green-400 p-2 text-xs"
+                            : "hover:bg-green-200 p-2 text-xs"
+                        }
+                        onClick={() => {
+                          setView(view === "markdown" ? "editor" : "markdown");
+                        }}
+                      >
+                        View Markdown
+                      </button>
                     </div>
                     <div className="mb-2 border-b-2 border-gray-100">
                       <button
@@ -329,7 +363,13 @@ export default function DocumentEditor({}: {}) {
                       >
                         <PhotoIcon className="text-black size-5" />
                       </button>
-
+                      <button
+                        id="add"
+                        onClick={addYoutubeVideo}
+                        className="hover:bg-gray-200 p-2"
+                      >
+                        <IconBrandYoutubeFilled className="text-black size-5" />
+                      </button>
                       <button
                         className="hover:bg-gray-200 p-2"
                         onClick={() => {
@@ -397,15 +437,28 @@ export default function DocumentEditor({}: {}) {
                         />
                         <ScrollBar orientation="vertical" />
                       </ScrollArea>
-                    ) : (
+                    ) : view === "markdown" ? (
                       <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
                         <CodeInput
                           // add \n after each line
-                          code={editor!.getHTML().replace(/>/g, ">\n")}
+                          code={editor!.storage.markdown.getMarkdown()}
                           theme="slack-ochin"
                           className="h-screen "
                           style={{ width: "800px" }}
                         />
+                        <ScrollBar orientation="horizontal" />
+                      </ScrollArea>
+                    ) : (
+                      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+                        {
+                          <CodeInput
+                            // add \n after each line
+                            code={editor!.getHTML().replace(/>/g, ">\n")}
+                            theme="slack-ochin"
+                            className="h-screen "
+                            style={{ width: "800px" }}
+                          />
+                        }
                         <ScrollBar orientation="horizontal" />
                       </ScrollArea>
                     )}
