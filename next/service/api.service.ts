@@ -256,11 +256,15 @@ const api = {
   
     updateDocument: async (
       content: string,
+      title: string,
       id: string
-    ): Promise<PersonaChat> => {
-      const response = await axios.post(`/api/update-document/${id}`, {
+    ): Promise<DocumentDraft> => {
+      const response = await axios.post(`/api/update-document/`, {
+        documentID: id,
         content,
+        title,
       });
+      console.log ("response from update document", response)
       return response.data.result;
     },
 

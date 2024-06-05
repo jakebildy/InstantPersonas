@@ -42,11 +42,12 @@ import Heading from "@tiptap/extension-heading";
 import ImageResize from "tiptap-extension-resize-image";
 import Youtube from "@tiptap/extension-youtube";
 import { Markdown } from "tiptap-markdown";
+import { useParams } from "next/navigation";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
-export default function DocumentEditor({}: {}) {
+export default function DocumentEditor() {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
   const [selectedPersonas, setSelectedPersonas] = useState<
@@ -59,6 +60,7 @@ export default function DocumentEditor({}: {}) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [view, setView] = useState<"editor" | "html" | "markdown">("editor");
   const [title, setTitle] = useState<string>("Untitled Blog");
+  const params = useParams<{ id: string }>();
 
   useEffect(() => {
     const results = isSubscribed
@@ -238,7 +240,14 @@ export default function DocumentEditor({}: {}) {
             <div className="flex flex-row justify-between">
               <input
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={async (e) => {
+                  setTitle(e.target.value);
+                  await api.documentEditor.updateDocument(
+                    "",
+                    e.target.value,
+                    params.id
+                  );
+                }}
                 className="text-2xl text-gray-700 ml-2 pt-10 font-bold bg-gray-100 outline-none mb-2 w-full text-start"
               />
               <button

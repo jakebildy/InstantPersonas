@@ -3,14 +3,11 @@ import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 export async function POST(req: Request, res: Response) {
   // a user can only get their own documentdrafts, filter by the provided userID in the request
 
-  const url = new URL(req.url);
-
-  const documentID = url.searchParams.get("documentID");
-
   const body = JSON.parse(await req.text());
+  const documentID = body.documentID;
 
   // check req.body is not empty
-  if (!body.chat) {
+  if (!documentID) {
     return Response.json({
       error: "No documentID provided in request body",
     });
