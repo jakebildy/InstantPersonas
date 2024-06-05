@@ -10,11 +10,12 @@ export async function POST(req: Request) {
     // Parse the JSON body of the request
     const body = await req.json();
 
-    if (body.text !== undefined) {
+    if (body.title !== undefined) {
       const personas = body.personas;
 
       const systemMessage =
-        "Keep writing this (at a grade 9 reading level, continue exactly from where the text ends. This is a blog post): " + body.text; 
+      "Outline the sections for a blog post with the following title - make them SEO optimized (ex. questions or common search queries) - separate each section with •: " + body.title; 
+
       const chatResponse = await ChatGPT(systemMessage);
 
       console.log("response: " + chatResponse.text.trim());
