@@ -43,6 +43,11 @@ import ImageResize from "tiptap-extension-resize-image";
 import Youtube from "@tiptap/extension-youtube";
 import { Markdown } from "tiptap-markdown";
 import { useParams } from "next/navigation";
+import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
+import { useStytchUser } from "@stytch/nextjs";
+import { PersonStandingIcon } from "lucide-react";
+import BarLoader from "react-spinners/BarLoader";
+import { ColorVariantMap, gradientVariants } from "@/components/variants";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -59,7 +64,8 @@ export default function DocumentEditor() {
   const [showCommandMenu, setShowCommandMenu] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [view, setView] = useState<"editor" | "html" | "markdown">("editor");
-  const [title, setTitle] = useState<string>("Untitled Blog");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const params = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -76,18 +82,7 @@ export default function DocumentEditor() {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, title, isSubscribed]);
 
-  const addYoutubeVideo = () => {
-    const url = prompt("Enter YouTube URL");
-
-    if (url) {
-      editor!.commands.setYoutubeVideo({
-        src: url,
-        width: 320 || 640,
-        height: 180 || 480,
-      });
-    }
-  };
-
+  const { user } = useStytchUser();
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -130,8 +125,42 @@ export default function DocumentEditor() {
       }),
     ],
 
-    content: "<p>Hello World! 🌎️</p>",
+    content: content,
   });
+
+  useEffect(() => {
+    // fetch Documents function is async
+    const fetchDocuments = async () => {
+      if (!user || !editor) return;
+      const response = await api.documentEditor.getDocuments(
+        user.user_id as string
+      );
+
+      const document = response.find(
+        (doc: DocumentDraft) => doc._id === params.id
+      );
+
+      if (document) {
+        setTitle(document.title);
+        setContent(document.content);
+        editor!.commands.setContent(document.content);
+      }
+    };
+
+    fetchDocuments();
+  }, [user, editor]);
+
+  const addYoutubeVideo = () => {
+    const url = prompt("Enter YouTube URL");
+
+    if (url) {
+      editor!.commands.setYoutubeVideo({
+        src: url,
+        width: 320 || 640,
+        height: 180 || 480,
+      });
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = () => {
@@ -145,6 +174,13 @@ export default function DocumentEditor() {
       setShowCommandMenu(false);
 
       if (editor) {
+        if (title !== "") {
+          api.documentEditor.updateDocument(
+            editor!.getHTML(),
+            title,
+            params.id
+          );
+        }
         editor.view.dom.removeEventListener("keydown", handleKeyDown);
       }
     };
@@ -227,7 +263,38 @@ export default function DocumentEditor() {
   const [showHeadlineAnalysisPopup, setShowHeadlineAnalysisPopup] =
     useState(false);
 
-  return (
+  async function updateTitle(newTitle: string) {
+    setTitle(newTitle);
+    await api.documentEditor.updateDocument(
+      editor!.getHTML(),
+      newTitle,
+      params.id
+    );
+  }
+
+  return !user || !editor ? (
+    <div
+      className={
+        "bg-white grid grid-cols-3 place-items-center h-screen w-screen p-4 gap-4 overflow-hidden relative backdrop-blur-[100px]"
+      }
+    >
+      <div />
+      <div className="flex flex-col justify-between items-center h-3/4">
+        <PersonStandingIcon className="size-10 text-black opacity-75" />
+        <div className="text-center flex flex-col gap-1">
+          <p></p>
+          <h1 className="text-4xl font-bold">Loading Document...</h1>
+          <p className="text-sm"></p>
+        </div>
+        <BarLoader
+          color={ColorVariantMap["green"]}
+          height={10}
+          width={500}
+          className="rounded-full"
+        />
+      </div>
+    </div>
+  ) : (
     <section className="flex-1">
       <HeadlineAnalysisPopup
         headline={title}
@@ -240,13 +307,8 @@ export default function DocumentEditor() {
             <div className="flex flex-row justify-between">
               <input
                 value={title}
-                onChange={async (e) => {
-                  setTitle(e.target.value);
-                  await api.documentEditor.updateDocument(
-                    "",
-                    e.target.value,
-                    params.id
-                  );
+                onChange={(e) => {
+                  updateTitle(e.target.value);
                 }}
                 className="text-2xl text-gray-700 ml-2 pt-10 font-bold bg-gray-100 outline-none mb-2 w-full text-start"
               />

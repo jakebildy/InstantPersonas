@@ -57,7 +57,7 @@ export default function DocumentsPage({}: {}) {
                 "_self"
               );
             }}
-            className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-2 border-slate-400 hover:border-green-600 hover:text-green-600 text-slate-400 hover:shadow-lg"
+            className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-2 border-slate-400 hover:border-green-600 hover:text-green-600 text-slate-400 hover:shadow-lg cursor-pointer"
           >
             <div className="flex flex-row items-center w-full gap-2">
               <div className="w-[200px] h-[300px]">
@@ -70,11 +70,11 @@ export default function DocumentsPage({}: {}) {
               onClick={() => {
                 window.open("/tools/document-editor/" + doc._id, "_self");
               }}
-              className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-2 border-slate-400 hover:border-green-600 hover:shadow-lg"
+              className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-2 border-slate-400 hover:border-green-600 hover:shadow-lg cursor-pointer"
             >
-              <div className="flex flex-row items-center w-full gap-2">
+              <div className="flex flex-row items-center w-full gap-2 overflow-clip">
                 <div className="w-[200px] h-[300px]">
-                  <div className="flex flex-row  border-b-2 border-slate-400 h-10">
+                  <div className="flex flex-row  border-b-2 border-slate-400 h-14">
                     <h2 className="text-center mt-3 text-xs text-slate-700 mb-16 font-bold flex flex-grow ml-2">
                       {doc.title}
                     </h2>
@@ -82,6 +82,12 @@ export default function DocumentsPage({}: {}) {
                       size={24}
                       className="text-slate-400 h-8 relativ right-1 hover:bg-slate-100 w-8 p-1 mt-1 rounded-full"
                     />
+                  </div>
+
+                  <div className="text-[6px] m-2">
+                    {doc.content.split(/<[^>]+>/g).map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
                   </div>
                 </div>
               </div>
