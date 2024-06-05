@@ -274,7 +274,24 @@ const api = {
       });
       return response.data;
     },
+    deleteDocument: async (
+      id: string
+    ): Promise<DocumentDraft> => {
+
+      // Create an object to hold any query parameters
+      const params = {
+        id: id,
+      };
+
+      const response = await axios.delete(`/api/delete-document`, {
+        params
+      });
+      console.log ("response from delete document", response)
+      return response.data.result;
+    },
   },
+
+ 
 };
 
 export default api;

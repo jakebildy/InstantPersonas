@@ -75,13 +75,24 @@ export default function DocumentsPage({}: {}) {
               <div className="flex flex-row items-center w-full gap-2 overflow-clip">
                 <div className="w-[200px] h-[300px]">
                   <div className="flex flex-row  border-b-2 border-slate-400 h-14">
-                    <h2 className="text-center mt-3 text-xs text-slate-700 mb-16 font-bold flex flex-grow ml-2">
+                    <h2 className="text-start mt-3 text-xs text-slate-700 mb-16 font-bold flex flex-grow ml-2">
                       {doc.title}
                     </h2>
-                    <IconTrash
-                      size={24}
-                      className="text-slate-400 h-8 relativ right-1 hover:bg-slate-100 w-8 p-1 mt-1 rounded-full"
-                    />
+                    <div
+                      onClick={(event) => {
+                        // prevent outside click
+                        event.stopPropagation();
+                        api.documentEditor.deleteDocument(doc._id as string);
+                        setDocuments(
+                          documents.filter((d) => d._id !== doc._id)
+                        );
+                      }}
+                    >
+                      <IconTrash
+                        size={24}
+                        className="text-slate-400 h-8 relativ right-1 hover:bg-slate-100 w-8 p-1 mt-1 rounded-full"
+                      />
+                    </div>
                   </div>
 
                   <div className="text-[6px] m-2">
