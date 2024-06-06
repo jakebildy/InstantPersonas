@@ -37,7 +37,6 @@ import { CodeInput } from "@/components/ui/fcs/code-block";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { EmojiReplacer } from "../EmojiReplacer";
-import { HeadlineAnalyzerTool } from "@/components/toolfolio/headline-analyzer";
 import HeadlineAnalysisPopup from "../HeadlineAnalysisPopup";
 import Heading from "@tiptap/extension-heading";
 import ImageResize from "tiptap-extension-resize-image";
@@ -306,53 +305,28 @@ export default function DocumentEditor() {
     </div>
   ) : (
     <div>
-      <a
-        href="/tools/document-editor"
-        aria-label="Document Editor"
-        className="absolute ml-4 mt-4 hover:bg-slate-200 p-2 rounded-full"
-      >
-        {/* <img
-          src={"/instant_personas_logo.png"}
-          className="h-[40px] w-[40px]  "
-          alt={"Instant Personas"}
-        /> */}
-        <IconChevronLeft className="text-black size-8" />
-      </a>
-      <input
-        // focus ref
-        ref={inputRef}
-        value={title}
-        onChange={(e) => {
-          updateTitle(e.target.value);
-        }}
-        className="absolute ml-20 mt-4 text-2xl text-gray-700 font-bold bg-transparent outline-none mb-2 w-full text-start"
-      />
-      <div className="rounded-lg mb-2 absolute ml-20 mt-12 ">
-        {/* <DropdownMenu.Root>
-          <DropdownMenu.Trigger asChild>
-            <button
-              className={"hover:bg-green-200 p-2 text-xs"}
-              onClick={() => {}}
-            >
-              File
-            </button>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Portal>
-            <DropdownMenu.Content
-              className="min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-              sideOffset={5}
-            >
-              <DropdownMenu.Item
-                onClick={() => {
-                  inputRef.current?.focus();
-                }}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
-              >
-                Rename
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        </DropdownMenu.Root> */}
+      <title>{title}</title>
+      <div className=" fixed top-0 w-full h-20 bg-slate-50 mb-2 z-50 ">
+        <div>
+          <a
+            href="/tools/document-editor"
+            aria-label="Document Editor"
+            className="absolute top-5 ml-5 z-[100] hover:bg-slate-200 p-2 rounded-full"
+          >
+            <IconChevronLeft className="text-black size-8" />
+          </a>
+          <input
+            // focus ref
+            ref={inputRef}
+            value={title}
+            onChange={(e) => {
+              updateTitle(e.target.value);
+            }}
+            className="absolute top-0 z-50 ml-20 mt-4 text-2xl text-gray-700 font-bold bg-transparent outline-none mb-2 w-full text-start"
+          />
+        </div>
+      </div>
+      <div className="fixed top-12 left-20 z-50">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -364,7 +338,7 @@ export default function DocumentEditor() {
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+              className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
               sideOffset={5}
             >
               <DropdownMenu.Item
@@ -397,7 +371,7 @@ export default function DocumentEditor() {
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+              className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
               sideOffset={5}
             >
               <DropdownMenu.Item
@@ -425,7 +399,7 @@ export default function DocumentEditor() {
         <button
           className={"hover:bg-green-200 p-2 text-xs"}
           onClick={() => {
-            window.open("/tools/share-preview-optimizer", "_self");
+            window.open("/tools/share-preview-optimizer", "_blank");
           }}
         >
           Social Media Preview
@@ -469,10 +443,123 @@ export default function DocumentEditor() {
       </div>
       <button
         onClick={() => setShowHeadlineAnalysisPopup(true)}
-        className="bg-green-500 text-white p-2 rounded-md h-min w-[200px] text-xs font-bold absolute right-4 top-4"
+        className="z-50 bg-green-500 text-white p-2 rounded-md h-min w-[200px] text-xs font-bold fixed right-10 top-6"
       >
         Analyze Headline
       </button>
+
+      {view !== "editor" ? (
+        <div />
+      ) : (
+        <div className="fixed z-40 top-20 pt-2 mb-2 w-full bg-slate-50 border-b-[1px] border-slate-300">
+          <button
+            className={
+              editor?.isActive("bold")
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold ml-20"
+                : "hover:bg-gray-200 p-2 font-bold ml-20"
+            }
+            onClick={() => {
+              editor!.chain().focus().toggleBold().run();
+            }}
+          >
+            <IconBold className="text-black size-5" />
+          </button>
+          <button
+            className={
+              editor?.isActive("italic")
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
+                : "hover:bg-gray-200 p-2 font-bold"
+            }
+            onClick={() => {
+              editor!.chain().focus().toggleItalic().run();
+            }}
+          >
+            <IconItalic className="text-black size-5" />
+          </button>
+          <button
+            className={
+              editor?.isActive("underline")
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
+                : "hover:bg-gray-200 p-2 font-bold"
+            }
+            onClick={() => {
+              editor!.commands.toggleUnderline();
+            }}
+          >
+            <IconUnderline className="text-black size-5" />
+          </button>
+
+          <button
+            className={
+              editor?.isActive("heading", { level: 1 })
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
+                : "hover:bg-gray-200 p-2 font-bold"
+            }
+            onClick={() => {
+              editor!.commands.toggleHeading({ level: 1 });
+            }}
+          >
+            <IconH1 className="text-black size-5" />
+          </button>
+          <button
+            className={
+              editor?.isActive("heading", { level: 2 })
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
+                : "hover:bg-gray-200 p-2 font-bold"
+            }
+            onClick={() => {
+              editor!.commands.toggleHeading({ level: 2 });
+            }}
+          >
+            <IconH2 className="text-black size-5" />
+          </button>
+          <button
+            className={
+              editor?.isActive("heading", { level: 3 })
+                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
+                : "hover:bg-gray-200 p-2 font-bold"
+            }
+            onClick={() => {
+              editor!.commands.toggleHeading({ level: 3 });
+            }}
+          >
+            <IconH3 className="text-black size-5" />
+          </button>
+
+          <button
+            className="hover:bg-gray-200 p-2"
+            onClick={() => {
+              editor!.commands.toggleLink({
+                href: "https://instantpersonas.com",
+              });
+            }}
+          >
+            <LinkIcon className="text-black size-5" />
+          </button>
+
+          <button
+            className="hover:bg-gray-200 p-2"
+            onClick={() => {
+              // insert an image
+              editor!.commands.setImage({
+                src: "https://i.imgur.com/e3lG3KA.png",
+                alt: "A boring example image",
+                title: "An example",
+              });
+            }}
+          >
+            <PhotoIcon className="text-black size-5" />
+          </button>
+          <button
+            id="add"
+            onClick={addYoutubeVideo}
+            className="hover:bg-gray-200 p-2"
+          >
+            <IconBrandYoutubeFilled className="text-black size-5" />
+          </button>
+        </div>
+      )}
+
       <section className="flex-1 ml-[-120px]">
         <HeadlineAnalysisPopup
           headline={title}
@@ -483,125 +570,14 @@ export default function DocumentEditor() {
           <div className="flex flex-row">
             <div>
               <div className="flex flex-row justify-between"></div>
-              <div className="flex flex-col items-center w-full mb-10 gap-2 mt-24">
+              <div className="flex flex-col items-center w-full mb-10 gap-2 mt-36">
                 {isSubscribed ? (
                   <section
                     className={cn(
-                      "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2 w-[800px]"
+                      "border border-gray-300 rounded-md  bg-white flex flex-col gap-2 w-[900px] p-[50px] mr-[140px]"
                     )}
                   >
                     <div className=" rounded-sm  bg-white">
-                      {view !== "editor" ? (
-                        <div />
-                      ) : (
-                        <div className="mb-2 border-b-2 border-gray-100">
-                          <button
-                            className={
-                              editor?.isActive("bold")
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.chain().focus().toggleBold().run();
-                            }}
-                          >
-                            <IconBold className="text-black size-5" />
-                          </button>
-                          <button
-                            className={
-                              editor?.isActive("italic")
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.chain().focus().toggleItalic().run();
-                            }}
-                          >
-                            <IconItalic className="text-black size-5" />
-                          </button>
-                          <button
-                            className={
-                              editor?.isActive("underline")
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.commands.toggleUnderline();
-                            }}
-                          >
-                            <IconUnderline className="text-black size-5" />
-                          </button>
-
-                          <button
-                            className={
-                              editor?.isActive("heading", { level: 1 })
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.commands.toggleHeading({ level: 1 });
-                            }}
-                          >
-                            <IconH1 className="text-black size-5" />
-                          </button>
-                          <button
-                            className={
-                              editor?.isActive("heading", { level: 2 })
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.commands.toggleHeading({ level: 2 });
-                            }}
-                          >
-                            <IconH2 className="text-black size-5" />
-                          </button>
-                          <button
-                            className={
-                              editor?.isActive("heading", { level: 3 })
-                                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                                : "hover:bg-gray-200 p-2 font-bold"
-                            }
-                            onClick={() => {
-                              editor!.commands.toggleHeading({ level: 3 });
-                            }}
-                          >
-                            <IconH3 className="text-black size-5" />
-                          </button>
-
-                          <button
-                            className="hover:bg-gray-200 p-2"
-                            onClick={() => {
-                              editor!.commands.toggleLink({
-                                href: "https://instantpersonas.com",
-                              });
-                            }}
-                          >
-                            <LinkIcon className="text-black size-5" />
-                          </button>
-
-                          <button
-                            className="hover:bg-gray-200 p-2"
-                            onClick={() => {
-                              // insert an image
-                              editor!.commands.setImage({
-                                src: "https://i.imgur.com/e3lG3KA.png",
-                                alt: "A boring example image",
-                                title: "An example",
-                              });
-                            }}
-                          >
-                            <PhotoIcon className="text-black size-5" />
-                          </button>
-                          <button
-                            id="add"
-                            onClick={addYoutubeVideo}
-                            className="hover:bg-gray-200 p-2"
-                          >
-                            <IconBrandYoutubeFilled className="text-black size-5" />
-                          </button>
-                        </div>
-                      )}
                       {/* Autocomplete */}
                       <FloatingMenu
                         // shouldShow={({ editor, view, state, oldState }) => {
@@ -663,14 +639,11 @@ export default function DocumentEditor() {
                         )}
                       </FloatingMenu>
                       {view === "editor" ? (
-                        <ScrollArea className="order-1 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
-                          <EditorContent
-                            editor={editor}
-                            className="h-screen"
-                            style={{ width: "800px" }} //TODO: make this resizable
-                          />
-                          <ScrollBar orientation="vertical" />
-                        </ScrollArea>
+                        <EditorContent
+                          editor={editor}
+                          className="h-full"
+                          style={{ width: "800px" }} //TODO: make this resizable
+                        />
                       ) : view === "markdown" ? (
                         <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
                           <CodeInput
@@ -702,7 +675,7 @@ export default function DocumentEditor() {
               </div>
             </div>
 
-            <div className="border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[320px] p-2">
+            <div className="fixed top-10 right-10 h-full border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[340px] p-2">
               {selectedPersonas.length > 0 ? (
                 selectedPersonas.map((persona, i) => (
                   <SelectArchetypeWidget
@@ -728,22 +701,29 @@ export default function DocumentEditor() {
                 <div />
               )}
               {isSubscribed ? (
-                <PersonaSelectFromHistorySidebar
-                  className="m-4"
-                  selectedPersonas={selectedPersonas}
-                  setSelectedPersonas={setSelectedPersonas}
-                />
+                <div className="flex justify-center">
+                  <PersonaSelectFromHistorySidebar
+                    className="m-4"
+                    selectedPersonas={selectedPersonas}
+                    setSelectedPersonas={setSelectedPersonas}
+                  />
+                </div>
               ) : null}
               <div className="h-0.5 w-full bg-gray-100" />
               <b className="ml-2">Google Keywords (US Searches)</b>
               <br></br>
-              <GoogleKeywordFinderTool
-                input={personaString}
-                isSubscribed={isSubscribed}
-                noInput={selectedPersonas.length === 0 && detailsInput === ""}
-                isSidebar={true}
-                blog={title + " " + (editor !== null ? editor!.getText() : "")}
-              />
+              <ScrollArea className="z-50 order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+                <GoogleKeywordFinderTool
+                  input={personaString}
+                  isSubscribed={isSubscribed}
+                  noInput={selectedPersonas.length === 0 && detailsInput === ""}
+                  isSidebar={true}
+                  blog={
+                    title + " " + (editor !== null ? editor!.getText() : "")
+                  }
+                />
+                <ScrollBar orientation="vertical" />
+              </ScrollArea>
             </div>
           </div>
         </div>

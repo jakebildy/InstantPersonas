@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         isLoggedIn ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
       }
     >
-      {/document-editor\/.+/.test(currentURL) ? (
+      {/editor\/.+/.test(currentURL) ? (
         <div className="h-full w-full flex-1">{children}</div>
       ) : user.user ? (
         <DashboardLayout>

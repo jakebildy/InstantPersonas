@@ -56,7 +56,7 @@ export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 export const SEO_LINKS = [
   {
     title: "Document Editor",
-    href: "/tools/document-editor",
+    href: "/tools/editor",
     category: "Blogging",
     lead: "Easily write documents targeting your personas",
     icon: PencilSquareIcon,

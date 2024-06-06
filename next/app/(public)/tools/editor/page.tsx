@@ -52,10 +52,7 @@ export default function DocumentsPage({}: {}) {
               const response = await api.documentEditor.createDocument(
                 user.user_id as string
               );
-              window.open(
-                "/tools/document-editor/" + response.result._id,
-                "_self"
-              );
+              window.open("/tools/editor/" + response.result._id, "_self");
             }}
             className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-[1px] border-spacing-1 border-slate-400 hover:border-green-600 hover:text-green-600 text-slate-400 hover:shadow-lg cursor-pointer"
           >
@@ -68,7 +65,7 @@ export default function DocumentsPage({}: {}) {
           {documents.map((doc) => (
             <div
               onClick={() => {
-                window.open("/tools/document-editor/" + doc._id, "_self");
+                window.open("/tools/editor/" + doc._id, "_self");
               }}
               className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-[1px] border-spacing-1 border-slate-400 hover:border-green-600 hover:shadow-lg cursor-pointer"
             >
