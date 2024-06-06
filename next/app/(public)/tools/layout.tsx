@@ -11,6 +11,7 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
+  const currentURL = window.location.href;
 
   return (
     <main
@@ -18,7 +19,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         isLoggedIn ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
       }
     >
-      {user.user ? (
+      {/document-editor\/.+/.test(currentURL) ? (
+        <div className="h-full w-full flex-1">{children}</div>
+      ) : user.user ? (
         <DashboardLayout>
           <ScrollArea className="h-[calc(100dvh-2px)]">
             <div className="h-full w-full flex-1">{children}</div>
