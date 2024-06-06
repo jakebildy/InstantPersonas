@@ -5,6 +5,7 @@ import { PERSONA_CHAT_AI_COMPONENT_MAP } from "@/components/page-specific/genera
 import { getUIStateFromAIState } from "./utils/get-ui-state-from-ai-state";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "./initial-ai-state";
 import { submitPersonaChatUserMessage } from "./render";
+import { upsertPersonaChat } from "@/app/(server)/api/(persona-crud)/upsert-persona-chat/action";
 
 export async function onSetPersonaChatState({
   state,
@@ -16,22 +17,13 @@ export async function onSetPersonaChatState({
   "use server";
 
   if (done) {
-    console.log("Pretending to save...", state.chatId);
-    //!TODO - save the AI state to the database
-    // const personaChat = await PersonaChat.findOne({
-    //   _id: state.chatId,
-    // });
+    console.log("saving...", state.chatId);
 
-    // if (personaChat) {
-    //   personaChat.aiState = state;
-    //   await personaChat.save();
-    // } else {
-    //   const personaChat: any = await PersonaChat.create({
-    //     aiState: state,
-    //     user: state.userID,
-    //     aiSuggestedChats: [],
-    //   });
-    // }
+    await upsertPersonaChat({
+      id: state.chatId,
+      userID: state.userID,
+      data: state,
+    });
   }
 }
 

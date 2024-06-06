@@ -13,6 +13,10 @@ import { PersonaChangeDiffCardWithWidth } from "./assistant/tool-responses/perso
 import { VideoContentList } from "./assistant/tool-responses/persona-chat/persona_content_consumption/video-content";
 import { ConfirmKnowledgeCardWithMessage } from "./assistant/tool-responses/persona-chat/confirm_business_knowledge/confirm-knowledge-card-with-message";
 import { SystemDevInfo } from "./system/system-dev-info";
+import { create, update } from "lodash";
+import { z } from "zod";
+import { PersonaArchetypeValidator } from "@/app/(server)/models/persona-ai.model";
+import { extractKeysFromZodSchema } from "@/lib/utils";
 
 type AIMessageRoles = ExtractField<CoreMessage, "role">;
 
@@ -53,3 +57,45 @@ export const PERSONA_CHAT_AI_COMPONENT_MAP = {
     persona_content_consumption: VideoContentList,
   },
 } as const;
+
+const confirmKnowledgeCardWithMessagePropValidator = z.object({
+  knowledge: z.object({
+    business: z.string(),
+    targetProblem: z.string().optional(),
+  }),
+  message: z.string().optional(),
+});
+export const inlinePersonaArchetypeListPropValidator = z.array(
+  PersonaArchetypeValidator
+);
+
+export const personaChangeDiffCardPropValidator = z.object({
+  origin_archetype: PersonaArchetypeValidator,
+  updated_archetype: PersonaArchetypeValidator,
+  personaIndex: z.number(),
+});
+
+export const videoContentListPropValidator = z.array(z.string());
+
+//? Used in `fix-messages.tsx` to update legacy messages to the new format.
+//! If not updated chat functionality can break for legacy chat history
+export const PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS = {
+  confirm_business_knowledge: confirmKnowledgeCardWithMessagePropValidator,
+  create_persona: inlinePersonaArchetypeListPropValidator,
+  update_persona: personaChangeDiffCardPropValidator,
+  persona_content_consumption: videoContentListPropValidator,
+};
+
+export const PERSONA_CHAT_AI_TOOL_ARGS = Object.entries(
+  PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS
+).map(([key, validator]) => {
+  const props = extractKeysFromZodSchema(validator);
+  return { key, props };
+});
+
+export const PERSONA_CHAT_AI_TOOL_ARGS_UNIQUE_DESTRUCTURED =
+  PERSONA_CHAT_AI_TOOL_ARGS.map(({ key, props }) => {
+    return { [key]: [...new Set(props.flatMap((prop) => prop.split(".")))] };
+  }).reduce((acc, current) => {
+    return { ...acc, ...current };
+  }, {});

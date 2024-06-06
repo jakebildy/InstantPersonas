@@ -2,7 +2,7 @@
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
 import { limitTextToFirstDelimiter } from "@/lib/utils";
-import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
+import { convertPersonaChatsToPersonaWithIDs } from "@/app/(server)/models/persona_with_id.model";
 
 export function RecentPersonasList({
   personachats,

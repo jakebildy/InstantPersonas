@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils";
 import BarLoader from "react-spinners/BarLoader";
 
 export function PreventNotAuth() {
-  const { isLoggedIn, isInitialized, isLoading } = useInstantPersonasUser();
+  const { isLoggedIn, isInitialized, isLoading, user } =
+    useInstantPersonasUser();
 
-  if (!isInitialized && !isLoggedIn) {
+  if ((!isInitialized && !isLoggedIn) || !user) {
     return (
       <div className="w-screen h-screen fixed p-4 grid place-items-center inset-0 bg-pastel-blue/75 backdrop-blur-lg z-[999]">
         <div className="text-center text-gray-700 flex flex-col items-center gap-1 max-w-[90vw]">

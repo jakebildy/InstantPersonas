@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document, Model } from "mongoose";
 import { AIState } from "./persona-ai.model";
 
 export interface PersonaChatType {
@@ -8,6 +8,10 @@ export interface PersonaChatType {
   contentLastGeneratedAt?: Date;
   _id?: string;
 }
+
+// Interface for PersonaChat document
+// Omitting _id field from PersonaChatType to avoid conflicts with Document._id
+export interface PersonaChatDocument extends Document<PersonaChatType> {}
 
 const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   {
@@ -22,6 +26,6 @@ const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   }
 );
 
-export const PersonaChat =
-  mongoose.models.PersonaChat ||
+export const PersonaChat: Model<PersonaChatDocument> =
+  mongoose.models?.PersonaChat ||
   mongoose.model("PersonaChat", PersonaChatSchema);

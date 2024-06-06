@@ -68,6 +68,7 @@ export const AIStateValidator = z.object({
   personas: z.array(PersonaArchetypeValidator).default([]),
   messages: z.array(MessageValidator).default([]),
   suggestedMessages: z.array(z.string()).default([]),
+  userID: z.string().optional(),
 });
 
 export type PersonaArchetype = {

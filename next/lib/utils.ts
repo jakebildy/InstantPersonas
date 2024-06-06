@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { customAlphabet } from "nanoid";
 import * as React from "react";
+import Zod from "zod";
 
 /**
  * compose tailwind classnames
@@ -346,46 +347,30 @@ export function replaceValueWithPlaceholderIfDefault({
   return value ? (value === defaultValue ? placeholder : value) : placeholder;
 }
 
-export function levenshtein(a: string, b: string): number
-{
-	const an = a ? a.length : 0;
-	const bn = b ? b.length : 0;
-	if (an === 0)
-	{
-		return bn;
-	}
-	if (bn === 0)
-	{
-		return an;
-	}
-	const matrix = new Array<number[]>(bn + 1);
-	for (let i = 0; i <= bn; ++i)
-	{
-		let row = matrix[i] = new Array<number>(an + 1);
-		row[0] = i;
-	}
-	const firstRow = matrix[0];
-	for (let j = 1; j <= an; ++j)
-	{
-		firstRow[j] = j;
-	}
-	for (let i = 1; i <= bn; ++i)
-	{
-		for (let j = 1; j <= an; ++j)
-		{
-			if (b.charAt(i - 1) === a.charAt(j - 1))
-			{
-				matrix[i][j] = matrix[i - 1][j - 1];
-			}
-			else
-			{
-				matrix[i][j] = Math.min(
-					matrix[i - 1][j - 1], // substitution
-					matrix[i][j - 1], // insertion
-					matrix[i - 1][j] // deletion
-				) + 1;
-			}
-		}
-	}
-	return matrix[bn][an];
-};
+export function extractKeysFromZodSchema(schema: Zod.ZodType): string[] {
+  // Adjusted: Signature now uses Zod.ZodType to eliminate null& undefined check
+  // check if schema is nullable or optional
+  if (schema instanceof Zod.ZodNullable || schema instanceof Zod.ZodOptional) {
+    return extractKeysFromZodSchema(schema.unwrap());
+  }
+  // check if schema is an array
+  if (schema instanceof Zod.ZodArray) {
+    return extractKeysFromZodSchema(schema.element);
+  }
+  // check if schema is an object
+  if (schema instanceof Zod.ZodObject) {
+    // get key/value pairs from schema
+    const entries = Object.entries<Zod.ZodType>(schema.shape); // Adjusted: Uses Zod.ZodType as generic to remove instanceof check. Since .shape returns ZodRawShape which has Zod.ZodType as type for each key.
+    // loop through key/value pairs
+    return entries.flatMap(([key, value]) => {
+      // get nested keys
+      const nested = extractKeysFromZodSchema(value).map(
+        (subKey) => `${key}.${subKey}`
+      );
+      // return nested keys
+      return nested.length ? nested : key;
+    });
+  }
+  // return empty array
+  return [];
+}
