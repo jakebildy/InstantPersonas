@@ -5,7 +5,7 @@ import { getMutableAIState, render } from "ai/rsc";
 import { z } from "zod";
 import React from "react";
 import { Loading } from "@/components/page-specific/generative-ui/loading";
-import { initMongoDB } from "@/database/mongodb";
+import { initMongoDB } from "@/app/(server)/mongodb";
 import { createArchetypes } from "./tools/create_archetypes";
 import { IS_TEST_DEV_ENV, nanoid } from "@/lib/utils";
 import { fixJson } from "@/lib/fix-json";
@@ -15,7 +15,6 @@ import {
   AIStateValidator,
   PersonaArchetype,
 } from "../../models/persona-ai.model";
-import { PersonaChat } from "../../models/personachat.model";
 import { ASSISTANT_PROMPT } from "./utils/prompts";
 import { InstantPersonasSystemPrompt } from "./utils/instant-personas-system-prompt";
 
@@ -31,7 +30,7 @@ export const maxDuration = 300;
 export async function submitPersonaChatUserMessage(
   userInput: string,
   userID: string,
-  personaChatID: string | undefined
+  personaChatID: string | undefined | null
 ) {
   "use server";
 
@@ -63,6 +62,8 @@ export async function submitPersonaChatUserMessage(
         content: userInput,
       },
     ],
+    userID,
+    // chatId: personaChatID,
   });
 
   try {
@@ -109,16 +110,16 @@ export async function submitPersonaChatUserMessage(
             suggestedMessages: suggestedMessages,
           });
 
-          if (personaChatID) {
-            const personaChat = await PersonaChat.findOne({
-              _id: personaChatID,
-            });
+          // if (personaChatID) {
+          //   const personaChat = await PersonaChat.findOne({
+          //     _id: personaChatID,
+          //   });
 
-            if (personaChat) {
-              personaChat.aiState = aiState.get();
-              await personaChat.save();
-            }
-          }
+          //   if (personaChat) {
+          //     personaChat.aiState = aiState.get();
+          //     await personaChat.save();
+          //   }
+          // }
         }
 
         return (
@@ -387,7 +388,7 @@ export async function submitPersonaChatUserMessage(
     });
 
     return {
-      id: Date.now(),
+      id: nanoid(),
       display: IS_TEST_DEV_ENV ? (
         <>
           {ui}{" "}

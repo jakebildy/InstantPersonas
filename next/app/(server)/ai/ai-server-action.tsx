@@ -1,6 +1,6 @@
 import "server-only";
 
-import { initMongoDB } from "@/database/mongodb";
+import { initMongoDB } from "@/app/(server)/mongodb";
 import { PERSONA_CHAT_AI } from "./persona-chat-ai";
 
 initMongoDB();

@@ -1,34 +1,37 @@
 import { User } from "@/app/(server)/models/user.model";
-import { initMongoDB } from "@/database/mongodb";
-import mongoose from "mongoose";
-import { NextApiRequest, NextApiResponse } from "next";
+import { initMongoDB } from "@/app/(server)/mongodb";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
+import { NextApiResponse } from "next";
 
-export async function POST (req: any, res: NextApiResponse) {
-
-  const data = await req.json()
+export async function POST(req: any, res: NextApiResponse) {
+  const data = await req.json();
 
   const { userID, email } = data;
   if (!userID) throw "User ID is not defined";
   if (!email) throw "User ID is not defined";
 
-  // check if mongodb is connected
-  //  if not, connect to mongodb
-  mongoose.connection.readyState === 1 ? console.log("Mongoose Connected") : await initMongoDB();
+  await initMongoDB();
 
-//  after u have this. make sure the logic to update the stripe subscriptionID exists.
-
-  console .log("POST -> Creating user with ID: ", userID, " and email: ", email);
+  //  after u have this. make sure the logic to update the stripe subscriptionID exists.
+  IS_TEST_DEV_ENV
+    ? console.log(
+        "DEV: POST -> Creating user with ID: ",
+        userID,
+        " and email: ",
+        email
+      )
+    : null;
 
   try {
-  const user = await User.findOne({stytchID: userID});
-  console.log ("Found User: ", user);
-  if (!user) throw "User not found";
-  return Response.json(user);
+    const user = await User.findOne({ stytchID: userID });
+    console.log("Found User: ", user);
+    if (!user) throw "User not found";
+    return Response.json(user);
   } catch (error) {
     // create user
     const newUser = new User({
       stytchID: userID,
-      email : email,
+      email: email,
       stripeCustomerId: null,
       stripeSubscriptionId: null,
       onBoarded: false,
