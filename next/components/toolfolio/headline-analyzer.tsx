@@ -75,7 +75,7 @@ export function HeadlineAnalyzerTool({
   }
 
   return (
-    <div>
+    <div className={isPopup ? "text-center" : ""}>
       {!hasReturnedAnalysis && !loading ? (
         ""
       ) : loading ? (
@@ -315,22 +315,26 @@ export function HeadlineAnalyzerTool({
         </div>
       )}
 
-      <div className="text-center">
-        {!isSubscribed && hasReturnedAnalysis
-          ? "Sign up to understand your audience better and increase conversions!"
-          : ""}
-        <br />
-        <button
-          className={
-            noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
-          }
-          onClick={analyzeHeadline}
-        >
-          {loading ? "Analyzing..." : "Analyze Headline"}
-        </button>
-      </div>
+      {isPopup ? (
+        <div className="h-[200px]" />
+      ) : (
+        <div className="text-center">
+          {!isSubscribed && hasReturnedAnalysis
+            ? "Sign up to understand your audience better and increase conversions!"
+            : ""}
+          <br />
+          <button
+            className={
+              noInput
+                ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
+                : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
+            }
+            onClick={analyzeHeadline}
+          >
+            {loading ? "Analyzing..." : "Analyze Headline"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
