@@ -75,6 +75,8 @@ export async function submitPersonaChatUserMessage(
         content: userInput,
       },
     ],
+    userID,
+    // chatId: personaChatID,
   });
 
   !IS_TEST_DEV_ENV
