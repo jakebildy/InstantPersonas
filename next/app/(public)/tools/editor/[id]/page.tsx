@@ -338,7 +338,7 @@ export default function DocumentEditor() {
       <div className=" fixed top-0 w-full h-20 bg-slate-50 mb-2 z-50 ">
         <div>
           <a
-            href="/tools/document-editor"
+            href="/tools/editor"
             aria-label="Document Editor"
             className="absolute top-5 ml-5 z-[100] hover:bg-slate-200 p-2 rounded-full"
           >
@@ -629,7 +629,7 @@ export default function DocumentEditor() {
                 {isSubscribed ? (
                   <section
                     className={cn(
-                      "border border-gray-300 rounded-md  bg-white flex flex-col gap-2 w-[900px] p-[50px] mr-[140px]"
+                      "border border-gray-300 rounded-md  bg-white flex flex-col gap-2  p-[50px] sm:w-[60%] sm:mr-[20%] lg:w-[900px] lg:mr-[140px]"
                     )}
                   >
                     <div className=" rounded-sm  bg-white">
@@ -696,8 +696,7 @@ export default function DocumentEditor() {
                       {view === "editor" ? (
                         <EditorContent
                           editor={editor}
-                          className="h-full"
-                          style={{ width: "800px" }} //TODO: make this resizable
+                          className="h-full w-[calc(90%-50px)] ml-[20px]"
                         />
                       ) : view === "markdown" ? (
                         <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
@@ -730,7 +729,7 @@ export default function DocumentEditor() {
               </div>
             </div>
 
-            <div className="fixed top-10 right-10 h-full border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[340px] p-2">
+            <div className="fixed top-10 right-2 h-full border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[340px] p-2">
               {selectedPersonas.length > 0 ? (
                 selectedPersonas.map((persona, i) => (
                   <SelectArchetypeWidget
