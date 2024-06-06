@@ -112,7 +112,7 @@ export function GoogleKeywordFinderTool({
                           return 1;
                         }
                       })
-
+                      .filter((keyword) => keyword.search_volume)
                       .map((keyword, i) => {
                         return (
                           <GoogleKeywordTableRow

@@ -76,7 +76,11 @@ export default function DocumentEditor() {
           personas: selectedPersonas.map(
             ({ pictureURL, ...rest }) => rest
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
-          details: "Should be keywords related to the following blog: " + title,
+          details:
+            "Blog Title " +
+            title +
+            " " +
+            (editor !== null ? editor!.getText() : ""),
           paid: isSubscribed,
         }
       : "Should be keywords related to the following blog:" + title;
@@ -766,7 +770,7 @@ export default function DocumentEditor() {
               <div className="h-0.5 w-full bg-gray-100" />
               <b className="ml-2">Google Keywords (US Searches)</b>
               <br></br>
-              <ScrollArea className="z-50 order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
                 <GoogleKeywordFinderTool
                   input={personaString}
                   isSubscribed={isSubscribed}

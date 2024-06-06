@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import axios from "axios";
 import { NextResponse } from "next/server";
-import { GPT4 } from "@/app/(server)/ai/gpt";
+import { ChatGPT, GPT4 } from "@/app/(server)/ai/gpt";
 
 
 export async function POST(req: Request) {
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
         body.details +
         ", find 50 Google search keywords relevant to the blog that the persona(s) might have searched. At least half should be three words or less. ONLY return the keywords, separated by commas. this is an example response: 'swimming techniques, swimming gear'";
 
-      const chatResponse = await GPT4(systemMessage);
+      const chatResponse = await ChatGPT(systemMessage);
 
       console.log("response: " + chatResponse.text.trim());
 
