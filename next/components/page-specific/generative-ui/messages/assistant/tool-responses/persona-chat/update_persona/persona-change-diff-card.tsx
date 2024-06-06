@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { cva, VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/fcs/fcs-separator";
 import {

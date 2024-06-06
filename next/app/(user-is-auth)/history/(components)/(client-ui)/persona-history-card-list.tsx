@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { PersonaHistoryCard } from "./persona-history-card";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
-import { convertPersonaChatsToPersonaWithIDs } from "@/util/util";
+import { convertPersonaChatsToPersonaWithIDs } from "@/app/(server)/models/persona_with_id.model";
 
 export default function PersonaHistoryCardList({
   personachats,

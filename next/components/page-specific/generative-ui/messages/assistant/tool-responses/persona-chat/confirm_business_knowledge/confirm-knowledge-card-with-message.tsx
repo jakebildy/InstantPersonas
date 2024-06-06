@@ -1,5 +1,3 @@
-import { PersonStandingIcon } from "lucide-react";
-import { gradientVariants } from "@/components/variants";
 import {
   ConfirmKnowledgeCard,
   ConfirmKnowledgeCardProps,

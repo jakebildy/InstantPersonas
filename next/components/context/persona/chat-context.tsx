@@ -2,19 +2,28 @@
 import { AI } from "@/app/(server)/ai/ai-server-action";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "@/app/(server)/ai/persona-chat-ai/initial-ai-state";
 import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
-import { AIState } from "@/app/(server)/models/persona-ai.model";
+import { AIState, ClientMessage } from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { BASE_URL } from "@/lib/site";
-import { IS_TEST_DEV_ENV } from "@/lib/utils";
+import { IS_TEST_DEV_ENV, nanoid } from "@/lib/utils";
+import api from "@/service/api.service";
 import { useActions, useAIState, useUIState } from "ai/rsc";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState,
 } from "react";
+import { useInstantPersonasUser } from "../auth/user-context";
+import { SystemErrorMessage } from "@/components/page-specific/generative-ui/messages/system/system-error-message";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { UserMessage } from "@/components/page-specific/generative-ui/messages/user/user-message";
+import { AssistantMessage } from "@/components/page-specific/generative-ui/messages/assistant/assistant-message";
 
 type PersonaChatContextType = {
   chatId: string | null;
@@ -24,7 +33,10 @@ type PersonaChatContextType = {
   messages: any;
   personas: any;
   setMessages: any;
-  submitPersonaChatUserMessage: any;
+  previousPath: string | null;
+  handleSubmit: (message?: string) => void;
+  suggestedMessages: string[];
+  setSuggestedMessages: Dispatch<SetStateAction<string[]>>;
 };
 
 const PersonaChatContext = createContext<PersonaChatContextType | undefined>(
@@ -40,16 +52,24 @@ export const PersonaChatProvider = ({
   children,
   fetchChatWithId,
 }: PersonaChatProviderProps) => {
+  //? State for Persona Chat
   const [chatId, setChatId] = useState<string | null>(null);
-  const [shareLink, setShareLink] = useState<string | null>(null);
   const [aiState, setAiState]: [AIState | null, (newState: any) => void] =
     useAIState<typeof AI>();
   const [messages, setMessages] = useUIState<typeof AI>();
   const [personas, setPersonas] = useState<any>([]);
+  const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
   const { submitPersonaChatUserMessage } = useActions<typeof AI>();
 
+  //? Path history state to track referrer && Route / Link
+  const [pathHistory, setPathHistory] = useState<string[]>([]);
   const pathname = usePathname();
   const router = useRouter();
+  const previousPath = pathHistory.at(-2) || null;
+  const [shareLink, setShareLink] = useState<string | null>(null);
+
+  //? State for User Auth
+  const { isSubscribed, user } = useInstantPersonasUser();
 
   //? Handle Logic for pathname matching /persona/:chatId and persisting chatId
   useEffect(() => {
@@ -97,7 +117,8 @@ export const PersonaChatProvider = ({
       const fetchChat = async () => {
         if (!chatId || chatId === null) return;
         console.log("UE3: Chat ID passed 2nd null check", chatId);
-        const chat = await fetchChatWithId(chatId);
+        const chat = await api.userPersona.getPersonaChat(chatId);
+        // const chat = await fetchChatWithId(chatId);
         if (chat) {
           setAiState(chat.aiState);
           //TODO Fix type error on Messages getUIStateFromAIState
@@ -118,6 +139,7 @@ export const PersonaChatProvider = ({
     if (aiState) {
       console.log("UE4: Updating personas state");
       setPersonas(aiState.personas);
+      setSuggestedMessages(aiState.suggestedMessages);
     }
   }, [aiState, setPersonas]);
 
@@ -129,12 +151,112 @@ export const PersonaChatProvider = ({
     }
   }, [aiState?.chatId, chatId, messages, pathname, router]);
 
+  //? Handles Path History State
+  //TODO: Refactor to separate context once complexity increases
+  useEffect(() => {
+    if (pathHistory.at(-1) !== pathname) {
+      setPathHistory((prev) => [...prev, pathname]);
+    }
+  }, [pathHistory, pathname]);
+
   //? Function to manually reset chatId
   const resetChatId = () => {
     setChatId(null);
     router.replace("/persona");
     setAiState(PERSONA_CHAT_INITIAL_AI_STATE);
     setMessages([]);
+  };
+
+  const handleSubmit = async (message?: string | null) => {
+    if (!isSubscribed && !IS_TEST_DEV_ENV) {
+      setMessages((currentMessages: ClientMessage[]) => [
+        ...currentMessages,
+        {
+          id: nanoid(),
+          role: "assistant",
+          display: (
+            <SystemErrorMessage
+              message={
+                <div className="flex flex-col w-full gap-2">
+                  <span>
+                    Oops! It seems you haven&apos;t subscribed yet. To continue,
+                    please explore our subscription plans.
+                  </span>
+                  <Button variant={"outline"} size={"sm"} asChild>
+                    <Link href="/subscription">View Subscription Plans</Link>
+                  </Button>
+                </div>
+              }
+            />
+          ),
+        },
+      ]);
+    } else if (!message || message === null || message === "") {
+      setMessages((currentMessages: ClientMessage[]) => [
+        ...currentMessages,
+        {
+          id: nanoid(),
+          role: "assistant",
+          display: (
+            <AssistantMessage
+              message={
+                "It appears your message was submitted without content. Please type your message and submit again."
+              }
+            />
+          ),
+        },
+      ]);
+    } else {
+      const inputtedMessage = message;
+      // Add user message to UI state
+      setMessages((currentMessages: ClientMessage[]) => [
+        ...currentMessages,
+        {
+          id: nanoid(),
+          role: "user",
+          display: <UserMessage message={inputtedMessage} />,
+        },
+      ]);
+
+      // Clear suggested messages
+      setSuggestedMessages([]);
+
+      // Submit and get response message
+      if (user) {
+        const responseMessage = (await submitPersonaChatUserMessage(
+          inputtedMessage,
+          user.id,
+          chatId
+        )) as ClientMessage;
+        setMessages((currentMessages: ClientMessage[]) => [
+          ...currentMessages,
+          responseMessage,
+        ]);
+      } else {
+        setMessages((currentMessages: ClientMessage[]) => [
+          ...currentMessages,
+          {
+            id: nanoid(),
+            role: "assistant",
+            display: (
+              <SystemErrorMessage
+                message={
+                  <div className="flex flex-col w-full gap-2">
+                    <span>
+                      Looks like your session is no longer valid, please log in
+                      again!
+                    </span>
+                    <Button variant={"outline"} size={"sm"} asChild>
+                      <Link href="/login">Log in</Link>
+                    </Button>
+                  </div>
+                }
+              />
+            ),
+          },
+        ]);
+      }
+    }
   };
 
   return (
@@ -145,9 +267,12 @@ export const PersonaChatProvider = ({
         messages,
         personas,
         shareLink,
+        previousPath,
         resetChatId,
         setMessages,
-        submitPersonaChatUserMessage,
+        handleSubmit,
+        suggestedMessages,
+        setSuggestedMessages,
       }}
     >
       {children}

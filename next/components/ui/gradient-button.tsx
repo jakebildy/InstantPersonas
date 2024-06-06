@@ -31,6 +31,7 @@ export interface GradientButtonProps
     VariantProps<typeof IconVariants> {
   variant?: ColorVariant;
   iconClassName?: string;
+  innerClassName?: string;
   Icon: LucideIcon;
 }
 
@@ -45,6 +46,7 @@ export interface GradientButtonProps
     {
       className,
       iconClassName,
+      innerClassName,
       variant = "blue",
       size,
       Icon,
@@ -68,7 +70,10 @@ export interface GradientButtonProps
             ButtonInnerHover({ variant: variant }),
             gradientLightVariants({
               variant: variant,
-              className: "pl-5 flex items-center gap-2 text-sm",
+              className: cn(
+                "pl-5 flex items-center gap-2 text-sm",
+                innerClassName
+              ),
             })
           )}
         >
