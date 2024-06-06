@@ -91,7 +91,11 @@ export default function DocumentEditor() {
       Document,
       Underline,
       Image,
-      Link,
+      Link.configure({
+        HTMLAttributes: {
+          class: "text-blue-600",
+        },
+      }),
       EmojiReplacer,
       ImageResize,
       Markdown,
@@ -160,6 +164,31 @@ export default function DocumentEditor() {
         src: url,
         width: 320 || 640,
         height: 180 || 480,
+      });
+    }
+  };
+
+  const addImage = () => {
+    const url = prompt("Enter Image URL");
+    if (!url) return;
+    const alt = prompt("Add the Image's Alt Tag (for SEO)");
+
+    if (url && alt) {
+      editor!.commands.setImage({
+        src: url,
+        alt: alt,
+      });
+    }
+  };
+
+  const addLink = (dofollow: boolean) => {
+    const url = prompt("Enter URL");
+
+    if (url) {
+      editor!.commands.toggleLink({
+        href: url,
+        //dofollow
+        rel: dofollow ? "dofollow" : "noopener noreferrer nofollow",
       });
     }
   };
@@ -375,13 +404,7 @@ export default function DocumentEditor() {
               sideOffset={5}
             >
               <DropdownMenu.Item
-                onClick={() => {}}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
-              >
-                Link
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                onClick={() => {}}
+                onClick={addImage}
                 className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Image
@@ -392,6 +415,22 @@ export default function DocumentEditor() {
                 className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Video
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                onClick={() => {
+                  addLink(true);
+                }}
+                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+              >
+                Dofollow Link
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
+                onClick={() => {
+                  addLink(false);
+                }}
+                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+              >
+                Nofollow Link
               </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
@@ -526,26 +565,42 @@ export default function DocumentEditor() {
             <IconH3 className="text-black size-5" />
           </button>
 
-          <button
-            className="hover:bg-gray-200 p-2"
-            onClick={() => {
-              editor!.commands.toggleLink({
-                href: "https://instantpersonas.com",
-              });
-            }}
-          >
-            <LinkIcon className="text-black size-5" />
-          </button>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button className="hover:bg-gray-200 p-2">
+                <LinkIcon className="text-black size-5" />
+              </button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Portal>
+              <DropdownMenu.Content
+                className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                sideOffset={5}
+              >
+                <DropdownMenu.Item
+                  onClick={() => {
+                    addLink(true);
+                  }}
+                  className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                >
+                  Dofollow Link
+                </DropdownMenu.Item>
+                <DropdownMenu.Item
+                  onClick={() => {
+                    addLink(false);
+                  }}
+                  className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                >
+                  Nofollow Link
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
 
           <button
             className="hover:bg-gray-200 p-2"
             onClick={() => {
               // insert an image
-              editor!.commands.setImage({
-                src: "https://i.imgur.com/e3lG3KA.png",
-                alt: "A boring example image",
-                title: "An example",
-              });
+              addImage();
             }}
           >
             <PhotoIcon className="text-black size-5" />
