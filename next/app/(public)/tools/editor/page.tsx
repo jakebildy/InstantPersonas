@@ -18,7 +18,7 @@ import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 export default function DocumentsPage({}: {}) {
   const [documents, setDocuments] = useState<DocumentDraft[]>([]);
 
-  const { user } = useStytchUser();
+  const { user, isInitialized } = useStytchUser();
 
   // fetch all documents
   useEffect(() => {
@@ -31,9 +31,15 @@ export default function DocumentsPage({}: {}) {
       console.log(response);
       setDocuments(response);
     };
-
     fetchDocuments();
   }, [user]);
+
+  //Redirect to login if not logged in
+  useEffect(() => {
+    if (!user && isInitialized) {
+      window.location.href = "/login";
+    }
+  }, [user, isInitialized]);
 
   return !user ? (
     <div />
@@ -44,7 +50,7 @@ export default function DocumentsPage({}: {}) {
           Documents
         </h1>
         {/* grid of 5 x 5 squares */}
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-3  md:grid-cols-4 lg:grid-cols-5 gap-4">
           <div
             onClick={async () => {
               // navigate to document editor
@@ -57,8 +63,8 @@ export default function DocumentsPage({}: {}) {
             className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-[1px] border-spacing-1 border-slate-400 hover:border-green-600 hover:text-green-600 text-slate-400 hover:shadow-lg cursor-pointer"
           >
             <div className="flex flex-row items-center w-full gap-2">
-              <div className="w-[200px] h-[300px]">
-                <IconPlus size={64} className="mt-[110px] ml-[65px]" />
+              <div className="w-[200px] h-[300px] flex justify-center">
+                <IconPlus size={64} className="mt-[110px]" />
               </div>
             </div>
           </div>

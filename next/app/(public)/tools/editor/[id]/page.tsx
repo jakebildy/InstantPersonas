@@ -61,6 +61,7 @@ export default function DocumentEditor() {
     PersonaBusinessArchetype[]
   >([]);
   const { isSubscribed } = useInstantPersonasUser();
+  const { user, isInitialized } = useStytchUser();
 
   const [lastTypedTime, setLastTypedTime] = useState(Date.now());
   const [showCommandMenu, setShowCommandMenu] = useState(false);
@@ -88,7 +89,6 @@ export default function DocumentEditor() {
     setPersonaString(JSON.stringify(results));
   }, [selectedPersonas, title, isSubscribed]);
 
-  const { user } = useStytchUser();
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -138,6 +138,13 @@ export default function DocumentEditor() {
     content: content,
   });
 
+  //Redirect to login if not logged in
+  useEffect(() => {
+    if (!user && isInitialized) {
+      window.location.href = "/login";
+    }
+  }, [user, isInitialized]);
+
   useEffect(() => {
     // fetch Documents function is async
     const fetchDocuments = async () => {
@@ -152,8 +159,18 @@ export default function DocumentEditor() {
 
       if (document) {
         setTitle(document.title);
-        setContent(document.content);
-        editor!.commands.setContent(document.content);
+
+        if (document.content === " ") {
+          setContent(
+            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>"
+          );
+          editor!.commands.setContent(
+            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>"
+          );
+        } else {
+          setContent(document.content);
+          editor!.commands.setContent(document.content);
+        }
       }
     };
 
