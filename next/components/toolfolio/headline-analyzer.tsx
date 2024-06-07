@@ -10,11 +10,13 @@ import ReactSpeedometer from "react-d3-speedometer";
 import { calculateReadability } from "@/util/util";
 
 export function HeadlineAnalyzerTool({
+  isPopup,
   headline,
   input,
   isSubscribed,
   noInput,
 }: {
+  isPopup: boolean | undefined;
   headline: string;
   input: string;
   isSubscribed: boolean;
@@ -48,8 +50,32 @@ export function HeadlineAnalyzerTool({
     );
   }
 
+  useEffect(() => {
+    if (isPopup) {
+      analyzeHeadline();
+    }
+  }, []);
+
+  async function analyzeHeadline() {
+    setIsLoading(true);
+    console.log("Finding guest post opportunities for persona: ", input);
+
+    const response = await api.tools.analyzeHeadline(headline, isSubscribed);
+    // console.log(response);
+
+    // setNumSyllables(response.syllables);
+    setEngagingness(response.engagingness); // 1-4
+    setClarity(response.clarity); // 1-4
+    setSkimmability(response.skimmability); // true or false
+    setIsLoading(false);
+    setHasReturnedAnalysis(true);
+    setPowerWordsIncluded(response.powerWordsIncluded);
+    setSerpData(response.serpData);
+    setDifficultyScore(response.difficultyScore);
+  }
+
   return (
-    <div>
+    <div className={isPopup ? "text-center" : ""}>
       {!hasReturnedAnalysis && !loading ? (
         ""
       ) : loading ? (
@@ -289,44 +315,26 @@ export function HeadlineAnalyzerTool({
         </div>
       )}
 
-      <div className="text-center">
-        {!isSubscribed && hasReturnedAnalysis
-          ? "Sign up to understand your audience better and increase conversions!"
-          : ""}
-        <br />
-        <button
-          className={
-            noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
-          }
-          onClick={async () => {
-            setIsLoading(true);
-            console.log(
-              "Finding guest post opportunities for persona: ",
-              input
-            );
-
-            const response = await api.tools.analyzeHeadline(
-              headline,
-              isSubscribed
-            );
-            // console.log(response);
-
-            // setNumSyllables(response.syllables);
-            setEngagingness(response.engagingness); // 1-4
-            setClarity(response.clarity); // 1-4
-            setSkimmability(response.skimmability); // true or false
-            setIsLoading(false);
-            setHasReturnedAnalysis(true);
-            setPowerWordsIncluded(response.powerWordsIncluded);
-            setSerpData(response.serpData);
-            setDifficultyScore(response.difficultyScore);
-          }}
-        >
-          {loading ? "Analyzing..." : "Analyze Headline"}
-        </button>
-      </div>
+      {isPopup ? (
+        <div className="h-[200px]" />
+      ) : (
+        <div className="text-center">
+          {!isSubscribed && hasReturnedAnalysis
+            ? "Sign up to understand your audience better and increase conversions!"
+            : ""}
+          <br />
+          <button
+            className={
+              noInput
+                ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
+                : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5 mt-2"
+            }
+            onClick={analyzeHeadline}
+          >
+            {loading ? "Analyzing..." : "Analyze Headline"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

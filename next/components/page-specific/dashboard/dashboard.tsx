@@ -12,7 +12,12 @@ import { useEffect, useState } from "react";
 import { InstantPersonas } from "@/components/instantPersonas";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useMediaQuery } from "@/lib/hooks";
-import { SEO_LINKS as TOOLS, SIDEBAR_LINKS, SidebarLinkName } from "@/lib/site";
+import {
+  SEO_LINKS as TOOLS,
+  SIDEBAR_LINKS,
+  SidebarLinkName,
+  UNDERSTAND_TOOLS,
+} from "@/lib/site";
 import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
@@ -91,10 +96,17 @@ export default function DashboardLayout({
             <InstantPersonas isCollapsed={isCollapsed} />
           </div>
           <Separator />
-
+          <div
+            className={cn(
+              "text-slate-300 font-bold  text-xs mt-4",
+              isCollapsed ? "text-center" : "ml-5 text-left"
+            )}
+          >
+            {isCollapsed ? "Learn" : "Understand Your Audience"}
+          </div>
           <Nav
             isCollapsed={isCollapsed}
-            links={SIDEBAR_LINKS.map((element) => ({
+            links={UNDERSTAND_TOOLS.map((element) => ({
               ...element,
               variant: pathname === element.href ? "default" : "ghost",
             }))}
@@ -106,7 +118,7 @@ export default function DashboardLayout({
               isCollapsed ? "text-center" : "ml-5 text-left"
             )}
           >
-            {isCollapsed ? "Create" : "Content Creation"}
+            {isCollapsed ? "Create" : "Create Content"}
           </div>
           <Nav
             isCollapsed={isCollapsed}
@@ -133,6 +145,40 @@ export default function DashboardLayout({
                 variant: pathname === element.href ? "default" : "ghost",
               })
             )}
+          />
+          <div
+            className={cn(
+              "text-slate-300 font-bold  text-xs mt-4",
+              isCollapsed ? "text-center" : "ml-5 text-left"
+            )}
+          >
+            {isCollapsed ? "Other" : "Other Tools"}
+          </div>
+
+          <Nav
+            isCollapsed={isCollapsed}
+            links={TOOLS.filter((tool) => tool.section === "Other Tools").map(
+              (element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })
+            )}
+          />
+
+          <div
+            className={cn(
+              "text-slate-300 font-bold  text-xs mt-4",
+              isCollapsed ? "text-center" : "ml-5 text-left"
+            )}
+          >
+            {isCollapsed ? "Account" : "My Account"}
+          </div>
+          <Nav
+            isCollapsed={isCollapsed}
+            links={SIDEBAR_LINKS.map((element) => ({
+              ...element,
+              variant: pathname === element.href ? "default" : "ghost",
+            }))}
           />
         </ResizablePanel>
         <ResizableHandle withHandle disabled={!canExpandSidebar} />

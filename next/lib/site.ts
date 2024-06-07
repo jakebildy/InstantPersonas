@@ -3,7 +3,6 @@ import {
   BanknotesIcon,
   BookmarkIcon,
   AcademicCapIcon,
-  FireIcon,
   PencilSquareIcon,
   DocumentMagnifyingGlassIcon,
   KeyIcon,
@@ -14,7 +13,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/app/(public)/blog/page";
 
-export const SIDEBAR_LINKS = [
+
+export const UNDERSTAND_TOOLS = [
   {
     title: "Persona Creator",
     href: "/persona",
@@ -27,6 +27,9 @@ export const SIDEBAR_LINKS = [
     icon: BookmarkIcon,
     label: "",
   },
+] as const;
+
+export const SIDEBAR_LINKS = [
   {
     title: "Subscription",
     href: "/subscription",
@@ -42,7 +45,6 @@ export const SIDEBAR_LINKS = [
   {
     title: "Send Feedback",
     href: "/feedback",
-    // icon: PencilSquareIcon,
     icon: ChatBubbleLeftRightIcon,
     label: "",
   },
@@ -53,13 +55,23 @@ export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 // Search icons at https://lucide.dev/icons
 export const SEO_LINKS = [
   {
+    title: "Document Editor",
+    href: "/tools/editor",
+    category: "Blogging",
+    lead: "Easily write documents targeting your personas",
+    icon: PencilSquareIcon,
+    label: "",
+    section: "Create",
+    isFreeTool: false,
+  },
+  {
     title: "Topical Authority",
     href: "/tools/topical-authority",
     icon: AcademicCapIcon,
     category: "SEO",
     lead: "Increase your site's reach with content ideas specifically designed to boost your topical authority. Create a topical authority map and a downloadable table.",
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -79,7 +91,7 @@ export const SEO_LINKS = [
     lead: "Find the best Google keywords for your target audience",
     icon: KeyIcon,
     label: "",
-    section: "Reach",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -89,7 +101,7 @@ export const SEO_LINKS = [
     lead: "Find the best Instagram hashtags for your target audience. View hashtag popularity and more.",
     icon: HashtagIcon,
     label: "",
-    section: "Reach",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -109,7 +121,7 @@ export const SEO_LINKS = [
     lead: "Generate and optimize social media share previews for your content.",
     icon: MessageSquareShareIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
   {
@@ -119,7 +131,7 @@ export const SEO_LINKS = [
     lead: "Find the best titles",
     icon: ChartBarSquareIcon,
     label: "",
-    section: "Create",
+    section: "Other Tools",
     isFreeTool: true,
   },
 ] as const;

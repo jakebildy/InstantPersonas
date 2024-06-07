@@ -108,6 +108,11 @@
   animation: loadAnimation 180s ease-in-out forwards;
 }
 
+/* For the document editor */
+.ProseMirror:focus {
+  outline: none;
+}
+
 @keyframes loadAnimation {
   from {
     width: 3%;

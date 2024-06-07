@@ -1,4 +1,5 @@
 import { AIState } from "@/app/(server)/models/ai-state-type-validators";
+import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
 import axios, { AxiosError } from "axios";
@@ -29,6 +30,17 @@ const api = {
       console.log("response from google keywords api", response);
       return response.data;
     },
+    findGoogleKeywordsDocumentEditor: async (
+      personas: string,
+      paid: boolean
+    ): Promise<any> => {
+      const response = await axios.post("/api/google-keywords-blog", {
+        personas,
+        paid,
+      });
+      console.log("response from google keywords blog api", response);
+      return response.data;
+    },
     findInstagramHashtags: async (
       personas: string,
       paid: boolean
@@ -46,6 +58,20 @@ const api = {
         paid,
       });
       console.log("response from headline analyzer api", response);
+      return response.data;
+    },
+    autocomplete: async (text: string): Promise<any> => {
+      const response = await axios.post("/api/autocomplete", {
+        text,
+      });
+      console.log("response from autocomplete api", response);
+      return response.data;
+    },
+    outlineSections: async (title: string): Promise<any> => {
+      const response = await axios.post("/api/outline-sections", {
+        title,
+      });
+      console.log("response from outline sections api", response);
       return response.data;
     },
     findInstagramAccounts: async (
@@ -201,6 +227,71 @@ const api = {
       return response.data;
     },
   },
+  documentEditor: {
+    getDocuments: async (id?: string): Promise<DocumentDraft[]> => {
+      // Define the base URL for the request
+      const baseUrl = "/api/get-documents";
+
+      // Create an object to hold any query parameters
+      const params = {} as any;
+
+      // If an ID is provided, add it as a query parameter
+      if (id) {
+        params.id = id;
+      }
+
+      // Make the GET request with the query parameters
+      const response = await axios.get(baseUrl, { params });
+
+      // Return the results from the response
+      const data = response.data.results;
+      //! TEMP: Check to make sure aiState is not an array
+
+      if (!data) {
+        return [];
+      }
+      
+      return data;
+    },
+  
+    updateDocument: async (
+      content: string,
+      title: string,
+      id: string
+    ): Promise<DocumentDraft> => {
+      const response = await axios.post(`/api/update-document/`, {
+        documentID: id,
+        content,
+        title,
+      });
+      console.log ("response from update document", response)
+      return response.data.result;
+    },
+
+    createDocument: async (userID: string) => {
+      const response = await axios.post(`/api/create-document`, {
+        userID,
+      });
+      return response.data;
+    },
+    deleteDocument: async (
+      id: string
+    ): Promise<DocumentDraft> => {
+
+      // Create an object to hold any query parameters
+      const params = {
+        id: id,
+      };
+
+      const response = await axios.delete(`/api/delete-document`, {
+        params
+      });
+      console.log ("response from delete document", response)
+      return response.data.result;
+    },
+  },
+
+ 
 };
 
 export default api;
