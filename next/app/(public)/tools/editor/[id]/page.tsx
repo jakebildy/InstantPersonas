@@ -149,11 +149,11 @@ export default function DocumentEditor() {
   });
 
   //Redirect to login if not logged in
-  useEffect(() => {
-    if (!user && isInitialized) {
-      window.location.href = "/login";
-    }
-  }, [user, isInitialized]);
+  // useEffect(() => {
+  //   if (!user && isInitialized) {
+  //     window.location.href = "/login";
+  //   }
+  // }, [user, isInitialized]);
 
   useEffect(() => {
     // fetch Documents function is async
