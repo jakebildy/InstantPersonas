@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { AIState } from "./persona-ai.model";
+import { AIState, AIStateValidator } from "./persona-ai.model";
+import z from "zod";
 
 export interface PersonaChatType {
   aiState: AIState;
@@ -8,6 +9,14 @@ export interface PersonaChatType {
   contentLastGeneratedAt?: Date;
   _id?: string;
 }
+
+export const PersonaChatTypeValidator = z.object({
+  aiState: AIStateValidator,
+  aiSuggestedChats: z.array(z.string()).optional(),
+  user: z.string().optional(),
+  contentLastGeneratedAt: z.date().optional(),
+  _id: z.string().optional(),
+});
 
 // Interface for PersonaChat document
 // Omitting _id field from PersonaChatType to avoid conflicts with Document._id
