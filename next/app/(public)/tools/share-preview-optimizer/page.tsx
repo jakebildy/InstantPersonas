@@ -1,7 +1,7 @@
 "use client";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useEffect, useState } from "react";
-import { ArticleCard, BLOG_POSTS } from "../../blog/page";
+import { BLOG_POSTS } from "@/lib/config/blog";
 import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
