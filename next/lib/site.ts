@@ -55,10 +55,10 @@ export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
 // Search icons at https://lucide.dev/icons
 export const SEO_LINKS = [
   {
-    title: "Document Editor",
+    title: "Content Editor",
     href: "/tools/editor",
     category: "Blogging",
-    lead: "Easily write documents targeting your personas",
+    lead: "Easily write blogs targeting your personas",
     icon: PencilSquareIcon,
     label: "",
     section: "Create",

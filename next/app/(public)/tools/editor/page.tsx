@@ -36,9 +36,12 @@ export default function DocumentsPage({}: {}) {
   ) : (
     <section className="flex-1 bg-gray-100">
       <div className="flex flex-col items-start h-full w-full ml-4">
-        <h1 className="text-xl text-gray-700 text-start pt-10 font-bold mb-5">
-          Documents
+        <h1 className="text-xl text-gray-700 text-start pt-10 font-bold">
+          Blogs
         </h1>
+        <h2 className="text-center text-xs text-slate-400  mb-5">
+          More forms of content editing (videos, posts, etc.) coming soon!{" "}
+        </h2>
         {/* grid of 5 x 5 squares */}
         <div className="grid grid-cols-3  md:grid-cols-4 lg:grid-cols-5 gap-4">
           <div

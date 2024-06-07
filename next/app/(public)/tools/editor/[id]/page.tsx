@@ -360,7 +360,7 @@ export default function DocumentEditor() {
         <div>
           <a
             href="/tools/editor"
-            aria-label="Document Editor"
+            aria-label="Content Editor"
             className="absolute top-5 ml-5 z-[100] hover:bg-slate-200 p-2 rounded-full"
           >
             <IconChevronLeft className="text-black size-8" />
@@ -474,7 +474,7 @@ export default function DocumentEditor() {
             setView(view === "editor" ? "html" : "editor");
           }}
         >
-          Document Editor
+          Content Editor
         </button>
         <button
           className={
