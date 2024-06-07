@@ -192,7 +192,14 @@ const inferKeyFromData = ({
       }
       return null;
     })
-    .filter((item) => item !== null)
+    .filter(
+      (
+        item
+      ): item is {
+        prev: string; // The concatenated keys before the matching key
+        match: string; // The matching key
+      } => item !== null
+    )
     .reduce((acc, item) => {
       if (!acc[item.prev]) {
         acc[item.prev] = []; // Initialize the array if it does not exist
