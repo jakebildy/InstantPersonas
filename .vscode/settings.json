@@ -14,7 +14,7 @@
     ".vscode": true,
     "**/jest.config.js": true,
     "**/next-env.d.ts": true,
-    "**/next.config.mjs": false,
+    "**/next.config.mjs": true,
     "**/package.json": true,
     "**/postcss.config.js": true,
     "**/pnpm-lock.yaml": true,
@@ -26,7 +26,10 @@
     "screenshot1.png": true,
     "screenshot2.png": true,
     "screenshot3.png": true,
-    "screenshot4.png": true
+    "screenshot4.png": true,
+    "**/.gitignore": true,
+    "guestpostfinder-screenshot1.png": true,
+    "guestpostfinder-screenshot2.png": true
   },
   "explorerExclude.backup": {}
 }
