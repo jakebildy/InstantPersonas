@@ -1,5 +1,6 @@
 "use server";
 
+import { fixPersonaChatHistory } from "@/app/(server)/models/fix-persona-chat/fix-persona-chat-history";
 import {
   PersonaChat,
   PersonaChatType,
@@ -25,13 +26,12 @@ export async function getPersonaChat(id: string): Promise<PersonaChatType> {
 
   try {
     const data = await PersonaChat.findById(validatedID);
-    const chat = data?.toJSON() as PersonaChatType;
+    const unverifiedChat = data?.toJSON() as PersonaChatType;
+    const chat = (await fixPersonaChatHistory([unverifiedChat])).at(0);
 
     if (!chat) throw new Error("Chat not found");
 
-    console.log("ID:1 - Chat found", chat);
-
-    return chat as unknown as PersonaChatType;
+    return chat;
   } catch (error) {
     console.error(error);
     throw error;

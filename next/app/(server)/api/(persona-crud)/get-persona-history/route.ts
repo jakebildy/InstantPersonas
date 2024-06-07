@@ -1,3 +1,4 @@
+import { fixPersonaChatHistory } from "@/app/(server)/models/fix-persona-chat/fix-persona-chat-history";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
 
@@ -10,9 +11,11 @@ export async function GET(req: Request) {
   await initMongoDB();
 
   // Get MongoDB PersonaChats where user matches the provided userID
-  const personaChats = await PersonaChat.find({ user: userID });
+  const response = await PersonaChat.find({ user: userID });
+  const personaChats = response.map((chat) => chat.toObject());
+  const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({
-    results: personaChats,
+    results: fixedHistory,
   });
 }

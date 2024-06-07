@@ -1251,6 +1251,8 @@ export const PERSONA_TEST_HISTORY = [
   },
 ];
 
+// Bad test history with incorrectly formatted message history
+//TODO - Add more test data with missing fields and incorrect formats
 export const BAD_TEST_HISTORY = [
   {
     _id: "1293y24ecb89c3fc62129837",
@@ -1577,7 +1579,7 @@ export const BAD_TEST_HISTORY = [
               "Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.",
             End_Goal:
               "To continuously refine and optimize user interfaces for maximum engagement and satisfaction.",
-            Mindset_and_Perspective:
+            Mindness_and_Perspective:
               "Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey.",
           },
           insights: {
@@ -1704,7 +1706,7 @@ export const BAD_TEST_HISTORY = [
           name: "create_persona",
           id: "E5Sf4P1",
           content:
-            '[{"archetype_name":"The Agile Marketer","picture_components":{"clothing":"button_up","glasses":"glasses","hair":"short"},"persona_components":{"Motivations":"Seeks to quickly adapt marketing strategies based on real-time data and audience insights.","Painpoints":"Frustrated by the slow pace of traditional market research and persona development.","Preferences_and_Needs":"Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.","End_Goal":"To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.","Mindset_and_Perspective":"Values efficiency and agility in marketing operations; believes in data-driven decision making."},"insights":{"Enhanced_Interaction_Patterns":"Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.","Strategic_Recommendations":"Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc"},{"archetype_name":"The Product Visionary","picture_components":{"clothing":"sweater_vest","glasses":"none","hair":"ponytail"},"persona_components":{"Motivations":"Aims to design products that perfectly meet the evolving needs of users by understanding subtle shifts in market dynamics.","Painpoints":"Struggles with integrating comprehensive user feedback into the product design process in a scalable way.","Preferences_and_Needs":"Prefers detailed, actionable user insights that can directly inform product development cycles.","End_Goal":"To create innovative and user-centered products that consistently lead the market.","Mindset_and_Perspective":"Driven by user-centric innovation and sustained by a proactive approach to integrating user feedback."},"insights":{"Enhanced_Interaction_Patterns":"Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.","Strategic_Recommendations":"Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1"},{"archetype_name":"The UX Strategist","picture_components":{"clothing":"hoodie","glasses":"round_glasses","hair":"buzzcut"},"persona_components":{"Motivations":"Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.","Painpoints":"Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.","Preferences_and_Needs":"Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.","End_Goal":"To continuously refine and optimize user interfaces for maximum engagement and satisfaction.","Mindset_and_Perspective":"Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey."},"insights":{"Enhanced_Interaction_Patterns":"Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.","Strategic_Recommendations":"Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796"},{"archetype_name":"The Data-Driven Designer","picture_components":{"clothing":"leather_jacket","glasses":"sunglasses","hair":"long_hair_with_ribbon"},"persona_components":{"Motivations":"Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.","Painpoints":"Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.","Preferences_and_Needs":"Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.","End_Goal":"To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.","Mindset_and_Perspective":"Believes in the fusion of art and science within design and values empirical over anecdotal evidence."},"insights":{"Enhanced_Interaction_Patterns":"Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.","Strategic_Recommendations":"Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1"}]',
+            '[{"archetype_name":"The Agile Marketer","picture_components":{"clothing":"button_up","glasses":"glasses","hair":"short"},"persona_components":{"Motivations":"Seeks to quickly adapt marketing strategies based on real-time data and audience insights.","Painpoints":"Frustrated by the slow pace of traditional market research and persona development.","Preferences_and_Needs":"Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.","End_Goal":"To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.","Mindset_and_Perspective":"Values efficiency and agility in marketing operations; believes in data-driven decision making."},"insights":{"Enhanced_Interaction_Patterns":"Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.","Strategic_Recommendations":"Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc"},{"archetype_name":"The Product Visionary","picture_components":{"clothing":"sweater_vest","glasses":"none","hair":"ponytail"},"persona_components":{"Motivations":"Aims to design products that perfectly meet the evolving needs of users by understanding subtle shifts in market dynamics.","Painpoints":"Struggles with integrating comprehensive user feedback into the product design process in a scalable way.","Preferences_and_Needs":"Prefers detailed, actionable user insights that can directly inform product development cycles.","End_Goal":"To create innovative and user-centered products that consistently lead the market.","Mindset_and_Perspective":"Driven by user-centric innovation and sustained by a proactive approach to integrating user feedback."},"insights":{"Enhanced_Interaction_Patterns":"Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.","Strategic_Recommendations":"Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1"},{"archetype_name":"The UX Strategist","picture_components":{"clothing":"hoodie","glasses":"round_glasses","hair":"buzzcut"},"persona_components":{"Motivations":"Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.","Painpoints":"Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.","Preferences_and_Needs":"Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.","End_Goal":"To continuously refine and optimize user interfaces for maximum engagement and satisfaction.","Mindness_and_Perspective":"Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey."},"insights":{"Enhanced_Interaction_Patterns":"Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.","Strategic_Recommendations":"Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796"},{"archetype_name":"The Data-Driven Designer","picture_components":{"clothing":"leather_jacket","glasses":"sunglasses","hair":"long_hair_with_ribbon"},"persona_components":{"Motivations":"Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.","Painpoints":"Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.","Preferences_and_Needs":"Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.","End_Goal":"To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.","Mindset_and_Perspective":"Believes in the fusion of art and science within design and values empirical over anecdotal evidence."},"insights":{"Enhanced_Interaction_Patterns":"Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.","Strategic_Recommendations":"Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1"}]',
         },
       ],
       suggestedMessages: [
@@ -1716,5 +1718,109 @@ export const BAD_TEST_HISTORY = [
     user: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
     createdAt: "2024-05-29T19:30:22.535Z",
     updatedAt: "2024-05-29T19:30:22.535Z",
+  },
+];
+
+export const BAD_PERSONAS = [
+  //? Missing 1 Nested Field `Motivations`
+  {
+    archetype_name: "The Agile Marketer",
+    picture_components: {
+      clothing: "button_up",
+      glasses: "glasses",
+      hair: "short",
+    },
+    persona_components: {
+      Painpoints:
+        "Frustrated by the slow pace of traditional market research and persona development.",
+      Preferences_and_Needs:
+        "Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.",
+      End_Goal:
+        "To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.",
+      Mindset_and_Perspective:
+        "Values efficiency and agility in marketing operations; believes in data-driven decision making.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.",
+      Strategic_Recommendations:
+        "Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc",
+  },
+  //? Missing Field and Nested Field `persona_components`
+  {
+    archetype_name: "The Product Visionary",
+    picture_components: {
+      clothing: "sweater_vest",
+      glasses: "none",
+      hair: "ponytail",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.",
+      Strategic_Recommendations:
+        "Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1",
+  },
+  //? Misspelled Fields `Mindness_and_Perspective` and `Enhance_Interaction_Patterns`
+  {
+    archetype_name: "The UX Strategist",
+    picture_components: {
+      clothing: "hoodie",
+      glasses: "round_glasses",
+      hair: "buzzcut",
+    },
+    persona_components: {
+      Motivations:
+        "Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.",
+      Painpoints:
+        "Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.",
+      Preferences_and_Needs:
+        "Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.",
+      End_Goal:
+        "To continuously refine and optimize user interfaces for maximum engagement and satisfaction.",
+      Mindness_and_Perspective:
+        "Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey.",
+    },
+    insights: {
+      Enhance_Interaction_Patterns:
+        "Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.",
+      Strategic_Recommendations:
+        "Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796",
+  },
+  //? Missing name & heavily misspelled fields
+  {
+    picture_components: {
+      clothing: "leather_jacket",
+      glasses: "sunglasses",
+      hair: "long_hair_with_ribbon",
+    },
+    dwjadaoihdiwhaiod: {
+      Motivations:
+        "Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.",
+      Painpoints:
+        "Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.",
+      Preferences_and_Needs:
+        "Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.",
+      End_Goal:
+        "To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.",
+      dwajdpjiwajd:
+        "Believes in the fusion of art and science within design and values empirical over anecdotal evidence.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.",
+      dwadhwoahdo:
+        "Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1",
   },
 ];
