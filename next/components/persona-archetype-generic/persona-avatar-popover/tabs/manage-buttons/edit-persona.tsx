@@ -33,6 +33,8 @@ import {
   gradientVariants,
 } from "@/components/variants";
 import {
+  AIState,
+  ClientMessage,
   PersonaArchetype,
   PersonaArchetypeValidator,
 } from "@/app/(server)/models/persona-ai.model";
@@ -45,6 +47,7 @@ import {
 } from "@/components/persona-archetype-generic/utils";
 import { PersonaAvatarPopoverProps } from "../../persona-popover";
 import { EditPersonaTemplate } from "../../templates/edit-template";
+import { ValueOrUpdater } from "@/lib/types";
 
 export function EditPersonaButton({
   variant,
@@ -126,8 +129,8 @@ export function EditPersonaButton({
     };
 
     update(newAIState);
-    setAIState(newAIState);
-    setUIState(newUIState);
+    setAIState(newAIState as ValueOrUpdater<AIState>);
+    setUIState(newUIState as ClientMessage[]);
     setShowDialog(false);
   }
 
