@@ -1,4 +1,5 @@
-import { BLOG_POSTS, BlogPost } from "@/app/(public)/blog/page";
+import { BlogPost } from "@/app/(public)/blog/page";
+import { BLOG_POSTS } from "@/lib/config/blog";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 

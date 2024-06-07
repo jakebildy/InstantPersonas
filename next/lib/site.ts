@@ -9,7 +9,7 @@ import {
   KeyIcon,
   HashtagIcon,
 } from "@heroicons/react/24/solid";
-import { BLOG_POSTS } from "@/app/(public)/blog/page";
+import { BLOG_POSTS } from "@/lib/config/blog";
 
 export const SIDEBAR_LINKS = [
   {
