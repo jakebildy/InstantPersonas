@@ -58,3 +58,5 @@ export type ExtractField<T, Field extends keyof any> = T extends Record<
   T,
   Exclude<keyof T, K>
 >;
+
+export type ValueOrUpdater<T> = T | ((current: T) => T);
