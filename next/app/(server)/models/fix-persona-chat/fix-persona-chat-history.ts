@@ -51,5 +51,11 @@ export async function fixPersonaChatHistory(
     })
   );
 
-  return fixedHistory.filter((ch) => ch !== undefined);
+  function isPersonaChatType(
+    chat: PersonaChatType | undefined
+  ): chat is PersonaChatType {
+    return chat !== undefined;
+  }
+
+  return fixedHistory.filter(isPersonaChatType);
 }
