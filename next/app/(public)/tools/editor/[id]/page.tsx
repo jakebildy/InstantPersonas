@@ -150,8 +150,10 @@ export default function DocumentEditor() {
 
   //Redirect to login if not logged in
   useEffect(() => {
-    if (!user && isInitialized) {
-      window.location.href = "/login";
+    if (typeof window !== "undefined") {
+      if (!user && isInitialized) {
+        window.location.href = "/login";
+      }
     }
   }, [user, isInitialized]);
 
