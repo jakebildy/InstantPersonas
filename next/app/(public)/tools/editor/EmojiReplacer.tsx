@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Extension, textInputRule } from "@tiptap/core";
 
 export const EmojiReplacer = Extension.create({
