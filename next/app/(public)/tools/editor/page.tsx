@@ -68,8 +68,9 @@ export default function DocumentsPage({}: {}) {
               </div>
             </div>
           </div>
-          {documents.map((doc) => (
+          {documents.map((doc, index) => (
             <div
+              key={index}
               onClick={() => {
                 window.open("/tools/editor/" + doc._id, "_self");
               }}
