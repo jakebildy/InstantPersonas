@@ -86,6 +86,8 @@ export const PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS = {
   persona_content_consumption: videoContentListPropValidator,
 };
 
+// returns array of objects with key of tool name and props of tool arg paths
+// example: { key: "confirm_business_knowledge", props: ["knowledge.business", "knowledge.targetProblem", "message"] }
 export const PERSONA_CHAT_AI_TOOL_ARGS = Object.entries(
   PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS
 ).map(([key, validator]) => {
@@ -93,6 +95,7 @@ export const PERSONA_CHAT_AI_TOOL_ARGS = Object.entries(
   return { key, props };
 });
 
+// returns object with keys of tool names and values of unique destructured props
 export const PERSONA_CHAT_AI_TOOL_ARGS_UNIQUE_DESTRUCTURED =
   PERSONA_CHAT_AI_TOOL_ARGS.map(({ key, props }) => {
     return { [key]: [...new Set(props.flatMap((prop) => prop.split(".")))] };

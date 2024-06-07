@@ -1,6 +1,10 @@
-import { nanoid } from "@/lib/utils";
+import { getRandomKey, nanoid } from "@/lib/utils";
 import { ReactNode } from "react";
 import { z } from "zod";
+import {
+  DEFAULT_PERSONA_PICTURE,
+  PERSONA_PICTURE_COMPONENTS_CONFIG,
+} from "../ai/persona-chat-ai/utils/persona-picture-components-config";
 
 export const MessageValidator = z.object({
   role: z.enum(["user", "assistant", "system", "tool", "function", "data"]),
@@ -32,6 +36,11 @@ export interface ClientMessage {
   role: MessageRoles;
   display: ReactNode;
 }
+export interface AssistantToolCallMessage {
+  role: "assistant";
+  content: string;
+  tool_calls: { name: string; arguments: any }[];
+}
 
 export const PersonaArchetypeValidator = z.object({
   archetype_name: z.string(),
@@ -52,6 +61,37 @@ export const PersonaArchetypeValidator = z.object({
       clothing: z.string(),
       glasses: z.string(),
       hair: z.string(),
+    })
+    .optional(),
+});
+
+export const PersonaArchetypeValidatorWithDefaults = z.object({
+  archetype_name: z.string().default("Unnamed Persona"),
+  pictureURL: z.string().url().default(DEFAULT_PERSONA_PICTURE),
+  persona_components: z.object({
+    Motivations: z.string().default(""),
+    Painpoints: z.string().default(""),
+    Preferences_and_Needs: z.string().default(""),
+    End_Goal: z.string().default(""),
+    Mindset_and_Perspective: z.string().default(""),
+  }),
+  insights: z.object({
+    Enhanced_Interaction_Patterns: z.string().default(""),
+    Strategic_Recommendations: z.string().default(""),
+  }),
+  picture_components: z
+    .object({
+      clothing: z
+        .string()
+        .default(() =>
+          getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.clothing)
+        ),
+      glasses: z
+        .string()
+        .default(() => getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.glasses)),
+      hair: z
+        .string()
+        .default(() => getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.hair)),
     })
     .optional(),
 });

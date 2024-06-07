@@ -6,6 +6,7 @@ import {
 import { fixJson } from "@/lib/fix-json";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { assert } from "console";
+import { AssistantToolCallMessage } from "../persona-ai.model";
 
 interface Message {
   [key: string]: any;
@@ -19,13 +20,9 @@ interface Message {
  * @param message - The message object to be processed.
  * @returns A new formatted message object or undefined if the message is invalid.
  */
-export function fixFunctionMessage(message: Message):
-  | {
-      role: string;
-      content: string;
-      tool_calls: { name: string; arguments: any }[];
-    }
-  | undefined {
+export function fixFunctionMessage(
+  message: Message
+): AssistantToolCallMessage | undefined {
   // Retrieve all valid tool names from the configuration object
   const validToolNames = new Set(
     Object.keys(PERSONA_CHAT_AI_COMPONENT_MAP.tool)
@@ -49,13 +46,7 @@ export function fixFunctionMessage(message: Message):
 function processNamedMessage(
   message: Message,
   validToolNames: Set<string>
-):
-  | {
-      role: string;
-      content: string;
-      tool_calls: { name: string; arguments: any }[];
-    }
-  | undefined {
+): AssistantToolCallMessage | undefined {
   const toolName = message.name;
 
   if (!validToolNames.has(toolName)) {
@@ -84,13 +75,9 @@ function processNamedMessage(
  * @param message - The legacy message object to be processed.
  * @returns A new formatted message object or undefined if the message is invalid.
  */
-function processLegacyMessage(message: Message):
-  | {
-      role: string;
-      content: string;
-      tool_calls: { name: string; arguments: any }[];
-    }
-  | undefined {
+function processLegacyMessage(
+  message: Message
+): AssistantToolCallMessage | undefined {
   // Parse the JSON content and ensure its validity
   const unvalidatedParams = JSON.parse(fixJson(message.content));
   // Attempt to validate the parameters against all tool argument validators

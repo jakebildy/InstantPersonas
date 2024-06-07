@@ -1,8 +1,16 @@
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { assert } from "console";
 import { fixFunctionMessage } from "./fix-function-message";
+import { PersonaArchetype } from "../persona-ai.model";
+import { updateToolCallPersonaMessage } from "./update-tool-call-persona-message";
 
-export function fixPersonaChatMessageHistoryModel(messages: any[]): {
+export function fixPersonaChatMessageHistoryModel({
+  messages,
+  fixedPersonas,
+}: {
+  messages: any[];
+  fixedPersonas?: PersonaArchetype[];
+}): {
   messages: any[];
 } {
   const fixedMessages = messages
@@ -37,7 +45,15 @@ export function fixPersonaChatMessageHistoryModel(messages: any[]): {
             content: message.content,
           };
         case "function":
-          return fixFunctionMessage(message);
+          const formattedMessage = fixFunctionMessage(message);
+          if (!formattedMessage) return;
+          const formattedMessageWithValidatedPersona = fixedPersonas
+            ? updateToolCallPersonaMessage({
+                message: formattedMessage,
+                updatedPersonas: fixedPersonas,
+              })
+            : formattedMessage;
+          return formattedMessageWithValidatedPersona;
         case "data":
           console.error("DEV: Message role is not handled", message);
           return;

@@ -34,14 +34,23 @@ export async function upsertPersonaChat({
     else validatedID = stringifiedID;
   }
   try {
+    //returns document BEFORE update
     const response = await PersonaChat.findByIdAndUpdate(
       id,
       { ...data },
-      { upsert: true }
+      { upsert: true, new: false }
     );
     const chat = response?.toObject() as PersonaChatType;
     if (!chat) throw new Error("Chat not found");
-    if (chat.user !== userID) throw new Error("Unauthorized");
+    if (chat.user !== userID) {
+      // If the user is not the owner of the chat, reject the request and reset the chat
+      await PersonaChat.findByIdAndUpdate(
+        id,
+        { ...response?.toObject() },
+        { upsert: true }
+      );
+      throw new Error("Unauthorized");
+    }
   } catch (error) {
     console.error(error);
     throw error;
