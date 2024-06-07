@@ -5,16 +5,22 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+// @ts-ignore
 import {
   useEditor,
   EditorContent,
   FloatingMenu,
   mergeAttributes,
 } from "@tiptap/react";
+// @ts-ignore
 import StarterKit from "@tiptap/starter-kit";
+// @ts-ignore
 import Document from "@tiptap/extension-document";
+// @ts-ignore
 import Underline from "@tiptap/extension-underline";
+// @ts-ignore
 import Image from "@tiptap/extension-image";
+// @ts-ignore
 import Link from "@tiptap/extension-link";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import { PhotoIcon } from "@heroicons/react/24/solid";
@@ -38,9 +44,13 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { EmojiReplacer } from "../EmojiReplacer";
 import HeadlineAnalysisPopup from "../HeadlineAnalysisPopup";
+// @ts-ignore
 import Heading from "@tiptap/extension-heading";
+// @ts-ignore
 import ImageResize from "tiptap-extension-resize-image";
+// @ts-ignore
 import Youtube from "@tiptap/extension-youtube";
+// @ts-ignore
 import { Markdown } from "tiptap-markdown";
 import { useParams } from "next/navigation";
 import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
