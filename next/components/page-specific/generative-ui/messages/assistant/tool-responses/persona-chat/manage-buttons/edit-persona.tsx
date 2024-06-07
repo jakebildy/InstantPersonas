@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PersonaAvatarPopoverProps } from "../persona-avatar-popover";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAIState, useUIState } from "ai/rsc";
 import {
@@ -39,12 +39,17 @@ import {
   ColorVariantMap,
   gradientVariants,
 } from "@/components/variants";
-import { EditPersonaTemplate } from "../templates/edit-template";
+
 import {
+  AIState,
+  ClientMessage,
   PersonaArchetype,
   PersonaArchetypeValidator,
 } from "@/app/(server)/models/persona-ai.model";
 import { AI } from "@/app/(server)/ai/ai-server-action";
+import { PersonaAvatarPopoverProps } from "@/components/persona-archetype-generic/persona-avatar-popover";
+import { EditPersonaTemplate } from "@/components/persona-archetype-generic/persona-avatar-popover/templates/edit-template";
+import { ValueOrUpdater } from "@/lib/types";
 
 export function EditPersonaButton({
   variant,
@@ -126,8 +131,8 @@ export function EditPersonaButton({
     };
 
     update(newAIState);
-    setAIState(newAIState);
-    setUIState(newUIState);
+    setAIState(newAIState as ValueOrUpdater<AIState>);
+    setUIState(newUIState as ClientMessage[]);
     setShowDialog(false);
   }
 
