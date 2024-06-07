@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAIState, useUIState } from "ai/rsc";
 import {
+  ClientMessage,
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
@@ -277,9 +278,10 @@ export function PersonaChangeDiffCard({
               console.log("newAiState", getUIStateFromAIState(newAiState));
 
               setAIState(newAiState);
-              setUIState((currentMessages: any) => [
-                ...getUIStateFromAIState(newAiState),
-              ]);
+              setUIState(
+                (currentMessages: ClientMessage[]) =>
+                  [...getUIStateFromAIState(newAiState)] as ClientMessage[]
+              );
             }}
           >
             Accept Changes
