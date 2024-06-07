@@ -36,10 +36,8 @@ export default function DocumentsPage({}: {}) {
 
   //Redirect to login if not logged in
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (!user && isInitialized) {
-        window.location.href = "/login";
-      }
+    if (!user && isInitialized) {
+      window.location.href = "/login";
     }
   }, [user, isInitialized]);
 
