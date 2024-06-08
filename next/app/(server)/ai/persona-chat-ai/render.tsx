@@ -66,6 +66,7 @@ export async function submitPersonaChatUserMessage(
     // chatId: personaChatID,
   });
 
+  console.log("AI state", aiState.get());
   try {
     // The `render()` creates a generated, streamable UI.
     // @ts-ignore

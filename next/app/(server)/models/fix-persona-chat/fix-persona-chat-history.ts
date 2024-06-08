@@ -8,6 +8,7 @@ import {
 } from "../personachat.model";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { fixPersonaArchetype } from "./fix-persona-archetype";
+import { ObjectId } from "mongodb";
 
 export async function fixPersonaChatHistory(
   history: any[],
@@ -23,25 +24,29 @@ export async function fixPersonaChatHistory(
       });
       const fixedChatHistory = {
         ...chat,
-        aiState: { ...chat.aiState, messages: fixedMessage.messages },
+        aiState: {
+          ...chat.aiState,
+          messages: fixedMessage.messages,
+          _id: new ObjectId(`${chat._id}`).toString(),
+        },
       };
       const parseResult = PersonaChatTypeValidator.safeParse(fixedChatHistory);
 
       if (parseResult.success) {
         if (!isEqual(chat, parseResult.data)) {
           IS_TEST_DEV_ENV
-            ? console.error("DEV: Chat fixed, pushing update to db", chat._id)
+            ? console.log("DEV: Chat fixed, pushing update to db", chat._id)
             : null;
-          await upsertPersonaChat({
-            id: chat._id,
-            userID: chat.user, //? Can use chat.user because function should only be called on history, which fetching requires user ID
-            data: chat,
-          });
+          // await upsertPersonaChat({
+          //   id: chat._id,
+          //   userID: chat.user, //? Can use chat.user because function should only be called on history, which fetching requires user ID
+          //   data: chat,
+          // });
         }
         return fixedChatHistory as PersonaChatType;
       } else {
         IS_TEST_DEV_ENV
-          ? console.error(
+          ? console.log(
               "DEV: Error parsing chat history in `fixPersonaChatHistory.ts`",
               parseResult.error,
             )

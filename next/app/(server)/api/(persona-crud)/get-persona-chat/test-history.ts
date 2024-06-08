@@ -1824,3 +1824,165 @@ export const BAD_PERSONAS = [
       "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1",
   },
 ];
+
+export const TOOL_CALL_STATE_EXAMPLE = {
+  _id: "6658da4c27bab8971a251598",
+  aiState: {
+    chatId: "fPzLS1o",
+    userID: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+    business:
+      "The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.",
+    targetProblem:
+      "Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality.",
+    threadKnowledge: {
+      context: "",
+      personaCharacteristics: [],
+      thresholdRating: 0,
+    },
+    personas: [
+      {
+        archetype_name: "Sustainable Sophie",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796",
+        persona_components: {
+          Motivations:
+            "Desire to live sustainably without compromising on style or quality.",
+          Painpoints: "High price points of eco-friendly products.",
+          Preferences_and_Needs:
+            "Eco-friendly products that are both aesthetically pleasing and competitively priced.",
+          End_Goal:
+            "To curate a home that aligns closely with her ethical and environmental values.",
+          Mindset_and_Perspective:
+            "Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.",
+          Strategic_Recommendations:
+            "Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living.",
+        },
+      },
+      {
+        archetype_name: "Eco-Eddy",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1",
+        persona_components: {
+          Motivations:
+            "Wants to support eco-friendly businesses but seeks proof of sustainability claims.",
+          Painpoints:
+            "Skepticism towards 'green' labels without substantial backing.",
+          Preferences_and_Needs:
+            "Detailed product information and evidence of sustainability, fair pricing.",
+          End_Goal:
+            "To adopt a lifestyle that minimizes his environmental footprint while being well-informed.",
+          Mindset_and_Perspective:
+            "Cautious but willing to spend on proven sustainable products.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Regularly reads blogs and reviews, participates in forums discussing sustainable living.",
+          Strategic_Recommendations:
+            "Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings.",
+        },
+      },
+      {
+        archetype_name: "Green-thumb Gina",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1",
+        persona_components: {
+          Motivations:
+            "Desire to blend aesthetics with functionality in home gardening.",
+          Painpoints:
+            "Difficulty finding stylish, sustainable gardening tools and decor.",
+          Preferences_and_Needs:
+            "Products that support plant health and are made from sustainable materials.",
+          End_Goal:
+            "To maintain an eco-friendly and visually appealing garden space within the home.",
+          Mindset_and_Perspective:
+            "Passionate about plants and the environment, seeks harmony in her living space.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Engages directly via eco-friendly forums and gardening groups, seeks out 'how-to' content.",
+          Strategic_Recommendations:
+            "Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups.",
+        },
+      },
+      {
+        archetype_name: "Millennial Matt",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc",
+        persona_components: {
+          Motivations:
+            "To invest in products that not only serve as home necessities but also as conversation starters about sustainability.",
+          Painpoints:
+            "Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.",
+          Preferences_and_Needs:
+            "Sustainably made, unique home goods that come with a story.",
+          End_Goal:
+            "Refine his living space to reflect his values while maintaining a modern, clean look.",
+          Mindset_and_Perspective:
+            "Values design, uniqueness, and the backstory of items as much as their sustainability.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.",
+          Strategic_Recommendations:
+            "Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins.",
+        },
+      },
+    ],
+    messages: [
+      {
+        role: "assistant",
+        content:
+          "Does this cover the business and target problem or is something\n                missing?",
+      },
+      {
+        role: "assistant",
+        content: "",
+        tool_calls: [
+          {
+            name: "confirm_business_knowledge",
+            arguments:
+              '{"business":"The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.","targetProblem":"Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality."}',
+          },
+        ],
+      },
+      {
+        role: "user",
+        content: "Yes",
+      },
+      {
+        role: "assistant",
+        content:
+          "Great! Now that I have a solid understanding of your business and the target problem, we can proceed further. How can I assist you next? Would you like to explore strategies to address the concerns identified, generate more persona archetypes, or something else?",
+      },
+      {
+        role: "user",
+        content: " Could you generate more persona archetypes, please? ",
+      },
+      {
+        role: "assistant",
+        content: "",
+        tool_calls: [
+          {
+            name: "create_persona",
+            arguments:
+              '[{"archetype_name":"Sustainable Sophie","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796","persona_components":{"Motivations":"Desire to live sustainably without compromising on style or quality.","Painpoints":"High price points of eco-friendly products.","Preferences_and_Needs":"Eco-friendly products that are both aesthetically pleasing and competitively priced.","End_Goal":"To curate a home that aligns closely with her ethical and environmental values.","Mindset_and_Perspective":"Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands."},"insights":{"Enhanced_Interaction_Patterns":"Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.","Strategic_Recommendations":"Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living."}},{"archetype_name":"Eco-Eddy","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1","persona_components":{"Motivations":"Wants to support eco-friendly businesses but seeks proof of sustainability claims.","Painpoints":"Skepticism towards \'green\' labels without substantial backing.","Preferences_and_Needs":"Detailed product information and evidence of sustainability, fair pricing.","End_Goal":"To adopt a lifestyle that minimizes his environmental footprint while being well-informed.","Mindset_and_Perspective":"Cautious but willing to spend on proven sustainable products."},"insights":{"Enhanced_Interaction_Patterns":"Regularly reads blogs and reviews, participates in forums discussing sustainable living.","Strategic_Recommendations":"Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings."}},{"archetype_name":"Green-thumb Gina","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1","persona_components":{"Motivations":"Desire to blend aesthetics with functionality in home gardening.","Painpoints":"Difficulty finding stylish, sustainable gardening tools and decor.","Preferences_and_Needs":"Products that support plant health and are made from sustainable materials.","End_Goal":"To maintain an eco-friendly and visually appealing garden space within the home.","Mindset_and_Perspective":"Passionate about plants and the environment, seeks harmony in her living space."},"insights":{"Enhanced_Interaction_Patterns":"Engages directly via eco-friendly forums and gardening groups, seeks out \'how-to\' content.","Strategic_Recommendations":"Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups."}},{"archetype_name":"Millennial Matt","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc","persona_components":{"Motivations":"To invest in products that not only serve as home necessities but also as conversation starters about sustainability.","Painpoints":"Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.","Preferences_and_Needs":"Sustainably made, unique home goods that come with a story.","End_Goal":"Refine his living space to reflect his values while maintaining a modern, clean look.","Mindset_and_Perspective":"Values design, uniqueness, and the backstory of items as much as their sustainability."},"insights":{"Enhanced_Interaction_Patterns":"Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.","Strategic_Recommendations":"Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins."}}]',
+          },
+        ],
+      },
+    ],
+    suggestedMessages: [
+      "How can I contribute to sustainability like these characters? ",
+      " What eco-friendly products would suit my minimalist lifestyle? ",
+      " What are some recommended sustainable gardening tools?",
+    ],
+    _id: "6658da4c27bab8971a251598",
+  },
+  aiSuggestedChats: [],
+  user: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+  createdAt: "2024-05-30T19:58:04.419Z",
+  updatedAt: "2024-06-08T02:20:31.883Z",
+};

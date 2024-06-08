@@ -12,7 +12,10 @@ export async function GET(req: Request) {
 
   // Get MongoDB PersonaChats where user matches the provided userID
   const response = await PersonaChat.find({ user: userID });
-  const personaChats = response.map((chat) => chat.toObject());
+  const personaChats = response.map((chat) => ({
+    ...chat.toObject(),
+    _id: chat._id.toString(),
+  }));
   const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({

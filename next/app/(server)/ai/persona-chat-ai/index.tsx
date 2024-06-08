@@ -18,6 +18,7 @@ export async function onSetPersonaChatState({
 
   if (done) {
     console.log("saving...", state.chatId);
+    console.log("saving...", state.messages);
 
     await upsertPersonaChat({
       id: state.chatId,

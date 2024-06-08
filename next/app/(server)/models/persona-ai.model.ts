@@ -5,6 +5,8 @@ import {
   DEFAULT_PERSONA_PICTURE,
   PERSONA_PICTURE_COMPONENTS_CONFIG,
 } from "../ai/persona-chat-ai/utils/persona-picture-components-config";
+import mongoose from "mongoose";
+import { MongoIDValidator } from "./fix-persona-chat/validate-mongo-id";
 
 export const MessageValidator = z.object({
   role: z.enum(["user", "assistant", "system", "tool", "function", "data"]),
@@ -24,6 +26,7 @@ export type Message = {
   content: string;
   id: string;
   name?: string;
+  tool_calls?: { name: string; arguments: any }[];
 };
 
 export interface ServerMessage {
@@ -97,7 +100,7 @@ export const PersonaArchetypeValidatorWithDefaults = z.object({
 });
 
 export const AIStateValidator = z.object({
-  chatId: z.string().default(() => nanoid()), // Assume customNanoId is a function that generates nanoIds
+  chatId: MongoIDValidator,
   business: z.string().default(""),
   targetProblem: z.string().default(""),
   threadKnowledge: z.object({
