@@ -30,7 +30,8 @@
     "**/.gitignore": true,
     "guestpostfinder-screenshot1.png": true,
     "guestpostfinder-screenshot2.png": true,
-    "**/.prettierrc": true
+    "**/.prettierrc": true,
+    "**/.prettierignore": true
   },
   "explorerExclude.backup": {}
 }
