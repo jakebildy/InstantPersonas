@@ -312,7 +312,7 @@ export function transformDataToStructure({
  */
 function mergeStructuredData(
   structured: Record<string, any>,
-  unstructured: Record<string, any>
+  unstructured: Record<string, any>,
 ) {
   const result: Record<string, any> = { ...structured }; // Clone to preserve original structured data
 
@@ -338,7 +338,7 @@ function mergeStructuredData(
  */
 function mergeNestedData(
   nestedData: Record<string, any>,
-  unstructured: Record<string, any>
+  unstructured: Record<string, any>,
 ) {
   const nestedResult = { ...nestedData }; // Start with a copy of nested data
 
@@ -359,7 +359,7 @@ function mergeNestedData(
 function assignDataIfPresent(
   target: Record<string, any>,
   key: string,
-  source: Record<string, any>
+  source: Record<string, any>,
 ) {
   // Ensure the key exists and the value is not undefined in the source before assigning
   if (source.hasOwnProperty(key) && source[key] !== undefined) {
@@ -375,7 +375,7 @@ function assignDataIfPresent(
  * @returns {Record<string, any>} The remaining unstructured data collected as an object.
  */
 function collectRemainingData(
-  unstructured: Record<string, any>
+  unstructured: Record<string, any>,
 ): Record<string, any> {
   const additionalProperties: Record<string, any> = {};
 
@@ -459,7 +459,7 @@ export function getSynchronizeStates({
  * @returns {unknown | undefined} - The parsed JSON object, or undefined if parsing fails.
  */
 export function tryParseJsonWithRepair(
-  jsonText: string | undefined
+  jsonText: string | undefined,
 ): unknown | undefined {
   if (jsonText == null) {
     return undefined;

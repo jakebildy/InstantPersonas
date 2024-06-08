@@ -18,9 +18,9 @@ export function LoadingThreeMin(props: { loadingMessage: string }) {
   return (
     // align center
     <div className="items-center justify-center space-x-2">
-      <div className="m-w-4 w-full h-3 bg-gray-200 rounded-full dark:bg-gray-700">
+      <div className="m-w-4 h-3 w-full rounded-full bg-gray-200 dark:bg-gray-700">
         <div
-          className="h-3 bg-green-600 rounded-full dark:bg-green-500 loading-animation-3min"
+          className="loading-animation-3min h-3 rounded-full bg-green-600 dark:bg-green-500"
           style={{ width: "45%" }}
         ></div>
       </div>
