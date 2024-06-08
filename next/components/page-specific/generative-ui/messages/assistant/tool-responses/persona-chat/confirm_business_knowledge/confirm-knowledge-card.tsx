@@ -11,31 +11,31 @@ export function ConfirmKnowledgeCard({
   targetProblem,
 }: ConfirmKnowledgeCardProps) {
   return (
-    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background z-0">
+    <div className="relative z-0 grid h-full w-full rounded-xl border bg-background shadow-md">
       <div className="flex gap-2 border-b p-4">
         <PersonStandingIcon className="text-muted-foreground" />
         <span className="font-bold">Confirm Knowledge</span>
       </div>
 
-      <div className="flex flex-col gap-2 p-4 rounded-lg m-2">
+      <div className="m-2 flex flex-col gap-2 rounded-lg p-4">
         <div
           className={gradientVariants({
             variant: "purple",
             className:
-              "flex flex-col gap-1 mb-4 p-4 overflow-auto rounded-lg m-2",
+              "m-2 mb-4 flex flex-col gap-1 overflow-auto rounded-lg p-4",
           })}
         >
-          <span className="text-black/75 font-semibold">Business</span>
+          <span className="font-semibold text-black/75">Business</span>
           <span className="text-sm font-medium">{business}</span>
         </div>
         <div
           className={gradientVariants({
             variant: "yellow",
             className:
-              "flex flex-col gap-1 mb-4 p-4 overflow-auto rounded-lg m-2",
+              "m-2 mb-4 flex flex-col gap-1 overflow-auto rounded-lg p-4",
           })}
         >
-          <span className="text-black/75 font-semibold">Target Problem</span>
+          <span className="font-semibold text-black/75">Target Problem</span>
           <span className="text-sm font-medium">{targetProblem}</span>
         </div>
       </div>

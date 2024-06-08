@@ -32,7 +32,7 @@ const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   {
     versionKey: false,
     timestamps: true,
-  }
+  },
 );
 
 export const PersonaChat: Model<PersonaChatDocument> =

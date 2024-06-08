@@ -350,7 +350,7 @@ const MEDIA_BUYING_PROFESSIONAL_TEST: QuizBuilderSchema = {
 
 export default function MediaBuyingProfessionalPage() {
   return (
-    <section className="bg-white ">
+    <section className="bg-white">
       <title>
         Free Practice Exam - Meta Blueprint Media Buying Professional
       </title>
@@ -358,12 +358,12 @@ export default function MediaBuyingProfessionalPage() {
         name="description"
         content="Free practice exam for Meta Blueprint Media Buying Professional certification."
       />
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div className="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 lg:text-5xl">
             Practice Test - Media Buying Professional
           </h2>
-          <p className="font-light text-gray-500 sm:text-xl ">
+          <p className="font-light text-gray-500 sm:text-xl">
             Build your marketing knowledge with these practice exams for Meta
             Blueprint certifications.
           </p>
@@ -371,11 +371,11 @@ export default function MediaBuyingProfessionalPage() {
 
         <QuizBuilder schema={MEDIA_BUYING_PROFESSIONAL_TEST} variant={"blue"} />
         <div className="grid gap-8 lg:grid-cols-2"></div>
-        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-light text-gray-500 sm:text-xl">
           We help you understand your target audience and market more
           succesfully.
         </p>
-        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-light text-gray-500 sm:text-xl">
           Learn how to supercharge your marketing by creating detailed personas{" "}
           <a className="text-blue-600" href="https://instantpersonas.com/">
             here
@@ -383,7 +383,7 @@ export default function MediaBuyingProfessionalPage() {
           .
         </p>
 
-        <div className="text-xs text-center text-gray-500 font-light">
+        <div className="text-center text-xs font-light text-gray-500">
           We&apos;re not associated with Meta. This is not an official exam but
           is designed to help you prepare for the real thing.
         </div>

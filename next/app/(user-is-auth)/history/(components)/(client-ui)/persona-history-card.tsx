@@ -9,26 +9,26 @@ export function PersonaHistoryCard({ persona, id }: PersonaWithID) {
   return (
     <Link
       className={
-        "ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
+        "group ml-5 flex cursor-pointer items-center gap-2 transition-all duration-500 hover:animate-pulse hover:py-4"
       }
       href={"/persona/" + id}
     >
-      <div className="flex items-center justify-center h-16 w-16">
+      <div className="flex h-16 w-16 items-center justify-center">
         <Image
           src={persona.pictureURL ?? "/instant_personas_logo.png"}
           alt={"Instant Personas Logo"}
           height={64}
           width={64}
           className={
-            "object-contain rounded-full group-hover:shadow-lg  group-hover:opacity-90   transition-all"
+            "rounded-full object-contain transition-all group-hover:opacity-90 group-hover:shadow-lg"
           }
         />
       </div>
-      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm font-semibold whitespace-pre-wrap  w-full group-hover:bg-gray-400 group-hover:shadow-lg transition-all ">
+      <div className="flex w-full items-center whitespace-pre-wrap rounded-lg bg-gray-200 p-2 px-4 text-sm font-semibold transition-all group-hover:bg-gray-400 group-hover:shadow-lg">
         <div>
           {persona.archetype_name}
           <br></br>
-          <span className="text-slate-700 font-normal text-ellipsis">
+          <span className="text-ellipsis font-normal text-slate-700">
             Goal: {persona.persona_components.End_Goal}
           </span>
         </div>

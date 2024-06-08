@@ -84,7 +84,7 @@ export const PersonaArchetypeValidatorWithDefaults = z.object({
       clothing: z
         .string()
         .default(() =>
-          getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.clothing)
+          getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.clothing),
         ),
       glasses: z
         .string()

@@ -73,7 +73,7 @@ function MobileNavIcon({ open }: any) {
         d="M2 2L12 12M12 2L2 12"
         className={cn(
           "origin-center transition",
-          !open && "scale-90 opacity-0"
+          !open && "scale-90 opacity-0",
         )}
       />
     </svg>

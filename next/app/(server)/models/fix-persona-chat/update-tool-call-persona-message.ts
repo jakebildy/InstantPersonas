@@ -37,18 +37,18 @@ export function updateToolCallPersonaMessage({
       const personaProps = [
         ...new Set(
           extractKeysFromZodSchema(PersonaArchetypeValidator).flatMap((prop) =>
-            prop.split(".")
-          )
+            prop.split("."),
+          ),
         ),
       ];
 
       // Determine the conflicting props
       const toolPropsContainsAllPersonaProps = Array.from(personaProps).every(
-        (requiredProp) => props.includes(requiredProp)
+        (requiredProp) => props.includes(requiredProp),
       );
       const toolhasImplementedFallbackStrategy =
         IMPLEMENTED_STRATEGIES_FOR_TOOLS_WITH_PERSONAS.includes(
-          toolName as Partial<keyof typeof PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS> // Casting to narrow TS behavior
+          toolName as Partial<keyof typeof PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS>, // Casting to narrow TS behavior
         );
 
       // Assert there are no tools, not found in our current strategies, that use props from PersonaArchetypeValidator
@@ -63,10 +63,10 @@ export function updateToolCallPersonaMessage({
               props,
             },
             null,
-            2
-          )
+            2,
+          ),
       );
-    }
+    },
   );
 
   const fixedToolCalls = message.tool_calls.map((toolCall) => {

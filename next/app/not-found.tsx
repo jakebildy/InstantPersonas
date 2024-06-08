@@ -13,14 +13,14 @@ export default function NotFound() {
     <section className="h-screen">
       {isSubscribed ? (
         <DashboardLayout>
-          <div className="grid place-items-center w-full h-full flex-1">
+          <div className="grid h-full w-full flex-1 place-items-center">
             <ErrorState onRetry={() => router.push("/")} />
           </div>
         </DashboardLayout>
       ) : (
         <>
           <LandingPage.header />
-          <div className="grid place-items-center w-full h-full">
+          <div className="grid h-full w-full place-items-center">
             <ErrorState onRetry={() => router.push("/")} />
           </div>
         </>

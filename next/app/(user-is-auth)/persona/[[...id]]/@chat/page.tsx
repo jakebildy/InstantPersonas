@@ -7,8 +7,8 @@ export default async function ChatPage({
   params: { id?: string[] };
 }) {
   return (
-    <div className="flex flex-col flex-1 h-full justify-center">
-      <Chat className="border rounded-lg min-h-[400px] h-full flex-1" />
+    <div className="flex h-full flex-1 flex-col justify-center">
+      <Chat className="h-full min-h-[400px] flex-1 rounded-lg border" />
     </div>
   );
 }

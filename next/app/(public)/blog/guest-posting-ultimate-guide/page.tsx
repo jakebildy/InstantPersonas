@@ -6,21 +6,21 @@ import Image from "next/image";
 
 export default function GuestPostingUltimateGuide() {
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+    <main className="bg-white pb-16 pt-8 lg:pb-24 lg:pt-16">
       <ReadingBar />
       <title>{"The Ultimate Guide to Guest Posting (2024)"}</title>
       <meta
         name="description"
         content="Everything you need to know to do guest posting right in 2024. Learn if you should you use AI to write posts, and more."
       />
-      <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+      <h1 className="mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 sm:hidden lg:mb-6 lg:text-4xl">
         The Ultimate Guide to Guest Posting (2024)
       </h1>
-      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+      <div className="mx-auto flex max-w-screen-xl justify-between px-4 max-sm:flex-col">
         <TableOfContents />
-        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-          <header className="mb-4 lg:mb-6 not-format">
-            <address className="flex items-center mb-6 not-italic">
+        <article className="format format-sm sm:format-base lg:format-lg format-blue mx-auto w-full max-w-2xl">
+          <header className="not-format mb-4 lg:mb-6">
+            <address className="mb-6 flex items-center not-italic">
               {/* <div className="inline-flex items-center mr-3 text-sm text-gray-900">
                   <img
                     className="mr-4 w-16 h-16 rounded-full"
@@ -50,12 +50,12 @@ export default function GuestPostingUltimateGuide() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 max-sm:sr-only lg:mb-6 lg:text-4xl">
               The Ultimate Guide to Guest Posting (2024)
             </h1>
           </header>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"0"}>
             How do I know if a site is worth writing a guest post for?
           </h2>
           <p>
@@ -81,7 +81,7 @@ export default function GuestPostingUltimateGuide() {
             need to make sure your content passes their editorial standards.
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"1"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"1"}>
             Should I write a guest post with AI?
           </h2>
           <p>
@@ -131,7 +131,7 @@ export default function GuestPostingUltimateGuide() {
             come back and update this article.
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="2">
             Does guest posting boost your topical authority?
           </h2>
           <p>
@@ -161,7 +161,7 @@ export default function GuestPostingUltimateGuide() {
             .
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="3">
             How do I find relevant blogs or websites to submit guest posts to?
           </h2>
           <p>
@@ -174,7 +174,7 @@ export default function GuestPostingUltimateGuide() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="mx-auto mr-0 ml-0 mb-6"
+              className="mx-auto mb-6 ml-0 mr-0"
             />
             We built you a free tool to find tons of great guest posting
             opportunities. No signup needed -{" "}
@@ -186,7 +186,7 @@ export default function GuestPostingUltimateGuide() {
             </a>
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="5">
             How do I craft a compelling guest post pitch that is likely to be
             accepted?
           </h2>
@@ -195,7 +195,7 @@ export default function GuestPostingUltimateGuide() {
             height={400}
             width={300}
             alt="How to Pitch a Guest Post"
-            className="mx-auto rounded-md my-5"
+            className="mx-auto my-5 rounded-md"
             unoptimized
           />
           <p>
@@ -231,7 +231,7 @@ export default function GuestPostingUltimateGuide() {
             </b>
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="6">
             What are the best practices for including links in my guest posts
             without appearing spammy?
           </h2>
@@ -251,7 +251,7 @@ export default function GuestPostingUltimateGuide() {
             form of affiliation, it&apos;s good practice to disclose this
             transparently in your post.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="7">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="7">
             Should I accept guest posts on my own blog?
           </h2>
           <p>
@@ -265,7 +265,7 @@ export default function GuestPostingUltimateGuide() {
             </a>{" "}
             without you needing to do a ton of work.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="8">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="8">
             How do I evaluate guest posts people send me?
           </h2>
           <p>
@@ -280,7 +280,7 @@ export default function GuestPostingUltimateGuide() {
             5. Ensure the content linked from the guest posts is high-quality
             too.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="9">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="9">
             What&apos;s the difference between guest posting vs niche edits?
           </h2>
           <p>

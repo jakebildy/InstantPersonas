@@ -23,17 +23,17 @@ export default function FeedbackPage() {
   }, [miscFeedback]);
 
   return (
-    <section className="text-center flex flex-col gap-10 items-center py-14 px-4">
+    <section className="flex flex-col items-center gap-10 px-4 py-14 text-center">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 max-w-4xl">
+        <h1 className="max-w-4xl text-3xl font-bold tracking-tight text-gray-900">
           Feedback Center
         </h1>
-        <span className="text-sm leading-6 text-gray-700 max-w-lg">
+        <span className="max-w-lg text-sm leading-6 text-gray-700">
           We are always looking to improve our product. Help us out by answering
           some surveys, or by providing feedback!
         </span>
       </div>
-      <div className="grid grid-cols-2 gap-4 max-w-4xl w-full">
+      <div className="grid w-full max-w-4xl grid-cols-2 gap-4">
         <MiscFeedbackForum className="col-span-2" />
         <SurveyCard
           title={"WorkFlow Survey"}
@@ -127,17 +127,17 @@ function MiscFeedbackForum({
   return (
     <div
       className={cn(
-        "flex flex-col items-center p-1 pb-2 border border-input bg-white rounded-lg  w-full group gap-2",
-        className
+        "group flex w-full flex-col items-center gap-2 rounded-lg border border-input bg-white p-1 pb-2",
+        className,
       )}
       {...Props}
     >
       <div className="relative w-full">
-        <div className="absolute top-0 right-0 p-4">
-          <MessageSquareHeartIcon className="text-gray-300 size-8 group-hover:text-green-400 transition-colors duration-300 ease-out" />
+        <div className="absolute right-0 top-0 p-4">
+          <MessageSquareHeartIcon className="size-8 text-gray-300 transition-colors duration-300 ease-out group-hover:text-green-400" />
           <span className="sr-only">Benefits</span>
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 p-4">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-4">
           <AnimatePresence>
             {isSubmitting ? (
               <motion.div
@@ -158,7 +158,7 @@ function MiscFeedbackForum({
           </AnimatePresence>
         </div>
         <Textarea
-          className="flex flex-col items-center gap-2 p-4 border border-input bg-white rounded-lg focus-visible:ring-green-500 min-h-[400px] pr-14"
+          className="flex min-h-[400px] flex-col items-center gap-2 rounded-lg border border-input bg-white p-4 pr-14 focus-visible:ring-green-500"
           placeholder="Send us Feedback..."
           value={miscFeedback}
           onChange={(e) => setMiscFeedback(e.target.value)}
@@ -167,24 +167,24 @@ function MiscFeedbackForum({
         />
         <p
           className={cn(
-            "text-sm text-muted-foreground/50 hover:text-muted-foreground text-center absolute bottom-2 left-1/2 -translate-x-1/2 z-10 transition-colors duration-300 ease-out cursor-default",
-            error ? "text-pastel-red hover:text-red-500" : ""
+            "absolute bottom-2 left-1/2 z-10 -translate-x-1/2 cursor-default text-center text-sm text-muted-foreground/50 transition-colors duration-300 ease-out hover:text-muted-foreground",
+            error ? "text-pastel-red hover:text-red-500" : "",
           )}
         >
           {error ? error : "We appreciate your feedback!"}
         </p>
       </div>
-      <div className="flex max-sm:flex-col flex-wrap gap-2 justify-between items-start sm:items-center w-full">
+      <div className="flex w-full flex-wrap items-start justify-between gap-2 max-sm:flex-col sm:items-center">
         <Button
           variant={"outline"}
-          className="hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-sm"
+          className="h-fit rounded-full p-1 shadow-sm hover:scale-100 hover:text-primary"
           onClick={onCancel}
         >
           <span
             className={gradientLightVariants({
               variant: "red",
               className:
-                "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 hover:bg-red-500 hover:text-white transition-colors duration-300 ease-out font-semibold text-muted-foreground ",
+                "h-10 whitespace-nowrap rounded-full border border-input p-2 px-4 font-semibold text-muted-foreground transition-colors duration-300 ease-out hover:bg-red-500 hover:text-white",
             })}
           >
             Cancel
@@ -192,21 +192,21 @@ function MiscFeedbackForum({
         </Button>
         <Button
           variant={"outline"}
-          className="hover:text-primary rounded-full h-fit hover:border-green-500  p-1 shadow-sm transition-all duration-300"
+          className="h-fit rounded-full p-1 shadow-sm transition-all duration-300 hover:border-green-500 hover:text-primary"
           onClick={onSubmit}
         >
           <span
             className={
-              "bg-gradient-to-b whitespace-nowrap rounded-full px-4 sm:px-10 border border-input h-10 p-2  to-green-500 hover:bg-gradient-to-b hover:from-green-500 hover:to-green-400 from-green-500  text-white transition-all duration-300 ease-out font-semibold "
+              "h-10 whitespace-nowrap rounded-full border border-input bg-gradient-to-b from-green-500 to-green-500 p-2 px-4 font-semibold text-white transition-all duration-300 ease-out hover:bg-gradient-to-b hover:from-green-500 hover:to-green-400 sm:px-10"
             }
           >
             {isSubmitting
               ? "Submitting..."
               : success
-              ? "Feedback Sent!"
-              : !miscFeedback
-              ? "Write us some feedback!"
-              : "Send!"}
+                ? "Feedback Sent!"
+                : !miscFeedback
+                  ? "Write us some feedback!"
+                  : "Send!"}
           </span>
         </Button>
       </div>

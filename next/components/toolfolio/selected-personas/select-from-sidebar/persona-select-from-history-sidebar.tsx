@@ -59,26 +59,26 @@ export function PersonaSelectFromHistorySidebar({
         className={gradientVariants({
           variant,
           className:
-            "w-[400px] sm:w-[540px] rounded-tl-md rounded-bl-md flex flex-col gap-4 p-0",
+            "flex w-[400px] flex-col gap-4 rounded-bl-md rounded-tl-md p-0 sm:w-[540px]",
         })}
       >
         <SheetHeader>
-          <SheetTitle className="flex gap-2 items-center pt-6 px-6">
-            <PersonStandingIcon className="text-gray-800 size-6" />
+          <SheetTitle className="flex items-center gap-2 px-6 pt-6">
+            <PersonStandingIcon className="size-6 text-gray-800" />
             Select Personas
           </SheetTitle>
-          <SheetDescription className="text-gray-800 px-6">
+          <SheetDescription className="px-6 text-gray-800">
             Selected Personas will be used to generate tool results.
           </SheetDescription>
           <div className="px-6">
-            <Separator className="bg-black/25 " />
+            <Separator className="bg-black/25" />
           </div>
 
           {/* Active Personas */}
           <div id="active-personas-preview">
             <Label className="px-6">Active Personas</Label>
             <ScrollArea>
-              <div className="flex my-2 border border-green-400 bg-green-100 rounded-lg mx-6 min-h-[60px] items-center">
+              <div className="mx-6 my-2 flex min-h-[60px] items-center rounded-lg border border-green-400 bg-green-100">
                 <AnimatePresence mode="popLayout">
                   {selectedPersonas && selectedPersonas.length > 0 ? (
                     selectedPersonas.map((archetype, i) => {
@@ -106,7 +106,7 @@ export function PersonaSelectFromHistorySidebar({
                       initial={{ opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.5 }}
-                      className="flex text-xs items-center justify-center w-full h-full text-green-500"
+                      className="flex h-full w-full items-center justify-center text-xs text-green-500"
                       key="empty-info-text"
                     >
                       Select a persona to add to the working area
@@ -117,7 +117,7 @@ export function PersonaSelectFromHistorySidebar({
               <ScrollAreaScrollbar
                 orientation={"horizontal"}
                 className={
-                  "flex touch-none select-none transition-colors h-2.5 flex-col border-t border-t-transparent p-[1px]"
+                  "flex h-2.5 touch-none select-none flex-col border-t border-t-transparent p-[1px] transition-colors"
                 }
               >
                 <ScrollAreaThumb className="relative flex-1 rounded-full bg-black/25" />
@@ -128,20 +128,20 @@ export function PersonaSelectFromHistorySidebar({
 
         {/* All Personas */}
         <div
-          className="flex flex-col gap-2 flex-1 max-h-full overflow-hidden  z-30"
+          className="z-30 flex max-h-full flex-1 flex-col gap-2 overflow-hidden"
           id="persona-history"
         >
           <Label className="px-6">All Personas</Label>
-          <p className="text-sm text-muted-foreground px-6">
+          <p className="px-6 text-sm text-muted-foreground">
             Personas are grouped by chat history.
           </p>
           <div className="px-6">
-            <Separator className="bg-black/25 " />
+            <Separator className="bg-black/25" />
           </div>
-          <div className="flex-1 max-h-full overflow-auto px-2 py-6 scrollbar-track-hidden">
+          <div className="scrollbar-track-hidden max-h-full flex-1 overflow-auto px-2 py-6">
             <div className="flex flex-col gap-2">
               {loading || error || history.length < 1 ? (
-                <div className="px-2 flex items-center justify-center w-full">
+                <div className="flex w-full items-center justify-center px-2">
                   {loading ? <LoadingState /> : <EmptyState />}
                 </div>
               ) : (
@@ -160,7 +160,7 @@ export function PersonaSelectFromHistorySidebar({
                         setSelectedPersonas={setSelectedPersonas}
                         key={i}
                       />
-                    )
+                    ),
                   )}
                 </>
               )}
@@ -175,7 +175,7 @@ export function PersonaSelectFromHistorySidebar({
 
 function EmptyState() {
   return (
-    <div className=" mb-4 flex flex-col w-full gap-2 px-2">
+    <div className="mb-4 flex w-full flex-col gap-2 px-2">
       <span className="text-center text-sm font-medium">No Personas Found</span>
       <Button variant={"green"} className="w-full" asChild>
         <Link href="/persona">Create a Persona</Link>
@@ -186,14 +186,14 @@ function EmptyState() {
 
 function LoadingState() {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       <BarLoader
         color="#36d7b7"
         height={10}
         width={335}
-        className="rounded-full mx-4"
+        className="mx-4 rounded-full"
       />
-      <div className="flex flex-col gap-2 w-full my-4">
+      <div className="my-4 flex w-full flex-col gap-2">
         <PersonaWidgetGroupSkeleton />
         <PersonaWidgetGroupSkeleton />
       </div>
@@ -203,11 +203,11 @@ function LoadingState() {
 
 function PersonaWidgetGroupSkeleton() {
   return (
-    <div className="flex flex-col gap-2 p-2  rounded-xl h-[280px] w-full bg-white/50 border">
-      <Skeleton className="w-full h-[60px] bg-pastel-blue/90" />
-      <Skeleton className="w-full h-[60px] bg-pastel-blue/80" />
-      <Skeleton className="w-full h-[60px] bg-pastel-blue/70" />
-      <Skeleton className="w-full h-[60px] bg-pastel-blue/60" />
+    <div className="flex h-[280px] w-full flex-col gap-2 rounded-xl border bg-white/50 p-2">
+      <Skeleton className="h-[60px] w-full bg-pastel-blue/90" />
+      <Skeleton className="h-[60px] w-full bg-pastel-blue/80" />
+      <Skeleton className="h-[60px] w-full bg-pastel-blue/70" />
+      <Skeleton className="h-[60px] w-full bg-pastel-blue/60" />
     </div>
   );
 }
@@ -231,23 +231,23 @@ function PersonaWidgetGroup({
   // Checking if all personas are selected based on deep equality
   const allPersonasInChatSelected = personas.every((persona) =>
     selectedPersonas.some((selectedPersona) =>
-      isEqual(selectedPersona, persona)
-    )
+      isEqual(selectedPersona, persona),
+    ),
   );
 
   return (
     <div
       className={cn(
-        "border rounded-xl bg-white/50 p-2 flex flex-col gap-2 transition-colors duration-150 ease-out",
+        "flex flex-col gap-2 rounded-xl border bg-white/50 p-2 transition-colors duration-150 ease-out",
         allPersonasInChatSelected
-          ? "bg-green-100 border-green-400"
-          : "border-black/10  bg-white/50"
+          ? "border-green-400 bg-green-100"
+          : "border-black/10 bg-white/50",
       )}
     >
       {personas.map((persona, i) => {
         // Determining if the current persona is selected based on deep equality
         const isSelected = selectedPersonas.some((selectedPersona) =>
-          isEqual(selectedPersona, persona)
+          isEqual(selectedPersona, persona),
         );
 
         return (
@@ -267,8 +267,8 @@ function PersonaWidgetGroup({
             onDeselect={() => {
               setSelectedPersonas((prevSelectedPersonas) =>
                 prevSelectedPersonas.filter(
-                  (activePersona) => !isEqual(activePersona, persona)
-                )
+                  (activePersona) => !isEqual(activePersona, persona),
+                ),
               );
             }}
           />
@@ -285,28 +285,28 @@ function PersonaIconBackgroundElement({ variant }: { variant: ColorVariant }) {
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-20 blur-[1px] tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-20 size-[250px] blur-[1px] transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-sm tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-sm transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-md tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-md transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-lg tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-lg transition-colors duration-150 ease-out",
         })}
       />
     </>

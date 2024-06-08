@@ -42,19 +42,19 @@ export function PersonaHistoryList({}: {}) {
             key="history-personas-empty"
             className="grid place-items-center"
           >
-            <div className="text-center ">
+            <div className="text-center">
               <Image
                 src={"/analytics.gif"}
                 alt="Create your first persona"
                 height={300}
                 width={300}
-                className="mx-auto bg-white p-8 rounded-md max-w-4xl shadow-sm m-10"
+                className="m-10 mx-auto max-w-4xl rounded-md bg-white p-8 shadow-sm"
               />
-              <p className="text-gray-500 font-bold text-sm w-350 mb-5">
+              <p className="w-350 mb-5 text-sm font-bold text-gray-500">
                 No history yet. Create your first persona to get started.
               </p>
               <Link
-                className="text-white py-2 px-3 bg-green-500 rounded font-bold text-sm w-350 hover:bg-green-400  transition-all duration-200 ease-in-out"
+                className="w-350 rounded bg-green-500 px-3 py-2 text-sm font-bold text-white transition-all duration-200 ease-in-out hover:bg-green-400"
                 href="/persona"
               >
                 Create my first persona

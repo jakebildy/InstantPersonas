@@ -17,7 +17,7 @@ export type RenderTool<PARAMETERS extends z.ZodTypeAny = any> = {
       {
         toolName: string;
         toolCallId: string;
-      }
+      },
     ]
   >;
 };

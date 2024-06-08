@@ -30,7 +30,7 @@ export const maxDuration = 300;
 export async function submitPersonaChatUserMessage(
   userInput: string,
   userID: string,
-  personaChatID: string | undefined | null
+  personaChatID: string | undefined | null,
 ) {
   "use server";
 
@@ -95,7 +95,7 @@ export async function submitPersonaChatUserMessage(
               ...aiState.get().messages,
               { role: "user", content: userInput },
               { role: "assistant", content },
-            ].slice(-4) as any[]
+            ].slice(-4) as any[],
           );
           aiState.done({
             ...aiState.get(),
@@ -259,12 +259,12 @@ export async function submitPersonaChatUserMessage(
               personaIndex: z
                 .number()
                 .describe(
-                  "the index of the persona to update. don't ask the user for this, just ask them for the persona's name."
+                  "the index of the persona to update. don't ask the user for this, just ask them for the persona's name.",
                 ),
               updatedArchetype: z
                 .string()
                 .describe(
-                  "the COMPLETE updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}"
+                  "the COMPLETE updated archetype model in ECMA-404 JSON format, for example: {archetype_name: 'example', persona_components: {...}, ...}",
                 ),
             })
             .required(),
@@ -273,7 +273,7 @@ export async function submitPersonaChatUserMessage(
               index: personaIndex,
               origin_archetype: aiState.get().personas[personaIndex],
               updated_archetype: JSON.parse(
-                fixJson(updatedArchetype)
+                fixJson(updatedArchetype),
               ) as PersonaArchetype,
             };
 

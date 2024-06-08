@@ -22,7 +22,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            ({ pictureURL, ...rest }) => rest
+            ({ pictureURL, ...rest }) => rest,
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
@@ -45,25 +45,25 @@ export default function GuestPostOpportunityFinder({}: {}) {
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full">
-        <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+      <div className="flex h-full w-full flex-col items-center">
+        <h1 className="pt-10 text-center text-3xl font-bold text-gray-700">
           Guest Post Opportunity Finder
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 mb-16">
+        <h2 className="mb-16 mt-4 text-center text-xs text-slate-400">
           Writing Guest Posts is a great way to build backlinks and authority.
           <br />
           Find the best opportunities for your niche here.
         </h2>
 
-        <div className="flex flex-col items-center w-full mb-10 gap-2">
+        <div className="mb-10 flex w-full flex-col items-center gap-2">
           {isSubscribed ? (
-            <PersonaSelectFromHistorySidebar className="xl:absolute top-4 right-4 z-[50]" />
+            <PersonaSelectFromHistorySidebar className="right-4 top-4 z-[50] xl:absolute" />
           ) : null}
           {isSubscribed ? (
             <section
               className={cn(
-                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
-                selectedPersonas.length > 0 ? "w-1/2" : ""
+                "flex flex-col gap-2 rounded-md border border-gray-300 bg-white p-2",
+                selectedPersonas.length > 0 ? "w-1/2" : "",
               )}
             >
               {selectedPersonas.length > 0 ? (
@@ -81,14 +81,14 @@ export default function GuestPostOpportunityFinder({}: {}) {
                     onDeselect={() => {
                       setSelectedPersonas((prevSelectedPersonas) =>
                         prevSelectedPersonas.filter(
-                          (activePersona) => activePersona !== persona
-                        )
+                          (activePersona) => activePersona !== persona,
+                        ),
                       );
                     }}
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
+                <div className="grid h-full w-full place-items-center overflow-hidden rounded-md">
                   <Image
                     src={SelectPersonaDemoGif}
                     alt={
@@ -101,14 +101,14 @@ export default function GuestPostOpportunityFinder({}: {}) {
               )}
             </section>
           ) : null}
-          <label className="text-sm text-gray-700 my-2">
+          <label className="my-2 text-sm text-gray-700">
             {isSubscribed
               ? "Enter any extra details"
               : "Describe your customer persona:"}
           </label>
           <input
             type="text"
-            className="border border-gray-300 rounded-md w-1/2 p-2"
+            className="w-1/2 rounded-md border border-gray-300 p-2"
             placeholder="e.g. a marketing manager"
             onChange={(e) => {
               setDetailsInput(e.target.value);
@@ -123,8 +123,8 @@ export default function GuestPostOpportunityFinder({}: {}) {
         />
 
         {!isSubscribed ? (
-          <div className="my-20 flex-1 flex flex-col justify-end">
-            <div className="text-center text-slate-400 text-sm">
+          <div className="my-20 flex flex-1 flex-col justify-end">
+            <div className="text-center text-sm text-slate-400">
               Check out our comprehensive guide on Guest Posting to learn more:
               <br />
               <br />
@@ -133,7 +133,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
               post={BLOG_POSTS[2]}
               key={BLOG_POSTS[2].slug}
               category={BLOG_POSTS[2].category}
-              className={"lg:col-span-1 max-w-[600px]"}
+              className={"max-w-[600px] lg:col-span-1"}
             />
           </div>
         ) : (

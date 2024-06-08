@@ -26,7 +26,7 @@ export const SystemDevInfo = ({
   if (!IS_TEST_DEV_ENV) return null;
 
   return (
-    <div className={cn("flex gap-2 w-full pt-2", className)} {...Props}>
+    <div className={cn("flex w-full gap-2 pt-2", className)} {...Props}>
       <Button
         variant={"outline"}
         size={"icon"}
@@ -39,13 +39,13 @@ export const SystemDevInfo = ({
           height: expanded ? "auto" : 0,
         }}
         transition={{ duration: 0.3, type: "spring" }}
-        className="overflow-hidden flex-1 w-full"
+        className="w-full flex-1 overflow-hidden"
       >
-        <div className="flex flex-col gap-2 w-full overflow-hidden box-border">
-          <div className="p-2 w-full bg-white border rounded-md whitespace-pre-wrap">
+        <div className="box-border flex w-full flex-col gap-2 overflow-hidden">
+          <div className="w-full whitespace-pre-wrap rounded-md border bg-white p-2">
             {message}
           </div>
-          <div className="p-2 w-full bg-white border rounded-md whitespace-pre-wrap flex-1">
+          <div className="w-full flex-1 whitespace-pre-wrap rounded-md border bg-white p-2">
             {JSON.stringify(JSON.parse(fixJson(state)), null, 2)}
           </div>
         </div>

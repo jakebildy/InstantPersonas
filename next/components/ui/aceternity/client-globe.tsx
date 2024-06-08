@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 const World = dynamic(
   () =>
     import("@/components/ui/aceternity/globe").then((module) => module.World),
-  { ssr: false }
+  { ssr: false },
 );
 
 type Props = {};

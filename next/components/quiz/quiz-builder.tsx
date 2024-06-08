@@ -35,12 +35,12 @@ export function useQuizBuilder({ schema, variant }: Props) {
     ...schema.questions.reduce(
       (
         initialAnswers: Record<string, string | null>,
-        question: MultipleChoiceQuestion
+        question: MultipleChoiceQuestion,
       ) => {
         initialAnswers[question.title] = null; // Set each question's initial answer to null
         return initialAnswers; // Return the updated accumulator for the next iteration
       },
-      {}
+      {},
     ),
   });
   const [currentQuestion, setCurrentQuestion] = useState<
@@ -68,7 +68,7 @@ export function useQuizBuilder({ schema, variant }: Props) {
           answers[question.title] ===
           question.choices.find((choice) => choice.correct)?.answer,
       };
-    }
+    },
   );
 
   const quiz: {
@@ -113,7 +113,7 @@ export function useQuizBuilder({ schema, variant }: Props) {
             }))
           }
         />,
-      ])
+      ]),
     ),
     end: <EndQuiz variant={variant} reviewSchema={reviewSchema} />,
   };

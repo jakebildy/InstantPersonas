@@ -30,11 +30,11 @@ export function LinkedInPreview({
     <div className="rounded-md">
       <div
         id={"user-header-container"}
-        className="pr-[calc(4rem+32px)] pl-[1.6rem] pt-3 mb-[0.8rem] items-center flex relative"
+        className="relative mb-[0.8rem] flex items-center pl-[1.6rem] pr-[calc(4rem+32px)] pt-3"
       >
-        <div className="pr-[1.6rem] overflow-hidden flex flex-1" id="user-info">
+        <div className="flex flex-1 overflow-hidden pr-[1.6rem]" id="user-info">
           <div
-            className="flex items-center size-12 shrink-0 -outline-offset-2 pt-0.5 relatives"
+            className="relatives flex size-12 shrink-0 items-center pt-0.5 -outline-offset-2"
             id="user-avatar"
           >
             <Image
@@ -43,25 +43,25 @@ export function LinkedInPreview({
               width={48}
               height={48}
               priority
-              className={"object-contain min-w-8"}
+              className={"min-w-8 object-contain"}
             />
           </div>
           <div
-            className="p-0.5 flex-1 basis-0 ml-[0.8rem] overflow-hidden relative"
+            className="relative ml-[0.8rem] flex-1 basis-0 overflow-hidden p-0.5"
             id={"user-metadata"}
           >
             <div className="flex flex-col">
-              <span className="flex hover:text-blue-500 hover:underline hover:underline-blue-800 cursor-pointer text-sm font-semibold">
+              <span className="hover:underline-blue-800 flex cursor-pointer text-sm font-semibold hover:text-blue-500 hover:underline">
                 InstantPersonas
               </span>
-              <span className="text-xs min-w-0 text-gray-500">
+              <span className="min-w-0 text-xs text-gray-500">
                 787, 298 followers
               </span>
 
               <span className="flex">
                 <span
                   aria-hidden="true"
-                  className="flex items-center text-[10px] min-w-0 text-gray-500 gap-1"
+                  className="flex min-w-0 items-center gap-1 text-[10px] text-gray-500"
                   suppressHydrationWarning
                 >
                   {formattedTime} <span className="text-[8px]">•</span>{" "}
@@ -84,40 +84,40 @@ export function LinkedInPreview({
           </div>
           <div
             id={"control-menu"}
-            className="absolute top-[0.4rem] right-[0.8rem] flex"
+            className="absolute right-[0.8rem] top-[0.4rem] flex"
           >
             <button
-              className="relative overflow-visible select-none cursor-pointer items-center justify-center flex group size-8"
+              className="group relative flex size-8 cursor-pointer select-none items-center justify-center overflow-visible"
               id="mock-twitter-button"
             >
-              <div className=" absolute -m-1 inset-2 size-6 rounded-full transition-colors duration-200 bg-transparent group-hover:bg-gray-500/10" />
-              <DotsHorizontalIcon className="text-muted-foreground group-hover:text-black transition-colors duration-200 " />
+              <div className="absolute inset-2 -m-1 size-6 rounded-full bg-transparent transition-colors duration-200 group-hover:bg-gray-500/10" />
+              <DotsHorizontalIcon className="text-muted-foreground transition-colors duration-200 group-hover:text-black" />
             </button>
           </div>
         </div>
       </div>
       <div id={"post-content"} className="ml-2">
-        <div className="mx-4 overflow-hidden max-h-[6rem] relative max-w-[928px]">
-          <span className="text-blue-600 font-semibold text-sm hover:underline hover:underline-blue-800 cursor-pointer">
+        <div className="relative mx-4 max-h-[6rem] max-w-[928px] overflow-hidden">
+          <span className="hover:underline-blue-800 cursor-pointer text-sm font-semibold text-blue-600 hover:underline">
             {url}
           </span>
           <br />
-          <span className="text-blue-600 font-semibold text-sm hover:underline hover:underline-blue-800 cursor-pointer">
+          <span className="hover:underline-blue-800 cursor-pointer text-sm font-semibold text-blue-600 hover:underline">
             #instantPersonas
           </span>
 
-          <span className="ml-1 text-blue-600 font-semibold text-sm hover:underline hover:underline-blue-800 cursor-pointer">
+          <span className="hover:underline-blue-800 ml-1 cursor-pointer text-sm font-semibold text-blue-600 hover:underline">
             #preview
           </span>
         </div>
       </div>
       <article
         id={"post-media"}
-        className="mt-[0.8rem] overflow-hidden relative"
+        className="relative mt-[0.8rem] overflow-hidden"
       >
-        <div className="pt-[53.73%] h-0 max-w-full relative">
-          <div className="top-0 left-0 absolute w-full h-full -outline-offset-1 cursor-pointer">
-            <div className="relative w-full h-full">
+        <div className="relative h-0 max-w-full pt-[53.73%]">
+          <div className="absolute left-0 top-0 h-full w-full cursor-pointer -outline-offset-1">
+            <div className="relative h-full w-full">
               <Image
                 src={image ?? "/tools/no-image-placeholder.svg"}
                 alt="OG Image"
@@ -127,9 +127,9 @@ export function LinkedInPreview({
             </div>
           </div>
         </div>
-        <div className="py-[0.8rem] px-[1.2rem] flex items-start justify-between bg-pastel-blue/25">
-          <div className="flex-1 w-full flex flex-col">
-            <div className=" max-h-16 overflow-hidden text-ellipsis text-sm">
+        <div className="flex items-start justify-between bg-pastel-blue/25 px-[1.2rem] py-[0.8rem]">
+          <div className="flex w-full flex-1 flex-col">
+            <div className="max-h-16 overflow-hidden text-ellipsis text-sm">
               <span dir="ltr">{title}</span>
             </div>
             <span className="mt-[0.8rem] overflow-hidden text-ellipsis text-xs text-gray-500">
@@ -139,17 +139,17 @@ export function LinkedInPreview({
         </div>
       </article>
       <div id={"social-controls"}>
-        <div className="border-b border-gray-300/75 py-[0.8rem] mx-[1.6rem] flex">
+        <div className="mx-[1.6rem] flex border-b border-gray-300/75 py-[0.8rem]">
           <ul className="flex flex-1">
-            <li className="flex items-center flex-1 list-none mr-[0.4rem]">
+            <li className="mr-[0.4rem] flex flex-1 list-none items-center">
               <button
                 aria-label="1,663 reactions"
                 type="button"
-                className="flex items-center group"
+                className="group flex items-center"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  className=" align-bottom size-4 inline-block bg-no-repeat "
+                  className="inline-block size-4 bg-no-repeat align-bottom"
                   src="https://static.licdn.com/aero-v1/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
                   alt="like"
                   data-test-reactions-icon-type="LIKE"
@@ -157,7 +157,7 @@ export function LinkedInPreview({
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  className=" align-bottom size-4 inline-block bg-no-repeat -ml-[0.4rem] "
+                  className="-ml-[0.4rem] inline-block size-4 bg-no-repeat align-bottom"
                   src="https://static.licdn.com/aero-v1/sc/h/41j9d0423ck1snej32brbuuwg"
                   alt="funny"
                   data-test-reactions-icon-type="ENTERTAINMENT"
@@ -165,7 +165,7 @@ export function LinkedInPreview({
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  className=" align-bottom size-4 inline-block bg-no-repeat -ml-[0.4rem] "
+                  className="-ml-[0.4rem] inline-block size-4 bg-no-repeat align-bottom"
                   src="https://static.licdn.com/aero-v1/sc/h/b1dl5jk88euc7e9ri50xy5qo8"
                   alt="celebrate"
                   data-test-reactions-icon-type="PRAISE"
@@ -173,28 +173,28 @@ export function LinkedInPreview({
                 />
                 <span
                   aria-hidden="true"
-                  className="text-xs text-gray-500 ml-0.5"
+                  className="ml-0.5 text-xs text-gray-500"
                 >
                   1,663{" "}
                 </span>
               </button>
             </li>
-            <li className=" flex items-center shrink-0 list-none">
-              <span className="text-xs text-gray-500 ml-0.5 hover:text-blue-500 hover:underline hover:underline-blue-500 cursor-pointer">
+            <li className="flex shrink-0 list-none items-center">
+              <span className="hover:underline-blue-500 ml-0.5 cursor-pointer text-xs text-gray-500 hover:text-blue-500 hover:underline">
                 100 comments
               </span>
-              <span className="text-[8px] text-gray-500 ml-[0.3rem] mr-[0.2rem] ">
+              <span className="ml-[0.3rem] mr-[0.2rem] text-[8px] text-gray-500">
                 •
               </span>
             </li>
-            <li className="mr-[0.4rem] flex items-center shrink-0 list-none">
-              <span className="text-xs text-gray-500 ml-0.5 hover:text-blue-500 hover:underline hover:underline-blue-500 cursor-pointer">
+            <li className="mr-[0.4rem] flex shrink-0 list-none items-center">
+              <span className="hover:underline-blue-500 ml-0.5 cursor-pointer text-xs text-gray-500 hover:text-blue-500 hover:underline">
                 46 reposts
               </span>
             </li>
           </ul>
         </div>
-        <div className="gap-[0.4rem] grid grid-flow-col item-center min-h-10 px-[1.6rem] py-[0.4rem]">
+        <div className="item-center grid min-h-10 grid-flow-col gap-[0.4rem] px-[1.6rem] py-[0.4rem]">
           {[
             {
               Icon: ThumbsUpIcon,
@@ -213,10 +213,10 @@ export function LinkedInPreview({
               label: "Send",
             },
           ].map(({ Icon, label }) => (
-            <span className="flex-1 inline-flex overflow-visible" key={label}>
-              <button className="cursor-pointer w-full py-[10px] px-2 hover:bg-gray-400/25 rounded-sm min-w-0 flex items-center justify-center transition-colors duration-200 align-middle group overflow-hidden min-h-12">
-                <div className="flex-wrap justify-center items-center flex">
-                  <Icon className="text-gray-900/75 size-6 group-hover:text-black outline-current -ml-0.5 mr-1" />
+            <span className="inline-flex flex-1 overflow-visible" key={label}>
+              <button className="group flex min-h-12 w-full min-w-0 cursor-pointer items-center justify-center overflow-hidden rounded-sm px-2 py-[10px] align-middle transition-colors duration-200 hover:bg-gray-400/25">
+                <div className="flex flex-wrap items-center justify-center">
+                  <Icon className="-ml-0.5 mr-1 size-6 text-gray-900/75 outline-current group-hover:text-black" />
                   <span
                     aria-hidden="true"
                     className="text-sm font-semibold text-gray-900/75 group-hover:text-black"

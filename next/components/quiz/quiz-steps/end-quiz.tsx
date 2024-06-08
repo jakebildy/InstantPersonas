@@ -35,10 +35,10 @@ export function EndQuiz({
   const totalQuestions = reviewSchema.length;
   const correctAnswers = reviewSchema.filter((answer) => answer.correct).length;
   const score = ((correctAnswers / totalQuestions) * 100).toFixed(
-    2
+    2,
   ) as unknown as number;
   const grading = (Object.entries(gradingThreshold).find(
-    ([_, threshold]) => score >= threshold * 100
+    ([_, threshold]) => score >= threshold * 100,
   )?.[0] || "uhOh") as keyof typeof gradingThreshold;
 
   const endQuizTextVariants = {
@@ -108,14 +108,14 @@ export function EndQuiz({
         <div className="my-2 w-fit">
           <Button
             variant={"outline"}
-            className="group-hover:text-primary rounded-full hover:scale-100 h-full w-full p-1"
+            className="h-full w-full rounded-full p-1 hover:scale-100 group-hover:text-primary"
             onClick={() => setIsReviewing((prev) => !prev)}
           >
             <motion.span
               className={gradientLightVariants({
                 variant: variantColor,
                 className:
-                  "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 group-hover:bg-green-500 group-hover:text-white transition-colors duration-150 ease-out font-semibold text-muted-foreground ",
+                  "h-10 whitespace-nowrap rounded-full border border-input p-2 px-4 font-semibold text-muted-foreground transition-colors duration-150 ease-out group-hover:bg-green-500 group-hover:text-white",
               })}
             >
               {isReviewing ? "Hide Review" : "Review Quiz"}
@@ -126,7 +126,7 @@ export function EndQuiz({
       <AnimatePresence mode="popLayout">
         {isReviewing && (
           <motion.div
-            className="grid grid-cols-1 gap-4 mb-10"
+            className="mb-10 grid grid-cols-1 gap-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -169,7 +169,7 @@ export function EndQuiz({
                           0.5 + (questionIndex + 1) * 0.25 + (i + 1) * 0.25,
                         ease: "easeOut",
                       }}
-                      className="col-span-1 w-full flex items-center gap-2"
+                      className="col-span-1 flex w-full items-center gap-2"
                     >
                       <Button
                         variant={"outline"}
@@ -190,8 +190,8 @@ export function EndQuiz({
                         {choice.correct
                           ? "Correct"
                           : choice.answer === question.selectedAnswer
-                          ? "Selected Answer"
-                          : null}
+                            ? "Selected Answer"
+                            : null}
                       </p>
                     </motion.div>
                   ))}

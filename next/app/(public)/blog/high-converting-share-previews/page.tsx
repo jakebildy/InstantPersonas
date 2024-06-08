@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function HighConvertingSharePreviews() {
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+    <main className="bg-white pb-16 pt-8 lg:pb-24 lg:pt-16">
       <ReadingBar />
       <title>
         {"High Converting Social Share Previews: Your Complete Guide (2024)"}
@@ -24,20 +24,20 @@ export default function HighConvertingSharePreviews() {
         property="og:description"
         content="Social previews are what your link will look like when shared on social media. Don't miss the 7 steps to make them high converting."
       />
-      <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+      <h1 className="mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 sm:hidden lg:mb-6 lg:text-4xl">
         High Converting Social Share Previews: Your Complete Guide (2024)
       </h1>
-      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+      <div className="mx-auto flex max-w-screen-xl justify-between px-4 max-sm:flex-col">
         <TableOfContents />
-        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-          <header className="mb-4 lg:mb-6 not-format">
-            <address className="flex items-center mb-6 not-italic"></address>
-            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+        <article className="format format-sm sm:format-base lg:format-lg format-blue mx-auto w-full max-w-2xl">
+          <header className="not-format mb-4 lg:mb-6">
+            <address className="mb-6 flex items-center not-italic"></address>
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 max-sm:sr-only lg:mb-6 lg:text-4xl">
               High Converting Social Share Previews: Your Complete Guide (2024)
             </h1>
           </header>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"0"}>
             What Is A Social Share Preview?
           </h2>
 
@@ -48,7 +48,7 @@ export default function HighConvertingSharePreviews() {
             and using high converting language can boost your engagement,
             helping increase your SEO.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="1">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="1">
             Tips For Crafting Highly Compelling Social Previews
           </h2>
           <p>
@@ -88,7 +88,7 @@ export default function HighConvertingSharePreviews() {
             </b>
             .
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"2"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"2"}>
             Why are social share images important?
           </h2>
           <p>
@@ -99,7 +99,7 @@ export default function HighConvertingSharePreviews() {
               height={600}
               width={600}
               alt="Stats on visuals in social media posts"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             80% of marketers use images in every social media post.
@@ -108,7 +108,7 @@ export default function HighConvertingSharePreviews() {
               height={600}
               width={600}
               alt="Stats on marketers using images"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             Facebook updates with images had an amazing 2.3x more engagement
@@ -118,11 +118,11 @@ export default function HighConvertingSharePreviews() {
               height={600}
               width={600}
               alt="Stats on Facebook Engagement with images"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="3">
             How do you make a good cover image?
           </h2>
           <p>
@@ -131,7 +131,7 @@ export default function HighConvertingSharePreviews() {
             valuable information closer to the center. The image should be
             engaging.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="4">
             What are the open graph meta tags?
           </h2>
           <p>
@@ -151,7 +151,7 @@ export default function HighConvertingSharePreviews() {
             <b>Twitter Card tags</b> (<i>twitter:title</i>,{" "}
             <i>twitter:description</i>, <i>twitter:image</i>, etc.) .
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="5">
             What does it mean if a preview is &apos;&apos;cached&apos;&apos;?
           </h2>
           <p>
@@ -166,7 +166,7 @@ export default function HighConvertingSharePreviews() {
             eventually it should update automatically.
           </p>
 
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="6">
             Do Social Shares Boost Topical Authority?
           </h2>
           <p>
@@ -186,7 +186,7 @@ export default function HighConvertingSharePreviews() {
             can{" "}
             <a
               href="https://instantpersonas.com/blog/topical-authority-ultimate-guide"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               check out here
             </a>
@@ -197,7 +197,7 @@ export default function HighConvertingSharePreviews() {
             <br></br> <br></br>
             Want to make a comprehensive User Persona in 5 minutes to help you
             tailor your copy?{" "}
-            <a href="https://InstantPersonas.com/" className=" text-blue-500">
+            <a href="https://InstantPersonas.com/" className="text-blue-500">
               {" "}
               Use our AI powered platform{" "}
             </a>{" "}

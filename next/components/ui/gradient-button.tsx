@@ -23,7 +23,7 @@ export const IconVariants = cva(
     defaultVariants: {
       size: "sm",
     },
-  }
+  },
 );
 
 export interface GradientButtonProps
@@ -53,14 +53,14 @@ export interface GradientButtonProps
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <Button
         variant={"outline"}
         className={cn(
-          "hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md group",
-          className
+          "group h-fit rounded-full p-1 shadow-md hover:scale-100 hover:text-primary",
+          className,
         )}
         ref={ref}
         {...props}
@@ -71,10 +71,10 @@ export interface GradientButtonProps
             gradientLightVariants({
               variant: variant,
               className: cn(
-                "pl-5 flex items-center gap-2 text-sm",
-                innerClassName
+                "flex items-center gap-2 pl-5 text-sm",
+                innerClassName,
               ),
-            })
+            }),
           )}
         >
           {children}
@@ -87,7 +87,7 @@ export interface GradientButtonProps
         </span>
       </Button>
     );
-  }
+  },
 );
 
 GradientButton.displayName = "GradientButton";

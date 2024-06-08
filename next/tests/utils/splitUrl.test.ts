@@ -46,7 +46,7 @@ describe("splitUrl", () => {
 
   test("splits URL with both query parameters and hash fragment", () => {
     expect(
-      splitUrl("https://www.example.com/shop/item?color=blue#details")
+      splitUrl("https://www.example.com/shop/item?color=blue#details"),
     ).toEqual(["https://www.example.com/shop/", "item"]);
   });
 
@@ -66,7 +66,7 @@ describe("splitUrl", () => {
 
   test("handles URL with a complex path", () => {
     expect(
-      splitUrl("https://www.example.com/some/very/deep/nested/path/")
+      splitUrl("https://www.example.com/some/very/deep/nested/path/"),
     ).toEqual(["https://www.example.com/some/very/deep/nested/", "path"]);
   });
 });

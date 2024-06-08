@@ -139,9 +139,9 @@ export function Globe({ globeConfig, data }: WorldProps) {
         (v, i, a) =>
           a.findIndex((v2) =>
             ["lat", "lng"].every(
-              (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]
-            )
-          ) === i
+              (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"],
+            ),
+          ) === i,
       );
 
       setGlobeData(filteredPoints);
@@ -195,7 +195,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
         .ringMaxRadius(defaultProps.maxRings)
         .ringPropagationSpeed(RING_PROPAGATION_SPEED)
         .ringRepeatPeriod(
-          (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
+          (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
         );
     };
 
@@ -233,11 +233,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
       numbersOfRings = genRandomNumbers(
         0,
         data.length,
-        Math.floor((data.length * 4) / 5)
+        Math.floor((data.length * 4) / 5),
       );
 
       globeRef.current.ringsData(
-        globeData.filter((_d, i) => numbersOfRings.includes(i))
+        globeData.filter((_d, i) => numbersOfRings.includes(i)),
       );
     }, 2000);
 

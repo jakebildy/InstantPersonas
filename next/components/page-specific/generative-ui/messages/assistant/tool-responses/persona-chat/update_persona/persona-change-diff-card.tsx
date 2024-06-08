@@ -96,7 +96,7 @@ export function PersonaChangeDiffCard({
 
   const renderDifferences = (
     origin: Record<string, any>,
-    updated: Record<string, any>
+    updated: Record<string, any>,
   ) => {
     if (
       !origin ||
@@ -128,7 +128,7 @@ export function PersonaChangeDiffCard({
         {changes.length > 0 ? (
           changes
         ) : (
-          <p className="text-gray-400 text-xs">
+          <p className="text-xs text-gray-400">
             No changes detected in this section.
           </p>
         )}
@@ -149,12 +149,12 @@ export function PersonaChangeDiffCard({
     mostRecentMsg.name === "update_persona" &&
     isEqual(
       JSON.parse(mostRecentMsg.content).updated_archetype,
-      updated_archetype
+      updated_archetype,
     );
 
   return (
-    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
-      <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-6" />
+    <div className="relative grid h-full w-full rounded-xl border bg-background shadow-md">
+      <PersonStandingIcon className="absolute right-0 top-0 m-6 text-muted-foreground" />
       <div className="flex gap-2 border-b">
         <Avatar
           className={avatarVariants({
@@ -173,21 +173,21 @@ export function PersonaChangeDiffCard({
           <AvatarFallback>{avatarFallbackName}</AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col my-6">
-          <span className="text-muted-foreground font-semibold text-sm">
+        <div className="my-6 flex flex-col">
+          <span className="text-sm font-semibold text-muted-foreground">
             Archetype
           </span>
 
           {origin_archetype.archetype_name !==
           updated_archetype.archetype_name ? (
             <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2 bg-pastel-red/50 px-2 rounded-lg text-black/75">
+              <div className="flex items-center gap-2 rounded-lg bg-pastel-red/50 px-2 text-black/75">
                 <XIcon className="h-4 w-4" />
                 <span className="font-semibold">
                   {origin_archetype.archetype_name}
                 </span>
               </div>
-              <div className="flex items-center gap-2 bg-pastel-green/50 px-2 rounded-lg text-black/75">
+              <div className="flex items-center gap-2 rounded-lg bg-pastel-green/50 px-2 text-black/75">
                 <ArrowUp className="h-4 w-4" />
                 <span className="font-semibold">
                   {updated_archetype.archetype_name}
@@ -201,33 +201,33 @@ export function PersonaChangeDiffCard({
       </div>
       {origin_archetype.persona_components !==
       updated_archetype.persona_components ? (
-        <div className="flex flex-col gap-2 p-4 rounded-lg m-2">
+        <div className="m-2 flex flex-col gap-2 rounded-lg p-4">
           {renderDifferences(
             origin_archetype.persona_components,
-            updated_archetype.persona_components
+            updated_archetype.persona_components,
           )}
         </div>
       ) : null}
 
       {origin_archetype.insights !== updated_archetype.insights ? (
-        <div className="flex flex-col gap-2 p-4 rounded-lg m-2">
+        <div className="m-2 flex flex-col gap-2 rounded-lg p-4">
           <Separator text="insights" className="mb-4" />
           {renderDifferences(
             origin_archetype.insights,
-            updated_archetype.insights
+            updated_archetype.insights,
           )}
         </div>
       ) : null}
       {!isMostRecentMsg ? (
         <div />
       ) : isAccepted ? (
-        <div className="mb-2 mx-6 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gradient-to-b from-primary to-green-50 text-primary-foreground">
+        <div className="mx-6 mb-2 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-gradient-to-b from-primary to-green-50 py-2 text-sm font-medium text-primary-foreground">
           Accepted Changes
         </div>
       ) : !isRejected ? (
         <div>
           <Button
-            className="mb-2 mx-6 h-10"
+            className="mx-6 mb-2 h-10"
             onClick={() => {
               setIsAccepted(true);
               const personas = aiState.personas.map(
@@ -236,7 +236,7 @@ export function PersonaChangeDiffCard({
                     return updated_archetype;
                   }
                   return persona;
-                }
+                },
               );
               // change Gourmet Feline Enthusiast to luxury cat lady
 
@@ -280,7 +280,7 @@ export function PersonaChangeDiffCard({
               setAIState(newAiState);
               setUIState(
                 (currentMessages: ClientMessage[]) =>
-                  [...getUIStateFromAIState(newAiState)] as ClientMessage[]
+                  [...getUIStateFromAIState(newAiState)] as ClientMessage[],
               );
             }}
           >
@@ -288,7 +288,7 @@ export function PersonaChangeDiffCard({
           </Button>
           <Button
             variant={"destructive"}
-            className="mb-4 mx-6"
+            className="mx-6 mb-4"
             onClick={() => {
               setIsRejected(true);
             }}
@@ -297,7 +297,7 @@ export function PersonaChangeDiffCard({
           </Button>
         </div>
       ) : (
-        <div className="ml-[20px] mb-[10px] mt-[10px] text-red-600">
+        <div className="mb-[10px] ml-[20px] mt-[10px] text-red-600">
           Rejected Changes
         </div>
       )}
@@ -315,9 +315,9 @@ function ShowChangeDifferences({
   updated: string;
 }) {
   return (
-    <li className="flex flex-col gap-1 mb-4">
+    <li className="mb-4 flex flex-col gap-1">
       <div className="flex items-center gap-2 text-muted-foreground">
-        <span className=" font-semibold text-sm">{title}</span>
+        <span className="text-sm font-semibold">{title}</span>
         <GitCompareArrows className="h-4 w-4" />
       </div>
       <div className="flex flex-col gap-1">
@@ -342,15 +342,15 @@ function ChangeItem({ icon, text, className, ...props }: ChangeItemProps) {
   return (
     <div
       className={cn(
-        "flex items-center gap-2 px-2 rounded-lg text-black/75",
-        className
+        "flex items-center gap-2 rounded-lg px-2 text-black/75",
+        className,
       )}
       {...props}
     >
-      <div className="flex items-center justify-start flex-col">
+      <div className="flex flex-col items-center justify-start">
         <IconComponent className="h-4 w-4" />
       </div>
-      <span className="text-sm font-medium p-1 text-left">{text}</span>
+      <span className="p-1 text-left text-sm font-medium">{text}</span>
     </div>
   );
 }

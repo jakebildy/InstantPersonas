@@ -34,15 +34,15 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
           <AvatarImage
             src={archetype.pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
-              " "
+              " ",
             )}
           />
           <AvatarFallback>{avatarFallbackName}</AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col my-6 gap-2">
+        <div className="my-6 flex flex-col gap-2">
           <div className="flex flex-col">
-            <span className="text-muted-foreground font-semibold text-sm">
+            <span className="text-sm font-semibold text-muted-foreground">
               Archetype
             </span>
             <span className="font-bold">{archetype_name}</span>
@@ -70,13 +70,13 @@ export function PersonaTab({ variant, archetype }: PersonaAvatarPopoverProps) {
         <div
           className={gradientVariants({
             variant,
-            className: "flex gap-2 p-4 overflow-auto rounded-lg m-2",
+            className: "m-2 flex gap-2 overflow-auto rounded-lg p-4",
           })}
         >
           <ul>
             {Object.entries(persona_components).map(([key, value]) => (
-              <li key={key} className="flex flex-col gap-1 mb-4">
-                <span className="text-muted-foreground font-semibold text-sm">
+              <li key={key} className="mb-4 flex flex-col gap-1">
+                <span className="text-sm font-semibold text-muted-foreground">
                   {key.replace(/_/g, " ")}
                 </span>
                 <span className="text-sm font-medium">{value}</span>

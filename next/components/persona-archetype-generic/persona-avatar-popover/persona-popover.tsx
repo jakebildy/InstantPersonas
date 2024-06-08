@@ -34,7 +34,7 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
 
   //? Filters out the manage tab if component is being used outside of Chat AI Context to prevent unauthorized access and crashes
   const safeFilteredTabs = PersonaTabs.filter((tab) =>
-    allowManage !== false ? tab : tab.title !== "Manage"
+    allowManage !== false ? tab : tab.title !== "Manage",
   );
 
   return (
@@ -55,14 +55,14 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
         className={cn(
           shadowVariants({
             variant,
-            className: "w-full rounded-2xl m-2",
-          })
+            className: "m-2 w-full rounded-2xl",
+          }),
         )}
       >
         <Tabs defaultValue={PersonaTabs[0].title} className="w-[400px]">
-          <div className="w-full grid place-items-center">
+          <div className="grid w-full place-items-center">
             <PersonStandingIcon className="text-muted-foreground" />
-            <TabsList className="rounded-full h-9 my-4">
+            <TabsList className="my-4 h-9 rounded-full">
               {safeFilteredTabs.map((tab) => (
                 <TabsTrigger
                   value={tab.title}
@@ -81,14 +81,14 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
                 className={cn(
                   gradientLightVariants({
                     variant,
-                    className: "h-[400px] grid border rounded-lg shadow-md",
-                  })
+                    className: "grid h-[400px] rounded-lg border shadow-md",
+                  }),
                 )}
               >
                 <tab.content {...props} />
               </ScrollArea>
 
-              <p className="text-sm text-muted-foreground text-center my-4">
+              <p className="my-4 text-center text-sm text-muted-foreground">
                 {tab.description}
               </p>
             </TabsContent>

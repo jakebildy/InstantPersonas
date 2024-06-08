@@ -36,8 +36,8 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
     .map((word) => word.charAt(0))
     .join("");
   return (
-    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
-      <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-6" />
+    <div className="relative grid h-full w-full rounded-xl border bg-background shadow-md">
+      <PersonStandingIcon className="absolute right-0 top-0 m-6 text-muted-foreground" />
       <div className="flex gap-2 border-b">
         <Avatar
           className={avatarVariants({
@@ -49,14 +49,14 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
           <AvatarImage
             src={pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
-              " "
+              " ",
             )}
           />
           <AvatarFallback>{avatarFallbackName}</AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col my-6">
-          <span className="text-muted-foreground font-semibold text-sm">
+        <div className="my-6 flex flex-col">
+          <span className="text-sm font-semibold text-muted-foreground">
             Archetype
           </span>
           <span className="font-bold">{archetype_name}</span>
@@ -66,13 +66,13 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
       <div
         className={gradientVariants({
           variant,
-          className: "flex flex-col gap-2 p-4 rounded-lg m-2",
+          className: "m-2 flex flex-col gap-2 rounded-lg p-4",
         })}
       >
         <ul className="grid gap-4">
           {Object.entries(persona_components).map(([key, value]) => (
-            <li key={key} className="flex flex-col gap-1 mb-4">
-              <span className="text-muted-foreground font-semibold text-sm">
+            <li key={key} className="mb-4 flex flex-col gap-1">
+              <span className="text-sm font-semibold text-muted-foreground">
                 {key.replace(/_/g, " ")}
               </span>
               <span className="text-sm font-medium">{value}</span>
@@ -81,10 +81,10 @@ export function PersonaTemplate({ variant, archetype }: PersonaTemplateProps) {
         </ul>
         <Separator text="insights" className="mb-4" />
 
-        <ul className=" grid grid-cols-2 gap-4 w-full">
+        <ul className="grid w-full grid-cols-2 gap-4">
           {Object.entries(insights).map(([key, value]) => (
-            <li key={key} className="flex flex-col gap-1 mb-4 ">
-              <span className="text-muted-foreground font-semibold text-sm">
+            <li key={key} className="mb-4 flex flex-col gap-1">
+              <span className="text-sm font-semibold text-muted-foreground">
                 {key.replace(/_/g, " ")}
               </span>
               <span className="text-sm font-medium">{value}</span>
@@ -108,8 +108,8 @@ export function PersonaTemplatePreview({
     .join("");
 
   return (
-    <div className="grid w-full h-full rounded-xl border relative shadow-md bg-background">
-      <PersonStandingIcon className="text-muted-foreground absolute top-0 right-0 m-1 h-2 w-2" />
+    <div className="relative grid h-full w-full rounded-xl border bg-background shadow-md">
+      <PersonStandingIcon className="absolute right-0 top-0 m-1 h-2 w-2 text-muted-foreground" />
       <div className="flex border-b">
         <Avatar
           className={avatarVariants({
@@ -121,42 +121,42 @@ export function PersonaTemplatePreview({
           <AvatarImage
             src={pictureURL}
             alt={[archetype_name.toLocaleLowerCase(), "persona avatar"].join(
-              " "
+              " ",
             )}
           />
           <AvatarFallback>{avatarFallbackName}</AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col my-2">
-          <span className="text-muted-foreground font-semibold text-[4px]">
+        <div className="my-2 flex flex-col">
+          <span className="text-[4px] font-semibold text-muted-foreground">
             Archetype
           </span>
-          <span className="font-bold text-[4.5px]">{archetype_name}</span>
+          <span className="text-[4.5px] font-bold">{archetype_name}</span>
         </div>
       </div>
 
       <div
         className={gradientVariants({
           variant,
-          className: "flex flex-col p-2 rounded-lg m-1",
+          className: "m-1 flex flex-col rounded-lg p-2",
         })}
       >
         <ul className="grid">
           {Object.entries(persona_components).map(([key, value]) => (
-            <li key={key} className="flex flex-col mb-1">
-              <span className="text-muted-foreground font-semibold text-[3px]">
+            <li key={key} className="mb-1 flex flex-col">
+              <span className="text-[3px] font-semibold text-muted-foreground">
                 {key.replace(/_/g, " ")}
               </span>
               <span className="text-[3px] font-medium">{value}</span>
             </li>
           ))}
         </ul>
-        <Separator text="insights" className=" scale-[33%]" />
+        <Separator text="insights" className="scale-[33%]" />
 
-        <ul className=" grid grid-cols-2 w-full">
+        <ul className="grid w-full grid-cols-2">
           {Object.entries(insights).map(([key, value]) => (
-            <li key={key} className="flex flex-col mb-1">
-              <span className="text-muted-foreground font-semibold text-[3px]">
+            <li key={key} className="mb-1 flex flex-col">
+              <span className="text-[3px] font-semibold text-muted-foreground">
                 {key.replace(/_/g, " ")}
               </span>
               <span className="text-[2px] font-medium">{value}</span>
