@@ -56,7 +56,7 @@ function estimateOpenAiCost({
 export async function GPT4(
   prompt: string,
   systemMessages?: string[],
-  model: any = "gpt-4-turbo-2024-04-09"
+  model: any = "gpt-4-turbo-2024-04-09",
 ): Promise<any> {
   const endpoint = "https://api.openai.com/v1/chat/completions";
   const headers = {
@@ -106,7 +106,7 @@ export async function GPT4(
 export async function ChatGPT(
   prompt: string,
   systemMessages?: string[],
-  model: any = "gpt-3.5-turbo-0125"
+  model: any = "gpt-3.5-turbo-0125",
 ): Promise<any> {
   const endpoint = "https://api.openai.com/v1/chat/completions";
   const headers = {

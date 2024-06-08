@@ -15,28 +15,28 @@ export const ToolPreviewCard = ({
   return (
     <article
       className={cn(
-        "p-6 bg-white rounded-lg border border-gray-200 shadow-md relative overflow-hidden",
-        className
+        "relative overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-md",
+        className,
       )}
     >
-      <PersonStandingIcon className="size-6 absolute top-2 right-2 text-muted-foreground" />
-      <div className="flex justify-between items-center mb-5 text-gray-500 z-20">
-        <span className="bg-green-200 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-xl ">
+      <PersonStandingIcon className="absolute right-2 top-2 size-6 text-muted-foreground" />
+      <div className="z-20 mb-5 flex items-center justify-between text-gray-500">
+        <span className="inline-flex items-center rounded-xl bg-green-200 px-2.5 py-0.5 text-xs font-medium text-green-800">
           {category}
         </span>
       </div>
-      <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 flex gap-2 items-center z-20">
+      <h2 className="z-20 mb-2 flex items-center gap-2 text-2xl font-bold tracking-tight text-gray-900">
         <Link href={tool.href}>{tool.title}</Link>
       </h2>
-      <p className="mb-5 font-light text-gray-500 z-20">{tool.lead}</p>
-      <div className="flex justify-between items-center z-20">
+      <p className="z-20 mb-5 font-light text-gray-500">{tool.lead}</p>
+      <div className="z-20 flex items-center justify-between">
         <Link
           href={tool.href}
-          className="inline-flex items-center font-medium text-primary-600  hover:underline z-20"
+          className="text-primary-600 z-20 inline-flex items-center font-medium hover:underline"
         >
           Try it now
           <svg
-            className="ml-2 w-4 h-4"
+            className="ml-2 h-4 w-4"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ export const ToolPreviewCard = ({
           </svg>
         </Link>
       </div>
-      <tool.icon className="absolute size-[200px] right-14 bottom-0 translate-x-10 translate-y-1/4 text-gray-500/10 z-0" />
+      <tool.icon className="absolute bottom-0 right-14 z-0 size-[200px] translate-x-10 translate-y-1/4 text-gray-500/10" />
     </article>
   );
 };

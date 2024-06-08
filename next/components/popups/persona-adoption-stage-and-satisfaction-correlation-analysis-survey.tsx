@@ -89,10 +89,10 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
           setSurveyStep(
             surveyAnswers.job === "Other" ||
               !JOB_CHOICES.includes(
-                surveyAnswers.job as (typeof JOB_CHOICES)[number] //? Type assertion is safe because we check if the value is in the array
+                surveyAnswers.job as (typeof JOB_CHOICES)[number], //? Type assertion is safe because we check if the value is in the array
               )
               ? "other_job"
-              : "what_stage_do_you_use_personas"
+              : "what_stage_do_you_use_personas",
           )
         }
         currentAnswer={surveyAnswers.job || ""}
@@ -144,10 +144,10 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
           setSurveyStep(
             surveyAnswers.job === "Other" ||
               !JOB_CHOICES.includes(
-                surveyAnswers.job as (typeof JOB_CHOICES)[number]
+                surveyAnswers.job as (typeof JOB_CHOICES)[number],
               ) //? Type assertion is safe because we check if the value is in the array
               ? "other_job"
-              : "user_job"
+              : "user_job",
           )
         }
         rangeLabels={["Early", "Mid", "Late"]}
@@ -220,13 +220,13 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
         } else {
           posthog.capture(
             "persona-adoption-stage-and-satisfaction-correlation-analysis-survey_completed",
-            finialSurveyAnswers
+            finialSurveyAnswers,
           );
           const currentDateFormatted = new Date().toISOString().slice(0, 10);
           // Local storage to prevent showing the feedback dialog again for 60 days (see logic in history list page)
           localStorage.setItem(
             LOCAL_STORAGE_CONFIG.feedback.completed,
-            currentDateFormatted
+            currentDateFormatted,
           );
         }
         await delay(2500);
@@ -241,18 +241,18 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
   return (
     <Dialog.Root open={openFeedbackPopup} onOpenChange={setOpenFeedbackPopup}>
       <Dialog.Portal>
-        <Dialog.DialogOverlay className="w-screen h-screen fixed inset-0 bg-black/75 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <Dialog.DialogOverlay className="fixed inset-0 h-screen w-screen bg-black/75 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <Dialog.Content
           className={shadowVariants({
             variant: variant,
             className:
-              "bg-white rounded-2xl shadow-2xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-2xl p-6 focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+              "fixed left-1/2 top-1/2 w-[90vw] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
           })}
         >
           <div>
             <div className="flex items-center gap-2">
               <MessageSquareHeartIcon className="text-gray-600" />
-              <h2 className="text-lg font-bold text-gray-700 pb-1">
+              <h2 className="pb-1 text-lg font-bold text-gray-700">
                 We&apos;d love to hear your feedback!
               </h2>
             </div>
@@ -265,7 +265,7 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
               className={gradientLightVariants({
                 variant: variant,
                 className:
-                  "h-[400px] grid place-items-center  border rounded-2xl shadow-sm my-4 relative",
+                  "relative my-4 grid h-[400px] place-items-center rounded-2xl border shadow-sm",
               })}
             >
               <AnimatePresence mode="wait">
@@ -273,7 +273,7 @@ const PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup = ({
               </AnimatePresence>
             </div>
 
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-center text-sm text-muted-foreground">
               We appreciate your time and feedback. Thank you!
             </p>
           </div>

@@ -21,11 +21,11 @@ interface Message {
  * @returns A new formatted message object or undefined if the message is invalid.
  */
 export function fixFunctionMessage(
-  message: Message
+  message: Message,
 ): AssistantToolCallMessage | undefined {
   // Retrieve all valid tool names from the configuration object
   const validToolNames = new Set(
-    Object.keys(PERSONA_CHAT_AI_COMPONENT_MAP.tool)
+    Object.keys(PERSONA_CHAT_AI_COMPONENT_MAP.tool),
   );
 
   // Check if the message contains the 'name' key indicating a structured tool call
@@ -45,7 +45,7 @@ export function fixFunctionMessage(
  */
 function processNamedMessage(
   message: Message,
-  validToolNames: Set<string>
+  validToolNames: Set<string>,
 ): AssistantToolCallMessage | undefined {
   const toolName = message.name;
 
@@ -76,7 +76,7 @@ function processNamedMessage(
  * @returns A new formatted message object or undefined if the message is invalid.
  */
 function processLegacyMessage(
-  message: Message
+  message: Message,
 ): AssistantToolCallMessage | undefined {
   // Parse the JSON content and ensure its validity
   const unvalidatedParams = JSON.parse(fixJson(message.content));
@@ -97,9 +97,9 @@ function processLegacyMessage(
           ),
           `Code logic error: ${toolName} tool has unique keys of \`confirm_business_knowledge\`: \`business\` or \`targetProblem\`` +
             "\n" +
-            "Please update the code logic to handle this case."
+            "Please update the code logic to handle this case.",
         );
-      }
+      },
     );
 
     const retriedParseResult =
@@ -114,7 +114,7 @@ function processLegacyMessage(
 
   // Filter out successful validation results and select the first successful match
   const matchedToolResult = validationResults.find(
-    ({ result }) => result.success
+    ({ result }) => result.success,
   );
 
   if (!matchedToolResult) {
@@ -126,7 +126,7 @@ function processLegacyMessage(
         "\nDiagnostic Info: Found deprecated tool call in message content that failed to safely validate into an active tool", // Diagnostic information
         "\nUser Impact: Message will be removed, should not immediately break, consider adding fallback state to display to user or adding the tool", // Effect on User
         message,
-        validationResults
+        validationResults,
       );
     }
     return;
@@ -152,12 +152,12 @@ function processLegacyMessage(
  * @returns An array of validation results.
  */
 function getValidationResults(
-  unvalidatedParams: any
+  unvalidatedParams: any,
 ): { toolName: string; result: any }[] {
   return Object.entries(PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS).map(
     ([toolName, validator]) => ({
       toolName,
       result: validator.safeParse(unvalidatedParams),
-    })
+    }),
   );
 }

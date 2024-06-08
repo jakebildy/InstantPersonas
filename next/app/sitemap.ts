@@ -6,8 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return href.startsWith(BASE_URL)
       ? href
       : (href.startsWith("/") && href !== "/") || href.startsWith("#")
-      ? `https://instantpersonas.com${href}`
-      : null;
+        ? `https://instantpersonas.com${href}`
+        : null;
   };
 
   const changeFreqMap: {
@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
 
   const siteMapConfig: MetadataRoute.Sitemap = SITE_MAP.filter((p) =>
-    ensureBaseUrl(p.href)
+    ensureBaseUrl(p.href),
   ).map((pageConfig) => {
     const url = ensureBaseUrl(pageConfig.href) as string;
     const validatedBase = url?.split(BASE_URL)[1].split("/")[0];

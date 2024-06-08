@@ -73,11 +73,11 @@ export const InstantPersonasUserProvider = ({
       const getSubscription = async () => {
         IS_TEST_DEV_ENV && console.log("DEV: Getting subscription status");
         const subscription = await api.stripe.isSubscriptionActive(
-          user.user_id as string
+          user.user_id as string,
         );
 
         const activeSubscription = ACTIVE_SUBSCRIPTIONS.includes(
-          subscription.status
+          subscription.status,
         );
 
         if (user.user_id !== instantPersonasUser?.id) {
@@ -142,7 +142,7 @@ export const useInstantPersonasUser = () => {
   const context = useContext(InstantPersonasUserContext);
   if (context === undefined) {
     throw new Error(
-      "useInstantPersonasUser must be used within a InstantPersonasUserProvider"
+      "useInstantPersonasUser must be used within a InstantPersonasUserProvider",
     );
   }
   return context;

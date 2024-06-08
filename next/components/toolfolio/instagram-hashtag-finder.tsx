@@ -43,15 +43,15 @@ export function InstagramHashtagFinderTool({
         "We didn't find any good hashtags for this persona. Try refining your search!"
       ) : hashtagResults.length > 0 ? (
         <div className="mb-5">
-          <ul className="pt-4 pl-2">
+          <ul className="pl-2 pt-4">
             <div className="flex flex-row">
               <button
-                className="text-sm font-bold text-blue-500 flex flex-row mb-2"
+                className="mb-2 flex flex-row text-sm font-bold text-blue-500"
                 onClick={() => {
                   if (!isSubscribed && !isLoggedIn) {
                     window.open(
                       "https://www.instantpersonas.com/register",
-                      "_blank"
+                      "_blank",
                     );
                     return;
                   } else if (!isSubscribed) {
@@ -83,7 +83,7 @@ export function InstagramHashtagFinderTool({
                 {!isSubscribed ? " (Paid Feature)" : ""}
               </button>
               <button
-                className="text-sm font-bold text-blue-500 flex flex-row mb-2 ml-4"
+                className="mb-2 ml-4 flex flex-row text-sm font-bold text-blue-500"
                 onClick={() => {
                   const hashtags = hashtagResults
                     .map((result) => `#${result.hashtag}`)
@@ -95,10 +95,10 @@ export function InstagramHashtagFinderTool({
               </button>
             </div>
             {hashtagResults.length === 0 ? null : (
-              <div className=" w-full">
+              <div className="w-full">
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
                   <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-                    <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
+                    <tr className="w-full whitespace-nowrap text-sm font-normal text-[#212B36]">
                       <th className="px-2 py-3 text-center">Hashtag</th>
                       <th className="px-2 py-3 text-center">Volume</th>
                       <th className="px-2 py-3 text-center">
@@ -115,7 +115,7 @@ export function InstagramHashtagFinderTool({
                       // sort by average likes of top posts
                       .sort(
                         (a, b) =>
-                          a.averageLikesOfTopPosts - b.averageLikesOfTopPosts
+                          a.averageLikesOfTopPosts - b.averageLikesOfTopPosts,
                       )
                       .map((hashtag, i) => {
                         return (
@@ -132,12 +132,12 @@ export function InstagramHashtagFinderTool({
                               hashtag.averageLikesOfTopPosts < 100
                                 ? "green"
                                 : hashtag.averageLikesOfTopPosts < 500
-                                ? "blue"
-                                : hashtag.averageLikesOfTopPosts < 1000
-                                ? "yellow"
-                                : hashtag.averageLikesOfTopPosts < 10000
-                                ? "pink"
-                                : "red"
+                                  ? "blue"
+                                  : hashtag.averageLikesOfTopPosts < 1000
+                                    ? "yellow"
+                                    : hashtag.averageLikesOfTopPosts < 10000
+                                      ? "pink"
+                                      : "red"
                               // "blue"
                             }
                           />
@@ -155,14 +155,14 @@ export function InstagramHashtagFinderTool({
         {hashtagResults.length > 0 && !isSubscribed && !isLoggedIn
           ? "Sign up to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
           : hashtagResults.length > 0 && !isSubscribed
-          ? "Start your free trial to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
-          : ""}
+            ? "Start your free trial to not miss out on hashtag competitiveness, deeper insights, and get ahead of your competition!"
+            : ""}
         <br />
         <button
           className={
             noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
+              ? "mb-5 rounded-full bg-gray-400 px-4 py-2 font-bold text-white"
+              : "mb-5 rounded-full bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
           }
           onClick={async () => {
             if (noInput) return;
@@ -178,7 +178,7 @@ export function InstagramHashtagFinderTool({
               //   api guest post
               const response = await api.tools.findInstagramHashtags(
                 input,
-                isSubscribed
+                isSubscribed,
               );
 
               setHasCompleted(true);
@@ -191,8 +191,8 @@ export function InstagramHashtagFinderTool({
           {loading
             ? "Searching..."
             : hashtagResults.length > 0
-            ? "Find More Hashtags"
-            : "Find Instagram Hashtags"}
+              ? "Find More Hashtags"
+              : "Find Instagram Hashtags"}
         </button>
       </div>
     </div>
@@ -222,12 +222,12 @@ function InstagramHashtagTableRow({
         shadowVariants({
           variant,
           className:
-            "cursor-pointer bg-[#f6f8fa] hover:shadow-2xl hover:bg-gray-200 ",
+            "cursor-pointer bg-[#f6f8fa] hover:bg-gray-200 hover:shadow-2xl",
         }),
         gradientLightVariants({
           variant,
           className: "bg-gradient-to-r",
-        })
+        }),
       )}
       onClick={() => {
         if (isSubscribed)
@@ -236,7 +236,7 @@ function InstagramHashtagTableRow({
             text: `#${hashtag}\nVolume:   ${
               Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)
             }k\nAverage Likes of Top Posts: ${Math.round(
-              averageLikesOfTopPosts
+              averageLikesOfTopPosts,
             )}`,
           });
       }}
@@ -251,7 +251,7 @@ function InstagramHashtagTableRow({
           #{hashtag}
         </div>
       </td>
-      <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+      <td className="px-1 py-4 text-center text-sm font-normal text-[#637381]">
         {Math.round(volume / 1000) === 0 ? "<1" : Math.round(volume / 1000)}k
       </td>
       {/* {!isSubscribed && !isLoggedIn ? (
@@ -267,7 +267,7 @@ function InstagramHashtagTableRow({
           </a>
         </td>
       ) : ( */}
-      <td className="px-1 py-4 text-sm font-normal text-[#637381] text-center">
+      <td className="px-1 py-4 text-center text-sm font-normal text-[#637381]">
         {Math.round(averageLikesOfTopPosts)}
       </td>
       {/* )} */}

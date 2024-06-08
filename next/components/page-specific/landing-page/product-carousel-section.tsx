@@ -50,12 +50,12 @@ export default function ProductCarouselSection() {
   ];
 
   return (
-    <section id="get-started-today" className=" relative">
+    <section id="get-started-today" className="relative">
       <AuroraBackground className="bg-black py-32">
-        <Container className="relative mt-[100px] mb-[100px]">
+        <Container className="relative mb-[100px] mt-[100px]">
           <div className="mx-auto max-w-5xl text-center">
             {/* carousel */}
-            <h2 className="font-display text-5xl font-bold tracking-tight text-white pt-20 mb-10">
+            <h2 className="font-display mb-10 pt-20 text-5xl font-bold tracking-tight text-white">
               Extremely insightful personas without a billion customer surveys.
             </h2>
             <Carousel>
@@ -95,7 +95,7 @@ export default function ProductCarouselSection() {
               </CarouselContent>
               <CarouselNext />
             </Carousel>
-            <h2 className="font-display text-xl tracking-tight text-white pt-10">
+            <h2 className="font-display pt-10 text-xl tracking-tight text-white">
               Easily download and share your personas.
             </h2>
           </div>

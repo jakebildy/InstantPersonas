@@ -24,14 +24,14 @@ export function SurveyQuestionTemplate({
 }: SurveyQuestionTemplateProps) {
   return (
     <>
-      <motion.div layoutId="persona-icon" className="absolute top-4 left-4">
+      <motion.div layoutId="persona-icon" className="absolute left-4 top-4">
         <PersonStandingIcon className="text-muted-foreground" />
       </motion.div>
       {children}
       {goBack ? (
         <motion.div
           layoutId="survey-back-button"
-          className="absolute left-2 bottom-2"
+          className="absolute bottom-2 left-2"
           initial={
             initialAnimation ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }
           }
@@ -42,14 +42,14 @@ export function SurveyQuestionTemplate({
         >
           <Button
             variant={"outline"}
-            className="group-hover:text-primary rounded-full hover:scale-100 h-full w-full p-1 "
+            className="h-full w-full rounded-full p-1 hover:scale-100 group-hover:text-primary"
             onClick={goBack}
           >
             <motion.span
               className={gradientLightVariants({
                 variant: variant,
                 className:
-                  "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 hover:bg-gray-500 hover:text-white transition-colors duration-150 ease-out font-semibold text-muted-foreground ",
+                  "h-10 whitespace-nowrap rounded-full border border-input p-2 px-4 font-semibold text-muted-foreground transition-colors duration-150 ease-out hover:bg-gray-500 hover:text-white",
               })}
             >
               Back
@@ -59,18 +59,18 @@ export function SurveyQuestionTemplate({
       ) : null}
       <motion.div
         layoutId="survey-main-button"
-        className="absolute right-2 bottom-2"
+        className="absolute bottom-2 right-2"
       >
         <Button
           variant={"outline"}
-          className="group-hover:text-primary rounded-full hover:scale-100 h-full w-full p-1 "
+          className="h-full w-full rounded-full p-1 hover:scale-100 group-hover:text-primary"
           onClick={onSkipQuestion}
         >
           <motion.span
             className={gradientLightVariants({
               variant: variant,
               className:
-                "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 hover:bg-blue-500 hover:text-white transition-colors duration-150 ease-out font-semibold text-muted-foreground ",
+                "h-10 whitespace-nowrap rounded-full border border-input p-2 px-4 font-semibold text-muted-foreground transition-colors duration-150 ease-out hover:bg-blue-500 hover:text-white",
             })}
           >
             {isLastQuestion ? finishButtonText : "Next Question "}

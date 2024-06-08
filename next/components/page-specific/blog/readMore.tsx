@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export function ReadMore({ currentSlug }: { currentSlug: string }) {
   return (
-    <div className=" mt-32">
+    <div className="mt-32">
       {/* divider */}
 
-      <div className="grid gap-8 lg:grid-cols-2 mx-10 mt-10">
+      <div className="mx-10 mt-10 grid gap-8 lg:grid-cols-2">
         {BLOG_POSTS.reverse()
           .filter((post) => post.slug != currentSlug)
           .map((post, i) => (
@@ -40,27 +40,27 @@ const ArticleCard = ({
   return (
     <article
       className={cn(
-        "p-6 bg-white rounded-lg border border-gray-200 shadow-md",
-        className
+        "rounded-lg border border-gray-200 bg-white p-6 shadow-md",
+        className,
       )}
     >
-      <div className="flex justify-between items-center mb-5 text-gray-500">
-        <span className="bg-green-200 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-xl ">
+      <div className="mb-5 flex items-center justify-between text-gray-500">
+        <span className="inline-flex items-center rounded-xl bg-green-200 px-2.5 py-0.5 text-xs font-medium text-green-800">
           {category}
         </span>
       </div>
-      <div className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+      <div className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
         <Link href={"/blog/" + post.slug}>{post.name}</Link>
       </div>
-      <p className="mb-5 font-light text-gray-500 ">{post.lead}</p>
-      <div className="flex justify-between items-center">
+      <p className="mb-5 font-light text-gray-500">{post.lead}</p>
+      <div className="flex items-center justify-between">
         <Link
           href={"blog/" + post.slug}
-          className="inline-flex items-center font-medium text-primary-600  hover:underline"
+          className="text-primary-600 inline-flex items-center font-medium hover:underline"
         >
           Read more
           <svg
-            className="ml-2 w-4 h-4"
+            className="ml-2 h-4 w-4"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

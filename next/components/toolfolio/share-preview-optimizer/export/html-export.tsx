@@ -37,24 +37,24 @@ export function HtmlExportPreview({
 <!-- Meta Tags Generated & Optimized via https://www.instantpersonas.com -->`;
 
   return (
-    <div className="rounded-md relative w-full gap-4 flex flex-col items-center p-4">
+    <div className="relative flex w-full flex-col items-center gap-4 rounded-md p-4">
       <Button
         variant={"blue"}
         onClick={() => handleCopyCode(htmlCode ?? "")}
-        className="flex gap-2 flex-1 peer order-2 group w-full"
+        className="group peer order-2 flex w-full flex-1 gap-2"
       >
-        <CopyIcon className="group-hover:text-slate-100 text-white" /> Copy to
+        <CopyIcon className="text-white group-hover:text-slate-100" /> Copy to
         Clipboard
       </Button>
 
-      <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+      <ScrollArea className="order-1 w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 shadow-md transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
         <CodeInput code={htmlCode ?? "No code"} theme="slack-ochin" />
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
-      <div className="order-3  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden z-50 transition-all duration-200 ease-linear peer-hover:grid place-items-center gap-2 cursor-pointer">
-        <CopyIcon className="animate-pulse h-4 w-4" tabIndex={0} />
-        <p className="w-full md:w-[350px] text-center text-xs text-black/60">
+      <div className="absolute left-1/2 top-1/2 z-50 order-3 hidden -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center gap-2 transition-all duration-200 ease-linear peer-hover:grid">
+        <CopyIcon className="h-4 w-4 animate-pulse" tabIndex={0} />
+        <p className="w-full text-center text-xs text-black/60 md:w-[350px]">
           Click to copy code
         </p>
       </div>

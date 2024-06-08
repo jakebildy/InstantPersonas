@@ -7,7 +7,7 @@ export interface PersonaWithID {
 }
 
 export function convertPersonaChatsToPersonaWithIDs(
-  personaChats: PersonaChatType[]
+  personaChats: PersonaChatType[],
 ): PersonaWithID[] {
   if (!personaChats) {
     return [];

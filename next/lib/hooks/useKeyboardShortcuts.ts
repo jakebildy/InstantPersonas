@@ -11,7 +11,7 @@ export type KeyBind = {
 
 export const useKeyboardShortcuts = (
   keyBinds: KeyBind[],
-  ref: RefObject<HTMLTextAreaElement>
+  ref: RefObject<HTMLTextAreaElement>,
 ) => {
   // Memoized handler
   const handleKeyPress = useCallback(
@@ -28,7 +28,7 @@ export const useKeyboardShortcuts = (
         }
       });
     },
-    [keyBinds]
+    [keyBinds],
   );
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const useKeyboardShortcuts = (
 
 // Type guard function
 const isModifierKey = (
-  key: string
+  key: string,
 ): key is "ctrlKey" | "altKey" | "shiftKey" | "metaKey" => {
   return ["ctrlKey", "altKey", "shiftKey", "metaKey"].includes(key);
 };
@@ -50,11 +50,11 @@ const isModifierKey = (
 const modifiersMatch = (event: KeyboardEvent, bind: KeyBind): boolean => {
   // Check if at least one modifier in bind.modifier is pressed
   const anyModifierMatches = bind.modifier.some(
-    (mod) => isModifierKey(mod) && event[mod]
+    (mod) => isModifierKey(mod) && event[mod],
   );
 
   const noExtraModifiers = ["ctrlKey", "altKey", "shiftKey", "metaKey"].every(
-    (mod) => !isModifierKey(mod) || bind.modifier.includes(mod) || !event[mod]
+    (mod) => !isModifierKey(mod) || bind.modifier.includes(mod) || !event[mod],
   );
 
   return anyModifierMatches && noExtraModifiers;

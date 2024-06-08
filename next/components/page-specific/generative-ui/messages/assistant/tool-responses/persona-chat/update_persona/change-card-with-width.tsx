@@ -5,7 +5,7 @@ import {
 } from "./persona-change-diff-card";
 
 export function PersonaChangeDiffCardWithWidth(
-  Props: PersonaChangeDiffCardProps
+  Props: PersonaChangeDiffCardProps,
 ) {
   return (
     <div className="w-[600px]">

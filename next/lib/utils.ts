@@ -15,7 +15,7 @@ import Zod from "zod";
  */ export function debounce(
   this: any,
   func: (this: any, ...args: any[]) => void,
-  timeout: number = 200
+  timeout: number = 200,
 ): (...args: any[]) => void {
   let timer: NodeJS.Timeout | null = null;
   return function (this: any, ...args: any[]): void {
@@ -92,7 +92,7 @@ export function unixTimeAgo(unixTimestamp: number): string {
  */
 export function timeAgo(
   date: Date,
-  customIntervals?: Array<{ threshold: number; unit: string }>
+  customIntervals?: Array<{ threshold: number; unit: string }>,
 ): string {
   const currentTime = new Date();
   const differenceInSeconds = (currentTime.getTime() - date.getTime()) / 1000;
@@ -231,12 +231,12 @@ export function hexToRgb(hex: string): [number, number, number] {
  */
 export function colorDistance(
   rgb1: [number, number, number],
-  rgb2: [number, number, number]
+  rgb2: [number, number, number],
 ): number {
   return Math.sqrt(
     (rgb1[0] - rgb2[0]) ** 2 +
       (rgb1[1] - rgb2[1]) ** 2 +
-      (rgb1[2] - rgb2[2]) ** 2
+      (rgb1[2] - rgb2[2]) ** 2,
   );
 }
 
@@ -244,7 +244,7 @@ export function colorDistance(
  * Creates a 7-character random string
  */ export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  7
+  7,
 );
 
 /**
@@ -266,7 +266,7 @@ export function colorDistance(
 export function limitTextToFirstDelimiter(text: string): string {
   // Locate the first index of '.' or ','
   const index = Math.min(
-    ...[".", ","].map((char) => text.indexOf(char)).filter((i) => i !== -1)
+    ...[".", ","].map((char) => text.indexOf(char)).filter((i) => i !== -1),
   );
 
   // Determine the segment of the text up to the found punctuation or full text if none
@@ -308,7 +308,7 @@ type LabelForRangeConfig<Config extends NumericRangeConfig> =
  */
 export function labelForValueInRange<Config extends NumericRangeConfig>(
   value: number | null,
-  config: Config
+  config: Config,
 ): LabelForRangeConfig<Config> | null {
   if (typeof value !== "number") {
     return null; // Handles non-number and null inputs by returning null
@@ -376,7 +376,7 @@ export function extractKeysFromZodSchema(zodSchema: Zod.ZodType): string[] {
     return entries.flatMap(([key, value]) => {
       // Extract nested keys, prefixing them with the parent key.
       const nestedKeys = extractKeysFromZodSchema(value).map(
-        (nestedKey) => `${key}.${nestedKey}`
+        (nestedKey) => `${key}.${nestedKey}`,
       );
 
       // If there are nested keys, return them; otherwise, return the key itself.

@@ -51,20 +51,20 @@ export default function CallToActionSection() {
     <section id="get-started-today" className="relative bg-white py-32">
       <Container className="relative mt-[100px]">
         <div className="mx-auto max-w-lg text-center">
-          <div className="flex flex-row items-center justify-center mb-10 w-full">
+          <div className="mb-10 flex w-full flex-row items-center justify-center">
             <AnimatedTooltip items={people} />
           </div>
-          <h2 className="font-display text-3xl tracking-tight text-black sm:text-6xl font-bold">
+          <h2 className="font-display text-3xl font-bold tracking-tight text-black sm:text-6xl">
             Get started today
           </h2>
           <p className="mt-4 text-lg tracking-tight text-black">
             <b>{`It's time to take back your time.`}</b>
           </p>
-          <p className="mt-4 text-lg tracking-tight text-black mb-10">
+          <p className="mb-10 mt-4 text-lg tracking-tight text-black">
             Save hours by generating in-depth personas effortlessly with
             InstantPersonas.
           </p>
-          <button className="px-8 py-2 rounded-full bg-gradient-to-b from-green-500 to-green-600 text-white focus:ring-2 focus:ring-green-400 hover:shadow-xl transition duration-200">
+          <button className="rounded-full bg-gradient-to-b from-green-500 to-green-600 px-8 py-2 text-white transition duration-200 hover:shadow-xl focus:ring-2 focus:ring-green-400">
             Get 3 days FREE
           </button>
         </div>

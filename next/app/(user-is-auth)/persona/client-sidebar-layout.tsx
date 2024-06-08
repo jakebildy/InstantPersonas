@@ -24,7 +24,7 @@ export default function SidebarLayout({
   return (
     <Tabs defaultValue="personaChat">
       {/* Main Header | 58px */}
-      <div className="flex items-center justify-between px-4 py-2 box-border max-h-11">
+      <div className="box-border flex max-h-11 items-center justify-between px-4 py-2">
         <h1 className="text-xl font-bold">Persona Creator</h1>
 
         <AnimatePresence>
@@ -76,7 +76,7 @@ export default function SidebarLayout({
           key={"persona"}
         >
           <ScrollArea className="h-[calc(100vh-44px)]">
-            <div className="h-[calc(100vh-44px)] flex flex-col">
+            <div className="flex h-[calc(100vh-44px)] flex-col">
               <TabsContent value="personaChat" className="m-0 h-full flex-1">
                 {chat}
               </TabsContent>

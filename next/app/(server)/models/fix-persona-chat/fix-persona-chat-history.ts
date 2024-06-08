@@ -10,12 +10,12 @@ import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { fixPersonaArchetype } from "./fix-persona-archetype";
 
 export async function fixPersonaChatHistory(
-  history: any[]
+  history: any[],
 ): Promise<PersonaChatType[]> {
   const fixedHistory = await Promise.all(
     history.map(async (chat) => {
       const fixedPersonas = chat.aiState.personas.map(
-        (persona: any) => fixPersonaArchetype(persona) ?? {}
+        (persona: any) => fixPersonaArchetype(persona) ?? {},
       );
       const fixedMessage = await fixPersonaChatMessageHistoryModel({
         messages: chat.aiState.messages,
@@ -43,16 +43,16 @@ export async function fixPersonaChatHistory(
         IS_TEST_DEV_ENV
           ? console.error(
               "DEV: Error parsing chat history in `fixPersonaChatHistory.ts`",
-              parseResult.error
+              parseResult.error,
             )
           : null;
         return undefined;
       }
-    })
+    }),
   );
 
   function isPersonaChatType(
-    chat: PersonaChatType | undefined
+    chat: PersonaChatType | undefined,
   ): chat is PersonaChatType {
     return chat !== undefined;
   }

@@ -5,7 +5,7 @@ import { CREATE_PERSONA_PROMPT } from "../utils/prompts";
 
 export async function createArchetypes(
   business: string,
-  targetProblem: string
+  targetProblem: string,
 ) {
   const systemMessage = CREATE_PERSONA_PROMPT(business, targetProblem);
 
@@ -22,7 +22,7 @@ export async function createArchetypes(
   } catch (error) {
     throw new Error(
       "1. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-        responseText
+        responseText,
     );
   }
   try {
@@ -41,13 +41,13 @@ export async function createArchetypes(
     } catch (error) {
       throw new Error(
         "3. Failed to parse the generated userPersona JSON. Please try again. Here was the response: " +
-          responseText
+          responseText,
       );
     }
     archetype.pictureURL = await getRandomHeadshot(
       archetype.picture_components.hair,
       archetype.picture_components.glasses,
-      archetype.picture_components.clothing
+      archetype.picture_components.clothing,
     );
     archetypes.push(archetype);
   }

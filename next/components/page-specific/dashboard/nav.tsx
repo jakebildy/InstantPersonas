@@ -40,8 +40,8 @@ export function Nav({ links, isCollapsed }: NavProps) {
                     buttonVariants({ variant: link.variant, size: "icon" }),
                     "h-9 w-9 transition-colors duration-200",
                     link.variant === "default"
-                      ? "text-green-500 hover:text-white bg-green-100"
-                      : "text-slate-500 hover:text-slate-900 "
+                      ? "bg-green-100 text-green-500 hover:text-white"
+                      : "text-slate-500 hover:text-slate-900",
                   )}
                 >
                   <link.icon className={"h-4 w-4"} />
@@ -67,32 +67,32 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 link.variant === "default"
                   ? "bg-green-100 text-black hover:text-white"
                   : "text-slate-500",
-                "justify-start font-jost font-bold group/item"
+                "group/item justify-start font-jost font-bold",
               )}
             >
               <link.icon
                 className={cn(
                   link.variant === "default"
                     ? "text-green-500 group-hover/item:text-white"
-                    : "text-slate-200 group-hover/item:text-slate-500 ",
-                  "mr-2 h-4 w-4 transition-colors duration-200"
+                    : "text-slate-200 group-hover/item:text-slate-500",
+                  "mr-2 h-4 w-4 transition-colors duration-200",
                 )}
               />
               {link.title}
               {link.label && (
                 <span
                   className={cn(
-                    "ml-auto ",
+                    "ml-auto",
                     link.variant === "default"
-                      ? "bg-green-50 "
-                      : "text-slate-500"
+                      ? "bg-green-50"
+                      : "text-slate-500",
                   )}
                 >
                   {link.label}
                 </span>
               )}
             </Link>
-          )
+          ),
         )}
       </nav>
     </div>

@@ -17,37 +17,37 @@ export function TitleSquiggleTemplate({
   image,
 }: OpenGraphImageTemplateProps) {
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border  rounded-lg shadow-md relative overflow-hidden bg-white">
+    <div className="relative grid h-[600px] w-[1200px] place-items-center overflow-hidden rounded-lg border bg-white shadow-md">
       <Image
         src={image}
         alt={title}
         fill={true}
-        className=" object-cover z-0 blur-3xl"
+        className="z-0 object-cover blur-3xl"
         priority
       />
       <div
         className={gradientLightVariants({
           variant,
-          className: "z-10 h-full w-full p-10 ",
+          className: "z-10 h-full w-full p-10",
         })}
       >
         <div
           className={textColorVariants({
             variant,
             className:
-              "z-20 py-4 grid place-items-center gap-4 w-full h-full text-center ",
+              "z-20 grid h-full w-full place-items-center gap-4 py-4 text-center",
           })}
         >
-          <div className="flex flex-col w-full gap-4">
+          <div className="flex w-full flex-col gap-4">
             <div className="relative mb-8">
-              <h1 className="z-20 text-8xl font-bold relative">{title}</h1>
+              <h1 className="relative z-20 text-8xl font-bold">{title}</h1>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 418 42"
                 className={SVG600({
                   variant,
                   className:
-                    "absolute left-0 bottom-0 translate-y-1/2 h-[50px] w-full z-10",
+                    "absolute bottom-0 left-0 z-10 h-[50px] w-full translate-y-1/2",
                 })}
                 preserveAspectRatio="none"
               >
@@ -74,40 +74,40 @@ export function TitleSquiggleTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="size-full aspect-[2/1]  grid place-items-center border  rounded-md shadow-sm relative overflow-hidden bg-white">
+    <div className="relative grid aspect-[2/1] size-full place-items-center overflow-hidden rounded-md border bg-white shadow-sm">
       <Image
         src={image}
         alt={title}
         fill={true}
-        className={cn(" object-cover z-0", isSmall ? "blur-md" : "blur-xl")}
+        className={cn("z-0 object-cover", isSmall ? "blur-md" : "blur-xl")}
         priority
       />
       <div
         className={gradientLightVariants({
           variant,
-          className: cn("z-10 h-full w-full  ", isSmall ? "p-2" : "p-8"),
+          className: cn("z-10 h-full w-full", isSmall ? "p-2" : "p-8"),
         })}
       >
         <div
           className={textColorVariants({
             variant,
             className: cn(
-              "z-20  grid place-items-center gap-4 w-full h-full text-center ",
-              isSmall ? "py-1 gap-1" : "py-2 gap-2"
+              "z-20 grid h-full w-full place-items-center gap-4 text-center",
+              isSmall ? "gap-1 py-1" : "gap-2 py-2",
             ),
           })}
         >
           <div
             className={cn(
-              "flex flex-col w-full gap-4",
-              isSmall ? "gap-0" : "gap-2"
+              "flex w-full flex-col gap-4",
+              isSmall ? "gap-0" : "gap-2",
             )}
           >
             <div className={cn("relative", isSmall ? "mb-1" : "mb-6")}>
               <h1
                 className={cn(
-                  "z-20 text-8xl font-bold relative",
-                  isSmall ? "text-base" : "text-4xl"
+                  "relative z-20 text-8xl font-bold",
+                  isSmall ? "text-base" : "text-4xl",
                 )}
               >
                 {title}
@@ -118,8 +118,8 @@ export function TitleSquiggleTemplatePreview({
                 className={SVG600({
                   variant,
                   className: cn(
-                    "absolute left-0 bottom-0 translate-y-1/2 h-[50px] w-full z-10",
-                    isSmall ? "h-[20px] opacity-50" : "h-[25px]"
+                    "absolute bottom-0 left-0 z-10 h-[50px] w-full translate-y-1/2",
+                    isSmall ? "h-[20px] opacity-50" : "h-[25px]",
                   ),
                 })}
                 preserveAspectRatio="none"
@@ -131,7 +131,7 @@ export function TitleSquiggleTemplatePreview({
             <p
               className={cn(
                 "z-20 text-2xl",
-                isSmall ? "text-[8px]" : "text-lg"
+                isSmall ? "text-[8px]" : "text-lg",
               )}
             >
               {description}

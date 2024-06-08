@@ -32,8 +32,8 @@ export function GuestPostFinderTool({
                 (t) =>
                   t.displayLink &&
                   v.displayLink &&
-                  t.displayLink === v.displayLink
-              ) === i
+                  t.displayLink === v.displayLink,
+              ) === i,
           )
       : harderToSubmitResults.filter(
           (v, i, a) =>
@@ -41,8 +41,8 @@ export function GuestPostFinderTool({
               (t) =>
                 t.displayLink &&
                 v.displayLink &&
-                t.displayLink === v.displayLink
-            ) === i
+                t.displayLink === v.displayLink,
+            ) === i,
         );
 
   return (
@@ -57,8 +57,8 @@ export function GuestPostFinderTool({
           <button
             className={
               selectedType === "easyToSubmit"
-                ? " border-b-green-500 mr-4 text-green-500 border-2 border-transparent text-sm p-2 font-bold"
-                : "mr-4 text-gray-400 border-2 border-transparent text-sm p-2 font-bold"
+                ? "mr-4 border-2 border-transparent border-b-green-500 p-2 text-sm font-bold text-green-500"
+                : "mr-4 border-2 border-transparent p-2 text-sm font-bold text-gray-400"
             }
             onClick={() => {
               setSelectedType("easyToSubmit");
@@ -69,13 +69,13 @@ export function GuestPostFinderTool({
           <button
             className={
               selectedType === "harderToSubmit"
-                ? " border-b-green-500 mr-4 text-green-500 border-2 border-transparent text-sm p-2 font-bold"
-                : "mr-4 text-gray-400 border-2 border-transparent text-sm p-2 font-bold"
+                ? "mr-4 border-2 border-transparent border-b-green-500 p-2 text-sm font-bold text-green-500"
+                : "mr-4 border-2 border-transparent p-2 text-sm font-bold text-gray-400"
             }
             onClick={() => {
               if (!isSubscribed) {
                 alert(
-                  "Unlock hundreds of high quality guest post opportunities by starting your free trial."
+                  "Unlock hundreds of high quality guest post opportunities by starting your free trial.",
                 );
               } else {
                 setSelectedType("harderToSubmit");
@@ -85,25 +85,25 @@ export function GuestPostFinderTool({
             <div className="flex flex-row">
               Harder to Submit
               {!isSubscribed ? (
-                <LockClosedIcon className=" text-gray-400 h-4 ml-1" />
+                <LockClosedIcon className="ml-1 h-4 text-gray-400" />
               ) : (
                 ""
               )}
             </div>
           </button>
 
-          <ul className="pt-4 pl-2">
+          <ul className="pl-2 pt-4">
             <button
-              className="text-sm font-bold text-blue-500 flex flex-row mb-2"
+              className="mb-2 flex flex-row text-sm font-bold text-blue-500"
               onClick={() => {
                 const csv = results
                   .map((results) => {
                     return `${results.displayLink.replaceAll(
                       ",",
-                      ""
+                      "",
                     )},${results.title.replaceAll(
                       ",",
-                      ""
+                      "",
                     )},${results.snippet.replaceAll(",", "")}`;
                   })
                   .join("\n");
@@ -125,16 +125,16 @@ export function GuestPostFinderTool({
 
             {results.map((result) => (
               <li
-                className="text-blue-500 border p-5 rounded-md bg-white"
+                className="rounded-md border bg-white p-5 text-blue-500"
                 key={result.formattedUrl}
               >
-                <div className="text-black text-sm">{result.displayLink}</div>
+                <div className="text-sm text-black">{result.displayLink}</div>
                 <a target="_blank" href={result.formattedUrl}>
                   {result.title}
                 </a>
 
-                <div className="text-black text-xs">{result.snippet}</div>
-                <div className=" text-sm font-bold text-green-500">
+                <div className="text-xs text-black">{result.snippet}</div>
+                <div className="text-sm font-bold text-green-500">
                   <a
                     target="_blank"
                     href={
@@ -159,8 +159,8 @@ export function GuestPostFinderTool({
         <button
           className={
             noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
+              ? "mb-5 rounded-full bg-gray-400 px-4 py-2 font-bold text-white"
+              : "mb-5 rounded-full bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
           }
           onClick={async () => {
             if (noInput) return;
@@ -173,7 +173,7 @@ export function GuestPostFinderTool({
               //   api guest post
               const response = await api.tools.findGuestPostOpportunities(
                 input,
-                isSubscribed
+                isSubscribed,
               );
 
               setIsLoading(false);
@@ -185,8 +185,8 @@ export function GuestPostFinderTool({
           {loading
             ? "Searching..."
             : easyToSubmitResults.length > 0
-            ? "Find More Opportunities"
-            : "Find Guest Post Opportunities"}
+              ? "Find More Opportunities"
+              : "Find Guest Post Opportunities"}
         </button>
       </div>
     </div>

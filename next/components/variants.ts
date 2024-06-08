@@ -32,7 +32,7 @@ export const avatarVariants = cva(
       size: "default",
       interactive: true,
     },
-  }
+  },
 );
 
 export const tabTriggerVariants = cva("rounded-full py-1 px-4 ", {
@@ -73,7 +73,7 @@ export const badgeVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const gradientLightVariants = cva("bg-gradient-to-b ", {
@@ -216,7 +216,7 @@ export const SurveyCardBackGroundElementRing = cva(
       variant: "blue",
       blur: false,
     },
-  }
+  },
 );
 
 export const SurveyCardBackGroundElementCircle = cva(
@@ -236,7 +236,7 @@ export const SurveyCardBackGroundElementCircle = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const ButtonInnerHover = cva(
@@ -256,7 +256,7 @@ export const ButtonInnerHover = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const Border600 = cva("border", {
@@ -327,7 +327,7 @@ export const gradientGridTitleTextVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const gradientGridTextVariants = cva(
@@ -347,7 +347,7 @@ export const gradientGridTextVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const ColorVariantMap = {

@@ -26,7 +26,7 @@ function Plan({
   popular,
 }: any) {
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10 lg:mt-8 ">
+    <div className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 lg:mt-8 xl:p-10">
       <div>
         <div className="flex items-center justify-between gap-x-4">
           <h3
@@ -52,7 +52,7 @@ function Plan({
           </span>
         </p>
         {popular && (
-          <p className="rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-semibold  text-green-600">
+          <p className="rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-semibold text-green-600">
             {description2}
           </p>
         )}
@@ -73,10 +73,10 @@ function Plan({
         aria-describedby="tier-freelancer"
         // className="mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300"
         className={cn(
-          "mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6",
+          "mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6",
           "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600",
           "text-green-600 ring-1 ring-inset ring-green-200 hover:ring-green-300",
-          popular ? "bg-green-50" : "bg-white"
+          popular ? "bg-green-50" : "bg-white",
         )}
       >
         Start trial
@@ -109,7 +109,7 @@ export default function PricingSection() {
           We know you&apos;ll love it. If you&apos;re not completely satisfied,{" "}
           <b>cancel for free</b> before the free trial ends.
         </p>
-        <div className="isolate mx-auto mt-8 grid max-w-md grid-cols-1 gap-y-8 gap-x-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
+        <div className="isolate mx-auto mt-8 grid max-w-md grid-cols-1 gap-x-8 gap-y-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
           {/* InstantPersonas Pricing */}
           <Plan
             name="Monthly"

@@ -59,7 +59,7 @@ export function EditPersonaButton({
   const [aiState, setAIState] = useAIState<typeof AI>();
   const [uiState, setUIState] = useUIState<typeof AI>();
   const [localVariant, setLocalVariant] = useState<ColorVariant>(
-    variant as ColorVariant
+    variant as ColorVariant,
   );
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const params = useParams<{ id?: string[] }>();
@@ -159,7 +159,7 @@ export function EditPersonaButton({
           <DialogTitle>Persona Archetype Editor</DialogTitle>
           <DialogDescription className="inline-flex items-center gap-2">
             Edit the details of the <b>{archetype_name}</b> persona. Any{" "}
-            <span className="rounded-lg bg-pastel-red/25 border-pastel-red text-[9px] uppercase border px-2 text-red-500">
+            <span className="rounded-lg border border-pastel-red bg-pastel-red/25 px-2 text-[9px] uppercase text-red-500">
               unsaved changes
             </span>{" "}
             will be lost if you navigate away from this page!
@@ -170,18 +170,18 @@ export function EditPersonaButton({
             className={gradientVariants({
               variant: localVariant,
               className:
-                "flex flex-col items-center justify-center gap-2 h-[50vh] rounded-lg m-2 p-8 relative",
+                "relative m-2 flex h-[50vh] flex-col items-center justify-center gap-2 rounded-lg p-8",
             })}
           >
-            <PersonStandingIcon className="text-muted-foreground  m-6" />
-            <h3 className="font-jost font-bold text-xl">
+            <PersonStandingIcon className="m-6 text-muted-foreground" />
+            <h3 className="font-jost text-xl font-bold">
               Looks like there was a problem saving your persona ;(
             </h3>
             <span>
               We&apos;ve automatically logged this error and are investigating
               it
             </span>
-            <div className="flex gap-8 my-4 items-center">
+            <div className="my-4 flex items-center gap-8">
               <Button
                 variant={"outline"}
                 className="bg-pastel-red/50 text-red-500"
@@ -207,18 +207,18 @@ export function EditPersonaButton({
               />
             </ScrollArea>
             <div className="flex items-center justify-between pt-4">
-              <div className="flex items-center gap-2 flex-1">
+              <div className="flex flex-1 items-center gap-2">
                 <ChangeColorSelect
                   value={localVariant}
                   onChange={(value) => variantOnChange(value as ColorVariant)}
                 />
                 {archetype.pictureURL !== localArchetype.pictureURL ? (
-                  <span className="rounded-lg bg-pastel-red/25 border-pastel-red text-[9px] uppercase border px-2 text-red-500">
+                  <span className="rounded-lg border border-pastel-red bg-pastel-red/25 px-2 text-[9px] uppercase text-red-500">
                     unsaved changes
                   </span>
                 ) : null}
               </div>
-              <div className="flex justify-end gap-2 items-center">
+              <div className="flex items-center justify-end gap-2">
                 <DialogClose asChild>
                   <Button variant={"secondary"}>Cancel</Button>
                 </DialogClose>
@@ -256,7 +256,7 @@ function ChangeColorSelect({
             <DropdownMenuRadioItem
               value={color}
               key={hex}
-              className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
+              className="group flex w-full cursor-pointer items-center justify-between hover:bg-slate-100 data-[state=checked]:bg-slate-200"
             >
               <div
                 className={badgeVariants({

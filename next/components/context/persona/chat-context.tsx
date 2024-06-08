@@ -40,7 +40,7 @@ type PersonaChatContextType = {
 };
 
 const PersonaChatContext = createContext<PersonaChatContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface PersonaChatProviderProps {
@@ -177,7 +177,7 @@ export const PersonaChatProvider = ({
           display: (
             <SystemErrorMessage
               message={
-                <div className="flex flex-col w-full gap-2">
+                <div className="flex w-full flex-col gap-2">
                   <span>
                     Oops! It seems you haven&apos;t subscribed yet. To continue,
                     please explore our subscription plans.
@@ -226,7 +226,7 @@ export const PersonaChatProvider = ({
         const responseMessage = (await submitPersonaChatUserMessage(
           inputtedMessage,
           user.id,
-          chatId
+          chatId,
         )) as ClientMessage;
         setMessages((currentMessages: ClientMessage[]) => [
           ...currentMessages,
@@ -241,7 +241,7 @@ export const PersonaChatProvider = ({
             display: (
               <SystemErrorMessage
                 message={
-                  <div className="flex flex-col w-full gap-2">
+                  <div className="flex w-full flex-col gap-2">
                     <span>
                       Looks like your session is no longer valid, please log in
                       again!

@@ -38,7 +38,7 @@ export async function upsertPersonaChat({
     const response = await PersonaChat.findByIdAndUpdate(
       id,
       { ...data },
-      { upsert: true, new: false }
+      { upsert: true, new: false },
     );
     const chat = response?.toObject() as PersonaChatType;
     if (!chat) throw new Error("Chat not found");
@@ -47,7 +47,7 @@ export async function upsertPersonaChat({
       await PersonaChat.findByIdAndUpdate(
         id,
         { ...response?.toObject() },
-        { upsert: true }
+        { upsert: true },
       );
       throw new Error("Unauthorized");
     }

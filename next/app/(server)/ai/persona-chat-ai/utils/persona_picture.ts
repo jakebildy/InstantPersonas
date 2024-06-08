@@ -13,7 +13,7 @@ import {
  */
 function getRandomBackgroundColor() {
   const backgroundColorOptions = Object.values(ColorVariantMap).map((color) =>
-    color.slice(1)
+    color.slice(1),
   );
   const randomIndex = Math.floor(Math.random() * backgroundColorOptions.length);
   return backgroundColorOptions[randomIndex];
@@ -29,7 +29,7 @@ function getRandomBackgroundColor() {
 export async function getRandomHeadshot(
   hair: string,
   glasses: string,
-  clothing: string
+  clothing: string,
 ) {
   const body = getBodyVariant(clothing);
   const hairType = getHairVariant(hair);

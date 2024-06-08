@@ -22,7 +22,7 @@ function ReadingBar() {
   };
   return (
     <div
-      className="fixed z-50 bg-green-600 h-1 top-0 left-0"
+      className="fixed left-0 top-0 z-50 h-1 bg-green-600"
       style={{ width: width + "%" }}
     ></div>
   );

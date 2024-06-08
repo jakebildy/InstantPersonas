@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function BestAIToolsForSEO() {
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+    <main className="bg-white pb-16 pt-8 lg:pb-24 lg:pt-16">
       <ReadingBar />
       <title>
         {"The Best Ways to Boost SEO with AI in 2024 - Complete Guide"}
@@ -15,14 +15,14 @@ export default function BestAIToolsForSEO() {
         name="description"
         content="Not just content writing! We'll show you the best AI SEO tools for for content optimization, audience insights, and more. Don't miss the top AI tips for SEO."
       />
-      <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+      <h1 className="mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 sm:hidden lg:mb-6 lg:text-4xl">
         The Best Ways to Boost SEO with AI in 2024 - Complete Guide
       </h1>
-      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+      <div className="mx-auto flex max-w-screen-xl justify-between px-4 max-sm:flex-col">
         <TableOfContents />
-        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-          <header className="mb-4 lg:mb-6 not-format">
-            <address className="flex items-center mb-6 not-italic">
+        <article className="format format-sm sm:format-base lg:format-lg format-blue mx-auto w-full max-w-2xl">
+          <header className="not-format mb-4 lg:mb-6">
+            <address className="mb-6 flex items-center not-italic">
               {/* <div className="inline-flex items-center mr-3 text-sm text-gray-900">
                   <img
                     className="mr-4 w-16 h-16 rounded-full"
@@ -52,14 +52,14 @@ export default function BestAIToolsForSEO() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 max-sm:sr-only lg:mb-6 lg:text-4xl">
               The Best Ways to Boost SEO with AI in 2024 - Complete Guide
             </h1>
           </header>
           Here are a bunch of ways you can use AI to level up your SEO.
           <br></br>
           <br></br>
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"0"}>
             Finding Guest Post Opportunities with AI
           </h2>
           <iframe
@@ -71,7 +71,7 @@ export default function BestAIToolsForSEO() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="mx-auto mr-0 ml-0 mb-6"
+            className="mx-auto mb-6 ml-0 mr-0"
           />
           <p>
             Guest posting is one of the best ways to build backlinks and
@@ -82,13 +82,13 @@ export default function BestAIToolsForSEO() {
             You can{" "}
             <a
               href="https://instantpersonas.com/tools/guest-post-finder"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               check it out here
             </a>
             .
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="1">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="1">
             Install an AI Chatbot on your Site to Boost SEO
           </h2>
           <p>
@@ -107,7 +107,7 @@ export default function BestAIToolsForSEO() {
             solution we&apos;ve seen recently. I haven&apos;t personally used
             it, however.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"2"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"2"}>
             Finding Niche Instagram Hashtags with AI
           </h2>
           <p>
@@ -117,7 +117,7 @@ export default function BestAIToolsForSEO() {
             challenging. You can use this{" "}
             <a
               href="https://instantpersonas.com/tools/instagram-hashtag-finder"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               free Instagram Hashtag Finder
             </a>{" "}
@@ -131,7 +131,7 @@ export default function BestAIToolsForSEO() {
             able to get enough likes to display if someone searches that
             hashtag).
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"3"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"3"}>
             Build AI Powered Tools as Lead Magnets
           </h2>
           <p>
@@ -149,7 +149,7 @@ export default function BestAIToolsForSEO() {
               height={400}
               width={800}
               alt="InstantPersonas Lead Magnet Results"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             <br></br>
@@ -177,7 +177,7 @@ export default function BestAIToolsForSEO() {
             same results with zero marketing. With some marketing, however, this
             is a fantastic strategy to grow your website.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="4">
             Use AI to Understand your Target Audience and Find Insights
           </h2>
           <p>
@@ -191,7 +191,7 @@ export default function BestAIToolsForSEO() {
             incredibly powerful.
             <br></br>
             <br></br>To leverage this, use{" "}
-            <a href="https://instantpersonas.com" className=" text-blue-500">
+            <a href="https://instantpersonas.com" className="text-blue-500">
               InstantPersonas Persona Chat
             </a>
             . It will ask you a bunch of questions about your business until it
@@ -204,18 +204,18 @@ export default function BestAIToolsForSEO() {
               height={400}
               width={800}
               alt="InstantPersonas Persona Chat"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             Here were the archetypes it created for a meditation app. It also
             provides you with insights and strategic recommendations. You can
             try out InstantPersonas{" "}
-            <a href="https://instantpersonas.com" className=" text-blue-500">
+            <a href="https://instantpersonas.com" className="text-blue-500">
               here
             </a>
             , free for 3 days.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="5">
             Is Content Creation with AI a Good Idea?
           </h2>
           <p>
@@ -223,7 +223,7 @@ export default function BestAIToolsForSEO() {
             you can{" "}
             <a
               href="https://instantpersonas.com/blog/guest-posting-ultimate-guide"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               read here
             </a>
@@ -231,7 +231,7 @@ export default function BestAIToolsForSEO() {
             <br></br>TLDR: it can be a great assistant, but human-written
             content is probably better.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"6"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"6"}>
             Finding Niche Google Keywords with AI
           </h2>
           <p>
@@ -242,7 +242,7 @@ export default function BestAIToolsForSEO() {
             useful tools), but the easiest way is using this{" "}
             <a
               href="https://instantpersonas.com/tools/google-keyword-finder"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               free Google Keyword Finder
             </a>{" "}
@@ -253,7 +253,7 @@ export default function BestAIToolsForSEO() {
           <p>
             <br></br> <br></br>
             Want to make a comprehensive User Persona in 5 minutes?{" "}
-            <a href="https://InstantPersonas.com/" className=" text-blue-500">
+            <a href="https://InstantPersonas.com/" className="text-blue-500">
               {" "}
               Use our AI powered platform{" "}
             </a>{" "}

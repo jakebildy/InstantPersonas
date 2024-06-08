@@ -10,13 +10,13 @@ export function RecentPersonas({}: {}) {
 
   return (
     <div>
-      <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+      <h1 className="pt-10 text-center text-3xl font-bold text-gray-700">
         {history && history.length > 0 ? "Recent Personas" : "History"}
       </h1>
       <AnimatePresence mode="wait">
         {history && history.length > 0 ? (
           <motion.div
-            className="flex flex-row items-center justify-center mt-20 w-full"
+            className="mt-20 flex w-full flex-row items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

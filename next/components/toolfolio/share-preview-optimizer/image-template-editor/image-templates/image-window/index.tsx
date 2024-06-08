@@ -22,15 +22,15 @@ export function ImageWindowTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
+    <div className="relative grid h-[600px] w-[1200px] place-items-center overflow-hidden rounded-lg border bg-white shadow-md">
       <div
-        className={"relative w-full h-full border rounded-lg overflow-hidden "}
+        className={"relative h-full w-full overflow-hidden rounded-lg border"}
       >
         <div
           className={textColorVariants({
             variant,
             className:
-              "z-20 absolute top-0 left-1/2 -translate-x-1/2 h-[300px] py-4 text-center p-4 grid place-items-center gap-4 w-full",
+              "absolute left-1/2 top-0 z-20 grid h-[300px] w-full -translate-x-1/2 place-items-center gap-4 p-4 py-4 text-center",
           })}
         >
           <div className="flex flex-col items-center gap-4">
@@ -39,29 +39,29 @@ export function ImageWindowTemplate({
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-full p-1 shadow-lg  w-fit absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-30">
+      <div className="absolute left-1/2 top-1/2 z-30 w-fit -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-1 shadow-lg">
         <span
           className={gradientLightVariants({
             variant,
             className:
-              "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
+              "z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg",
           })}
         >
           Read more <ArrowRightIcon className="size-8" />
         </span>
       </div>
-      <div className="z-10 w-[90%] h-1/2 absolute bottom-0 left-1/2 -translate-x-1/2 bg-white p-2 rounded-t-md border shadow-lg">
-        <div className=" h-[600px] relative rounded-md overflow-hidden shadow-md border">
+      <div className="absolute bottom-0 left-1/2 z-10 h-1/2 w-[90%] -translate-x-1/2 rounded-t-md border bg-white p-2 shadow-lg">
+        <div className="relative h-[600px] overflow-hidden rounded-md border shadow-md">
           <Image
             src={image}
             alt={title}
             fill={true}
-            className=" object-cover z-0"
+            className="z-0 object-cover"
             priority
           />
         </div>
       </div>
-      <div className="absolute top-0 h-3/4 bg-gradient-to-b from-white to-transparent w-full z-10" />
+      <div className="absolute top-0 z-10 h-3/4 w-full bg-gradient-to-b from-white to-transparent" />
       <RadialGradient size={1200} from={ColorVariantMap[variant]} />
     </div>
   );
@@ -78,27 +78,27 @@ export function ImageWindowTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="size-full aspect-[2/1] grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
+    <div className="relative grid aspect-[2/1] size-full place-items-center overflow-hidden rounded-lg border bg-white shadow-md">
       <div
-        className={"relative w-full h-full border rounded-lg overflow-hidden "}
+        className={"relative h-full w-full overflow-hidden rounded-lg border"}
       >
         <div
           className={textColorVariants({
             variant,
             className:
-              "z-20 absolute top-0 left-1/2 -translate-x-1/2 h-1/2 py-4 text-center p-4 grid place-items-center gap-4 w-full",
+              "absolute left-1/2 top-0 z-20 grid h-1/2 w-full -translate-x-1/2 place-items-center gap-4 p-4 py-4 text-center",
           })}
         >
           <div
             className={cn(
               "flex flex-col items-center",
-              isSmall ? "gap-1" : "gap-4"
+              isSmall ? "gap-1" : "gap-4",
             )}
           >
             <h1
               className={cn(
-                "z-20  font-bold",
-                isSmall ? "text-[8px]" : "text-3xl"
+                "z-20 font-bold",
+                isSmall ? "text-[8px]" : "text-3xl",
               )}
             >
               {title}
@@ -111,8 +111,8 @@ export function ImageWindowTemplatePreview({
       </div>
       <span
         className={cn(
-          "bg-white rounded-full flex shadow-lg  w-fit max-h-fit min-h-0 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-30",
-          isSmall ? "mt-0.5 p-0.5" : "p-1 mt-4"
+          "absolute left-1/2 top-1/2 z-30 flex max-h-fit min-h-0 w-fit -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-lg",
+          isSmall ? "mt-0.5 p-0.5" : "mt-4 p-1",
         )}
       >
         <span
@@ -120,11 +120,11 @@ export function ImageWindowTemplatePreview({
             gradientLightVariants({
               variant,
               className:
-                "inline-flex  items-center justify-center whitespace-nowrap rounded-full  font-medium text-foreground shadow-md z-10",
+                "z-10 inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium text-foreground shadow-md",
             }),
             isSmall
-              ? "px-4 py-1 text-[6px] gap-0.5 leading-[8px]"
-              : "px-6 py-1.5 text-sm gap-1"
+              ? "gap-0.5 px-4 py-1 text-[6px] leading-[8px]"
+              : "gap-1 px-6 py-1.5 text-sm",
           )}
         >
           Read more{" "}
@@ -132,18 +132,18 @@ export function ImageWindowTemplatePreview({
         </span>
       </span>
 
-      <div className="z-10 w-[90%] h-1/2 absolute bottom-0 left-1/2 -translate-x-1/2 bg-white p-2 rounded-t-md border shadow-lg">
-        <div className=" h-[140%] relative rounded-md overflow-hidden shadow-md border">
+      <div className="absolute bottom-0 left-1/2 z-10 h-1/2 w-[90%] -translate-x-1/2 rounded-t-md border bg-white p-2 shadow-lg">
+        <div className="relative h-[140%] overflow-hidden rounded-md border shadow-md">
           <Image
             src={image}
             alt={title}
             fill={true}
-            className=" object-cover z-0"
+            className="z-0 object-cover"
             priority
           />
         </div>
       </div>
-      <div className="absolute top-0 h-3/4 bg-gradient-to-b from-white to-transparent w-full z-10" />
+      <div className="absolute top-0 z-10 h-3/4 w-full bg-gradient-to-b from-white to-transparent" />
       <RadialGradient size={1200} from={ColorVariantMap[variant]} />
     </div>
   );

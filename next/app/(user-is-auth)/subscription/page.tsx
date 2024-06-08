@@ -9,8 +9,8 @@ export default function SubscriptionPage() {
   const { user, isSubscribed } = useInstantPersonasUser();
 
   return !user ? (
-    <div className="flex flex-col justify-center items-center h-full w-full mt-[200px]">
-      <div className="text-slate-500 mb-4">Getting subscription status...</div>
+    <div className="mt-[200px] flex h-full w-full flex-col items-center justify-center">
+      <div className="mb-4 text-slate-500">Getting subscription status...</div>
 
       <BarLoader
         color="#36d7b7"

@@ -12,23 +12,23 @@ export function StartSurvey({
 }) {
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 group cursor-pointer"
+      className="group flex cursor-pointer flex-col items-center gap-2"
       key="start-container"
     >
       <motion.div key="persona-icon" layoutId="persona-icon">
-        <PersonStandingIcon className="text-muted-foreground size-8 group-hover:text-green-500 transition-colors duration-150 ease-out" />
+        <PersonStandingIcon className="size-8 text-muted-foreground transition-colors duration-150 ease-out group-hover:text-green-500" />
       </motion.div>
       <motion.div layoutId="survey-main-button">
         <Button
           variant={"outline"}
-          className="group-hover:text-primary rounded-full hover:scale-100 h-full w-full p-1"
+          className="h-full w-full rounded-full p-1 hover:scale-100 group-hover:text-primary"
           onClick={onStartSurvey}
         >
           <motion.span
             className={gradientLightVariants({
               variant: variant,
               className:
-                "whitespace-nowrap rounded-full px-4 border border-input h-10 p-2 group-hover:bg-green-500 group-hover:text-white transition-colors duration-150 ease-out font-semibold text-muted-foreground ",
+                "h-10 whitespace-nowrap rounded-full border border-input p-2 px-4 font-semibold text-muted-foreground transition-colors duration-150 ease-out group-hover:bg-green-500 group-hover:text-white",
             })}
           >
             Start Survey!

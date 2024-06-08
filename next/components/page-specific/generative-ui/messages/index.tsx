@@ -66,7 +66,7 @@ const confirmKnowledgeCardWithMessagePropValidator = z.object({
   message: z.string().optional(),
 });
 export const inlinePersonaArchetypeListPropValidator = z.array(
-  PersonaArchetypeValidator
+  PersonaArchetypeValidator,
 );
 
 export const personaChangeDiffCardPropValidator = z.object({
@@ -89,7 +89,7 @@ export const PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS = {
 // returns array of objects with key of tool name and props of tool arg paths
 // example: { key: "confirm_business_knowledge", props: ["knowledge.business", "knowledge.targetProblem", "message"] }
 export const PERSONA_CHAT_AI_TOOL_ARGS = Object.entries(
-  PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS
+  PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS,
 ).map(([key, validator]) => {
   const props = extractKeysFromZodSchema(validator);
   return { key, props };

@@ -10,14 +10,14 @@ export type BlogPost = {
 
 export default function BlogPage() {
   return (
-    <section className="bg-white ">
+    <section className="bg-white">
       <title>InstantPersonas Blog | Marketing Insights</title>
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div className="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 lg:text-5xl">
             Understand and Reach your Audience Quickly
           </h2>
-          <p className="font-light text-gray-500 sm:text-xl ">
+          <p className="font-light text-gray-500 sm:text-xl">
             InstantPersonas helps you understand your audience better, so you
             can create more effective marketing campaigns. Here we will share
             some tips and tricks.

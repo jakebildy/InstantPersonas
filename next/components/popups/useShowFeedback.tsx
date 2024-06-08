@@ -27,7 +27,7 @@ export function useShowFeedback() {
 
       // Check if the feedback dialog has been shown within the last day
       const feedbackShownDate = localStorage.getItem(
-        LOCAL_STORAGE_CONFIG.feedback.shown
+        LOCAL_STORAGE_CONFIG.feedback.shown,
       );
       const feedbackNotRecentlyShown = feedbackShownDate
         ? new Date(feedbackShownDate) < daysAgoInTime(1)
@@ -35,7 +35,7 @@ export function useShowFeedback() {
 
       // Check if feedback has been completed within the last 60 days
       const feedbackCompletedDate = localStorage.getItem(
-        LOCAL_STORAGE_CONFIG.feedback.completed
+        LOCAL_STORAGE_CONFIG.feedback.completed,
       );
       const feedbackNotRecentlyCompleted = feedbackCompletedDate
         ? new Date(feedbackCompletedDate) < daysAgoInTime(60)
@@ -57,7 +57,7 @@ export function useShowFeedback() {
         const currentDateFormatted = new Date().toISOString().slice(0, 10); // Format as 'YYYY-MM-DD'
         localStorage.setItem(
           LOCAL_STORAGE_CONFIG.feedback.shown,
-          currentDateFormatted
+          currentDateFormatted,
         );
       }
     };

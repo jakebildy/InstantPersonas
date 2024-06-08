@@ -91,19 +91,19 @@ export default function TemplatePreviewSelect({
     <div
       className={gradientVariants({
         variant,
-        className: "p-4 overflow-auto rounded-lg m-2 ",
+        className: "m-2 overflow-auto rounded-lg p-4",
       })}
     >
-      <h3 className="text-black/80 font-semibold text-sm">
+      <h3 className="text-sm font-semibold text-black/80">
         Choose a template to download for the persona archetype.
       </h3>
-      <p className="font-medium text-xs text-black/75">
+      <p className="text-xs font-medium text-black/75">
         Colour and Information will match the current persona
       </p>
-      <div className="grid grid-cols-2 gap-2  m-4">
+      <div className="m-4 grid grid-cols-2 gap-2">
         <Button
           variant={"outline"}
-          className="h-fit w-full group"
+          className="group h-fit w-full"
           onClick={() => handleConvert({ width: 600 })}
         >
           <div className="relative grid place-items-center">
@@ -114,14 +114,14 @@ export default function TemplatePreviewSelect({
               alt="2/3 Persona Template"
               placeholder="blur"
             />
-            <span className="animate-pulse hidden group-hover:block font-semibold text-xs text-black/75 z-[60] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <span className="absolute left-1/2 top-1/2 z-[60] hidden -translate-x-1/2 -translate-y-1/2 animate-pulse text-xs font-semibold text-black/75 group-hover:block">
               2/3
             </span>
           </div>
         </Button>
         <Button
           variant={"outline"}
-          className="h-fit w-full group"
+          className="group h-fit w-full"
           onClick={() => handleConvert({ width: 900 })}
         >
           <div className="relative grid place-items-center">
@@ -132,7 +132,7 @@ export default function TemplatePreviewSelect({
               alt="4/3 Persona Template"
               placeholder="blur"
             />
-            <span className="animate-pulse hidden group-hover:block font-semibold text-xs text-black/75 z-[60] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <span className="absolute left-1/2 top-1/2 z-[60] hidden -translate-x-1/2 -translate-y-1/2 animate-pulse text-xs font-semibold text-black/75 group-hover:block">
               4/3
             </span>
           </div>
@@ -143,12 +143,12 @@ export default function TemplatePreviewSelect({
           className={gradientVariants({
             variant,
             className:
-              "z-[100] top-0 left-0 to-white absolute w-full h-full grid place-items-center",
+              "absolute left-0 top-0 z-[100] grid h-full w-full place-items-center to-white",
           })}
         >
           <div className="grid place-items-center gap-4">
             <DownloadCloudIcon className="animate-pulse text-muted-foreground" />
-            <p className="animate-pulse text-muted-foreground text-xs">
+            <p className="animate-pulse text-xs text-muted-foreground">
               Downloading Template...
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function TemplatePreviewSelect({
       ) : null}
       <div id={templateID} ref={templateRef}>
         {showTemplate ? (
-          <div className={"w-[600px] visible"} style={{ width: templateWidth }}>
+          <div className={"visible w-[600px]"} style={{ width: templateWidth }}>
             <PersonaTemplate archetype={archetype} variant={variant} />
           </div>
         ) : null}

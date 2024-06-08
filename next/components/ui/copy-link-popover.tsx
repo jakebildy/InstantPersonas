@@ -34,11 +34,11 @@ export default function CopyLinkPopover({ link, onCopy, className }: Props) {
           Share
         </GradientButton>
       </PopoverTrigger>
-      <PopoverContent className="mx-2 shadow-4xl p-1 w-fit">
+      <PopoverContent className="shadow-4xl mx-2 w-fit p-1">
         <div
           className={gradientLightVariants({
             variant: "blue",
-            className: "rounded-lg p-2 border border-input text-xs font-mono",
+            className: "rounded-lg border border-input p-2 font-mono text-xs",
           })}
         >
           {link}
@@ -46,17 +46,17 @@ export default function CopyLinkPopover({ link, onCopy, className }: Props) {
         <Button
           variant={"outline"}
           onClick={handleCopyLink}
-          className="w-full gap-2 hover:text-primary rounded-lg hover:scale-100 h-fit  p-1 shadow-md group font-semibold text-muted-foreground text-sm hover:text-black transition-colors duration-300 ease-out mt-2"
+          className="group mt-2 h-fit w-full gap-2 rounded-lg p-1 text-sm font-semibold text-muted-foreground shadow-md transition-colors duration-300 ease-out hover:scale-100 hover:text-black hover:text-primary"
         >
           {copied ? (
             <>
               Copied{" "}
-              <CheckIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
+              <CheckIcon className="size-4 text-muted-foreground transition-colors duration-300 ease-out group-hover:text-black/90" />
             </>
           ) : (
             <>
               Copy Link
-              <CopyIcon className="text-muted-foreground size-4 group-hover:text-black/90 transition-colors duration-300 ease-out" />
+              <CopyIcon className="size-4 text-muted-foreground transition-colors duration-300 ease-out group-hover:text-black/90" />
             </>
           )}
         </Button>

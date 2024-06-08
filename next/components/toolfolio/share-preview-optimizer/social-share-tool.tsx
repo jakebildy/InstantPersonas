@@ -110,27 +110,27 @@ export default function SocialShareTool({
   const detailsInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <section className="flex flex-col justify-center relative p-8 gap-8 w-full">
-      <div className="flex-1 w-full flex items-center justify-center">
+    <section className="relative flex w-full flex-col justify-center gap-8 p-8">
+      <div className="flex w-full flex-1 items-center justify-center">
         <div
           className={cn(
             gradientLightVariants({
               variant,
               className:
-                "flex flex-col w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
-            })
+                "relative flex h-fit w-full flex-col items-center rounded-lg border p-4 shadow-md",
+            }),
           )}
         >
           <Tabs
             defaultValue={OG_SOCIAL_PREVIEW_TEMPLATE_TABS[0].title}
-            className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md"
+            className="flex w-full flex-col items-center overflow-hidden rounded-md bg-white p-8 shadow-md"
           >
-            <div className="w-full flex items-center justify-center mb-4 lg:mb-0">
+            <div className="mb-4 flex w-full items-center justify-center lg:mb-0">
               <PersonStandingIcon className="text-muted-foreground" />
             </div>
 
-            <div className="w-full place-items-center hidden lg:grid">
-              <TabsList className="rounded-full h-9 my-4">
+            <div className="hidden w-full place-items-center lg:grid">
+              <TabsList className="my-4 h-9 rounded-full">
                 {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
                   <TabsTrigger
                     value={tab.title}
@@ -142,17 +142,17 @@ export default function SocialShareTool({
                 ))}
               </TabsList>
             </div>
-            <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center  w-full min-h-[700px] ">
+            <div className="flex min-h-[700px] w-full flex-col items-center justify-center gap-8 lg:flex-row lg:items-start">
               <div
                 className={cn(
                   gradientLightVariants({
                     variant,
                     className:
-                      "flex flex-col w-full items-center justify-start border rounded-lg shadow-md max-w-2xl",
-                  })
+                      "flex w-full max-w-2xl flex-col items-center justify-start rounded-lg border shadow-md",
+                  }),
                 )}
               >
-                <form className="flex flex-col p-4 gap-2 ">
+                <form className="flex flex-col gap-2 p-4">
                   <div>
                     <h2 className="text-lg font-bold">Edit</h2>
                     <p className="text-sm">
@@ -215,9 +215,9 @@ export default function SocialShareTool({
                       trigger={
                         <Button
                           variant={"blue"}
-                          className="flex gap-2 flex-1 peer group"
+                          className="group peer flex flex-1 gap-2"
                         >
-                          <LayoutTemplateIcon className="group-hover:text-slate-100 text-white size-4" />{" "}
+                          <LayoutTemplateIcon className="size-4 text-white group-hover:text-slate-100" />{" "}
                           Choose Template
                         </Button>
                       }
@@ -239,9 +239,9 @@ export default function SocialShareTool({
                   key={tab.title + "content"}
                   className="w-full max-w-xl lg:mt-0"
                 >
-                  <div className="flex-1 flex flex-col items-center lg:items-start w-full h-full">
-                    <div className="w-full place-items-center grid lg:hidden">
-                      <TabsList className="rounded-full h-9 my-4">
+                  <div className="flex h-full w-full flex-1 flex-col items-center lg:items-start">
+                    <div className="grid w-full place-items-center lg:hidden">
+                      <TabsList className="my-4 h-9 rounded-full">
                         {OG_SOCIAL_PREVIEW_TEMPLATE_TABS.map((tab) => (
                           <TabsTrigger
                             value={tab.title}
@@ -259,8 +259,8 @@ export default function SocialShareTool({
                         gradientLightVariants({
                           variant,
                           className:
-                            "grid border rounded-lg shadow-md w-full h-full",
-                        })
+                            "grid h-full w-full rounded-lg border shadow-md",
+                        }),
                       )}
                     >
                       <tab.content
@@ -272,7 +272,7 @@ export default function SocialShareTool({
                         }}
                       />
                     </ScrollArea>
-                    <p className="text-sm text-muted-foreground text-center my-4 w-full ">
+                    <p className="my-4 w-full text-center text-sm text-muted-foreground">
                       {tab.description}
                     </p>
                   </div>
@@ -283,30 +283,30 @@ export default function SocialShareTool({
         </div>
       </div>
 
-      <div className="flex-1 w-full flex items-center justify-center">
+      <div className="flex w-full flex-1 items-center justify-center">
         <div
           className={cn(
             gradientLightVariants({
               variant,
               className:
-                "flex flex-col gap-2 w-full h-fit items-center border rounded-lg shadow-md relative p-4 ",
-            })
+                "relative flex h-fit w-full flex-col items-center gap-2 rounded-lg border p-4 shadow-md",
+            }),
           )}
         >
-          <div className="flex flex-col gap-2 p-2 items-center w-full">
+          <div className="flex w-full flex-col items-center gap-2 p-2">
             <label className="text-lg font-bold">
               {isSubscribed
                 ? "Enter any extra details"
                 : "Describe your customer persona to improve your copy:"}
             </label>
-            <h2 className="text-center text-xs text-slate-400 ">
+            <h2 className="text-center text-xs text-slate-400">
               Generate and optimize social media share previews for your
               content.
               <br />
               Improve your click-through rates and engagement.
             </h2>
             {isSubscribed ? (
-              <PersonaSelectFromHistorySidebar className="xl:absolute top-4 right-4 z-[50] max-xl:my-4" />
+              <PersonaSelectFromHistorySidebar className="right-4 top-4 z-[50] max-xl:my-4 xl:absolute" />
             ) : null}
             <Input
               type="text"
@@ -331,7 +331,7 @@ export default function SocialShareTool({
               variant,
             }}
           />
-          <div className="text-center flex flex-col gap-1 text-xs text-gray-400 cursor-help animate-pulse">
+          <div className="flex animate-pulse cursor-help flex-col gap-1 text-center text-xs text-gray-400">
             {noInput ? (
               <span
                 onClick={() => detailsInputRef.current?.focus()}
@@ -359,14 +359,14 @@ export default function SocialShareTool({
           </div>
         </div>
       </div>
-      <div className="flex-1 w-full flex items-center justify-center">
+      <div className="flex w-full flex-1 items-center justify-center">
         <div
           className={cn(
             gradientLightVariants({
               variant,
               className:
-                "flex flex-col w-full h-fit items-center border rounded-lg p-4 shadow-md ",
-            })
+                "flex h-fit w-full flex-col items-center rounded-lg border p-4 shadow-md",
+            }),
           )}
         >
           <div className="p-2">
@@ -422,7 +422,7 @@ function OptimizeCopywriting({
   const [loading, setLoading] = useState(false);
 
   function getVariantByIndex(
-    index: number
+    index: number,
   ): keyof typeof ColorVariantMap | undefined {
     const keys = Object.keys(ColorVariantMap) as Array<
       keyof typeof ColorVariantMap
@@ -435,8 +435,10 @@ function OptimizeCopywriting({
       <Button
         disabled={noInput}
         className={cn(
-          "mx-auto flex mb-5 font-bold py-2 px-4 rounded-full text-white",
-          loading || noInput ? "bg-gray-400" : "bg-green-500 hover:bg-green-700"
+          "mx-auto mb-5 flex rounded-full px-4 py-2 font-bold text-white",
+          loading || noInput
+            ? "bg-gray-400"
+            : "bg-green-500 hover:bg-green-700",
         )}
         onClick={async () => {
           if (!loading) {
@@ -444,7 +446,7 @@ function OptimizeCopywriting({
               ? console.log(
                   "DEV ONLY LOGS:",
                   "Optimizing copywriting for persona: ",
-                  input
+                  input,
                 )
               : null;
 
@@ -464,7 +466,7 @@ function OptimizeCopywriting({
                 ? console.log(
                     "DEV ONLY LOGS:",
                     "Response String: ",
-                    responseString
+                    responseString,
                   )
                 : null;
               parse(
@@ -483,7 +485,7 @@ function OptimizeCopywriting({
                       : null;
                     setResponseData(records);
                   }
-                }
+                },
               );
             }
             setLoading(false);
@@ -497,8 +499,8 @@ function OptimizeCopywriting({
           : "Creating..."}
       </Button>
       {responseData.length > 0 ? (
-        <div className="w-full flex flex-col items-center p-8 bg-white rounded-md overflow-hidden shadow-md">
-          <div className="w-full flex items-center justify-center mb-4">
+        <div className="flex w-full flex-col items-center overflow-hidden rounded-md bg-white p-8 shadow-md">
+          <div className="mb-4 flex w-full items-center justify-center">
             <PersonStandingIcon className="text-muted-foreground" />
           </div>
 
@@ -512,7 +514,7 @@ function OptimizeCopywriting({
                       className={cn(
                         "whitespace-nowrap py-3 pl-1 text-sm font-normal text-[#212B36]",
                         i === 0 ? "rounded-l-lg" : "",
-                        i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
+                        i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : "",
                       )}
                     >
                       {column}
@@ -527,7 +529,7 @@ function OptimizeCopywriting({
                       key={i}
                       data={row}
                       variant={getVariantByIndex(
-                        i % Object.keys(ColorVariantMap).length
+                        i % Object.keys(ColorVariantMap).length,
                       )}
                     />
                   );
@@ -560,7 +562,7 @@ function TableRow({
         gradientLightVariants({
           variant,
           className: "bg-gradient-to-r",
-        })
+        }),
       )}
     >
       {Object.keys(data).map((column, i) => {
@@ -570,9 +572,9 @@ function TableRow({
           <td
             key={i}
             className={cn(
-              "px-1 py-4 text-sm font-normal text-[#637381] p-1 ",
+              "p-1 px-1 py-4 text-sm font-normal text-[#637381]",
               i === 0 ? "rounded-l-lg" : "",
-              i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : ""
+              i === TABLE_COLUMNS.length - 1 ? "rounded-r-lg" : "",
             )}
             role="button"
             tabIndex={0}
@@ -583,8 +585,8 @@ function TableRow({
               })
             }
           >
-            <div className=" hover:bg-white p-2 pr-6 rounded-md group relative hover:shadow-md">
-              <CopyIcon className="absolute size-4 right-2 top-2 text-black group-hover:animate-pulse opacity-0 group-hover:opacity-100" />
+            <div className="group relative rounded-md p-2 pr-6 hover:bg-white hover:shadow-md">
+              <CopyIcon className="absolute right-2 top-2 size-4 text-black opacity-0 group-hover:animate-pulse group-hover:opacity-100" />
               {i === 0 ? (
                 <div
                   className={badgeVariants({

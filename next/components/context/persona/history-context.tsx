@@ -70,18 +70,18 @@ export const PersonaChatHistoryProvider = ({
           if (selectedPersonas.length === 0) {
             IS_TEST_DEV_ENV
               ? console.log(
-                  "DEV: No personas selected, updating from local storage"
+                  "DEV: No personas selected, updating from local storage",
                 )
               : null;
             const localSelectedPersonaNames: string[] = JSON.parse(
               localStorage.getItem(
-                LOCAL_STORAGE_CONFIG.tools.selectedPersonas
-              ) ?? "[]"
+                LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
+              ) ?? "[]",
             );
             IS_TEST_DEV_ENV
               ? console.log(
                   "DEV: localSelectedPersonaNames",
-                  localSelectedPersonaNames
+                  localSelectedPersonaNames,
                 )
               : null;
             if (localSelectedPersonaNames.length > 0) {
@@ -94,17 +94,17 @@ export const PersonaChatHistoryProvider = ({
                       description: chat.aiState.business,
                       target_problem: chat.aiState.targetProblem,
                     },
-                  }))
+                  })),
                 )
                 //? Find only personas that are not in local storage
                 .filter((persona) =>
-                  localSelectedPersonaNames.includes(persona.archetype_name)
+                  localSelectedPersonaNames.includes(persona.archetype_name),
                 );
 
               IS_TEST_DEV_ENV
                 ? console.log(
                     "DEV: Updating selected personas from local storage",
-                    localSelectedPersonas
+                    localSelectedPersonas,
                   )
                 : null;
 
@@ -132,7 +132,7 @@ export const PersonaChatHistoryProvider = ({
     }
     localStorage.setItem(
       LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
-      JSON.stringify(selectedPersonas.map((persona) => persona.archetype_name))
+      JSON.stringify(selectedPersonas.map((persona) => persona.archetype_name)),
     );
   }, [selectedPersonas]);
 
@@ -174,7 +174,7 @@ export const usePersonaChatHistory = () => {
   const context = useContext(PersonaChatHistoryContext);
   if (context === undefined) {
     throw new Error(
-      "usePersonaChatHistory must be used within a PersonaChatHistoryProvider"
+      "usePersonaChatHistory must be used within a PersonaChatHistoryProvider",
     );
   }
   return context;

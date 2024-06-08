@@ -12,13 +12,13 @@ type Props = {};
 export default function PageTest({}: Props) {
   const variant = "blue";
   return (
-    <div className="flex flex-col gap-4 items-center justify-center relative px-4 pb-10">
-      <div className="flex-1 flex flex-col gap-4 items-center justify-center relative bg-gray-100 p-10 rounded-2xl overflow-hidden shadow-inner">
+    <div className="relative flex flex-col items-center justify-center gap-4 px-4 pb-10">
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl bg-gray-100 p-10 shadow-inner">
         <section
           className={shadowVariants({
             variant: variant,
             className:
-              "bg-white rounded-2xl shadow-2xl  w-[90vw] p-6 focus:outline-none",
+              "w-[90vw] rounded-2xl bg-white p-6 shadow-2xl focus:outline-none",
           })}
         >
           <QuizBuilder schema={TEST_QUIZ} variant={variant} />

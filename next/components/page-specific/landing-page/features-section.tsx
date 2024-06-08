@@ -45,18 +45,18 @@ export default function FeaturesSection() {
   return (
     <section
       id="product-features"
-      className="relative bg-white py-32  text-center"
+      className="relative bg-white py-32 text-center"
     >
-      <h2 className="text-base font-semibold leading-7 text-green-600 pt-20">
+      <h2 className="pt-20 text-base font-semibold leading-7 text-green-600">
         Features
       </h2>
-      <h2 className="font-display text-5xl font-bold tracking-tight text-black  mb-10">
+      <h2 className="font-display mb-10 text-5xl font-bold tracking-tight text-black">
         Reach your audience quickly.
       </h2>
       <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
         Once you create your personas, they integrate with our suite of tools.
       </p>
-      <div className="max-w-5xl mx-auto px-8">
+      <div className="mx-auto max-w-5xl px-8">
         <HoverEffect items={projects} />
       </div>
     </section>

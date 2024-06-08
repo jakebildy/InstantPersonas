@@ -18,7 +18,7 @@ export async function POST(req: any, res: NextApiResponse) {
         "DEV: POST -> Creating user with ID: ",
         userID,
         " and email: ",
-        email
+        email,
       )
     : null;
 

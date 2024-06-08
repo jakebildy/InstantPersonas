@@ -27,7 +27,7 @@ export default function ActiveSubscription({
   useEffect(() => {
     const fetchStripeCustomerPortalLink = async () => {
       setStripeCustomerPortalLink(
-        await api.stripe.getCustomerPortalUrl(user?.user_id as string)
+        await api.stripe.getCustomerPortalUrl(user?.user_id as string),
       );
       setLoading(false);
       return stripeCustomerPortalLink;
@@ -36,10 +36,10 @@ export default function ActiveSubscription({
   }, []);
 
   const feedbackLink = SIDEBAR_LINKS.find(
-    (link) => link.title === "Send Feedback"
+    (link) => link.title === "Send Feedback",
   )?.href;
   return (
-    <section className="align-center text-center text-gray-700 font-bold flex flex-col gap-10 py-14">
+    <section className="align-center flex flex-col gap-10 py-14 text-center font-bold text-gray-700">
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-3xl">
           Your Subscription is{" "}
@@ -83,14 +83,14 @@ export default function ActiveSubscription({
         How can InstantPersonas serve you better? We&apos;d love to hear your
         feedback!
       </h2>
-      <div className="flex gap-4 items-center justify-center">
+      <div className="flex items-center justify-center gap-4">
         {feedbackLink ? (
           <Button variant={"slate"} asChild>
             <Link href={feedbackLink}>Send Feedback</Link>
           </Button>
         ) : null}
         {loading ? (
-          <span className="text-sm text-gray-500 text-center font-semibold h-10 px-4 py-2 rounded-md border border-slate-400 cursor-help">
+          <span className="h-10 cursor-help rounded-md border border-slate-400 px-4 py-2 text-center text-sm font-semibold text-gray-500">
             Loading...
           </span>
         ) : stripeCustomerPortalLink ? (
@@ -105,7 +105,7 @@ export default function ActiveSubscription({
             </Link>
           </Button>
         ) : (
-          <span className="text-sm text-gray-500 text-center font-semibold h-10 px-4 py-2 rounded-md border border-slate-400 cursor-help">
+          <span className="h-10 cursor-help rounded-md border border-slate-400 px-4 py-2 text-center text-sm font-semibold text-gray-500">
             There seems to be an error with our payment processor, please
             contact support for assistance.
           </span>

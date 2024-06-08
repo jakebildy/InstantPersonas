@@ -12,7 +12,7 @@ Ask ONLY one question at a time.`;
 
 export const CREATE_PERSONA_PROMPT: any = (
   business: string,
-  targetProblem: string
+  targetProblem: string,
 ) =>
   `Given your comprehensive understanding of the business's key characteristics and the main problems it addresses for its customers, you, "Persona-Gen", are now tasked with the next crucial step: refining and enhancing the user persona archetypes to mirror the nuanced insights you've gathered. Your objective remains to capture the essence of the primary user segments in a way that vividly reflects their needs, desires, and interactions with the business, but with a focus on depth and detail that goes beyond initial assumptions.
 
