@@ -91,7 +91,7 @@ export async function POST(req: Request) {
           headers: {
             "content-type": "application/json",
           },
-        }
+        },
       );
       let keywordResults: any = [];
       keywordResults = keywordValues.data.tasks[0].result;

@@ -27,7 +27,7 @@ const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
 }) => {
   if (testing) {
     return (
-      <div className="pt-4 w-full flex justify-center overflow-clip rounded">
+      <div className="flex w-full justify-center overflow-clip rounded pt-4">
         <stripe-buy-button
           buy-button-id={buyButtonId}
           publishable-key={STRIPE_PUBLIC_TOKEN}
@@ -40,7 +40,7 @@ const StripeBuyButton: React.FC<StripeBuyButtonProps> = ({
     );
   }
   return (
-    <div className="pt-4 w-full flex justify-center overflow-clip rounded">
+    <div className="flex w-full justify-center overflow-clip rounded pt-4">
       <stripe-buy-button
         buy-button-id={buyButtonId}
         publishable-key={

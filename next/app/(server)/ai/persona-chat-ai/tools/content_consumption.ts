@@ -9,7 +9,7 @@ const apify = new ApifyClient({
 });
 
 export async function getContentConsumption(
-  keyword: string
+  keyword: string,
 ): Promise<string[]> {
   try {
     // Prepare Actor input
@@ -31,7 +31,7 @@ export async function getContentConsumption(
       console.dir(
         item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
           "url_list"
-        ][0] as string
+        ][0] as string,
       );
     });
 
@@ -39,7 +39,7 @@ export async function getContentConsumption(
       (item: any) =>
         item["aweme_info"]["video"]["bit_rate"][0]["play_addr"][
           "url_list"
-        ][0] as string
+        ][0] as string,
     );
   } catch (error) {
     console.error("Error getting TikTok videos: ", error);

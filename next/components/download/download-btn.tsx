@@ -26,7 +26,7 @@ export const downloadButtonVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export interface DownloadButtonProps
@@ -66,13 +66,13 @@ export function DownloadButton({
         className,
       })}
       onMouseEnter={(
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
       ) => {
         setIsHovered(true);
         if (onMouseEnter) onMouseEnter(event);
       }}
       onMouseLeave={(
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
       ) => {
         setIsHovered(false);
         if (onMouseLeave) onMouseLeave(event);

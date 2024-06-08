@@ -6,7 +6,7 @@ import {
 } from "../persona-ai.model";
 
 const personaArchetypeParams = extractKeysFromZodSchema(
-  PersonaArchetypeValidator
+  PersonaArchetypeValidator,
 ).map((prop) => prop.split("."));
 
 export function fixPersonaArchetype(persona: any): PersonaArchetype | null {
@@ -37,7 +37,7 @@ export function fixPersonaArchetype(persona: any): PersonaArchetype | null {
   // return attemptedReconstructPersona as PersonaArchetype;
 
   const safeParseReconstruct = PersonaArchetypeValidatorWithDefaults.safeParse(
-    attemptedReconstructPersona
+    attemptedReconstructPersona,
   );
 
   return safeParseReconstruct.success ? safeParseReconstruct.data : null;
@@ -51,7 +51,7 @@ export function fixPersonaArchetype(persona: any): PersonaArchetype | null {
  */
 function findHighestKeySimilarityScore(
   acc: { key: string; similarity: number } | undefined,
-  obj: { key: string; similarity: number } | undefined
+  obj: { key: string; similarity: number } | undefined,
 ): { key: string; similarity: number } | undefined {
   if (!acc) return obj; // If acc is undefined, return obj
   if (!obj) return acc; // If obj is undefined, continue with acc
@@ -66,7 +66,7 @@ function findHighestKeySimilarityScore(
  */
 function findMatchedParamKey(
   key: string,
-  params: string[]
+  params: string[],
 ): { key: string; similarity: number } | undefined {
   let bestMatch: { key: string; similarity: number } | undefined = undefined;
 
@@ -194,19 +194,22 @@ const inferKeyFromData = ({
     })
     .filter(
       (
-        item
+        item,
       ): item is {
         prev: string; // The concatenated keys before the matching key
         match: string; // The matching key
-      } => item !== null
+      } => item !== null,
     )
-    .reduce((acc, item) => {
-      if (!acc[item.prev]) {
-        acc[item.prev] = []; // Initialize the array if it does not exist
-      }
-      acc[item.prev].push(item.match); // Push the match into the array
-      return acc;
-    }, {} as { [key: string]: string[] });
+    .reduce(
+      (acc, item) => {
+        if (!acc[item.prev]) {
+          acc[item.prev] = []; // Initialize the array if it does not exist
+        }
+        acc[item.prev].push(item.match); // Push the match into the array
+        return acc;
+      },
+      {} as { [key: string]: string[] },
+    );
 
   const likelyParentKey = Object.entries(keyPathMatchMap)
     .map(([key, value]) => {
@@ -215,7 +218,7 @@ const inferKeyFromData = ({
       // Needs to compare ordered array `keyPath` to ordered array + n elements `schemaKeys[i]`
 
       const allChildKeysOfParent = schemaKeys.filter((path) =>
-        path.join(".").startsWith(key)
+        path.join(".").startsWith(key),
       );
       // We only care about matched keys in `value` since other keys will be dropped by the zod schema.
       const similarityScore = value.length / allChildKeysOfParent.length;

@@ -28,7 +28,7 @@ export function RecentPersonasList({
     const image = chat.persona.pictureURL ?? "/test-persona-avatar.jpg";
     // const designation = chat.persona.productDescription ?? "";
     const designation = limitTextToFirstDelimiter(
-      chat.persona.persona_components.Mindset_and_Perspective ?? ""
+      chat.persona.persona_components.Mindset_and_Perspective ?? "",
     );
     return {
       id: i,

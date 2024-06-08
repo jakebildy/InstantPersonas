@@ -74,8 +74,8 @@ export function splitUrl(inputUrl: string): [string, string] {
     pathParts.length > 0
       ? "/" + pathParts.join("/") + "/"
       : lastPathSegment
-      ? "/"
-      : ""
+        ? "/"
+        : ""
   }`;
 
   return [baseUrl, lastPathSegment];

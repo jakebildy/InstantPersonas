@@ -9,7 +9,7 @@ const api = {
   tools: {
     findGuestPostOpportunities: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/guest-post-opportunities", {
         personas,
@@ -20,7 +20,7 @@ const api = {
     },
     findGoogleKeywords: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/google-keywords", {
         personas,
@@ -42,7 +42,7 @@ const api = {
     },
     findInstagramHashtags: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/instagram-hashtags", {
         personas,
@@ -113,7 +113,7 @@ const api = {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data;
     },
@@ -201,7 +201,7 @@ const api = {
     },
     updatePersonaChat: async (
       chat: AIState | {},
-      id: string
+      id: string,
     ): Promise<PersonaChatType> => {
       const response = await axios.post(`/api/update-persona-chat/${id}`, {
         chat,
@@ -211,7 +211,7 @@ const api = {
 
     updatePersona: async (
       persona: PersonaChatType["aiState"],
-      historyID: string
+      historyID: string,
     ): Promise<PersonaChatType> => {
       const response = await axios.post("/api/update-persona", {
         persona,

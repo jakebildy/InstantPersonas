@@ -19,7 +19,7 @@ export async function POST(req: any, res: NextApiResponse) {
   const event = stripe.webhooks.constructEvent(
     body,
     signature,
-    STRIPE_ENDPOINT_SECRET
+    STRIPE_ENDPOINT_SECRET,
   );
   // Handle the event
   console.log("Stripe Event: ", event.type);
@@ -61,7 +61,7 @@ async function fulfillOrder(session: Session): Promise<void> {
   // update User with stripeCustomerId and stripeSubscriptionId
   user = await User.updateOne(
     { stytchID: stytchID },
-    { stripeCustomerId, stripeSubscriptionId }
+    { stripeCustomerId, stripeSubscriptionId },
   );
 
   if (!user) throw "User not found";

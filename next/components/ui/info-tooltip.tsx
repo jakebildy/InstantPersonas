@@ -8,13 +8,13 @@ const InfoTooltip = ({ text }: { text: string }) => {
     <Tooltip.Provider>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <button className="IconButton m-0 p-0 mb-3">
-            <IconInfoCircleFilled className="text-green-600 h-5" />
+          <button className="IconButton m-0 mb-3 p-0">
+            <IconInfoCircleFilled className="h-5 text-green-600" />
           </button>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content
-            className="TooltipContent text-start  text-xs"
+            className="TooltipContent text-start text-xs"
             sideOffset={5}
           >
             {text.split(".").map((line, index) => (

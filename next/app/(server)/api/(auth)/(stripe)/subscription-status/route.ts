@@ -28,7 +28,7 @@ export async function GET(req: Request) {
       if (!user.stripeSubscriptionId) throw "User has no subscriptionId";
 
       const subscription = await stripe.subscriptions.retrieve(
-        user.stripeSubscriptionId
+        user.stripeSubscriptionId,
       );
       // Log subscription status with user's email.
       //? Should never trigger, but is here for future debugging purposes
@@ -36,7 +36,7 @@ export async function GET(req: Request) {
         ? console.log(
             "Subscription status for user: ",
             user.email,
-            subscription.status
+            subscription.status,
           )
         : null;
       return Response.json({

@@ -11,10 +11,10 @@ export default function DashboardPricing() {
   ];
 
   return (
-    <section className="text-center flex flex-col gap-10 items-center py-14">
+    <section className="flex flex-col items-center gap-10 py-14 text-center">
       {/* Header */}
 
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900 max-w-4xl">
+      <h1 className="max-w-4xl text-3xl font-bold tracking-tight text-gray-900">
         Pricing
       </h1>
 
@@ -37,7 +37,7 @@ export default function DashboardPricing() {
         />
       </div>
 
-      <p className="text-sm font-semibold leading-6 text-gray-600 max-w-lg">
+      <p className="max-w-lg text-sm font-semibold leading-6 text-gray-600">
         {/* 30-day money-back guarantee. Cancel anytime. */}
         We offer a 30-day full refund guarantee. If for any reason you are not
         satisfied with our product within 30 days of your purchase, we will

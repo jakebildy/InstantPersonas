@@ -35,12 +35,12 @@ export default function DashboardLayout({
     if (!canExpandSidebar) {
       setIsCollapsed(true);
       document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-        true
+        true,
       )}`;
     } else {
       setIsCollapsed(false);
       document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-        false
+        false,
       )}`;
     }
   }, [canExpandSidebar]);
@@ -51,10 +51,10 @@ export default function DashboardLayout({
         direction="horizontal"
         onLayout={(sizes: number[]) => {
           document.cookie = `react-resizable-panels:layout=${JSON.stringify(
-            sizes
+            sizes,
           )}`;
         }}
-        className="h-full border border-border rounded-xl"
+        className="h-full rounded-xl border border-border"
       >
         {/* Sidebar */}
         <ResizablePanel
@@ -66,14 +66,14 @@ export default function DashboardLayout({
           onCollapse={() => {
             setIsCollapsed(true);
             document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-              true
+              true,
             )}`;
           }}
           onExpand={() => {
             if (canExpandSidebar) {
               setIsCollapsed(false);
               document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-                false
+                false,
               )}`;
             }
           }}
@@ -82,13 +82,13 @@ export default function DashboardLayout({
             isCollapsed
               ? "min-w-[50px] max-w-[80px] transition-all duration-300 ease-in-out"
               : "min-w-[240px] max-w-[350px]",
-            !canExpandSidebar && "max-w-[50px]"
+            !canExpandSidebar && "max-w-[50px]",
           )}
         >
           <div
             className={cn(
               "flex h-[52px] items-center justify-center",
-              isCollapsed ? "h-[52px]" : "px-2"
+              isCollapsed ? "h-[52px]" : "px-2",
             )}
           >
             <InstantPersonas isCollapsed={isCollapsed} />
@@ -122,7 +122,6 @@ export default function DashboardLayout({
           />
 
           <Separator />
-
           <CollapsibleNavSection
             title={{
               collapsed: "Create",
@@ -134,7 +133,7 @@ export default function DashboardLayout({
                 (element) => ({
                   ...element,
                   variant: pathname === element.href ? "default" : "ghost",
-                })
+                }),
               ),
             }}
           />
@@ -149,7 +148,7 @@ export default function DashboardLayout({
                 (element) => ({
                   ...element,
                   variant: pathname === element.href ? "default" : "ghost",
-                })
+                }),
               ),
             }}
           />
@@ -164,7 +163,7 @@ export default function DashboardLayout({
                 (element) => ({
                   ...element,
                   variant: pathname === element.href ? "default" : "ghost",
-                })
+                }),
               ),
             }}
             defaultCollapsed={true}

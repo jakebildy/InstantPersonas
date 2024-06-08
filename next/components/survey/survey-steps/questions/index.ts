@@ -24,7 +24,7 @@ export type SurveyQuestionStepProps = {
 
 export const SurveyQuestionTemplates: {
   [k in keyof SurveyQuestionStepProps]: (
-    Props: SurveyQuestionStepProps[k]
+    Props: SurveyQuestionStepProps[k],
   ) => JSX.Element;
 } = {
   SelectInput: SurveyQuestionSelectInput,

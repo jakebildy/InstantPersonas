@@ -22,42 +22,42 @@ export function InstantPersonasBasicTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px] bg-white grid place-items-center border rounded-lg shadow-md relative p-4 ">
+    <div className="relative grid h-[600px] w-[1200px] place-items-center rounded-lg border bg-white p-4 shadow-md">
       <div
         className={cx(
           gradientVariants({
             variant,
             className:
-              "relative w-full h-full border rounded-lg overflow-hidden ",
+              "relative h-full w-full overflow-hidden rounded-lg border",
           }),
           shadowVariants({
             variant,
-          })
+          }),
         )}
       >
         <Image
           src={image}
           alt={title}
           fill={true}
-          className=" object-cover blur-xl opacity-30"
+          className="object-cover opacity-30 blur-xl"
           priority
         />
         <div
           className={textColorVariants({
             variant,
             className:
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center gap-4 w-full",
+              "absolute left-1/2 top-1/2 grid w-full -translate-x-1/2 -translate-y-1/2 place-items-center gap-4 p-4 text-center",
           })}
         >
           <PersonStandingIcon className="size-14" />
           <div>
-            <h1 className=" text-4xl font-bold">{title}</h1>
+            <h1 className="text-4xl font-bold">{title}</h1>
             <p className="text-2xl">{description}</p>
             <span
               className={textColorVariants({
                 variant,
                 className:
-                  "inline-flex my-4 items-center justify-center whitespace-nowrap rounded-full px-6 py-1.5 text-2xl font-medium bg-white text-foreground shadow-lg",
+                  "my-4 inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg",
               })}
             >
               {domain}
@@ -77,28 +77,28 @@ function PersonaIconBackgroundElement({ variant }: { variant: ColorVariant }) {
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-20 blur-[1px] tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-20 size-[250px] blur-[1px] transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-sm tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-sm transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-md tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-md transition-colors duration-150 ease-out",
         })}
       />
       <PersonStandingIcon
         className={textPastelColorVariants({
           variant,
           className:
-            "size-[250px] transition-colors duration-150 ease-out absolute bottom-0 -right-[30px] z-10 blur-lg tilt-backward-right",
+            "tilt-backward-right absolute -right-[30px] bottom-0 z-10 size-[250px] blur-lg transition-colors duration-150 ease-out",
         })}
       />
     </>
@@ -116,32 +116,32 @@ export function InstantPersonasBasicTemplatePreview({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-full h-full aspect-[2/1] bg-white grid place-items-center border rounded-md shadow-sm relative p-1 ">
+    <div className="relative grid aspect-[2/1] h-full w-full place-items-center rounded-md border bg-white p-1 shadow-sm">
       <div
         className={cx(
           gradientVariants({
             variant,
             className:
-              "relative w-full h-full border rounded-md overflow-hidden ",
+              "relative h-full w-full overflow-hidden rounded-md border",
           }),
           shadowVariants({
             variant,
             className: "shadow-sm",
-          })
+          }),
         )}
       >
         <Image
           src={image}
           alt={title}
           fill={true}
-          className=" object-cover blur-md opacity-50"
+          className="object-cover opacity-50 blur-md"
           priority
         />
         <div
           className={textColorVariants({
             variant,
             className:
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-2 grid place-items-center gap-1 w-full",
+              "absolute left-1/2 top-1/2 grid w-full -translate-x-1/2 -translate-y-1/2 place-items-center gap-1 p-2 text-center",
           })}
         >
           <PersonStandingIcon className={size === "sm" ? "size-4" : "size-6"} />
@@ -160,8 +160,10 @@ export function InstantPersonasBasicTemplatePreview({
               className={textColorVariants({
                 variant,
                 className: cn(
-                  "empty:hidden inline-flex my-2 items-center justify-center whitespace-nowrap rounded-full  font-medium bg-white text-foreground shadow-md",
-                  size === "sm" ? "px-4 py-1 text-[6px]" : "px-6 py-1.5 text-sm"
+                  "my-2 inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white font-medium text-foreground shadow-md empty:hidden",
+                  size === "sm"
+                    ? "px-4 py-1 text-[6px]"
+                    : "px-6 py-1.5 text-sm",
                 ),
               })}
             >
@@ -173,8 +175,8 @@ export function InstantPersonasBasicTemplatePreview({
           className={textPastelColorVariants({
             variant,
             className: cn(
-              "transition-colors duration-150 ease-out absolute bottom-0 right-0 z-20 blur-[1px] tilt-backward-right",
-              size === "sm" ? "size-10 " : "size-[180px]"
+              "tilt-backward-right absolute bottom-0 right-0 z-20 blur-[1px] transition-colors duration-150 ease-out",
+              size === "sm" ? "size-10" : "size-[180px]",
             ),
           })}
         />
@@ -182,8 +184,8 @@ export function InstantPersonasBasicTemplatePreview({
           className={textPastelColorVariants({
             variant,
             className: cn(
-              "transition-colors duration-150 ease-out absolute bottom-0 right-0 z-20 blur-sm tilt-backward-right",
-              size === "sm" ? "size-10 " : "size-[180px]"
+              "tilt-backward-right absolute bottom-0 right-0 z-20 blur-sm transition-colors duration-150 ease-out",
+              size === "sm" ? "size-10" : "size-[180px]",
             ),
           })}
         />
@@ -191,8 +193,8 @@ export function InstantPersonasBasicTemplatePreview({
           className={textPastelColorVariants({
             variant,
             className: cn(
-              "transition-colors duration-150 ease-out absolute bottom-0 right-0 z-20 blur-md tilt-backward-right",
-              size === "sm" ? "size-10 " : "size-[180px]"
+              "tilt-backward-right absolute bottom-0 right-0 z-20 blur-md transition-colors duration-150 ease-out",
+              size === "sm" ? "size-10" : "size-[180px]",
             ),
           })}
         />
@@ -200,8 +202,8 @@ export function InstantPersonasBasicTemplatePreview({
           className={textPastelColorVariants({
             variant,
             className: cn(
-              "transition-colors duration-150 ease-out absolute bottom-0 right-0 z-20 blur-lg tilt-backward-right",
-              size === "sm" ? "size-10 " : "size-[180px]"
+              "tilt-backward-right absolute bottom-0 right-0 z-20 blur-lg transition-colors duration-150 ease-out",
+              size === "sm" ? "size-10" : "size-[180px]",
             ),
           })}
         />

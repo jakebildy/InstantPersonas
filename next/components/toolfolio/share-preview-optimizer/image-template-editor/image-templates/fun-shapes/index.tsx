@@ -19,30 +19,30 @@ export function FunShapesTemplate({
   image,
 }: OpenGraphImageTemplateProps) {
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
+    <div className="relative grid h-[600px] w-[1200px] place-items-center overflow-hidden rounded-lg border bg-white shadow-md">
       <div
         className={gradientVariants({
           variant,
           className:
-            "relative w-full h-full border rounded-lg overflow-hidden z-10",
+            "relative z-10 h-full w-full overflow-hidden rounded-lg border",
         })}
       >
         <div
           className={textColorVariants({
             variant,
             className:
-              " z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center  grid-cols-2 gap-4 w-full",
+              "absolute left-1/2 top-1/2 z-10 grid w-full -translate-x-1/2 -translate-y-1/2 grid-cols-2 place-items-center gap-4 p-4 text-center",
           })}
         >
-          <div className="flex flex-col items-center col-start-2">
+          <div className="col-start-2 flex flex-col items-center">
             <h1 className="z-20 text-4xl font-bold">{title}</h1>
             <p className="z-20 text-2xl">{description}</p>
-            <div className="bg-white rounded-full p-1 shadow-lg mt-8 w-fit">
+            <div className="mt-8 w-fit rounded-full bg-white p-1 shadow-lg">
               <span
                 className={gradientLightVariants({
                   variant,
                   className:
-                    "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
+                    "z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg",
                 })}
               >
                 Read more <ArrowRightIcon className="size-8" />
@@ -51,7 +51,7 @@ export function FunShapesTemplate({
           </div>
         </div>
         <div
-          className="z-10 aspect-[2/1] w-[800px] h-[400px] absolute bottom-[90px] -left-[200px] bg-white p-2 rounded-t-md border shadow-lg"
+          className="absolute -left-[200px] bottom-[90px] z-10 aspect-[2/1] h-[400px] w-[800px] rounded-t-md border bg-white p-2 shadow-lg"
           style={{
             transform: "rotate(-6deg)",
           }}
@@ -60,7 +60,7 @@ export function FunShapesTemplate({
             src={image}
             alt={title}
             fill={true}
-            className=" object-cover z-0"
+            className="z-0 object-cover"
             priority
           />
         </div>
@@ -69,14 +69,14 @@ export function FunShapesTemplate({
           className={background600({
             variant,
             className:
-              "absolute -top-[45px]  -left-[45px] size-[190px] rounded-full opacity-25 z-0 shadow-sm",
+              "absolute -left-[45px] -top-[45px] z-0 size-[190px] rounded-full opacity-25 shadow-sm",
           })}
         />
         <div
           className={background600({
             variant,
             className:
-              "absolute -top-[45px]  -left-[45px] size-[190px] rounded-full opacity-25 z-0 shadow-sm blur-sm",
+              "absolute -left-[45px] -top-[45px] z-0 size-[190px] rounded-full opacity-25 shadow-sm blur-sm",
           })}
         />
         {/* Square with a semicircular protrusion Bottom Middle */}
@@ -84,7 +84,7 @@ export function FunShapesTemplate({
           className={background600({
             variant,
             className:
-              " w-[190px] h-[200px] rounded-t-full absolute -bottom-[80px]  left-1/2 -translate-x-1/2  opacity-20  z-0 shadow-sm blur-sm",
+              "absolute -bottom-[80px] left-1/2 z-0 h-[200px] w-[190px] -translate-x-1/2 rounded-t-full opacity-20 shadow-sm blur-sm",
           })}
         />
 
@@ -93,7 +93,7 @@ export function FunShapesTemplate({
           className={background600({
             variant,
             className:
-              "size-[180px] absolute -bottom-[105px]  left-1/2 -translate-x-[calc(50%+186px)] rounded-sm shadow-[1px]  opacity-10  z-0 shadow-sm",
+              "absolute -bottom-[105px] left-1/2 z-0 size-[180px] -translate-x-[calc(50%+186px)] rounded-sm opacity-10 shadow-sm shadow-[1px]",
           })}
         />
         {/* Square with a semicircular protrusion Middle Left */}
@@ -101,14 +101,14 @@ export function FunShapesTemplate({
           className={background600({
             variant,
             className:
-              " size-[160px] rounded-r-full absolute bottom-[60px] right-[50px]  opacity-5  z-0 shadow-sm",
+              "absolute bottom-[60px] right-[50px] z-0 size-[160px] rounded-r-full opacity-5 shadow-sm",
           })}
         />
         <div
           className={background600({
             variant,
             className:
-              "size-[160px] rounded-r-full absolute bottom-[60px] right-[50px]  opacity-5  z-0 shadow-sm blur-sm",
+              "absolute bottom-[60px] right-[50px] z-0 size-[160px] rounded-r-full opacity-5 shadow-sm blur-sm",
           })}
         />
         {/* Left-sided Semi-circle Top 3/4-ths */}
@@ -116,7 +116,7 @@ export function FunShapesTemplate({
           className={background600({
             variant,
             className:
-              "absolute -top-10 right-1/4  h-[190px] w-[95px] rounded-l-full opacity-20 z-0 shadow-sm",
+              "absolute -top-10 right-1/4 z-0 h-[190px] w-[95px] rounded-l-full opacity-20 shadow-sm",
           })}
         />
       </div>
@@ -134,39 +134,39 @@ export function FunShapesTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="size-full aspect-[2/1]  grid place-items-center border rounded-md shadow-sm relative overflow-hidden bg-white">
+    <div className="relative grid aspect-[2/1] size-full place-items-center overflow-hidden rounded-md border bg-white shadow-sm">
       <div
         className={gradientVariants({
           variant,
           className:
-            "relative w-full h-full border rounded-md overflow-hidden z-10",
+            "relative z-10 h-full w-full overflow-hidden rounded-md border",
         })}
       >
         <div
           className={textColorVariants({
             variant,
             className: cn(
-              " z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center grid place-items-center grid-cols-2 w-full",
-              isSmall ? "p-1 gap-1" : "p-4 gap-4"
+              "absolute left-1/2 top-1/2 z-10 grid w-full -translate-x-1/2 -translate-y-1/2 grid-cols-2 place-items-center text-center",
+              isSmall ? "gap-1 p-1" : "gap-4 p-4",
             ),
           })}
         >
-          <div className="flex flex-col items-center col-start-2">
+          <div className="col-start-2 flex flex-col items-center">
             <h1
               className={cn(
-                "z-20 text-white font-bold",
-                isSmall ? "text-[10px]" : "text-2xl"
+                "z-20 font-bold text-white",
+                isSmall ? "text-[10px]" : "text-2xl",
               )}
             >
               {title}
             </h1>
-            <p className={cn("z-20 ", isSmall ? "text-[4px]" : "text-lg")}>
+            <p className={cn("z-20", isSmall ? "text-[4px]" : "text-lg")}>
               {description}
             </p>
             <span
               className={cn(
-                "bg-white rounded-full flex shadow-lg  w-fit max-h-fit min-h-0 ",
-                isSmall ? "mt-2 p-0.5" : "p-1 mt-4"
+                "flex max-h-fit min-h-0 w-fit rounded-full bg-white shadow-lg",
+                isSmall ? "mt-2 p-0.5" : "mt-4 p-1",
               )}
             >
               <span
@@ -174,11 +174,11 @@ export function FunShapesTemplatePreview({
                   gradientLightVariants({
                     variant,
                     className:
-                      "inline-flex  items-center justify-center whitespace-nowrap rounded-full  font-medium text-foreground shadow-md z-10",
+                      "z-10 inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium text-foreground shadow-md",
                   }),
                   isSmall
-                    ? "px-2 py-[1px] text-[4px] gap-0.5 leading-[8px]"
-                    : "px-6 py-1.5 text-sm gap-1"
+                    ? "gap-0.5 px-2 py-[1px] text-[4px] leading-[8px]"
+                    : "gap-1 px-6 py-1.5 text-sm",
                 )}
               >
                 Read more{" "}
@@ -189,10 +189,10 @@ export function FunShapesTemplatePreview({
         </div>
         <div
           className={cn(
-            "z-10 aspect-[2/1] absolute bg-white border",
+            "absolute z-10 aspect-[2/1] border bg-white",
             isSmall
-              ? "w-[200px] h-[100px] bottom-[15px] -left-[75px] p-0.5 rounded-t-md shadow-sm"
-              : "w-[600px] h-[300px] bottom-[40px] -left-[175px] p-1 rounded-t-md shadow-md"
+              ? "-left-[75px] bottom-[15px] h-[100px] w-[200px] rounded-t-md p-0.5 shadow-sm"
+              : "-left-[175px] bottom-[40px] h-[300px] w-[600px] rounded-t-md p-1 shadow-md",
           )}
           style={{
             transform: "rotate(-6deg)",
@@ -202,7 +202,7 @@ export function FunShapesTemplatePreview({
             src={image}
             alt={title}
             fill={true}
-            className=" object-cover z-0"
+            className="z-0 object-cover"
             priority
           />
         </div>
@@ -211,10 +211,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "absolute rounded-full opacity-25 z-0 shadow-sm",
+              "absolute z-0 rounded-full opacity-25 shadow-sm",
               isSmall
-                ? "-top-[15px]  -left-[15px] size-[50px]"
-                : "-top-[24px]  -left-[24px] size-[95px]"
+                ? "-left-[15px] -top-[15px] size-[50px]"
+                : "-left-[24px] -top-[24px] size-[95px]",
             ),
           })}
         />
@@ -222,10 +222,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "absolute rounded-full opacity-25 z-0 shadow-sm blur-sm",
+              "absolute z-0 rounded-full opacity-25 shadow-sm blur-sm",
               isSmall
-                ? "-top-[15px]  -left-[15px] size-[50px]"
-                : "-top-[24px]  -left-[24px] size-[95px]"
+                ? "-left-[15px] -top-[15px] size-[50px]"
+                : "-left-[24px] -top-[24px] size-[95px]",
             ),
           })}
         />
@@ -234,10 +234,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "absolute left-1/2 -translate-x-1/2 rounded-t-full opacity-20 z-0 shadow-sm",
+              "absolute left-1/2 z-0 -translate-x-1/2 rounded-t-full opacity-20 shadow-sm",
               isSmall
-                ? "w-[50px] h-[50px] -bottom-[10px] "
-                : "w-[95px] h-[100px] -bottom-[40px] blur-sm"
+                ? "-bottom-[10px] h-[50px] w-[50px]"
+                : "-bottom-[40px] h-[100px] w-[95px] blur-sm",
             ),
           })}
         />
@@ -247,10 +247,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              " absolute left-1/2 rounded-sm shadow-[1px] opacity-10 z-0 shadow-sm",
+              "absolute left-1/2 z-0 rounded-sm opacity-10 shadow-sm shadow-[1px]",
               isSmall
-                ? "size-[45px] -bottom-[26px] -translate-x-[calc(50%+48px)]"
-                : "size-[90px] -bottom-[53px] -translate-x-[calc(50%+93px)]"
+                ? "-bottom-[26px] size-[45px] -translate-x-[calc(50%+48px)]"
+                : "-bottom-[53px] size-[90px] -translate-x-[calc(50%+93px)]",
             ),
           })}
         />
@@ -259,10 +259,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "rounded-r-full absolute opacity-5 z-0 shadow-sm",
+              "absolute z-0 rounded-r-full opacity-5 shadow-sm",
               isSmall
-                ? "size-[40px] bottom-[15px] right-[12px]"
-                : "size-[80px] bottom-[30px] right-[25px]"
+                ? "bottom-[15px] right-[12px] size-[40px]"
+                : "bottom-[30px] right-[25px] size-[80px]",
             ),
           })}
         />
@@ -270,10 +270,10 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "rounded-r-full absolute opacity-5 z-0 shadow-sm blur-sm",
+              "absolute z-0 rounded-r-full opacity-5 shadow-sm blur-sm",
               isSmall
-                ? "size-[40px] bottom-[15px] right-[12px]"
-                : "size-[80px] bottom-[30px] right-[25px]"
+                ? "bottom-[15px] right-[12px] size-[40px]"
+                : "bottom-[30px] right-[25px] size-[80px]",
             ),
           })}
         />
@@ -282,8 +282,8 @@ export function FunShapesTemplatePreview({
           className={background600({
             variant,
             className: cn(
-              "absolute right-1/4 rounded-l-full opacity-20 z-0 shadow-sm",
-              isSmall ? "-top-2 h-[48px] w-[24px]" : "-top-5 h-[95px] w-[48px]"
+              "absolute right-1/4 z-0 rounded-l-full opacity-20 shadow-sm",
+              isSmall ? "-top-2 h-[48px] w-[24px]" : "-top-5 h-[95px] w-[48px]",
             ),
           })}
         />

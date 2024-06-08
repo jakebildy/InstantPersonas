@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+    <main className="bg-white pb-16 pt-8 lg:pb-24 lg:pt-16">
       <ReadingBar />
       <title>
         {"Everything You Need to Know About Topical Authority (2024)"}
@@ -15,14 +15,14 @@ export default function CraftStrongUserPersona() {
         name="description"
         content="Quickly learn how to build and measure topical authority with our comprehensive guide."
       />
-      <h1 className="sm:hidden mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+      <h1 className="mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 sm:hidden lg:mb-6 lg:text-4xl">
         Everything You Need to Know About Topical Authority (2024)
       </h1>
-      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+      <div className="mx-auto flex max-w-screen-xl justify-between px-4 max-sm:flex-col">
         <TableOfContents />
-        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-          <header className="mb-4 lg:mb-6 not-format">
-            <address className="flex items-center mb-6 not-italic">
+        <article className="format format-sm sm:format-base lg:format-lg format-blue mx-auto w-full max-w-2xl">
+          <header className="not-format mb-4 lg:mb-6">
+            <address className="mb-6 flex items-center not-italic">
               {/* <div className="inline-flex items-center mr-3 text-sm text-gray-900">
                   <img
                     className="mr-4 w-16 h-16 rounded-full"
@@ -52,11 +52,11 @@ export default function CraftStrongUserPersona() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 max-sm:sr-only lg:mb-6 lg:text-4xl">
               Everything You Need to Know About Topical Authority (2024)
             </h1>
           </header>
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"0"}>
             What is Topical Authority?
           </h2>
           <p>
@@ -69,7 +69,7 @@ export default function CraftStrongUserPersona() {
               height={400}
               width={400}
               alt="Topical authority explained"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             Building topical authority means you have produced comprehensive,
@@ -78,7 +78,7 @@ export default function CraftStrongUserPersona() {
             signals to search engines that your content is a valuable resource
             on the subject, boosting your SEO rankings.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id={"1"}>
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id={"1"}>
             What is a Topical Authority Map?
           </h2>
           <p>
@@ -89,7 +89,7 @@ export default function CraftStrongUserPersona() {
               height={600}
               width={500}
               alt="How to make a Topical authority map"
-              className="mx-auto rounded-md my-5"
+              className="mx-auto my-5 rounded-md"
               unoptimized
             />
             It shows the main topic and related subtopics. Each subtopic has
@@ -99,13 +99,13 @@ export default function CraftStrongUserPersona() {
             authority map. Read more about{" "}
             <a
               href="https://instantpersonas.com/blog/craft-a-strong-user-persona-in-2024"
-              className=" text-blue-500"
+              className="text-blue-500"
             >
               making user personas here
             </a>
             .
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="2">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="2">
             How to Get Topical Authority on your Site
           </h2>
           <Image
@@ -113,7 +113,7 @@ export default function CraftStrongUserPersona() {
             height={400}
             width={400}
             alt="Building Topical Authority"
-            className="mx-auto rounded-md my-5"
+            className="mx-auto my-5 rounded-md"
             unoptimized
           />
           <p>
@@ -138,7 +138,7 @@ export default function CraftStrongUserPersona() {
             <br></br>- <b>Step 6: Connect Using Internal Links</b> Strategically
             link between articles to enhance topic authority and improve SEO.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="3">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="3">
             How to Measure Topical Authority?
           </h2>
           <p>
@@ -151,7 +151,7 @@ export default function CraftStrongUserPersona() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="mx-auto mr-0 ml-0 mb-6"
+              className="mx-auto mb-6 ml-0 mr-0"
             />
             <a href="https://www.growth-memo.com/p/how-to-measure-topical-authority">
               Kevin Indig
@@ -176,7 +176,7 @@ export default function CraftStrongUserPersona() {
             5. The resulting traffic share equals the Topic Share, which is
             synonymous with &apos;&apos;Topical Authority&apos;&apos;.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="4">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="4">
             Topical Relevance vs Topical Authority
           </h2>
           <p>
@@ -193,7 +193,7 @@ export default function CraftStrongUserPersona() {
             for a query, authority builds trust and credibility, enhancing a
             site’s reputation and search rankings.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="5">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="5">
             Should you update old content?
           </h2>
           <p>
@@ -233,7 +233,7 @@ export default function CraftStrongUserPersona() {
             and avoid any potential SEO issues, including{" "}
             <b>keyword cannabilization</b>.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="6">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="6">
             What is Keyword Cannabilization?
           </h2>
           <p>
@@ -244,7 +244,7 @@ export default function CraftStrongUserPersona() {
             ensure your keywords are distributed evenly across your content,
             avoiding overlaps, and enhancing the depth of your content.
           </p>
-          <h2 className="text-3xl font-bold mb-3 font-jost mt-10" id="7">
+          <h2 className="mb-3 mt-10 font-jost text-3xl font-bold" id="7">
             Can you increase topical authority with backlinks or through guest
             posting?
           </h2>
@@ -268,7 +268,7 @@ export default function CraftStrongUserPersona() {
           <p>
             <br></br> <br></br>
             Want to make a comprehensive User Persona in 5 minutes?{" "}
-            <a href="https://InstantPersonas.com/" className=" text-blue-500">
+            <a href="https://InstantPersonas.com/" className="text-blue-500">
               {" "}
               Use our AI powered platform{" "}
             </a>{" "}

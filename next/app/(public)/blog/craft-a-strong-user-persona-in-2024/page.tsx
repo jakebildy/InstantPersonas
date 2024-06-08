@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function CraftStrongUserPersona() {
   return (
-    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+    <main className="bg-white pb-16 pt-8 lg:pb-24 lg:pt-16">
       <ReadingBar />
       <title>
         {
@@ -17,7 +17,7 @@ export default function CraftStrongUserPersona() {
         name="description"
         content="Quickly learn how to leverage your data to make good customer personas. Everything you need to know."
       />
-      <h1 className="sm:hidden px-4 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+      <h1 className="mb-4 px-4 text-3xl font-extrabold leading-tight text-gray-900 sm:hidden lg:mb-6 lg:text-4xl">
         6 Tips to Use Business Data to Craft a Strong User Persona in 2024
         (GUIDE)
       </h1>
@@ -29,11 +29,11 @@ export default function CraftStrongUserPersona() {
         className="mx-auto sm:hidden"
         unoptimized
       />
-      <div className="flex max-sm:flex-col justify-between px-4 mx-auto max-w-screen-xl ">
+      <div className="mx-auto flex max-w-screen-xl justify-between px-4 max-sm:flex-col">
         <TableOfContents />
-        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue">
-          <header className="mb-4 lg:mb-6 not-format">
-            <address className="flex items-center mb-6 not-italic">
+        <article className="format format-sm sm:format-base lg:format-lg format-blue mx-auto w-full max-w-2xl">
+          <header className="not-format mb-4 lg:mb-6">
+            <address className="mb-6 flex items-center not-italic">
               {/* <div className="inline-flex items-center mr-3 text-sm text-gray-900">
                   <img
                     className="mr-4 w-16 h-16 rounded-full"
@@ -63,7 +63,7 @@ export default function CraftStrongUserPersona() {
                   </div>
                 </div> */}
             </address>
-            <h1 className="max-sm:sr-only mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 max-sm:sr-only lg:mb-6 lg:text-4xl">
               6 Tips to Use Business Data to Craft a Strong User Persona in 2024
               (GUIDE)
             </h1>
@@ -77,7 +77,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto max-sm:hidden"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"0"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"0"}>
             1. Use the 80/20 Rule
           </h2>
           <p>
@@ -100,7 +100,7 @@ export default function CraftStrongUserPersona() {
             alt="Incorporating Google Analytics into user personas"
             className="mx-auto"
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id={"1"}>
+          <h2 className="mb-3 font-jost text-3xl font-bold" id={"1"}>
             2. Use your Google Analytics Data
           </h2>
           <p>
@@ -127,7 +127,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id="2">
+          <h2 className="mb-3 font-jost text-3xl font-bold" id="2">
             3. Understand your Customer Motivations
           </h2>
           <p>
@@ -167,7 +167,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id="3">
+          <h2 className="mb-3 font-jost text-3xl font-bold" id="3">
             4. Is your business innovative? If so, understand where in the
             Innovation Adoption Cycle your business falls.
           </h2>
@@ -231,7 +231,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id="4">
+          <h2 className="mb-3 font-jost text-3xl font-bold" id="4">
             5. Incorporate your Customer Conversations
           </h2>
           <p>
@@ -251,7 +251,7 @@ export default function CraftStrongUserPersona() {
             className="mx-auto"
             unoptimized
           />
-          <h2 className="text-3xl font-bold mb-3 font-jost" id="5">
+          <h2 className="mb-3 font-jost text-3xl font-bold" id="5">
             6. Is your business on Facebook/Instagram? Use Meta Audience
             Insights
           </h2>

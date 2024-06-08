@@ -76,27 +76,27 @@ export function TemplateEditView({
           );
         }
       })}
-      <form className="flex flex-col p-4 gap-2">
+      <form className="flex flex-col gap-2 p-4">
         <Collapsible
           open={editTemplateSectionIsOpen}
           onOpenChange={setEditTemplateSectionIsOpen}
         >
           <CollapsibleTrigger className="group">
-            <div className="text-left flex gap-2 justify-between transition-colors duration-200">
+            <div className="flex justify-between gap-2 text-left transition-colors duration-200">
               <div className="group-hover:animate-pulse">
                 <h2 className="text-lg font-bold">Edit Template</h2>
                 <p className="text-sm">
                   Customize how your content appears on search engines and
                   social platforms. Modify the title, description, and image to
                   optimize visibility and engagement.{" "}
-                  <span className="text-blue-500 font-bold border-b  border-transparent group-hover:border-blue-500 inline-flex gap-2 items-center">
+                  <span className="inline-flex items-center gap-2 border-b border-transparent font-bold text-blue-500 group-hover:border-blue-500">
                     {editTemplateSectionIsOpen
                       ? "Click here to hide"
                       : "Click here to show"}
                     {!editTemplateSectionIsOpen ? (
-                      <ArrowDown className="group-hover:animate-pulse size-3" />
+                      <ArrowDown className="size-3 group-hover:animate-pulse" />
                     ) : (
-                      <ArrowUp className="group-hover:animate-pulse size-3" />
+                      <ArrowUp className="size-3 group-hover:animate-pulse" />
                     )}
                   </span>
                 </p>
@@ -168,10 +168,10 @@ export function TemplateEditView({
         <Separator className="py-2" />
         <Button
           variant="blue"
-          className="flex gap-2 flex-1 peer group"
+          className="group peer flex flex-1 gap-2"
           onClick={() => setShowTemplateSelectModal(true)}
         >
-          <DownloadIcon className="group-hover:text-slate-100 text-white size-4" />{" "}
+          <DownloadIcon className="size-4 text-white group-hover:text-slate-100" />{" "}
           Download & Save Template
         </Button>
       </form>
@@ -206,7 +206,7 @@ function ChangeColorSelect({
           <SelectItem
             value={color}
             key={hex}
-            className="w-full flex items-center justify-between group cursor-pointer data-[state=checked]:bg-slate-200 hover:bg-slate-100"
+            className="group flex w-full cursor-pointer items-center justify-between hover:bg-slate-100 data-[state=checked]:bg-slate-200"
           >
             <div
               className={badgeVariants({

@@ -5,12 +5,12 @@ export function PersonaHistoryListSkeleton({}: {}) {
     <div className="flex flex-col gap-2 px-2">
       {[...Array(9)].map((_, index) => (
         <div
-          className="ml-5 flex items-center gap-2 group cursor-pointer hover:animate-pulse hover:py-4 transition-all duration-500"
+          className="group ml-5 flex cursor-pointer items-center gap-2 transition-all duration-500 hover:animate-pulse hover:py-4"
           key={index}
         >
-          <Skeleton className="bg-gray-300 rounded-full h-8 w-8" />
-          <Skeleton className="bg-gray-300 p-2 px-4 rounded-lg h-14 w-full" />
-          <div className="h-5 w-8 ml-5 mr-5" />
+          <Skeleton className="h-8 w-8 rounded-full bg-gray-300" />
+          <Skeleton className="h-14 w-full rounded-lg bg-gray-300 p-2 px-4" />
+          <div className="ml-5 mr-5 h-5 w-8" />
         </div>
       ))}
     </div>

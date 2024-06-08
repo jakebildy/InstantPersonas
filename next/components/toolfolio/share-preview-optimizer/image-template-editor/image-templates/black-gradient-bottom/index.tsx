@@ -17,24 +17,24 @@ export function BlackGradientBottomTemplate({
   const domain = GetDomainFromString(url);
 
   return (
-    <div className="w-[1200px] h-[600px]  grid place-items-center border rounded-lg shadow-md relative overflow-hidden bg-white">
+    <div className="relative grid h-[600px] w-[1200px] place-items-center overflow-hidden rounded-lg border bg-white shadow-md">
       <div
-        className={"relative w-full h-full border rounded-lg overflow-hidden "}
+        className={"relative h-full w-full overflow-hidden rounded-lg border"}
       >
         <div
           className={
-            "text-white z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center p-4 grid place-items-center gap-4 w-full"
+            "absolute left-1/2 top-1/2 z-10 grid w-full -translate-x-1/2 -translate-y-1/2 place-items-center gap-4 p-4 text-center text-white"
           }
         >
           <div className="flex flex-col items-center">
-            <h1 className="z-20 text-white text-4xl font-bold">{title}</h1>
+            <h1 className="z-20 text-4xl font-bold text-white">{title}</h1>
             <p className="z-20 text-2xl">{description}</p>
-            <div className="bg-white rounded-full p-1 shadow-lg mt-8 w-fit">
+            <div className="mt-8 w-fit rounded-full bg-white p-1 shadow-lg">
               <span
                 className={gradientLightVariants({
                   variant,
                   className:
-                    "inline-flex  items-center justify-center whitespace-nowrap gap-2 rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg z-10",
+                    "z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-1.5 text-2xl font-medium text-foreground shadow-lg",
                 })}
               >
                 Read more <ArrowRightIcon className="size-8" />
@@ -47,10 +47,10 @@ export function BlackGradientBottomTemplate({
         src={image}
         alt={title}
         fill={true}
-        className=" object-cover brightness-50 z-0"
+        className="z-0 object-cover brightness-50"
         priority
       />
-      <div className="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent z-0" />
+      <div className="absolute bottom-0 z-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 }
@@ -66,21 +66,21 @@ export function BlackGradientBottomTemplatePreview({
   const isSmall = size === "sm";
 
   return (
-    <div className="w-full h-full aspect-[2/1] grid place-items-center border rounded-md shadow-sm relative overflow-hidden bg-white">
+    <div className="relative grid aspect-[2/1] h-full w-full place-items-center overflow-hidden rounded-md border bg-white shadow-sm">
       <div
-        className={"relative w-full h-full border rounded-md overflow-hidden "}
+        className={"relative h-full w-full overflow-hidden rounded-md border"}
       >
         <div
           className={cn(
-            "text-white z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center  grid place-items-center  w-full",
-            isSmall ? "p-1 gap-1" : "p-4 gap-4"
+            "absolute left-1/2 top-1/2 z-10 grid w-full -translate-x-1/2 -translate-y-1/2 place-items-center text-center text-white",
+            isSmall ? "gap-1 p-1" : "gap-4 p-4",
           )}
         >
           <div className="flex flex-col items-center">
             <h1
               className={cn(
-                "z-20 text-white font-bold",
-                isSmall ? "text-sm" : "text-2xl"
+                "z-20 font-bold text-white",
+                isSmall ? "text-sm" : "text-2xl",
               )}
             >
               {title}
@@ -88,15 +88,15 @@ export function BlackGradientBottomTemplatePreview({
             <p
               className={cn(
                 "z-20 text-2xl",
-                isSmall ? "text-[10px]" : "text-xl"
+                isSmall ? "text-[10px]" : "text-xl",
               )}
             >
               {description}
             </p>
             <span
               className={cn(
-                "bg-white rounded-full flex shadow-lg  w-fit max-h-fit min-h-0 ",
-                isSmall ? "mt-0.5 p-0.5" : "p-1 mt-4"
+                "flex max-h-fit min-h-0 w-fit rounded-full bg-white shadow-lg",
+                isSmall ? "mt-0.5 p-0.5" : "mt-4 p-1",
               )}
             >
               <span
@@ -104,11 +104,11 @@ export function BlackGradientBottomTemplatePreview({
                   gradientLightVariants({
                     variant,
                     className:
-                      "inline-flex  items-center justify-center whitespace-nowrap rounded-full  font-medium text-foreground shadow-md z-10",
+                      "z-10 inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium text-foreground shadow-md",
                   }),
                   isSmall
-                    ? "px-4 py-1 text-[6px] gap-0.5 leading-[8px]"
-                    : "px-6 py-1.5 text-sm gap-1"
+                    ? "gap-0.5 px-4 py-1 text-[6px] leading-[8px]"
+                    : "gap-1 px-6 py-1.5 text-sm",
                 )}
               >
                 Read more{" "}
@@ -122,10 +122,10 @@ export function BlackGradientBottomTemplatePreview({
         src={image}
         alt={title}
         fill={true}
-        className=" object-cover brightness-50 z-0"
+        className="z-0 object-cover brightness-50"
         priority
       />
-      <div className="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent z-0" />
+      <div className="absolute bottom-0 z-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 }

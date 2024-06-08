@@ -41,7 +41,7 @@ export const useScrollAreaState = () => {
           const maxScrollableDistance = scrollHeight - clientHeight || 1;
           // Calculate the scroll percentage
           const scrollPercentage = Math.round(
-            (scrollTop / maxScrollableDistance) * 100
+            (scrollTop / maxScrollableDistance) * 100,
           );
 
           // Return the updated state with the new scroll information

@@ -9,10 +9,10 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="mx-auto max-w-4xl font-display font-bold text-5xl tracking-tight text-slate-900 sm:text-7xl"
+        className="font-display mx-auto max-w-4xl text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl"
       >
-        Understand & write for your audience{" "}
-        <span className="relative whitespace-nowrap text-green">
+        Understand your target audience in{" "}
+        <span className="text-green relative whitespace-nowrap">
           <svg
             aria-hidden="true"
             viewBox="0 0 418 42"

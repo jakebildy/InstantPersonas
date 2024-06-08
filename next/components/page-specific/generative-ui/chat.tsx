@@ -82,8 +82,8 @@ export default function Chat({ className }: Props) {
     return (
       <section
         className={cn(
-          "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] flex flex-col relative bg-background box-border overflow-hidden",
-          className
+          "relative m-2 box-border flex h-[calc(100%-70px)] w-[calc(100%-16px)] flex-col overflow-hidden bg-background",
+          className,
         )}
       >
         No state{" "}
@@ -94,8 +94,8 @@ export default function Chat({ className }: Props) {
   return (
     <section
       className={cn(
-        "m-2 h-[calc(100%-70px)] w-[calc(100%-16px)] flex flex-col relative bg-background box-border overflow-hidden",
-        className
+        "relative m-2 box-border flex h-[calc(100%-70px)] w-[calc(100%-16px)] flex-col overflow-hidden bg-background",
+        className,
       )}
     >
       <SubscriptionPopup
@@ -117,12 +117,12 @@ export default function Chat({ className }: Props) {
         transition={{
           opacity: { delay: 2, duration: 0.5 },
         }}
-        className="absolute top-0 h-2 bg-green-500 rounded-full z-[400]"
+        className="absolute top-0 z-[400] h-2 rounded-full bg-green-500"
       />
 
       {personas && personas.length > 0 ? (
-        <div className="w-full p-2 sticky top-0">
-          <div className="flex items-center justify-center w-full mx-auto border-b pb-2 relative">
+        <div className="sticky top-0 w-full p-2">
+          <div className="relative mx-auto flex w-full items-center justify-center border-b pb-2">
             <GradientButton
               Icon={PersonStandingIcon}
               className={"absolute left-0 m-8"}
@@ -171,12 +171,12 @@ export default function Chat({ className }: Props) {
           >
             <div
               className={cn(
-                "absolute top-0 w-full h-20 z-50 bg-gradient-to-b from-white via-slate-50/75 to-transparent pointer-events-none transition-opacity duration-300 ease-out",
-                scrollAreaState.is.atTop ? "opacity-0" : "opacity-100"
+                "pointer-events-none absolute top-0 z-50 h-20 w-full bg-gradient-to-b from-white via-slate-50/75 to-transparent transition-opacity duration-300 ease-out",
+                scrollAreaState.is.atTop ? "opacity-0" : "opacity-100",
               )}
             />
             {/* 120px is the height of the input and suggestions */}
-            <div className="font-mono text-sm p-4 mb-[25vh] flex flex-col gap-2 overflow-hidden">
+            <div className="mb-[25vh] flex flex-col gap-2 overflow-hidden p-4 font-mono text-sm">
               <AssistantMessage
                 message={`Describe your product or service, and I can create a user persona.`}
               />
@@ -191,7 +191,7 @@ export default function Chat({ className }: Props) {
         </ScrollAreaPrimitive.Root>
       </div>
       <CommandUserInput
-        className={"bottom-0 absolute w-[calc(100%-16px)] m-2 z-10"}
+        className={"absolute bottom-0 z-10 m-2 w-[calc(100%-16px)]"}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onSubmit={async (e) => {
@@ -202,12 +202,12 @@ export default function Chat({ className }: Props) {
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       >
         {suggestedMessages.length > 0 ? (
-          <div className="bottom-16 ml-2 absolute flex flex-row space-x-2">
+          <div className="absolute bottom-16 ml-2 flex flex-row space-x-2">
             {suggestedMessages.map((message: string, index: number) => {
               return (
                 <div
                   key={index}
-                  className="bg-gray-100 shadow-sm  rounded-sm p-2 text-sm hover:bg-green-200 cursor-pointer"
+                  className="cursor-pointer rounded-sm bg-gray-100 p-2 text-sm shadow-sm hover:bg-green-200"
                   onClick={async () => {
                     submitIfUserSubscribed(message);
                   }}
@@ -219,7 +219,7 @@ export default function Chat({ className }: Props) {
           </div>
         ) : null}
       </CommandUserInput>
-      <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-white via-slate-50/75 to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute bottom-0 h-20 w-full bg-gradient-to-t from-white via-slate-50/75 to-transparent" />
     </section>
   );
 }

@@ -64,7 +64,7 @@ export default function PageTest({}: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center py-[50px] w-screen relative ">
+    <div className="relative flex w-screen flex-col items-center justify-center gap-4 py-[50px]">
       <Button variant={"outline"} onClick={() => changeVariant()}>
         Change Variant
       </Button>

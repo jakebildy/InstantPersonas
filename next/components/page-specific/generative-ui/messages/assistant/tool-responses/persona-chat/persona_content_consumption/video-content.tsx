@@ -9,7 +9,7 @@ export function VideoContentList({ videos }: Props) {
     <div className="flex flex-row flex-wrap">
       {videos.map((url: string) => {
         return (
-          <div key={url} className="border rounded-sm overflow-hidden">
+          <div key={url} className="overflow-hidden rounded-sm border">
             <iframe
               width="200"
               height="344"

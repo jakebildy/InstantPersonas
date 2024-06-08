@@ -49,7 +49,7 @@ export function DeletePersonaButton({
     const updatedPersonasArray = aiState.personas.filter(
       (persona: PersonaArchetype) => {
         return !isEqual(persona, archetype);
-      }
+      },
     );
     const serializedPersonas = serializePersonas(updatedPersonasArray);
     if (!serializedPersonas) {
@@ -106,18 +106,18 @@ export function DeletePersonaButton({
             className={gradientVariants({
               variant,
               className:
-                "flex flex-col items-center justify-center gap-2 h-[50vh] rounded-lg m-2 p-8 relative",
+                "relative m-2 flex h-[50vh] flex-col items-center justify-center gap-2 rounded-lg p-8",
             })}
           >
-            <PersonStandingIcon className="text-muted-foreground  m-6" />
-            <h3 className="font-jost font-bold text-xl">
+            <PersonStandingIcon className="m-6 text-muted-foreground" />
+            <h3 className="font-jost text-xl font-bold">
               Looks like there was a problem saving your persona ;(
             </h3>
             <span>
               We&apos;ve automatically logged this error and are investigating
               it
             </span>
-            <div className="flex gap-8 my-4 items-center">
+            <div className="my-4 flex items-center gap-8">
               <Button
                 variant={"outline"}
                 className="bg-pastel-red/50 text-red-500"
@@ -141,7 +141,7 @@ export function DeletePersonaButton({
               variant={"destructive"}
               onClick={() => deletePersonaAction()}
               disabled={isSaving}
-              className={isSaving ? "cursor-not-allowed animate-pulse" : ""}
+              className={isSaving ? "animate-pulse cursor-not-allowed" : ""}
             >
               {isSaving ? "Deleting..." : "Delete Persona"}
             </Button>

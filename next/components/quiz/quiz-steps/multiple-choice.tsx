@@ -30,7 +30,7 @@ export function QuizQuestionMultipleChoiceInput({
 }: QuizQuestionMultipleChoiceInputProps) {
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 cursor-pointer"
+      className="flex cursor-pointer flex-col items-center gap-2"
       key={"select-input-question-container"}
     >
       <SurveyQuestionTemplate
@@ -41,7 +41,7 @@ export function QuizQuestionMultipleChoiceInput({
         finishButtonText="Finish Quiz!"
       >
         <motion.h3
-          className="text-lg font-semibold text-gray-800 text-center p-2"
+          className="p-2 text-center text-lg font-semibold text-gray-800"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -58,7 +58,7 @@ export function QuizQuestionMultipleChoiceInput({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, x: -200 }}
                 transition={{ delay: 0.5 + (i + 1) * 0.25, ease: "easeOut" }}
-                className="col-span-2 sm:col-span-1 w-full"
+                className="col-span-2 w-full sm:col-span-1"
                 layoutId={"choice" + i}
               >
                 <Button
@@ -69,8 +69,8 @@ export function QuizQuestionMultipleChoiceInput({
                       (choice === "Other" &&
                         currentAnswer &&
                         !choices.includes(currentAnswer))
-                      ? "bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-[10px] sm:text-sm"
-                      : " text-[10px] sm:text-sm"
+                      ? "bg-blue-600 text-[10px] text-white hover:bg-blue-500 hover:text-white sm:text-sm"
+                      : "text-[10px] sm:text-sm",
                   )}
                   onClick={() => {
                     onAnswerQuestion(currentAnswer === choice ? "" : choice);

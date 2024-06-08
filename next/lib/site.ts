@@ -184,7 +184,8 @@ export const SITE_MAP = [
   { href: BASE_URL },
 ]
   .filter(
-    (link, index, self) => self.findIndex((l) => l.href === link.href) === index
+    (link, index, self) =>
+      self.findIndex((l) => l.href === link.href) === index,
   )
   .map((link) => ({ href: link.href }));
 

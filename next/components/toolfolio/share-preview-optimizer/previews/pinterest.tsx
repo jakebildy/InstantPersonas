@@ -8,16 +8,16 @@ export function PinterestPreview({
   image,
 }: OGPreviewMetadata) {
   return (
-    <div className="grid grid-cols-5 p-4 gap-2">
+    <div className="grid grid-cols-5 gap-2 p-4">
       <div className="col-span-1 flex flex-col gap-2">
-        <div className="bg-pastel-blue/50 rounded-md w-full h-80" />
-        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
-        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
+        <div className="h-80 w-full rounded-md bg-pastel-blue/50" />
+        <div className="h-40 w-full rounded-md bg-pastel-blue/50" />
+        <div className="h-20 w-full rounded-md bg-pastel-blue/50" />
       </div>
       <div className="col-span-3 flex flex-col gap-2">
-        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
+        <div className="h-40 w-full rounded-md bg-pastel-blue/50" />
         <div>
-          <div className="bg-pastel-blue/50 rounded-md w-full  relative overflow-hidden cursor-pointer aspect-[2/1]">
+          <div className="relative aspect-[2/1] w-full cursor-pointer overflow-hidden rounded-md bg-pastel-blue/50">
             <Image
               src={image ?? "/tools/no-image-placeholder.svg"}
               alt="OG Image"
@@ -25,16 +25,16 @@ export function PinterestPreview({
               fill={true}
             />
           </div>
-          <div className="px-[6px] pt-2 pb-1">
-            <div className="mb-2 overflow-hidden cursor-zoom-in flex flex-col">
-              <span className="font-semibold text-xs truncate">{title}</span>
-              <span className="text-[10px] leading-[10px] max-h-5 truncate">
+          <div className="px-[6px] pb-1 pt-2">
+            <div className="mb-2 flex cursor-zoom-in flex-col overflow-hidden">
+              <span className="truncate text-xs font-semibold">{title}</span>
+              <span className="max-h-5 truncate text-[10px] leading-[10px]">
                 {url}
               </span>
             </div>
-            <div className="item-center flex flex-row -mx-[3px] group max-h-6 cursor-pointer">
+            <div className="item-center group -mx-[3px] flex max-h-6 cursor-pointer flex-row">
               <div
-                className="flex items-center size-6 mx-[3px] rounded-full"
+                className="mx-[3px] flex size-6 items-center rounded-full"
                 aria-hidden="true"
               >
                 <Image
@@ -47,7 +47,7 @@ export function PinterestPreview({
                 />
               </div>
               <div className="mx-[3px] mb-0.5 flex items-center">
-                <span className="mx-0.5 text-[10px] leading-[10px] max-h-5 group-hover:underline">
+                <span className="mx-0.5 max-h-5 text-[10px] leading-[10px] group-hover:underline">
                   InstantPersonas
                 </span>
               </div>
@@ -55,12 +55,12 @@ export function PinterestPreview({
           </div>
         </div>
 
-        <div className="bg-pastel-blue/50 rounded-md w-full flex-1" />
+        <div className="w-full flex-1 rounded-md bg-pastel-blue/50" />
       </div>
       <div className="col-span-1 flex flex-col gap-2">
-        <div className="bg-pastel-blue/50 rounded-md w-full h-40" />
-        <div className="bg-pastel-blue/50 rounded-md w-full h-20" />
-        <div className="bg-pastel-blue/50 rounded-md w-full h-80" />
+        <div className="h-40 w-full rounded-md bg-pastel-blue/50" />
+        <div className="h-20 w-full rounded-md bg-pastel-blue/50" />
+        <div className="h-80 w-full rounded-md bg-pastel-blue/50" />
       </div>
     </div>
   );

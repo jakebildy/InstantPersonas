@@ -14,7 +14,7 @@ import {
 export function Share({ title, url }: { title: string; url: string }) {
   return (
     <div>
-      <div className=" font-bold text-lg mt-10 mb-5">
+      <div className="mb-5 mt-10 text-lg font-bold">
         If this was useful, share this with your friends!
       </div>
 

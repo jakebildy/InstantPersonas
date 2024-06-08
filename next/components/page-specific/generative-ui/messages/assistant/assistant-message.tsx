@@ -11,18 +11,18 @@ export const AssistantMessage = ({
   return (
     <div className={cn("flex gap-2", className)} {...Props}>
       {/* 32px + 16px = 48px ~ image width + gap */}
-      <div className="flex items-center h-8 w-8">
+      <div className="flex h-8 w-8 items-center">
         <Image
           src={"/instant_personas_logo.png"}
           alt={"Instant Personas Logo"}
           width={32}
           height={32}
           priority
-          className={cn("object-contain min-w-8")}
+          className={cn("min-w-8 object-contain")}
         />
       </div>
 
-      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+      <div className="flex items-center whitespace-pre-wrap rounded-lg bg-gray-200 p-2 px-4 text-sm">
         <ReactMarkdown className="foo">{message}</ReactMarkdown>
       </div>
     </div>

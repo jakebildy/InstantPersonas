@@ -8,10 +8,10 @@ export const UserMessage = ({
 }: MessageComponentProps) => {
   return (
     <div
-      className={cn("flex gap-2 justify-end items-center", className)}
+      className={cn("flex items-center justify-end gap-2", className)}
       {...Props}
     >
-      <p className="flex items-center bg-blue-600 text-white p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+      <p className="flex items-center whitespace-pre-wrap rounded-lg bg-blue-600 p-2 px-4 text-sm text-white">
         {message}
       </p>
     </div>

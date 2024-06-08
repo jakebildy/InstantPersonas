@@ -37,7 +37,7 @@ export function GradientGridTemplate({
       className={gradientLightVariants({
         variant,
         className:
-          "relative flex w-[1200px] h-[600px] items-center justify-center overflow-hidden rounded-lg border bg-background p-4 md:shadow-xl",
+          "relative flex h-[600px] w-[1200px] items-center justify-center overflow-hidden rounded-lg border bg-background p-4 md:shadow-xl",
       })}
     >
       <div
@@ -45,26 +45,26 @@ export function GradientGridTemplate({
           gradientVariants({
             variant,
             className:
-              "relative w-full h-full border rounded-lg overflow-hidden grid place-items-center ",
+              "relative grid h-full w-full place-items-center overflow-hidden rounded-lg border",
           }),
           shadowVariants({
             variant,
           }),
           Border600({
             variant,
-          })
+          }),
         )}
       >
         <RadialGradient size={600} />
-        <div className="flex flex-col gap-2 items-center">
-          <div className="flex gap-4 items-center w-fit">
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex w-fit items-center gap-4">
             {image ? (
-              <div className="size-[60px] z-10 rounded-lg overflow-hidden relative">
+              <div className="relative z-10 size-[60px] overflow-hidden rounded-lg">
                 <Image
                   src={image}
                   alt={title}
                   fill={true}
-                  className=" object-fill"
+                  className="object-fill"
                   priority
                 />
               </div>
@@ -73,7 +73,7 @@ export function GradientGridTemplate({
               className={gradientGridTextVariants({
                 variant,
                 className:
-                  "pointer-events-none whitespace-pre-wrap text-5xl z-10 bg-gradient-to-tl",
+                  "pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-tl text-5xl",
               })}
             >
               {siteName}
@@ -82,7 +82,7 @@ export function GradientGridTemplate({
           <span
             className={gradientGridTitleTextVariants({
               variant,
-              className: "pointer-events-none whitespace-pre-wrap z-10",
+              className: "pointer-events-none z-10 whitespace-pre-wrap",
             })}
           >
             {title}
@@ -90,7 +90,7 @@ export function GradientGridTemplate({
           <span
             className={gradientGridTextVariants({
               variant,
-              className: "pointer-events-none whitespace-pre-wrap z-10",
+              className: "pointer-events-none z-10 whitespace-pre-wrap",
             })}
           >
             {description}
@@ -98,7 +98,7 @@ export function GradientGridTemplate({
         </div>
       </div>
       <RetroGrid />
-      <div className="absolute top-0 h-3/4 bg-gradient-to-b from-white to-transparent w-full" />
+      <div className="absolute top-0 h-3/4 w-full bg-gradient-to-b from-white to-transparent" />
     </div>
   );
 }
@@ -121,7 +121,7 @@ export function GradientGridTemplatePreview({
       className={gradientLightVariants({
         variant,
         className:
-          "relative flex w-full h-full aspect-[2/1] items-center justify-center overflow-hidden rounded-md border bg-background p-1",
+          "relative flex aspect-[2/1] h-full w-full items-center justify-center overflow-hidden rounded-md border bg-background p-1",
       })}
     >
       <div
@@ -129,41 +129,41 @@ export function GradientGridTemplatePreview({
           gradientVariants({
             variant,
             className:
-              "relative w-full h-full border rounded-md overflow-hidden grid place-items-center ",
+              "relative grid h-full w-full place-items-center overflow-hidden rounded-md border",
           }),
           shadowVariants({
             variant,
           }),
           Border600({
             variant,
-          })
+          }),
         )}
       >
         <RadialGradient size={isSmall ? 100 : 150} />
         <div
           className={cn(
             "flex flex-col items-center",
-            isSmall ? "gap-0.5" : "gap-2"
+            isSmall ? "gap-0.5" : "gap-2",
           )}
         >
           <div
             className={cn(
-              "flex items-center w-fit",
-              isSmall ? "gap-1" : "gap-3"
+              "flex w-fit items-center",
+              isSmall ? "gap-1" : "gap-3",
             )}
           >
             {image ? (
               <div
                 className={cn(
-                  "z-10 rounded-lg overflow-hidden relative",
-                  isSmall ? "size-[15px]" : "size-[40px]"
+                  "relative z-10 overflow-hidden rounded-lg",
+                  isSmall ? "size-[15px]" : "size-[40px]",
                 )}
               >
                 <Image
                   src={image}
                   alt={title}
                   fill={true}
-                  className=" object-fill"
+                  className="object-fill"
                   priority
                 />
               </div>
@@ -172,8 +172,8 @@ export function GradientGridTemplatePreview({
               className={gradientGridTextVariants({
                 variant,
                 className: cn(
-                  "pointer-events-none whitespace-pre-wrap font-semibold z-10 bg-gradient-to-tl",
-                  isSmall ? "text-[10px] leading-[12px] " : "text-3xl"
+                  "pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-tl font-semibold",
+                  isSmall ? "text-[10px] leading-[12px]" : "text-3xl",
                 ),
               })}
             >
@@ -184,9 +184,9 @@ export function GradientGridTemplatePreview({
             className={cn(
               gradientGridTitleTextVariants({
                 variant,
-                className: cn("pointer-events-none whitespace-pre-wrap z-10"),
+                className: cn("pointer-events-none z-10 whitespace-pre-wrap"),
               }),
-              isSmall ? "text-sm " : "text-4xl"
+              isSmall ? "text-sm" : "text-4xl",
             )}
           >
             {title}
@@ -195,9 +195,9 @@ export function GradientGridTemplatePreview({
             className={cn(
               gradientGridTextVariants({
                 variant,
-                className: "pointer-events-none whitespace-pre-wrap z-10",
+                className: "pointer-events-none z-10 whitespace-pre-wrap",
               }),
-              isSmall ? "text-[8px] " : "text-2xl"
+              isSmall ? "text-[8px]" : "text-2xl",
             )}
           >
             {description}
@@ -205,7 +205,7 @@ export function GradientGridTemplatePreview({
         </div>
       </div>
       <RetroGrid />
-      <div className="absolute top-0 h-3/4 bg-gradient-to-b from-white to-transparent w-full" />
+      <div className="absolute top-0 h-3/4 w-full bg-gradient-to-b from-white to-transparent" />
     </div>
   );
 }

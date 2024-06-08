@@ -108,7 +108,7 @@ const contactUsSection: TOSSection = {
       If you have any questions about these terms, please contact us{" "}
       <Link
         href="https://forms.gle/zei5QLdBTfTgssBv9"
-        className="font-bold hover:underline underline-offset-2"
+        className="font-bold underline-offset-2 hover:underline"
       >
         here
       </Link>{" "}
@@ -133,8 +133,8 @@ const sections: TOSSection[] = [
 export default function TermsOfService() {
   return (
     <main className="bg-gradient-to-b from-slate-50 to-green-50">
-      <div className="mx-auto px-4 py-8 flex flex-col max-w-2xl gap-4 ">
-        <h1 className="text-3xl font-bold flex gap-4">
+      <div className="mx-auto flex max-w-2xl flex-col gap-4 px-4 py-8">
+        <h1 className="flex gap-4 text-3xl font-bold">
           Terms of Service for <InstantPersonas className="text-3xl" />
         </h1>
         <p>
@@ -144,7 +144,7 @@ export default function TermsOfService() {
         <div className="flex flex-col gap-10">
           {sections.map((section, index) => (
             <section key={index}>
-              <h2 className="text-2xl font-semibold mb-3">
+              <h2 className="mb-3 text-2xl font-semibold">
                 {index}. {section.title}
               </h2>
               {section.content}
