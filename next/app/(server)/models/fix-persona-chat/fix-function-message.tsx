@@ -139,7 +139,7 @@ function processLegacyMessage(
     tool_calls: [
       {
         name: matchedToolResult.toolName,
-        arguments: matchedToolResult.result.data,
+        arguments: JSON.stringify(matchedToolResult.result.data),
       },
     ],
   };
