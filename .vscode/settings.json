@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["clsx", "Pinterest", "stytch"],
+  "cSpell.words": ["clsx", "personachat", "Pinterest", "stytch"],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -29,7 +29,8 @@
     "screenshot4.png": true,
     "**/.gitignore": true,
     "guestpostfinder-screenshot1.png": true,
-    "guestpostfinder-screenshot2.png": true
+    "guestpostfinder-screenshot2.png": true,
+    "**/.prettierrc": true
   },
   "explorerExclude.backup": {}
 }
