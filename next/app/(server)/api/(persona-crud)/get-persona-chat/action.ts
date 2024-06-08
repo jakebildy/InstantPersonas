@@ -6,6 +6,8 @@ import {
   PersonaChatType,
 } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 export async function getPersonaChat(id: string): Promise<PersonaChatType> {
@@ -18,10 +20,11 @@ export async function getPersonaChat(id: string): Promise<PersonaChatType> {
     validatedID = id;
   } else {
     //Coerce id to string in lowercase
-    const stringifiedID = `${id.toLowerCase()}`;
-    if (!mongoose.Types.ObjectId.isValid(stringifiedID))
+    const stringifiedID = new ObjectId(`${id.toLowerCase()}`).toString();
+    if (!mongoose.Types.ObjectId.isValid(stringifiedID)) {
+      IS_TEST_DEV_ENV ? console.error(`Invalid ID: ${stringifiedID}`) : null;
       throw new Error(`Invalid ID: ${stringifiedID}`);
-    else validatedID = stringifiedID;
+    } else validatedID = stringifiedID;
   }
 
   try {
@@ -29,7 +32,13 @@ export async function getPersonaChat(id: string): Promise<PersonaChatType> {
     const unverifiedChat = data?.toJSON() as PersonaChatType;
     const chat = (await fixPersonaChatHistory([unverifiedChat])).at(0);
 
-    if (!chat) throw new Error("Chat not found");
+    // if (!chat) throw new Error("Chat not found");
+    if (!chat) {
+      IS_TEST_DEV_ENV ? console.error(`Chat not found: ${validatedID}`) : null;
+      console.error(unverifiedChat);
+      // throw new Error(`Chat not found: ${validatedID}`);
+      return {} as PersonaChatType;
+    }
 
     return chat;
   } catch (error) {
