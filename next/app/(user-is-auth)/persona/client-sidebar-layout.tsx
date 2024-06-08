@@ -28,7 +28,7 @@ export default function SidebarLayout({
         <h1 className="text-xl font-bold">Persona Creator</h1>
 
         <AnimatePresence>
-          {personas.length > 0 ? (
+          {personas && personas.length > 0 ? (
             <>
               {/* <TabsList className="ml-auto">
           <TabsTrigger

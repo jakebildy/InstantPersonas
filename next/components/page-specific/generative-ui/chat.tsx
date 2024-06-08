@@ -201,7 +201,7 @@ export default function Chat({ className }: Props) {
         keyBinds={keyBinds}
         inputClassName={cn("bg-terminal placeholder:text-terminal-foreground ")}
       >
-        {suggestedMessages.length > 0 ? (
+        {suggestedMessages && suggestedMessages.length > 0 ? (
           <div className="absolute bottom-16 ml-2 flex flex-row space-x-2">
             {suggestedMessages.map((message: string, index: number) => {
               return (

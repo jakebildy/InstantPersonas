@@ -77,7 +77,7 @@ export function updateToolCallPersonaMessage({
       case "create_persona":
         return {
           name: toolName,
-          arguments: updatedPersonas,
+          arguments: JSON.stringify(updatedPersonas),
         };
       case "update_persona":
         const { personaIndex, origin_archetype, updated_archetype } = toolArgs;
@@ -97,11 +97,11 @@ export function updateToolCallPersonaMessage({
 
         return {
           name: toolName,
-          arguments: {
+          arguments: JSON.stringify({
             ...toolArgs,
             origin_archetype: validOriginArchetype,
             updated_archetype: validUpdatedArchetype,
-          },
+          }),
         };
       default:
         return toolCall;
