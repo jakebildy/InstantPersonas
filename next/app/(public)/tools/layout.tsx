@@ -7,11 +7,12 @@ import DashboardLayout from "@/components/page-specific/dashboard/dashboard";
 import { BlogFooter } from "@/components/page-specific/blog/footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { usePathname } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
-  const currentURL = window.location.href;
+  const pathName = usePathname();
 
   return (
     <main
@@ -19,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         isLoggedIn ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
       }
     >
-      {/editor\/.+/.test(currentURL) ? (
+      {/editor\/.+/.test(pathName) ? (
         <div className="h-full w-full flex-1">{children}</div>
       ) : user.user ? (
         <DashboardLayout>

@@ -4,11 +4,13 @@ import { IconDotsVertical, IconPlus, IconTrash } from "@tabler/icons-react";
 import api from "@/service/api.service";
 import { useStytchUser } from "@stytch/nextjs";
 import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
+import { useRouter } from "next/navigation";
 
 export default function DocumentsPage({}: {}) {
   const [documents, setDocuments] = useState<DocumentDraft[]>([]);
 
   const { user, isInitialized } = useStytchUser();
+  const router = useRouter();
 
   // fetch all documents
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function DocumentsPage({}: {}) {
               const response = await api.documentEditor.createDocument(
                 user.user_id as string
               );
-              window.open("/tools/editor/" + response.result._id, "_self");
+              router.push("/tools/editor/" + response.result._id);
             }}
             className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-[1px] border-spacing-1 border-slate-400 hover:border-green-600 hover:text-green-600 text-slate-400 hover:shadow-lg cursor-pointer"
           >
@@ -65,7 +67,10 @@ export default function DocumentsPage({}: {}) {
             <div
               key={index}
               onClick={() => {
-                window.open("/tools/editor/" + doc._id, "_self");
+                router.push("/tools/editor/" + doc._id);
+              }}
+              onMouseOver={() => {
+                router.prefetch("/tools/editor/" + doc._id);
               }}
               className="flex flex-col items-center w-full mb-10 gap-2 bg-white rounded-sm border-[1px] border-spacing-1 border-slate-400 hover:border-green-600 hover:shadow-lg cursor-pointer"
             >
@@ -87,7 +92,7 @@ export default function DocumentsPage({}: {}) {
                     >
                       <IconTrash
                         size={24}
-                        className="text-slate-400 h-8 relativ right-1 hover:bg-slate-100 w-8 p-1 mt-1 rounded-full"
+                        className="text-slate-400 h-8 relative right-1 hover:bg-slate-100 w-8 p-1 mt-1 rounded-full"
                       />
                     </div>
                   </div>

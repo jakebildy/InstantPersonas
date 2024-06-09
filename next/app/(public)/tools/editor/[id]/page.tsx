@@ -15,7 +15,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Document from "@tiptap/extension-document";
 import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
+import { Link as EditorLink } from "@tiptap/extension-link";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import {
@@ -50,6 +50,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { ColorVariantMap, gradientVariants } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import React from "react";
+import Link from "next/link";
 
 export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -95,7 +96,7 @@ export default function DocumentEditor() {
       Document,
       Underline,
       Image,
-      Link.configure({
+      EditorLink.configure({
         HTMLAttributes: {
           class: "text-blue-600",
         },
@@ -456,14 +457,15 @@ export default function DocumentEditor() {
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
-        <button
+
+        <Link
           className={"hover:bg-green-200 p-2 text-xs"}
-          onClick={() => {
-            window.open("/tools/share-preview-optimizer", "_blank");
-          }}
+          href={"/tools/share-preview-optimizer"}
+          target="_blank"
         >
           Social Media Preview
-        </button>
+        </Link>
+
         <button
           className={
             view === "editor"
