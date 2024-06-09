@@ -1,6 +1,7 @@
 import { fixJson } from "@/lib/fix-json";
 import SecureJSON from "secure-json-parse";
 import {
+  ClientMessage,
   Message,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
@@ -145,10 +146,7 @@ export function updatePersonaByName({
 
 type SynchronizeStates = {
   aiState: {};
-  uiState: {
-    id: string;
-    display: JSX.Element | null;
-  }[];
+  uiState: ClientMessage[];
 };
 
 export function getSynchronizeStates({
@@ -176,7 +174,7 @@ export function getSynchronizeStates({
 
   return {
     aiState: newAiState,
-    uiState: getUIStateFromAIState(newAiState),
+    uiState: getUIStateFromAIState(newAiState) as ClientMessage[],
   };
 }
 
