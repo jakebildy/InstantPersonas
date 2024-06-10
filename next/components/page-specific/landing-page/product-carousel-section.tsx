@@ -70,7 +70,7 @@ export default function ProductCarouselSection() {
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://i.imgur.com/n8zWf7Y.png"
+                    src="https://i.imgur.com/jqY3HkW.png"
                     className="rounded-md"
                   />
                 </CarouselItem>
