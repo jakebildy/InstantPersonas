@@ -8,6 +8,7 @@ import {
   PersonaChatTypeValidator,
 } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { UpdateQuery } from "mongoose";
 
 type UpsertPersonaChatInput = {
@@ -30,6 +31,7 @@ export async function upsertPersonaChat({
     const targetData = await PersonaChat.findById(id);
     if (!targetData) {
       //? If the chat does not exist, create a new one
+      IS_TEST_DEV_ENV ? console.log("DEV: Creating new chat...", id) : null;
       const newChat = PersonaChatTypeValidator.safeParse({
         aiState: {
           ...data,
@@ -55,7 +57,16 @@ export async function upsertPersonaChat({
       throw new Error("User Unauthorized");
     }
 
-    await PersonaChat.findOneAndUpdate({ _id: id }, { $set: { ...data } });
+    const newData = await PersonaChat.findOneAndUpdate(
+      { _id: id },
+      { $set: { ...data } },
+      { new: true },
+    );
+    const updatedChat = newData?.toObject() as PersonaChatType;
+    const updatedChatMessages = updatedChat.aiState.messages;
+    IS_TEST_DEV_ENV
+      ? console.log("DEV: Updated chat...", updatedChatMessages.length)
+      : null;
     return;
   } catch (error) {
     console.error(error);
