@@ -2,7 +2,7 @@
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 import {
@@ -19,18 +19,19 @@ import { Link as EditorLink } from "@tiptap/extension-link";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import {
-  IconChartInfographic,
   IconChevronLeft,
   IconH1,
   IconListNumbers,
   IconPencil,
 } from "@tabler/icons-react";
-import { IconH2 } from "@tabler/icons-react";
-import { IconH3 } from "@tabler/icons-react";
-import { IconBold } from "@tabler/icons-react";
-import { IconItalic } from "@tabler/icons-react";
-import { IconUnderline } from "@tabler/icons-react";
-import { IconBrandYoutubeFilled } from "@tabler/icons-react";
+import {
+  IconH2,
+  IconH3,
+  IconBold,
+  IconItalic,
+  IconUnderline,
+  IconBrandYoutubeFilled,
+} from "@tabler/icons-react";
 import api from "@/service/api.service";
 import { motion } from "framer-motion";
 import { CodeInput } from "@/components/ui/fcs/code-block";
@@ -47,9 +48,8 @@ import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 import { useStytchUser } from "@stytch/nextjs";
 import { PersonStandingIcon } from "lucide-react";
 import BarLoader from "react-spinners/BarLoader";
-import { ColorVariantMap, gradientVariants } from "@/components/variants";
+import { ColorVariantMap } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import React from "react";
 import Link from "next/link";
 
 export const runtime = "edge";
@@ -330,7 +330,7 @@ export default function DocumentEditor() {
     );
   }
 
-  let inputRef = React.useRef<HTMLInputElement>(null);
+  let inputRef = useRef<HTMLInputElement>(null);
 
   return !user || !editor ? (
     <div
