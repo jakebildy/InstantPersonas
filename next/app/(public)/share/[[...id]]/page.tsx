@@ -1,7 +1,10 @@
 "use server";
 import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/action";
 import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
-import { PersonaTemplate } from "@/components/persona-archetype-generic/persona-avatar-popover/templates/template";
+import {
+  PersonaTemplate,
+  PersonaTemplateProps,
+} from "@/components/persona-archetype-generic/persona-avatar-popover/templates/template";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 
@@ -30,9 +33,11 @@ export default async function ChatPage({
             <PersonaTemplate
               archetype={persona}
               key={i}
-              variant={mapUrlBackgroundColorParamToVariant({
-                url: persona.pictureURL,
-              })}
+              variant={
+                mapUrlBackgroundColorParamToVariant({
+                  url: persona.pictureURL,
+                }) as PersonaTemplateProps["variant"]
+              }
             />
           ))
         : null}
