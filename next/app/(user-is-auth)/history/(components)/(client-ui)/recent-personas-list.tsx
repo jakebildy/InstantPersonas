@@ -39,5 +39,7 @@ export function RecentPersonasList({
     };
   });
 
-  return <AnimatedTooltip items={convertedPersonas} />;
+  return convertedPersonas.length > 0 ? (
+    <AnimatedTooltip items={convertedPersonas} />
+  ) : null;
 }

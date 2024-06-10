@@ -17,5 +17,5 @@ export const PERSONA_CHAT_INITIAL_AI_STATE: AIState = {
     personaCharacteristics: [],
     thresholdRating: 0,
   },
-  userID: undefined,
+  userId: undefined,
 };

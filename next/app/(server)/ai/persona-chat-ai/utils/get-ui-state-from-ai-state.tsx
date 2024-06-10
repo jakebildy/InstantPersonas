@@ -108,6 +108,7 @@ function convertAssistantMessageToUI(message: Message): React.ReactNode {
       case "create_persona":
         return (
           <PERSONA_CHAT_AI_COMPONENT_MAP.tool.create_persona
+            key={message.id}
             archetypes={JSON.parse(toolCall.arguments)}
           />
         );
@@ -116,6 +117,7 @@ function convertAssistantMessageToUI(message: Message): React.ReactNode {
           JSON.parse(toolCall.arguments);
         return (
           <PERSONA_CHAT_AI_COMPONENT_MAP.tool.update_persona
+            key={message.id}
             personaIndex={personaIndex || index || 0}
             origin_archetype={origin_archetype}
             updated_archetype={updated_archetype}
@@ -124,19 +126,21 @@ function convertAssistantMessageToUI(message: Message): React.ReactNode {
       case "confirm_business_knowledge":
         return (
           <PERSONA_CHAT_AI_COMPONENT_MAP.tool.confirm_business_knowledge
+            key={message.id}
             knowledge={JSON.parse(toolCall.arguments)}
           />
         );
       case "persona_content_consumption":
         return (
           <PERSONA_CHAT_AI_COMPONENT_MAP.tool.persona_content_consumption
+            key={message.id}
             videos={JSON.parse(toolCall.arguments)}
           />
         );
       default:
         return (
           <PERSONA_CHAT_AI_COMPONENT_MAP.system.error
-            key={index}
+            key={message.id}
             message={
               <div>
                 Error: Tool call not found
@@ -155,7 +159,7 @@ function convertAssistantMessageToUI(message: Message): React.ReactNode {
         <PERSONA_CHAT_AI_COMPONENT_MAP.assistant.message
           message={message.content}
         />
-      ) : null}{" "}
+      ) : null}
       {toolUINodes}
     </>
   );
