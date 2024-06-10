@@ -19,13 +19,13 @@ export async function onSetPersonaChatState({
 
   if (done) {
     IS_TEST_DEV_ENV
-      ? console.log("DEV: saving chat...", state.chatId, state.messages)
+      ? console.log("DEV: saving chat...", state.chatId, state.messages.length)
       : null;
 
     await upsertPersonaChat({
       id: state.chatId,
       userId: state.userId,
-      data: state,
+      data: { aiState: state },
     });
   }
 }
