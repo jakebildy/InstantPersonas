@@ -52,7 +52,7 @@ import { ColorVariantMap } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
 export default function DocumentEditor() {
