@@ -1,6 +1,10 @@
 import React from "react";
-import { avatarVariants, ColorVariant, gradientVariants } from "@/components/variants";
-import { cva } from "class-variance-authority";
+import {
+  avatarVariants,
+  ColorVariant,
+  gradientVariants,
+} from "@/components/variants";
+import { cva, VariantProps } from "class-variance-authority";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/fcs/fcs-separator";
 import { PersonStandingIcon } from "lucide-react";
@@ -24,8 +28,7 @@ export const personaTemplateVariants = cva("bg-gradient-to-b ", {
 });
 
 export interface PersonaTemplateProps
-   {
-    variant: ColorVariant;
+  extends VariantProps<typeof personaTemplateVariants> {
   archetype: PersonaArchetype;
 }
 
