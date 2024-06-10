@@ -12,11 +12,14 @@ import { fixJson } from "@/lib/fix-json";
 import { getMessageSuggestions } from "./tools/suggested_messages";
 import { PERSONA_CHAT_AI_COMPONENT_MAP } from "@/components/page-specific/generative-ui/messages";
 import {
+  AIState,
   AIStateValidator,
   PersonaArchetype,
 } from "../../models/persona-ai.model";
 import { ASSISTANT_PROMPT } from "./utils/prompts";
 import { InstantPersonasSystemPrompt } from "./utils/instant-personas-system-prompt";
+import { validateOrCreatePersonaChatID } from "../../api/(persona-crud)/validate-or-create-persona-chat-id/action";
+import { onSetPersonaChatState } from ".";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -36,11 +39,20 @@ export async function submitPersonaChatUserMessage(
 
   //@ts-ignore
   const aiState = getMutableAIState<typeof AI>();
-  const validatedAIState = AIStateValidator.safeParse(aiState.get());
+  const validatedChatID = await validateOrCreatePersonaChatID({
+    chatId: personaChatID,
+    userId: userID,
+  });
+  const aiStateData: AIState = {
+    ...aiState.get(),
+    chatId: validatedChatID,
+    userId: userID,
+  };
+
+  const validatedAIState = AIStateValidator.safeParse(aiStateData);
 
   if (!validatedAIState.success) {
-    console.error("AI state is invalid", validatedAIState.error);
-    console.log("AI state is invalid", aiState.get());
+    console.error("AI state is invalid", validatedAIState.error, aiState.get());
     return {
       id: nanoid(),
       role: "assistant",
@@ -62,11 +74,11 @@ export async function submitPersonaChatUserMessage(
         content: userInput,
       },
     ],
-    userID,
-    // chatId: personaChatID,
   });
 
-  console.log("AI state", aiState.get());
+  !IS_TEST_DEV_ENV
+    ? console.log("AI state validated from `render.tsx`:", aiState.get())
+    : null;
   try {
     // The `render()` creates a generated, streamable UI.
     // @ts-ignore
@@ -88,7 +100,7 @@ export async function submitPersonaChatUserMessage(
       // `text` is called when an AI returns a text response (as opposed to a tool call).
       // Its content is streamed from the LLM, so this function will be called
       // multiple times with `content` being incremental.
-      text: async ({ content, done }) => {
+      text: async ({ content, done }: { content: string; done: boolean }) => {
         // When it's the final content, mark the state as done and ready for the client to access.
         if (done) {
           const suggestedMessages = await getMessageSuggestions(
@@ -98,7 +110,8 @@ export async function submitPersonaChatUserMessage(
               { role: "assistant", content },
             ].slice(-4) as any[],
           );
-          aiState.done({
+
+          const updatedState = {
             ...aiState.get(),
             messages: [
               ...aiState.get().messages,
@@ -109,18 +122,13 @@ export async function submitPersonaChatUserMessage(
               },
             ],
             suggestedMessages: suggestedMessages,
+          };
+          aiState.done(updatedState);
+
+          await onSetPersonaChatState({
+            state: updatedState,
+            done: true,
           });
-
-          // if (personaChatID) {
-          //   const personaChat = await PersonaChat.findOne({
-          //     _id: personaChatID,
-          //   });
-
-          //   if (personaChat) {
-          //     personaChat.aiState = aiState.get();
-          //     await personaChat.save();
-          //   }
-          // }
         }
 
         return (
@@ -143,9 +151,15 @@ export async function submitPersonaChatUserMessage(
                 .describe("the target problem the business is encountering"),
             })
             .required(),
-          render: async function* ({ business, targetProblem }) {
+          render: async function* ({
+            business,
+            targetProblem,
+          }: {
+            business: string;
+            targetProblem: string;
+          }) {
             // Update the final AI state.
-            aiState.done({
+            const updatedState = {
               ...aiState.get(),
               business: business,
               targetProblem: targetProblem,
@@ -165,18 +179,13 @@ export async function submitPersonaChatUserMessage(
                   ],
                 },
               ],
+            };
+            aiState.done(updatedState);
+
+            await onSetPersonaChatState({
+              state: updatedState,
+              done: true,
             });
-
-            // if (personaChatID) {
-            //   const personaChat = await PersonaChat.findOne({
-            //     _id: personaChatID,
-            //   });
-
-            //   if (personaChat) {
-            //     personaChat.aiState = aiState.get();
-            //     await personaChat.save();
-            //   }
-            // }
 
             return (
               <PERSONA_CHAT_AI_COMPONENT_MAP.tool.confirm_business_knowledge
@@ -202,7 +211,13 @@ export async function submitPersonaChatUserMessage(
                 .describe("the target problem the business is encountering"),
             })
             .required(),
-          render: async function* ({ business, targetProblem }) {
+          render: async function* ({
+            business,
+            targetProblem,
+          }: {
+            business: string;
+            targetProblem: string;
+          }) {
             yield (
               <Loading
                 loadingMessage={
@@ -214,7 +229,7 @@ export async function submitPersonaChatUserMessage(
             const archetypes = await createArchetypes(business, targetProblem);
             console.log("archetypes", archetypes);
             // Update the final AI state.
-            aiState.done({
+            const updatedState = {
               ...aiState.get(),
               personas: archetypes,
               suggestedMessages: [
@@ -235,15 +250,13 @@ export async function submitPersonaChatUserMessage(
                   ],
                 },
               ],
-            });
+            };
+            aiState.done(updatedState);
 
-            // if (userID) {
-            //   const personaChat: any = await PersonaChat.create({
-            //     aiState: aiState.get(),
-            //     user: userID,
-            //     aiSuggestedChats: [],
-            //   });
-            // }
+            await onSetPersonaChatState({
+              state: updatedState,
+              done: true,
+            });
 
             return (
               <PERSONA_CHAT_AI_COMPONENT_MAP.tool.create_persona
@@ -269,7 +282,13 @@ export async function submitPersonaChatUserMessage(
                 ),
             })
             .required(),
-          render: async function* ({ personaIndex, updatedArchetype }) {
+          render: async function* ({
+            personaIndex,
+            updatedArchetype,
+          }: {
+            personaIndex: number;
+            updatedArchetype: string;
+          }) {
             const personaDiffContent = {
               index: personaIndex,
               origin_archetype: aiState.get().personas[personaIndex],
@@ -278,10 +297,8 @@ export async function submitPersonaChatUserMessage(
               ) as PersonaArchetype,
             };
 
-            console.log("persona diff content: " + personaDiffContent);
-
             try {
-              aiState.done({
+              const updatedState = {
                 ...aiState.get(),
                 messages: [
                   ...aiState.get().messages,
@@ -297,6 +314,12 @@ export async function submitPersonaChatUserMessage(
                     ],
                   },
                 ],
+              };
+              aiState.done(updatedState);
+
+              await onSetPersonaChatState({
+                state: updatedState,
+                done: true,
               });
 
               return (

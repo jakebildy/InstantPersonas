@@ -6,6 +6,7 @@ import { getUIStateFromAIState } from "./utils/get-ui-state-from-ai-state";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "./initial-ai-state";
 import { submitPersonaChatUserMessage } from "./render";
 import { upsertPersonaChat } from "@/app/(server)/api/(persona-crud)/upsert-persona-chat/action";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
 
 export async function onSetPersonaChatState({
   state,
@@ -17,12 +18,13 @@ export async function onSetPersonaChatState({
   "use server";
 
   if (done) {
-    console.log("saving...", state.chatId);
-    console.log("saving...", state.messages);
+    IS_TEST_DEV_ENV
+      ? console.log("DEV: saving chat...", state.chatId, state.messages)
+      : null;
 
     await upsertPersonaChat({
       id: state.chatId,
-      userID: state.userID,
+      userId: state.userId,
       data: state,
     });
   }

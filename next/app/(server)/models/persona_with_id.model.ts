@@ -1,6 +1,9 @@
 import { PersonaArchetype } from "./persona-ai.model";
-import { AIStateValidator } from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
+
+//? This file should be here, it's only used in the client on history page to link personas to their respective chat
+//? Should refactor along with history page
+
 export interface PersonaWithID {
   persona: PersonaArchetype;
   id: string;
@@ -15,13 +18,13 @@ export function convertPersonaChatsToPersonaWithIDs(
 
   const personaWithIDs = personaChats
     .map((personaChat) => {
-      const state = AIStateValidator.safeParse(personaChat.aiState);
-      if (!state.success) {
-        console.error("Error parsing AI state", personaChat, state.error);
-        return null; //? Early return if parsing fails
+      const personas = personaChat.aiState.personas;
+
+      if (!personas || personas.length === 0) {
+        return null;
       }
-      //? Return the result of the inner map directly
-      return state.data.personas.map((persona) => {
+
+      return personas.map((persona) => {
         return { persona: persona, id: personaChat._id ?? "" };
       });
     })
