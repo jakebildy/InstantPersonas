@@ -20,6 +20,6 @@ export async function GET(req: Request) {
   // const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({
-    results: fixedHistory,
+    results: personaChats,
   });
 }
