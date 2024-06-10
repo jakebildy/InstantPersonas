@@ -87,15 +87,21 @@ export const PersonaChatHistoryProvider = ({
             if (localSelectedPersonaNames.length > 0) {
               const localSelectedPersonas = data
                 //? Ensure persona are of type PersonaBusinessArchetype[]
-                .flatMap((chat) =>
-                  chat.aiState.personas.map((persona) => ({
+                .flatMap((chat) => {
+                  const chatPersonas = chat.aiState.personas;
+
+                  if (!chatPersonas || chatPersonas.length === 0) {
+                    return [];
+                  }
+
+                  return chatPersonas.map((persona) => ({
                     ...persona,
                     business: {
                       description: chat.aiState.business,
                       target_problem: chat.aiState.targetProblem,
                     },
-                  })),
-                )
+                  }));
+                })
                 //? Find only personas that are not in local storage
                 .filter((persona) =>
                   localSelectedPersonaNames.includes(persona.archetype_name),

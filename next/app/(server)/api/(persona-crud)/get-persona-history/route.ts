@@ -16,9 +16,10 @@ export async function GET(req: Request) {
     ...chat.toObject(),
     _id: chat._id.toString(),
   }));
-  const fixedHistory = await fixPersonaChatHistory(personaChats);
+  // console.log("personaChats", personaChats);
+  // const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({
-    results: fixedHistory,
+    results: personaChats,
   });
 }

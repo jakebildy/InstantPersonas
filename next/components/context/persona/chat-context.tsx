@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { UserMessage } from "@/components/page-specific/generative-ui/messages/user/user-message";
 import { AssistantMessage } from "@/components/page-specific/generative-ui/messages/assistant/assistant-message";
+import { stringIsMongoID } from "@/app/(server)/models/fix-persona-chat/validate-mongo-id";
 
 type PersonaChatContextType = {
   chatId: string | null;
@@ -89,12 +90,18 @@ export const PersonaChatProvider = ({
   useEffect(() => {
     if (pathname === "/persona") {
       if (chatId) {
-        console.log("UE2 triggered outer condition");
+        IS_TEST_DEV_ENV
+          ? console.log("DEV: UE2 triggered outer condition chatId is not null")
+          : null;
         const pathnameWithID = `/persona/${chatId}`;
         if (pathname !== pathnameWithID) {
-          console.log("UE2: Redirecting to chat with id", chatId);
+          IS_TEST_DEV_ENV
+            ? console.log("DEV: UE2: Redirecting to chat with id", chatId)
+            : null;
           if (chatId === null) {
-            console.log("UE2 triggered inner condition chatId is null");
+            IS_TEST_DEV_ENV
+              ? console.log("DEV: UE2 triggered inner condition chatId is null")
+              : null;
             router.replace(`/persona`);
           } else {
             router.replace(`/persona/${chatId}`);
@@ -102,7 +109,9 @@ export const PersonaChatProvider = ({
         }
       } else {
         if (chatId === null) {
-          console.log("UE2 triggered inner condition chatId is null");
+          IS_TEST_DEV_ENV
+            ? console.log("DEV: UE2 triggered outer condition chatId is null")
+            : null;
           setChatId(null);
           router.replace(`/persona`);
         }
@@ -113,18 +122,23 @@ export const PersonaChatProvider = ({
   //? Handles chat related state dependant on chatId
   useEffect(() => {
     if (chatId !== null) {
-      console.log("UE3: Fetching chat with id", chatId);
+      IS_TEST_DEV_ENV
+        ? console.log("DEV: UE3: Fetching chat with id", chatId)
+        : null;
       const fetchChat = async () => {
-        if (!chatId || chatId === null) return;
-        console.log("UE3: Chat ID passed 2nd null check", chatId);
+        const chatIDIsInvalid =
+          !chatId || chatId === null || !stringIsMongoID(chatId);
+        if (chatIDIsInvalid) return;
+
         const chat = await api.userPersona.getPersonaChat(chatId);
-        // const chat = await fetchChatWithId(chatId);
         if (chat) {
           setAiState(chat.aiState);
           //TODO Fix type error on Messages getUIStateFromAIState
           //@ts-ignore
           setMessages(getUIStateFromAIState(chat.aiState));
-          setPersonas(chat.aiState.personas);
+          if (chat.aiState.personas) {
+            setPersonas(chat.aiState.personas);
+          }
         }
       };
 
@@ -145,8 +159,14 @@ export const PersonaChatProvider = ({
 
   //? Handles chatId creation on first message
   useEffect(() => {
-    if (messages.length === 2 && pathname === "/persona" && aiState?.chatId) {
-      console.log("UE5: Redirecting to chat with id", aiState.chatId);
+    const chatIsNew = messages.length === 2;
+    const chatIDIsValid = aiState?.chatId && stringIsMongoID(aiState.chatId);
+    const navigateToChat = pathname === "/persona";
+
+    if (chatIsNew && chatIDIsValid && navigateToChat) {
+      IS_TEST_DEV_ENV
+        ? console.log("DEV: UE5: Redirecting to chat with id", aiState.chatId)
+        : null;
       router.replace(`/persona/${aiState.chatId}`);
     }
   }, [aiState?.chatId, chatId, messages, pathname, router]);
