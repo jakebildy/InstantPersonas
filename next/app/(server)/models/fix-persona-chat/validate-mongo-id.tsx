@@ -37,7 +37,8 @@ const MongoIDAsObject = z
     if (typeof data === "object" && typeof data.toString === "function") {
       return data.toString();
     }
-    return data;
+
+    throw new Error("Expected MongoID Object");
   })
   .refine(
     (val) => {
