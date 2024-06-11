@@ -182,8 +182,8 @@ export default function SWOTAnalysisPage() {
           <p className="font-jost text-left text-lg">
             SWOT analysis is a strategic planning tool used to evaluate the
             Strengths, Weaknesses, Opportunities, and Threats of an organization
-            or a project. The acronym "SWOT" stands for Strengths, Weaknesses,
-            Opportunities, and Threats.
+            or a project. The acronym &apos;&apos;SWOT&apos;&apos; stands for
+            Strengths, Weaknesses, Opportunities, and Threats.
             <br />
             <br />A SWOT analysis helps organizations and individuals to
             identify their internal and external factors that can affect their
@@ -203,8 +203,8 @@ export default function SWOTAnalysisPage() {
             <br />
             <br />
             <b>Weaknesses</b>: These are the internal factors that limit the
-            organization or project's ability to achieve its goals. These can
-            include things like outdated technology, a lack of skilled
+            organization or project&apos;s ability to achieve its goals. These
+            can include things like outdated technology, a lack of skilled
             employees, or a weak brand image.
             <br />
             <br />
@@ -215,8 +215,8 @@ export default function SWOTAnalysisPage() {
             <br />
             <br />
             <b>Threats</b>: These are external factors that could potentially
-            harm the organization or project's ability to achieve its goals.
-            These can include things like economic downturns, increased
+            harm the organization or project&apos;s ability to achieve its
+            goals. These can include things like economic downturns, increased
             competition, or changes in consumer behavior.
             <br />
             <br />
