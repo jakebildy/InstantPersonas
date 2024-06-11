@@ -26,6 +26,8 @@ import { UserMessage } from "@/components/page-specific/generative-ui/messages/u
 import { AssistantMessage } from "@/components/page-specific/generative-ui/messages/assistant/assistant-message";
 import { stringIsMongoID } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
+export const maxDuration = 300;
+
 type PersonaChatContextType = {
   chatId: string | null;
   aiState: AIState | null;

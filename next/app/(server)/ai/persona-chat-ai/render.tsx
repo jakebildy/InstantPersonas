@@ -139,7 +139,7 @@ export async function submitPersonaChatUserMessage(
       tools: {
         confirm_business_knowledge: {
           description:
-            "Once you deeply understand the business, target problem, and customers. You need to be able to describe both in no less than one paragraph.",
+            "Confirm Business knowledge to verify your understanding of the business, its target problems, and its customers. Initiate this confirmation only after achieving a comprehensive understanding that allows you to describe these elements in detail, with a minimum of one paragraph. This verification should be completed once before generating personas.",
           parameters: z
             .object({
               business: z
@@ -199,7 +199,7 @@ export async function submitPersonaChatUserMessage(
 
         create_persona: {
           description:
-            "Once you deeply understand the business, target problem, and customers, and the user has confirmed the business and target problem.",
+            "Create 4 persona archetypes once you deeply understand the business, target problem, and customers, and the user has confirmed the business and target problem.",
           parameters: z
             .object({
               business: z
