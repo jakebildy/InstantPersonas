@@ -1,7 +1,7 @@
 "use server";
 
-import { fixPersonaChatHistory } from "@/app/(server)/models/fix-persona-chat/fix-persona-chat-history";
-import { stringIsMongoID } from "@/app/(server)/models/fix-persona-chat/validate-mongo-id";
+import { fixPersonaChatHistory } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/fix-persona-chat-history";
+import { stringIsMongoID } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 import {
   PersonaChat,
   PersonaChatType,
@@ -30,6 +30,28 @@ export async function getPersonaChat(id: string): Promise<PersonaChatType> {
     }
 
     return verifiedChat;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function unValidated_getPersonaChat(
+  id: string,
+): Promise<PersonaChatType> {
+  await initMongoDB();
+
+  if (!stringIsMongoID(id)) throw new Error("Invalid ID");
+  try {
+    const targetData = await PersonaChat.findById(id);
+    if (!targetData || targetData === null) throw new Error("Chat not found");
+    const targetChat = targetData.toObject() as PersonaChatType;
+    const personaChat = {
+      ...targetChat,
+      _id: targetChat._id?.toString(), // replaces mongoObject which is returned as string
+    };
+
+    return personaChat;
   } catch (error) {
     console.error(error);
     throw error;

@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { UserMessage } from "@/components/page-specific/generative-ui/messages/user/user-message";
 import { AssistantMessage } from "@/components/page-specific/generative-ui/messages/assistant/assistant-message";
-import { stringIsMongoID } from "@/app/(server)/models/fix-persona-chat/validate-mongo-id";
+import { stringIsMongoID } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
 type PersonaChatContextType = {
   chatId: string | null;

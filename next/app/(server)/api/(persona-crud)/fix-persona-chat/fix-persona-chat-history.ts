@@ -1,12 +1,12 @@
 import { isEqual } from "lodash";
 import { fixPersonaChatMessageHistoryModel } from "./fix-messages";
 import { upsertPersonaChat } from "@/app/(server)/api/(persona-crud)/upsert-persona-chat/action";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
+import { fixPersonaArchetype } from "./fix-persona-archetype";
 import {
   PersonaChatType,
   PersonaChatTypeValidator,
-} from "../personachat.model";
-import { IS_TEST_DEV_ENV } from "@/lib/utils";
-import { fixPersonaArchetype } from "./fix-persona-archetype";
+} from "@/app/(server)/models/personachat.model";
 
 export async function fixPersonaChatHistory(
   history: any[],

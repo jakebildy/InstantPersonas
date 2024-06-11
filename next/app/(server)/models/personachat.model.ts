@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 import { AIState, AIStateValidator } from "./persona-ai.model";
 import z from "zod";
-import { MongoIDValidator } from "./fix-persona-chat/validate-mongo-id";
+import { MongoIDValidator } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
 export interface PersonaChatType {
   aiState: AIState;

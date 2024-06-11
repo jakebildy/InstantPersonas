@@ -1,3 +1,4 @@
+import { AssistantToolCallMessage } from "@/app/(server)/models/persona-ai.model";
 import {
   PERSONA_CHAT_AI_COMPONENT_MAP,
   PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS,
@@ -6,7 +7,6 @@ import {
 import { fixJson } from "@/lib/fix-json";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { assert } from "console";
-import { AssistantToolCallMessage } from "../persona-ai.model";
 
 interface Message {
   [key: string]: any;
