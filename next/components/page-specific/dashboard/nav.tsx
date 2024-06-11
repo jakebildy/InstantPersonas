@@ -18,7 +18,7 @@ type SiteLink = {
   variant: "default" | "ghost";
 };
 
-interface NavProps {
+export interface NavProps {
   isCollapsed: boolean;
   links: SiteLink[];
 }

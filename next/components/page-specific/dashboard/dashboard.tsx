@@ -1,13 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Nav } from "@/components/page-specific/dashboard/nav";
 import { useEffect, useState } from "react";
 import { InstantPersonas } from "@/components/instantPersonas";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,10 +13,10 @@ import { useMediaQuery } from "@/lib/hooks";
 import {
   SEO_LINKS as TOOLS,
   SIDEBAR_LINKS,
-  SidebarLinkName,
   UNDERSTAND_TOOLS,
 } from "@/lib/site";
 import { usePathname } from "next/navigation";
+import CollapsibleNavSection from "./collapsible-nav-section";
 
 export default function DashboardLayout({
   children,
@@ -96,89 +94,80 @@ export default function DashboardLayout({
             <InstantPersonas isCollapsed={isCollapsed} />
           </div>
           <Separator />
-          <div
-            className={cn(
-              "text-slate-300 font-bold  text-xs mt-4",
-              isCollapsed ? "text-center" : "ml-5 text-left"
-            )}
-          >
-            {isCollapsed ? "Learn" : "Understand Your Audience"}
-          </div>
-          <Nav
-            isCollapsed={isCollapsed}
-            links={UNDERSTAND_TOOLS.map((element) => ({
-              ...element,
-              variant: pathname === element.href ? "default" : "ghost",
-            }))}
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Learn",
+              expanded: "Understand Your Audience",
+            }}
+            links={{
+              isCollapsed,
+              links: UNDERSTAND_TOOLS.map((element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })),
+            }}
           />
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Account",
+              expanded: "My Account",
+            }}
+            links={{
+              isCollapsed,
+              links: SIDEBAR_LINKS.map((element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })),
+            }}
+          />
+
           <Separator />
-          <div
-            className={cn(
-              "text-slate-300 font-bold  text-xs mt-4",
-              isCollapsed ? "text-center" : "ml-5 text-left"
-            )}
-          >
-            {isCollapsed ? "Create" : "Create Content"}
-          </div>
-          <Nav
-            isCollapsed={isCollapsed}
-            links={TOOLS.filter((tool) => tool.section === "Create").map(
-              (element) => ({
-                ...element,
-                variant: pathname === element.href ? "default" : "ghost",
-              })
-            )}
-          />
-          <div
-            className={cn(
-              "text-slate-300 font-bold  text-xs mt-4",
-              isCollapsed ? "text-center" : "ml-5 text-left"
-            )}
-          >
-            {isCollapsed ? "Reach" : "Reach Your Audience"}
-          </div>
-          <Nav
-            isCollapsed={isCollapsed}
-            links={TOOLS.filter((tool) => tool.section === "Reach").map(
-              (element) => ({
-                ...element,
-                variant: pathname === element.href ? "default" : "ghost",
-              })
-            )}
-          />
-          <div
-            className={cn(
-              "text-slate-300 font-bold  text-xs mt-4",
-              isCollapsed ? "text-center" : "ml-5 text-left"
-            )}
-          >
-            {isCollapsed ? "Other" : "Other Tools"}
-          </div>
 
-          <Nav
-            isCollapsed={isCollapsed}
-            links={TOOLS.filter((tool) => tool.section === "Other Tools").map(
-              (element) => ({
-                ...element,
-                variant: pathname === element.href ? "default" : "ghost",
-              })
-            )}
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Create",
+              expanded: "Create Content",
+            }}
+            links={{
+              isCollapsed,
+              links: TOOLS.filter((tool) => tool.section === "Create").map(
+                (element) => ({
+                  ...element,
+                  variant: pathname === element.href ? "default" : "ghost",
+                })
+              ),
+            }}
           />
-
-          <div
-            className={cn(
-              "text-slate-300 font-bold  text-xs mt-4",
-              isCollapsed ? "text-center" : "ml-5 text-left"
-            )}
-          >
-            {isCollapsed ? "Account" : "My Account"}
-          </div>
-          <Nav
-            isCollapsed={isCollapsed}
-            links={SIDEBAR_LINKS.map((element) => ({
-              ...element,
-              variant: pathname === element.href ? "default" : "ghost",
-            }))}
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Reach",
+              expanded: "Reach Your Audience",
+            }}
+            links={{
+              isCollapsed,
+              links: TOOLS.filter((tool) => tool.section === "Reach").map(
+                (element) => ({
+                  ...element,
+                  variant: pathname === element.href ? "default" : "ghost",
+                })
+              ),
+            }}
+          />
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Other",
+              expanded: "Other Tools",
+            }}
+            links={{
+              isCollapsed,
+              links: TOOLS.filter((tool) => tool.section === "Other Tools").map(
+                (element) => ({
+                  ...element,
+                  variant: pathname === element.href ? "default" : "ghost",
+                })
+              ),
+            }}
+            defaultCollapsed={true}
           />
         </ResizablePanel>
         <ResizableHandle withHandle disabled={!canExpandSidebar} />
