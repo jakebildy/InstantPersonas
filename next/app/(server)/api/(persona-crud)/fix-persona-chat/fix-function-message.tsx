@@ -6,7 +6,7 @@ import {
 } from "@/components/page-specific/generative-ui/messages";
 import { fixJson } from "@/lib/fix-json";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
-import { assert } from "console";
+import assert from "node:assert";
 
 interface Message {
   [key: string]: any;
