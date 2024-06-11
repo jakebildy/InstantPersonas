@@ -1,9 +1,9 @@
-import { extractKeysFromZodSchema, similarityScore } from "@/lib/utils";
 import {
-  PersonaArchetype,
   PersonaArchetypeValidator,
+  PersonaArchetype,
   PersonaArchetypeValidatorWithDefaults,
-} from "../persona-ai.model";
+} from "@/app/(server)/models/persona-ai.model";
+import { extractKeysFromZodSchema, similarityScore } from "@/lib/utils";
 
 const personaArchetypeParams = extractKeysFromZodSchema(
   PersonaArchetypeValidator,

@@ -1,6 +1,6 @@
 "use server";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "@/app/(server)/ai/persona-chat-ai/initial-ai-state";
-import { stringIsMongoID } from "@/app/(server)/models/fix-persona-chat/validate-mongo-id";
+import { stringIsMongoID } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 import {
   PersonaChat,
   PersonaChatDocument,
