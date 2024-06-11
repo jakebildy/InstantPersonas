@@ -81,10 +81,11 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 }
 
 export function AuthFallback() {
-  const variantIndex = Math.floor(
-    Math.random() * Object.keys(ColorVariantMap).length,
-  );
-  const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
+  // const variantIndex = Math.floor(
+  //   Math.random() * Object.keys(ColorVariantMap).length,
+  // );
+  // const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
+  const variant = "green";
 
   return (
     <div
