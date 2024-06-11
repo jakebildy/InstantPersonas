@@ -9,7 +9,6 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { InstagramHashtagFinderTool } from "@/components/toolfolio/instagram-hashtag-finder";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 import { usePersonaChatHistory } from "@/components/context/persona/history-context";
-import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export const maxDuration = 300; // 5 minutes
 
@@ -17,14 +16,12 @@ export default function InstagramHashtagFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
   const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
-  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            ({ pictureURL, ...rest }) => rest,
             ({ pictureURL, ...rest }) => rest,
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
