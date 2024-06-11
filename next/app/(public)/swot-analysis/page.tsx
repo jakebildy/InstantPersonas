@@ -68,6 +68,10 @@ export default function SWOTAnalysisPage() {
   return (
     <section className="bg-white ">
       <title>AI SWOT Analysis Generator (Free)</title>
+      <meta
+        name="description"
+        content="Our AI-powered SWOT Analysis Generator helps you evaluate the Strengths, Weaknesses, Opportunities, and Threats of your company or project."
+      />
       {/* <meta
         name="description"
         content="Build your marketing knowledge with these practice exams for Meta
