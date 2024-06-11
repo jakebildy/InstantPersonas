@@ -167,6 +167,10 @@ export const LANDING_FOOTER_LINKS = [
     text: "Meta Blueprint Practice Exams",
     href: "/meta-blueprint-practice-exams",
   },
+  {
+    text: "SWOT Analysis Maker",
+    href: "/swot-analysis",
+  },
 ];
 
 export const BLOG_FOOTER_LINKS = LANDING_FOOTER_LINKS;
