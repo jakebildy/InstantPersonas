@@ -6,7 +6,7 @@ import {
   PERSONA_PICTURE_COMPONENTS_CONFIG,
 } from "../ai/persona-chat-ai/utils/persona-picture-components-config";
 import mongoose from "mongoose";
-import { MongoIDValidator } from "./fix-persona-chat/validate-mongo-id";
+import { MongoIDValidator } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
 export const MessageValidator = z.object({
   role: z.enum(["user", "assistant", "system", "tool", "function", "data"]),

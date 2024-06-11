@@ -2,14 +2,13 @@ import {
   PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS,
   PERSONA_CHAT_AI_TOOL_ARGS_UNIQUE_DESTRUCTURED,
 } from "@/components/page-specific/generative-ui/messages";
+import assert from "node:assert";
+import { extractKeysFromZodSchema } from "@/lib/utils";
 import {
   AssistantToolCallMessage,
   PersonaArchetype,
   PersonaArchetypeValidator,
-} from "../persona-ai.model";
-import assert from "node:assert";
-import { difference, has } from "lodash";
-import { extractKeysFromZodSchema } from "@/lib/utils";
+} from "@/app/(server)/models/persona-ai.model";
 
 export function updateToolCallPersonaMessage({
   message,

@@ -1,4 +1,4 @@
-import { fixPersonaChatHistory } from "@/app/(server)/models/fix-persona-chat/fix-persona-chat-history";
+import { fixPersonaChatHistory } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/fix-persona-chat-history";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
 

@@ -1,8 +1,8 @@
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { assert } from "console";
 import { fixFunctionMessage } from "./fix-function-message";
-import { PersonaArchetype } from "../persona-ai.model";
 import { updateToolCallPersonaMessage } from "./update-tool-call-persona-message";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 
 export function fixPersonaChatMessageHistoryModel({
   messages,

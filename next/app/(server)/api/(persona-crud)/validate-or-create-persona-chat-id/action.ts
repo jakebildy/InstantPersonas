@@ -2,7 +2,7 @@ import { PERSONA_CHAT_INITIAL_AI_STATE } from "@/app/(server)/ai/persona-chat-ai
 import {
   MongoID,
   MongoIDValidator,
-} from "@/app/(server)/models/fix-persona-chat/validate-mongo-id";
+} from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
