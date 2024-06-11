@@ -31,7 +31,7 @@ const api = {
     },
     findGoogleKeywordsDocumentEditor: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/google-keywords-blog", {
         personas,
