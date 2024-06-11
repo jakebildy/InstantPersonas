@@ -1,16 +1,23 @@
-import { getRandomKey, nanoid } from "@/lib/utils";
+import { getRandomKey } from "@/lib/utils";
 import { ReactNode } from "react";
 import { z } from "zod";
 import {
   DEFAULT_PERSONA_PICTURE,
   PERSONA_PICTURE_COMPONENTS_CONFIG,
 } from "../ai/persona-chat-ai/utils/persona-picture-components-config";
-import mongoose from "mongoose";
 import { MongoIDValidator } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
 export const MessageValidator = z.object({
   role: z.enum(["user", "assistant", "system", "tool", "function", "data"]),
   content: z.string(),
+  tool_calls: z
+    .array(
+      z.object({
+        name: z.string(),
+        arguments: z.any(),
+      }),
+    )
+    .optional(),
 });
 
 type MessageRoles =

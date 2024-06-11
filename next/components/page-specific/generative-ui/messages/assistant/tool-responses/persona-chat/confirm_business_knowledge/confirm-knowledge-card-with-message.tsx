@@ -10,11 +10,12 @@ type Props = {
 
 export function ConfirmKnowledgeCardWithMessage({
   knowledge,
-  message = " Does this cover the business and target problem or is something missing?",
+  message = "",
 }: Props) {
   return (
     <div className="flex flex-col gap-2">
-      {message}
+      <span className="mt-2">{message}</span>
+
       <div className="w-[600px]">
         <ConfirmKnowledgeCard {...knowledge} />
       </div>

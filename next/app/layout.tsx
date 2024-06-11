@@ -18,6 +18,8 @@ export const metadata: Metadata = {
     "Save hours understanding your customers with our User Persona generator.",
 };
 
+export const maxDuration = 300;
+
 export default function RootLayout({
   children,
 }: Readonly<{

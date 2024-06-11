@@ -17,6 +17,8 @@ export const PersonaChatTypeValidator = z.object({
   user: z.string().optional(),
   contentLastGeneratedAt: z.date().optional(),
   _id: MongoIDValidator,
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 // Interface for PersonaChat document
