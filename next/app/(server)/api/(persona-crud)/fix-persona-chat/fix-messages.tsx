@@ -38,6 +38,7 @@ export function fixPersonaChatMessageHistoryModel({
           return {
             role: "assistant",
             content: message.content,
+            tool_calls: message.tool_calls || [],
           };
         case "system":
           return {
