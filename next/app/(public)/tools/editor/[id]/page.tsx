@@ -1,7 +1,7 @@
 "use client";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { cn } from "@/lib/utils";
+import { cn, levenshtein } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
@@ -51,12 +51,19 @@ import BarLoader from "react-spinners/BarLoader";
 import { ColorVariantMap } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
+import { ActivePersonas } from "../ActivePersonas";
+import {
+  PersonaAvatarPopover,
+  mapUrlBackgroundColorParamToVariant,
+} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { Label } from "@/components/ui/label";
+import NextImage from "next/image";
 
 // export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
 export default function DocumentEditor() {
-  const [personaString, setPersonaString] = useState<string>("");
+  const [keywordsString, setKeywordsString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
   const [selectedPersonas, setSelectedPersonas] = useState<
     PersonaBusinessArchetype[]
@@ -87,7 +94,7 @@ export default function DocumentEditor() {
         }
       : "Should be keywords related to the following blog:" + title;
 
-    setPersonaString(JSON.stringify(results));
+    setKeywordsString(JSON.stringify(results));
   }, [selectedPersonas, title, isSubscribed]);
 
   const editor = useEditor({
@@ -218,6 +225,9 @@ export default function DocumentEditor() {
   useEffect(() => {
     const handleKeyDown = () => {
       setLastTypedTime(Date.now());
+      if (editor) {
+        currentTextRef.current = editor.getText();
+      }
     };
     if (editor) {
       editor.view.dom.addEventListener("keydown", handleKeyDown);
@@ -331,6 +341,94 @@ export default function DocumentEditor() {
   }
 
   let inputRef = useRef<HTMLInputElement>(null);
+
+  const [personaThoughts, setPersonaThoughts] = useState<
+    { thought: string; persona: PersonaBusinessArchetype }[]
+  >([]);
+
+  const [personaString, setPersonaString] = useState<string>("");
+  // UseEffect, whenever no key is typed for 5 seconds, generate persona thoughts
+
+  const currentTextRef = useRef("");
+  const lastChangedTextRef = useRef("");
+
+  useEffect(() => {
+    const results = isSubscribed
+      ? {
+          personas: selectedPersonas.map(
+            ({ pictureURL, ...rest }) => rest
+          ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
+        }
+      : detailsInput;
+
+    setPersonaString(JSON.stringify(results));
+  }, [selectedPersonas, detailsInput, isSubscribed]);
+
+  // Clear the persona thoughts when the selected personas change
+  useEffect(() => {
+    setPersonaThoughts([]);
+  }, [selectedPersonas]);
+
+  // Effect to set currentText whenever the editor changes
+  useEffect(() => {
+    if (!editor) return;
+
+    const handleEditorChange = () => {
+      currentTextRef.current = editor.getText();
+    };
+  }, [editor]);
+
+  useEffect(() => {
+    if (!editor) return;
+
+    const interval = setInterval(() => {
+      if (
+        Date.now() - lastTypedTime > 5000 &&
+        editor &&
+        selectedPersonas.length > 0
+      ) {
+        console.log(
+          levenshtein(lastChangedTextRef.current, currentTextRef.current)
+        );
+
+        if (
+          currentTextRef.current.length > 0 &&
+          currentTextRef.current !== lastChangedTextRef.current &&
+          levenshtein(currentTextRef.current, lastChangedTextRef.current) > 20
+        ) {
+          lastChangedTextRef.current = currentTextRef.current;
+          api.tools
+            .generatePersonaThoughts(currentTextRef.current, personaString)
+            .then((response) => {
+              // thoughts are returned like this: PersonaName:Thought•PersonaName2:Thought
+              const thoughts = response.response.split("•");
+              const personaThoughts = thoughts.map((thought: string) => {
+                const [personaName, thoughtText] = thought.split(":");
+                const persona = selectedPersonas.find(
+                  (persona) => persona.archetype_name === personaName
+                );
+                return {
+                  thought: thoughtText,
+                  persona: persona!,
+                };
+              });
+
+              // filter out undefined personas
+              setPersonaThoughts(
+                personaThoughts.filter(
+                  (thought: {
+                    thought: string;
+                    persona: PersonaBusinessArchetype;
+                  }) => thought.persona
+                )
+              );
+            });
+        }
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [lastTypedTime, editor, selectedPersonas]);
 
   return !user || !editor ? (
     <div
@@ -458,13 +556,12 @@ export default function DocumentEditor() {
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
 
-        <Link
-          className={"hover:bg-green-200 p-2 text-xs"}
-          href={"/tools/share-preview-optimizer"}
-          target="_blank"
+        <button
+          className="hover:bg-green-200 p-2 text-xs"
+          onClick={() => setShowHeadlineAnalysisPopup(true)}
         >
-          Social Media Preview
-        </Link>
+          Analyze Headline
+        </button>
 
         <button
           className={
@@ -502,13 +599,25 @@ export default function DocumentEditor() {
         >
           View Markdown
         </button>
+
+        <Link
+          className={"hover:bg-green-200 p-2 text-xs"}
+          href={"/tools/share-preview-optimizer"}
+          target="_blank"
+        >
+          Social Media Preview
+        </Link>
       </div>
-      <button
-        onClick={() => setShowHeadlineAnalysisPopup(true)}
-        className="z-50 bg-green-500 text-white p-2 rounded-md h-min w-[200px] text-xs font-bold fixed right-10 top-6"
-      >
-        Analyze Headline
-      </button>
+      {/* The Select Personas Button */}
+      {isSubscribed ? (
+        <div className="z-50 fixed right-10 top-3">
+          <PersonaSelectFromHistorySidebar
+            className="m-4"
+            selectedPersonas={selectedPersonas}
+            setSelectedPersonas={setSelectedPersonas}
+          />
+        </div>
+      ) : null}
 
       {view !== "editor" ? (
         <div />
@@ -753,45 +862,59 @@ export default function DocumentEditor() {
             </div>
 
             <div className="fixed top-10 right-2 h-full border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[340px] p-2">
-              {selectedPersonas.length > 0 ? (
-                selectedPersonas.map((persona, i) => (
-                  <SelectArchetypeWidget
-                    key={i}
-                    archetype={persona}
-                    isSelected={true}
-                    onSelect={() => {
-                      setSelectedPersonas((prevSelectedPersonas) => [
-                        ...prevSelectedPersonas,
-                        persona,
-                      ]);
-                    }}
-                    onDeselect={() => {
-                      setSelectedPersonas((prevSelectedPersonas) =>
-                        prevSelectedPersonas.filter(
-                          (activePersona) => activePersona !== persona
-                        )
-                      );
-                    }}
-                  />
-                ))
-              ) : (
-                <div />
-              )}
-              {isSubscribed ? (
-                <div className="flex justify-center">
-                  <PersonaSelectFromHistorySidebar
-                    className="m-4"
-                    selectedPersonas={selectedPersonas}
-                    setSelectedPersonas={setSelectedPersonas}
-                  />
-                </div>
-              ) : null}
+              <ActivePersonas selectedPersonas={selectedPersonas} />
+
+              {/* Persona Thoughts */}
+              <div className="border-2 border-slate-300 bg-white rounded-md h-[300px]">
+                <ScrollArea className="z-50 order-1 h-[290px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden lg:max-w-none">
+                  {personaThoughts.length === 0 ? (
+                    <div className="flex flex-row">
+                      <div className="flex items-center h-8 w-8 mr-2">
+                        <NextImage
+                          src={"/instant_personas_logo.png"}
+                          alt={"Instant Personas Logo"}
+                          width={32}
+                          height={32}
+                          priority
+                          className={cn("object-contain min-w-8")}
+                        />
+                      </div>
+                      <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+                        Select some personas, and you will see their thoughts
+                        here as you write.
+                      </div>
+                    </div>
+                  ) : (
+                    personaThoughts.map((thought, i) => (
+                      <div key={i} className="p-2 flex flex-row">
+                        {selectedPersonas.length > 0 ? (
+                          <PersonaAvatarPopover
+                            allowManage={false}
+                            {...{
+                              archetype: thought.persona,
+                              variant: mapUrlBackgroundColorParamToVariant({
+                                url: thought.persona.pictureURL,
+                              }),
+                            }}
+                            size={"sm"}
+                          />
+                        ) : null}
+                        <div className="flex items-center bg-gray-200 p-2 px-4 rounded-lg text-sm whitespace-pre-wrap">
+                          {thought.thought}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                  <ScrollBar orientation="vertical" />
+                </ScrollArea>
+              </div>
+
               <div className="h-0.5 w-full bg-gray-100" />
-              <b className="ml-2">Google Keywords (US Searches)</b>
+              <Label>Google Keywords (US Searches)</Label>
               <br></br>
-              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden lg:max-w-none">
                 <GoogleKeywordFinderTool
-                  input={personaString}
+                  input={keywordsString}
                   isSubscribed={isSubscribed}
                   noInput={selectedPersonas.length === 0 && detailsInput === ""}
                   isSidebar={true}
