@@ -118,8 +118,9 @@ export default function PricingSection() {
             description2=""
             features={[
               "Unlimited User Personas",
-              "Persona Chat - Powered by AI",
+              "Create SEO Optimized Content",
               "Deep Target Market Insights",
+              "Find Niche-Specific Marketing Opportunities",
               "Priority support",
             ]}
           />
@@ -130,8 +131,9 @@ export default function PricingSection() {
             description2="Save more with the yearly plan."
             features={[
               "Unlimited User Personas",
-              "Persona Chat - Powered by AI",
+              "Create SEO Optimized Content",
               "Deep Target Market Insights",
+              "Find Niche-Specific Marketing Opportunities",
               "Priority support",
             ]}
             popular
