@@ -102,7 +102,7 @@ export const ArticleCard = ({
       <p className="mb-5 font-light text-gray-500 ">{post.lead}</p>
       <div className="flex justify-between items-center">
         <Link
-          href={"blog/" + post.slug}
+          href={"/blog/" + post.slug}
           className="inline-flex items-center font-medium text-primary-600  hover:underline"
         >
           Read more
