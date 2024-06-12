@@ -74,6 +74,14 @@ const api = {
       console.log("response from outline sections api", response);
       return response.data;
     },
+    generatePersonaThoughts: async (text: string, personas: string): Promise<any> => {
+      const response = await axios.post("/api/persona-thoughts", {
+        text,
+        personas,
+      });
+      console.log("response from persona thoughts api", response);
+      return response.data;
+    },
     findInstagramAccounts: async (
       personas: string,
       paid: boolean

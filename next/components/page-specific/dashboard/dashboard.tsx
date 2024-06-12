@@ -107,21 +107,6 @@ export default function DashboardLayout({
               })),
             }}
           />
-          <CollapsibleNavSection
-            title={{
-              collapsed: "Account",
-              expanded: "My Account",
-            }}
-            links={{
-              isCollapsed,
-              links: SIDEBAR_LINKS.map((element) => ({
-                ...element,
-                variant: pathname === element.href ? "default" : "ghost",
-              })),
-            }}
-          />
-
-          <Separator />
 
           <CollapsibleNavSection
             title={{
@@ -138,6 +123,23 @@ export default function DashboardLayout({
               ),
             }}
           />
+
+          <Separator />
+
+          <CollapsibleNavSection
+            title={{
+              collapsed: "Account",
+              expanded: "My Account",
+            }}
+            links={{
+              isCollapsed,
+              links: SIDEBAR_LINKS.map((element) => ({
+                ...element,
+                variant: pathname === element.href ? "default" : "ghost",
+              })),
+            }}
+          />
+
           <CollapsibleNavSection
             title={{
               collapsed: "Reach",
