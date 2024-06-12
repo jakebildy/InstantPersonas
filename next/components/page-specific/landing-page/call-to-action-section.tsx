@@ -68,7 +68,7 @@ export default function CallToActionSection() {
             onClick={() => {
               window.location.href = "/register";
             }}
-            className="px-8 py-2 rounded-full bg-gradient-to-b from-green-500 to-green-600 text-white focus:ring-2 focus:ring-green-400 hover:shadow-xl transition duration-200"
+            className="px-8 py-2 rounded-full bg-green-600 text-white font-jost focus:ring-2 focus:ring-green-400 hover:shadow-xl transition duration-200"
           >
             Get 3 days FREE
           </button>
