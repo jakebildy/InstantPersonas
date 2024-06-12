@@ -272,7 +272,6 @@ const api = {
         content,
         title,
       });
-      console.log ("response from update document", response)
       return response.data.result;
     },
 

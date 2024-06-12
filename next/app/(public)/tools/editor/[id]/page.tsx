@@ -1,7 +1,7 @@
 "use client";
 import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { cn } from "@/lib/utils";
+import { cn, levenshtein } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
@@ -225,6 +225,9 @@ export default function DocumentEditor() {
   useEffect(() => {
     const handleKeyDown = () => {
       setLastTypedTime(Date.now());
+      if (editor) {
+        currentTextRef.current = editor.getText();
+      }
     };
     if (editor) {
       editor.view.dom.addEventListener("keydown", handleKeyDown);
@@ -345,7 +348,9 @@ export default function DocumentEditor() {
 
   const [personaString, setPersonaString] = useState<string>("");
   // UseEffect, whenever no key is typed for 5 seconds, generate persona thoughts
-  let lastChangedText = "";
+
+  const currentTextRef = useRef("");
+  const lastChangedTextRef = useRef("");
 
   useEffect(() => {
     const results = isSubscribed
@@ -364,19 +369,36 @@ export default function DocumentEditor() {
     setPersonaThoughts([]);
   }, [selectedPersonas]);
 
+  // Effect to set currentText whenever the editor changes
   useEffect(() => {
+    if (!editor) return;
+
+    const handleEditorChange = () => {
+      currentTextRef.current = editor.getText();
+    };
+  }, [editor]);
+
+  useEffect(() => {
+    if (!editor) return;
+
     const interval = setInterval(() => {
       if (
         Date.now() - lastTypedTime > 5000 &&
         editor &&
         selectedPersonas.length > 0
       ) {
-        const text = editor.getText();
+        console.log(
+          levenshtein(lastChangedTextRef.current, currentTextRef.current)
+        );
 
-        if (text.length > 0 && text !== lastChangedText) {
-          lastChangedText = text;
+        if (
+          currentTextRef.current.length > 0 &&
+          currentTextRef.current !== lastChangedTextRef.current &&
+          levenshtein(currentTextRef.current, lastChangedTextRef.current) > 20
+        ) {
+          lastChangedTextRef.current = currentTextRef.current;
           api.tools
-            .generatePersonaThoughts(text, personaString)
+            .generatePersonaThoughts(currentTextRef.current, personaString)
             .then((response) => {
               // thoughts are returned like this: PersonaName:Thought•PersonaName2:Thought
               const thoughts = response.response.split("•");
@@ -890,7 +912,7 @@ export default function DocumentEditor() {
               <div className="h-0.5 w-full bg-gray-100" />
               <Label>Google Keywords (US Searches)</Label>
               <br></br>
-              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden lg:max-w-none">
                 <GoogleKeywordFinderTool
                   input={keywordsString}
                   isSubscribed={isSubscribed}
