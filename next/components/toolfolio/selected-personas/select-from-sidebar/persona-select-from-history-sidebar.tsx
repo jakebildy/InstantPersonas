@@ -147,7 +147,8 @@ export function PersonaSelectFromHistorySidebar({
               ) : (
                 <>
                   {history.map((chat, i) =>
-                    chat.aiState.personas === undefined ? null : (
+                    chat.aiState.personas === undefined ||
+                    chat.aiState.personas.length === 0 ? null : (
                       <PersonaWidgetGroup
                         personas={chat.aiState.personas.map((archetype) => ({
                           ...archetype,
