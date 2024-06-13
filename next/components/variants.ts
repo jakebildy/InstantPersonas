@@ -294,6 +294,23 @@ export const background600 = cva("", {
   },
 });
 
+export const background600Light = cva("", {
+  variants: {
+    variant: {
+      blue: "bg-blue-600/10",
+      purple: "bg-purple-600/10",
+      red: "bg-red-600/10",
+      yellow: "bg-yellow-600/10",
+      green: "bg-green-600/10",
+      brown: "bg-amber-600/10",
+      pink: "bg-pink-600/10",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export const SVG600 = cva("", {
   variants: {
     variant: {

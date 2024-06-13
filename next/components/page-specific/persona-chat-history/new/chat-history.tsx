@@ -7,6 +7,7 @@ import { cn, timeAgo } from "@/lib/utils";
 import {
   avatarVariants,
   background600,
+  background600Light,
   gradientVariants,
   textColorVariants,
   textLightColorVariants,
@@ -80,21 +81,21 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
         </div>
       </div>
       <div className="flex justify-between border-t border-dashed border-black/10 p-2">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-2 px-2 text-xs">
             <ChatBubbleIcon className="size-3" />
-            <span>{`${chat.aiState.messages.length} Messages`}</span>
+            <span className="min-w-0 whitespace-nowrap">{`${chat.aiState.messages.length} Messages`}</span>
           </div>
           {chat.createdAt ? (
             <div className="flex items-center gap-2 px-2 text-xs">
               <CalendarIcon className="size-3" />
-              <span>{`Created ${timeAgo(new Date(chat.createdAt))}`}</span>
+              <span className="min-w-0 whitespace-nowrap">{`Created ${timeAgo(new Date(chat.createdAt))}`}</span>
             </div>
           ) : null}
           {chat.updatedAt ? (
             <div className="flex items-center gap-2 px-2 text-xs">
               <StopwatchIcon className="size-3" />
-              <span>{`Last Updated ${timeAgo(new Date(chat.updatedAt))}`}</span>
+              <span className="min-w-0 whitespace-nowrap">{`Last Updated ${timeAgo(new Date(chat.updatedAt))}`}</span>
             </div>
           ) : null}
         </div>
@@ -104,7 +105,7 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
           className={gradientVariants({
             variant: "blue",
             className:
-              "flex items-center gap-2 rounded-2xl bg-gradient-to-r p-1 px-2 text-xs transition-transform duration-150 ease-out hover:scale-105",
+              "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs transition-transform duration-150 ease-out hover:scale-105",
           })}
         >
           <span>Open Chat</span>
@@ -129,9 +130,9 @@ function PersonaBadge({ archetype }: { archetype: PersonaArchetype }) {
 
   return (
     <div
-      className={background600({
+      className={background600Light({
         variant,
-        className: "flex items-center gap-0.5 rounded-2xl bg-opacity-10 pr-3",
+        className: "flex items-center gap-0.5 rounded-2xl pr-3",
       })}
     >
       <Avatar
