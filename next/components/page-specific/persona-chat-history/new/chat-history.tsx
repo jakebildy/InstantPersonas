@@ -73,17 +73,17 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
                 <PersonaBadge archetype={persona} key={i} />
               ))
             ) : (
-              <Link
-                href={`/persona/${chat._id}`}
+              <button
+                tabIndex={0}
                 className={gradientVariants({
                   variant: "purple",
                   className:
-                    "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs transition-transform duration-150 ease-out hover:scale-105",
+                    "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs shadow-sm transition-all duration-300 ease-out hover:-translate-x-2 hover:scale-105 hover:px-4 hover:shadow-md",
                 })}
               >
                 <span>Start Generating Personas</span>
                 <MagicWandIcon className="size-3" />
-              </Link>
+              </button>
             )}
           </div>
           <div
@@ -121,7 +121,7 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
           className={gradientVariants({
             variant: "blue",
             className:
-              "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs transition-transform duration-150 ease-out hover:scale-105",
+              "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs shadow-sm transition-all duration-300 ease-out hover:-translate-x-2 hover:scale-105 hover:px-4 hover:shadow-md",
           })}
         >
           <span>Open Chat</span>
