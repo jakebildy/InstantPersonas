@@ -14,11 +14,23 @@ export function SelectArchetypeWidget({
   onSelect,
   onDeselect,
   isSelected,
+  button = {
+    text: {
+      select: "Select",
+      selected: "Selected",
+    },
+  },
 }: {
   archetype: PersonaArchetype;
   isSelected: boolean;
   onSelect: () => void;
   onDeselect: () => void;
+  button?: {
+    text: {
+      select: string;
+      selected: string;
+    };
+  };
 }) {
   const [open, setOpen] = useState<boolean>(false);
   // Used for animation to measure the height of the details when expanded
@@ -104,7 +116,7 @@ export function SelectArchetypeWidget({
             );
           }}
         >
-          {isSelected ? "Selected" : "Select"}
+          {isSelected ? button.text.selected : button.text.select}
         </Button>
       </div>
       <div>
