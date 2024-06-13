@@ -116,8 +116,8 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
           ) : null}
         </div>
 
-        <Link
-          href={`/persona/${chat._id}`}
+        <button
+          tabIndex={0}
           className={gradientVariants({
             variant: "blue",
             className:
@@ -126,7 +126,7 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
         >
           <span>Open Chat</span>
           <ArrowTopRightIcon className="size-3" />
-        </Link>
+        </button>
       </div>
     </Link>
   );
