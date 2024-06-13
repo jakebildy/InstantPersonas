@@ -48,12 +48,18 @@ export default function HeroSection() {
         >
           <Link href="/register">Get Started</Link>
         </Button>
+
         {/* flip horizontally */}
         <img
           src="https://i.imgur.com/rboSNI5.png"
           className="h-10 transform scale-x-[-1]"
         />
       </motion.div>
+      <br></br>
+      <span className="font-jost">
+        Join <b className="text-green-500">4,640+</b> Marketers and Business
+        Owners Saving Hours
+      </span>
       <div className="mt-36 lg:mt-44" />
     </div>
   );
