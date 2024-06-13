@@ -3,6 +3,7 @@ import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/
 import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import GradientScroll from "./gradient-scroll";
 import { cn } from "@/lib/utils";
+import { PersonaWidget } from "./persona-widget";
 
 type Props = {};
 
@@ -15,7 +16,11 @@ export default function PersonaHistory({}: Props) {
         {history.map((chat, i) =>
           chat.aiState.personas === undefined ||
           chat.aiState.personas.length === 0 ? null : (
-            <PersonaGroup personas={chat.aiState.personas} key={i} />
+            <PersonaGroup
+              personas={chat.aiState.personas}
+              id={chat._id || null}
+              key={i}
+            />
           ),
         )}
       </div>
@@ -23,7 +28,13 @@ export default function PersonaHistory({}: Props) {
   );
 }
 
-function PersonaGroup({ personas }: { personas: PersonaArchetype[] }) {
+function PersonaGroup({
+  personas,
+  id,
+}: {
+  personas: PersonaArchetype[];
+  id?: string;
+}) {
   // Checking if all personas are selected based on deep equality
   // const allPersonasInChatSelected = personas.every((persona) =>
   //   selectedPersonas.some((selectedPersona) =>
@@ -31,6 +42,8 @@ function PersonaGroup({ personas }: { personas: PersonaArchetype[] }) {
   //   ),
   // );
   const allPersonasInChatSelected = false;
+
+  if (!id) return null;
 
   return (
     <div
@@ -44,19 +57,7 @@ function PersonaGroup({ personas }: { personas: PersonaArchetype[] }) {
       {personas.map((persona, i) => {
         // Determining if the current persona is selected based on deep equality
 
-        return (
-          <SelectArchetypeWidget
-            isSelected={false}
-            archetype={persona}
-            key={i}
-            onSelect={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-            onDeselect={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
-        );
+        return <PersonaWidget archetype={persona} id={id} key={i} />;
       })}
     </div>
   );
