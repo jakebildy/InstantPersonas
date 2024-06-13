@@ -48,9 +48,10 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
   if (!chat.aiState.personas) return null;
 
   return (
-    <div
+    <Link
+      href={`/persona/${chat._id}`}
       className={cn(
-        "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/50 transition-colors duration-150 ease-out",
+        "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/75 shadow-sm transition-all duration-500 ease-out hover:scale-[102%] hover:bg-white hover:shadow-xl",
       )}
     >
       <div className="flex w-full flex-1 flex-col gap-1 p-2">
@@ -127,7 +128,7 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
           <ArrowTopRightIcon className="size-3" />
         </Link>
       </div>
-    </div>
+    </Link>
   );
 }
 
