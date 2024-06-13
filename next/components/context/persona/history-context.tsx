@@ -65,7 +65,7 @@ export const PersonaChatHistoryProvider = ({
       try {
         IS_TEST_DEV_ENV ? console.log("DEV: Fetching user history") : null;
         api.userPersona.getPersonaHistory(user.id).then((data) => {
-          setHistory(data);
+          setHistory(mostRecentPersonaChatHistory(data));
           setLoading(false);
           //? If no personas are selected, (first fetch), update from local storage
           if (selectedPersonas.length === 0) {
@@ -152,7 +152,7 @@ export const PersonaChatHistoryProvider = ({
             ? console.log("DEV: Silent Refetching history")
             : null;
           const data = await api.userPersona.getPersonaHistory(user.id);
-          setHistory(data);
+          setHistory(mostRecentPersonaChatHistory(data));
         } catch (error) {
           console.error("Error refetching history", error);
         }
@@ -176,6 +176,23 @@ export const PersonaChatHistoryProvider = ({
     </PersonaChatHistoryContext.Provider>
   );
 };
+
+export function mostRecentPersonaChatHistory(
+  history: PersonaChatType[],
+): PersonaChatType[] {
+  return history.sort((a, b) => {
+    const hasUpdatedAt = a.updatedAt && b.updatedAt;
+    const hasCreatedAt = a.createdAt && b.createdAt;
+
+    if (!hasUpdatedAt && !hasCreatedAt) {
+      return 0;
+    }
+
+    const aDate = new Date(a.updatedAt || a.createdAt || 0);
+    const bDate = new Date(b.updatedAt || b.createdAt || 0);
+    return bDate.getTime() - aDate.getTime();
+  });
+}
 
 export const usePersonaChatHistory = () => {
   const context = useContext(PersonaChatHistoryContext);
