@@ -5,12 +5,7 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <div className="pb-16 pt-20 text-center lg:pt-32">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="mx-auto max-w-4xl font-display font-bold text-5xl tracking-tight text-slate-900 sm:text-7xl"
-      >
+      <h1 className="mx-auto max-w-4xl font-display font-bold text-5xl tracking-tight text-slate-900 sm:text-7xl">
         Understand your audience{" "}
         <span className="relative whitespace-nowrap text-green mt-4">
           {/* <svg
@@ -23,23 +18,19 @@ export default function HeroSection() {
           </svg> */}
           <span className="relative text-green-500">in minutes</span>
         </span>
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="mx-auto mt-10 max-w-2xl text-lg tracking-tight text-slate-700"
-      >
+      </h1>
+      <p>
         Stop writing content no one cares about. Join for{" "}
         <b className="text-green-600">free</b> and start saving hours.
-      </motion.p>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="mt-10 flex flex-row justify-center gap-x-4"
-      >
-        <img src="https://i.imgur.com/rboSNI5.png" className="h-10" />
+      </p>
+      <div className="mt-10 flex flex-row justify-center gap-x-4">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <img src="https://i.imgur.com/rboSNI5.png" className="h-10" />
+        </motion.div>
         <Button
           variant={"slate"}
           className="bg-green-500 p-6 text-lg hover:bg-green-700 mt-2"
@@ -50,11 +41,17 @@ export default function HeroSection() {
         </Button>
 
         {/* flip horizontally */}
-        <img
-          src="https://i.imgur.com/rboSNI5.png"
-          className="h-10 transform scale-x-[-1]"
-        />
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <img
+            src="https://i.imgur.com/rboSNI5.png"
+            className="h-10 transform scale-x-[-1]"
+          />
+        </motion.div>
+      </div>
       <br></br>
       <span className="font-jost">
         Join <b className="text-green-500">4,640+</b> Marketers and Business
