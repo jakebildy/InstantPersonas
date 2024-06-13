@@ -22,7 +22,7 @@ export default function GradientScroll({ children }: Props) {
       id={"scroll-container-bounds"}
     >
       <ScrollAreaPrimitive.Root
-        className={cn("relative overflow-hidden")}
+        className={cn("relative overflow-hidden md:min-h-[50vh]")}
         style={{
           height: bounds.height,
           width: "100%",
