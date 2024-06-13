@@ -16,10 +16,15 @@ import PersonaHistory from "@/components/page-specific/persona-chat-history/new/
 import { GradientButton } from "@/components/ui/gradient-button";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
 import ChatHistory from "@/components/page-specific/persona-chat-history/new/chat-history";
+import { HistoryLoading } from "./loading-state";
 
 export default function HistoryPage({}: {}) {
   const { resetChatId } = usePersonaChat();
   const { history, loading, error } = usePersonaChatHistory();
+
+  if (loading || !history || error) {
+    return <HistoryLoading />;
+  }
 
   return (
     <main className="grid grid-cols-12 grid-rows-[auto_auto_1fr] gap-4 p-2 transition-all duration-700 ease-out md:p-10 xl:h-[calc(100dvh-2px)] xl:grid-rows-[auto_1fr] xl:overflow-hidden">
@@ -66,7 +71,7 @@ export default function HistoryPage({}: {}) {
           "relative",
         )}
       >
-        <div className="flex items-center justify-between gap-4 p-4 pb-0">
+        <div className="flex items-center justify-between gap-4 p-4">
           <h2 className="text-lg font-medium">Chats</h2>
           <GradientButton
             Icon={PersonStandingIcon}
