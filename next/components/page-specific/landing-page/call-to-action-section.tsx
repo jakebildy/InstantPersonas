@@ -61,7 +61,7 @@ export default function CallToActionSection() {
          
           <p className="mt-4 text-lg tracking-tight text-black mb-10">
 
-            How many hours does it cost you to create content that doesn't convert because you don't understand your audience? <br></br>
+            How many hours does it cost you to create content that doesn&apos;t convert because you don&apos;t understand your audience? <br></br>
        
             <br></br><br></br>
             <p className="mt-4 text-lg tracking-tight text-black">
