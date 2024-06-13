@@ -54,7 +54,7 @@ export default function HeroSection() {
       </div>
       <br></br>
       <span className="font-jost">
-        Join <b className="text-green-500">4,640+</b> Marketers and Business
+        Join <b className="text-green-500">4,650+</b> Marketers and Business
         Owners Saving Hours
       </span>
       <div className="mt-36 lg:mt-44" />
