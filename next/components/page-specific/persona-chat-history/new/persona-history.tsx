@@ -18,7 +18,7 @@ export default function PersonaHistory({}: Props) {
           chat.aiState.personas.length === 0 ? null : (
             <PersonaGroup
               personas={chat.aiState.personas}
-              id={chat._id || null}
+              id={chat._id || undefined}
               key={i}
             />
           ),
