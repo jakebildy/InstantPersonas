@@ -2,7 +2,6 @@ import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { GradientButtonLink } from "@/components/ui/gradient-button";
 import {
   avatarVariants,
   ButtonInnerHover,
@@ -42,7 +41,7 @@ export function PersonaWidget({
 
   return (
     <motion.div
-      className="relative flex h-full min-h-[60px] w-full flex-col rounded-xl border bg-background text-left shadow-md"
+      className="relative flex h-full min-h-[60px] w-full flex-col rounded-xl border bg-background text-left font-jost shadow-md"
       animate={{
         height: open ? detailsBounds.height + 80 : 60,
       }}

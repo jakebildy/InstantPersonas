@@ -1,23 +1,14 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
-import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
-import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
-import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useEffect, useState } from "react";
-import { ArticleCard, BLOG_POSTS } from "../../blog/page";
-import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { HeadlineAnalyzerTool } from "@/components/toolfolio/headline-analyzer";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
   const [headlineString, setHeadlineString] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<PersonaArchetype[]>(
-    []
-  );
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
@@ -45,18 +36,18 @@ export default function GuestPostOpportunityFinder({}: {}) {
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full">
-        <h1 className="text-5xl text-gray-700 text-center pt-10 font-bold">
+      <div className="flex h-full w-full flex-col items-center">
+        <h1 className="pt-10 text-center text-5xl font-bold text-gray-700">
           Headline Analyzer
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 mb-16">
+        <h2 className="mb-16 mt-4 text-center text-xs text-slate-400">
           Write the best headlines for your blog posts and other pages on your
           site.
           <br></br>
           See SEO metrics and get suggestions for improvement.
         </h2>
 
-        <div className="flex flex-col items-center w-full mb-10 gap-2">
+        <div className="mb-10 flex w-full flex-col items-center gap-2">
           {/* {isSubscribed ? (
             <PersonaSelectFromHistorySidebar
               selectedPersonas={selectedPersonas}
@@ -64,12 +55,12 @@ export default function GuestPostOpportunityFinder({}: {}) {
               className="xl:absolute top-4 right-4 z-[100]"
             />
           ) : null} */}
-          <label className="text-sm text-gray-700 my-2">
+          <label className="my-2 text-sm text-gray-700">
             Enter your Headline:
           </label>
           <input
             type="text"
-            className="border border-white rounded-md w-1/2 p-2 shadow-lg"
+            className="w-1/2 rounded-md border border-white p-2 shadow-lg"
             placeholder="e.g. Top 10 Dog Tricks for Beginners"
             onChange={(e) => {
               setHeadlineString(e.target.value);

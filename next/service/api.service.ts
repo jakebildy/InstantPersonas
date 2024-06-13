@@ -1,3 +1,4 @@
+import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
 import { AIState } from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
@@ -75,7 +76,7 @@ const api = {
     },
     findInstagramAccounts: async (
       personas: string,
-      paid: boolean
+      paid: boolean,
     ): Promise<any> => {
       const response = await axios.post("/api/instagram-accounts", {
         personas,
@@ -255,7 +256,7 @@ const api = {
     updateDocument: async (
       content: string,
       title: string,
-      id: string
+      id: string,
     ): Promise<DocumentDraft> => {
       const response = await axios.post(`/api/update-document/`, {
         documentID: id,

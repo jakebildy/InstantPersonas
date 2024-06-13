@@ -51,6 +51,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { ColorVariantMap } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 // export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -58,9 +59,10 @@ export const maxDuration = 300; // 5 minutes
 export default function DocumentEditor() {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
+
+  const { selectedPersonas, setSelectedPersonas, loading, error, history } =
+    usePersonaChatHistory();
+
   const { isSubscribed } = useInstantPersonasUser();
   const { user, isInitialized } = useStytchUser();
 
@@ -76,7 +78,7 @@ export default function DocumentEditor() {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            ({ pictureURL, ...rest }) => rest
+            ({ pictureURL, ...rest }) => rest,
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details:
             "Blog Title " +
@@ -151,11 +153,11 @@ export default function DocumentEditor() {
     const fetchDocuments = async () => {
       if (!user || !editor) return;
       const response = await api.documentEditor.getDocuments(
-        user.user_id as string
+        user.user_id as string,
       );
 
       const document = response.find(
-        (doc: DocumentDraft) => doc._id === params.id
+        (doc: DocumentDraft) => doc._id === params.id,
       );
 
       if (document) {
@@ -163,10 +165,10 @@ export default function DocumentEditor() {
 
         if (document.content === " ") {
           setContent(
-            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>"
+            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>",
           );
           editor!.commands.setContent(
-            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>"
+            "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>",
           );
         } else {
           setContent(document.content);
@@ -231,7 +233,7 @@ export default function DocumentEditor() {
           api.documentEditor.updateDocument(
             editor!.getHTML(),
             title,
-            params.id
+            params.id,
           );
         }
         editor.view.dom.removeEventListener("keydown", handleKeyDown);
@@ -252,7 +254,7 @@ export default function DocumentEditor() {
         0,
         state.selection.$from.end(),
         " ",
-        " "
+        " ",
       );
 
       if (text.length > 0) {
@@ -278,13 +280,13 @@ export default function DocumentEditor() {
             editor!.commands.insertContent(
               "<h2>" +
                 (section.startsWith(" ") ? section.replace(" ", "") : section) +
-                "</h2>"
+                "</h2>",
             );
           });
         });
       } else {
         alert(
-          "To generate an outline, add a title (change from 'Untitled Blog')"
+          "To generate an outline, add a title (change from 'Untitled Blog')",
         );
       }
     }
@@ -326,7 +328,7 @@ export default function DocumentEditor() {
     await api.documentEditor.updateDocument(
       editor!.getHTML(),
       newTitle,
-      params.id
+      params.id,
     );
   }
 
@@ -335,13 +337,13 @@ export default function DocumentEditor() {
   return !user || !editor ? (
     <div
       className={
-        "bg-white grid grid-cols-3 place-items-center h-screen w-screen p-4 gap-4 overflow-hidden relative backdrop-blur-[100px]"
+        "relative grid h-screen w-screen grid-cols-3 place-items-center gap-4 overflow-hidden bg-white p-4 backdrop-blur-[100px]"
       }
     >
       <div />
-      <div className="flex flex-col justify-between items-center h-3/4">
+      <div className="flex h-3/4 flex-col items-center justify-between">
         <PersonStandingIcon className="size-10 text-black opacity-75" />
-        <div className="text-center flex flex-col gap-1">
+        <div className="flex flex-col gap-1 text-center">
           <p></p>
           <h1 className="text-4xl font-bold">Loading Document...</h1>
           <p className="text-sm"></p>
@@ -357,14 +359,14 @@ export default function DocumentEditor() {
   ) : (
     <div>
       <title>{title}</title>
-      <div className=" fixed top-0 w-full h-20 bg-slate-50 mb-2 z-50 ">
+      <div className="fixed top-0 z-50 mb-2 h-20 w-full bg-slate-50">
         <div>
           <a
             href="/tools/editor"
             aria-label="Content Editor"
-            className="absolute top-5 ml-5 z-[100] hover:bg-slate-200 p-2 rounded-full"
+            className="absolute top-5 z-[100] ml-5 rounded-full p-2 hover:bg-slate-200"
           >
-            <IconChevronLeft className="text-black size-8" />
+            <IconChevronLeft className="size-8 text-black" />
           </a>
           <input
             // focus ref
@@ -373,15 +375,15 @@ export default function DocumentEditor() {
             onChange={(e) => {
               updateTitle(e.target.value);
             }}
-            className="absolute top-0 z-50 ml-20 mt-4 text-2xl text-gray-700 font-bold bg-transparent outline-none mb-2 w-full text-start"
+            className="absolute top-0 z-50 mb-2 ml-20 mt-4 w-full bg-transparent text-start text-2xl font-bold text-gray-700 outline-none"
           />
         </div>
       </div>
-      <div className="fixed top-12 left-20 z-50">
+      <div className="fixed left-20 top-12 z-50">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
-              className={"hover:bg-green-200 p-2 text-xs"}
+              className={"p-2 text-xs hover:bg-green-200"}
               onClick={() => {}}
             >
               Edit
@@ -389,14 +391,14 @@ export default function DocumentEditor() {
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+              className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100] min-w-[120px] rounded-md bg-white p-[5px] shadow-md will-change-[opacity,transform]"
               sideOffset={5}
             >
               <DropdownMenu.Item
                 onClick={() => {
                   editor!.commands.undo();
                 }}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Undo
               </DropdownMenu.Item>
@@ -404,7 +406,7 @@ export default function DocumentEditor() {
                 onClick={() => {
                   editor!.commands.redo();
                 }}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Redo
               </DropdownMenu.Item>
@@ -414,7 +416,7 @@ export default function DocumentEditor() {
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
-              className={"hover:bg-green-200 p-2 text-xs"}
+              className={"p-2 text-xs hover:bg-green-200"}
               onClick={() => {}}
             >
               Insert
@@ -422,19 +424,19 @@ export default function DocumentEditor() {
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+              className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100] min-w-[120px] rounded-md bg-white p-[5px] shadow-md will-change-[opacity,transform]"
               sideOffset={5}
             >
               <DropdownMenu.Item
                 onClick={addImage}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Image
               </DropdownMenu.Item>
 
               <DropdownMenu.Item
                 onClick={addYoutubeVideo}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Video
               </DropdownMenu.Item>
@@ -442,7 +444,7 @@ export default function DocumentEditor() {
                 onClick={() => {
                   addLink(true);
                 }}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Dofollow Link
               </DropdownMenu.Item>
@@ -450,7 +452,7 @@ export default function DocumentEditor() {
                 onClick={() => {
                   addLink(false);
                 }}
-                className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
               >
                 Nofollow Link
               </DropdownMenu.Item>
@@ -459,7 +461,7 @@ export default function DocumentEditor() {
         </DropdownMenu.Root>
 
         <Link
-          className={"hover:bg-green-200 p-2 text-xs"}
+          className={"p-2 text-xs hover:bg-green-200"}
           href={"/tools/share-preview-optimizer"}
           target="_blank"
         >
@@ -469,8 +471,8 @@ export default function DocumentEditor() {
         <button
           className={
             view === "editor"
-              ? "hover:bg-green-200  border-b-2 border-green-400 text-green-400 p-2 text-xs"
-              : "hover:bg-green-200 p-2 text-xs"
+              ? "border-b-2 border-green-400 p-2 text-xs text-green-400 hover:bg-green-200"
+              : "p-2 text-xs hover:bg-green-200"
           }
           onClick={() => {
             setView(view === "editor" ? "html" : "editor");
@@ -481,8 +483,8 @@ export default function DocumentEditor() {
         <button
           className={
             view === "html"
-              ? "hover:bg-green-200 border-b-2 border-green-400 text-green-400 p-2 text-xs"
-              : "hover:bg-green-200 p-2 text-xs"
+              ? "border-b-2 border-green-400 p-2 text-xs text-green-400 hover:bg-green-200"
+              : "p-2 text-xs hover:bg-green-200"
           }
           onClick={() => {
             setView(view === "html" ? "editor" : "html");
@@ -493,8 +495,8 @@ export default function DocumentEditor() {
         <button
           className={
             view === "markdown"
-              ? "hover:bg-green-200 border-b-2 border-green-400 text-green-400 p-2 text-xs"
-              : "hover:bg-green-200 p-2 text-xs"
+              ? "border-b-2 border-green-400 p-2 text-xs text-green-400 hover:bg-green-200"
+              : "p-2 text-xs hover:bg-green-200"
           }
           onClick={() => {
             setView(view === "markdown" ? "editor" : "markdown");
@@ -505,7 +507,7 @@ export default function DocumentEditor() {
       </div>
       <button
         onClick={() => setShowHeadlineAnalysisPopup(true)}
-        className="z-50 bg-green-500 text-white p-2 rounded-md h-min w-[200px] text-xs font-bold fixed right-10 top-6"
+        className="fixed right-10 top-6 z-50 h-min w-[200px] rounded-md bg-green-500 p-2 text-xs font-bold text-white"
       >
         Analyze Headline
       </button>
@@ -513,97 +515,97 @@ export default function DocumentEditor() {
       {view !== "editor" ? (
         <div />
       ) : (
-        <div className="fixed z-40 top-20 pt-2 mb-2 w-full bg-slate-50 border-b-[1px] border-slate-300">
+        <div className="fixed top-20 z-40 mb-2 w-full border-b-[1px] border-slate-300 bg-slate-50 pt-2">
           <button
             className={
               editor?.isActive("bold")
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold ml-20"
-                : "hover:bg-gray-200 p-2 font-bold ml-20"
+                ? "ml-20 bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "ml-20 p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.chain().focus().toggleBold().run();
             }}
           >
-            <IconBold className="text-black size-5" />
+            <IconBold className="size-5 text-black" />
           </button>
           <button
             className={
               editor?.isActive("italic")
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                : "hover:bg-gray-200 p-2 font-bold"
+                ? "bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.chain().focus().toggleItalic().run();
             }}
           >
-            <IconItalic className="text-black size-5" />
+            <IconItalic className="size-5 text-black" />
           </button>
           <button
             className={
               editor?.isActive("underline")
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                : "hover:bg-gray-200 p-2 font-bold"
+                ? "bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.commands.toggleUnderline();
             }}
           >
-            <IconUnderline className="text-black size-5" />
+            <IconUnderline className="size-5 text-black" />
           </button>
 
           <button
             className={
               editor?.isActive("heading", { level: 1 })
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                : "hover:bg-gray-200 p-2 font-bold"
+                ? "bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.commands.toggleHeading({ level: 1 });
             }}
           >
-            <IconH1 className="text-black size-5" />
+            <IconH1 className="size-5 text-black" />
           </button>
           <button
             className={
               editor?.isActive("heading", { level: 2 })
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                : "hover:bg-gray-200 p-2 font-bold"
+                ? "bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.commands.toggleHeading({ level: 2 });
             }}
           >
-            <IconH2 className="text-black size-5" />
+            <IconH2 className="size-5 text-black" />
           </button>
           <button
             className={
               editor?.isActive("heading", { level: 3 })
-                ? "bg-green-200 hover:bg-green-300 p-2 font-bold"
-                : "hover:bg-gray-200 p-2 font-bold"
+                ? "bg-green-200 p-2 font-bold hover:bg-green-300"
+                : "p-2 font-bold hover:bg-gray-200"
             }
             onClick={() => {
               editor!.commands.toggleHeading({ level: 3 });
             }}
           >
-            <IconH3 className="text-black size-5" />
+            <IconH3 className="size-5 text-black" />
           </button>
 
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-              <button className="hover:bg-gray-200 p-2">
-                <LinkIcon className="text-black size-5" />
+              <button className="p-2 hover:bg-gray-200">
+                <LinkIcon className="size-5 text-black" />
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
               <DropdownMenu.Content
-                className="z-[100] min-w-[120px] bg-white rounded-md p-[5px] shadow-md will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100] min-w-[120px] rounded-md bg-white p-[5px] shadow-md will-change-[opacity,transform]"
                 sideOffset={5}
               >
                 <DropdownMenu.Item
                   onClick={() => {
                     addLink(true);
                   }}
-                  className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                  className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
                 >
                   Dofollow Link
                 </DropdownMenu.Item>
@@ -611,7 +613,7 @@ export default function DocumentEditor() {
                   onClick={() => {
                     addLink(false);
                   }}
-                  className="group text-[13px] leading-none text-slate-800 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
+                  className="data-[disabled]:text-mauve8 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] pl-[25px] text-[13px] leading-none text-slate-800 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-green-50 data-[highlighted]:text-green-800"
                 >
                   Nofollow Link
                 </DropdownMenu.Item>
@@ -620,42 +622,42 @@ export default function DocumentEditor() {
           </DropdownMenu.Root>
 
           <button
-            className="hover:bg-gray-200 p-2"
+            className="p-2 hover:bg-gray-200"
             onClick={() => {
               // insert an image
               addImage();
             }}
           >
-            <PhotoIcon className="text-black size-5" />
+            <PhotoIcon className="size-5 text-black" />
           </button>
           <button
             id="add"
             onClick={addYoutubeVideo}
-            className="hover:bg-gray-200 p-2"
+            className="p-2 hover:bg-gray-200"
           >
-            <IconBrandYoutubeFilled className="text-black size-5" />
+            <IconBrandYoutubeFilled className="size-5 text-black" />
           </button>
         </div>
       )}
 
-      <section className="flex-1 ml-[-120px]">
+      <section className="ml-[-120px] flex-1">
         <HeadlineAnalysisPopup
           headline={title}
           setShowHeadlineAnalysisPopup={setShowHeadlineAnalysisPopup}
           openHeadlineAnalysisPopup={showHeadlineAnalysisPopup}
         />
-        <div className="flex flex-col items-center h-full w-full bg-gray-50">
+        <div className="flex h-full w-full flex-col items-center bg-gray-50">
           <div className="flex flex-row">
             <div>
               <div className="flex flex-row justify-between"></div>
-              <div className="flex flex-col items-center w-full mb-10 gap-2 mt-36">
+              <div className="mb-10 mt-36 flex w-full flex-col items-center gap-2">
                 {isSubscribed ? (
                   <section
                     className={cn(
-                      "border border-gray-300 rounded-md  bg-white flex flex-col gap-2  p-[50px] sm:w-[60%] sm:mr-[20%] lg:w-[900px] lg:mr-[140px]"
+                      "flex flex-col gap-2 rounded-md border border-gray-300 bg-white p-[50px] sm:mr-[20%] sm:w-[60%] lg:mr-[140px] lg:w-[900px]",
                     )}
                   >
-                    <div className=" rounded-sm  bg-white">
+                    <div className="rounded-sm bg-white">
                       {/* Autocomplete */}
                       <FloatingMenu
                         // shouldShow={({ editor, view, state, oldState }) => {
@@ -674,14 +676,14 @@ export default function DocumentEditor() {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className=" bg-slate-50 w-[300px] rounded-md shadow-sm"
+                            className="w-[300px] rounded-md bg-slate-50 shadow-sm"
                           >
                             <button
-                              className="text-slate-700 font-bold text-xs flex flex-row py-1.5 hover:bg-slate-200 w-[300px]"
+                              className="flex w-[300px] flex-row py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-200"
                               onClick={doAutoComplete}
                             >
-                              <IconPencil className="text-green-600 size-5 ml-2 " />
-                              <div className="mt-0.5 ml-2">
+                              <IconPencil className="ml-2 size-5 text-green-600" />
+                              <div className="ml-2 mt-0.5">
                                 {" "}
                                 Continue Writing
                               </div>
@@ -689,11 +691,11 @@ export default function DocumentEditor() {
                             <div className="h-0.5 w-full bg-slate-100" />
 
                             <button
-                              className="text-slate-700 font-bold text-xs flex flex-row py-1.5 hover:bg-slate-200 w-[300px]"
+                              className="flex w-[300px] flex-row py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-200"
                               onClick={outlineSections}
                             >
-                              <IconListNumbers className="ml-2 text-green-600 size-5" />
-                              <div className="mt-0.5 ml-2">
+                              <IconListNumbers className="ml-2 size-5 text-green-600" />
+                              <div className="ml-2 mt-0.5">
                                 Outline Sections
                               </div>
                             </button>
@@ -719,27 +721,27 @@ export default function DocumentEditor() {
                       {view === "editor" ? (
                         <EditorContent
                           editor={editor}
-                          className="h-full w-[calc(90%-50px)] ml-[20px]"
+                          className="ml-[20px] h-full w-[calc(90%-50px)]"
                         />
                       ) : view === "markdown" ? (
-                        <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+                        <ScrollArea className="order-1 w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 shadow-md transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                           <CodeInput
                             // add \n after each line
                             code={editor!.storage.markdown.getMarkdown()}
                             theme="slack-ochin"
-                            className="h-screen "
+                            className="h-screen"
                             style={{ width: "800px" }}
                           />
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
                       ) : (
-                        <ScrollArea className="order-1 text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+                        <ScrollArea className="order-1 w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 shadow-md transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                           {
                             <CodeInput
                               // add \n after each line
                               code={editor!.getHTML().replace(/>/g, ">\n")}
                               theme="slack-ochin"
-                              className="h-screen "
+                              className="h-screen"
                               style={{ width: "800px" }}
                             />
                           }
@@ -752,7 +754,7 @@ export default function DocumentEditor() {
               </div>
             </div>
 
-            <div className="fixed top-10 right-2 h-full border border-gray-300 rounded-md  bg-white mt-24 ml-[20px] w-[340px] p-2">
+            <div className="fixed right-2 top-10 ml-[20px] mt-24 h-full w-[340px] rounded-md border border-gray-300 bg-white p-2">
               {selectedPersonas.length > 0 ? (
                 selectedPersonas.map((persona, i) => (
                   <SelectArchetypeWidget
@@ -768,8 +770,8 @@ export default function DocumentEditor() {
                     onDeselect={() => {
                       setSelectedPersonas((prevSelectedPersonas) =>
                         prevSelectedPersonas.filter(
-                          (activePersona) => activePersona !== persona
-                        )
+                          (activePersona) => activePersona !== persona,
+                        ),
                       );
                     }}
                   />
@@ -779,17 +781,13 @@ export default function DocumentEditor() {
               )}
               {isSubscribed ? (
                 <div className="flex justify-center">
-                  <PersonaSelectFromHistorySidebar
-                    className="m-4"
-                    selectedPersonas={selectedPersonas}
-                    setSelectedPersonas={setSelectedPersonas}
-                  />
+                  <PersonaSelectFromHistorySidebar className="m-4" />
                 </div>
               ) : null}
               <div className="h-0.5 w-full bg-gray-100" />
               <b className="ml-2">Google Keywords (US Searches)</b>
               <br></br>
-              <ScrollArea className="z-50 order-1 h-[600px] text-xs text-black/70 peer-hover:opacity-25 transition-all duration-200 ease-out w-full p-2 bg-white rounded-md overflow-hidden shadow-md lg:max-w-none">
+              <ScrollArea className="z-50 order-1 h-[600px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 shadow-md transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                 <GoogleKeywordFinderTool
                   input={personaString}
                   isSubscribed={isSubscribed}
