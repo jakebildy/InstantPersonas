@@ -1,7 +1,10 @@
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { fixFunctionMessage } from "./fix-function-message";
 import { updateToolCallPersonaMessage } from "./update-tool-call-persona-message";
-import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
+import {
+  AssistantToolCallMessage,
+  PersonaArchetype,
+} from "@/app/(server)/models/persona-ai.model";
 import assert from "node:assert";
 
 export function fixPersonaChatMessageHistoryModel({
@@ -35,11 +38,19 @@ export function fixPersonaChatMessageHistoryModel({
             content: message.content,
           };
         case "assistant":
-          return {
+          const formattedAssistantMessage: AssistantToolCallMessage = {
             role: "assistant",
             content: message.content,
             tool_calls: message.tool_calls || [],
           };
+          const formattedAssistantMessageWithValidatedPersona = fixedPersonas
+            ? updateToolCallPersonaMessage({
+                message: formattedAssistantMessage,
+                updatedPersonas: fixedPersonas,
+              })
+            : formattedAssistantMessage;
+
+          return formattedAssistantMessageWithValidatedPersona;
         case "system":
           return {
             role: "system",

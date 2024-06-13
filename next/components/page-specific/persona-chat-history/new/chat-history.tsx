@@ -18,6 +18,7 @@ import {
   ArrowTopRightIcon,
   CalendarIcon,
   ChatBubbleIcon,
+  MagicWandIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
@@ -52,27 +53,41 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
         "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/50 transition-colors duration-150 ease-out",
       )}
     >
-      <div className="flex justify-between p-2">
-        <div className="flex flex-1 flex-col gap-1">
-          <div className="flex items-center gap-2">
+      <div className="flex w-full flex-1 flex-col gap-1 p-2">
+        <div className="flex items-start justify-between">
+          <div className="flex w-full items-center gap-2">
             <div className="grid size-6 place-items-center rounded-full border border-black/10 bg-white/50">
               <span className="text-xs">{index}</span>
             </div>
-            <span>Instant Personas Saas Business</span>
+            <span>{chat.aiState.threadMetadata?.title ?? "New Chat"}</span>
           </div>
-
-          <div className="ml-8 flex flex-wrap gap-1 pr-10">
-            {chat.aiState.personas.map((persona, i) => (
-              <PersonaBadge archetype={persona} key={i} />
-            ))}
-          </div>
+          <span className="whitespace-pre-wrap text-wrap text-right text-xs">
+            {chat.aiState.threadMetadata?.description ?? "Start Conversing"}
+          </span>
         </div>
-        <div className="flex min-w-[120px] flex-col items-end gap-1">
-          <span>Increasing Revenue</span>
-
+        <div className="flex items-start justify-between pt-2">
+          <div className="ml-8 flex min-w-96 flex-wrap gap-1">
+            {chat.aiState.personas.length > 0 ? (
+              chat.aiState.personas.map((persona, i) => (
+                <PersonaBadge archetype={persona} key={i} />
+              ))
+            ) : (
+              <Link
+                href={`/persona/${chat._id}`}
+                className={gradientVariants({
+                  variant: "purple",
+                  className:
+                    "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r p-1 px-2 text-xs transition-transform duration-150 ease-out hover:scale-105",
+                })}
+              >
+                <span>Start Generating Personas</span>
+                <MagicWandIcon className="size-3" />
+              </Link>
+            )}
+          </div>
           <div
             className={
-              "flex w-fit items-center justify-between gap-1 rounded-2xl bg-gray-400/10 py-1 pl-1 pr-2"
+              "mt-1 flex w-fit items-center justify-between gap-1 rounded-2xl bg-gray-400/10 py-1 pl-1 pr-2"
             }
           >
             <PersonStandingIcon className="size-4" />

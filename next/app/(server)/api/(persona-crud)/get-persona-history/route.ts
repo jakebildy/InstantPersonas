@@ -17,9 +17,9 @@ export async function GET(req: Request) {
     _id: chat._id.toString(),
   }));
   // console.log("personaChats", personaChats);
-  // const fixedHistory = await fixPersonaChatHistory(personaChats);
+  const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({
-    results: personaChats,
+    results: fixedHistory,
   });
 }
