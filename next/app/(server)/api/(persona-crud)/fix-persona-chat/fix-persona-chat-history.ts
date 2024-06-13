@@ -7,6 +7,7 @@ import {
   PersonaChatType,
   PersonaChatTypeValidator,
 } from "@/app/(server)/models/personachat.model";
+import { fixChatMetaData } from "./fix-chat-metadata";
 
 export async function fixPersonaChatHistory(
   history: any[],
@@ -14,23 +15,30 @@ export async function fixPersonaChatHistory(
   const fixedHistory = await Promise.all(
     history.map(async (chat) => {
       const chatHasPersonas = chat?.aiState?.personas?.length > 0;
+      const fixedPersonas = chatHasPersonas
+        ? chat.aiState.personas.map(
+            (persona: any) => fixPersonaArchetype(persona) ?? {},
+          )
+        : undefined;
+
       const fixedMessage = await fixPersonaChatMessageHistoryModel({
         messages: chat.aiState?.messages ?? [],
-        fixedPersonas: chatHasPersonas
-          ? chat.aiState.personas.map(
-              (persona: any) => fixPersonaArchetype(persona) ?? {},
-            )
-          : undefined,
+        fixedPersonas,
       });
       const fixedChatHistory: PersonaChatType = {
         ...chat,
         aiState: {
           ...chat.aiState,
+          personas: fixedPersonas,
           messages: fixedMessage.messages,
           chatId: chat._id,
         },
       };
-      const parseResult = PersonaChatTypeValidator.safeParse(fixedChatHistory);
+
+      const fixedChatWithMetadata = await fixChatMetaData(fixedChatHistory);
+      const parseResult = PersonaChatTypeValidator.safeParse(
+        fixedChatWithMetadata,
+      );
 
       if (parseResult.success) {
         if (!isEqual(chat, parseResult.data)) {
@@ -40,15 +48,16 @@ export async function fixPersonaChatHistory(
           await upsertPersonaChat({
             id: chat._id,
             userId: chat.user, //? Can use chat.user because function should only be called on history, which fetching requires user ID
-            data: chat,
+            data: parseResult.data,
           });
         }
-        return fixedChatHistory as PersonaChatType;
+        return parseResult.data as PersonaChatType;
       } else {
         IS_TEST_DEV_ENV
           ? console.log(
-              "DEV: Error parsing chat history in `fixPersonaChatHistory.ts`",
-              parseResult.error,
+              "DEV: failed to fix chat:",
+              chat._id,
+              JSON.stringify(parseResult.error.errors, null, 2),
             )
           : null;
         return undefined;

@@ -3,7 +3,11 @@ import {
   PersonaArchetype,
   PersonaArchetypeValidatorWithDefaults,
 } from "@/app/(server)/models/persona-ai.model";
-import { extractKeysFromZodSchema, similarityScore } from "@/lib/utils";
+import {
+  extractKeysFromZodSchema,
+  IS_TEST_DEV_ENV,
+  similarityScore,
+} from "@/lib/utils";
 
 const personaArchetypeParams = extractKeysFromZodSchema(
   PersonaArchetypeValidator,
@@ -116,7 +120,6 @@ function reconstructKeyFromData({
 
   let reconstructedData: any = null;
 
-  // If data is an object, recursively reconstruct the object
   if (typeof data === "object" && data !== null) {
     const reconstructedObject: { [key: string]: any } = {};
     const matchedChildKeys: string[] = [];
@@ -124,21 +127,18 @@ function reconstructKeyFromData({
 
     Object.entries(data).forEach(([subKey, subValue]) => {
       totalChildKeys++;
-      // Recursively reconstruct each key-value pair in the object
       const reconstructedSubValue = reconstructKeyFromData({
         key: subKey,
         data: subValue,
         schemaKeys,
       });
 
-      // Only add the reconstructed key-value pair if a valid key is found
       if (reconstructedSubValue) {
         Object.assign(reconstructedObject, reconstructedSubValue);
         matchedChildKeys.push(subKey);
       }
     });
 
-    // Attempt to find a valid parent key based on the majority of valid child keys
     if (
       matchedKey.key === undefined &&
       matchedChildKeys.length / totalChildKeys > 0.5
@@ -149,19 +149,28 @@ function reconstructKeyFromData({
       });
 
       if (inferedKeyFromChildData) {
-        reconstructedData = data;
+        reconstructedData = reconstructedObject;
         matchedKey.key = inferedKeyFromChildData;
       }
     } else {
-      reconstructedData = data;
+      reconstructedData = reconstructedObject;
     }
   } else {
-    // If data is not an object, simply assign it to the reconstructedData
     reconstructedData = data;
   }
 
-  // Return the reconstructed data with the matched key or null if no key is found
-  return matchedKey.key ? { [matchedKey.key]: reconstructedData } : null;
+  if (matchedKey.key) {
+    IS_TEST_DEV_ENV && matchedKey.similarity !== 1
+      ? console.log(
+          `DEV: Matched key: ${matchedKey.key} with similarity ${matchedKey.similarity}`,
+        )
+      : null;
+    // Return the reconstructed data with the matched key
+    return { [matchedKey.key]: reconstructedData };
+  } else {
+    // Return null if no valid key is found
+    return null;
+  }
 }
 
 /**

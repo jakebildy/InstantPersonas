@@ -18,8 +18,8 @@ export const PersonaChatTypeValidator = z.object({
   user: z.string().optional(),
   contentLastGeneratedAt: z.date().optional(),
   _id: MongoIDValidator,
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  createdAt: z.union([z.date(), z.string().pipe(z.coerce.date())]).optional(),
+  updatedAt: z.union([z.date(), z.string().pipe(z.coerce.date())]).optional(),
 });
 
 // Interface for PersonaChat document
@@ -29,9 +29,7 @@ export interface PersonaChatDocument extends Document<PersonaChatType> {}
 const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   {
     aiState: { type: Schema.Types.Mixed, required: false },
-    aiSuggestedChats: [{ type: String, required: false }],
     user: { type: String, required: true },
-    contentLastGeneratedAt: { type: Date, required: false },
   },
   {
     versionKey: false,

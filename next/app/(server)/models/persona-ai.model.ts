@@ -106,10 +106,27 @@ export const PersonaArchetypeValidatorWithDefaults = z.object({
     .optional(),
 });
 
+export const AIStateMetadataValidator = z.object({
+  title: z
+    .string()
+    .describe(
+      "A very short title for the chat representing the main topic or business of the conversation.",
+    ),
+  description: z
+    .string()
+    .describe("A very short description of the conversation's objective."),
+});
+
+export type AIStateMetadata = z.infer<typeof AIStateMetadataValidator>;
+
 export const AIStateValidator = z.object({
   chatId: MongoIDValidator,
   business: z.string().default(""),
   targetProblem: z.string().default(""),
+  threadMetadata: AIStateMetadataValidator.optional().default({
+    title: "New Chat",
+    description: "Start Conversing",
+  }),
   threadKnowledge: z.object({
     context: z.string().default(""),
     personaCharacteristics: z.array(z.string()).default([]),
@@ -139,6 +156,10 @@ export type PersonaArchetype = {
 
 export type AIState = {
   chatId: string;
+  threadMetadata?: {
+    title: string;
+    description: string;
+  };
   business: string;
   targetProblem: string;
   threadKnowledge: {

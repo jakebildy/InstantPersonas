@@ -9,7 +9,7 @@ import { initMongoDB } from "@/app/(server)/mongodb";
 import { createArchetypes } from "./tools/create_archetypes";
 import { IS_TEST_DEV_ENV, nanoid } from "@/lib/utils";
 import { fixJson } from "@/lib/fix-json";
-import { getMessageSuggestions } from "./tools/suggested_messages";
+import { getMessageSuggestions } from "./utils/suggested_messages";
 import { PERSONA_CHAT_AI_COMPONENT_MAP } from "@/components/page-specific/generative-ui/messages";
 import {
   AIState,
@@ -21,6 +21,7 @@ import { InstantPersonasSystemPrompt } from "./utils/instant-personas-system-pro
 import { validateOrCreatePersonaChatID } from "../../api/(persona-crud)/validate-or-create-persona-chat-id/action";
 import { onSetPersonaChatState } from ".";
 import { getContentConsumption } from "./tools/content_consumption";
+import { generateThreadMetadata } from "./utils/generate-thread-metadata";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -160,6 +161,7 @@ export async function submitPersonaChatUserMessage(
             targetProblem: string;
           }) {
             // Update the final AI state.
+
             const updatedState = {
               ...aiState.get(),
               business: business,
@@ -180,6 +182,7 @@ export async function submitPersonaChatUserMessage(
                   ],
                 },
               ],
+              threadMetadata: generateThreadMetadata(aiState.get()),
             };
             aiState.done(updatedState);
 
