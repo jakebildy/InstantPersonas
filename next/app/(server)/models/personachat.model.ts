@@ -7,7 +7,8 @@ export interface PersonaChatType {
   aiState: AIState;
   aiSuggestedChats?: string[];
   user?: string;
-  contentLastGeneratedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   _id?: string;
 }
 

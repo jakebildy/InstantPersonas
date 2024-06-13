@@ -40,6 +40,7 @@ export const PersonaChatHistoryProvider = ({
   const [selectedPersonas, setSelectedPersonas] = useState<
     PersonaBusinessArchetype[]
   >([]);
+
   const [history, setHistory] = useState<PersonaChatType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

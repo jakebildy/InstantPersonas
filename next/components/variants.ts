@@ -19,6 +19,7 @@ export const avatarVariants = cva(
         xl: "border-2 h-24 w-24 m-4",
         default: "h-14 w-14 border-4 hover:border-6 ring-offset-4 m-2",
         sm: "h-10 w-10 border-2 hover:border-4 ring-offset-4 m-2",
+        xs: "h-6 w-6 border-2 hover:border-3 ring-offset-4 m-1",
         preview: "h-4 w-4 border-2 hover:border-3 ring-offset-4 m-2",
       },
       interactive: {
