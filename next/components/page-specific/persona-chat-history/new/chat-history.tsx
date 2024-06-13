@@ -51,12 +51,12 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
     <Link
       href={`/persona/${chat._id}`}
       className={cn(
-        "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/75 shadow-sm transition-all duration-500 ease-out hover:scale-[102%] hover:bg-white hover:shadow-xl",
+        "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/75 font-jost shadow-sm transition-all duration-500 ease-out hover:scale-[102%] hover:bg-white hover:shadow-xl",
       )}
     >
       <div className="flex w-full flex-1 flex-col gap-1 p-2">
         <div className="flex items-start justify-between">
-          <div className="flex w-full items-center gap-2">
+          <div className="flex w-full items-center gap-2 font-semibold">
             <div className="grid size-6 place-items-center rounded-full border border-black/10 bg-white/50">
               <span className="text-xs">{index}</span>
             </div>

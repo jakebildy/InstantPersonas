@@ -49,7 +49,7 @@ export function SelectArchetypeWidget({
 
   return (
     <motion.div
-      className="relative flex h-full min-h-[60px] w-full flex-col rounded-xl border bg-background text-left shadow-md"
+      className="relative flex h-full min-h-[60px] w-full flex-col rounded-xl border bg-background text-left font-jost shadow-md"
       animate={{
         height: open ? detailsBounds.height + 80 : 60,
       }}

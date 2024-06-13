@@ -59,7 +59,7 @@ export function PersonaSelectFromHistorySidebar({
         className={gradientVariants({
           variant,
           className:
-            "flex w-[400px] flex-col gap-4 rounded-bl-md rounded-tl-md p-0 sm:w-[540px]",
+            "flex w-[400px] flex-col gap-4 rounded-bl-md rounded-tl-md p-0 font-jost sm:w-[540px]",
         })}
       >
         <SheetHeader>
