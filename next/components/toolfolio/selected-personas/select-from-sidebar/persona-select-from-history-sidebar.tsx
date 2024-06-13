@@ -202,7 +202,7 @@ function LoadingState() {
   );
 }
 
-function PersonaWidgetGroupSkeleton() {
+export function PersonaWidgetGroupSkeleton() {
   return (
     <div className="flex h-[280px] w-full flex-col gap-2 rounded-xl border bg-white/50 p-2">
       <Skeleton className="h-[60px] w-full bg-pastel-blue/90" />
