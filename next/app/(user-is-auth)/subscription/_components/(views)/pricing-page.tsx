@@ -5,8 +5,9 @@ import { StripePlanCard } from "../stripe-plan-card";
 export default function DashboardPricing() {
   const features = [
     "Unlimited User Personas",
-    "Persona Chat - Powered by AI",
+    "Create SEO Optimized Content",
     "Deep Target Market Insights",
+    "Find Niche-Specific Marketing Opportunities",
     "Priority support",
   ];
 
@@ -21,19 +22,19 @@ export default function DashboardPricing() {
       {/* InstantPersonas Pricing */}
       <div className="grid max-w-md gap-8 md:max-w-[800px] md:grid-cols-2">
         <StripePlanCard
-          name="Yearly"
-          price="$5.99"
-          description="Billed annually."
-          description2="Save more with the yearly plan."
-          features={features}
-          popular
-        />
-        <StripePlanCard
           name="Monthly"
-          price="$7.99"
+          price="9.95"
           description="Billed every month."
           description2=""
           features={features}
+        />
+        <StripePlanCard
+          name="Yearly"
+          price="6.20"
+          description="Billed annually."
+          description2="Save 37% with the yearly plan."
+          features={features}
+          popular
         />
       </div>
 

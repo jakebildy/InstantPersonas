@@ -44,6 +44,9 @@ function Plan({
         <p className="mt-4 text-sm leading-6 text-gray-600">{description}</p>
 
         <p className="mt-6 flex items-baseline gap-x-1">
+          <span className="text-2xl font-regular tracking-tight text-gray-900">
+            $
+          </span>
           <span className="text-4xl font-bold tracking-tight text-gray-900">
             {price}
           </span>
@@ -113,7 +116,7 @@ export default function PricingSection() {
           {/* InstantPersonas Pricing */}
           <Plan
             name="Monthly"
-            price="$7.99"
+            price="9.95"
             description="Billed every month."
             description2=""
             features={[
@@ -126,9 +129,9 @@ export default function PricingSection() {
           />
           <Plan
             name="Yearly"
-            price="$5.99"
+            price="6.20"
             description="Billed annually."
-            description2="Save more with the yearly plan."
+            description2="Save 37% with the yearly plan."
             features={[
               "Unlimited User Personas",
               "Create SEO Optimized Content",
