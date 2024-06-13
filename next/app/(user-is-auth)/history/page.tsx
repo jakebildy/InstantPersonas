@@ -51,7 +51,7 @@ export default function HistoryPage({}: {}) {
       {/* Main Section */}
       <div
         className={cn(
-          "col-span-12 h-full xl:col-span-4",
+          "order-2 col-span-12 h-full xl:order-1 xl:col-span-4",
           "flex flex-col rounded-xl border border-zinc-300 bg-zinc-200 transition-colors duration-150 ease-out",
           "relative",
         )}
@@ -61,7 +61,7 @@ export default function HistoryPage({}: {}) {
       </div>
       <div
         className={cn(
-          "col-span-12 h-full xl:col-span-8",
+          "order-1 col-span-12 h-full xl:order-2 xl:col-span-8",
           "flex flex-col rounded-xl border border-zinc-300 bg-zinc-200 transition-colors duration-150 ease-out",
           "relative",
         )}

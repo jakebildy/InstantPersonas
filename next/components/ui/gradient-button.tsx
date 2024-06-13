@@ -8,6 +8,7 @@ import {
   gradientLightVariants,
 } from "../variants";
 import { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 export const IconVariants = cva(
   "text-muted-foreground pb-0.5 group-hover:text-white transition-colors duration-300 ease-out",
