@@ -98,11 +98,11 @@ export default function FaqSection() {
       {/* </BackgroundGradientAnimation> */}
 
       <div className="h-full font-jost">
-        <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-blue-50 text-center">
+        <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-gradient-to-b from-pastel-blue to-pastel-blue/25 text-center">
           <div className="mx-auto flex flex-row justify-center p-5">
             <img
               src="https://i.imgur.com/WZG9K4h.png"
-              className="h-16 rounded-full border-2 border-white"
+              className="mr-1 h-16 rounded-full border-2 border-white"
             />
             <img
               src="https://i.imgur.com/u3PlVIH.png"
