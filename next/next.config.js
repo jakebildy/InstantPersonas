@@ -2,6 +2,9 @@ const path = require("path");
 
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: ["api.dicebear.com"],
+  },
   webpack: (config, { isServer }) => {
     // Polyfill for Node.js core modules
     config.resolve.fallback = {
