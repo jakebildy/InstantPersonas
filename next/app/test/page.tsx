@@ -133,7 +133,7 @@ export default function PageTest({}: Props) {
           </div>
           <div className="flex flex-col gap-2">
             <span className="font-jost">
-              Join <b className="text-green-500">4,650+</b> Marketers and
+              Join <b className="text-green-500">4,660+</b> Marketers and
               Business Owners who use InstantPersonas to create content that
               resonates.
             </span>
