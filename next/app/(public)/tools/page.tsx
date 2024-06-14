@@ -11,7 +11,10 @@ export default function ToolsPage({}: Props) {
         name="description"
         content="Free SEO tools to help you reach your audience quickly. No signup required."
       />
-      <FreeToolSection />
+
+      <div className="py-8 lg:py-16">
+        <FreeToolSection />
+      </div>
     </section>
   );
 }

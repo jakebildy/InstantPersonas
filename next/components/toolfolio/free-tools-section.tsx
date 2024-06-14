@@ -1,12 +1,16 @@
 import { SEO_LINKS } from "@/lib/site";
 import { ToolPreviewCard } from "./tool-preview-card";
 
-export function FreeToolSection() {
+export function FreeToolSection({
+  title = "Reach Your Audience Quickly with Our Free SEO Tools",
+}: {
+  title?: string;
+}) {
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+    <div className="mx-auto max-w-screen-xl px-4 lg:px-6">
       <div className="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
         <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 lg:text-5xl">
-          Reach Your Audience Quickly with Our Free SEO Tools
+          {title}
         </h2>
         <p className="font-light text-gray-500 sm:text-xl">
           We want to make SEO easier for you, so we created these free tools. No

@@ -44,7 +44,7 @@ function Plan({
         <p className="mt-4 text-sm leading-6 text-gray-600">{description}</p>
 
         <p className="mt-6 flex items-baseline gap-x-1">
-          <span className="text-2xl font-regular tracking-tight text-gray-900">
+          <span className="font-regular text-2xl tracking-tight text-gray-900">
             $
           </span>
           <span className="text-4xl font-bold tracking-tight text-gray-900">
@@ -90,7 +90,7 @@ function Plan({
 
 export default function PricingSection() {
   return (
-    <div className="bg-white py-24 sm:py-32" id="pricing">
+    <div className="bg-white" id="pricing">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-base font-semibold leading-7 text-green-600">
@@ -109,10 +109,11 @@ export default function PricingSection() {
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          We know you&apos;ll love it. If you&apos;re not completely satisfied,{" "}
-          <b>cancel for free</b> before the free trial ends.
+          We know you&apos;ll love it. Our AI is so good we&apos;ll give you a{" "}
+          <b>30 day money back guarantee</b> if you aren&apos;t completely
+          happy.
         </p>
-        <div className="isolate mx-auto mt-8 grid max-w-md grid-cols-1 gap-x-8 gap-y-8 sm:mt-20 lg:max-w-[700px] lg:grid-cols-2">
+        <div className="isolate mx-auto mt-4 grid max-w-md grid-cols-1 gap-x-8 gap-y-8 sm:mt-10 lg:max-w-[700px] lg:grid-cols-2">
           {/* InstantPersonas Pricing */}
           <Plan
             name="Monthly"
@@ -142,11 +143,6 @@ export default function PricingSection() {
             popular
           />
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-          Still not convinced? Our AI is so good we&apos;ll give you a{" "}
-          <b>30 day money back guarantee</b> if you aren&apos;t completely
-          happy.
-        </p>
       </div>
     </div>
   );

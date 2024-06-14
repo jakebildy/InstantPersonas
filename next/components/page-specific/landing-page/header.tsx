@@ -12,7 +12,7 @@ type Props = { title?: string };
 
 export default function Header({ title }: Props) {
   return (
-    <header className="py-10 font-jost">
+    <header className="py-4 font-jost">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
