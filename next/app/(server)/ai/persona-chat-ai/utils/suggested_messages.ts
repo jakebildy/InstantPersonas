@@ -11,8 +11,6 @@ export async function getMessageSuggestions(
 
   const { object } = await generateObject({
     model: openai("gpt-4-turbo"),
-    // system:
-    // "You are a part of InstantPersonas, a platform that helps create and manage personas for a user's business. YOUR PRIMARY OBJECTIVE IS TO TAKE THE ROLE OF THE USER AND SUGGEST MESSAGES THAT THE USER WOULD SEND TO HELP PROGRESS THE CONVERSATION FORWARDS.",
     messages: messageHistory,
     schema: z.object({
       suggestions: z

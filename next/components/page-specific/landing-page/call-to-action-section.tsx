@@ -1,5 +1,6 @@
 import { Container } from "@/components/page-specific/landing-page/container";
 import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
+import Link from "next/link";
 
 export default function CallToActionSection() {
   const people = [
@@ -64,14 +65,12 @@ export default function CallToActionSection() {
             Save hours by generating in-depth personas effortlessly with
             InstantPersonas.
           </p>
-          <button
-            onClick={() => {
-              window.location.href = "/register";
-            }}
+          <Link
+            href="/register"
             className="rounded-full bg-green-500 p-2 px-8 font-jost font-semibold text-white transition duration-200 hover:shadow-xl focus:ring-2 focus:ring-green-400"
           >
             Get 3 days FREE →
-          </button>
+          </Link>
         </div>
       </Container>
     </section>
