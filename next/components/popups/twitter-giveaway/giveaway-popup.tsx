@@ -23,7 +23,7 @@ export const TwitterGiveAwayPopup = ({
       subTitle: (
         <>
           Tweet about InstantPersonas with the{" "}
-          <b className="text-blue-500">#InstantPersonas</b> for a chance to
+          <b className="text-blue-500">@InstantPersonas</b> for a chance to
           <br />
           <i>Win a free subscription & $50!</i>
         </>
@@ -50,13 +50,11 @@ export const TwitterGiveAwayPopup = ({
           Tag us{" "}
           <Link
             href={"https://x.com/InstantPersonas"}
-            className="font-semibold underline"
+            className="font-semibold text-blue-500 underline"
           >
             @InstantPersonas
           </Link>{" "}
-          with the{" "}
-          <i className="font-semibold text-blue-500">#InstantPersonas</i> for a
-          chance to{" "}
+          for a chance to{" "}
           <b className="text-green-500">Win a Free Subscription & $50!</b>
           <br />
           <br />
@@ -75,7 +73,7 @@ export const TwitterGiveAwayPopup = ({
       >
         <TwitterShareButton
           title={
-            "Checkout @InstantPersonas all you have to do is tag #InstantPersonas to enter into their Giveaway!"
+            "Checkout @InstantPersonas for free seo tools! It's my favorite tool for seo research and content planning!"
           }
           url={BASE_URL}
         >
