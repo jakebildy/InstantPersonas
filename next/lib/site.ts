@@ -1,4 +1,4 @@
-import { MessageSquareShareIcon, PersonStandingIcon } from "lucide-react";
+import { MessageSquareShareIcon, PersonStandingIcon, SlackIcon } from "lucide-react";
 import {
   BanknotesIcon,
   BookmarkIcon,
@@ -46,6 +46,12 @@ export const SIDEBAR_LINKS = [
     title: "Send Feedback",
     href: "/feedback",
     icon: ChatBubbleLeftRightIcon,
+    label: "",
+  },
+  {
+    title: "Join Our Slack",
+    href: "https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw",
+    icon: SlackIcon,
     label: "",
   },
 ] as const;
