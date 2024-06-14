@@ -27,7 +27,7 @@ export default function Home() {
       <LandingPage.pricing />
       <LandingPage.callToAction />
       <LandingPage.faqs />
-      <div className="p-10">
+      <div className="p-10 px-4 sm:px-10">
         <LandingPage.testimonials />
       </div>
       <div className="py-8 lg:py-16">

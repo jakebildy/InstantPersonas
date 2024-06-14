@@ -123,16 +123,16 @@ export default function PageTest({}: Props) {
       >
         <div className="z-10 flex flex-col items-center justify-center gap-4 text-center">
           <div className="flex flex-col">
-            <h1 className="text-md font-bold tracking-tight sm:text-lg">
+            <h1 className="sm:text-md font-bold tracking-tight md:text-lg">
               InstantPersonas
             </h1>
 
-            <h2 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <h2 className="text-4xl font-bold tracking-tight lg:text-6xl">
               Create Content that Matters.
             </h2>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="font-jost">
+            <span className="whitespace-pre-wrap px-10 font-jost">
               Join <b className="text-green-500">4,660+</b> Marketers and
               Business Owners who use InstantPersonas to create content that
               resonates.
