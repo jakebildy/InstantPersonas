@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LandingPage from "@/components/page-specific/landing-page";
-import { FreeToolSection } from "./(public)/tools/page";
+import { FreeToolSection } from "@/components/toolfolio/free-tools-section";
 
 const env = process.env.NEXT_PUBLIC_ENV;
 
