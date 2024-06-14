@@ -18,21 +18,16 @@ const faqs = [
     answer:
       "Yep! You can easily change the text and download it after. You can also change them simply by talking to our AI. Good personas should be adjusted as you learn more, so we've built our tool specifically with this in mind.",
   },
-  {
-    question: "Can you support this framework/build this SEO/marketing tool?",
-    answer:
-      "Reach out to our support team! If we see demand and can support it, we will be happy to implement it. You can send feedback by clicking Send Feedback when logged in.",
-  },
-  {
-    question: "What if I need help with InstantPersonas?",
-    answer:
-      "If you have any questions or issues with InstantPersonas.com, our support team is available to assist you. Simply click Send Feedback when logged in and we'll get back to you as soon as possible. We're also happy to hop on a call and help with onboarding if you need it.",
-  },
-  {
-    question: "How can I provide feedback or suggestions for InstantPersonas?",
-    answer:
-      "We love hearing from our users and welcome any feedback or suggestions for improving our platform. You can provide suggestions by clicking Send Feedback when logged in.",
-  },
+  // {
+  //   question: "What if I need help with InstantPersonas?",
+  //   answer:
+  //     "If you have any questions or issues with InstantPersonas.com, our support team is available to assist you. Simply click Send Feedback when logged in and we'll get back to you as soon as possible. We're also happy to hop on a call and help with onboarding if you need it.",
+  // },
+  // {
+  //   question: "How can I provide feedback or suggestions for InstantPersonas?",
+  //   answer:
+  //     "We love hearing from our users and welcome any feedback or suggestions for improving our platform. You can provide suggestions by clicking Send Feedback when logged in.",
+  // },
   {
     question: "How can InstantPersonas boost my SEO?",
     answer:
@@ -43,10 +38,10 @@ const faqs = [
     answer:
       "InstantPersonas uses AI-powered technology to instantly generate User Personas. Just by talking to our AI, you're able to figure out gaps in your understanding of your target market, and adjust accordingly. You're also able to connect these personas to our SEO and marketing tools to reach your audience faster.",
   },
-  {
-    question: "Can I become an affiliate?",
-    answer: "Reach out to jacob@instantpersonas.com and we can chat.",
-  },
+  // {
+  //   question: "Can I become an affiliate?",
+  //   answer: "Reach out to jacob@instantpersonas.com and we can chat.",
+  // },
   {
     question: "Where is InstantPersonas going? What’s the vision?",
     answer:
@@ -63,21 +58,17 @@ export default function FaqSection() {
         <div className="mx-auto ">
           <h2
             id="faq-title"
-            className="font-display text-4xl tracking-tight text-black font-bold sm:text-4xl"
+            className=" tracking-tight text-black font-bold text-4xl sm:text-5xl"
           >
-            Frequently Asked Questions
+            Frequently asked questions
           </h2>
-          <p className="mt-4 text-lg tracking-tight text-slate-800 mb-10">
-            If you can&apos;t find what you&apos;re looking for, email our
-            support team and someone will get back to you.
-          </p>
         </div>
 
         <div className="flex flex-auto  mx-auto justify-center">
           <Accordion.Root
-            className=" w-[800px] rounded-md shadow-black/5 h-screen "
+            className=" w-[800px] rounded-md shadow-black/5 "
             type="single"
-            defaultValue="item-0"
+            // defaultValue="item-0"
             collapsible
           >
             {faqs.map((faq, faqIndex) => (
@@ -101,6 +92,34 @@ export default function FaqSection() {
         </div>
       </Container>
       {/* </BackgroundGradientAnimation> */}
+
+      <div className=" h-screen font-jost">
+        <div className="bg-blue-50 max-w-screen-md rounded-md text-center flex mx-auto flex-col">
+          <div className="flex flex-row mx-auto justify-center p-5">
+            <img
+              src="https://i.imgur.com/WZG9K4h.png"
+              className="rounded-full h-16 border-white border-2"
+            />
+            <img
+              src="https://i.imgur.com/u3PlVIH.png"
+              className="rounded-full h-16 border-white border-2"
+            />
+          </div>
+          <span className="font-bold text-2xl"> Have more questions?</span>
+          <br></br>
+          Join our Slack community and ask away!
+          <br></br>
+          <button
+            onClick={() => {
+              window.location.href =
+                "https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw";
+            }}
+            className="bg-green-500 hover:bg-green-600 p-3 w-[200px] mx-auto text-lg text-white rounded-full font-bold m-5"
+          >
+            Join Slack
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
