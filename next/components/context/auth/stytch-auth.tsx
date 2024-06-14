@@ -81,23 +81,24 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 }
 
 export function AuthFallback() {
-  const variantIndex = Math.floor(
-    Math.random() * Object.keys(ColorVariantMap).length
-  );
-  const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
+  // const variantIndex = Math.floor(
+  //   Math.random() * Object.keys(ColorVariantMap).length,
+  // );
+  // const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
+  const variant = "green";
 
   return (
     <div
       className={gradientVariants({
         variant: variant,
         className:
-          "grid grid-cols-3 place-items-center h-screen w-screen p-4 gap-4 overflow-hidden relative backdrop-blur-[100px]",
+          "relative grid h-screen w-screen grid-cols-3 place-items-center gap-4 overflow-hidden p-4 backdrop-blur-[100px]",
       })}
     >
       <div />
-      <div className="flex flex-col justify-between items-center h-3/4">
+      <div className="flex h-3/4 flex-col items-center justify-between">
         <PersonStandingIcon className="size-10 text-black opacity-75" />
-        <div className="text-center flex flex-col gap-1">
+        <div className="flex flex-col gap-1 text-center">
           <p>Logging into...</p>
           <h1 className="text-4xl font-bold">InstantPersonas</h1>
           <p className="text-sm">This may take a few seconds.</p>

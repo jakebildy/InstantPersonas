@@ -9,13 +9,13 @@ type StyleProperties = CSSStyleDeclaration;
 export function useAutoAdjustTextArea(
   ref: React.RefObject<HTMLTextAreaElement> | undefined,
   value: string | undefined,
-  maxHeight: number
+  maxHeight: number,
 ) {
   /**
    * Helper function to parse style properties
    */ const parseStyleProperty = (
     style: StyleProperties,
-    property: string
+    property: string,
   ): number => {
     return parseFloat(style.getPropertyValue(property)) || 0;
   };
@@ -30,7 +30,7 @@ export function useAutoAdjustTextArea(
       const borderTopWidth = parseStyleProperty(style, "border-top-width");
       const borderBottomWidth = parseStyleProperty(
         style,
-        "border-bottom-width"
+        "border-bottom-width",
       );
       const paddingTop = parseStyleProperty(style, "padding-top");
       const paddingBottom = parseStyleProperty(style, "padding-bottom");
@@ -54,7 +54,7 @@ export function useAutoAdjustTextArea(
 
       return Math.min(Math.max(totalHeight, naturalHeight), maxHeight);
     },
-    []
+    [],
   );
 
   /**

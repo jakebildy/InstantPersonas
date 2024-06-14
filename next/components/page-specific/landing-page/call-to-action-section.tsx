@@ -1,5 +1,6 @@
 import { Container } from "@/components/page-specific/landing-page/container";
 import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
+import Link from "next/link";
 
 export default function CallToActionSection() {
   const people = [
@@ -52,10 +53,10 @@ export default function CallToActionSection() {
     <section id="get-started-today" className="relative bg-white py-32">
       <Container className="relative mt-[100px]">
         <div className="mx-auto max-w-lg text-center">
-          <div className="flex flex-row items-center justify-center mb-10 w-full">
+          <div className="mb-10 flex w-full flex-row items-center justify-center">
             <AnimatedTooltip items={people} />
           </div>
-          <h2 className="font-display text-3xl tracking-tight text-black sm:text-6xl font-bold">
+          <h2 className="font-display text-3xl font-bold tracking-tight text-black sm:text-6xl">
             Get started today
           </h2>
          
@@ -67,15 +68,16 @@ export default function CallToActionSection() {
             <p className="mt-4 text-lg tracking-tight text-black">
             <b>{`It's time to take back your time.`}</b>
           </p>
+          <p className="mb-10 mt-4 text-lg tracking-tight text-black">
+            Save hours by generating in-depth personas effortlessly with
+            InstantPersonas.
           </p>
-          <button
-            onClick={() => {
-              window.location.href = "/register";
-            }}
-            className="px-8 p-2 rounded-full font-semibold bg-green-500 text-white font-jost focus:ring-2 focus:ring-green-400 hover:shadow-xl transition duration-200"
+          <Link
+            href="/register"
+            className="rounded-full bg-green-500 p-2 px-8 font-jost font-semibold text-white transition duration-200 hover:shadow-xl focus:ring-2 focus:ring-green-400"
           >
             Get 3 days FREE →
-          </button>
+          </Link>
         </div>
       </Container>
     </section>

@@ -27,13 +27,13 @@ export default function QuizOuterLayout({
     <motion.div key={"quiz-outer-layout"} layoutId="quiz-outer-layout">
       <div className="flex items-center gap-2">
         <Icon className="text-gray-600" />
-        <h2 className="text-lg font-bold text-gray-700 pb-1">{title}</h2>
+        <h2 className="pb-1 text-lg font-bold text-gray-700">{title}</h2>
       </div>
       <p className="text-sm text-gray-600">{description}</p>
       <motion.div
         animate={{ height: bounds.height }}
         transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-        className="my-4 relative"
+        className="relative my-4"
       >
         <div className="multi-step-inner" ref={ref}>
           <motion.div
@@ -46,7 +46,7 @@ export default function QuizOuterLayout({
             className={gradientLightVariants({
               variant: variant,
               className:
-                "min-h-[600px] grid place-items-center  border rounded-2xl shadow-sm relative",
+                "relative grid min-h-[600px] place-items-center rounded-2xl border shadow-sm",
             })}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -56,7 +56,7 @@ export default function QuizOuterLayout({
         </div>
       </motion.div>
 
-      <p className="text-sm text-muted-foreground text-center">{footerText}</p>
+      <p className="text-center text-sm text-muted-foreground">{footerText}</p>
     </motion.div>
   );
 }

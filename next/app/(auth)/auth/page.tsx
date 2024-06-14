@@ -1,5 +1,12 @@
 "use client";
-import Authenticate from "@/components/context/auth/stytch-auth";
+import dynamic from "next/dynamic";
+
+const Authenticate = dynamic(
+  () => import("@/components/context/auth/stytch-auth"),
+  {
+    ssr: false,
+  },
+);
 
 export default function AuthenticatePage() {
   return <Authenticate />;

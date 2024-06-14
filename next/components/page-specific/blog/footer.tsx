@@ -6,7 +6,7 @@ import { BLOG_FOOTER_LINKS } from "@/lib/site";
 
 export function BlogFooter({ className }: { className?: string }) {
   return (
-    <footer className={cn("bg-slate-50 ", className)}>
+    <footer className={cn("bg-slate-50", className)}>
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="py-4">
           <div className="mx-auto grid place-items-center">
@@ -26,8 +26,8 @@ export function BlogFooter({ className }: { className?: string }) {
             </div>
           </nav>
         </div>
-        <div className="flex flex-col items-center border-t border-slate-400/10 py-4 sm:py-10 sm:flex-row-reverse justify-center ">
-          <p className="text-sm text-slate-500 sm:mt-0 max-sm:text-center">
+        <div className="flex flex-col items-center justify-center border-t border-slate-400/10 py-4 sm:flex-row-reverse sm:py-10">
+          <p className="text-sm text-slate-500 max-sm:text-center sm:mt-0">
             Copyright &copy; {new Date().getFullYear()} InstantPersonas.com all
             rights reserved. By using this site, you agree to our{" "}
             <Link href="/terms-of-service" className="font-bold">

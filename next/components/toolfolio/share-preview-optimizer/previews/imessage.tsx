@@ -15,14 +15,14 @@ export function IMessagePreview({
   });
 
   return (
-    <div className="p-4 flex flex-col md:px-5">
-      <div className="mb-2 text-sm text-base-500">iMessage</div>
-      <div className="mb-3 text-xs text-base-500">Today {formattedTime}</div>
-      <div className="ml-auto px-4 py-2 mb-3 text-sm text-white bg-blue-500 rounded-2xl">
+    <div className="flex flex-col p-4 md:px-5">
+      <div className="text-base-500 mb-2 text-sm">iMessage</div>
+      <div className="text-base-500 mb-3 text-xs">Today {formattedTime}</div>
+      <div className="mb-3 ml-auto rounded-2xl bg-blue-500 px-4 py-2 text-sm text-white">
         <span>Check out this website!</span>
       </div>
-      <div className="flex flex-col border rounded-2xl overflow-hidden max-w-full">
-        <div className="relative w-full  aspect-[1200/600]">
+      <div className="flex max-w-full flex-col overflow-hidden rounded-2xl border">
+        <div className="relative aspect-[1200/600] w-full">
           {image ? (
             <Image
               src={image ?? "/tools/no-image-placeholder.svg"}
@@ -33,16 +33,16 @@ export function IMessagePreview({
           ) : null}
         </div>
 
-        <div className="flex p-4 items-center space-x-4 bg-white">
-          <div className="flex flex-col flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{title}</p>
-            <p className="text-xs text-base-500 text-gray-400 truncate">
+        <div className="flex items-center space-x-4 bg-white p-4">
+          <div className="flex min-w-0 flex-1 flex-col">
+            <p className="truncate text-sm font-medium">{title}</p>
+            <p className="text-base-500 truncate text-xs text-gray-400">
               {url}
             </p>
           </div>
         </div>
       </div>
-      <div className="mt-3 text-xs text-base-500">Delivered</div>
+      <div className="text-base-500 mt-3 text-xs">Delivered</div>
     </div>
   );
 }

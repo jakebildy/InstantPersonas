@@ -1,10 +1,12 @@
 "use server";
-import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/function";
+import { getPersonaChat } from "@/app/(server)/api/(persona-crud)/get-persona-chat/action";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import {
-  PersonaArchetype,
-  mapUrlBackgroundColorParamToVariant,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
-import { PersonaTemplate } from "@/components/page-specific/generative-ui/persona-avatar-popover/templates/template";
+  PersonaTemplate,
+  PersonaTemplateProps,
+} from "@/components/persona-archetype-generic/persona-avatar-popover/templates/template";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
 
 import { notFound } from "next/navigation";
 
@@ -18,11 +20,12 @@ export default async function ChatPage({
   const personas = chatHistory?.aiState.personas as PersonaArchetype[] | null;
 
   if (!personas || !chatHistory) {
-    console.log("Chat not found");
+    IS_TEST_DEV_ENV ? console.log("DEV: Chat not found", id) : null;
     notFound();
   }
 
-  console.log(id, personas, chatHistory);
+  IS_TEST_DEV_ENV ? console.log("DEV: ", id, personas, chatHistory) : null;
+
   return (
     <div className="flex flex-col justify-center gap-4 px-2 pb-10">
       {personas && personas.length > 0
@@ -30,9 +33,11 @@ export default async function ChatPage({
             <PersonaTemplate
               archetype={persona}
               key={i}
-              variant={mapUrlBackgroundColorParamToVariant({
-                url: persona.pictureURL,
-              })}
+              variant={
+                mapUrlBackgroundColorParamToVariant({
+                  url: persona.pictureURL,
+                }) as PersonaTemplateProps["variant"]
+              }
             />
           ))
         : null}

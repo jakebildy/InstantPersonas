@@ -14,7 +14,7 @@ export function Separator({ text, ...Props }: SeparatorProps) {
         </div>
         {text && (
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="rounded-lg bg-background border-border border px-2 text-accent-foreground/75 dark:text-muted-foreground">
+            <span className="rounded-lg border border-border bg-background px-2 text-accent-foreground/75 dark:text-muted-foreground">
               {text}
             </span>
           </div>

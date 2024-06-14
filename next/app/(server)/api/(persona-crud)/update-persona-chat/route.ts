@@ -19,7 +19,7 @@ export async function POST(req: Request, res: Response) {
   // Get MongoDB PersonaChats where user matches the provided userID
   const personaChat = await PersonaChat.findOneAndUpdate(
     { _id: chatID },
-    { $set: { aiState: body.chat } }
+    { $set: { aiState: body.chat } },
   );
 
   return Response.json({

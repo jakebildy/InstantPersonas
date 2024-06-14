@@ -1,40 +1,42 @@
-import mongoose, { Schema } from "mongoose";
-import { AIState } from "./ai-state-type-validators";
+import mongoose, { Schema, Document, Model } from "mongoose";
+import { AIState, AIStateValidator } from "./persona-ai.model";
+import z from "zod";
+import { MongoIDValidator } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 
-export interface UserPersona {
-  name: string;
-  hair: string;
-  glasses: string;
-  body: string;
-  gender: string;
-  pictureURL: string;
-  color: string;
-  productDescription?: string;
-  sections: [{ label: string; description: string }];
-  shortDescriptors: [{ label: string; description: string; emoji: string }];
-}
-
-export interface PersonaChat {
+export interface PersonaChatType {
   aiState: AIState;
   aiSuggestedChats?: string[];
   user?: string;
-  contentLastGeneratedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   _id?: string;
 }
 
-const PersonaChatSchema = new mongoose.Schema<PersonaChat>(
+export const PersonaChatTypeValidator = z.object({
+  aiState: AIStateValidator,
+  aiSuggestedChats: z.array(z.string()).optional(),
+  user: z.string().optional(),
+  contentLastGeneratedAt: z.date().optional(),
+  _id: MongoIDValidator,
+  createdAt: z.union([z.date(), z.string().pipe(z.coerce.date())]).optional(),
+  updatedAt: z.union([z.date(), z.string().pipe(z.coerce.date())]).optional(),
+});
+
+// Interface for PersonaChat document
+// Omitting _id field from PersonaChatType to avoid conflicts with Document._id
+export interface PersonaChatDocument extends Document<PersonaChatType> {}
+
+const PersonaChatSchema = new mongoose.Schema<PersonaChatType>(
   {
     aiState: { type: Schema.Types.Mixed, required: false },
-    aiSuggestedChats: [{ type: String, required: false }],
     user: { type: String, required: true },
-    contentLastGeneratedAt: { type: Date, required: false },
   },
   {
     versionKey: false,
     timestamps: true,
-  }
+  },
 );
 
-export const PersonaChat =
-  mongoose.models.PersonaChat ||
+export const PersonaChat: Model<PersonaChatDocument> =
+  mongoose.models?.PersonaChat ||
   mongoose.model("PersonaChat", PersonaChatSchema);

@@ -27,7 +27,7 @@ export const useHandleCopy = () => {
         title: `${capitalizeFirstLetter(type)} Copied to Clipboard`,
         description: (
           <ScrollArea className="h-[200px] w-full">
-            <pre className="text-wrap whitespace-pre break-words">
+            <pre className="whitespace-pre text-wrap break-words">
               {parsedText}
             </pre>
           </ScrollArea>

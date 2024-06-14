@@ -56,7 +56,7 @@ Props) {
   return (
     <div
       className={cn(
-        "flex flex-col items-center p-1 border border-input bg-white rounded-lg  w-full group gap-2"
+        "group flex w-full flex-col items-center gap-2 rounded-lg border border-input bg-white p-1",
         // className
       )}
       // {...Props}
@@ -65,11 +65,11 @@ Props) {
         className={gradientVariants({
           variant,
           className:
-            "h-full max-h-[900px] w-full grid grid-cols-4 grid-rows-7 p-4 text-left rounded-lg border border-input relative overflow-hidden group",
+            "group relative grid h-full max-h-[900px] w-full grid-cols-4 grid-rows-7 overflow-hidden rounded-lg border border-input p-4 text-left",
         })}
       >
-        <PersonStandingIcon className="text-white size-8 transition-colors duration-150 ease-out absolute top-2 right-2 z-10" />
-        <h2 className="col-span-3 row-span-2 text-white text-4xl font-bold font-jost py-10 z-10 text-wrap">
+        <PersonStandingIcon className="absolute right-2 top-2 z-10 size-8 text-white transition-colors duration-150 ease-out" />
+        <h2 className="z-10 col-span-3 row-span-2 text-wrap py-10 font-jost text-4xl font-bold text-white">
           {title}
         </h2>
         {/* Gradient background Elements */}
@@ -82,27 +82,27 @@ Props) {
           className={textColorVariants({
             variant,
             className:
-              "size-[250px] transition-colors duration-150 ease-out absolute bottom-3 -right-[30px] z-10 blur-lg tilt-backward-right",
+              "tilt-backward-right absolute -right-[30px] bottom-3 z-10 size-[250px] blur-lg transition-colors duration-150 ease-out",
           })}
         />
         {/* Grid Spacing Separator */}
         <div className="col-span-4 row-span-2" />
 
         {/* Survey Question Preview List */}
-        <ul className="col-span-4 row-span-3 gap-2 flex flex-col justify-center h-full z-10">
+        <ul className="z-10 col-span-4 row-span-3 flex h-full flex-col justify-center gap-2">
           {questions.slice(0, 5).map((question, i) => (
             <li
               key={i}
               className={textColorVariants({
                 variant,
-                className: " flex items-start gap-2",
+                className: "flex items-start gap-2",
               })}
             >
-              <span className="text-lg font-bold font-jost h-fit">
+              <span className="h-fit font-jost text-lg font-bold">
                 0{i + 1}.
               </span>
 
-              <p className="font-semibold text-sm pt-1">{question}</p>
+              <p className="pt-1 text-sm font-semibold">{question}</p>
             </li>
           ))}
         </ul>
@@ -111,26 +111,26 @@ Props) {
         <div
           className={textColorVariants({
             variant,
-            className: "col-span-2 z-10",
+            className: "z-10 col-span-2",
           })}
         >
           <ArrowDownIcon
             className={textColorVariants({
               variant,
-              className: "size-4 mb-2",
+              className: "mb-2 size-4",
             })}
           />
-          <p className="font-semibold text-xs pt-1">
+          <p className="pt-1 text-xs font-semibold">
             Survey time <i>{surveyTimeInMins} mins</i>
           </p>
-          <p className=" text-xs pt-1">{description}</p>
+          <p className="pt-1 text-xs">{description}</p>
         </div>
 
         {/*End Section Right - Survey Start Button */}
-        <div className="col-span-2 flex items-end justify-end z-10">
+        <div className="z-10 col-span-2 flex items-end justify-end">
           <Button
             variant={"outline"}
-            className="hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md"
+            className="h-fit rounded-full p-1 shadow-md hover:scale-100 hover:text-primary"
             onClick={handleTakeSurvey}
           >
             <span
@@ -138,7 +138,7 @@ Props) {
                 ButtonInnerHover({ variant }),
                 gradientLightVariants({
                   variant,
-                })
+                }),
               )}
             >
               Take Survey

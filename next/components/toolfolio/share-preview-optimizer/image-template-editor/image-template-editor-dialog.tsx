@@ -83,7 +83,7 @@ export function ImageTemplateEditorDialog({
       <DialogContent
         className={gradientLightVariants({
           variant,
-          className: "w-full max-w-4xl h-full max-h-[90vh] p-4 flex flex-col",
+          className: "flex h-full max-h-[90vh] w-full max-w-4xl flex-col p-4",
         })}
       >
         <DialogHeader>
@@ -131,8 +131,8 @@ export function ImageTemplateEditorDialog({
             })}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex-1 max-h-fit overflow-hidden bg-white rounded-md shadow-lg">
-          <ScrollArea className="flex-1 h-full">
+        <div className="max-h-fit flex-1 overflow-hidden rounded-md bg-white shadow-lg">
+          <ScrollArea className="h-full flex-1">
             {renderTemplateState({
               noSelectionState: (
                 <TemplateSelectionGallery
@@ -170,14 +170,14 @@ export function ImageTemplateEditorDialog({
                       b64toBlob({
                         b64Data: data.split("base64,")[1],
                         contentType: "image/png",
-                      })
+                      }),
                     );
                     console.log("setImage", newURL);
                     setImage(newURL);
                   }}
                   onError={handleResolvedDownload}
                   downloadTemplateOptions={IMAGE_TEMPLATES.filter(
-                    (template) => template.title === selectedTemplate
+                    (template) => template.title === selectedTemplate,
                   ).map((template, i) => ({
                     type: "component",
                     img: {

@@ -10,7 +10,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 }
-
+//? If you ever change the config to match other paths, make sure the accept headers are not being intercepted for server actions and streamed UI components
+//?  if (acceptHeader && acceptHeader.includes('text/x-component')) {
+//?    return NextResponse.next()
+//?  }
 export const config = {
   matcher: "/test",
 };

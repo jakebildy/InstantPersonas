@@ -8,23 +8,21 @@ import Image from "next/image";
 import { GoogleKeywordFinderTool } from "@/components/toolfolio/google-keyword-finder";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
-export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
 
 export default function HistoryPage({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            ({ pictureURL, ...rest }) => rest
+            ({ pictureURL, ...rest }) => rest,
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
@@ -47,26 +45,22 @@ export default function HistoryPage({}: {}) {
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full bg-gray-100">
-        <h1 className="text-3xl text-gray-700 text-center pt-10 font-bold">
+      <div className="flex h-full w-full flex-col items-center bg-gray-100">
+        <h1 className="pt-10 text-center text-3xl font-bold text-gray-700">
           Google Keyword Finder
         </h1>
-        <h2 className="text-center mt-4 text-xs text-slate-400 mb-10">
+        <h2 className="mb-10 mt-4 text-center text-xs text-slate-400">
           Discover keywords and their search volume for your target audience
         </h2>
-        <div className="flex flex-col items-center w-full mb-10 gap-2">
+        <div className="mb-10 flex w-full flex-col items-center gap-2">
           {isSubscribed ? (
-            <PersonaSelectFromHistorySidebar
-              selectedPersonas={selectedPersonas}
-              setSelectedPersonas={setSelectedPersonas}
-              className="xl:absolute top-4 right-4 z-50"
-            />
+            <PersonaSelectFromHistorySidebar className="right-4 top-4 z-50 xl:absolute" />
           ) : null}
           {isSubscribed ? (
             <section
               className={cn(
-                "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2",
-                selectedPersonas.length > 0 ? "w-1/2" : ""
+                "flex flex-col gap-2 rounded-md border border-gray-300 bg-white p-2",
+                selectedPersonas.length > 0 ? "w-1/2" : "",
               )}
             >
               {selectedPersonas.length > 0 ? (
@@ -84,14 +78,14 @@ export default function HistoryPage({}: {}) {
                     onDeselect={() => {
                       setSelectedPersonas((prevSelectedPersonas) =>
                         prevSelectedPersonas.filter(
-                          (activePersona) => activePersona !== persona
-                        )
+                          (activePersona) => activePersona !== persona,
+                        ),
                       );
                     }}
                   />
                 ))
               ) : (
-                <div className="rounded-md overflow-hidden h-full w-full grid place-items-center">
+                <div className="grid h-full w-full place-items-center overflow-hidden rounded-md">
                   <Image
                     src={TopicalAuthorityDemoGif}
                     alt={
@@ -104,14 +98,14 @@ export default function HistoryPage({}: {}) {
               )}
             </section>
           ) : null}
-          <label className="text-sm text-gray-700 my-2">
+          <label className="my-2 text-sm text-gray-700">
             {isSubscribed
               ? "Enter any extra details"
               : "Describe your customer persona:"}
           </label>
           <input
             type="text"
-            className="border border-gray-300 rounded-md w-1/2 p-2"
+            className="w-1/2 rounded-md border border-gray-300 p-2"
             placeholder="e.g. a marketing manager"
             onChange={(e) => {
               setDetailsInput(e.target.value);

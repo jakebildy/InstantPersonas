@@ -75,7 +75,7 @@ export default function TemplatePreviewSelect({
   const hasDownloadedSingleTemplate = useRef(false);
 
   function mapTemplateOptionToDownloadConfig(
-    template: DownloadTemplateOptionConfig
+    template: DownloadTemplateOptionConfig,
   ): HandleDownloadConfig {
     switch (template.type) {
       case "component":
@@ -98,7 +98,7 @@ export default function TemplatePreviewSelect({
       if (downloadTemplateOptions.length === 1 && overlayIsVisible === false) {
         console.log(
           "Downloading single template...",
-          downloadTemplateOptions[0]
+          downloadTemplateOptions[0],
         );
         const template = downloadTemplateOptions[0];
         const config = mapTemplateOptionToDownloadConfig(template);
@@ -115,18 +115,18 @@ export default function TemplatePreviewSelect({
         gradientVariants({
           variant,
           className:
-            "p-4 overflow-auto rounded-lg h-full w-full scrollbar-hidden",
+            "scrollbar-hidden h-full w-full overflow-auto rounded-lg p-4",
         }),
-        className
+        className,
       )}
     >
-      <h3 className="text-black/80 font-semibold text-sm empty:hidden">
+      <h3 className="text-sm font-semibold text-black/80 empty:hidden">
         {header}
       </h3>
-      <p className="font-medium text-xs text-black/75 empty:hidden">
+      <p className="text-xs font-medium text-black/75 empty:hidden">
         {subHeader}
       </p>
-      <div className="grid grid-cols-2 gap-2  m-4 pt-10">
+      <div className="m-4 grid grid-cols-2 gap-2 pt-10">
         {downloadTemplateOptions.map((option, index) => {
           return (
             <div
@@ -137,12 +137,12 @@ export default function TemplatePreviewSelect({
                 downloadTemplateOptions.length % 2 &&
                   index === downloadTemplateOptions.length - 1
                   ? "col-span-2"
-                  : ""
+                  : "",
               )}
             >
               <Button
                 variant={"outline"}
-                className="h-fit w-fit group "
+                className="group h-fit w-fit"
                 onClick={() =>
                   handleDownload(mapTemplateOptionToDownloadConfig(option))
                 }
@@ -153,9 +153,9 @@ export default function TemplatePreviewSelect({
                     width={option.img.width}
                     height={option.img.height}
                     alt={option.label + " Download Template"}
-                    className="group-hover:blur-sm transition-all duration-200 ease-out"
+                    className="transition-all duration-200 ease-out group-hover:blur-sm"
                   />
-                  <span className="animate-pulse hidden group-hover:block font-semibold text-xs text-black/75 z-[60] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <span className="absolute left-1/2 top-1/2 z-[60] hidden -translate-x-1/2 -translate-y-1/2 animate-pulse text-xs font-semibold text-black/75 group-hover:block">
                     {option.label}
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export default function TemplatePreviewSelect({
         <div id="download-template-component-area" ref={downloadTemplateRef}>
           {downloadTemplateComponentIsMounted ? (
             <div
-              className={"w-[600px] visible overflow-visible "}
+              className={"visible w-[600px] overflow-visible"}
               style={{ width: templateWidth }}
             >
               {component ? component : null}
@@ -275,12 +275,12 @@ export function DownloadingOverlay({
       className={gradientVariants({
         variant,
         className:
-          "z-[100] top-0 left-0 to-white absolute w-full h-full grid place-items-center",
+          "absolute left-0 top-0 z-[100] grid h-full w-full place-items-center to-white",
       })}
     >
       <div className="grid place-items-center gap-4">
         <DownloadCloudIcon className="animate-pulse text-muted-foreground" />
-        <p className="animate-pulse text-muted-foreground text-xs">
+        <p className="animate-pulse text-xs text-muted-foreground">
           {placeholder}
         </p>
       </div>

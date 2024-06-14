@@ -136,7 +136,7 @@ export function TopicalAuthorityMap({
   }
 
   function getVariantByIndex(
-    index: number
+    index: number,
   ): keyof typeof ColorVariantMap | undefined {
     const keys = Object.keys(ColorVariantMap) as Array<
       keyof typeof ColorVariantMap
@@ -148,7 +148,7 @@ export function TopicalAuthorityMap({
     // Convert array of strings to CSV format, escaping double quotes
     const csvContent = responseData
       .map((row) =>
-        row.map((item) => `"${item.replace(/"/g, '""')}"`).join(",")
+        row.map((item) => `"${item.replace(/"/g, '""')}"`).join(","),
       )
       .join("\r\n");
 
@@ -181,7 +181,7 @@ export function TopicalAuthorityMap({
    */ function validateDataPotentialData(data: string[][]): string[][] {
     const VALID_ROW_LENGTH = 3;
     const everyRowIsValid = data.every(
-      (row) => row.length === VALID_ROW_LENGTH
+      (row) => row.length === VALID_ROW_LENGTH,
     );
 
     if (everyRowIsValid) {
@@ -220,8 +220,10 @@ export function TopicalAuthorityMap({
       <Button
         disabled={noInput}
         className={cn(
-          "mx-auto flex mb-5 font-bold py-2 px-4 rounded-full text-white",
-          loading || noInput ? "bg-gray-400" : "bg-green-500 hover:bg-green-700"
+          "mx-auto mb-5 flex rounded-full px-4 py-2 font-bold text-white",
+          loading || noInput
+            ? "bg-gray-400"
+            : "bg-green-500 hover:bg-green-700",
         )}
         onClick={async () => {
           if (!loading) {
@@ -261,16 +263,16 @@ export function TopicalAuthorityMap({
       </Button>
 
       {responseData.length <= 0 ? null : (
-        <div className=" border border-gray-300  h-[50vh] rounded-xl relative overflow-hidden">
+        <div className="relative h-[50vh] overflow-hidden rounded-xl border border-gray-300">
           <DownloadButton
             variant={"purple"}
             onClick={() => setShowTemplateSelectModal(true)}
             onCancel={handleResolvedDownload}
             loading={isDownloading}
             selectingTemplate={showTemplateSelectModal}
-            className="absolute top-4 left-4 z-50"
+            className="absolute left-4 top-4 z-50"
           />
-          <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+          <PersonStandingIcon className="absolute right-4 top-4 text-muted-foreground" />
           {responseData.length === 0 ? null : showTemplateSelectModal ? (
             <TemplatePreviewSelect
               className="pt-20 text-center"
@@ -292,8 +294,8 @@ export function TopicalAuthorityMap({
                   label: "Topical Authority Map Image - Gray Background",
                   width: 2000,
                   component: (
-                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative bg-gray-100">
-                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                    <div className="relative h-[50vh] w-full rounded-xl border border-gray-300 bg-gray-100">
+                      <PersonStandingIcon className="absolute right-4 top-4 text-muted-foreground" />
                       <ReactFlow
                         nodes={nodes}
                         edges={edges}
@@ -343,8 +345,8 @@ export function TopicalAuthorityMap({
                   label: "Topical Authority Map Image - Transparent Background",
                   width: 2000,
                   component: (
-                    <div className=" border border-gray-300 w-full h-[50vh] rounded-xl relative">
-                      <PersonStandingIcon className="absolute top-4 right-4 text-muted-foreground" />
+                    <div className="relative h-[50vh] w-full rounded-xl border border-gray-300">
+                      <PersonStandingIcon className="absolute right-4 top-4 text-muted-foreground" />
                       <ReactFlow
                         nodes={nodes}
                         edges={edges}
@@ -446,7 +448,7 @@ export function TopicalAuthorityMap({
                     blogTitle={row[2]}
                     variant={getVariantByIndex(
                       convertToCategoryIndex(row[0]) %
-                        Object.keys(ColorVariantMap).length
+                        Object.keys(ColorVariantMap).length,
                     )}
                   />
                 );
@@ -478,12 +480,12 @@ function TopicalAuthorityTableRow({
         shadowVariants({
           variant,
           className:
-            "cursor-pointer bg-[#f6f8fa] hover:shadow-2xl hover:bg-gray-200 ",
+            "cursor-pointer bg-[#f6f8fa] hover:bg-gray-200 hover:shadow-2xl",
         }),
         gradientLightVariants({
           variant,
           className: "bg-gradient-to-r",
-        })
+        }),
       )}
       onClick={() =>
         handleCopy({

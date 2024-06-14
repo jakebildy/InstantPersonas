@@ -30,7 +30,7 @@ export function SurveyQuestionSelectInput({
 }: SurveyQuestionSelectInputProps) {
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 cursor-pointer"
+      className="flex cursor-pointer flex-col items-center gap-2"
       key={title + "-select-input-question-container"}
     >
       <SurveyQuestionTemplate
@@ -40,7 +40,7 @@ export function SurveyQuestionSelectInput({
         isLastQuestion={isLastQuestion}
       >
         <motion.h3
-          className="text-lg font-semibold text-gray-800 text-center p-2"
+          className="p-2 text-center text-lg font-semibold text-gray-800"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -69,7 +69,7 @@ export function SurveyQuestionSelectInput({
                         currentAnswer &&
                         !choices.includes(currentAnswer))
                       ? "bg-blue-600 text-white hover:bg-blue-500 hover:text-white"
-                      : ""
+                      : "",
                   )}
                   onClick={() =>
                     onAnswerQuestion(currentAnswer === choice ? "" : choice)

@@ -24,7 +24,7 @@ export function StripePlanCard({
   if (!user) return null;
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-6 text-left">
+    <div className="flex flex-col justify-between rounded-3xl bg-white p-8 text-left ring-1 ring-gray-200 xl:p-6">
       <div className="flex items-center justify-between gap-x-4">
         <h3
           id="tier-freelancer"
@@ -52,7 +52,7 @@ export function StripePlanCard({
         </span>
       </p>
       {popular && (
-        <p className="rounded-md bg-green-600/10 px-2.5 py-1 my-2 text-xs font-semibold  text-green-600">
+        <p className="my-2 rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-semibold text-green-600">
           {description2}
         </p>
       )}
@@ -74,8 +74,8 @@ export function StripePlanCard({
               ? "buy_btn_1P7PaSCtCkpcyaeH9pIp7ryc" //yearly
               : "buy_btn_1P7PZnCtCkpcyaeH1W5Aty7T"
             : popular
-            ? "buy_btn_1OwXj6CtCkpcyaeHizOLRjdm" //yearly
-            : "buy_btn_1OwXkNCtCkpcyaeHZB5J9raH"
+              ? "buy_btn_1OwXj6CtCkpcyaeHizOLRjdm" //yearly
+              : "buy_btn_1OwXkNCtCkpcyaeHZB5J9raH"
         }
         id={user.id}
         email={user.emails[0].email}

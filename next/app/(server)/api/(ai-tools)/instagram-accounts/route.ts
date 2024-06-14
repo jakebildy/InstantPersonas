@@ -1,8 +1,5 @@
-import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import axios from "axios";
+import { GPT4 } from "@/app/(server)/ai/persona-chat-ai/utils/gpt";
 import { NextResponse } from "next/server";
-import { GPT4 } from "@/app/(server)/ai/gpt";
 
 const { ApifyClient } = require("apify-client");
 
@@ -32,7 +29,7 @@ export async function POST(req: Request) {
 
       // Prepare Actor input
       const input = {
-        "hashtags": chatResponse.text.trim().split(/,\s*/)
+        hashtags: chatResponse.text.trim().split(/,\s*/),
       };
 
       const run = await apify.actor("cHedUknx10dsaavpI").call(input);
@@ -40,8 +37,6 @@ export async function POST(req: Request) {
       // Fetch and print Actor results from the run's dataset (if any)
       console.log("Results from dataset");
       const { items } = await apify.dataset(run.defaultDatasetId).listItems();
-
-
 
       let relevantAccountIDs: any = [];
       let accounts: any = [];
@@ -53,27 +48,24 @@ export async function POST(req: Request) {
         });
       }
       items.forEach((item: any) => {
-          // console.dir(item);
+        // console.dir(item);
 
-       
-          if (item.topPosts) {
-        
-            item.topPosts.forEach((post: any) => {
-              // totalLikes += post.likesCount;
-              // totalPosts++;
+        if (item.topPosts) {
+          item.topPosts.forEach((post: any) => {
+            // totalLikes += post.likesCount;
+            // totalPosts++;
 
-              console.log("post: ", post);
-              console.log ("ownerId", post.ownerId)
-              relevantAccountIDs.push(post.ownerId);
-            });
+            console.log("post: ", post);
+            console.log("ownerId", post.ownerId);
+            relevantAccountIDs.push(post.ownerId);
+          });
+        }
 
-          }
-
-          // hashtagResults.push({"hashtag": item.name, "volume": item.postsCount, "averageLikesOfTopPosts": averageLikes});
+        // hashtagResults.push({"hashtag": item.name, "volume": item.postsCount, "averageLikesOfTopPosts": averageLikes});
       });
 
       const input2 = {
-        "usernames": relevantAccountIDs
+        usernames: relevantAccountIDs,
       };
 
       const run2 = await apify.actor("dSCLg0C3YEZ83HzYX").call(input2);
@@ -85,8 +77,6 @@ export async function POST(req: Request) {
       });
 
       // console.log( "hashtagResults: ", hashtagResults)
-
-      
 
       return NextResponse.json({
         accounts: accounts,

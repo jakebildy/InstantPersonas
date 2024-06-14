@@ -1,9 +1,9 @@
-import { AIStateValidator } from "@/app/(server)/models/ai-state-type-validators";
+import { AIStateValidator } from "@/app/(server)/models/persona-ai.model";
 import { PersonaWithID } from "@/app/(server)/models/persona_with_id.model";
-import { PersonaChat } from "@/app/(server)/models/personachat.model";
+import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 
 export function convertPersonaChatsToPersonaWithIDs(
-  personaChats: PersonaChat[]
+  personaChats: PersonaChatType[]
 ): PersonaWithID[] {
   if (!personaChats) {
     return [];
@@ -13,6 +13,7 @@ export function convertPersonaChatsToPersonaWithIDs(
     .map((personaChat) => {
       const state = AIStateValidator.safeParse(personaChat.aiState);
       if (!state.success) {
+        console.error("Error parsing AI state", personaChat, state.error);
         return null; //? Early return if parsing fails
       }
       //? Return the result of the inner map directly

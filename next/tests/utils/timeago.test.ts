@@ -1,6 +1,6 @@
 function timeAgo(
   date: Date,
-  customIntervals?: Array<{ threshold: number; unit: string }>
+  customIntervals?: Array<{ threshold: number; unit: string }>,
 ): string {
   const currentTime = new Date();
   const differenceInSeconds = (currentTime.getTime() - date.getTime()) / 1000;

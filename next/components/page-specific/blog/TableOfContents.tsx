@@ -14,14 +14,14 @@ function TableOfContents() {
         id: elem.id,
         text: elem.textContent,
         level: Number(elem.nodeName.charAt(1)),
-      })
+      }),
     );
     setHeadings(elements);
   }, []);
 
   const handleClick = (
     id: string,
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) => {
     event.preventDefault();
     const element = document.getElementById(id);
@@ -44,11 +44,11 @@ function TableOfContents() {
   };
 
   return (
-    <nav className="block overflow-auto max-h-[calc(100vh-70px)] sm:mt-[150px] sm:top-12 sm:sticky self-start p-4 sm:min-w-[220px] w-full sm:w-[220px]">
+    <nav className="block max-h-[calc(100vh-70px)] w-full self-start overflow-auto p-4 sm:sticky sm:top-12 sm:mt-[150px] sm:w-[220px] sm:min-w-[220px]">
       <ul>
-        <span className="font-bold text-xl text-black">Table of Contents</span>
-        <div className="flex flex-row mt-5">
-          <div className="bg-green-700 w-1 mr-5"></div>
+        <span className="text-xl font-bold text-black">Table of Contents</span>
+        <div className="mt-5 flex flex-row">
+          <div className="mr-5 w-1 bg-green-700"></div>
           <div>
             {headings.map((heading: any) => (
               <li
@@ -59,7 +59,7 @@ function TableOfContents() {
                 }}
                 className={cn(
                   getClassName(heading.level),
-                  "hover:text-green-700 hover:underline"
+                  "hover:text-green-700 hover:underline",
                 )}
               >
                 <a

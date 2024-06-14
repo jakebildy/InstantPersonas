@@ -78,22 +78,22 @@ export const CodeInput = ({
 
   return (
     <pre
-      className="relative group"
+      className="group relative"
       onClick={() => (hoverToCopy ? handleCopyCode(code) : null)}
     >
       <code
         ref={codeRef}
         className={cn(
-          "mr-2 font-light editor",
-          hoverToCopy ? " cursor-pointer" : "",
-          className
+          "editor mr-2 font-light",
+          hoverToCopy ? "cursor-pointer" : "",
+          className,
         )}
         {...Props}
       />
       {hoverToCopy ? (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden z-50 transition-all duration-200 ease-linear group-hover:grid place-items-center gap-2 cursor-pointer">
-          <CopyIcon className="animate-pulse h-4 w-4" tabIndex={0} />
-          <p className="w-full md:w-[350px] text-center text-xs text-OffWhite/60">
+        <div className="absolute left-1/2 top-1/2 z-50 hidden -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center gap-2 transition-all duration-200 ease-linear group-hover:grid">
+          <CopyIcon className="h-4 w-4 animate-pulse" tabIndex={0} />
+          <p className="text-OffWhite/60 w-full text-center text-xs md:w-[350px]">
             Click to copy code
           </p>
         </div>

@@ -1,10 +1,7 @@
 "use client";
-import { PersonaArchetype } from "@/components/page-specific/generative-ui/persona-avatar-popover";
-import { GuestPostFinderTool } from "@/components/toolfolio/guest-post-finder";
-import { PersonaSelectFromHistorySidebar } from "@/components/toolfolio/selected-personas/select-from-sidebar/persona-select-from-history-sidebar";
 import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
 import { useEffect, useState } from "react";
-import { ArticleCard, BLOG_POSTS } from "../../blog/page";
+import { BLOG_POSTS } from "@/lib/config/blog";
 import * as SelectPersonaDemoGif from "@/public/tools/persona-select-demo.gif";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -12,20 +9,19 @@ import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import SocialShareTool from "@/components/toolfolio/share-preview-optimizer/social-share-tool";
 import { SocialPreviewIntegrationShowcase } from "@/components/toolfolio/share-preview-optimizer/integration-showcase";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
 
 export default function GuestPostOpportunityFinder({}: {}) {
   const [personaString, setPersonaString] = useState<string>("");
   const [detailsInput, setDetailsInput] = useState<string>("");
-  const [selectedPersonas, setSelectedPersonas] = useState<
-    PersonaBusinessArchetype[]
-  >([]);
+  const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
   const { isSubscribed } = useInstantPersonasUser();
 
   useEffect(() => {
     const results = isSubscribed
       ? {
           personas: selectedPersonas.map(
-            ({ pictureURL, ...rest }) => rest
+            ({ pictureURL, ...rest }) => rest,
           ) as Omit<PersonaBusinessArchetype, "pictureURL">[],
           details: detailsInput,
           paid: isSubscribed,
@@ -48,21 +44,21 @@ export default function GuestPostOpportunityFinder({}: {}) {
       ) : (
         <div />
       )}
-      <div className="flex flex-col items-center h-full w-full">
-        <h1 className="text-5xl text-gray-700 text-center pt-10 font-bold">
+      <div className="flex h-full w-full flex-col items-center">
+        <h1 className="pt-10 text-center text-5xl font-bold text-gray-700">
           <b className="text-green-600">Optimize</b> your<br></br>Social Media{" "}
           <b className="text-green-600">Share Previews</b>
         </h1>
-        <h1 className="text-center mt-4 text-md ">
+        <h1 className="text-md mt-4 text-center">
           Ensure your site is ready for sharing on LinkedIn, X, iMessage,
           Pinterest and more.
         </h1>
 
-        <div className="flex flex-col items-center w-full m-4 gap-2">
+        <div className="m-4 flex w-full flex-col items-center gap-2">
           <section
             className={cn(
-              "border border-gray-300 rounded-md  bg-white p-2 flex flex-col gap-2 transition-all duration-300",
-              selectedPersonas.length > 0 ? "w-1/2 mt-10" : ""
+              "flex flex-col gap-2 rounded-md border border-gray-300 bg-white p-2 transition-all duration-300",
+              selectedPersonas.length > 0 ? "mt-10 w-1/2" : "",
             )}
           >
             {isSubscribed && selectedPersonas.length > 0 ? (
@@ -80,8 +76,8 @@ export default function GuestPostOpportunityFinder({}: {}) {
                   onDeselect={() => {
                     setSelectedPersonas((prevSelectedPersonas) =>
                       prevSelectedPersonas.filter(
-                        (activePersona) => activePersona !== persona
-                      )
+                        (activePersona) => activePersona !== persona,
+                      ),
                     );
                   }}
                 />
@@ -94,8 +90,6 @@ export default function GuestPostOpportunityFinder({}: {}) {
 
         <SocialShareTool
           input={personaString}
-          selectedPersonas={selectedPersonas}
-          setSelectedPersonas={setSelectedPersonas}
           detailsInput={detailsInput}
           setDetailsInput={setDetailsInput}
           isSubscribed={isSubscribed}
@@ -126,7 +120,7 @@ export default function GuestPostOpportunityFinder({}: {}) {
 
 function SocialToolPreview() {
   return (
-    <div className="rounded-md overflow-hidden h-full w-full grid place-items-center relative">
+    <div className="relative grid h-full w-full place-items-center overflow-hidden rounded-md">
       <Image
         src={SelectPersonaDemoGif}
         alt={
@@ -136,8 +130,8 @@ function SocialToolPreview() {
         width={800}
         height={600}
       />
-      <div className=" rounded-lg overflow-hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-full bg-white/25 grid place-items-center backdrop-blur-sm">
-        <SocialPreviewIntegrationShowcase className="min-w-[500px] relative my-10" />
+      <div className="absolute left-1/2 top-1/2 grid size-full -translate-x-1/2 -translate-y-1/2 place-items-center overflow-hidden rounded-lg bg-white/25 backdrop-blur-sm">
+        <SocialPreviewIntegrationShowcase className="relative my-10 min-w-[500px]" />
       </div>
     </div>
   );

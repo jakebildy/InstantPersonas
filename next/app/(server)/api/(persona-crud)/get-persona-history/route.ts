@@ -1,6 +1,6 @@
+import { fixPersonaChatHistory } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/fix-persona-chat-history";
 import { PersonaChat } from "@/app/(server)/models/personachat.model";
-import { initMongoDB } from "@/database/mongodb";
-import mongoose from "mongoose";
+import { initMongoDB } from "@/app/(server)/mongodb";
 
 export async function GET(req: Request) {
   // a user can only get their own persona chats, filter by the provided userID in the request
@@ -8,14 +8,18 @@ export async function GET(req: Request) {
 
   const userID = url.searchParams.get("id");
 
-  mongoose.connection.readyState === 1
-    ? console.log("Mongoose Connected")
-    : await initMongoDB();
+  await initMongoDB();
 
   // Get MongoDB PersonaChats where user matches the provided userID
-  const personaChats = await PersonaChat.find({ user: userID });
+  const response = await PersonaChat.find({ user: userID });
+  const personaChats = response.map((chat) => ({
+    ...chat.toObject(),
+    _id: chat._id.toString(),
+  }));
+  // console.log("personaChats", personaChats);
+  const fixedHistory = await fixPersonaChatHistory(personaChats);
 
   return Response.json({
-    results: personaChats,
+    results: fixedHistory,
   });
 }

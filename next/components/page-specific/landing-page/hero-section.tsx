@@ -5,9 +5,9 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <div className="pb-16 pt-20 text-center lg:pt-32">
-      <h1 className="mx-auto max-w-4xl font-display font-bold text-5xl tracking-tight text-slate-900 sm:text-7xl">
+      <h1 className="font-display mx-auto max-w-4xl text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl">
         Understand your audience{" "}
-        <span className="relative whitespace-nowrap text-green mt-4">
+        <span className="text-green relative mt-4 whitespace-nowrap">
           {/* <svg
             aria-hidden="true"
             viewBox="0 0 418 42"
@@ -33,7 +33,7 @@ export default function HeroSection() {
         </motion.div>
         <Button
           variant={"slate"}
-          className="bg-green-500 p-6 text-lg hover:bg-green-700 mt-2"
+          className="mt-2 bg-green-500 p-6 text-lg hover:bg-green-700"
           size="rounded"
           asChild
         >
@@ -48,7 +48,7 @@ export default function HeroSection() {
         >
           <img
             src="https://i.imgur.com/rboSNI5.png"
-            className="h-10 transform scale-x-[-1]"
+            className="h-10 scale-x-[-1] transform"
           />
         </motion.div>
       </div>

@@ -1,16 +1,16 @@
-import { getPersonaChat } from "./function";
+import { getPersonaChat } from "./action";
 
 export async function GET(req: Request) {
   // a user can only get their own persona chats, filter by the provided userID in the request
 
   const url = new URL(req.url);
 
-  const chatID = url.searchParams.get("chatID");
+  const id = url.searchParams.get("id");
 
-  if (!chatID) throw "Chat ID is not defined";
+  if (!id) throw "Chat ID is not defined";
   // Get MongoDB PersonaChats where user matches the provided userID
 
-  const personaChat = await getPersonaChat(chatID);
+  const personaChat = await getPersonaChat(id);
 
   return Response.json({
     result: personaChat,
