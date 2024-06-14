@@ -25,7 +25,7 @@ export const TwitterGiveAwayPopup = ({
           Tweet about InstantPersonas with the{" "}
           <b className="text-blue-500">@InstantPersonas</b> for a chance to
           <br />
-          <i>Win a free subscription & $50!</i>
+          <i>Win a free subscription & $50 Amazon Giftcard!</i>
         </>
       ),
       footerNote:
@@ -55,7 +55,9 @@ export const TwitterGiveAwayPopup = ({
             @InstantPersonas
           </Link>{" "}
           for a chance to{" "}
-          <b className="text-green-500">Win a Free Subscription & $50!</b>
+          <b className="text-green-500">
+            Win a Free Subscription & $50 Amazon Giftcard!
+          </b>
           <br />
           <br />
           <div className="flex items-center justify-between text-xs">
