@@ -99,10 +99,8 @@ export default function Chat({ className }: Props) {
       )}
     >
       <SubscriptionPopup
-        setOpenSubscriptionPopup={setShowSubscriptionPromptDialog}
-        openSubscriptionPopup={
-          IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog
-        }
+        onOpenChange={setShowSubscriptionPromptDialog}
+        open={IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog}
       />
 
       <motion.div

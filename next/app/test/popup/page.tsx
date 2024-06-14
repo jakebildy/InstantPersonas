@@ -41,7 +41,9 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { LucideIcon, TrendingUpIcon } from "lucide-react";
 import SubscriptionPopup from "@/components/popups/subscription-popup";
 import { BRAND_ICONS } from "@/components/brand-icons";
-import { SlackPopup } from "@/components/popups/slack-popup";
+import { SlackPopup } from "@/components/popups/slack/slack-popup";
+import { TwitterGiveAwayPopup } from "@/components/popups/twitter-giveaway/giveaway-popup";
+
 type Props = {};
 
 export default function PageTest({}: Props) {
@@ -55,19 +57,25 @@ export default function PageTest({}: Props) {
 
   return (
     <div className="relative flex h-full w-screen flex-col items-center justify-center gap-4 py-[50px]">
-      <Button variant={"outline"} onClick={() => changeVariant()}>
+      {/* <Button variant={"outline"} onClick={() => changeVariant()}>
         Change Variant
-      </Button>
-      <SlackPopup
+      </Button> */}
+      hello
+      {/* <SlackPopup
+        open={true}
+        onOpenChange={function (value: React.SetStateAction<boolean>): void {
+          throw new Error("Function not implemented.");
+        }}
+      /> */}
+      <TwitterGiveAwayPopup
         open={true}
         onOpenChange={function (value: React.SetStateAction<boolean>): void {
           throw new Error("Function not implemented.");
         }}
       />
-
-      <Button variant={"outline"} onClick={() => changeVariant()}>
+      {/* <Button variant={"outline"} onClick={() => changeVariant()}>
         Change Variant
-      </Button>
+      </Button> */}
     </div>
   );
 }

@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { PersonaHistoryListSkeleton } from "../(server-ui)/persona-history-list-skeleton";
 import { AnimatePresence, motion } from "framer-motion";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
-import { useShowFeedback } from "@/components/popups/useShowFeedback";
+
 import { usePersonaChatHistory } from "@/components/context/persona/history-context";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/feedback-survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import { useShowFeedback } from "@/components/popups/feedback-survey/useShowFeedback";
 
 export function PersonaHistoryList({}: {}) {
   const { history, loading } = usePersonaChatHistory();

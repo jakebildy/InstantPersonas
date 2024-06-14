@@ -17,8 +17,8 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
 import ChatHistory from "@/components/page-specific/persona-chat-history/new/chat-history";
 import { HistoryLoading } from "./loading-state";
-import { useShowSlackPopup } from "@/components/popups/useShowSlackPopup";
-import { SlackPopup } from "@/components/popups/slack-popup";
+import { useShowSlackPopup } from "@/components/popups/slack/useShowSlackPopup";
+import { SlackPopup } from "@/components/popups/slack/slack-popup";
 
 export default function HistoryPage({}: {}) {
   const { resetChatId } = usePersonaChat();

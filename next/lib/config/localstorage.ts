@@ -6,6 +6,9 @@ export const LOCAL_STORAGE_CONFIG = {
   slack_popup: {
     shown: "instant_persona_slack_popup_shown", // Key for the last time the slack popup was shown | Date Format as 'YYYY-MM-DD'
   },
+  twitter_giveaway: {
+    shown: "instant_persona_twitter_giveaway_shown", // Key for the last time the twitter giveaway popup was shown | Date Format as 'YYYY-MM-DD'
+  },
   tools: {
     selectedPersonas: "instant_persona_tool_selected_personas", // Key for the selected personas | JSON Array of Persona IDs
   },

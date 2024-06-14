@@ -11,15 +11,17 @@ import {
   gradientVariants,
   ColorVariant,
 } from "@/components/variants";
-import * as MetricsSrc from "@/public/metrics.gif";
+import * as TalkingGif from "@/public/talking.gif";
+import { BRAND_ICONS } from "../../brand-icons";
+import { SLACK_INVITE_LINK } from "@/lib/site";
 import {
+  PopupBenefitsSection,
+  PopupMainSection,
   PopupProps,
   PopupTemplate,
-  PopupMainSection,
-  PopupBenefitsSection,
-} from "./template/popup";
+} from "../template/popup";
 
-const SubscriptionPopup = ({
+export const SlackPopup = ({
   variant = "green",
   open,
   onOpenChange,
@@ -29,36 +31,35 @@ const SubscriptionPopup = ({
       variant,
       open,
       onOpenChange,
-      Icon: <BadgeDollarSignIcon className="text-gray-600" />,
-      title: "Save hours or your money back.",
-      subTitle: (
-        <>
-          To use InstantPersonas, start your free trial!{" "}
-          <i className="underline">You can cancel at any time</i>.
-        </>
-      ),
-      footerNote: "We appreciate your time and consideration. Thank you!",
+      Icon: <BRAND_ICONS.Slack className="size-6" />,
+      title: "Join InstantPersonas on Slack!",
+      subTitle:
+        "Get the latest updates, ask questions, and share your feedback!",
+      footerNote:
+        "Thank you for considering joining our community. We value your input and look forward to connecting with you!",
     }}
   >
-    <PopupMainSection src={MetricsSrc} alt="Subscribe to Instant Personas!" />
+    <PopupMainSection src={TalkingGif} alt="Slack Community Conversation GIF" />
     <PopupBenefitsSection>
       <ul className="space-y-4">
         <li>
           <b className="text-semibold text-gray-700">
-            Try for <span className="text-green-500">FREE</span>
-          </b>{" "}
-          for 3 days.
+            Direct Access to Our Team
+          </b>
+          {" - "}
+          Reach out directly and get
+          <br /> the answers you need.
         </li>
         <li>
-          <b className="text-semibold text-gray-700">Money Back Guarantee</b>{" "}
-          for 30 days
+          <b className="text-semibold text-gray-700">Exclusive Insights</b>
+          {" - "}
+          Be the first to receive sneak peeks and special updates.
         </li>
         <li>
-          <b className="text-semibold text-gray-700">
-            Marketing Managers and UX Designers can save hours
-          </b>{" "}
-          developing user personas and getting insights. Don&apos;t believe us?
-          Try it and find out.
+          <b className="text-semibold text-gray-700">Community Support</b>
+          {" - "}
+          Share ideas and solutions with peers who are just as passionate as you
+          are.
         </li>
       </ul>
     </PopupBenefitsSection>
@@ -68,7 +69,7 @@ const SubscriptionPopup = ({
         className="h-full rounded-full p-1 shadow-sm hover:scale-100 hover:text-primary"
       >
         <Link
-          href="/subscription"
+          href={SLACK_INVITE_LINK}
           className={gradientLightVariants({
             variant: "blue",
             className:
@@ -83,16 +84,14 @@ const SubscriptionPopup = ({
         className="h-full rounded-full p-1 shadow-sm transition-all duration-200 hover:scale-110 hover:text-primary"
       >
         <Link
-          href="/subscription"
+          href={SLACK_INVITE_LINK}
           className={
             "h-10 whitespace-nowrap rounded-full border border-input bg-gradient-to-b from-green-500 to-green-500 p-2 px-10 font-semibold text-white transition-colors duration-300 ease-out hover:bg-gradient-to-b hover:from-green-500 hover:to-green-400"
           }
         >
-          Try for Free
+          Join the Community!
         </Link>
       </Button>
     </div>
   </PopupTemplate>
 );
-
-export default SubscriptionPopup;
