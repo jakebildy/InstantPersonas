@@ -1,6 +1,6 @@
 import { BlogPost } from "@/app/(public)/blog/page";
 import { cn } from "@/lib/utils";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 export const ArticleCard = ({
   post,
@@ -32,7 +32,8 @@ export const ArticleCard = ({
           href={"blog/" + post.slug}
           className="text-primary-600 inline-flex items-center font-medium hover:underline"
         >
-          Read more
+          <span>Read more</span>
+
           <svg
             className="ml-2 h-4 w-4"
             fill="currentColor"
