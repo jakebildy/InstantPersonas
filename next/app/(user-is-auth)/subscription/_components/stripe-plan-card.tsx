@@ -41,6 +41,9 @@ export function StripePlanCard({
       <p className="text-sm leading-6 text-gray-600">{description}</p>
 
       <p className="mt-6 flex items-baseline gap-x-1">
+        <span className="text-2xl font-regular tracking-tight text-gray-900">
+          $
+        </span>
         <span className="text-4xl font-bold tracking-tight text-gray-900">
           {price}
         </span>
