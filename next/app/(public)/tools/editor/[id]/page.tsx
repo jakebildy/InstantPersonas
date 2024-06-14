@@ -52,12 +52,11 @@ import { ColorVariantMap } from "@/components/variants";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import { ActivePersonas } from "../ActivePersonas";
-import {
-  PersonaAvatarPopover,
-  mapUrlBackgroundColorParamToVariant,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
 import { Label } from "@/components/ui/label";
 import NextImage from "next/image";
+import { usePersonaChatHistory } from "@/components/context/persona/history-context";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
+import { PersonaAvatarPopover } from "@/components/persona-archetype-generic/persona-avatar-popover";
 
 // export const runtime = "edge";
 export const maxDuration = 300; // 5 minutes
@@ -612,11 +611,7 @@ export default function DocumentEditor() {
       {/* The Select Personas Button */}
       {isSubscribed ? (
         <div className="fixed right-10 top-3 z-50">
-          <PersonaSelectFromHistorySidebar
-            className="m-4"
-            selectedPersonas={selectedPersonas}
-            setSelectedPersonas={setSelectedPersonas}
-          />
+          <PersonaSelectFromHistorySidebar className="m-4" />
         </div>
       ) : null}
 
