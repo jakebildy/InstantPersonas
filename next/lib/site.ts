@@ -1,4 +1,5 @@
 import {
+  LucideIcon,
   MessageSquareShareIcon,
   PersonStandingIcon,
   SlackIcon,
@@ -38,7 +39,7 @@ export const UNDERSTAND_TOOLS = [
   {
     title: "Slack Community",
     href: SLACK_INVITE_LINK,
-    icon: BRAND_ICONS.Slack,
+    icon: BRAND_ICONS.Slack as LucideIcon,
     label: "",
   },
 ] as const;
