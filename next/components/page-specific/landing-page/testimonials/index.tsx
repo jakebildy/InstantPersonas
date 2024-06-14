@@ -15,7 +15,7 @@ export function TestimonialSection() {
             gradientVariants({
               variant,
               className:
-                "relative grid h-full w-full place-items-center gap-16 overflow-hidden rounded-lg border p-10",
+                "relative grid h-full w-full place-items-center gap-16 overflow-hidden rounded-lg border p-10 px-4 sm:px-10",
             }),
             shadowVariants({
               variant,
@@ -29,7 +29,7 @@ export function TestimonialSection() {
           sparklesCount={5}
         /> */}
 
-            <h2 className="text-3xl font-bold tracking-tight sm:text-6xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-6xl">
               Don&apos;t just take our word for it
             </h2>
             <p>
@@ -38,7 +38,7 @@ export function TestimonialSection() {
             </p>
           </div>
 
-          <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
             {TESTIMONIALS.map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
