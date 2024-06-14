@@ -51,10 +51,14 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="bg-white">
+    <section
+      id="faq"
+      aria-labelledby="faq-title"
+      className="flex h-screen flex-col bg-white"
+    >
       {/* <BackgroundGradientAnimation> */}
       {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
-      <Container className="mt-20 h-[100%] w-screen text-center">
+      <Container className="mt-20 h-full w-screen text-center">
         <div className="mx-auto">
           <h2
             id="faq-title"
@@ -93,7 +97,7 @@ export default function FaqSection() {
       </Container>
       {/* </BackgroundGradientAnimation> */}
 
-      <div className="h-screen font-jost">
+      <div className="h-full font-jost">
         <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-blue-50 text-center">
           <div className="mx-auto flex flex-row justify-center p-5">
             <img
