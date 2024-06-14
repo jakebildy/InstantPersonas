@@ -10,6 +10,16 @@ export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
       <title>{"Detailed User Personas in Seconds | Try for Free"}</title>
+      <script type="application/ld+json">
+        {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "InstantPersonas",
+              "url": "https://instantpersonas.com/"
+            }
+          `}
+      </script>
       <LandingPage.header />
       <LandingPage.hero />
       <LandingPage.productCarousel />
