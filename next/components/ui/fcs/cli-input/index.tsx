@@ -53,7 +53,7 @@ export const CommandUserInput = React.forwardRef<
       children,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const localRef = useRef<HTMLTextAreaElement>(null);
     const ref = useComposedRefs<HTMLTextAreaElement>(forwardedRef, localRef);
@@ -80,7 +80,7 @@ export const CommandUserInput = React.forwardRef<
       }
     };
     const updatedKeyBinds = keyBinds.map<KeyBind>((bind) =>
-      updateSubmitAction(bind, submitAction)
+      updateSubmitAction(bind, submitAction),
     );
     useKeyboardShortcuts(updatedKeyBinds, localRef);
 
@@ -108,17 +108,17 @@ export const CommandUserInput = React.forwardRef<
     return (
       <form className={cn("grid w-full gap-2", className)} onSubmit={onSubmit}>
         {children}
-        <div className="relative flex items-center group">
+        <div className="group relative flex items-center">
           <Textarea
             ref={ref}
             id="prompt-textarea"
             rows={1}
             className={cn(
-              "text-base md:text-sm scrollbar-hidden font-mono resize-none min-h-[42px] sm:min-h-9 overflow-auto border border-input p-2 scroll-p-1 transition-colors duration-500 focus-visible:ring-primary pr-6 focus:scroll-pr-6 focus:border-gray-400 focus:rounded focused:h-auto text-gray-500 hover:text-black",
+              "scrollbar-hidden focused:h-auto min-h-[42px] resize-none scroll-p-1 overflow-auto border border-input p-2 pr-6 font-mono text-base text-gray-500 transition-colors duration-500 hover:text-black focus:scroll-pr-6 focus:rounded focus:border-gray-400 focus-visible:ring-primary sm:min-h-9 md:text-sm",
               nonInteractable
                 ? "disabled:cursor-default disabled:opacity-100"
                 : "",
-              inputClassName
+              inputClassName,
             )}
             disabled={textAreaIsDisabled}
             value={value}
@@ -131,20 +131,20 @@ export const CommandUserInput = React.forwardRef<
             disabled={buttonisDisabled}
             ref={submitButtonRef}
             className={cn(
-              "h-[42px] md:h-9 absolute right-0 top-0 flex items-center mx-2 justify-center z-20 p-0 my-auto",
+              "absolute right-0 top-0 z-20 mx-2 my-auto flex h-[42px] items-center justify-center p-0 md:h-9",
               nonInteractable
-                ? "disabled:cursor-default disabled:pointer-events-none disabled:opacity-100"
-                : ""
+                ? "disabled:pointer-events-none disabled:cursor-default disabled:opacity-100"
+                : "",
             )}
             type="submit"
             variant={"link"}
           >
-            <PaperAirplaneIcon className="h-4 w-4 text-primary hover:text-OffWhite-light transition-colors duration-500" />
+            <PaperAirplaneIcon className="hover:text-OffWhite-light h-4 w-4 text-primary transition-colors duration-500" />
           </Button>
         </div>
       </form>
     );
-  }
+  },
 );
 
 CommandUserInput.displayName = "CommandUserInput";
@@ -157,7 +157,7 @@ function validInput(input: string | undefined) {
 // Updates the submit keybind action
 function updateSubmitAction(
   bind: CommandUserInputKeybind,
-  submitAction: () => void
+  submitAction: () => void,
 ): KeyBind {
   if (bind.bindLabel === "Submit") {
     // Explicitly return a KeyBind type for the 'Submit' case

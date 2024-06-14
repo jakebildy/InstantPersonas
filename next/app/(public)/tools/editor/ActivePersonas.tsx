@@ -1,7 +1,5 @@
-import {
-  PersonaAvatarPopover,
-  mapUrlBackgroundColorParamToVariant,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { PersonaAvatarPopover } from "@/components/persona-archetype-generic/persona-avatar-popover";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -20,7 +18,7 @@ export const ActivePersonas = ({
     <div id="active-personas-preview">
       <Label>Active Personas</Label>
       <ScrollArea>
-        <div className="flex my-2 border border-green-400 bg-green-100 rounded-lg min-h-[60px] items-center">
+        <div className="my-2 flex min-h-[60px] items-center rounded-lg border border-green-400 bg-green-100">
           <AnimatePresence mode="popLayout">
             {selectedPersonas && selectedPersonas.length > 0 ? (
               selectedPersonas.map((archetype, i) => {
@@ -48,7 +46,7 @@ export const ActivePersonas = ({
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5 }}
-                className="flex text-xs items-center justify-center w-full h-full text-green-500"
+                className="flex h-full w-full items-center justify-center text-xs text-green-500"
                 key="empty-info-text"
               >
                 Select a persona to add to the working area
@@ -59,7 +57,7 @@ export const ActivePersonas = ({
         <ScrollAreaScrollbar
           orientation={"horizontal"}
           className={
-            "flex touch-none select-none transition-colors h-2.5 flex-col border-t border-t-transparent p-[1px]"
+            "flex h-2.5 touch-none select-none flex-col border-t border-t-transparent p-[1px] transition-colors"
           }
         >
           <ScrollAreaThumb className="relative flex-1 rounded-full bg-black/25" />

@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <main
       className={
-        isLoggedIn ? "bg-gray-100 min-h-screen" : "bg-white min-h-screen"
+        isLoggedIn ? "min-h-screen bg-gray-100" : "min-h-screen bg-white"
       }
     >
       {/editor\/.+/.test(pathName) ? (
@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </ScrollArea>
         </DashboardLayout>
       ) : (
-        <section className="flex flex-col justify-between h-screen">
+        <section className="flex h-screen flex-col justify-between">
           <LandingPage.header />
           {children}
           <BlogFooter />

@@ -9,7 +9,7 @@ import { useCallback, useRef } from "react";
  */
 export function useContinuousDebounce<T extends (...args: any[]) => void>(
   callback: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -23,7 +23,7 @@ export function useContinuousDebounce<T extends (...args: any[]) => void>(
         callback(...args);
       }, delay);
     },
-    [callback, delay]
+    [callback, delay],
   );
 
   return debouncedFn;

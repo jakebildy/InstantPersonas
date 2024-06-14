@@ -24,11 +24,11 @@ export function TemplateSelectionGallery({
       {IMAGE_TEMPLATES.map((template, i) => (
         <button
           key={i}
-          className="flex flex-col border rounded-md overflow-hidden max-w-full p-1 bg-white hover:bg-gray-200 transition-colors duration-200"
+          className="flex max-w-full flex-col overflow-hidden rounded-md border bg-white p-1 transition-colors duration-200 hover:bg-gray-200"
           onClick={() => handleTemplateSelect(template.title)}
           tabIndex={0}
         >
-          <div className="relative w-full h-36">
+          <div className="relative h-36 w-full">
             <template.preview
               size="sm"
               variant={variant}
@@ -38,10 +38,10 @@ export function TemplateSelectionGallery({
               image={image}
             />
           </div>
-          <div className="flex p-1 items-center space-x-4">
-            <div className="flex flex-col flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{template.title}</p>
-              <p className="text-xs text-base-500 text-gray-400">
+          <div className="flex items-center space-x-4 p-1">
+            <div className="flex min-w-0 flex-1 flex-col">
+              <p className="truncate text-sm font-medium">{template.title}</p>
+              <p className="text-base-500 text-xs text-gray-400">
                 {template.description}
               </p>
             </div>

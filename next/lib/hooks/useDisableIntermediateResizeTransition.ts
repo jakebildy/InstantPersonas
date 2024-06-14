@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
  * @returns A boolean state indicating whether transitions should be allowed.
  */
 export function useDisableIntermediateResizeTransition(
-  transitionDelay: number
+  transitionDelay: number,
 ): {
   allowTransition: boolean;
 } {

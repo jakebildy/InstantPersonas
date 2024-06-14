@@ -20,16 +20,18 @@ import { IS_TEST_DEV_ENV } from "@/lib/utils";
 // Define the context shape
 type InstantPersonasUserContextType =
   | {
-      user: InstantPersonasUser;
-      isLoggedIn: true;
-      isSubscribed: boolean;
-      isInitialized: boolean;
+      user: InstantPersonasUser; // The user object
+      isLoggedIn: true; // Whether the user is logged in, ensures user is not null
+      isSubscribed: boolean; // Whether the user has an active subscription
+      isInitialized: boolean; // Whether the stytch user object has been initialized
+      isLoading: boolean; // Whether the user object is still loading
     }
   | {
       user: null;
       isLoggedIn: false;
       isSubscribed: false;
       isInitialized: boolean;
+      isLoading: boolean;
     };
 
 // Create the context with default values
@@ -55,22 +57,27 @@ export const InstantPersonasUserProvider = ({
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   const { user, isInitialized } = useStytchUser();
   const pathname = usePathname();
   const posthog = usePostHog();
 
   useEffect(() => {
+    setLoading(true);
     if (isInitialized && !user) {
+      setInstantPersonasUser(null);
       setIsLoggedIn(false);
+      setIsSubscribed(false);
     } else if (user) {
       const getSubscription = async () => {
         IS_TEST_DEV_ENV && console.log("DEV: Getting subscription status");
         const subscription = await api.stripe.isSubscriptionActive(
-          user.user_id as string
+          user.user_id as string,
         );
 
         const activeSubscription = ACTIVE_SUBSCRIPTIONS.includes(
-          subscription.status
+          subscription.status,
         );
 
         if (user.user_id !== instantPersonasUser?.id) {
@@ -96,6 +103,7 @@ export const InstantPersonasUserProvider = ({
 
       getSubscription();
     }
+    setLoading(false);
   }, [
     user,
     user?.user_id,
@@ -112,12 +120,14 @@ export const InstantPersonasUserProvider = ({
           isLoggedIn: true,
           isSubscribed: isSubscribed,
           isInitialized: isInitialized,
+          isLoading: loading,
         } as const)
       : ({
           user: null,
           isLoggedIn: false,
           isSubscribed: false,
           isInitialized: isInitialized,
+          isLoading: loading,
         } as const);
 
   return (
@@ -132,7 +142,7 @@ export const useInstantPersonasUser = () => {
   const context = useContext(InstantPersonasUserContext);
   if (context === undefined) {
     throw new Error(
-      "useInstantPersonasUser must be used within a InstantPersonasUserProvider"
+      "useInstantPersonasUser must be used within a InstantPersonasUserProvider",
     );
   }
   return context;

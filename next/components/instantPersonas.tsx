@@ -11,11 +11,11 @@ export const InstantPersonas = ({ isCollapsed, className }: Props) => {
   return (
     <div
       className={cn(
-        "text-xl font-bold text-black font-jost",
+        "font-jost text-xl font-bold text-black",
         isCollapsed
           ? "inline-flex items-center justify-center whitespace-nowrap rounded-md"
           : "flex-1 text-xl font-semibold leading-6",
-        className
+        className,
       )}
     >
       <Link href={"/"} className="flex items-center text-left">

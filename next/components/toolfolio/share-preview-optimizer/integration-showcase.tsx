@@ -15,7 +15,7 @@ const Circle = forwardRef<
       ref={ref}
       className={cn(
         "z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
-        className
+        className,
       )}
     >
       {children}
@@ -39,7 +39,7 @@ export function SocialPreviewIntegrationShowcase({
 
   return (
     <div
-      className="relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg  p-10 "
+      className="relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg p-10"
       ref={containerRef}
       {...Props}
     >
@@ -63,7 +63,7 @@ export function SocialPreviewIntegrationShowcase({
               width={64}
               height={64}
               priority
-              className={"object-contain size-16"}
+              className={"size-16 object-contain"}
             />
             {/* <PersonStandingIcon className="size-6" /> */}
           </Circle>

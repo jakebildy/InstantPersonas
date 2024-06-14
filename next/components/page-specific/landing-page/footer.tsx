@@ -8,11 +8,11 @@ export default function Footer({ className }: { className?: string }) {
   return (
     <footer className={cn("bg-slate-50", className)}>
       <Container>
-        <div className="sm:py-16 py-4">
+        <div className="py-4 sm:py-16">
           <div className="mx-auto grid place-items-center">
             <InstantPersonas isCollapsed={true} />
           </div>
-          <nav className="mt-4 sm:mt-10 text-sm" aria-label="quick links">
+          <nav className="mt-4 text-sm sm:mt-10" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
               {LANDING_FOOTER_LINKS.map((link) => (
                 <Link
@@ -26,8 +26,8 @@ export default function Footer({ className }: { className?: string }) {
             </div>
           </nav>
         </div>
-        <div className="flex flex-col items-center border-t border-slate-400/10 py-4 sm:py-10 sm:flex-row-reverse justify-center ">
-          <p className="text-sm text-slate-500 sm:mt-0 max-sm:text-center">
+        <div className="flex flex-col items-center justify-center border-t border-slate-400/10 py-4 sm:flex-row-reverse sm:py-10">
+          <p className="text-sm text-slate-500 max-sm:text-center sm:mt-0">
             Copyright &copy; {new Date().getFullYear()} InstantPersonas.com all
             rights reserved. By using this site, you agree to our{" "}
             <Link href="/terms-of-service" className="font-bold">

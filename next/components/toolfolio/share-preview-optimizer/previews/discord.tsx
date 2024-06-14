@@ -26,23 +26,23 @@ export function DiscordPreview({
   return (
     <div className="pb-10 pt-2">
       <div
-        className="items-center  border-t border-gray-300/20 h-[1px] justify-center flex w-full mb-2 ml-4 mr-[14px] mt-6 relative select-none"
+        className="relative mb-2 ml-4 mr-[14px] mt-6 flex h-[1px] w-full select-none items-center justify-center border-t border-gray-300/20"
         role="separator"
         aria-label={formattedDate}
         suppressHydrationWarning
       >
         <span
-          className="text-xs mt-[-1px] text-gray-500 select-none"
+          className="mt-[-1px] select-none text-xs text-gray-500"
           suppressHydrationWarning
         >
           {formattedDate}
         </span>
       </div>
       {/* Message */}
-      <div className="min-h-11 pl-[72px] pr-12 py-0.5 mt-4 relative">
+      <div className="relative mt-4 min-h-11 py-0.5 pl-[72px] pr-12">
         <div className="static ml-0 pl-0 indent-0" id="message">
           <div
-            className="flex items-center size-10 absolute left-4 top-[calc(4px-0.125rem)] rounded-full"
+            className="absolute left-4 top-[calc(4px-0.125rem)] flex size-10 items-center rounded-full"
             aria-hidden="true"
           >
             <Image
@@ -51,21 +51,21 @@ export function DiscordPreview({
               width={40}
               height={40}
               priority
-              className={"object-contain min-w-8"}
+              className={"min-w-8 object-contain"}
             />
           </div>
 
-          <h3 className="flex gap-2 items-center min-h-[22px]">
+          <h3 className="flex min-h-[22px] items-center gap-2">
             <span
               aria-expanded="false"
               role="button"
               tabIndex={0}
-              className="text-base font-semibold text-green-500 leading-5"
+              className="text-base font-semibold leading-5 text-green-500"
             >
               InstantPersonas
             </span>
 
-            <span className="text-xs text-gray-500 leading-5 truncate">
+            <span className="truncate text-xs leading-5 text-gray-500">
               <time
                 aria-label={"Today at " + formattedTime}
                 dateTime={now.toLocaleDateString()}
@@ -83,45 +83,45 @@ export function DiscordPreview({
               </time>
             </span>
           </h3>
-          <div className="pl-[72px] -ml-[72px] text-base text-left overflow-hidden text-wrap whitespace-break-spaces">
-            <span className="text-blue-500 hover:underline hover:underline-blue-800 cursor-pointer">
+          <div className="-ml-[72px] overflow-hidden whitespace-break-spaces text-wrap pl-[72px] text-left text-base">
+            <span className="hover:underline-blue-800 cursor-pointer text-blue-500 hover:underline">
               {url}
             </span>
           </div>
         </div>
         <div
-          className="py-0.5 grid grid-flow-row h-fit   overflow-hidden"
+          className="grid h-fit grid-flow-row overflow-hidden py-0.5"
           id="embed-container"
         >
           <article
-            className="max-w-[432px] self-start justify-self-auto border-l-4 border-pastel-blue/90 bg-pastel-blue/50 grid rounded-sm"
+            className="grid max-w-[432px] self-start justify-self-auto rounded-sm border-l-4 border-pastel-blue/90 bg-pastel-blue/50"
             id="embed"
           >
-            <div className="grid overflow-hidden pl-2 pr-3 py-4">
+            <div className="grid overflow-hidden py-4 pl-2 pr-3">
               <div
                 id={"provider"}
-                className="empty:opacity-0 text-xs col-span-1 min-w-0 text-gray-500"
+                className="col-span-1 min-w-0 text-xs text-gray-500 empty:opacity-0"
               >
                 <span>{domain}</span>
               </div>
               <div
                 id={"title"}
-                className="empty:opacity-0 text-base col-span-1 font-semibold text-blue-500 min-w-0 mt-1"
+                className="col-span-1 mt-1 min-w-0 text-base font-semibold text-blue-500 empty:opacity-0"
               >
                 <span>{title}</span>
               </div>
               <div
                 id={"description"}
-                className="empty:opacity-0 text-sm col-span-1 min-w-0 text-gray-500 mt-1"
+                className="col-span-1 mt-1 min-w-0 text-sm text-gray-500 empty:opacity-0"
               >
                 <span>{description}</span>
               </div>
               <div
                 id={"image-container"}
-                className="mt-4 flex flex-col min-w-0 col-span-1 rounded-sm contain-paint object-fill"
+                className="col-span-1 mt-4 flex min-w-0 flex-col rounded-sm object-fill contain-paint"
               >
-                <div className="flex flex-row flex-auto w-full h-full">
-                  <div className="max-w-[400px] w-full aspect-[400/209] relative overflow-hidden rounded-sm cursor-pointer">
+                <div className="flex h-full w-full flex-auto flex-row">
+                  <div className="relative aspect-[400/209] w-full max-w-[400px] cursor-pointer overflow-hidden rounded-sm">
                     <Image
                       src={image ?? "/tools/no-image-placeholder.svg"}
                       alt="OG Image"

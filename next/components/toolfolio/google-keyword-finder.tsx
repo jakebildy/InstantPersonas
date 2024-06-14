@@ -44,9 +44,9 @@ export function GoogleKeywordFinderTool({
         "We didn't find any good keywords for this persona. Try refining your search!"
       ) : keywordResults.length > 0 ? (
         <div className="mb-5">
-          <ul className="pt-4 pl-2">
+          <ul className="pl-2 pt-4">
             <button
-              className="text-sm font-bold text-blue-500 flex flex-row mb-2"
+              className="mb-2 flex flex-row text-sm font-bold text-blue-500"
               onClick={() => {
                 const csv = keywordResults
                   .map((result) => {
@@ -69,10 +69,10 @@ export function GoogleKeywordFinderTool({
             </button>
             {isSidebar ? <div /> : "Data for US Searches 🇺🇸"}
             {keywordResults.length === 0 ? null : (
-              <div className=" w-full">
+              <div className="w-full">
                 <table className="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto">
                   <thead className="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-white">
-                    <tr className="w-full text-sm font-normal whitespace-nowrap  text-[#212B36]">
+                    <tr className="w-full whitespace-nowrap text-sm font-normal text-[#212B36]">
                       <th className="px-2 py-3">Keyword</th>
                       <th className="px-2 py-3">Search Volume</th>
                       {isSidebar ? (
@@ -128,10 +128,10 @@ export function GoogleKeywordFinderTool({
                               keyword.competition === "LOW"
                                 ? "green"
                                 : keyword.competition === "MEDIUM"
-                                ? "blue"
-                                : keyword.competition === "HIGH"
-                                ? "pink"
-                                : "purple"
+                                  ? "blue"
+                                  : keyword.competition === "HIGH"
+                                    ? "pink"
+                                    : "purple"
                               // "blue"
                             }
                           />
@@ -153,8 +153,8 @@ export function GoogleKeywordFinderTool({
         <button
           className={
             noInput
-              ? "bg-gray-400 text-white font-bold py-2 px-4 rounded-full mb-5"
-              : "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-5"
+              ? "mb-5 rounded-full bg-gray-400 px-4 py-2 font-bold text-white"
+              : "mb-5 rounded-full bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
           }
           onClick={async () => {
             if (noInput) return;
@@ -169,12 +169,12 @@ export function GoogleKeywordFinderTool({
               if (isSidebar) {
                 response = await api.tools.findGoogleKeywordsDocumentEditor(
                   input,
-                  isSubscribed
+                  isSubscribed,
                 );
               } else {
                 response = await api.tools.findGoogleKeywords(
                   input,
-                  isSubscribed
+                  isSubscribed,
                 );
               }
 
@@ -191,8 +191,8 @@ export function GoogleKeywordFinderTool({
           {loading
             ? "Searching..."
             : keywordResults.length > 0
-            ? "Find More Keywords"
-            : "Find Google Keywords"}
+              ? "Find More Keywords"
+              : "Find Google Keywords"}
         </button>
       </div>
     </div>
@@ -226,12 +226,12 @@ function GoogleKeywordTableRow({
         shadowVariants({
           variant,
           className:
-            "cursor-pointer bg-[#f6f8fa] hover:shadow-2xl hover:bg-gray-200 ",
+            "cursor-pointer bg-[#f6f8fa] hover:bg-gray-200 hover:shadow-2xl",
         }),
         gradientLightVariants({
           variant,
           className: "bg-gradient-to-r",
-        })
+        }),
       )}
       onClick={() =>
         handleCopy({
@@ -256,7 +256,7 @@ function GoogleKeywordTableRow({
               {keyword}
             </div>
           ) : (
-            <div className={"rounded-lg text-left normal-case text-xs ml-4"}>
+            <div className={"ml-4 rounded-lg text-left text-xs normal-case"}>
               {keyword}
             </div>
           )

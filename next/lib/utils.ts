@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { customAlphabet } from "nanoid";
 import * as React from "react";
+import Zod from "zod";
 
 /**
  * compose tailwind classnames
@@ -14,7 +15,7 @@ import * as React from "react";
  */ export function debounce(
   this: any,
   func: (this: any, ...args: any[]) => void,
-  timeout: number = 200
+  timeout: number = 200,
 ): (...args: any[]) => void {
   let timer: NodeJS.Timeout | null = null;
   return function (this: any, ...args: any[]): void {
@@ -91,7 +92,7 @@ export function unixTimeAgo(unixTimestamp: number): string {
  */
 export function timeAgo(
   date: Date,
-  customIntervals?: Array<{ threshold: number; unit: string }>
+  customIntervals?: Array<{ threshold: number; unit: string }>,
 ): string {
   const currentTime = new Date();
   const differenceInSeconds = (currentTime.getTime() - date.getTime()) / 1000;
@@ -230,12 +231,12 @@ export function hexToRgb(hex: string): [number, number, number] {
  */
 export function colorDistance(
   rgb1: [number, number, number],
-  rgb2: [number, number, number]
+  rgb2: [number, number, number],
 ): number {
   return Math.sqrt(
     (rgb1[0] - rgb2[0]) ** 2 +
       (rgb1[1] - rgb2[1]) ** 2 +
-      (rgb1[2] - rgb2[2]) ** 2
+      (rgb1[2] - rgb2[2]) ** 2,
   );
 }
 
@@ -243,7 +244,7 @@ export function colorDistance(
  * Creates a 7-character random string
  */ export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  7
+  7,
 );
 
 /**
@@ -265,7 +266,7 @@ export function colorDistance(
 export function limitTextToFirstDelimiter(text: string): string {
   // Locate the first index of '.' or ','
   const index = Math.min(
-    ...[".", ","].map((char) => text.indexOf(char)).filter((i) => i !== -1)
+    ...[".", ","].map((char) => text.indexOf(char)).filter((i) => i !== -1),
   );
 
   // Determine the segment of the text up to the found punctuation or full text if none
@@ -307,7 +308,7 @@ type LabelForRangeConfig<Config extends NumericRangeConfig> =
  */
 export function labelForValueInRange<Config extends NumericRangeConfig>(
   value: number | null,
-  config: Config
+  config: Config,
 ): LabelForRangeConfig<Config> | null {
   if (typeof value !== "number") {
     return null; // Handles non-number and null inputs by returning null
@@ -346,46 +347,185 @@ export function replaceValueWithPlaceholderIfDefault({
   return value ? (value === defaultValue ? placeholder : value) : placeholder;
 }
 
-export function levenshtein(a: string, b: string): number
-{
-	const an = a ? a.length : 0;
-	const bn = b ? b.length : 0;
-	if (an === 0)
-	{
-		return bn;
-	}
-	if (bn === 0)
-	{
-		return an;
-	}
-	const matrix = new Array<number[]>(bn + 1);
-	for (let i = 0; i <= bn; ++i)
-	{
-		let row = matrix[i] = new Array<number>(an + 1);
-		row[0] = i;
-	}
-	const firstRow = matrix[0];
-	for (let j = 1; j <= an; ++j)
-	{
-		firstRow[j] = j;
-	}
-	for (let i = 1; i <= bn; ++i)
-	{
-		for (let j = 1; j <= an; ++j)
-		{
-			if (b.charAt(i - 1) === a.charAt(j - 1))
-			{
-				matrix[i][j] = matrix[i - 1][j - 1];
-			}
-			else
-			{
-				matrix[i][j] = Math.min(
-					matrix[i - 1][j - 1], // substitution
-					matrix[i][j - 1], // insertion
-					matrix[i - 1][j] // deletion
-				) + 1;
-			}
-		}
-	}
-	return matrix[bn][an];
-};
+/**
+ * Extracts all keys from a Zod schema, handling nested schemas.
+ *
+ * @param {Zod.ZodType} zodSchema - The Zod schema to extract keys from.
+ * @returns {string[]} An array of strings representing the keys in the schema.
+ */
+export function extractKeysFromZodSchema(zodSchema: Zod.ZodType): string[] {
+  // If the schema is nullable or optional, unwrap it and recurse.
+  if (
+    zodSchema instanceof Zod.ZodNullable ||
+    zodSchema instanceof Zod.ZodOptional
+  ) {
+    return extractKeysFromZodSchema(zodSchema.unwrap());
+  }
+
+  // If the schema is an array, recurse into the element type.
+  if (zodSchema instanceof Zod.ZodArray) {
+    return extractKeysFromZodSchema(zodSchema.element);
+  }
+
+  // If the schema is an object, process its shape.
+  if (zodSchema instanceof Zod.ZodObject) {
+    // Retrieve key/value pairs from the schema shape.
+    const entries = Object.entries<Zod.ZodType>(zodSchema.shape);
+
+    // Process each key/value pair.
+    return entries.flatMap(([key, value]) => {
+      // Extract nested keys, prefixing them with the parent key.
+      const nestedKeys = extractKeysFromZodSchema(value).map(
+        (nestedKey) => `${key}.${nestedKey}`,
+      );
+
+      // If there are nested keys, return them; otherwise, return the key itself.
+      return nestedKeys.length ? nestedKeys : key;
+    });
+  }
+
+  // If the schema is not an object, array, or nullable/optional, return an empty array.
+  return [];
+}
+
+/**
+ * Calculates the Levenshtein distance between two strings.
+ * @param string - First string.
+ * @param target - Second string.
+ * @returns The Levenshtein distance between the two strings.
+ *
+ * The implementation of the Levenshtein distance algorithm is based on the following source: https://github.com/gustf
+ */
+export function levenshtein(string: string, target: string): number {
+  if (string === target) {
+    return 0;
+  }
+  var n = string.length,
+    m = target.length;
+  if (n === 0 || m === 0) {
+    return n + m;
+  }
+  var x = 0,
+    y,
+    a,
+    b,
+    c,
+    d,
+    g,
+    h;
+  var p = new Uint16Array(n);
+  var u = new Uint32Array(n);
+  for (y = 0; y < n; ) {
+    u[y] = string.charCodeAt(y);
+    p[y] = ++y;
+  }
+
+  for (; x + 3 < m; x += 4) {
+    var e1 = target.charCodeAt(x);
+    var e2 = target.charCodeAt(x + 1);
+    var e3 = target.charCodeAt(x + 2);
+    var e4 = target.charCodeAt(x + 3);
+    c = x;
+    b = x + 1;
+    d = x + 2;
+    g = x + 3;
+    h = x + 4;
+    for (y = 0; y < n; y++) {
+      a = p[y];
+      if (a < c || b < c) {
+        c = a > b ? b + 1 : a + 1;
+      } else {
+        if (e1 !== u[y]) {
+          c++;
+        }
+      }
+
+      if (c < b || d < b) {
+        b = c > d ? d + 1 : c + 1;
+      } else {
+        if (e2 !== u[y]) {
+          b++;
+        }
+      }
+
+      if (b < d || g < d) {
+        d = b > g ? g + 1 : b + 1;
+      } else {
+        if (e3 !== u[y]) {
+          d++;
+        }
+      }
+
+      if (d < g || h < g) {
+        g = d > h ? h + 1 : d + 1;
+      } else {
+        if (e4 !== u[y]) {
+          g++;
+        }
+      }
+      p[y] = h = g;
+      g = d;
+      d = b;
+      b = c;
+      c = a;
+    }
+  }
+
+  for (; x < m; ) {
+    var e = target.charCodeAt(x);
+    c = x;
+    d = ++x;
+    for (y = 0; y < n; y++) {
+      a = p[y];
+      if (a < c || d < c) {
+        d = a > d ? d + 1 : a + 1;
+      } else {
+        if (e !== u[y]) {
+          d = c + 1;
+        } else {
+          d = c;
+        }
+      }
+      p[y] = d;
+      c = a;
+    }
+    h = d;
+  }
+
+  return h || 0;
+}
+
+/**
+ * Calculates the similarity score between two strings based on the Levenshtein distance.
+ * @param target - The target word.
+ * @param word - The word to compare.
+ * @returns A similarity score between 0 and 1, where 1 means identical and 0 means completely different.
+ */
+export function similarityScore(target: string, word: string): number {
+  const distance = levenshtein(target, word);
+  const maxLength = Math.max(target.length, word.length);
+  return 1 - distance / maxLength;
+}
+
+/**
+ * Returns a random key from the provided object.
+ *
+ * @typeParam T - The type of the object.
+ * @param obj - The object from which to select a random key.
+ * @returns A random key from the object.
+ *
+ * @example
+ * const myObject = { a: 1, b: 2, c: 3 };
+ * const randomKey = getRandomKey(myObject);
+ * console.log(randomKey); // could log 'a', 'b', or 'c'
+ */
+export function getRandomKey<T extends Record<string, any>>(obj: T): keyof T {
+  // Get all keys of the object
+  const keys = Object.keys(obj) as (keyof T)[];
+
+  // Generate a random index based on the number of keys
+  const randomIndex = Math.floor(Math.random() * keys.length);
+
+  // Return the key at the random index
+  return keys[randomIndex];
+}

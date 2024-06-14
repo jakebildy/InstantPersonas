@@ -3,38 +3,52 @@ import { Button } from "@/components/ui/button";
 import { PersonStandingIcon } from "lucide-react";
 import React from "react";
 import Link from "next/link";
-import { gradientLightVariants } from "@/components/variants";
+import { ColorVariantMap, gradientLightVariants } from "@/components/variants";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
+import { cn } from "@/lib/utils";
+import BarLoader from "react-spinners/BarLoader";
 
 export function PreventNotAuth() {
-  const { isLoggedIn, isInitialized } = useInstantPersonasUser();
+  const { isLoggedIn, isInitialized, isLoading, user } =
+    useInstantPersonasUser();
 
-  if (!isInitialized && !isLoggedIn) {
+  if ((!isInitialized && !isLoggedIn) || !user) {
     return (
-      <div className="w-screen h-screen fixed p-4 grid place-items-center inset-0 bg-pastel-blue/75 backdrop-blur-lg z-[999]">
-        <div className="text-center text-gray-700 flex flex-col items-center gap-1 max-w-[90vw]">
-          <PersonStandingIcon className="text-muted-foreground size-8 mb-4 " />
-          <h2 className="text-sm md:text-lg font-bold">
-            Sorry, you must be logged in to access this page.
+      <div className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-pastel-blue/75 p-4 backdrop-blur-lg">
+        <div className="flex max-w-[90vw] flex-col items-center gap-1 text-center text-gray-700">
+          <PersonStandingIcon className="mb-4 size-8 text-muted-foreground" />
+          <h2 className="text-sm font-bold md:text-lg">
+            {isLoading
+              ? "Authorizing User..."
+              : "Sorry, you must be logged in to access this page."}
           </h2>
-          <p className="max-md:text-xs">
-            Click the button below to log in or sign up.
-          </p>
-          <Button
-            variant={"outline"}
-            className="hover:text-primary rounded-full hover:scale-100 h-full  p-1 m-4 shadow-xl "
+          <div
+            className={cn(
+              "flex w-full flex-col items-center gap-1 transition-all duration-500 ease-out",
+              isLoading
+                ? "translate-y-10 opacity-0"
+                : "translate-y-0 opacity-100",
+            )}
           >
-            <Link
-              href="/login"
-              className={gradientLightVariants({
-                variant: "blue",
-                className:
-                  "text-xs md:text-sm whitespace-nowrap rounded-full px-4 border border-input h-8 md:h-10 p-2 hover:bg-blue-500 hover:text-white transition-colors duration-300 ease-out font-semibold text-muted-foreground ",
-              })}
+            <p className="max-md:text-xs">
+              Click the button below to log in or sign up.
+            </p>
+            <Button
+              variant={"outline"}
+              className="m-4 h-full rounded-full p-1 shadow-xl hover:scale-100 hover:text-primary"
             >
-              Get Started
-            </Link>
-          </Button>
+              <Link
+                href="/login"
+                className={gradientLightVariants({
+                  variant: "blue",
+                  className:
+                    "h-8 whitespace-nowrap rounded-full border border-input p-2 px-4 text-xs font-semibold text-muted-foreground transition-colors duration-300 ease-out hover:bg-blue-500 hover:text-white md:h-10 md:text-sm",
+                })}
+              >
+                Get Started
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     );

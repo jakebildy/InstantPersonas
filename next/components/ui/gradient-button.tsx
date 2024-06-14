@@ -8,6 +8,7 @@ import {
   gradientLightVariants,
 } from "../variants";
 import { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 export const IconVariants = cva(
   "text-muted-foreground pb-0.5 group-hover:text-white transition-colors duration-300 ease-out",
@@ -23,7 +24,7 @@ export const IconVariants = cva(
     defaultVariants: {
       size: "sm",
     },
-  }
+  },
 );
 
 export interface GradientButtonProps
@@ -31,6 +32,7 @@ export interface GradientButtonProps
     VariantProps<typeof IconVariants> {
   variant?: ColorVariant;
   iconClassName?: string;
+  innerClassName?: string;
   Icon: LucideIcon;
 }
 
@@ -45,20 +47,21 @@ export interface GradientButtonProps
     {
       className,
       iconClassName,
+      innerClassName,
       variant = "blue",
       size,
       Icon,
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <Button
         variant={"outline"}
         className={cn(
-          "hover:text-primary rounded-full hover:scale-100 h-fit  p-1 shadow-md group",
-          className
+          "group h-fit rounded-full p-1 shadow-md hover:scale-100 hover:text-primary",
+          className,
         )}
         ref={ref}
         {...props}
@@ -68,8 +71,11 @@ export interface GradientButtonProps
             ButtonInnerHover({ variant: variant }),
             gradientLightVariants({
               variant: variant,
-              className: "pl-5 flex items-center gap-2 text-sm",
-            })
+              className: cn(
+                "flex items-center gap-2 pl-5 text-sm",
+                innerClassName,
+              ),
+            }),
           )}
         >
           {children}
@@ -82,7 +88,7 @@ export interface GradientButtonProps
         </span>
       </Button>
     );
-  }
+  },
 );
 
 GradientButton.displayName = "GradientButton";

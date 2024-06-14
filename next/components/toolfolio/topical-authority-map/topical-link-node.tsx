@@ -10,12 +10,12 @@ function TopicalLinkNode({ data, isConnectable }: any) {
   }, []);
 
   return (
-    <div className="rounded-md shadow-lg h-[90px]">
-      <div className="bg-gray-200 h-[20px] flex flex-row space-x-1 rounded-t-sm">
+    <div className="h-[90px] rounded-md shadow-lg">
+      <div className="flex h-[20px] flex-row space-x-1 rounded-t-sm bg-gray-200">
         {/* three circles in a row, red yellow and green like the window of a mac */}
-        <div className="w-[10px] h-[10px] ml-2 mt-1 rounded-full bg-red-500"></div>
-        <div className="w-[10px] h-[10px] mt-1 rounded-full bg-yellow-400"></div>
-        <div className="w-[10px] h-[10px] mt-1 rounded-full bg-green-500"></div>
+        <div className="ml-2 mt-1 h-[10px] w-[10px] rounded-full bg-red-500"></div>
+        <div className="mt-1 h-[10px] w-[10px] rounded-full bg-yellow-400"></div>
+        <div className="mt-1 h-[10px] w-[10px] rounded-full bg-green-500"></div>
       </div>
       <div
         className="w-[200px] rounded-b-sm"
@@ -30,7 +30,7 @@ function TopicalLinkNode({ data, isConnectable }: any) {
           <textarea
             value={title}
             onChange={onChange}
-            className="text-center w-full font-bold"
+            className="w-full text-center font-bold"
             style={{
               backgroundColor: data.color,
               resize: "none",

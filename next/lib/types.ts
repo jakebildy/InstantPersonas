@@ -1,9 +1,5 @@
-export type ExtractField<T, Field extends keyof any> = T extends Record<
-  Field,
-  infer U
->
-  ? U
-  : never;
+export type ExtractField<T, Field extends keyof any> =
+  T extends Record<Field, infer U> ? U : never;
 
 /**
  * A generic type that defines an array with a fixed maximum length.
@@ -42,12 +38,12 @@ export type ExtractField<T, Field extends keyof any> = T extends Record<
  */ export type MaxLengthArray<T, Length extends number> = Length extends 1
   ? [T]
   : Length extends 2
-  ? [T, T]
-  : Length extends 3
-  ? [T, T, T]
-  : Length extends 4
-  ? [T, T, T, T]
-  : never;
+    ? [T, T]
+    : Length extends 3
+      ? [T, T, T]
+      : Length extends 4
+        ? [T, T, T, T]
+        : never;
 
 /**
  * A generic type that Omits multiple properties from an object type.
@@ -58,3 +54,5 @@ export type ExtractField<T, Field extends keyof any> = T extends Record<
   T,
   Exclude<keyof T, K>
 >;
+
+export type ValueOrUpdater<T> = T | ((current: T) => T);

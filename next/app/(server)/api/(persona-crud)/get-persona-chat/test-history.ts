@@ -1250,3 +1250,739 @@ export const PERSONA_TEST_HISTORY = [
     updatedAt: "2024-03-27T11:47:16.679Z",
   },
 ];
+
+// Bad test history with incorrectly formatted message history
+//TODO - Add more test data with missing fields and incorrect formats
+export const BAD_TEST_HISTORY = [
+  {
+    _id: "1293y24ecb89c3fc62129837",
+    aiState: {
+      chatId: "fPzLS1o",
+      business:
+        "The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.",
+      targetProblem:
+        "Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality.",
+      threadKnowledge: {
+        context: "",
+        personaCharacteristics: [],
+        thresholdRating: 0,
+      },
+      personas: [
+        {
+          archetype_name: "Sustainable Sophie",
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796",
+          persona_components: {
+            Motivations:
+              "Desire to live sustainably without compromising on style or quality.",
+            Painpoints: "High price points of eco-friendly products.",
+            Preferences_and_Needs:
+              "Eco-friendly products that are both aesthetically pleasing and competitively priced.",
+            End_Goal:
+              "To curate a home that aligns closely with her ethical and environmental values.",
+            Mindset_and_Perspective:
+              "Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.",
+            Strategic_Recommendations:
+              "Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living.",
+          },
+        },
+        {
+          archetype_name: "Eco-Eddy",
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1",
+          persona_components: {
+            Motivations:
+              "Wants to support eco-friendly businesses but seeks proof of sustainability claims.",
+            Painpoints:
+              "Skepticism towards 'green' labels without substantial backing.",
+            Preferences_and_Needs:
+              "Detailed product information and evidence of sustainability, fair pricing.",
+            End_Goal:
+              "To adopt a lifestyle that minimizes his environmental footprint while being well-informed.",
+            Mindset_and_Perspective:
+              "Cautious but willing to spend on proven sustainable products.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Regularly reads blogs and reviews, participates in forums discussing sustainable living.",
+            Strategic_Recommendations:
+              "Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings.",
+          },
+        },
+        {
+          archetype_name: "Green-thumb Gina",
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1",
+          persona_components: {
+            Motivations:
+              "Desire to blend aesthetics with functionality in home gardening.",
+            Painpoints:
+              "Difficulty finding stylish, sustainable gardening tools and decor.",
+            Preferences_and_Needs:
+              "Products that support plant health and are made from sustainable materials.",
+            End_Goal:
+              "To maintain an eco-friendly and visually appealing garden space within the home.",
+            Mindset_and_Perspective:
+              "Passionate about plants and the environment, seeks harmony in her living space.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Engages directly via eco-friendly forums and gardening groups, seeks out 'how-to' content.",
+            Strategic_Recommendations:
+              "Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups.",
+          },
+        },
+        {
+          archetype_name: "Millennial Matt",
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc",
+          persona_components: {
+            Motivations:
+              "To invest in products that not only serve as home necessities but also as conversation starters about sustainability.",
+            Painpoints:
+              "Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.",
+            Preferences_and_Needs:
+              "Sustainably made, unique home goods that come with a story.",
+            End_Goal:
+              "Refine his living space to reflect his values while maintaining a modern, clean look.",
+            Mindset_and_Perspective:
+              "Values design, uniqueness, and the backstory of items as much as their sustainability.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.",
+            Strategic_Recommendations:
+              "Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins.",
+          },
+        },
+      ],
+      messages: [
+        {
+          role: "user",
+          content: "hello",
+        },
+        {
+          role: "assistant",
+          content: "Hello! How can I assist you today?",
+        },
+        {
+          role: "user",
+          content: " Can you explain your features? ",
+        },
+        {
+          role: "assistant",
+          content:
+            "Certainly! I'm designed to help businesses craft detailed user persona archetypes without relying on traditional data analysis methods like Exploratory Factor Analysis (EFA). Instead, I use advanced conversational techniques to gather insights. Here's how I can assist you:\n\n1. **Identify Key Characteristics:** I'll ask you insightful questions to understand your business's core attributes and the main problem it solves for its customers. This helps in pinpointing what makes your business unique and what specific needs you fulfill for your customers.\n\n2. **Understand Customer Interactions:** Through our conversation, I'll delve into how your customers currently interact with your business, including any pain points or challenges they experience. This is crucial for identifying areas of improvement and how to better serve your customer base.\n\n3. **Generate Persona Archetypes:** Based on the information collected, I will create detailed personas that represent the primary user segments of your business. Each persona will include:\n   - Demographic details\n   - Motivations and goals\n   - Frustrations and challenges with current solutions\n   - Preferred methods of interaction with your business\n\nThese personas are crafted to help you better understand and segment your customer base, enabling targeted strategies for marketing, product development, and customer service improvement.\n\nI operate iteratively, meaning we can refine these personas based on ongoing feedback to ensure they accurately represent your users. My goal is to provide you with a deep understanding of your main user segments to guide strategic decisions and business growth. \n\nHow can I assist you in creating or refining user personas for your business?",
+        },
+        {
+          role: "user",
+          content: "can you generate a test persona?",
+        },
+        {
+          role: "assistant",
+          content:
+            "To generate a test persona, I’d need to understand a bit about the business and the target audience you're focusing on. Could you share some details about your business, such as:\n\n1. **Business Overview:** What products or services do you offer? Who is your target market?\n2. **Customer Interactions:** How do customers currently find and interact with your business?\n3. **Problems & Solutions:** What problem does your business solve for its customers? Have you identified any customer pain points or challenges within your current service or product offerings?\n4. **Goals & Objectives:** What are the primary goals your customers are trying to achieve by using your product or service?\n\nWith this information, I can craft a more accurate and meaningful test persona that aligns with your business context.",
+        },
+        {
+          role: "user",
+          content: "We sell eco-friendly home goods primarily to millennials. ",
+        },
+        {
+          role: "assistant",
+          content:
+            "Great, thanks for sharing that! Selling eco-friendly home goods to millennials is a strong and relevant market niche, given the growing interest in sustainability and environmental responsibility among younger generations. To further refine a persona for your target audience, I'll need a bit more information:\n\n1. **Customer Interactions:** How do millennials typically find your products? Is it through online searches, social media, word of mouth, or other channels?\n2. **Customer Experience:** What feedback have you received from customers regarding their experience with your products or purchasing process? Are there any notable pain points or highlights?\n3. **Purchasing Motivations:** Beyond the eco-friendly aspect, what motivates your millennial customers to choose your products over competitors'? Price, design, material quality, brand story, or other factors?\n4. **Customer Goals:** When millennial customers shop for eco-friendly home goods, what are they ultimately trying to achieve? (e.g., reducing their carbon footprint, supporting sustainable businesses, improving home aesthetics in an eco-conscious way)\n\nThis additional detail will help to create a persona that is not just a segment of the population but a detailed archetype with specific characteristics, motivations, and behaviors relevant to your business.",
+        },
+        {
+          role: "user",
+          content:
+            "Millennials often discover us via social media and influencer endorsements. ",
+        },
+        {
+          role: "assistant",
+          content:
+            "Thank you for the information! Social media and influencer endorsements are powerful channels for reaching millennials, especially when promoting eco-friendly and sustainable products. It indicates that your target audience values authenticity and recommendations from trusted voices within their community. Let's proceed with further questions to deepen our understanding:\n\n1. **Customer Experience:** Can you describe any feedback or common themes you’ve received from customers about their shopping experience with your eco-friendly home goods? Are there aspects they particularly enjoy or any pain points they’ve encountered?\n2. **Purchasing Motivations:** What are the primary reasons your millennial customers have for choosing your products? Is it more about the environmental impact, the design and quality of the products, the brand story and values, or perhaps the influence of endorsements?\n3. **Customer Goals:** When purchasing your products, what goals are your customers trying to achieve? This could range from wanting to live a more sustainable lifestyle, to seeking products that align with their values, to enhancing their home environment in a responsible manner.\n\nGetting insights into these areas will allow us to create a more nuanced and detailed persona, capturing the essence of your typical customer's preferences, experiences, and motivations.",
+        },
+        {
+          role: "user",
+          content: "people love it! but they're slightly more expensive",
+        },
+        {
+          role: "assistant",
+          content:
+            "That’s valuable insight! It’s clear that while your customers have a positive perception of your products and brand, the higher price point, compared to non-eco-friendly alternatives, might be a consideration or even a barrier for some of them. This insight will be crucial in shaping a persona that reflects not only the motivations and values of your customers but also acknowledges the challenges they face. \n\nLet's delve into one final aspect:\n\n**Customer Goals:** Can you share more about the end goals your millennial customers are trying to achieve by purchasing eco-friendly home goods? Are they primarily focused on reducing their environmental impact, supporting ethical businesses, enhancing their lifestyle, or perhaps a combination of these factors?\n\nUnderstanding this will help complete the picture and enable us to generate a detailed and representative persona for your business.",
+        },
+        {
+          role: "user",
+          content: " It's definitely a mix of all those motivations.",
+        },
+        {
+          role: "assistant",
+          content:
+            "Fantastic, that gives us a well-rounded view of your customers. Millennials choosing your eco-friendly home goods are driven by a blend of environmental consciousness, ethical considerations, and lifestyle enhancement. They're willing to invest a bit more in products that not only meet their sustainability criteria but also align with their personal and aesthetic values. \n\nWith this comprehensive understanding, let's proceed to create a test persona for your eco-friendly home goods business targeting millennials. \n\n---\n\n### Persona: Eco-Conscious Emily\n\n**Demographics:**\n- Age: 28 years old\n- Location: Urban area, lives in an apartment\n- Education: College degree\n- Occupation: Graphic designer\n- Income: Moderate, mindful about where she spends her money\n\n**Characteristics:**\n- Tech-savvy and spends a significant amount of time on social media platforms, especially Instagram and Pinterest, for inspiration.\n- Values authenticity and is more likely to trust and purchase from brands that are endorsed by influencers or friends.\n- Environmentally conscious, aiming to reduce her carbon footprint.\n\n**Goals:**\n- To live a sustainable and ethical lifestyle, making conscious choices that align with her values.\n- To beautify her living space with products that are not only functional but also have minimal environmental impact.\n\n**Motivations:**\n- Desire to support brands that are transparent about their production process and actively contribute to environmental conservation.\n- Preference for high-quality, durable goods with a timeless design over disposable, trend-driven items.\n\n**Frustrations:**\n- Struggles to find eco-friendly home goods that don’t compromise on style or quality but are within her budget.\n- Sometimes overwhelmed by the research required to verify the environmental claims of products.\n\n**Preferred Interaction with Business:**\n- Engages with brands through social media, especially those that create a community around sustainability.\n- Looks for detailed product information online, including the origin of materials and the environmental impact of her purchase.\n- Appreciates personalized recommendations and insights into how products fit into a sustainable lifestyle.\n\n---\n\nThis test persona, Eco-Conscious Emily, encapsulates a segment of your target market, focusing on individual motivations, lifestyle goals, and the specific challenges they face, including the willingness to pay a premium for products that align with their values. \n\nWould you like to refine this persona further, or is there another segment you're targeting that we should explore?",
+        },
+        {
+          role: "user",
+          content: "That looks good, do you understand my business now?",
+        },
+        {
+          role: "assistant",
+          content:
+            "Does this cover the business and target problem or is something\n                missing?",
+        },
+        {
+          role: "function",
+          content:
+            '{"business":"The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.","targetProblem":"Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality."}',
+        },
+        {
+          role: "user",
+          content: "Yes",
+        },
+        {
+          role: "assistant",
+          content:
+            "Great! Now that I have a solid understanding of your business and the target problem, we can proceed further. How can I assist you next? Would you like to explore strategies to address the concerns identified, generate more persona archetypes, or something else?",
+        },
+        {
+          role: "user",
+          content: " Could you generate more persona archetypes, please? ",
+        },
+        {
+          role: "function",
+          content:
+            '[{"archetype_name":"Sustainable Sophie","picture_components":{"clothing":"casual","glasses":"round_glasses","hair":"ponytail"},"persona_components":{"Motivations":"Desire to live sustainably without compromising on style or quality.","Painpoints":"High price points of eco-friendly products.","Preferences_and_Needs":"Eco-friendly products that are both aesthetically pleasing and competitively priced.","End_Goal":"To curate a home that aligns closely with her ethical and environmental values.","Mindset_and_Perspective":"Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands."},"insights":{"Enhanced_Interaction_Patterns":"Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.","Strategic_Recommendations":"Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796"},{"archetype_name":"Eco-Eddy","picture_components":{"clothing":"hoodie","glasses":"none","hair":"buzzcut"},"persona_components":{"Motivations":"Wants to support eco-friendly businesses but seeks proof of sustainability claims.","Painpoints":"Skepticism towards \'green\' labels without substantial backing.","Preferences_and_Needs":"Detailed product information and evidence of sustainability, fair pricing.","End_Goal":"To adopt a lifestyle that minimizes his environmental footprint while being well-informed.","Mindset_and_Perspective":"Cautious but willing to spend on proven sustainable products."},"insights":{"Enhanced_Interaction_Patterns":"Regularly reads blogs and reviews, participates in forums discussing sustainable living.","Strategic_Recommendations":"Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1"},{"archetype_name":"Green-thumb Gina","picture_components":{"clothing":"sweater_vest","glasses":"glasses","hair":"shoulder_length"},"persona_components":{"Motivations":"Desire to blend aesthetics with functionality in home gardening.","Painpoints":"Difficulty finding stylish, sustainable gardening tools and decor.","Preferences_and_Needs":"Products that support plant health and are made from sustainable materials.","End_Goal":"To maintain an eco-friendly and visually appealing garden space within the home.","Mindset_and_Perspective":"Passionate about plants and the environment, seeks harmony in her living space."},"insights":{"Enhanced_Interaction_Patterns":"Engages directly via eco-friendly forums and gardening groups, seeks out \'how-to\' content.","Strategic_Recommendations":"Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1"},{"archetype_name":"Millennial Matt","picture_components":{"clothing":"button_up","glasses":"sunglasses","hair":"short"},"persona_components":{"Motivations":"To invest in products that not only serve as home necessities but also as conversation starters about sustainability.","Painpoints":"Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.","Preferences_and_Needs":"Sustainably made, unique home goods that come with a story.","End_Goal":"Refine his living space to reflect his values while maintaining a modern, clean look.","Mindset_and_Perspective":"Values design, uniqueness, and the backstory of items as much as their sustainability."},"insights":{"Enhanced_Interaction_Patterns":"Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.","Strategic_Recommendations":"Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc"}]',
+        },
+        {
+          role: "user",
+          content: "write a 4 paragraph story using the personas",
+        },
+        {
+          role: "assistant",
+          content:
+            "In the heart of the bustling city, where the concrete jungle meets pockets of verdant bliss, lived four individuals, each on their unique journey towards sustainability and style, their paths illuminated by the glow of a brand that sold eco-friendly home goods. \n\nSustainable Sophie, with her ponytail swaying as she navigated the urban streets, was a beacon of optimism and style. Driven by a deep desire to live sustainably without compromising on aesthetics, she frequently engaged with her favorite brands on Instagram, her eyes always on the lookout for elegantly designed eco-products that could adorn her apartment. She had discovered the perfect brand that matched her ethos, offering products that were not just eco-friendly but also competitively priced, allowing her to curate a home that aligned closely with her environmental values.\n\nNot far from where Sophie lived, Eco-Eddy, a skeptical yet eager eco-warrior, searched for authenticity and proof in the sustainable claims brands made. His apartment, minimalist and carefully arranged with proven eco-friendly goods, was a testament to his cautious but committed journey towards sustainability. He spent his evenings reading blogs and participating in forums, seeking evidence of sustainability that went beyond the green labels. The brand's transparent breakdowns of eco-friendly benefits and certifications found on their website resonated with him, making him a loyal and informed customer.\n\nIn another part of the city, Green-thumb Gina transformed her small balcony into a lush garden oasis, a green haven amidst the grey. Her passion for plants was matched by her desire for sustainable living, driving her to seek out stylish, environmentally conscious gardening tools and decor. The brand's ecological garden product line, showcased through user-generated content, inspired her, turning her space into an eco-friendly and visually appealing garden that was the envy of her neighbors.\n\nLastly, Millennial Matt, whose modern home was filled with conversation-starting pieces, sought products with a story, items that reflected his values and added a unique touch to his meticulously curated space. He was particularly fond of the brand's limited-edition series of products, each with a narrative that spoke of sustainability, art, and design. These pieces were more than just possessions; they were stories, each contributing to the modern, clean look of his living space while underscoring his commitment to the environment.\n\nThrough the lens of these four personas, the eco-friendly home goods brand not only illuminated the diverse motivations and aspirations of its millennial customer base but also demonstrated how sustainability, style, and substance could coexist, creating a community united by the shared values of ethical consumption and environmental stewardship.",
+        },
+        {
+          role: "user",
+          content: "write a 5 paragraph story using the personas",
+        },
+        {
+          role: "assistant",
+          content:
+            "In a vibrant city known for its blend of technology, art, and a growing consciousness towards sustainability, four distinct yet interconnected lives unfolded, each illustrating the breadth of the modern eco-friendly movement. This movement was anchored by a pioneering business specializing in eco-friendly home goods, a brand that had become a beacon for those seeking to marry their environmental convictions with their lifestyle.\n\nSustainable Sophie, with her keen eye for design and a heart deeply rooted in environmentalism, was always on the lookout for ways to infuse her living space with products that spoke of her commitment to the planet. Her journey led her to the brand, where she found not just products but a community that shared her values. Her social media was a mosaic of eco-friendly tips and finds, often featuring the stylish yet sustainable home goods she had adorned her apartment with, becoming an inadvertent influencer for mindful living among her peers.\n\nMeanwhile, Eco-Eddy, driven by a meticulous skepticism, sought authenticity in every aspect of his life, especially in the products he brought into his minimalist space. Each item had to pass his rigorous standards for sustainability and ethical production. The brand’s transparent supply chain and detailed product backstories provided the assurance he needed, making him a loyal customer. His evenings were often spent engaging in online forums, sharing insights and learning from the community about the impacts of sustainable living.\n\nNext door, Green-thumb Gina's balcony garden was her sanctuary, a testament to the possibility of creating a green space in an urban environment. Her search for eco-friendly gardening tools and accessories that did not compromise on aesthetics had been a challenge until she discovered the brand. Their line of eco-conscious garden products was a game-changer, enabling her to cultivate her garden into a sustainable Eden. She often shared her gardening journey on social media, inspiring others to start their green spaces, weaving sustainability into the fabric of urban living.\n\nDown the street, Millennial Matt, an advocate for sustainability with a penchant for storytelling, sought uniqueness in every item he owned. His home was a curated collection of eco-friendly home goods, each with a story of sustainability, art, and innovation. The brand’s limited edition series captivated him, offering pieces that were more than just functional; they were conversation starters, embodying the fusion of aesthetics and ethics. He valued the narrative behind each piece, seeing them as extensions of his values.\n\nTogether, these personas represented the varied facets of the brand’s customer base, each with their motivations, challenges, and aspirations. Their stories intertwined through their shared commitment to a sustainable lifestyle, supported by the brand's mission to offer eco-friendly home goods that did not compromise on quality or design. As the brand grew, so did their community, a testament to the power of shared values and the impact of conscious consumerism in shaping a sustainable future.",
+        },
+        {
+          id: "p4qjrTF",
+          role: "user",
+          content:
+            "How can I contribute to sustainability like these characters? ",
+        },
+      ],
+      suggestedMessages: [
+        "How can I contribute to sustainability like these characters? ",
+        " What eco-friendly products would suit my minimalist lifestyle? ",
+        " What are some recommended sustainable gardening tools?",
+      ],
+      userID: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+    },
+    aiSuggestedChats: [],
+    user: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+    createdAt: "2024-05-29T19:30:22.535Z",
+    updatedAt: "2024-05-29T19:30:22.535Z",
+  },
+  {
+    _id: "6657824ecb89c3fc62862b64",
+    aiState: {
+      chatId: "H7GXIwE",
+      business:
+        "The SaaS in question targets primarily marketers, product managers, and UX designers, automating and simplifying the creation of detailed user personas. This highly specialized service leverages advanced AI technology to streamline the persona development process. It allows users to generate intricate and nuanced user archetypes with minimal input, reducing the time and effort typically required in manual persona creation. By offering a suite of tools that include demographic analysis, behavior pattern identification, and customizable persona templates, the SaaS aims to enhance the efficiency and accuracy of persona creation, enabling businesses to better understand their target audience and tailor their strategies accordingly.",
+      targetProblem:
+        "Customers of this SaaS often face challenges associated with the time-consuming and complex process of creating user personas manually. Traditionally, this involves extensive research, data collection, and analysis to accurately represent the target audience's demographics, behaviors, and needs. This SaaS addresses these issues by automating and streamlining persona creation, significantly reducing the workload and complexity for marketers, product managers, and UX designers. This allows for quicker iteration and more precise targeting in marketing and product development strategies.",
+      threadKnowledge: {
+        context: "",
+        personaCharacteristics: [],
+        thresholdRating: 0,
+      },
+      personas: [
+        {
+          archetype_name: "The Agile Marketer",
+          picture_components: {
+            clothing: "button_up",
+            glasses: "glasses",
+            hair: "short",
+          },
+          persona_components: {
+            Motivations:
+              "Seeks to quickly adapt marketing strategies based on real-time data and audience insights.",
+            Painpoints:
+              "Frustrated by the slow pace of traditional market research and persona development.",
+            Preferences_and_Needs:
+              "Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.",
+            End_Goal:
+              "To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.",
+            Mindset_and_Perspective:
+              "Values efficiency and agility in marketing operations; believes in data-driven decision making.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.",
+            Strategic_Recommendations:
+              "Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated.",
+          },
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc",
+        },
+        {
+          archetype_name: "The Product Visionary",
+          picture_components: {
+            clothing: "sweater_vest",
+            glasses: "none",
+            hair: "ponytail",
+          },
+          persona_components: {
+            Motivations:
+              "Aims to design products that perfectly meet the evolving needs of users by understanding subtle shifts in market dynamics.",
+            Painpoints:
+              "Struggles with integrating comprehensive user feedback into the product design process in a scalable way.",
+            Preferences_and_Needs:
+              "Prefers detailed, actionable user insights that can directly inform product development cycles.",
+            End_Goal:
+              "To create innovative and user-centered products that consistently lead the market.",
+            Mindset_and_Perspective:
+              "Driven by user-centric innovation and sustained by a proactive approach to integrating user feedback.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.",
+            Strategic_Recommendations:
+              "Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool.",
+          },
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1",
+        },
+        {
+          archetype_name: "The UX Strategist",
+          picture_components: {
+            clothing: "hoodie",
+            glasses: "round_glasses",
+            hair: "buzzcut",
+          },
+          persona_components: {
+            Motivations:
+              "Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.",
+            Painpoints:
+              "Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.",
+            Preferences_and_Needs:
+              "Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.",
+            End_Goal:
+              "To continuously refine and optimize user interfaces for maximum engagement and satisfaction.",
+            Mindness_and_Perspective:
+              "Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.",
+            Strategic_Recommendations:
+              "Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing.",
+          },
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796",
+        },
+        {
+          archetype_name: "The Data-Driven Designer",
+          picture_components: {
+            clothing: "leather_jacket",
+            glasses: "sunglasses",
+            hair: "long_hair_with_ribbon",
+          },
+          persona_components: {
+            Motivations:
+              "Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.",
+            Painpoints:
+              "Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.",
+            Preferences_and_Needs:
+              "Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.",
+            End_Goal:
+              "To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.",
+            Mindset_and_Perspective:
+              "Believes in the fusion of art and science within design and values empirical over anecdotal evidence.",
+          },
+          insights: {
+            Enhanced_Interaction_Patterns:
+              "Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.",
+            Strategic_Recommendations:
+              "Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments.",
+          },
+          pictureURL:
+            "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1",
+        },
+      ],
+      messages: [
+        {
+          role: "user",
+          content: "a persona generation saas \n",
+          id: "tn0rRok",
+        },
+        {
+          role: "assistant",
+          content:
+            "To assist you better in generating personas for a SaaS that specializes in persona generation, I need to gather some initial information. Could you tell me more about the target users of this SaaS? Who typically uses your service (e.g., marketers, product managers, UX designers)?",
+          id: "MvrQ76X",
+        },
+        {
+          role: "user",
+          content:
+            "Marketers, product managers, and UX designers primarily use it. ",
+          id: "CkgMAM0",
+        },
+        {
+          role: "assistant",
+          content:
+            "Great, that helps narrow down the focus. Now, can you share what specific problem your SaaS solves for these users? For example, does it streamline the process of creating user personas, provide deeper insights into user behavior, automate certain aspects of persona creation, or something else?",
+          id: "0R6MoyH",
+        },
+        {
+          role: "user",
+          content:
+            "It automates and simplifies creating detailed user personas. ",
+          id: "pkcTGk1",
+        },
+        {
+          role: "assistant",
+          content:
+            "Does this cover the business and target problem or is something\n                missing?",
+          id: "lZXNvrv",
+        },
+        {
+          role: "function",
+          content:
+            '{"business":"The SaaS in question targets primarily marketers, product managers, and UX designers, automating and simplifying the creation of detailed user personas. This highly specialized service leverages advanced AI technology to streamline the persona development process. It allows users to generate intricate and nuanced user archetypes with minimal input, reducing the time and effort typically required in manual persona creation. By offering a suite of tools that include demographic analysis, behavior pattern identification, and customizable persona templates, the SaaS aims to enhance the efficiency and accuracy of persona creation, enabling businesses to better understand their target audience and tailor their strategies accordingly.","targetProblem":"Customers of this SaaS often face challenges associated with the time-consuming and complex process of creating user personas manually. Traditionally, this involves extensive research, data collection, and analysis to accurately represent the target audience\'s demographics, behaviors, and needs. This SaaS addresses these issues by automating and streamlining persona creation, significantly reducing the workload and complexity for marketers, product managers, and UX designers. This allows for quicker iteration and more precise targeting in marketing and product development strategies."}',
+          id: "p5iz2K6",
+          name: "confirm_business_knowledge",
+        },
+        {
+          role: "user",
+          content: "Yes",
+          id: "wQhfcI6",
+        },
+        {
+          role: "assistant",
+          content:
+            "What are the most common ways your customers currently interact with your SaaS? For example, do they primarily use a web interface, mobile app, or integrate it into their existing systems via an API?",
+          id: "6YsAbVN",
+        },
+        {
+          role: "user",
+          content: "Mostly through the web interface and mobile app. ",
+          id: "Z1Rn9oM",
+        },
+        {
+          role: "assistant",
+          content:
+            "Can you describe any frequent pain points or challenges these users face when interacting with your SaaS through the web interface and mobile app?",
+          id: "K7Wqclv",
+        },
+        {
+          role: "user",
+          content: "ui breaks",
+          id: "8BGEVPB",
+        },
+        {
+          role: "assistant",
+          content:
+            "What kind of features or capabilities do your users prioritize the most when creating user personas with your SaaS?",
+          id: "pj2bGRC",
+        },
+        {
+          id: "NTH7hNi",
+          role: "user",
+          content: "Ease of use and intuitive design ",
+        },
+        {
+          role: "function",
+          name: "create_persona",
+          id: "E5Sf4P1",
+          content:
+            '[{"archetype_name":"The Agile Marketer","picture_components":{"clothing":"button_up","glasses":"glasses","hair":"short"},"persona_components":{"Motivations":"Seeks to quickly adapt marketing strategies based on real-time data and audience insights.","Painpoints":"Frustrated by the slow pace of traditional market research and persona development.","Preferences_and_Needs":"Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.","End_Goal":"To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.","Mindset_and_Perspective":"Values efficiency and agility in marketing operations; believes in data-driven decision making."},"insights":{"Enhanced_Interaction_Patterns":"Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.","Strategic_Recommendations":"Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc"},{"archetype_name":"The Product Visionary","picture_components":{"clothing":"sweater_vest","glasses":"none","hair":"ponytail"},"persona_components":{"Motivations":"Aims to design products that perfectly meet the evolving needs of users by understanding subtle shifts in market dynamics.","Painpoints":"Struggles with integrating comprehensive user feedback into the product design process in a scalable way.","Preferences_and_Needs":"Prefers detailed, actionable user insights that can directly inform product development cycles.","End_Goal":"To create innovative and user-centered products that consistently lead the market.","Mindset_and_Perspective":"Driven by user-centric innovation and sustained by a proactive approach to integrating user feedback."},"insights":{"Enhanced_Interaction_Patterns":"Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.","Strategic_Recommendations":"Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1"},{"archetype_name":"The UX Strategist","picture_components":{"clothing":"hoodie","glasses":"round_glasses","hair":"buzzcut"},"persona_components":{"Motivations":"Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.","Painpoints":"Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.","Preferences_and_Needs":"Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.","End_Goal":"To continuously refine and optimize user interfaces for maximum engagement and satisfaction.","Mindness_and_Perspective":"Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey."},"insights":{"Enhanced_Interaction_Patterns":"Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.","Strategic_Recommendations":"Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796"},{"archetype_name":"The Data-Driven Designer","picture_components":{"clothing":"leather_jacket","glasses":"sunglasses","hair":"long_hair_with_ribbon"},"persona_components":{"Motivations":"Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.","Painpoints":"Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.","Preferences_and_Needs":"Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.","End_Goal":"To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.","Mindset_and_Perspective":"Believes in the fusion of art and science within design and values empirical over anecdotal evidence."},"insights":{"Enhanced_Interaction_Patterns":"Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.","Strategic_Recommendations":"Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments."},"pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1"}]',
+        },
+      ],
+      suggestedMessages: [
+        "⭐️ Show me what content they all would consume",
+        "Who would spend the most money?",
+      ],
+    },
+    aiSuggestedChats: [],
+    user: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+    createdAt: "2024-05-29T19:30:22.535Z",
+    updatedAt: "2024-05-29T19:30:22.535Z",
+  },
+];
+
+export const BAD_PERSONAS = [
+  //? Missing 1 Nested Field `Motivations`
+  {
+    archetype_name: "The Agile Marketer",
+    picture_components: {
+      clothing: "button_up",
+      glasses: "glasses",
+      hair: "short",
+    },
+    persona_components: {
+      Painpoints:
+        "Frustrated by the slow pace of traditional market research and persona development.",
+      Preferences_and_Needs:
+        "Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.",
+      End_Goal:
+        "To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.",
+      Mindset_and_Perspective:
+        "Values efficiency and agility in marketing operations; believes in data-driven decision making.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.",
+      Strategic_Recommendations:
+        "Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc",
+  },
+  //? Missing Field and Nested Field `persona_components`
+  {
+    archetype_name: "The Product Visionary",
+    picture_components: {
+      clothing: "sweater_vest",
+      glasses: "none",
+      hair: "ponytail",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Regularly interacts with persona dashboards to extract user behavior patterns and participates in feedback forums to discuss findings with peers.",
+      Strategic_Recommendations:
+        "Develop advanced segmentation features to capture niche market trends; improve the user feedback loop within the persona tool.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?body=variant14&hair=variant39&backgroundColor=c7eaf1",
+  },
+  //? Misspelled Fields `Mindness_and_Perspective` and `Enhance_Interaction_Patterns`
+  {
+    archetype_name: "The UX Strategist",
+    picture_components: {
+      clothing: "hoodie",
+      glasses: "round_glasses",
+      hair: "buzzcut",
+    },
+    persona_components: {
+      Motivations:
+        "Focuses on crafting seamless and intuitive user experiences by deeply understanding user needs and behaviors.",
+      Painpoints:
+        "Finds it challenging to align UX strategies with rapidly changing user expectations and technological advances.",
+      Preferences_and_Needs:
+        "Seeks rich, behaviour-driven data that can be visualized and analyzed to enhance UX designs.",
+      End_Goal:
+        "To continuously refine and optimize user interfaces for maximum engagement and satisfaction.",
+      Mindness_and_Perspective:
+        "Adopts a holistic approach to UX, considering multiple user touchpoints and the overall journey.",
+    },
+    insights: {
+      Enhance_Interaction_Patterns:
+        "Prefers to engage with personas through visual simulation tools and frequently uses mobile interfaces for on-the-go analysis.",
+      Strategic_Recommendations:
+        "Invest in mobile-friendly persona analysis tools; introduce virtual reality (VR) simulations for real-time UX testing.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant23&hair=variant60&backgroundColor=ef9796",
+  },
+  //? Missing name & heavily misspelled fields
+  {
+    picture_components: {
+      clothing: "leather_jacket",
+      glasses: "sunglasses",
+      hair: "long_hair_with_ribbon",
+    },
+    dwjadaoihdiwhaiod: {
+      Motivations:
+        "Seeks to deploy data-centric design techniques to ensure product designs are optimized for target user segments.",
+      Painpoints:
+        "Encounters difficulties in accessing up-to-date, reliable data that can be directly applied to design decisions.",
+      Preferences_and_Needs:
+        "Desires a robust, adaptable platform that provides deep analytical capabilities and customizable templates.",
+      End_Goal:
+        "To lead in the creation of highly effective and aesthetically pleasing design solutions based on user data analysis.",
+      dwajdpjiwajd:
+        "Believes in the fusion of art and science within design and values empirical over anecdotal evidence.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Engages frequently with tool-generated reports and actively modifies templates to reflect emerging design trends.",
+      dwadhwoahdo:
+        "Enhance template customization options; increase the granularity of data analysis features to support detailed design adjustments.",
+    },
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant16&hair=variant46&backgroundColor=c7eaf1",
+  },
+];
+
+export const TOOL_CALL_STATE_EXAMPLE = {
+  _id: "6658da4c27bab8971a251598",
+  aiState: {
+    chatId: "fPzLS1o",
+    userID: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+    business:
+      "The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.",
+    targetProblem:
+      "Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality.",
+    threadKnowledge: {
+      context: "",
+      personaCharacteristics: [],
+      thresholdRating: 0,
+    },
+    personas: [
+      {
+        archetype_name: "Sustainable Sophie",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796",
+        persona_components: {
+          Motivations:
+            "Desire to live sustainably without compromising on style or quality.",
+          Painpoints: "High price points of eco-friendly products.",
+          Preferences_and_Needs:
+            "Eco-friendly products that are both aesthetically pleasing and competitively priced.",
+          End_Goal:
+            "To curate a home that aligns closely with her ethical and environmental values.",
+          Mindset_and_Perspective:
+            "Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.",
+          Strategic_Recommendations:
+            "Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living.",
+        },
+      },
+      {
+        archetype_name: "Eco-Eddy",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1",
+        persona_components: {
+          Motivations:
+            "Wants to support eco-friendly businesses but seeks proof of sustainability claims.",
+          Painpoints:
+            "Skepticism towards 'green' labels without substantial backing.",
+          Preferences_and_Needs:
+            "Detailed product information and evidence of sustainability, fair pricing.",
+          End_Goal:
+            "To adopt a lifestyle that minimizes his environmental footprint while being well-informed.",
+          Mindset_and_Perspective:
+            "Cautious but willing to spend on proven sustainable products.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Regularly reads blogs and reviews, participates in forums discussing sustainable living.",
+          Strategic_Recommendations:
+            "Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings.",
+        },
+      },
+      {
+        archetype_name: "Green-thumb Gina",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1",
+        persona_components: {
+          Motivations:
+            "Desire to blend aesthetics with functionality in home gardening.",
+          Painpoints:
+            "Difficulty finding stylish, sustainable gardening tools and decor.",
+          Preferences_and_Needs:
+            "Products that support plant health and are made from sustainable materials.",
+          End_Goal:
+            "To maintain an eco-friendly and visually appealing garden space within the home.",
+          Mindset_and_Perspective:
+            "Passionate about plants and the environment, seeks harmony in her living space.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Engages directly via eco-friendly forums and gardening groups, seeks out 'how-to' content.",
+          Strategic_Recommendations:
+            "Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups.",
+        },
+      },
+      {
+        archetype_name: "Millennial Matt",
+        pictureURL:
+          "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc",
+        persona_components: {
+          Motivations:
+            "To invest in products that not only serve as home necessities but also as conversation starters about sustainability.",
+          Painpoints:
+            "Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.",
+          Preferences_and_Needs:
+            "Sustainably made, unique home goods that come with a story.",
+          End_Goal:
+            "Refine his living space to reflect his values while maintaining a modern, clean look.",
+          Mindset_and_Perspective:
+            "Values design, uniqueness, and the backstory of items as much as their sustainability.",
+        },
+        insights: {
+          Enhanced_Interaction_Patterns:
+            "Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.",
+          Strategic_Recommendations:
+            "Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins.",
+        },
+      },
+    ],
+    messages: [
+      {
+        role: "assistant",
+        content:
+          "Does this cover the business and target problem or is something\n                missing?",
+      },
+      {
+        role: "assistant",
+        content: "",
+        tool_calls: [
+          {
+            name: "confirm_business_knowledge",
+            arguments:
+              '{"business":"The business specializes in selling eco-friendly home goods, targeting millennials who are environmentally and ethically conscious. Their products are designed to appeal to customers looking to reduce their carbon footprint, support sustainable and ethical business practices, and enhance their lifestyle through high-quality, stylish home goods. The primary sales channel for these products is social media, bolstered by influencer endorsements, which resonate well with their target audience. Customers have expressed high satisfaction with the product quality and the values the brand represents, though they note the products are slightly more expensive compared to conventional alternatives.","targetProblem":"Despite the positive reception and alignment with customer values, the higher price point of the eco-friendly products presents a challenge. It acts as a potential barrier for some customers, who are balancing their desire for sustainable living with budget constraints. This situation highlights the need for the business to effectively communicate the added value of their products and perhaps explore strategies to address price sensitivity while maintaining their commitment to sustainability and quality."}',
+          },
+        ],
+      },
+      {
+        role: "user",
+        content: "Yes",
+      },
+      {
+        role: "assistant",
+        content:
+          "Great! Now that I have a solid understanding of your business and the target problem, we can proceed further. How can I assist you next? Would you like to explore strategies to address the concerns identified, generate more persona archetypes, or something else?",
+      },
+      {
+        role: "user",
+        content: " Could you generate more persona archetypes, please? ",
+      },
+      {
+        role: "assistant",
+        content: "",
+        tool_calls: [
+          {
+            name: "create_persona",
+            arguments:
+              '[{"archetype_name":"Sustainable Sophie","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant11&body=variant07&hair=variant39&backgroundColor=ef9796","persona_components":{"Motivations":"Desire to live sustainably without compromising on style or quality.","Painpoints":"High price points of eco-friendly products.","Preferences_and_Needs":"Eco-friendly products that are both aesthetically pleasing and competitively priced.","End_Goal":"To curate a home that aligns closely with her ethical and environmental values.","Mindset_and_Perspective":"Optimistic about the possibility of a sustainable future, values transparency and authenticity from brands."},"insights":{"Enhanced_Interaction_Patterns":"Frequent engagement via Instagram and Pinterest, responsive to influencer promotions and educational content about sustainability.","Strategic_Recommendations":"Introduce a loyalty program that rewards eco-friendly purchases with discounts. Engage with micro-influencers who emphasize cost-effective sustainable living."}},{"archetype_name":"Eco-Eddy","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?body=variant23&hair=variant60&backgroundColor=fbe8b1","persona_components":{"Motivations":"Wants to support eco-friendly businesses but seeks proof of sustainability claims.","Painpoints":"Skepticism towards \'green\' labels without substantial backing.","Preferences_and_Needs":"Detailed product information and evidence of sustainability, fair pricing.","End_Goal":"To adopt a lifestyle that minimizes his environmental footprint while being well-informed.","Mindset_and_Perspective":"Cautious but willing to spend on proven sustainable products."},"insights":{"Enhanced_Interaction_Patterns":"Regularly reads blogs and reviews, participates in forums discussing sustainable living.","Strategic_Recommendations":"Enhance product descriptions with transparent breakdowns of eco-friendly benefits and certifications, consider price adjustment communications based on lifecycle savings."}},{"archetype_name":"Green-thumb Gina","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant14&hair=variant28&backgroundColor=eaa9c1","persona_components":{"Motivations":"Desire to blend aesthetics with functionality in home gardening.","Painpoints":"Difficulty finding stylish, sustainable gardening tools and decor.","Preferences_and_Needs":"Products that support plant health and are made from sustainable materials.","End_Goal":"To maintain an eco-friendly and visually appealing garden space within the home.","Mindset_and_Perspective":"Passionate about plants and the environment, seeks harmony in her living space."},"insights":{"Enhanced_Interaction_Patterns":"Engages directly via eco-friendly forums and gardening groups, seeks out \'how-to\' content.","Strategic_Recommendations":"Develop a line of ecological garden products and feature user-generated content showcasing different uses and setups."}},{"archetype_name":"Millennial Matt","pictureURL":"https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant01&body=variant21&hair=variant13&backgroundColor=c2e4bc","persona_components":{"Motivations":"To invest in products that not only serve as home necessities but also as conversation starters about sustainability.","Painpoints":"Finding unique, story-rich eco-friendly products that match his home’s modern aesthetic.","Preferences_and_Needs":"Sustainably made, unique home goods that come with a story.","End_Goal":"Refine his living space to reflect his values while maintaining a modern, clean look.","Mindset_and_Perspective":"Values design, uniqueness, and the backstory of items as much as their sustainability."},"insights":{"Enhanced_Interaction_Patterns":"Prefers shopping experiences that provide detailed narratives of product origin, enjoys bespoke online shopping experiences.","Strategic_Recommendations":"Introduce a signature series of limited-edition products, focused on art and design collaborations, to cater to aesthetic-driven choices and storytelling about the product’s origins."}}]',
+          },
+        ],
+      },
+    ],
+    suggestedMessages: [
+      "How can I contribute to sustainability like these characters? ",
+      " What eco-friendly products would suit my minimalist lifestyle? ",
+      " What are some recommended sustainable gardening tools?",
+    ],
+    _id: "6658da4c27bab8971a251598",
+  },
+  aiSuggestedChats: [],
+  user: "user-test-24565461-1986-40ba-96b0-965500c3ef9b",
+  createdAt: "2024-05-30T19:58:04.419Z",
+  updatedAt: "2024-06-08T02:20:31.883Z",
+};

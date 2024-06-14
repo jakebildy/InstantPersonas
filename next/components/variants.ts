@@ -19,6 +19,7 @@ export const avatarVariants = cva(
         xl: "border-2 h-24 w-24 m-4",
         default: "h-14 w-14 border-4 hover:border-6 ring-offset-4 m-2",
         sm: "h-10 w-10 border-2 hover:border-4 ring-offset-4 m-2",
+        xs: "h-6 w-6 border-2 hover:border-3 ring-offset-4 m-1",
         preview: "h-4 w-4 border-2 hover:border-3 ring-offset-4 m-2",
       },
       interactive: {
@@ -32,7 +33,7 @@ export const avatarVariants = cva(
       size: "default",
       interactive: true,
     },
-  }
+  },
 );
 
 export const tabTriggerVariants = cva("rounded-full py-1 px-4 ", {
@@ -73,7 +74,7 @@ export const badgeVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const gradientLightVariants = cva("bg-gradient-to-b ", {
@@ -216,7 +217,7 @@ export const SurveyCardBackGroundElementRing = cva(
       variant: "blue",
       blur: false,
     },
-  }
+  },
 );
 
 export const SurveyCardBackGroundElementCircle = cva(
@@ -236,7 +237,7 @@ export const SurveyCardBackGroundElementCircle = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const ButtonInnerHover = cva(
@@ -256,7 +257,7 @@ export const ButtonInnerHover = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const Border600 = cva("border", {
@@ -286,6 +287,23 @@ export const background600 = cva("", {
       green: "bg-green-600",
       brown: "bg-brown-600",
       pink: "bg-pink-600",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
+export const background600Light = cva("", {
+  variants: {
+    variant: {
+      blue: "bg-blue-600/10",
+      purple: "bg-purple-600/10",
+      red: "bg-red-600/10",
+      yellow: "bg-yellow-600/10",
+      green: "bg-green-600/10",
+      brown: "bg-amber-600/10",
+      pink: "bg-pink-600/10",
     },
   },
   defaultVariants: {
@@ -327,7 +345,7 @@ export const gradientGridTitleTextVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const gradientGridTextVariants = cva(
@@ -347,7 +365,7 @@ export const gradientGridTextVariants = cva(
     defaultVariants: {
       variant: "blue",
     },
-  }
+  },
 );
 
 export const ColorVariantMap = {

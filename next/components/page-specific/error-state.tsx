@@ -32,20 +32,20 @@ export default function ErrorState({ error, onRetry }: Props) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         key="history-personas-empty"
-        className="text-center flex flex-col gap-2"
+        className="flex flex-col gap-2 text-center"
       >
         <Image
           src={"/search.gif"}
           alt="Create your first persona"
           height={500}
           width={500}
-          className="mx-auto bg-white rounded-md max-w-4xl shadow-sm"
+          className="mx-auto max-w-4xl rounded-md bg-white shadow-sm"
         />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mx-auto m-10 max-w-2xl text-lg tracking-tight text-slate-700"
+          className="m-10 mx-auto max-w-2xl text-lg tracking-tight text-slate-700"
         >
           <b>Something went wrong!</b> <br /> We&apos;ve automatically reported
           this error and are working to fix it as soon as possible.
@@ -54,7 +54,7 @@ export default function ErrorState({ error, onRetry }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="w-full flex gap-4 items-center justify-center"
+          className="flex w-full items-center justify-center gap-4"
         >
           {GOOGLE_FORM_FEEDBACK_LINK ? (
             <Button variant={"slate"} asChild>

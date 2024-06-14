@@ -27,7 +27,7 @@ export function SurveyQuestionTextInput({
 }: SurveyQuestionTextInputProps) {
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 cursor-pointer"
+      className="flex cursor-pointer flex-col items-center gap-2"
       key={title + "-text-input-question-container"}
     >
       <SurveyQuestionTemplate
@@ -38,7 +38,7 @@ export function SurveyQuestionTextInput({
         isLastQuestion={isLastQuestion}
       >
         <motion.h3
-          className="text-lg font-semibold text-gray-800 text-center p-2"
+          className="p-2 text-center text-lg font-semibold text-gray-800"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -49,7 +49,7 @@ export function SurveyQuestionTextInput({
         <motion.div
           className={gradientLightVariants({
             variant: variant,
-            className: "col-span-1 w-full  border border-input rounded-md p-2",
+            className: "col-span-1 w-full rounded-md border border-input p-2",
           })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

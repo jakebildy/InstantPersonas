@@ -1,11 +1,8 @@
-import {
-  avatarVariants,
-  gradientVariants,
-  mapUrlBackgroundColorParamToVariant,
-  PersonaArchetype,
-} from "@/components/page-specific/generative-ui/persona-avatar-popover";
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { avatarVariants, gradientVariants } from "@/components/variants";
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,11 +14,23 @@ export function SelectArchetypeWidget({
   onSelect,
   onDeselect,
   isSelected,
+  button = {
+    text: {
+      select: "Select",
+      selected: "Selected",
+    },
+  },
 }: {
   archetype: PersonaArchetype;
   isSelected: boolean;
   onSelect: () => void;
   onDeselect: () => void;
+  button?: {
+    text: {
+      select: string;
+      selected: string;
+    };
+  };
 }) {
   const [open, setOpen] = useState<boolean>(false);
   // Used for animation to measure the height of the details when expanded
@@ -40,7 +49,7 @@ export function SelectArchetypeWidget({
 
   return (
     <motion.div
-      className="flex flex-col w-full h-full text-left rounded-xl border relative shadow-md bg-background min-h-[60px]"
+      className="relative flex h-full min-h-[60px] w-full flex-col rounded-xl border bg-background text-left font-jost shadow-md"
       animate={{
         height: open ? detailsBounds.height + 80 : 60,
       }}
@@ -48,7 +57,7 @@ export function SelectArchetypeWidget({
     >
       <div className="relative">
         <button
-          className="flex items-center justify-between w-full rounded-xl text-left  gap-2"
+          className="flex w-full items-center justify-between gap-2 rounded-xl text-left"
           onClick={() => setOpen((prev) => !prev)}
         >
           <div className="flex gap-2">
@@ -72,10 +81,10 @@ export function SelectArchetypeWidget({
             <div
               className={cn(
                 "py-2",
-                isSelected ? "max-w-[180px]" : "max-w-[200px]"
+                isSelected ? "max-w-[180px]" : "max-w-[200px]",
               )}
             >
-              <p className="text-sm font-semibold text-gray-700  truncate ">
+              <p className="truncate text-sm font-semibold text-gray-700">
                 {archetype.archetype_name}
               </p>
               <p className="text-xs text-gray-500">Click to view details</p>
@@ -85,29 +94,29 @@ export function SelectArchetypeWidget({
         <Button
           variant={"outline"}
           className={cn(
-            "h-8 px-2 mx-2  rounded-lg text-white hover:text-black z-60 transition-colors duration-300 ease-out absolute top-1/2 -translate-y-1/2 right-2",
-            isSelected ? "bg-green-500" : "bg-blue-700/50"
+            "z-60 absolute right-2 top-1/2 mx-2 h-8 -translate-y-1/2 rounded-lg px-2 text-white transition-colors duration-300 ease-out hover:text-black",
+            isSelected ? "bg-green-500" : "bg-blue-700/50",
           )}
           onClick={(e) => {
             e.stopPropagation();
             isSelected ? onDeselect() : onSelect();
             const localSelectedPersonaNames: string[] = JSON.parse(
               localStorage.getItem(
-                LOCAL_STORAGE_CONFIG.tools.selectedPersonas
-              ) ?? "[]"
+                LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
+              ) ?? "[]",
             );
             localStorage.setItem(
               LOCAL_STORAGE_CONFIG.tools.selectedPersonas,
               JSON.stringify(
                 localSelectedPersonaNames.filter(
                   (archetype_name) =>
-                    archetype_name !== archetype.archetype_name
-                )
-              )
+                    archetype_name !== archetype.archetype_name,
+                ),
+              ),
             );
           }}
         >
-          {isSelected ? "Selected" : "Select"}
+          {isSelected ? button.text.selected : button.text.select}
         </Button>
       </div>
       <div>
@@ -120,19 +129,19 @@ export function SelectArchetypeWidget({
               transition={{ duration: 0.5, type: "spring", bounce: 0 }}
               className={gradientVariants({
                 variant,
-                className: "flex flex-col p-2 rounded-lg m-1",
+                className: "m-1 flex flex-col rounded-lg p-2",
               })}
             >
               <ul className="grid" ref={detailsRef}>
                 {Object.entries(archetype.persona_components).map(
                   ([key, value]) => (
-                    <li key={key} className="flex flex-col mb-1">
-                      <span className="text-muted-foreground font-semibold text-sm">
+                    <li key={key} className="mb-1 flex flex-col">
+                      <span className="text-sm font-semibold text-muted-foreground">
                         {key.replace(/_/g, " ")}
                       </span>
                       <span className="text-xs font-medium">{value}</span>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </motion.div>

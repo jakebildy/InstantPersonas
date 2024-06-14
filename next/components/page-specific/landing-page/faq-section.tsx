@@ -51,22 +51,22 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className=" bg-white">
+    <section id="faq" aria-labelledby="faq-title" className="bg-white">
       {/* <BackgroundGradientAnimation> */}
       {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
-      <Container className=" mt-20 text-center w-screen h-[100%]">
-        <div className="mx-auto ">
+      <Container className="mt-20 h-[100%] w-screen text-center">
+        <div className="mx-auto">
           <h2
             id="faq-title"
-            className=" tracking-tight text-black font-bold text-4xl sm:text-5xl"
+            className="text-4xl font-bold tracking-tight text-black sm:text-5xl"
           >
             Frequently asked questions
           </h2>
         </div>
 
-        <div className="flex flex-auto  mx-auto justify-center">
+        <div className="mx-auto flex flex-auto justify-center">
           <Accordion.Root
-            className=" w-[800px] rounded-md shadow-black/5 "
+            className="w-[800px] rounded-md shadow-black/5"
             type="single"
             // defaultValue="item-0"
             collapsible
@@ -85,7 +85,7 @@ export default function FaqSection() {
                     </p>
                   ))}
                 </AccordionContent>
-                <div className="h-0.5 w-full bg-gray-100  border-none" />
+                <div className="h-0.5 w-full border-none bg-gray-100" />
               </AccordionItem>
             ))}
           </Accordion.Root>
@@ -93,19 +93,19 @@ export default function FaqSection() {
       </Container>
       {/* </BackgroundGradientAnimation> */}
 
-      <div className=" h-screen font-jost">
-        <div className="bg-blue-50 max-w-screen-md rounded-md text-center flex mx-auto flex-col">
-          <div className="flex flex-row mx-auto justify-center p-5">
+      <div className="h-screen font-jost">
+        <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-blue-50 text-center">
+          <div className="mx-auto flex flex-row justify-center p-5">
             <img
               src="https://i.imgur.com/WZG9K4h.png"
-              className="rounded-full h-16 border-white border-2"
+              className="h-16 rounded-full border-2 border-white"
             />
             <img
               src="https://i.imgur.com/u3PlVIH.png"
-              className="rounded-full h-16 border-white border-2"
+              className="h-16 rounded-full border-2 border-white"
             />
           </div>
-          <span className="font-bold text-2xl"> Have more questions?</span>
+          <span className="text-2xl font-bold"> Have more questions?</span>
           <br></br>
           Join our Slack community and ask away!
           <br></br>
@@ -114,7 +114,7 @@ export default function FaqSection() {
               window.location.href =
                 "https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw";
             }}
-            className="bg-green-500 hover:bg-green-600 p-3 w-[200px] mx-auto text-lg text-white rounded-full font-bold m-5"
+            className="m-5 mx-auto w-[200px] rounded-full bg-green-500 p-3 text-lg font-bold text-white hover:bg-green-600"
           >
             Join Slack
           </button>
@@ -133,7 +133,7 @@ const AccordionItem = React.forwardRef(
     >
       {children}
     </Accordion.Item>
-  )
+  ),
 );
 AccordionItem.displayName = "AccordionItem";
 
@@ -143,21 +143,21 @@ const AccordionTrigger = React.forwardRef(
       <Accordion.Trigger
         className={cn(
           "group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none",
-          className
+          className,
         )}
         {...props}
         ref={forwardedRef}
       >
-        <div className="group-data-[state=open]:text-green-600 sm:text-sm xs:text-xs md:text-lg ">
+        <div className="xs:text-xs group-data-[state=open]:text-green-600 sm:text-sm md:text-lg">
           {children}
         </div>
         <ChevronDownIcon
-          className="ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180 group-data-[state=open]:text-green-600  h-[20px] w-[20px]"
+          className="ease-[cubic-bezier(0.87,_0,_0.13,_1)] h-[20px] w-[20px] transition-transform duration-300 group-data-[state=open]:rotate-180 group-data-[state=open]:text-green-600"
           aria-hidden
         />
       </Accordion.Trigger>
     </Accordion.Header>
-  )
+  ),
 );
 AccordionTrigger.displayName = "AccordionTrigger";
 
@@ -165,14 +165,14 @@ const AccordionContent = React.forwardRef(
   ({ children, className, ...props }: any, forwardedRef) => (
     <Accordion.Content
       className={cn(
-        "text-slate-800 text-start data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden text-[15px]",
-        className
+        "overflow-hidden text-start text-[15px] text-slate-800 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+        className,
       )}
       {...props}
       ref={forwardedRef}
     >
-      <div className="py-[15px] px-5">{children}</div>
+      <div className="px-5 py-[15px]">{children}</div>
     </Accordion.Content>
-  )
+  ),
 );
 AccordionContent.displayName = "AccordionContent";

@@ -11,7 +11,7 @@ import {
   ChatBubbleLeftRightIcon,
   UsersIcon,
 } from "@heroicons/react/24/solid";
-import { BLOG_POSTS } from "@/app/(public)/blog/page";
+import { BLOG_POSTS } from "@/lib/config/blog";
 
 
 export const UNDERSTAND_TOOLS = [
@@ -188,7 +188,8 @@ export const SITE_MAP = [
   { href: BASE_URL },
 ]
   .filter(
-    (link, index, self) => self.findIndex((l) => l.href === link.href) === index
+    (link, index, self) =>
+      self.findIndex((l) => l.href === link.href) === index,
   )
   .map((link) => ({ href: link.href }));
 

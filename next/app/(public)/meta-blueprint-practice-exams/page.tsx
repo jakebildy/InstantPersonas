@@ -42,7 +42,7 @@ const PRACTICE_TESTS: PracticeExam[] = [
 
 export default function MetaBlueprintPracticePage() {
   return (
-    <section className="bg-white ">
+    <section className="bg-white">
       <title>Free Facebook Blueprint Practice Exams</title>
       <meta
         name="description"
@@ -82,12 +82,12 @@ export default function MetaBlueprintPracticePage() {
         content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
       />
       <meta name="twitter:image" content="/og/meta_blueprint.png" />
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 ">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div className="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 lg:text-5xl">
             Free Practice Exams for Meta Blueprint Certifications
           </h2>
-          <p className="font-light text-gray-500 sm:text-xl ">
+          <p className="font-light text-gray-500 sm:text-xl">
             Build your marketing knowledge with these practice exams for Meta
             Blueprint certifications. No signup needed.
           </p>
@@ -107,11 +107,11 @@ export default function MetaBlueprintPracticePage() {
             />
           ))}
         </div>
-        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-light text-gray-500 sm:text-xl">
           We help you understand your target audience and market more
           succesfully.
         </p>
-        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-light text-gray-500 sm:text-xl">
           Learn how to supercharge your marketing by creating detailed personas{" "}
           <a className="text-blue-600" href="https://instantpersonas.com/">
             here
@@ -119,7 +119,7 @@ export default function MetaBlueprintPracticePage() {
           .
         </p>
 
-        <div className="text-xs text-center text-gray-500 font-light">
+        <div className="text-center text-xs font-light text-gray-500">
           We&apos;re not associated with Meta. This is not an official exam but
           is designed to help you prepare for the real thing.
         </div>
@@ -140,28 +140,28 @@ const ArticleCard = ({
   return (
     <article
       className={cn(
-        "p-6 bg-white rounded-lg border border-gray-200 shadow-md",
-        className
+        "rounded-lg border border-gray-200 bg-white p-6 shadow-md",
+        className,
       )}
     >
-      <div className="flex justify-between items-center mb-5 text-gray-500">
-        <span className="bg-green-200 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-xl ">
+      <div className="mb-5 flex items-center justify-between text-gray-500">
+        <span className="inline-flex items-center rounded-xl bg-green-200 px-2.5 py-0.5 text-xs font-medium text-green-800">
           {category}
         </span>
       </div>
-      <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+      <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
         <Link href={"/meta-blueprint-practice-exams/" + post.slug}>
           {post.name}
         </Link>
       </h2>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={"/meta-blueprint-practice-exams/" + post.slug}
-          className="inline-flex items-center font-medium text-primary-600  hover:underline"
+          className="text-primary-600 inline-flex items-center font-medium hover:underline"
         >
           Start Practice Exam
           <svg
-            className="ml-2 w-4 h-4"
+            className="ml-2 h-4 w-4"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
