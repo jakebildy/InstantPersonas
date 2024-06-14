@@ -1,4 +1,8 @@
-import { MessageSquareShareIcon, PersonStandingIcon, SlackIcon } from "lucide-react";
+import {
+  MessageSquareShareIcon,
+  PersonStandingIcon,
+  SlackIcon,
+} from "lucide-react";
 import {
   BanknotesIcon,
   BookmarkIcon,
@@ -12,7 +16,11 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/lib/config/blog";
+import { BRAND_ICONS } from "@/components/brand-icons";
 
+//! expires end of june 2024
+export const SLACK_INVITE_LINK =
+  "https://join.slack.com/t/instantpersonas/shared_invite/zt-2kx95oono-drZjHtNxIeg64R8nmi7aVQ";
 
 export const UNDERSTAND_TOOLS = [
   {
@@ -25,6 +33,12 @@ export const UNDERSTAND_TOOLS = [
     title: "Recent Personas",
     href: "/history",
     icon: BookmarkIcon,
+    label: "",
+  },
+  {
+    title: "Slack Community",
+    href: SLACK_INVITE_LINK,
+    icon: BRAND_ICONS.Slack,
     label: "",
   },
 ] as const;
@@ -47,7 +61,7 @@ export const SIDEBAR_LINKS = [
     href: "/feedback",
     icon: ChatBubbleLeftRightIcon,
     label: "",
-  }
+  },
 ] as const;
 
 export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
