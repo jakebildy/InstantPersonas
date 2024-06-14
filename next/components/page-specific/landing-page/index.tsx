@@ -7,6 +7,7 @@ import PricingSection from "./pricing-section";
 import FaqSection from "./faq-section";
 import ProductCarouselSection from "./product-carousel-section";
 import FeaturesSection from "./features-section";
+import { TestimonialSection } from "./testimonials";
 
 const LandingPage = {
   header: Header,
@@ -18,6 +19,8 @@ const LandingPage = {
   callToAction: CallToActionSection,
   pricing: PricingSection,
   faqs: FaqSection,
+
+  testimonials: TestimonialSection,
 
   footer: Footer,
 };
