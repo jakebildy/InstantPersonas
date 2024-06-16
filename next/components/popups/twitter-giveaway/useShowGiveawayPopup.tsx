@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 // If true, the dialog will never be shown
 //? Set to false when ready
-const NEVER_SHOW = true;
+const NEVER_SHOW = false;
 
 export function useShowGiveawayPopup() {
   const [show, setShow] = useState(false);
