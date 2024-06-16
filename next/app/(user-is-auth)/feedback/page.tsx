@@ -11,7 +11,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { AnimatePresence, motion } from "framer-motion";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { SurveyCard } from "@/components/survey/cards/survey-card";
-import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
+import PersonaAdoptionStageAndSatisfactionCorrelationAnalysisSurveyPopup from "@/components/popups/feedback-survey/persona-adoption-stage-and-satisfaction-correlation-analysis-survey";
 
 export default function FeedbackPage() {
   const [miscFeedback, setMiscFeedback] = useState<string>("");

@@ -8,11 +8,14 @@ import { BlogFooter } from "@/components/page-specific/blog/footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
 import { usePathname } from "next/navigation";
+import { TwitterGiveAwayPopup } from "@/components/popups/twitter-giveaway/giveaway-popup";
+import { useShowGiveawayPopup } from "@/components/popups/twitter-giveaway/useShowGiveawayPopup";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
   const pathName = usePathname();
+  const [showGiveawayPopup, setShowGiveawayPopup] = useShowGiveawayPopup();
 
   return (
     <main
@@ -20,6 +23,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         isLoggedIn ? "min-h-screen bg-gray-100" : "min-h-screen bg-white"
       }
     >
+      <TwitterGiveAwayPopup
+        open={showGiveawayPopup}
+        onOpenChange={setShowGiveawayPopup}
+      />
       {/editor\/.+/.test(pathName) ? (
         <div className="h-full w-full flex-1">{children}</div>
       ) : user.user ? (

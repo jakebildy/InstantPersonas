@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_CONFIG } from "@/lib/config/localstorage";
 import { useEffect, useState } from "react";
-import { usePersonaChatHistory } from "../context/persona/history-context";
-import { useInstantPersonasUser } from "../context/auth/user-context";
+import { usePersonaChatHistory } from "../../context/persona/history-context";
+import { useInstantPersonasUser } from "../../context/auth/user-context";
 
 export function useShowSlackPopup() {
   const [show, setShow] = useState(false);
