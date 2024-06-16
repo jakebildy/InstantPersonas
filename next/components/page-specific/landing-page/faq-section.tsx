@@ -5,6 +5,11 @@ import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { avatarVariants } from "@/components/variants";
+import { GradientButton } from "@/components/ui/gradient-button";
+import { SlackIcon } from "lucide-react";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -100,28 +105,36 @@ export default function FaqSection() {
       <div className="h-full font-jost">
         <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-gradient-to-b from-pastel-blue to-pastel-blue/25 text-center">
           <div className="mx-auto flex flex-row justify-center p-5">
-            <img
-              src="https://i.imgur.com/WZG9K4h.png"
-              className="mr-1 h-16 rounded-full border-2 border-white"
-            />
-            <img
-              src="https://i.imgur.com/u3PlVIH.png"
-              className="h-16 rounded-full border-2 border-white"
-            />
+            <Avatar
+              className={avatarVariants({
+                variant: "green",
+                interactive: true,
+              })}
+            >
+              <AvatarImage src={"https://i.imgur.com/WZG9K4h.png"} />
+            </Avatar>
+            <Avatar
+              className={avatarVariants({
+                variant: "green",
+                interactive: true,
+              })}
+            >
+              <AvatarImage src={"https://i.imgur.com/u3PlVIH.png"} />
+            </Avatar>
           </div>
           <span className="text-2xl font-bold"> Have more questions?</span>
           <br></br>
           Join our Slack community and ask away!
           <br></br>
-          <button
-            onClick={() => {
-              window.location.href =
-                "https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw";
-            }}
-            className="m-5 mx-auto w-[200px] rounded-full bg-green-500 p-3 text-lg font-bold text-white hover:bg-green-600"
+          <GradientButton
+            variant="green"
+            className="mx-auto my-5 h-[50px] w-[135px] justify-center"
+            Icon={SlackIcon}
           >
-            Join Slack
-          </button>
+            <Link href="https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw">
+              Join Slack
+            </Link>
+          </GradientButton>
         </div>
       </div>
     </section>
