@@ -22,10 +22,10 @@ export const TwitterGiveAwayPopup = ({
       title: "We're Doing a Giveaway!",
       subTitle: (
         <>
-          Tweet about InstantPersonas with the{" "}
+          Tweet about us and tag{" "}
           <b className="text-blue-500">@InstantPersonas</b> for a chance to
           <br />
-          <i>Win a free subscription & $50 Amazon Giftcard!</i>
+          <i>win a free subscription & $50 Amazon Gift Card!</i>
         </>
       ),
       footerNote:
@@ -42,7 +42,7 @@ export const TwitterGiveAwayPopup = ({
         className={"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"}
       />
 
-      <ClientTweetCard id="1795635299063943263" />
+      <ClientTweetCard id="1802167746181873796" />
     </PopupSection>
     <PopupSection className="p-2">
       <PopupSection className="p-2">
@@ -56,7 +56,7 @@ export const TwitterGiveAwayPopup = ({
           </Link>{" "}
           for a chance to{" "}
           <b className="text-green-500">
-            Win a Free Subscription & $50 Amazon Giftcard!
+            Win a Free Subscription & $50 Amazon Gift Card!
           </b>
           <br />
           <br />
@@ -74,9 +74,7 @@ export const TwitterGiveAwayPopup = ({
         asChild
       >
         <TwitterShareButton
-          title={
-            "Checkout @InstantPersonas for free seo tools! It's my favorite tool for seo research and content planning!"
-          }
+          title={"@InstantPersonas is [your thoughts here]"}
           url={BASE_URL}
         >
           <span className="h-10 w-full whitespace-nowrap rounded-full border border-input bg-gradient-to-b from-blue-500 to-blue-500 p-2 px-10 font-semibold text-white transition-colors duration-300 ease-out hover:bg-gradient-to-b hover:from-blue-500 hover:to-blue-400">
