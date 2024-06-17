@@ -6,10 +6,15 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { avatarVariants } from "@/components/variants";
+import {
+  avatarVariants,
+  gradientLightVariants,
+  gradientVariants,
+} from "@/components/variants";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { SlackIcon } from "lucide-react";
 import Link from "next/link";
+import Ripple from "@/components/ui/magicui/ripple";
 
 const faqs = [
   {
@@ -102,39 +107,51 @@ export default function FaqSection() {
       </Container>
       {/* </BackgroundGradientAnimation> */}
 
-      <div className="h-full font-jost">
-        <div className="mx-auto flex max-w-screen-md flex-col rounded-md bg-gradient-to-b from-pastel-blue to-pastel-blue/25 text-center">
-          <div className="mx-auto flex flex-row justify-center p-5">
-            <Avatar
-              className={avatarVariants({
-                variant: "green",
-                interactive: true,
-              })}
-            >
-              <AvatarImage src={"https://i.imgur.com/WZG9K4h.png"} />
-            </Avatar>
-            <Avatar
-              className={avatarVariants({
-                variant: "green",
-                interactive: true,
-              })}
-            >
-              <AvatarImage src={"https://i.imgur.com/u3PlVIH.png"} />
-            </Avatar>
-          </div>
-          <span className="text-2xl font-bold"> Have more questions?</span>
-          <br></br>
-          Join our Slack community and ask away!
-          <br></br>
-          <GradientButton
-            variant="green"
-            className="mx-auto my-5 h-[50px] w-[135px] justify-center"
-            Icon={SlackIcon}
+      <div className="z-30 h-full font-jost">
+        <div className="mx-auto max-w-screen-md rounded-md border bg-white p-2 shadow-lg">
+          <div
+            className={gradientVariants({
+              variant: "green",
+              className:
+                "relative mx-auto flex flex-col overflow-hidden rounded-md text-center",
+            })}
           >
-            <Link href="https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw">
-              Join Slack
-            </Link>
-          </GradientButton>
+            <div className="z-10 mx-auto flex flex-row justify-center p-5">
+              <Avatar
+                className={avatarVariants({
+                  variant: "green",
+                  interactive: true,
+                })}
+              >
+                <AvatarImage src={"https://i.imgur.com/WZG9K4h.png"} />
+              </Avatar>
+              <Avatar
+                className={avatarVariants({
+                  variant: "green",
+                  interactive: true,
+                })}
+              >
+                <AvatarImage src={"https://i.imgur.com/u3PlVIH.png"} />
+              </Avatar>
+            </div>
+            <span className="z-10 text-2xl font-bold">
+              {" "}
+              Have more questions?
+            </span>
+            <br></br>
+            <span className="z-10">Join our Slack community and ask away!</span>
+
+            <br></br>
+            <GradientButton
+              variant="green"
+              className="z-10 mx-auto my-5 h-[50px] w-[135px] justify-center"
+              Icon={SlackIcon}
+            >
+              <Link href="https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw">
+                Join Slack
+              </Link>
+            </GradientButton>
+          </div>
         </div>
       </div>
     </section>

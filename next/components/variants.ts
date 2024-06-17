@@ -328,6 +328,23 @@ export const SVG600 = cva("", {
   },
 });
 
+export const SVGLight600 = cva("", {
+  variants: {
+    variant: {
+      blue: "fill-blue-600/25 stroke-blue-600",
+      purple: "fill-purple-600/25 stroke-purple-600",
+      red: "fill-red-600/25 stroke-red-600",
+      yellow: "fill-yellow-600/25 stroke-yellow-600",
+      green: "fill-green-600/25 stroke-green-600",
+      brown: "fill-brown-600/25 stroke-brown-600",
+      pink: "fill-pink-600/25 stroke-pink-600",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export const gradientGridTitleTextVariants = cva(
   "bg-gradient-to-b bg-clip-text text-center text-7xl font-bold tracking-tighter text-transparent",
   {

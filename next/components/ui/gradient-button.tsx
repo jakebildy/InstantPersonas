@@ -72,7 +72,7 @@ export interface GradientButtonProps
             gradientLightVariants({
               variant: variant,
               className: cn(
-                "flex items-center gap-2 pl-5 text-sm",
+                "flex w-full items-center justify-center gap-2 pl-5 text-sm",
                 innerClassName,
               ),
             }),
