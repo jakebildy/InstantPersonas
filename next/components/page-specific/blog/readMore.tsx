@@ -55,7 +55,7 @@ const ArticleCard = ({
       <p className="mb-5 font-light text-gray-500">{post.lead}</p>
       <div className="flex items-center justify-between">
         <Link
-          href={"blog/" + post.slug}
+          href={"/blog/" + post.slug}
           className="text-primary-600 inline-flex items-center font-medium hover:underline"
         >
           Read more
