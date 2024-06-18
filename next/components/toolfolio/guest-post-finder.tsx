@@ -1,10 +1,11 @@
 "use client";
 import api from "@/service/api.service";
-import { IconDownload } from "@tabler/icons-react";
+import { IconAwardFilled, IconDownload, IconMail } from "@tabler/icons-react";
 import axios from "axios";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 import { useState } from "react";
+import { EnvelopeIcon } from "@heroicons/react/24/solid";
 
 export function GuestPostFinderTool({
   input,
@@ -48,7 +49,7 @@ export function GuestPostFinderTool({
   return (
     <div>
       {loading ? (
-        "Looking for guest post opportunities..."
+        "Looking for guest post opportunities, this will take a minute..."
       ) : harderToSubmitResults.length > 0 &&
         easyToSubmitResults.length === 0 ? (
         "We didn't find any easy guest post opportunities for this persona. Try refining your search!"
@@ -104,12 +105,18 @@ export function GuestPostFinderTool({
                     )},${results.title.replaceAll(
                       ",",
                       "",
-                    )},${results.snippet.replaceAll(",", "")}`;
+                    )},${results.snippet.replaceAll(",", "")},${
+                      results.emails
+                        ? results.emails
+                            .map((email: any) => email.value)
+                            .join(",")
+                        : ""
+                    }`;
                   })
                   .join("\n");
 
                 //   add a new row of headers before
-                const headers = "Website,Title,Snippet";
+                const headers = "Website,Title,Snippet,Emails";
                 const csvWithHeaders = headers + "\n" + csv;
                 const blob = new Blob([csvWithHeaders], { type: "text/csv" });
                 const url = window.URL.createObjectURL(blob);
@@ -134,17 +141,37 @@ export function GuestPostFinderTool({
                 </a>
 
                 <div className="text-xs text-black">{result.snippet}</div>
-                <div className="text-sm font-bold text-green-500">
+                <div>
+                  {result.emails ? (
+                    // map email .value  for each email display here
+                    result.emails.slice(0, 5).map((email: any) => {
+                      return (
+                        <a target="_blank" href={"mailto:" + email.value}>
+                          <span className="flex flex-row">
+                            <EnvelopeIcon className="mr-2 mt-1 h-4" />{" "}
+                            {email.value}
+                          </span>
+                        </a>
+                      );
+                    })
+                  ) : (
+                    <div />
+                  )}
+                </div>
+                <div className="text-sm font-bold text-gray-400">
                   <a
+                    className="flex flex-row"
                     target="_blank"
                     href={
                       "https://ahrefs.com/website-authority-checker/?input=" +
                       result.formattedUrl
                     }
                   >
-                    Check DR
+                    <IconAwardFilled className="mt-0.5 h-4" /> Check DR
                   </a>
                 </div>
+
+                {/* <div>{result.phones}</div> */}
               </li>
             ))}
           </ul>

@@ -4,6 +4,13 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { GPT4 } from "@/app/(server)/ai/persona-chat-ai/utils/gpt";
 
+//@ts-ignore
+import Outscraper from 'outscraper';
+
+
+// Outscraper
+let outscraper = new Outscraper(process.env.OUTSCRAPER_KEY);
+
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -34,14 +41,36 @@ export async function POST(req: Request) {
       const easyUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"write+for+us"`;
       const hardUrl = `https://www.googleapis.com/customsearch/v1?key=${SEARCH_KEY}&cx=${SEARCH_CX}&q=${keywordEncoded}+intitle:"guide"+inurl:blog`;
 
-      const response = await axios.get(easyUrl);
+      let response = await axios.get(easyUrl);
 
       const response2 = await axios.get(hardUrl);
+    
+      response.data.items = response.data.items.filter((item: any) => {
+        return !item.formattedUrl.includes("linkedin.com") && ! item.formattedUrl
+        .includes
+        ("twitter.com") && !item.formattedUrl.includes("medium.com");
+      });
+
+      if (response.data.items.length === 0) {
+        return NextResponse.error();
+      }
+
+      // for the response.data.items, grab formattedUrl and use outscraper to get the contact information, then insert it into the response.data.items as a new field
+      const responseOutscraper = await outscraper.emailsAndContacts(
+        response.data.items.map((item: any) => item.formattedUrl)
+      );
+
+      for (let i = 0; i < responseOutscraper.length; i++) {
+        
+        response.data.items[i].emails = responseOutscraper[i].emails;
+        // console.log(responseOutscraper[i].emails);
+      }
 
       return NextResponse.json({
         easyToSubmit: response.data.items ?? [],
         hardToSubmit: response2.data.items ?? [],
       });
+
     } else {
       const personas = body.personas;
 
@@ -70,6 +99,41 @@ export async function POST(req: Request) {
 
         easyToSubmit = easyToSubmit.concat(response.data.items ?? []);
         hardToSubmit = hardToSubmit.concat(response2.data.items ?? []);
+      }
+
+      // remove www.linkedin.com, linkedin.com, twitter.com, medium.com from the results
+      easyToSubmit = easyToSubmit.filter((item: any) => {
+        return !item.formattedUrl.includes("linkedin.com") && ! item.formattedUrl.includes("twitter.com") && !item.formattedUrl.includes("medium.com");
+      });
+
+      hardToSubmit = hardToSubmit.filter((item: any) => {
+        return !item.formattedUrl.includes("linkedin.com") && ! item.formattedUrl
+        .includes
+        ("twitter.com") && !item.formattedUrl.includes("medium.com");
+      });
+
+      if (easyToSubmit.length === 0 || hardToSubmit.length === 0) {
+        return NextResponse.error();
+      }
+
+      const responseEasyOutscraper = await outscraper.emailsAndContacts(
+        easyToSubmit.map((item: any) => item.formattedUrl)
+      );
+
+      for (let i = 0; i < responseEasyOutscraper.length; i++) {
+        
+        easyToSubmit[i].emails = responseEasyOutscraper[i].emails;
+        // console.log(responseOutscraper[i].emails);
+      }
+
+      const responseHardOutscraper = await outscraper.emailsAndContacts(
+        hardToSubmit.map((item: any) => item.formattedUrl)
+      );
+
+      for (let i = 0; i < responseHardOutscraper.length; i++) {
+        
+        hardToSubmit[i].emails = responseHardOutscraper[i].emails;
+        // console.log(responseOutscraper[i].emails);
       }
 
       return NextResponse.json({
