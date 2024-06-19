@@ -90,6 +90,7 @@
     "null-loader": "^4.0.1",
     "openai": "^4.47.1",
     "os-browserify": "^0.3.0",
+    "outscraper": "^2.0.4",
     "posthog-js": "^1.118.0",
     "posthog-node": "^4.0.1",
     "react": "^18.2.0",
