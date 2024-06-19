@@ -49,7 +49,7 @@ export default function Home() {
               gradientVariants({
                 variant,
                 className:
-                  "relative flex size-full flex-col overflow-hidden rounded-lg border p-10 px-4 sm:gap-16 sm:px-10",
+                  "relative flex h-full w-full flex-col rounded-lg border p-10 px-4 sm:gap-16 sm:px-10",
               }),
               shadowVariants({
                 variant,
