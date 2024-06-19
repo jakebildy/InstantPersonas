@@ -1,65 +1,20 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
 import {
-  avatarVariants,
-  background600,
-  Border600,
-  ButtonInnerHover,
   ColorVariant,
-  ColorVariantMap,
   ColorVariants,
-  gradientDarkVariants,
-  gradientLightVariants,
   gradientVariants,
   shadowVariants,
-  SVG600,
-  SVGLight600,
-  textColorVariants,
 } from "@/components/variants";
 
-import { cn, delay, timeAgo } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  ArrowRightIcon,
-  ArrowTopRightIcon,
-  StarFilledIcon,
-} from "@radix-ui/react-icons";
-import Link from "next/link";
-import {
-  Testimonial,
-  TESTIMONIALS,
-} from "../../components/page-specific/landing-page/testimonials/testimonials";
+import { useState } from "react";
 import { cx } from "class-variance-authority";
-import { useRouter } from "next/navigation";
-import { TestimonialSection } from "@/components/page-specific/landing-page/testimonials";
-import AnimatedGridPattern, {
-  GridPattern,
-} from "@/components/ui/magicui/animated-grid-pattern";
+import AnimatedGridPattern from "@/components/ui/magicui/animated-grid-pattern";
 import LandingPage from "@/components/page-specific/landing-page";
 import { FreeToolSection } from "@/components/toolfolio/free-tools-section";
-import * as HeroImg from "@/public/hero.png";
-import { AnimatedTooltip } from "@/components/ui/aceternity/animated_tooltip";
-import { GradientButton, IconVariants } from "@/components/ui/gradient-button";
-import {
-  BarChart4Icon,
-  BookOpenCheck,
-  BookOpenCheckIcon,
-  GraduationCapIcon,
-  LucideIcon,
-  MessageCircleQuestionIcon,
-  PersonStandingIcon,
-  TrendingUpIcon,
-} from "lucide-react";
-import { CloudArrowDownIcon } from "@heroicons/react/24/solid";
-import * as BlogFeatureImg from "@/public/instant_personas_blog_feature.png";
-import useMeasure from "react-use-measure";
-import { motion } from "framer-motion";
 import RadialGradient from "@/components/ui/magicui/radial-gradient";
-import Ripple from "@/components/ui/magicui/ripple";
 type Props = {};
 
 export default function PageTest({}: Props) {

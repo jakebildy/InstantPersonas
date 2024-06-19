@@ -10,16 +10,16 @@ import {
 } from "@/components/variants";
 import { cn } from "@/lib/utils";
 import { CloudArrowDownIcon } from "@heroicons/react/24/solid";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { cx } from "class-variance-authority";
 import {
   GraduationCapIcon,
   BarChart4Icon,
   BookOpenCheckIcon,
-  Link,
   PersonStandingIcon,
   MessageCircleQuestionIcon,
 } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 import useMeasure from "react-use-measure";
 import Image from "next/image";
@@ -54,20 +54,16 @@ export default function DocumentFeatureSection({ variant = "blue" }: Props) {
       <div
         className={background600({
           variant,
-          className: "absolute right-0 top-0 size-[50vw] blur-[100px]",
-        })}
-      />
-      <div
-        className={background600({
-          variant: "purple",
           className:
-            "absolute left-0 top-0 size-[40vw] -translate-x-10 -translate-y-10 opacity-50 blur-2xl",
+            "absolute right-0 top-0 size-[50vw] opacity-25 blur-[100px]",
         })}
       />
+
       <div
         className={background600({
           variant,
-          className: "absolute bottom-0 left-0 size-[15vw] blur-3xl",
+          className:
+            "absolute -left-10 bottom-0 size-[15vw] opacity-25 blur-3xl",
         })}
       />
       <div className="z-20 flex gap-2 font-jost">
