@@ -146,7 +146,11 @@ export function GuestPostFinderTool({
                     // map email .value  for each email display here
                     result.emails.slice(0, 5).map((email: any) => {
                       return (
-                        <a target="_blank" href={"mailto:" + email.value}>
+                        <a
+                          target="_blank"
+                          key={email.value}
+                          href={"mailto:" + email.value}
+                        >
                           <span className="flex flex-row">
                             <EnvelopeIcon className="mr-2 mt-1 h-4" />{" "}
                             {email.value}
