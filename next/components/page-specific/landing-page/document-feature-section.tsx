@@ -43,169 +43,166 @@ export default function DocumentFeatureSection({ variant = "blue" }: Props) {
     setThoughtIndex((thoughtIndex + 1) % personaThoughts.length);
   };
 
-  const [featureRef, bounds] = useMeasure();
-
   return (
-    <section
-      id="feature-1"
-      className="relative flex w-full flex-1 flex-col justify-between gap-10 md:mb-0"
-      style={{ marginBottom: bounds.height }}
-    >
-      <div
-        className={background600({
-          variant,
-          className:
-            "absolute right-0 top-0 size-[50vw] opacity-25 blur-[100px]",
-        })}
-      />
+    <>
+      <section
+        id="feature-1"
+        className="relative flex w-full flex-1 flex-col justify-between gap-10 md:mb-0"
+      >
+        <div
+          className={background600({
+            variant,
+            className:
+              "absolute right-0 top-0 size-[50vw] opacity-25 blur-[100px]",
+          })}
+        />
 
-      <div
-        className={background600({
-          variant,
-          className:
-            "absolute -left-10 bottom-0 size-[15vw] opacity-25 blur-3xl",
-        })}
-      />
-      <div className="z-20 flex gap-2 text-center font-jost sm:text-left">
-        <div className="hidden flex-col items-center justify-start sm:flex">
-          <CloudArrowDownIcon className="size-[1.5rem] sm:size-[1.75rem]" />
-        </div>
-        <div className="flex max-w-[800px] flex-col gap-2 md:gap-4">
-          <span className="text-base font-semibold sm:text-lg lg:text-xl">
-            Persona-Driven Content Creation
-          </span>
-          <h3 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-6xl">
-            Create Content that Matters
-          </h3>
-          <span className="sm:w-[300px] lg:text-lg">
-            Gain Real-Time Insights into the thoughts of your audience.
-          </span>
-          <br className="max-md:hidden" />
-          <ul className="flex flex-col gap-1 max-md:pt-4 sm:w-[300px] lg:gap-2">
-            <li className="flex items-center gap-4">
-              <GraduationCapIcon className="size-4 lg:size-6" />
-              <span className="lg:text-lg">
-                Understand your audience better
-              </span>
-            </li>
-            <li className="flex items-center gap-4">
-              <BarChart4Icon className="size-4 lg:size-6" />
-              <span className="lg:text-lg">Get Real-Time Insights</span>
-            </li>
-            <li className="flex items-center gap-4">
-              <BookOpenCheckIcon className="size-4 lg:size-6" />
-              <span className="lg:text-lg">Write content that resonates</span>
-            </li>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "group mt-4 h-fit rounded-full p-1 shadow-md hover:scale-100 hover:text-primary",
-                "z-20",
-              )}
-            >
-              <span
-                className={cx(
-                  ButtonInnerHover({ variant: variant }),
-                  cn(
-                    "flex w-full items-center justify-center gap-2 pl-5 text-sm",
-                    "bg-gradient-to-b from-blue-500 to-blue-500 text-white hover:bg-gradient-to-b hover:from-blue-500 hover:to-blue-400",
-                  ),
+        <div
+          className={background600({
+            variant,
+            className:
+              "absolute -left-10 bottom-0 size-[15vw] opacity-25 blur-3xl",
+          })}
+        />
+        <div className="z-20 flex gap-2 text-center font-jost sm:text-left">
+          <div className="hidden flex-col items-center justify-start sm:flex">
+            <CloudArrowDownIcon className="size-[1.5rem] sm:size-[1.75rem]" />
+          </div>
+          <div className="flex max-w-[800px] flex-col gap-2 md:gap-4">
+            <span className="text-base font-semibold sm:text-lg lg:text-xl">
+              Persona-Driven Content Creation
+            </span>
+            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-6xl">
+              Create Content that Matters
+            </h3>
+            <span className="sm:w-[300px] lg:text-lg">
+              Gain Real-Time Insights into the thoughts of your audience.
+            </span>
+            <br className="max-md:hidden" />
+            <ul className="flex flex-col gap-1 max-md:pt-4 sm:w-[300px] lg:gap-2">
+              <li className="flex items-center gap-4">
+                <GraduationCapIcon className="size-4 lg:size-6" />
+                <span className="lg:text-lg">
+                  Understand your audience better
+                </span>
+              </li>
+              <li className="flex items-center gap-4">
+                <BarChart4Icon className="size-4 lg:size-6" />
+                <span className="lg:text-lg">Get Real-Time Insights</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <BookOpenCheckIcon className="size-4 lg:size-6" />
+                <span className="lg:text-lg">Write content that resonates</span>
+              </li>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "group mt-4 h-fit rounded-full p-1 shadow-md hover:scale-100 hover:text-primary",
+                  "z-20",
                 )}
               >
-                <Link href="/register">Join InstantPersonas for Free</Link>
-                <PersonStandingIcon
-                  className={IconVariants({
-                    size: "sm",
-                    className: "text-white",
-                  })}
-                />
-              </span>
-            </Button>
-          </ul>
-        </div>
-      </div>
-
-      <div
-        className={cn(
-          "md:absolute md:right-0 md:top-[40%] md:size-[65%] lg:top-[35%] lg:size-[68%] xl:top-[30%] xl:size-[75%]",
-          "flex items-center md:items-start md:justify-end",
-          "transition-all duration-700 ease-out",
-        )}
-      >
-        <div className="relative aspect-[2048/1279] w-full md:w-[90%]">
-          <div
-            className="absolute left-[16%] top-[14%] z-10 flex h-full w-[53%] flex-col items-center rounded-lg border bg-white p-1 shadow-xl"
-            ref={featureRef}
-          >
-            <div
-              className={gradientLightVariants({
-                variant,
-                className:
-                  "relative flex h-full w-full flex-col items-center overflow-hidden rounded-lg border",
-              })}
-            >
-              <PersonStandingIcon className="absolute right-2 top-2 size-4 text-muted-foreground" />
-              <span className="py-6 text-center font-jost text-xs font-bold sm:text-sm md:text-lg lg:text-xl xl:text-2xl">
-                Guide to Instagram
-                <br /> Marketing
-              </span>
-              <div className="mt-2 flex w-[80%] flex-col items-center gap-2">
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={cn(
-                      "h-1 w-full rounded-full bg-gray-200 lg:h-2",
-                      i === 3 && "mb-5",
-                    )}
+                <span
+                  className={cx(
+                    ButtonInnerHover({ variant: variant }),
+                    cn(
+                      "flex w-full items-center justify-center gap-2 pl-5 text-sm",
+                      "bg-gradient-to-b from-blue-500 to-blue-500 text-white hover:bg-gradient-to-b hover:from-blue-500 hover:to-blue-400",
+                    ),
+                  )}
+                >
+                  <Link href="/register">Join InstantPersonas for Free</Link>
+                  <PersonStandingIcon
+                    className={IconVariants({
+                      size: "sm",
+                      className: "text-white",
+                    })}
                   />
-                ))}
-              </div>
-            </div>
+                </span>
+              </Button>
+            </ul>
           </div>
+        </div>
 
-          <div
-            className="group absolute left-[calc(16%+53%-50px)] top-[34%] z-20 flex flex-row p-2"
-            onMouseEnter={() => nextThought()}
-          >
-            <div className="relative">
-              <MessageCircleQuestionIcon
-                className={SVGLight600({
-                  variant: "purple",
-                  className: "absolute right-0 top-0 z-20 size-6",
-                })}
-              />
-              <MessageCircleQuestionIcon
-                className={
-                  "absolute right-0 top-0 z-10 size-6 fill-white stroke-transparent"
-                }
-              />
-              <Avatar
-                className={avatarVariants({
-                  variant: "purple",
-                  interactive: true,
+        <div
+          className={cn(
+            "md:absolute md:right-0 md:top-[40%] md:size-[65%] lg:top-[35%] lg:size-[68%] xl:top-[30%] xl:size-[75%]",
+            "flex items-center md:items-start md:justify-end",
+            "transition-all duration-700 ease-out",
+          )}
+        >
+          <div className="relative aspect-[2048/1279] w-full md:w-[90%]">
+            <div className="absolute left-[16%] top-[14%] z-10 flex h-full w-[53%] flex-col items-center rounded-lg border bg-white p-1 shadow-xl">
+              <div
+                className={gradientLightVariants({
+                  variant,
+                  className:
+                    "relative flex h-full w-full flex-col items-center overflow-hidden rounded-lg border",
                 })}
               >
-                <AvatarImage
-                  src={
-                    "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc"
+                <PersonStandingIcon className="absolute right-2 top-2 size-4 text-muted-foreground" />
+                <span className="py-6 text-center font-jost text-xs font-bold sm:text-sm md:text-lg lg:text-xl xl:text-2xl">
+                  Guide to Instagram
+                  <br /> Marketing
+                </span>
+                <div className="mt-2 flex w-[80%] flex-col items-center gap-2">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "h-1 w-full rounded-full bg-gray-200 lg:h-2",
+                        i === 3 && "mb-5",
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="group absolute left-[calc(16%+53%-50px)] top-[34%] z-20 flex flex-row p-2"
+              onMouseEnter={() => nextThought()}
+            >
+              <div className="relative">
+                <MessageCircleQuestionIcon
+                  className={SVGLight600({
+                    variant: "purple",
+                    className: "absolute right-0 top-0 z-20 size-6",
+                  })}
+                />
+                <MessageCircleQuestionIcon
+                  className={
+                    "absolute right-0 top-0 z-10 size-6 fill-white stroke-transparent"
                   }
                 />
-              </Avatar>
+                <Avatar
+                  className={avatarVariants({
+                    variant: "purple",
+                    interactive: true,
+                  })}
+                >
+                  <AvatarImage
+                    src={
+                      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc"
+                    }
+                  />
+                </Avatar>
+              </div>
+
+              <div className="mt-2 flex w-[100px] items-center whitespace-pre-wrap rounded-lg border bg-gray-100 p-2 px-4 text-left font-jost text-sm opacity-0 shadow-xl transition-opacity duration-500 ease-out group-hover:opacity-100 max-md:text-xs md:w-[150px] lg:w-[200px]">
+                {personaThoughts[thoughtIndex]}
+              </div>
             </div>
 
-            <div className="mt-2 flex w-[100px] items-center whitespace-pre-wrap rounded-lg border bg-gray-100 p-2 px-4 text-left font-jost text-sm opacity-0 shadow-xl transition-opacity duration-500 ease-out group-hover:opacity-100 max-md:text-xs md:w-[150px] lg:w-[200px]">
-              {personaThoughts[thoughtIndex]}
-            </div>
+            <Image
+              fill={true}
+              src={BlogFeatureImg}
+              alt="Instant Personas Blog with Real Time Insights"
+              className="overflow-hidden rounded-lg border shadow-lg"
+            />
           </div>
-
-          <Image
-            fill={true}
-            src={BlogFeatureImg}
-            alt="Instant Personas Blog with Real Time Insights"
-            className="overflow-hidden rounded-lg border shadow-lg"
-          />
         </div>
-      </div>
-    </section>
+      </section>
+      <div className="aspect-[2048/1279] w-1/3 md:w-1/4 lg:w-1/3 min-[1550px]:w-2/3" />
+    </>
   );
 }
