@@ -178,10 +178,10 @@ export const LANDING_FOOTER_LINKS = [
     text: "Free SEO Tools",
     href: "/tools",
   },
-  {
-    text: "Meta Blueprint Practice Exams",
-    href: "/meta-blueprint-practice-exams",
-  },
+  // {
+  //   text: "Meta Blueprint Practice Exams",
+  //   href: "/meta-blueprint-practice-exams",
+  // },
   {
     text: "SWOT Analysis Maker",
     href: "/swot-analysis",

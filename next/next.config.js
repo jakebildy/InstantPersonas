@@ -17,4 +17,13 @@ module.exports = {
     // Return the modified config
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/meta-blueprint-practice-exams/:path*",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 };
