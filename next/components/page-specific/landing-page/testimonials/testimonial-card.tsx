@@ -37,7 +37,7 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           Border600({
             variant,
             className:
-              "min-w-[300px] border-opacity-10 transition-all duration-200 ease-out hover:border-opacity-50",
+              "border-opacity-10 transition-all duration-200 ease-out hover:border-opacity-50 sm:min-w-[300px]",
           }),
         )}
         onClick={() => router.push(testimonial.link)}

@@ -66,8 +66,8 @@ export default function DocumentFeatureSection({ variant = "blue" }: Props) {
             "absolute -left-10 bottom-0 size-[15vw] opacity-25 blur-3xl",
         })}
       />
-      <div className="z-20 flex gap-2 font-jost">
-        <div className="flex flex-col items-center justify-start">
+      <div className="z-20 flex gap-2 text-center font-jost sm:text-left">
+        <div className="hidden flex-col items-center justify-start sm:flex">
           <CloudArrowDownIcon className="size-[1.5rem] sm:size-[1.75rem]" />
         </div>
         <div className="flex max-w-[800px] flex-col gap-2 md:gap-4">

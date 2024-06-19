@@ -42,14 +42,14 @@ export default function Home() {
 
       <LandingPage.showcaseHero />
 
-      <div className="flex flex-col items-center p-10">
+      <div className="flex flex-col items-center py-10 sm:p-4 md:p-10">
         <div className="relative grid place-items-center rounded-lg border bg-white p-2 shadow-md">
           <div
             className={cx(
               gradientVariants({
                 variant,
                 className:
-                  "relative flex size-full flex-col gap-16 overflow-hidden rounded-lg border p-10 px-4 sm:px-10",
+                  "relative flex size-full flex-col overflow-hidden rounded-lg border p-10 px-4 sm:gap-16 sm:px-10",
               }),
               shadowVariants({
                 variant,

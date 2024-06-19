@@ -10,7 +10,7 @@ export function TestimonialSection() {
   return (
     <section
       id="testimonials"
-      className="relative grid h-full w-full place-items-center gap-16 overflow-hidden rounded-lg p-10 px-4 sm:px-10"
+      className="relative grid h-full w-full place-items-center gap-16 overflow-hidden rounded-lg pb-10"
     >
       <div className="flex flex-col items-center justify-center gap-2 text-center font-jost">
         {/* <SparklesText
