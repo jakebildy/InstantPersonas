@@ -15,6 +15,7 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { SlackIcon } from "lucide-react";
 import Link from "next/link";
 import Ripple from "@/components/ui/magicui/ripple";
+import { SLACK_INVITE_LINK } from "@/lib/site";
 
 const faqs = [
   {
@@ -66,8 +67,6 @@ export default function FaqSection() {
       aria-labelledby="faq-title"
       className="flex h-screen flex-col bg-white"
     >
-      {/* <BackgroundGradientAnimation> */}
-      {/* <img src="/pastel_background.jpg" className="absolute top-0 left-0 z-0" /> */}
       <Container className="mt-20 h-full w-screen text-center">
         <div className="mx-auto">
           <h2
@@ -105,7 +104,6 @@ export default function FaqSection() {
           </Accordion.Root>
         </div>
       </Container>
-      {/* </BackgroundGradientAnimation> */}
 
       <div className="z-30 h-full font-jost">
         <div className="mx-auto max-w-screen-md rounded-md border bg-white p-2 shadow-lg">
@@ -147,9 +145,7 @@ export default function FaqSection() {
               className="z-10 mx-auto my-5 h-[50px] w-[135px] justify-center"
               Icon={SlackIcon}
             >
-              <Link href="https://join.slack.com/t/slack-20a1786/shared_invite/zt-2ktuu47lv-Edni6T6zMSs7xgBvltyPMw">
-                Join Slack
-              </Link>
+              <Link href={SLACK_INVITE_LINK}>Join Slack</Link>
             </GradientButton>
           </div>
         </div>
