@@ -1,16 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 const env = process.env.NEXT_PUBLIC_ENV;
-
-import {
-  ColorVariant,
-  ColorVariants,
-  gradientVariants,
-  shadowVariants,
-} from "@/components/variants";
-
+import { gradientVariants, shadowVariants } from "@/components/variants";
 import { cn } from "@/lib/utils";
 import { cx } from "class-variance-authority";
 import AnimatedGridPattern from "@/components/ui/magicui/animated-grid-pattern";
@@ -21,19 +12,22 @@ import RadialGradient from "@/components/ui/magicui/radial-gradient";
 export default function Home() {
   const variant = "blue";
 
+  const InstantPersonasJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "InstantPersonas",
+    url: "https://instantpersonas.com/",
+  };
+
   return (
     <main className="relative overflow-x-hidden">
       <title>{"Detailed User Personas in Seconds | Try for Free"}</title>
-      <script type="application/ld+json">
-        {`
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "InstantPersonas",
-              "url": "https://instantpersonas.com/"
-            }
-          `}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(InstantPersonasJsonLd),
+        }}
+      />
       <div className="fixed top-0 z-50 w-full p-4">
         <div className="rounded-lg border bg-white/50 backdrop-blur-sm">
           <LandingPage.header />
