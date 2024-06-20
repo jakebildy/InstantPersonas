@@ -65,7 +65,7 @@ export default function FaqSection() {
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="flex h-screen flex-col bg-white"
+      className="flex h-full flex-col bg-white"
     >
       <Container className="mt-20 h-full w-screen text-center">
         <div className="mx-auto">
@@ -93,7 +93,7 @@ export default function FaqSection() {
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>
                   {faq.answer.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="mb-4">
+                    <p key={index} className="mb-4 w-full text-center">
                       {paragraph}
                     </p>
                   ))}
@@ -111,10 +111,10 @@ export default function FaqSection() {
             className={gradientVariants({
               variant: "green",
               className:
-                "relative mx-auto flex flex-col overflow-hidden rounded-md text-center",
+                "relative mx-auto flex flex-col gap-2 overflow-hidden rounded-md text-center sm:gap-4",
             })}
           >
-            <div className="z-10 mx-auto flex flex-row justify-center p-5">
+            <div className="z-10 mx-auto flex flex-row justify-center p-2 sm:p-5">
               <Avatar
                 className={avatarVariants({
                   variant: "green",
@@ -136,10 +136,9 @@ export default function FaqSection() {
               {" "}
               Have more questions?
             </span>
-            <br></br>
+
             <span className="z-10">Join our Slack community and ask away!</span>
 
-            <br></br>
             <GradientButton
               variant="green"
               className="z-10 mx-auto my-5 h-[50px] w-[135px] justify-center"
@@ -157,7 +156,7 @@ export default function FaqSection() {
 const AccordionItem = React.forwardRef(
   ({ children, className, ...props }: any, forwardedRef) => (
     <Accordion.Item
-      className={cn("m-5", className)}
+      className={cn("m-5 max-sm:mx-0", className)}
       {...props}
       ref={forwardedRef}
     >
@@ -172,13 +171,13 @@ const AccordionTrigger = React.forwardRef(
     <Accordion.Header className="flex">
       <Accordion.Trigger
         className={cn(
-          "group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none",
+          "group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white text-[15px] leading-none sm:px-5",
           className,
         )}
         {...props}
         ref={forwardedRef}
       >
-        <div className="xs:text-xs group-data-[state=open]:text-green-600 sm:text-sm md:text-lg">
+        <div className="xs:text-xs flex-1 group-data-[state=open]:text-green-600 sm:text-sm md:text-lg">
           {children}
         </div>
         <ChevronDownIcon

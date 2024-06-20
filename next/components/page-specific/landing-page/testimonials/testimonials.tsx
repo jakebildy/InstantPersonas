@@ -170,6 +170,6 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 0,
     link: "https://www.reddit.com/r/InstagramMarketing/comments/1d3qtdv/finding_hashtags_and_seeing_volume_for_free_with/",
     platform: REDDIT,
-    date: "May, 2024",
+    date: "May 30, 2024",
   },
 ];
