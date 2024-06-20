@@ -94,42 +94,80 @@ export function GuestPostFinderTool({
           </button>
 
           <ul className="pl-2 pt-4">
-            <button
-              className="mb-2 flex flex-row text-sm font-bold text-blue-500"
-              onClick={() => {
-                const csv = results
-                  .map((results) => {
-                    return `${results.displayLink.replaceAll(
-                      ",",
-                      "",
-                    )},${results.title.replaceAll(
-                      ",",
-                      "",
-                    )},${results.snippet.replaceAll(",", "")},${
-                      results.emails
+            <div className="flex flex-row">
+              <button
+                className="mb-2 mr-5 flex flex-row text-sm font-bold text-blue-500"
+                onClick={() => {
+                  const csv = results
+                    .map((results) => {
+                      return `${results.displayLink.replaceAll(
+                        ",",
+                        "",
+                      )},${results.title.replaceAll(
+                        ",",
+                        "",
+                      )},${results.snippet.replaceAll(",", "")},${
+                        results.emails
+                          ? results.emails
+                              .map((email: any) => email.value)
+                              .join(",")
+                          : ""
+                      }`;
+                    })
+                    .join("\n");
+
+                  //   add a new row of headers before
+                  const headers = "Website,Title,Snippet,Emails";
+                  const csvWithHeaders = headers + "\n" + csv;
+                  const blob = new Blob([csvWithHeaders], { type: "text/csv" });
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "guest-post-opportunities.csv";
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                }}
+              >
+                <IconDownload style={{ height: "20px" }} /> Download Sites as
+                CSV
+              </button>
+
+              <button
+                className="mb-2 flex flex-row text-sm font-bold text-blue-500"
+                onClick={() => {
+                  //   add a new row of headers before
+                  const headers = "Email,Website,Title,Snippet";
+
+                  const csv = results
+                    .map((results) => {
+                      return results.emails
                         ? results.emails
-                            .map((email: any) => email.value)
-                            .join(",")
-                        : ""
-                    }`;
-                  })
-                  .join("\n");
+                            .map((email: any) => {
+                              return `${email.value.replaceAll(",", "")},${results.displayLink.replaceAll(
+                                ",",
+                                "",
+                              )},${results.title.replaceAll(",", "")},${results.snippet.replaceAll(",", "").replaceAll("\n", "")}`;
+                            })
+                            .join("\n")
+                        : "";
+                    })
+                    .join("\n");
 
-                //   add a new row of headers before
-                const headers = "Website,Title,Snippet,Emails";
-                const csvWithHeaders = headers + "\n" + csv;
-                const blob = new Blob([csvWithHeaders], { type: "text/csv" });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "guest-post-opportunities.csv";
-                a.click();
-                window.URL.revokeObjectURL(url);
-              }}
-            >
-              <IconDownload style={{ height: "20px" }} /> Download as CSV
-            </button>
+                  const csvWithHeaders = headers + "\n" + csv;
 
+                  const blob = new Blob([csvWithHeaders], { type: "text/csv" });
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "site-contacts-email.csv";
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                }}
+              >
+                <IconDownload style={{ height: "20px" }} /> Download Contacts as
+                CSV
+              </button>
+            </div>
             {results.map((result) => (
               <li
                 className="rounded-md border bg-white p-5 text-blue-500"
