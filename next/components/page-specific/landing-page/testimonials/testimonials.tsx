@@ -32,6 +32,11 @@ const PRODUCT_HUNT: TestimonialPlatform = {
   logo: BRAND_ICONS.ProductHunt,
 };
 
+const REDDIT: TestimonialPlatform = {
+  name: "Reddit",
+  logo: () => <img className="h-7" src="https://i.imgur.com/l179XjE.png" />,
+};
+
 export const TESTIMONIALS: Testimonial[] = [
   {
     user: {
@@ -149,5 +154,22 @@ export const TESTIMONIALS: Testimonial[] = [
     link: "https://www.producthunt.com/products/user-persona?comment=2125550#user-persona",
     platform: PRODUCT_HUNT,
     date: "Dec 30, 2022",
+  },
+  {
+    user: {
+      avatar:
+        "https://styles.redditmedia.com/t5_b791d/styles/profileIcon_snoo-nftv2_bmZ0X2VpcDE1NToxMzdfNmFjYjhmYjgyODgwZDM5YzJiODQ0NmY4Nzc4YTE0ZDM0ZWU2Y2ZiN180NTI1MzA_rare_7afde64e-3364-4649-a1f6-46225a534c09-headshot.png?width=64&height=64&frame=1&auto=webp&crop=64:64,smart&s=bc6a5740f2b3eef43ae97ca206b8a9560abc3a23",
+      name: {
+        first: "sheeeeepy",
+        last: "",
+      },
+      at: "@sheeeeepy",
+      link: "https://www.reddit.com/user/sheeeeepy/",
+    },
+    text: "This is helpful! Thanks!",
+    rating: 0,
+    link: "https://www.reddit.com/r/InstagramMarketing/comments/1d3qtdv/finding_hashtags_and_seeing_volume_for_free_with/",
+    platform: REDDIT,
+    date: "May, 2024",
   },
 ];

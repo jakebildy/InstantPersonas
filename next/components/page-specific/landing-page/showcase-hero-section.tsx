@@ -86,7 +86,7 @@ export default function ShowcaseHeroSection({}: Props) {
         </div>
         <div className="flex flex-col gap-2">
           <span className="whitespace-pre-wrap px-10 font-jost">
-            Join <b className="text-green-500">4,660+</b> Marketers and Business
+            Join <b className="text-green-500">4,700+</b> Marketers and Business
             Owners who use InstantPersonas to create content that resonates.
           </span>
         </div>
