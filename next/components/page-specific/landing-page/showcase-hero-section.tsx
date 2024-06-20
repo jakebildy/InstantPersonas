@@ -6,12 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import AnimatedGridPattern from "@/components/ui/magicui/animated-grid-pattern";
 import * as HeroImg from "@/public/hero.png";
+import { nanoid } from "nanoid";
 
 type Props = {};
 
 const people = [
   {
-    id: 1,
+    id: nanoid(),
     name: "Marcus (Persona)",
     designation: "Software Engineer",
     image:
@@ -19,7 +20,7 @@ const people = [
     href: "/",
   },
   {
-    id: 2,
+    id: nanoid(),
     name: "Joe (Persona)",
     designation: "Product Manager",
     image:
@@ -27,7 +28,7 @@ const people = [
     href: "/",
   },
   {
-    id: 3,
+    id: nanoid(),
     name: "Jane (Persona)",
     designation: "TikTok Influencer",
     image:
@@ -35,7 +36,7 @@ const people = [
     href: "/",
   },
   {
-    id: 4,
+    id: nanoid(),
     name: "Emily (Persona)",
     designation: "UX Designer",
     image:
@@ -43,7 +44,7 @@ const people = [
     href: "/",
   },
   {
-    id: 6,
+    id: nanoid(),
     name: "Dora (Persona)",
     designation: "The Explorer",
     image:
@@ -51,7 +52,7 @@ const people = [
     href: "/",
   },
   {
-    id: 5,
+    id: nanoid(),
     name: "Tyler (Persona)",
     designation: "Kombucha Brewer",
     image:

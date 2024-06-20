@@ -17,13 +17,22 @@ import Link from "next/link";
 import { Testimonial } from "./testimonials";
 import { cx } from "class-variance-authority";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
-  const variantIndex = Math.floor(
-    Math.random() * Object.keys(ColorVariantMap).length,
-  );
-  const variant = Object.keys(ColorVariantMap).at(variantIndex) as ColorVariant;
   const router = useRouter();
+
+  const [variant, setVariant] = useState<ColorVariant>("blue");
+
+  useEffect(() => {
+    const variantIndex = Math.floor(
+      Math.random() * Object.keys(ColorVariantMap).length,
+    );
+    const variant = Object.keys(ColorVariantMap).at(
+      variantIndex,
+    ) as ColorVariant;
+    setVariant(variant);
+  }, []);
 
   return (
     <div className="h-full rounded-lg bg-white">
