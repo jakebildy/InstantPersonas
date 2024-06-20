@@ -9,14 +9,16 @@ export const AnimatedTooltip = ({
   items,
 }: {
   items: {
-    id: number;
+    id: number | string;
     name: string;
     designation: string;
     image: string;
     href: string;
   }[];
 }) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(
+    null,
+  );
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0); // going to set this value on mouse move
   // rotate the tooltip
@@ -39,7 +41,7 @@ export const AnimatedTooltip = ({
       {items.map((item, idx) => (
         <Link
           href={item.href || "/persona"}
-          key={item.id + idx}
+          key={`${item.id}-${idx}`}
           className={"group relative -mr-4"}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
