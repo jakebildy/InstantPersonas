@@ -15,6 +15,7 @@ import {
   ChartBarSquareIcon,
   ChatBubbleLeftRightIcon,
   UsersIcon,
+  FireIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/lib/config/blog";
 import { BRAND_ICONS } from "@/components/brand-icons";
@@ -51,12 +52,12 @@ export const SIDEBAR_LINKS = [
     icon: BanknotesIcon,
     label: "",
   },
-  // {
-  //   title: "Become an Affiliate",
-  //   href: "/affiliate",
-  //   icon: FireIcon,
-  //   label: "",
-  // },
+  {
+    title: "Become an Affiliate",
+    href: "https://instantpersonas.getrewardful.com/signup",
+    icon: FireIcon,
+    label: "",
+  },
   {
     title: "Send Feedback",
     href: "/feedback",
@@ -178,10 +179,10 @@ export const LANDING_FOOTER_LINKS = [
     text: "Free SEO Tools",
     href: "/tools",
   },
-  // {
-  //   text: "Meta Blueprint Practice Exams",
-  //   href: "/meta-blueprint-practice-exams",
-  // },
+  {
+    text: "Affiliate Program",
+    href: "https://instantpersonas.getrewardful.com/signup",
+  },
   {
     text: "SWOT Analysis Maker",
     href: "/swot-analysis",
