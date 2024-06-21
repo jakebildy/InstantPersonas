@@ -6,6 +6,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { SystemErrorMessage } from "../system/system-error-message";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { SLACK_INVITE_LINK } from "@/lib/site";
 
 export const AssistantMessageLoading = ({
   maxTimeoutSeconds = 30,
@@ -54,7 +55,7 @@ export const AssistantMessageLoading = ({
             </p>
           </span>
           <Button variant={"outline"} size={"sm"} asChild>
-            <Link href="/feedback">Send Feedback</Link>
+            <Link href={SLACK_INVITE_LINK}>Send us a Slack Message</Link>
           </Button>
         </div>
       }
