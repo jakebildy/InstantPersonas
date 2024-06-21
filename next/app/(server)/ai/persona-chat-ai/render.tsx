@@ -139,72 +139,72 @@ export async function submitPersonaChatUserMessage(
       },
       initial: <PERSONA_CHAT_AI_COMPONENT_MAP.assistant.loading />,
       tools: {
-        confirm_business_knowledge: {
-          description:
-            "Confirm Business knowledge to verify your understanding of the business, its target problems, and its customers. Initiate this confirmation only after achieving a comprehensive understanding that allows you to describe these elements in detail, with a minimum of one paragraph. This verification should be completed once before generating personas.",
-          parameters: z
-            .object({
-              business: z
-                .string()
-                .describe("a detailed description of the business"),
+        // confirm_business_knowledge: {
+        //   description:
+        //     "Confirm Business knowledge to verify your understanding of the business, its target problems, and its customers. Initiate this confirmation only after achieving a comprehensive understanding that allows you to describe these elements in detail, with a minimum of one paragraph. This verification should be completed once before generating personas.",
+        //   parameters: z
+        //     .object({
+        //       business: z
+        //         .string()
+        //         .describe("a detailed description of the business"),
 
-              targetProblem: z
-                .string()
-                .describe("the target problem the business is encountering"),
-            })
-            .required(),
-          render: async function* ({
-            business,
-            targetProblem,
-          }: {
-            business: string;
-            targetProblem: string;
-          }) {
-            // Update the final AI state.
-            const threadMetaData = await generateThreadMetadata(aiState.get());
-            const updatedState = {
-              ...aiState.get(),
-              business: business,
-              targetProblem: targetProblem,
-              suggestedMessages: ["Yes", "No"],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  role: "assistant",
-                  id: nanoid(),
-                  content: `Does this cover the business and target problem or is something
-                missing?`,
-                  tool_calls: [
-                    {
-                      id: nanoid(),
-                      type: "function",
-                      function: {
-                        name: "confirm_business_knowledge",
-                        arguments: JSON.stringify({ business, targetProblem }),
-                      },
-                    },
-                  ],
-                },
-              ],
+        //       targetProblem: z
+        //         .string()
+        //         .describe("the target problem the business is encountering"),
+        //     })
+        //     .required(),
+        //   render: async function* ({
+        //     business,
+        //     targetProblem,
+        //   }: {
+        //     business: string;
+        //     targetProblem: string;
+        //   }) {
+        //     // Update the final AI state.
+        //     const threadMetaData = await generateThreadMetadata(aiState.get());
+        //     const updatedState = {
+        //       ...aiState.get(),
+        //       business: business,
+        //       targetProblem: targetProblem,
+        //       suggestedMessages: ["Yes", "No"],
+        //       messages: [
+        //         ...aiState.get().messages,
+        //         {
+        //           role: "assistant",
+        //           id: nanoid(),
+        //           content: `Does this cover the business and target problem or is something
+        //         missing?`,
+        //           tool_calls: [
+        //             {
+        //               id: nanoid(),
+        //               type: "function",
+        //               function: {
+        //                 name: "confirm_business_knowledge",
+        //                 arguments: JSON.stringify({ business, targetProblem }),
+        //               },
+        //             },
+        //           ],
+        //         },
+        //       ],
 
-              threadMetadata: threadMetaData,
-            };
-            aiState.done(updatedState);
+        //       threadMetadata: threadMetaData,
+        //     };
+        //     aiState.done(updatedState);
 
-            await onSetPersonaChatState({
-              state: updatedState,
-              done: true,
-            });
+        //     await onSetPersonaChatState({
+        //       state: updatedState,
+        //       done: true,
+        //     });
 
-            return (
-              <PERSONA_CHAT_AI_COMPONENT_MAP.tool.confirm_business_knowledge
-                knowledge={{ business, targetProblem }}
-                message="Does this cover the business and target problem or is something
-              missing?"
-              />
-            );
-          },
-        },
+        //     return (
+        //       <PERSONA_CHAT_AI_COMPONENT_MAP.tool.confirm_business_knowledge
+        //         knowledge={{ business, targetProblem }}
+        //         message="Does this cover the business and target problem or is something
+        //       missing?"
+        //       />
+        //     );
+        //   },
+        // },
 
         create_persona: {
           description:
