@@ -37,11 +37,11 @@ const MAGIC_LINKS_TOKEN = "magic_links";
 
         if (token && stytch_token_type === OAUTH_TOKEN) {
           stytch.oauth.authenticate(token, {
-            session_duration_minutes: 60,
+            session_duration_minutes: 172800,
           });
         } else if (token && stytch_token_type === MAGIC_LINKS_TOKEN) {
           stytch.magicLinks.authenticate(token, {
-            session_duration_minutes: 60,
+            session_duration_minutes: 172800,
           });
         }
       } else {
