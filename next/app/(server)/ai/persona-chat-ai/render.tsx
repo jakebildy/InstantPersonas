@@ -161,7 +161,7 @@ export async function submitPersonaChatUserMessage(
             targetProblem: string;
           }) {
             // Update the final AI state.
-
+            const threadMetaData = await generateThreadMetadata(aiState.get());
             const updatedState = {
               ...aiState.get(),
               business: business,
@@ -176,13 +176,18 @@ export async function submitPersonaChatUserMessage(
                 missing?`,
                   tool_calls: [
                     {
-                      name: "confirm_business_knowledge",
-                      arguments: JSON.stringify({ business, targetProblem }),
+                      id: nanoid(),
+                      type: "function",
+                      function: {
+                        name: "confirm_business_knowledge",
+                        arguments: JSON.stringify({ business, targetProblem }),
+                      },
                     },
                   ],
                 },
               ],
-              threadMetadata: generateThreadMetadata(aiState.get()),
+
+              threadMetadata: threadMetaData,
             };
             aiState.done(updatedState);
 
