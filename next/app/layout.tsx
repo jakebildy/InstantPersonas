@@ -11,6 +11,7 @@ import { jost, inter } from "@/lib/fonts";
 import { ClarityScript } from "@/components/context/analytics/clarity-script";
 import { AuthContextProvider } from "@/components/context/auth/auth-provider";
 import { AIContextProvider } from "@/components/context/persona/ai-context-provider";
+import { RewardfulScript } from "@/components/context/analytics/rewardful-script";
 
 export const metadata: Metadata = {
   title: "InstantPersonas | Get Started",
@@ -29,6 +30,12 @@ export default function RootLayout({
     <html lang="en" className={`${jost.variable} font-sans`}>
       <head>
         <ClarityScript />
+        <RewardfulScript />
+        <script
+          async
+          src="https://r.wdfl.co/rw.js"
+          data-rewardful="cbbbbe"
+        ></script>
       </head>
       <Suspense>
         <PostHogPageview />
