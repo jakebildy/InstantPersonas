@@ -9,6 +9,8 @@ import {
   PersonaArchetype,
   PersonaArchetypeValidator,
 } from "@/app/(server)/models/persona-ai.model";
+import { nan } from "zod";
+import { nanoid } from "nanoid";
 
 export function updateToolCallPersonaMessage({
   message,
@@ -95,12 +97,16 @@ export function updateToolCallPersonaMessage({
           : updatedPersonas[personaIndex];
 
         return {
-          name: toolName,
-          arguments: JSON.stringify({
-            ...toolArgs,
-            origin_archetype: validOriginArchetype,
-            updated_archetype: validUpdatedArchetype,
-          }),
+          type: "function",
+          id: nanoid(),
+          function: {
+            name: toolName,
+            arguments: JSON.stringify({
+              ...toolArgs,
+              origin_archetype: validOriginArchetype,
+              updated_archetype: validUpdatedArchetype,
+            }),
+          },
         };
       default:
         return toolCall;

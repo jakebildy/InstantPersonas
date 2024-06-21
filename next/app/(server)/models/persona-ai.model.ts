@@ -13,8 +13,12 @@ export const MessageValidator = z.object({
   tool_calls: z
     .array(
       z.object({
-        name: z.string(),
-        arguments: z.any(),
+        id: z.string(),
+        type: z.enum(["function"]),
+        function: z.object({
+          name: z.string(),
+          arguments: z.any(),
+        }),
       }),
     )
     .optional(),
@@ -49,7 +53,11 @@ export interface ClientMessage {
 export interface AssistantToolCallMessage {
   role: "assistant";
   content: string;
-  tool_calls: { name: string; arguments: any }[];
+  tool_calls: {
+    id: string;
+    type: "function";
+    function: { name: string; arguments: any };
+  }[];
 }
 
 export const PersonaArchetypeValidator = z.object({
