@@ -16,7 +16,7 @@ import {
   gradientLightVariants,
 } from "@/components/variants";
 import { Button } from "@/components/ui/button";
-import { generateTopicalAuthority } from "@/app/(server)/api/(ai-tools)/topical-authority/action";
+import { generateTopicalAuthority } from "@/app/(server)/api/(ai-tools)/(document-editor)/topical-authority/action";
 import { readStreamableValue } from "ai/rsc";
 import { useState } from "react";
 import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";

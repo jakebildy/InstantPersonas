@@ -56,7 +56,7 @@ import TemplatePreviewSelect from "@/components/download/template-preview-select
 import { b64toBlob } from "./utils";
 import { ImageTemplateEditorDialog } from "./image-template-editor/image-template-editor-dialog";
 import { readStreamableValue } from "ai/rsc";
-import { generateSocialShareCopywriting } from "@/app/(server)/api/(ai-tools)/social-share-preview/action";
+import { generateSocialShareCopywriting } from "@/app/(server)/api/(ai-tools)/(google)/social-share-preview/action";
 import { useHandleCopy } from "@/lib/hooks";
 import { cx } from "class-variance-authority";
 
