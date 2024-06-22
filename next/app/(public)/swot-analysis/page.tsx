@@ -39,7 +39,7 @@ export default function SWOTAnalysisPage() {
       } = (
         await axios.post(
           "https://api.getemailnames.com/api/swot-analysis/generate",
-          { description }
+          { description },
         )
       ).data.analysis;
       setCanvas(canvasNew);
@@ -66,7 +66,7 @@ export default function SWOTAnalysisPage() {
   };
 
   return (
-    <section className="bg-white ">
+    <section className="bg-white">
       <title>AI SWOT Analysis Generator (Free)</title>
       <meta
         name="description"
@@ -110,10 +110,10 @@ export default function SWOTAnalysisPage() {
         content="Build your marketing knowledge with these practice exams for Meta Blueprint certifications. Don't miss these questions!"
       />
       <meta name="twitter:image" content="/og/meta_blueprint.png" /> */}
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-lg text-center lg:mb-16 mb-8">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div className="mx-auto mb-8 max-w-screen-lg text-center lg:mb-16">
           <div
-            className="max-w-screen-md mx-auto"
+            className="mx-auto max-w-screen-md"
             // display="flex"
             // flexDirection="column"
             // justifyContent="center"
@@ -123,7 +123,7 @@ export default function SWOTAnalysisPage() {
             <div className="text-center font-jost text-4xl font-bold">
               Instantly Generate a
             </div>
-            <div className="text-center font-jost text-6xl font-bold mt-2">
+            <div className="mt-2 text-center font-jost text-6xl font-bold">
               <b style={{ color: "#4C3A51" }}>S</b>
               <b style={{ color: "#774360" }}>W</b>
               <b style={{ color: "#B25068" }}>O</b>
@@ -142,30 +142,30 @@ export default function SWOTAnalysisPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder=" Enter a brief description of your company"
-              className=" bg-gray-100 w-[500px] h-[150px] border-2 border-gray-700 rounded-md"
+              className="h-[150px] w-[500px] rounded-md border-2 border-gray-700 bg-gray-100"
             />
 
             <button
               onClick={() => generateSWOTAnalysis()}
-              className="bg-black text-white shadow-sm font-semibold mt-2 p-2 w-[500px] font-jost rounded-sm"
+              className="mt-2 w-[500px] rounded-sm bg-black p-2 font-jost font-semibold text-white shadow-sm"
             >
               {loading ? "Generating..." : "Generate SWOT Analysis"}
             </button>
           </div>
-          <h2 className="font-jost font-bold text-5xl mt-36 text-center">
+          <h2 className="mt-36 text-center font-jost text-5xl font-bold">
             {isExample ? "Example SWOT Analysis" : "Your SWOT Analysis"}
           </h2>
           {!isExample ? (
-            <div className="flex flex-row flex-auto justify-center">
+            <div className="flex flex-auto flex-row justify-center">
               <button
-                className="font-jost my-[10px] bg-black rounded-sm text-white font-semibold p-2"
+                className="my-[10px] rounded-sm bg-black p-2 font-jost font-semibold text-white"
                 type="button"
                 onClick={handleDownloadImage}
               >
                 🖼 Download as Image
               </button>
               <button
-                className="ml-10 font-jost my-[10px] rounded-sm text-white font-semibold p-2 bg-gradient-to-r from-blue-500 to-blue-700"
+                className="my-[10px] ml-10 rounded-sm bg-gradient-to-r from-blue-500 to-blue-700 p-2 font-jost font-semibold text-white"
                 type="button"
                 onClick={() => {
                   window.location.href = "https://instantpersonas.com/";
@@ -180,10 +180,33 @@ export default function SWOTAnalysisPage() {
           <div ref={printRef as any}>
             <SWOTAnalysis swotAnalysis={canvas} />
           </div>
-          <h2 className="font-jost font-bold text-5xl mt-10 text-left">
+          {!isExample ? (
+            <div>
+              <h2 className="mt-10 text-left font-jost text-5xl font-bold">
+                Now ready to create your detailed User Personas?
+              </h2>
+              <p className="text-left font-jost text-lg">
+                Good User Personas are the key to understanding your target
+                audience and marketing more successfully.
+                <br />
+                <button
+                  className="my-[10px] rounded-sm bg-gradient-to-r from-blue-500 to-blue-700 p-2 font-jost font-semibold text-white"
+                  type="button"
+                  onClick={() => {
+                    window.location.href = "https://instantpersonas.com/";
+                  }}
+                >
+                  → Create my Personas
+                </button>
+              </p>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <h2 className="mt-10 text-left font-jost text-5xl font-bold">
             What is a SWOT Analysis?
           </h2>
-          <p className="font-jost text-left text-lg">
+          <p className="text-left font-jost text-lg">
             SWOT analysis is a strategic planning tool used to evaluate the
             Strengths, Weaknesses, Opportunities, and Threats of an organization
             or a project. The acronym &apos;&apos;SWOT&apos;&apos; stands for
@@ -230,21 +253,21 @@ export default function SWOTAnalysisPage() {
           </p>
           <br />
           <br />
-          <h2 className="font-jost font-bold text-5xl mt-10 text-left">
+          <h2 className="mt-10 text-left font-jost text-5xl font-bold">
             How does this work?
           </h2>
-          <p className="font-jost text-left text-lg">
+          <p className="text-left font-jost text-lg">
             Our AI-powered SWOT Analysis Generator lets you enter a description
             of your company and generates a SWOT Analysis for you. You can edit
             any of the fields by clicking on them, and download it as an image.
           </p>
         </div>
 
-        <p className="font-light text-gray-500 sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-light text-gray-500 sm:text-xl">
           We help you understand your target audience and market more
           successfully.
         </p>
-        <p className=" text-black font-bold sm:text-xl mt-4 text-center">
+        <p className="mt-4 text-center font-bold text-black sm:text-xl">
           Learn how to supercharge your marketing by creating detailed personas{" "}
           <a className="text-blue-600" href="https://instantpersonas.com/">
             here
@@ -268,28 +291,28 @@ const ArticleCard = ({
   return (
     <article
       className={cn(
-        "p-6 bg-white rounded-lg border border-gray-200 shadow-md",
-        className
+        "rounded-lg border border-gray-200 bg-white p-6 shadow-md",
+        className,
       )}
     >
-      <div className="flex justify-between items-center mb-5 text-gray-500">
-        <span className="bg-green-200 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-xl ">
+      <div className="mb-5 flex items-center justify-between text-gray-500">
+        <span className="inline-flex items-center rounded-xl bg-green-200 px-2.5 py-0.5 text-xs font-medium text-green-800">
           {category}
         </span>
       </div>
-      <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+      <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
         <Link href={"/meta-blueprint-practice-exams/" + post.slug}>
           {post.name}
         </Link>
       </h2>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={"/meta-blueprint-practice-exams/" + post.slug}
-          className="inline-flex items-center font-medium text-primary-600  hover:underline"
+          className="text-primary-600 inline-flex items-center font-medium hover:underline"
         >
           Start Practice Exam
           <svg
-            className="ml-2 w-4 h-4"
+            className="ml-2 h-4 w-4"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
