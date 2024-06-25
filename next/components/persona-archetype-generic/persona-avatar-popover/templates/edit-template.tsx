@@ -67,7 +67,7 @@ export function EditPersonaTemplate({
         <ul className="grid gap-4">
           {Object.entries(persona_components).map(([key, value]) => (
             <EditTextField
-              key={key}
+              key={key + archetype_name}
               id={key}
               label={key.replace(/_/g, " ")}
               initialValue={value}
@@ -79,7 +79,7 @@ export function EditPersonaTemplate({
         <ul className="grid w-full grid-cols-2 gap-4">
           {Object.entries(insights).map(([key, value]) => (
             <EditTextField
-              key={key}
+              key={key + archetype_name}
               id={key}
               label={key.replace(/_/g, " ")}
               initialValue={value}

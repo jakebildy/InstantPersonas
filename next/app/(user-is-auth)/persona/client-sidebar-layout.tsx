@@ -12,9 +12,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export default function SidebarLayout({
   chat,
   map,
+  editor,
 }: {
   chat: React.ReactNode;
   map: React.ReactNode;
+  editor: React.ReactNode;
 }) {
   const { personas, messages, resetChatId, chatId, previousPath } =
     usePersonaChat();
@@ -30,17 +32,23 @@ export default function SidebarLayout({
         <AnimatePresence>
           {personas && personas.length > 0 ? (
             <>
-              {/* <TabsList className="ml-auto">
-          <TabsTrigger
-            value="personaChat"
-            className="text-zinc-600 dark:text-zinc-200"
-          >
-            Persona Chat
-          </TabsTrigger>
-          <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
+              <TabsList className="ml-auto bg-gray-200 font-jost">
+                <TabsTrigger
+                  value="personaChat"
+                  className="text-zinc-600 dark:text-zinc-200"
+                >
+                  Persona Chat
+                </TabsTrigger>
+                {/* <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
             Map
-          </TabsTrigger>
-        </TabsList> */}
+          </TabsTrigger> */}
+                <TabsTrigger
+                  value="editor"
+                  className="text-zinc-600 dark:text-zinc-200"
+                >
+                  Editor
+                </TabsTrigger>
+              </TabsList>
               <div />
             </>
           ) : isNewChat ? null : (
@@ -82,6 +90,9 @@ export default function SidebarLayout({
               </TabsContent>
               <TabsContent value="map" className="m-0 h-full flex-1">
                 {map}
+              </TabsContent>
+              <TabsContent value="editor" className="m-0 h-full flex-1">
+                {editor}
               </TabsContent>
             </div>
           </ScrollArea>

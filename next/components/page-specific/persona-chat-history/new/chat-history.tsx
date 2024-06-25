@@ -1,18 +1,8 @@
 import { usePersonaChatHistory } from "@/components/context/persona/history-context";
-import { SelectArchetypeWidget } from "@/components/toolfolio/selected-personas/select-from-sidebar/select-archetype-widget";
-import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import GradientScroll from "./gradient-scroll";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { cn, timeAgo } from "@/lib/utils";
-import {
-  avatarVariants,
-  background600,
-  background600Light,
-  gradientVariants,
-  textColorVariants,
-  textLightColorVariants,
-} from "@/components/variants";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { gradientVariants } from "@/components/variants";
 import { PersonStandingIcon } from "lucide-react";
 import {
   ArrowTopRightIcon,
@@ -21,8 +11,9 @@ import {
   MagicWandIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
-import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
+
 import Link from "next/link";
+import { PersonaBadge } from "@/components/persona-archetype-generic/persona-badge";
 
 type Props = {};
 
@@ -129,56 +120,5 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
         </button>
       </div>
     </Link>
-  );
-}
-
-function PersonaBadge({ archetype }: { archetype: PersonaArchetype }) {
-  const avatarFallbackName =
-    archetype.archetype_name ||
-    "Persona Archetype"
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-
-  const variant = mapUrlBackgroundColorParamToVariant({
-    url: archetype.pictureURL,
-  });
-
-  return (
-    <div
-      className={background600Light({
-        variant,
-        className: "flex items-center gap-0.5 rounded-2xl pr-3",
-      })}
-    >
-      <Avatar
-        className={avatarVariants({
-          variant,
-          size: "xs",
-          interactive: false,
-          className: "rounded-full",
-        })}
-      >
-        <AvatarImage
-          src={archetype.pictureURL}
-          alt={[
-            (
-              archetype.archetype_name || "Persona Archetype"
-            ).toLocaleLowerCase(),
-            "persona avatar",
-          ].join(" ")}
-          className="rounded-full"
-        />
-        <AvatarFallback>{avatarFallbackName}</AvatarFallback>
-      </Avatar>
-      <span
-        className={textColorVariants({
-          variant,
-          className: "text-xs",
-        })}
-      >
-        {avatarFallbackName}
-      </span>
-    </div>
   );
 }

@@ -263,13 +263,13 @@ export const ButtonInnerHover = cva(
 export const Border600 = cva("border", {
   variants: {
     variant: {
-      blue: "border-blue-600",
-      purple: "border-purple-600",
-      red: "border-red-600",
-      yellow: "border-yellow-600",
-      green: "border-green-600",
-      brown: "border-brown-600",
-      pink: "border-pink-600",
+      blue: "border-blue-600 hover:border-blue-600",
+      purple: "border-purple-600 hover:border-purple-600",
+      red: "border-red-600 hover:border-red-600",
+      yellow: "border-yellow-600 hover:border-yellow-600",
+      green: "border-green-600 hover:border-green-600",
+      brown: "border-amber-600 hover:border-amber-600",
+      pink: "border-pink-600 hover:border-pink-600",
     },
   },
   defaultVariants: {

@@ -2,7 +2,11 @@
 import { AI } from "@/app/(server)/ai/ai-server-action";
 import { PERSONA_CHAT_INITIAL_AI_STATE } from "@/app/(server)/ai/persona-chat-ai/initial-ai-state";
 import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
-import { AIState, ClientMessage } from "@/app/(server)/models/persona-ai.model";
+import {
+  AIState,
+  ClientMessage,
+  PersonaArchetype,
+} from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { BASE_URL } from "@/lib/site";
 import { IS_TEST_DEV_ENV, nanoid } from "@/lib/utils";
@@ -34,7 +38,7 @@ type PersonaChatContextType = {
   shareLink: string | null;
   resetChatId: () => void;
   messages: any;
-  personas: any;
+  personas: PersonaArchetype[];
   setMessages: any;
   previousPath: string | null;
   handleSubmit: (message?: string) => void;
@@ -60,7 +64,7 @@ export const PersonaChatProvider = ({
   const [aiState, setAiState]: [AIState | null, (newState: any) => void] =
     useAIState<typeof AI>();
   const [messages, setMessages] = useUIState<typeof AI>();
-  const [personas, setPersonas] = useState<any>([]);
+  const [personas, setPersonas] = useState<PersonaArchetype[]>([]);
   const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
   const { submitPersonaChatUserMessage } = useActions<typeof AI>();
 
