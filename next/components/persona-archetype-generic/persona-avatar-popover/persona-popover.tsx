@@ -34,7 +34,7 @@ export function PersonaAvatarPopover(props: PersonaAvatarPopoverProps) {
 
   //? Filters out the manage tab if component is being used outside of Chat AI Context to prevent unauthorized access and crashes
   const safeFilteredTabs = PersonaTabs.filter((tab) =>
-    allowManage !== false ? tab : tab.title !== "Manage",
+    allowManage !== false ? tab : tab.title !== "Edit",
   );
 
   return (

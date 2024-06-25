@@ -14,7 +14,7 @@ export const PersonaTabs = [
     content: InsightsTab,
   },
   {
-    title: "Manage",
+    title: "Edit",
     description: "Manage your Persona Archetype here.",
     content: ManageTab,
   },
