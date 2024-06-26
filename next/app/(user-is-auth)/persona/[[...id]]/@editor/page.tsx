@@ -6,13 +6,20 @@ import { usePersonaChatHistory } from "@/components/context/persona/history-cont
 import { EditPersonaTemplate } from "@/components/persona-archetype-generic/persona-avatar-popover/templates/edit-template";
 import { PersonaBadge } from "@/components/persona-archetype-generic/persona-badge";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Border600, gradientVariants } from "@/components/variants";
+import {
+  avatarVariants,
+  Border600,
+  gradientDarkVariants,
+  gradientLightVariants,
+  gradientVariants,
+} from "@/components/variants";
 import { cn } from "@/lib/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
@@ -165,15 +172,107 @@ function NoSelectedState({
   setSelected: (value: string) => void;
   hasFirstChange: boolean;
 }) {
+  const { personas } = usePersonaChat();
+
   return (
-    <div className="flex max-w-xl flex-col items-center justify-center gap-2 text-center">
-      <h2 className="text-xl font-semibold">Persona Editor</h2>
-      <p>
-        In the persona editor, you can edit the details of a persona archetype.
-        Add or remove traits, change the name, or update the picture.
-      </p>
-      <h3 className="text-md font-semibold">Select Persona to Begin</h3>
-    </div>
+    <>
+      <div className="relative flex max-w-xl flex-col items-center justify-center gap-2 text-center">
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -120,
+            y: -45,
+            top: 0,
+            position: "absolute",
+          }}
+          animate={{
+            opacity: 1,
+            x: -100,
+            y: -20,
+            top: 0,
+            position: "absolute",
+          }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <img src="https://i.imgur.com/rboSNI5.png" className="h-10" />
+        </motion.div>
+        <h2 className="text-xl font-semibold">Persona Editor</h2>
+        <p>
+          In the persona editor, you can edit the details of a persona
+          archetype. Add or remove traits, change the name, or update the
+          picture.
+        </p>
+        <div className="relative">
+          <h3 className="text-md font-semibold">Select Persona to Begin</h3>
+          <motion.div
+            initial={{
+              opacity: 0,
+              right: 0,
+              bottom: 25,
+              translateX: "150%",
+              position: "absolute",
+            }}
+            animate={{
+              opacity: 1,
+              right: 0,
+              bottom: 5,
+              translateX: "115%",
+              position: "absolute",
+            }}
+            transition={{ duration: 1, delay: 1.5 }}
+          >
+            <img
+              src="https://i.imgur.com/rboSNI5.png"
+              className="h-10 scale-x-[-1] transform"
+            />
+          </motion.div>
+        </div>
+
+        <div className="flex gap-2 rounded-xl border border-gray-300 bg-gray-100 p-4">
+          {personas.map((archetype: PersonaArchetype, i: number) => {
+            const variant = mapUrlBackgroundColorParamToVariant({
+              url: archetype.pictureURL,
+            });
+            const avatarFallbackName = archetype.archetype_name
+              .split(" ")
+              .map((word) => word.charAt(0))
+              .join("");
+
+            return (
+              <button
+                tabIndex={0}
+                onClick={() => setSelected(archetype.archetype_name)}
+                className={gradientLightVariants({
+                  variant,
+                  className:
+                    "grid flex-1 place-items-center rounded-2xl border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-300 ease-out hover:px-6 hover:shadow-lg",
+                })}
+              >
+                <div
+                  className={
+                    "flex size-full flex-1 flex-col items-center gap-1"
+                  }
+                >
+                  <Avatar className={avatarVariants({ variant, size: "sm" })}>
+                    <AvatarImage
+                      src={archetype.pictureURL}
+                      alt={[
+                        archetype.archetype_name.toLocaleLowerCase(),
+                        "persona avatar",
+                      ].join(" ")}
+                    />
+                    <AvatarFallback>{avatarFallbackName}</AvatarFallback>
+                  </Avatar>
+                  <span className="font-jost text-sm font-semibold">
+                    {archetype.archetype_name}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </>
   );
 }
 
