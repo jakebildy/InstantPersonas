@@ -7,10 +7,13 @@ import React, { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
 import { LANDING_HEADER_LINKS } from "@/lib/site";
+import { useStytchUser } from "@stytch/nextjs";
 
 type Props = { title?: string };
 
 export default function Header({ title }: Props) {
+  const { user } = useStytchUser();
+
   return (
     <header className="py-4 font-jost">
       <Container>
@@ -30,26 +33,41 @@ export default function Header({ title }: Props) {
             </div>
           </div>
 
-          <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block">
-              <Link
-                href="/login"
-                className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+          {user ? (
+            <div className="flex items-center gap-x-5 md:gap-x-8">
+              <Button
+                variant={"green"}
+                size="rounded"
+                className="hidden sm:block"
               >
-                Sign in
-              </Link>
+                <Link href="/persona">Dashboard</Link>
+              </Button>
+              <div className="-mr-1 md:hidden">
+                <MobileNavigation />
+              </div>
             </div>
-            <Button
-              variant={"green"}
-              size="rounded"
-              className="hidden sm:block"
-            >
-              <Link href="/register">Try for free</Link>
-            </Button>
-            <div className="-mr-1 md:hidden">
-              <MobileNavigation />
+          ) : (
+            <div className="flex items-center gap-x-5 md:gap-x-8">
+              <div className="hidden md:block">
+                <Link
+                  href="/login"
+                  className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Sign in
+                </Link>
+              </div>
+              <Button
+                variant={"green"}
+                size="rounded"
+                className="hidden sm:block"
+              >
+                <Link href="/register">Try for free</Link>
+              </Button>
+              <div className="-mr-1 md:hidden">
+                <MobileNavigation />
+              </div>
             </div>
-          </div>
+          )}
         </nav>
       </Container>
     </header>
