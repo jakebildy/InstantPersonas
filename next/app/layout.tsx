@@ -36,8 +36,7 @@ export default function RootLayout({
           <img
             height="1"
             width="1"
-            //@ts-ignore
-            style="display:none"
+            style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=800239702201831&ev=PageView&noscript=1"
           />
         </noscript>
