@@ -12,6 +12,7 @@ import { ClarityScript } from "@/components/context/analytics/clarity-script";
 import { AuthContextProvider } from "@/components/context/auth/auth-provider";
 import { AIContextProvider } from "@/components/context/persona/ai-context-provider";
 import { RewardfulScript } from "@/components/context/analytics/rewardful-script";
+import { FBPixelScript } from "@/components/context/analytics/pixel-script";
 
 export const metadata: Metadata = {
   title: "InstantPersonas | Get Started",
@@ -30,6 +31,16 @@ export default function RootLayout({
     <html lang="en" className={`${jost.variable} font-sans`}>
       <head>
         <ClarityScript />
+        <FBPixelScript />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            //@ts-ignore
+            style="display:none"
+            src="https://www.facebook.com/tr?id=800239702201831&ev=PageView&noscript=1"
+          />
+        </noscript>
         <RewardfulScript />
         <script
           async

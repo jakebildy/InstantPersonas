@@ -1,10 +1,12 @@
 import { User } from "@/app/(server)/models/user.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
+import axios from "axios";
 import mongoose from "mongoose";
 import { NextApiResponse } from "next";
 import { headers } from "next/headers";
 import stripe from "stripe";
 import Stripe from "stripe";
+const crypto = require('crypto');
 
 const STRIPE_ENDPOINT_SECRET: string | undefined =
   process.env.STRIPE_ENDPOINT_SECRET;
@@ -63,6 +65,41 @@ async function fulfillOrder(session: Session): Promise<void> {
     { stytchID: stytchID },
     { stripeCustomerId, stripeSubscriptionId },
   );
+
+  const hashedEmail = crypto.createHash('sha256').update(user.email).digest('hex');
+  const TOKEN = process.env.FB_ACCESS_TOKEN;
+  const PIXEL_ID = process.env.FB_PIXEL_ID;
+
+  // A Unix timestamp in seconds indicating when the actual event occurred
+  const eventTime = Math.round(new Date().getTime() / 1000);
+
+  // Log FB Conversions API event
+  const body = {
+      "data": [
+          {
+              "event_name": "StartTrial",
+              "event_time": eventTime,
+              "action_source": "website",
+              "user_data": {
+                  "em": [
+                    hashedEmail
+                  ]
+              }
+          }
+      ]
+  };
+
+  try {
+    const response = await axios.post(`https://graph.facebook.com/v20.0/${PIXEL_ID}/events?access_token=${TOKEN}`, body, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    console.log('Event logged successfully:', response.data);
+} catch (error) {
+    console.error('Error logging event:', error);
+}
+
 
   if (!user) throw "User not found";
 

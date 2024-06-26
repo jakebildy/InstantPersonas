@@ -1,7 +1,9 @@
 import { User } from "@/app/(server)/models/user.model";
 import { initMongoDB } from "@/app/(server)/mongodb";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
+import axios from "axios";
 import { NextApiResponse } from "next";
+const crypto = require('crypto');
 
 export async function POST(req: any, res: NextApiResponse) {
   const data = await req.json();
@@ -37,6 +39,41 @@ export async function POST(req: any, res: NextApiResponse) {
       onBoarded: false,
     });
     await newUser.save();
+
+    const hashedEmail = crypto.createHash('sha256').update(email).digest('hex');
+    const TOKEN = process.env.FB_ACCESS_TOKEN;
+    const PIXEL_ID = process.env.FB_PIXEL_ID;
+
+    // A Unix timestamp in seconds indicating when the actual event occurred
+    const eventTime = Math.round(new Date().getTime() / 1000);
+
+    // Log FB Conversions API event
+    const body = {
+        "data": [
+            {
+                "event_name": "SignUp",
+                "event_time": eventTime,
+                "action_source": "website",
+                "user_data": {
+                    "em": [
+                      hashedEmail
+                    ]
+                }
+            }
+        ]
+    };
+
+    try {
+      const response = await axios.post(`https://graph.facebook.com/v20.0/${PIXEL_ID}/events?access_token=${TOKEN}`, body, {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+      console.log('Event logged successfully:', response.data);
+  } catch (error) {
+      console.error('Error logging event:', error);
+  }
+
     console.log("Created new user: ", newUser);
     return Response.json(newUser);
   }
