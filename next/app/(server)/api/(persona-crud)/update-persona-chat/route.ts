@@ -5,7 +5,7 @@ export async function POST(req: Request, res: Response) {
 
   const url = new URL(req.url);
 
-  const chatID = url.searchParams.get("chatID");
+  const chatID = url.searchParams.get("id");
 
   const body = JSON.parse(await req.text());
 
