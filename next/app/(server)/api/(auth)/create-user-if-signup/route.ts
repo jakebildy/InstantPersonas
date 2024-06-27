@@ -51,7 +51,7 @@ export async function POST(req: any, res: NextApiResponse) {
     const body = {
         "data": [
             {
-                "event_name": "SignUp",
+                "event_name": "CompleteRegistration",
                 "event_time": eventTime,
                 "action_source": "website",
                 "user_data": {
