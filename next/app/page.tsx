@@ -8,6 +8,7 @@ import AnimatedGridPattern from "@/components/ui/magicui/animated-grid-pattern";
 import LandingPage from "@/components/page-specific/landing-page";
 import { FreeToolSection } from "@/components/toolfolio/free-tools-section";
 import RadialGradient from "@/components/ui/magicui/radial-gradient";
+import { useEffect } from "react";
 
 export default function Home() {
   const variant = "blue";
@@ -19,6 +20,25 @@ export default function Home() {
     url: "https://instantpersonas.com/",
   };
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://salespopup.io/api/script.js?website=instantpersonas.com";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup the script on component unmount
+      document.head.removeChild(script);
+
+      const injectedElements = document.querySelectorAll(
+        ".__SP_recent-transactions",
+      );
+      injectedElements.forEach((element) => element.remove());
+    };
+  }, []);
+
   return (
     <main className="relative overflow-x-hidden">
       <title>{"Detailed User Personas in Seconds | Try for Free"}</title>
@@ -28,11 +48,11 @@ export default function Home() {
           __html: JSON.stringify(InstantPersonasJsonLd),
         }}
       />
-      <script
+      {/* <script
         src="https://salespopup.io/api/script.js?website=instantpersonas.com"
         async
         defer
-      ></script>
+      ></script> */}
 
       <div className="fixed top-0 z-50 w-full p-4">
         <div className="rounded-lg border bg-white/50 backdrop-blur-sm">
