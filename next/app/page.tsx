@@ -28,6 +28,12 @@ export default function Home() {
           __html: JSON.stringify(InstantPersonasJsonLd),
         }}
       />
+      <script
+        src="https://salespopup.io/api/script.js?website=instantpersonas.com"
+        async
+        defer
+      ></script>
+
       <div className="fixed top-0 z-50 w-full p-4">
         <div className="rounded-lg border bg-white/50 backdrop-blur-sm">
           <LandingPage.header />
