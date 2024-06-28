@@ -9,6 +9,7 @@ import { colorDistance, extractParameterFromURL, hexToRgb } from "@/lib/utils";
 import { isEqual } from "lodash";
 import { ColorVariant, ColorVariantMap } from "@/components/variants";
 import { getUIStateFromAIState } from "@/app/(server)/ai/persona-chat-ai/utils/get-ui-state-from-ai-state";
+import { fixPersonaChatMessageHistoryModel } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/fix-messages";
 
 /**pnpm
  * Transforms and merges structured and unstructured data objects into a single object.
@@ -156,19 +157,11 @@ export function getSynchronizeStates({
   aiState: any;
   serializedPersonas: string;
 }): SynchronizeStates {
-  const updatedMessages = aiState.messages.map((message: Message) => {
-    if (message.role === "function" && message.name === "create_persona") {
-      return {
-        ...message,
-        content: serializedPersonas, // Update the content with the new serialized personas
-      };
-    }
-    return message;
-  });
+  const messages = aiState.messages;
 
   const newAiState = {
     ...aiState,
-    messages: updatedMessages,
+    messages,
     personas: JSON.parse(serializedPersonas), // Assuming personas should be updated as array objects
   };
 

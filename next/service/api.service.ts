@@ -215,11 +215,8 @@ const api = {
       chat: AIState | {},
       id: string,
     ): Promise<PersonaChatType> => {
-      const params = {
-        id: id,
-      };
       const response = await axios.post(`/api/update-persona-chat`, {
-        params,
+        id,
         chat,
       });
       return response.data.result;

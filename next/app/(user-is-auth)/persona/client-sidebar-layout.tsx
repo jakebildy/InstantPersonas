@@ -4,7 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PreventMobile } from "@/components/page-specific/prevent-mobile";
 import { Button } from "@/components/ui/button";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
-import { usePersonaChat } from "@/components/context/persona/chat-context";
+import {
+  PersonaChatTabs,
+  usePersonaChat,
+} from "@/components/context/persona/chat-context";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { PersonStandingIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -18,13 +21,24 @@ export default function SidebarLayout({
   map: React.ReactNode;
   editor: React.ReactNode;
 }) {
-  const { personas, messages, resetChatId, chatId, previousPath } =
-    usePersonaChat();
+  const {
+    personas,
+    messages,
+    resetChatId,
+    chatId,
+    previousPath,
+    activeTab,
+    setActiveTab,
+  } = usePersonaChat();
   const isNewChat = messages.length === 0;
   const shouldAnimate = isNewChat || !previousPath?.startsWith("/persona");
 
   return (
-    <Tabs defaultValue="personaChat">
+    <Tabs
+      defaultValue="personaChat"
+      value={activeTab}
+      onValueChange={(tab) => setActiveTab(tab as PersonaChatTabs)}
+    >
       {/* Main Header | 58px */}
       <div className="box-border flex max-h-11 items-center justify-between px-4 py-2">
         <h1 className="text-xl font-bold">Persona Creator</h1>

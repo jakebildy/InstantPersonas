@@ -3,11 +3,13 @@
 import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
 import { usePersonaChatHistory } from "@/components/context/persona/history-context";
+import GradientScroll from "@/components/page-specific/persona-chat-history/new/gradient-scroll";
 import { EditPersonaTemplate } from "@/components/persona-archetype-generic/persona-avatar-popover/templates/edit-template";
 import { PersonaBadge } from "@/components/persona-archetype-generic/persona-badge";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Tooltip,
   TooltipContent,
@@ -19,56 +21,74 @@ import {
   gradientDarkVariants,
   gradientLightVariants,
   gradientVariants,
+  textColorVariants,
 } from "@/components/variants";
 import { cn } from "@/lib/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import { PersonStandingIcon } from "lucide-react";
 import { use, useEffect, useRef, useState } from "react";
+import { EditorFallbackErrorState, PersonaEditor } from "./editor";
+import useMeasure from "react-use-measure";
+import { useScrollAreaState } from "@/lib/hooks";
+import { isEqual } from "lodash";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function EditorPage() {
-  const [selected, setSelected] = useState<string>("");
-  const [selectedIsDirty, setSelectedIsDirty] = useState<boolean>(false);
-  const { personas } = usePersonaChat();
+  const {
+    selectedPersonaInEditor,
+    setSelectedPersonaInEditor,
+    selectedPersonaInEditorIsDirty,
+    unsavedPersonas,
+    resetEditorState,
+  } = usePersonaChat();
 
-  useEffect(() => {
-    if (selected !== "" && !selectedIsDirty) {
-      setSelectedIsDirty(true);
-      console.log("Selected has been changed for the first time to:", selected);
-    }
-  }, [selected]);
+  const [scrollAreaBoundsRef, scrollAreaBounds] = useMeasure();
 
-  const selectedArchetype = personas.find((p) => p.archetype_name === selected);
-  const variant =
-    selectedArchetype &&
-    mapUrlBackgroundColorParamToVariant({
-      url: selectedArchetype.pictureURL,
-    });
+  const [scrollRef, scrollState] = useScrollAreaState();
 
   return (
-    <div className="flex h-full flex-1 flex-col justify-center font-jost">
-      <div className="relative m-2 box-border flex h-[calc(100%-70px)] min-h-[400px] w-[calc(100%-16px)] flex-1 flex-col gap-4 overflow-hidden rounded-lg border bg-background p-2">
-        <Header
-          selected={selected}
-          setSelected={setSelected}
-          hasFirstChange={selectedIsDirty}
-        />
-        <div className="grid h-full place-items-center">
-          {selectedArchetype ? (
-            <EditPersonaTemplate
-              archetype={selectedArchetype}
-              variant={variant}
-            />
-          ) : (
-            <NoSelectedState
-              selected={selected}
-              setSelected={setSelected}
-              hasFirstChange={selectedIsDirty}
-            />
-          )}
+    <ErrorBoundary
+      fallback={<EditorFallbackErrorState />}
+      onReset={(details) => {
+        resetEditorState();
+      }}
+    >
+      <div className="flex h-full flex-1 flex-col justify-center font-jost">
+        <div className="relative m-2 box-border flex h-[calc(100%-70px)] min-h-[400px] w-[calc(100%-16px)] flex-1 flex-col gap-4 overflow-auto rounded-lg border bg-background p-2">
+          <Header
+            selected={selectedPersonaInEditor ?? ""}
+            setSelected={setSelectedPersonaInEditor}
+            hasFirstChange={selectedPersonaInEditorIsDirty}
+            personasWithChanges={unsavedPersonas}
+          />
+          <div
+            className="grid h-full place-items-center"
+            ref={scrollAreaBoundsRef}
+            id="scroll-area-bounds"
+          >
+            {selectedPersonaInEditor ? (
+              <ScrollArea
+                className="h-full w-full flex-1 rounded-xl"
+                ref={scrollRef}
+              >
+                <PersonaEditor
+                  key={selectedPersonaInEditor}
+                  className="overflow-y-auto"
+                  style={{ height: scrollAreaBounds.height }}
+                />
+              </ScrollArea>
+            ) : (
+              <NoSelectedState
+                selected={selectedPersonaInEditor ?? ""}
+                setSelected={setSelectedPersonaInEditor}
+                hasFirstChange={selectedPersonaInEditorIsDirty}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 }
 
@@ -76,10 +96,12 @@ function Header({
   selected,
   setSelected,
   hasFirstChange,
+  personasWithChanges,
 }: {
   selected: string;
   setSelected: (value: string) => void;
   hasFirstChange: boolean;
+  personasWithChanges: string[];
 }) {
   const { personas } = usePersonaChat();
   const [openToolTip, setOpenToolTip] = useState(false);
@@ -92,52 +114,64 @@ function Header({
   return (
     <Tooltip open={effectiveOpen} onOpenChange={setOpenToolTip}>
       <TooltipTrigger asChild>
-        <div className="relative flex flex-wrap gap-1 pr-12">
-          {personas.map((persona: PersonaArchetype, i: number) => {
-            const isSelected = selected === persona.archetype_name;
+        <div className="relative flex flex-wrap justify-between gap-1 pr-12">
+          <div className="relative flex flex-wrap gap-1">
+            {personas.map((persona: PersonaArchetype, i: number) => {
+              const isSelected = selected === persona.archetype_name;
 
-            const variant = mapUrlBackgroundColorParamToVariant({
-              url: persona.pictureURL,
-            });
+              const variant = mapUrlBackgroundColorParamToVariant({
+                url: persona.pictureURL,
+              });
 
-            return (
-              <motion.div
-                key={i + persona.archetype_name}
-                initial={{ opacity: 0, y: -25, x: -10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  x: 0,
-                  transition: {
-                    delay: i * 0.05,
-                  },
-                }}
-              >
-                <PersonaBadge
-                  archetype={
-                    isSelected
-                      ? {
-                          ...persona,
-                          archetype_name:
-                            persona.archetype_name + " - (Selected)",
-                        }
-                      : persona
-                  }
-                  className={cn(
-                    "cursor-pointer border-2 shadow-sm transition-all duration-700 ease-out",
-                    isSelected
-                      ? "border-green-400"
-                      : Border600({ variant, className: "border-transparent" }),
-                  )}
-                  onClick={() =>
-                    setSelected(isSelected ? "" : persona.archetype_name)
-                  }
-                  tabIndex={0}
-                  role="radio"
-                />
-              </motion.div>
-            );
-          })}
+              let archetypeName = persona.archetype_name;
+
+              // Add a selected suffix to the archetype name if it is selected
+              if (isSelected) {
+                archetypeName = archetypeName + " - (Selected)";
+              }
+              // Add an unsaved suffix to the archetype name if it has changes
+              if (personasWithChanges.includes(persona.archetype_name)) {
+                archetypeName = archetypeName + " - (Unsaved)";
+              }
+
+              return (
+                <motion.div
+                  key={i + persona.archetype_name}
+                  initial={{ opacity: 0, y: -25, x: -10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    transition: {
+                      delay: i * 0.05,
+                    },
+                  }}
+                >
+                  <PersonaBadge
+                    archetype={{
+                      ...persona,
+                      archetype_name: archetypeName,
+                    }}
+                    className={cn(
+                      "cursor-pointer border-2 shadow-sm transition-all duration-700 ease-out",
+                      isSelected
+                        ? "border-green-400"
+                        : Border600({
+                            variant,
+                            className: "border-transparent",
+                          }),
+                    )}
+                    onClick={() =>
+                      setSelected(isSelected ? "" : persona.archetype_name)
+                    }
+                    tabIndex={0}
+                    role="radio"
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+
           <Button
             variant={"outline"}
             size={"icon"}
@@ -199,8 +233,9 @@ function NoSelectedState({
         <h2 className="text-xl font-semibold">Persona Editor</h2>
         <p>
           In the persona editor, you can edit the details of a persona
-          archetype. Add or remove traits, change the name, or update the
-          picture.
+          archetype.
+          {/* Add or remove traits, change the name, or update the
+          picture. */}
         </p>
         <div className="relative">
           <h3 className="text-md font-semibold">Select Persona to Begin</h3>
@@ -228,7 +263,7 @@ function NoSelectedState({
           </motion.div>
         </div>
 
-        <div className="flex gap-2 rounded-xl border border-gray-300 bg-gray-100 p-4">
+        <div className="relative flex gap-2 rounded-xl border border-gray-300 bg-gray-100 p-4">
           {personas.map((archetype: PersonaArchetype, i: number) => {
             const variant = mapUrlBackgroundColorParamToVariant({
               url: archetype.pictureURL,
@@ -240,17 +275,18 @@ function NoSelectedState({
 
             return (
               <button
+                key={i}
                 tabIndex={0}
                 onClick={() => setSelected(archetype.archetype_name)}
                 className={gradientLightVariants({
                   variant,
                   className:
-                    "grid flex-1 place-items-center rounded-2xl border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-300 ease-out hover:px-6 hover:shadow-lg",
+                    "group grid flex-1 place-items-center rounded-2xl border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-500 ease-out hover:mx-4 hover:scale-110 hover:px-6 hover:shadow-lg",
                 })}
               >
                 <div
                   className={
-                    "flex size-full flex-1 flex-col items-center gap-1"
+                    "flex size-full flex-1 flex-col items-center gap-1 transition-all duration-500 ease-out group-hover:scale-105"
                   }
                 >
                   <Avatar className={avatarVariants({ variant, size: "sm" })}>
@@ -263,50 +299,28 @@ function NoSelectedState({
                     />
                     <AvatarFallback>{avatarFallbackName}</AvatarFallback>
                   </Avatar>
-                  <span className="font-jost text-sm font-semibold">
+                  <span
+                    className={textColorVariants({
+                      variant,
+                      className: "font-jost text-sm font-semibold",
+                    })}
+                  >
                     {archetype.archetype_name}
                   </span>
                 </div>
               </button>
             );
           })}
+          <span
+            className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/3 rotate-12 cursor-pointer rounded-lg border border-gray-300 bg-gray-100 p-1 text-xs text-muted-foreground shadow-md transition-transform duration-500 hover:scale-105"
+            role="button"
+            onClick={() => setSelected(personas?.at(0)?.archetype_name ?? "")}
+            tabIndex={0}
+          >
+            Click to Select!
+          </span>
         </div>
       </div>
     </>
-  );
-}
-
-function PersonaEditor({
-  archetype,
-  id,
-}: {
-  archetype: PersonaArchetype;
-  id: string;
-}) {
-  const variant = mapUrlBackgroundColorParamToVariant({
-    url: archetype.pictureURL,
-  });
-  return (
-    <motion.div
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: "auto" }}
-      exit={{ opacity: 0, height: 0 }}
-      transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-      className={gradientVariants({
-        variant,
-        className: "m-1 flex flex-col rounded-lg p-2",
-      })}
-    >
-      <ul className="grid">
-        {Object.entries(archetype.persona_components).map(([key, value]) => (
-          <li key={key} className="mb-1 flex flex-col">
-            <span className="text-sm font-semibold text-muted-foreground">
-              {key.replace(/_/g, " ")}
-            </span>
-            <span className="text-xs font-medium">{value}</span>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
   );
 }
