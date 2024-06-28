@@ -87,7 +87,8 @@ export default function ShowcaseHeroSection({}: Props) {
         <div className="flex flex-col gap-2">
           <span className="whitespace-pre-wrap px-10 font-jost">
             Join <b className="text-green-500">4,700+</b> Marketers and Business
-            Owners who use InstantPersonas to create content that resonates.
+            Owners who use InstantPersonas to create detailed user personas and
+            get insights.
           </span>
         </div>
         <div className="relative flex w-full flex-row items-center justify-center">
