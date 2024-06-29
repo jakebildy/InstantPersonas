@@ -157,12 +157,16 @@ export function getSynchronizeStates({
   aiState: any;
   serializedPersonas: string;
 }): SynchronizeStates {
-  const messages = aiState.messages;
+  const personas = JSON.parse(serializedPersonas);
+  const { messages } = fixPersonaChatMessageHistoryModel({
+    messages: aiState.messages,
+    fixedPersonas: personas,
+  });
 
   const newAiState = {
     ...aiState,
     messages,
-    personas: JSON.parse(serializedPersonas), // Assuming personas should be updated as array objects
+    personas: personas, // Assuming personas should be updated as array objects
   };
 
   return {

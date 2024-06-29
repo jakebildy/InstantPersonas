@@ -6,7 +6,6 @@ import {
 } from "@/components/page-specific/generative-ui/messages";
 import { fixJson } from "@/lib/fix-json";
 import { IS_TEST_DEV_ENV } from "@/lib/utils";
-import assert from "node:assert";
 
 interface Message {
   [key: string]: any;
@@ -90,7 +89,7 @@ function processLegacyMessage(
       ([toolName, props]) => {
         const hasUniqueKeysOfConfirmBusinessTool =
           props.includes("business") || props.includes("targetProblem");
-        assert(
+        console.assert(
           !(
             toolName !== "confirm_business_knowledge" &&
             hasUniqueKeysOfConfirmBusinessTool
