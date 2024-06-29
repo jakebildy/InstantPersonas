@@ -35,12 +35,6 @@ function PersonaGroup({
   personas: PersonaArchetype[];
   id?: string;
 }) {
-  // Checking if all personas are selected based on deep equality
-  // const allPersonasInChatSelected = personas.every((persona) =>
-  //   selectedPersonas.some((selectedPersona) =>
-  //     isEqual(selectedPersona, persona),
-  //   ),
-  // );
   const allPersonasInChatSelected = false;
 
   if (!id) return null;

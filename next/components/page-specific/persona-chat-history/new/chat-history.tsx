@@ -25,13 +25,15 @@ export default function ChatHistory({}: Props) {
   }
 
   return (
-    <GradientScroll>
-      <div className="flex flex-col gap-2 overflow-hidden p-4 font-mono text-sm">
-        {history.map((chat, i) => (
-          <ChatGroup chat={chat} key={i} index={i + 1} />
-        ))}
-      </div>
-    </GradientScroll>
+    <div className="flex h-full min-h-[600px] flex-1 flex-col">
+      <GradientScroll>
+        <div className="flex flex-col gap-2 overflow-hidden p-4 font-mono text-sm">
+          {history.map((chat, i) => (
+            <ChatGroup chat={chat} key={i} index={i + 1} />
+          ))}
+        </div>
+      </GradientScroll>
+    </div>
   );
 }
 
@@ -45,20 +47,20 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
         "flex flex-col gap-2 rounded-xl border border-dashed border-black/10 bg-white/75 font-jost shadow-sm transition-all duration-500 ease-out hover:scale-[102%] hover:bg-white hover:shadow-xl",
       )}
     >
-      <div className="flex w-full flex-1 flex-col gap-1 p-2">
-        <div className="flex items-start justify-between">
+      <div className="relative flex w-full flex-1 flex-col gap-1 p-2">
+        <div className="flex items-start justify-between gap-2 max-sm:flex-col">
           <div className="flex w-full items-center gap-2 font-semibold">
-            <div className="grid size-6 place-items-center rounded-full border border-black/10 bg-white/50">
+            <div className="grid size-6 place-items-center rounded-full border border-black/10 bg-white/50 max-sm:hidden">
               <span className="text-xs">{index}</span>
             </div>
             <span>{chat.aiState.threadMetadata?.title ?? "New Chat"}</span>
           </div>
-          <span className="whitespace-pre-wrap text-wrap text-right text-xs">
+          <span className="whitespace-pre-wrap text-wrap text-xs sm:text-right">
             {chat.aiState.threadMetadata?.description ?? "Start Conversing"}
           </span>
         </div>
-        <div className="flex items-start justify-between pt-2">
-          <div className="ml-8 flex min-w-96 flex-wrap gap-1">
+        <div className="flex items-start justify-between gap-2 pt-2 max-md:flex-col">
+          <div className="flex flex-wrap gap-1 md:ml-8 md:min-w-96">
             {chat.aiState.personas.length > 0 ? (
               chat.aiState.personas.map((persona, i) => (
                 <PersonaBadge archetype={persona} key={i} />
@@ -87,7 +89,7 @@ function ChatGroup({ chat, index }: { chat: PersonaChatType; index: number }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-between border-t border-dashed border-black/10 p-2">
+      <div className="flex justify-between gap-2 border-t border-dashed border-black/10 p-2 max-md:flex-col">
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-2 px-2 text-xs">
             <ChatBubbleIcon className="size-3" />
