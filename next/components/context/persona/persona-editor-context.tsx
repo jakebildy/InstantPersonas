@@ -15,7 +15,7 @@ import {
 } from "react";
 import { usePersonaChat } from "./chat-context";
 import { isEqual } from "lodash";
-import { setNestedField } from "@/lib/utils";
+import { IS_TEST_DEV_ENV, setNestedField } from "@/lib/utils";
 import { getSynchronizeStates } from "@/components/persona-archetype-generic/utils";
 import api from "@/service/api.service";
 import { useAIState, useUIState } from "ai/rsc";
@@ -85,6 +85,13 @@ export const PersonaEditorProvider = ({
             persona,
             personas.find((p) => p.archetype_name === personaName),
           );
+          console.log(
+            `persona ${personaName} unsaved:`,
+            isUnsaved,
+            " - ",
+            persona,
+            personas.find((p) => p.archetype_name === personaName),
+          );
 
           return isUnsaved ? personaName : null;
         })
@@ -94,6 +101,41 @@ export const PersonaEditorProvider = ({
       setUnsavedPersonas(unsavedPersonas);
     }
   }, [chatId, personaEditorChanges, personas]);
+
+  //? Handles State for ID changes
+  useEffect(() => {
+    IS_TEST_DEV_ENV
+      ? console.log("DEV: P-EDIT1: resetting editor", chatId)
+      : null;
+
+    setSelectedPersonaInEditor(null);
+    setSelectedPersonaInEditorIsDirty(false);
+    if (chatId) {
+      setPersonaEditorChanges({
+        [chatId]: personas.reduce(
+          (acc, persona) => ({
+            ...acc,
+            [persona.archetype_name]: persona,
+          }),
+          {},
+        ),
+      });
+    } else {
+      setPersonaEditorChanges({});
+    }
+    //? Code if we want to persist the editor state across chatId changes
+    // setPersonaEditorChanges((prev) => ({
+    //   ...prev,
+    // [chatId]: chat.aiState.personas.reduce(
+    //   (acc, persona) => ({
+    //     ...acc,
+    //     [persona.archetype_name]: persona,
+    //   }),
+    //   {},
+    // ),
+    // }));
+  }, [chatId, personas]);
+
   //? Handles isDirty flag state for selectedPersonaInEditor state change
   useEffect(() => {
     if (
@@ -139,7 +181,7 @@ export const PersonaEditorProvider = ({
   const savePersona = async (personaName: string) => {
     if (chatId && personaEditorChanges[chatId]) {
       const persona = personaEditorChanges[chatId][personaName];
-      const personasWithChangedPersona = aiState.personas.map((p) =>
+      const personasWithChangedPersona = personas.map((p) =>
         p.archetype_name === personaName ? persona : p,
       );
       const serializedPersonas = JSON.stringify(personasWithChangedPersona);
@@ -195,7 +237,7 @@ export const PersonaEditorProvider = ({
   const saveAllPersonas = async () => {
     if (chatId && personaEditorChanges[chatId]) {
       // Map through the personas to reflect the changes from personaEditorChanges
-      const personasWithChangedNames = aiState.personas.map((p) => {
+      const personasWithChangedNames = personas.map((p) => {
         const editedPersona = personaEditorChanges[chatId][p.archetype_name];
         return editedPersona ? editedPersona : p;
       });
@@ -211,7 +253,7 @@ export const PersonaEditorProvider = ({
         }
       });
 
-      const indexOfCurrentlySelectedPersona = aiState.personas.findIndex(
+      const indexOfCurrentlySelectedPersona = personas.findIndex(
         (p) => p.archetype_name === selectedPersonaInEditor,
       );
 
@@ -283,15 +325,13 @@ export const PersonaEditorProvider = ({
         const newState = { ...prev };
 
         // Retrieve the correct persona from the personas array
-        const originalPersona = aiState.personas.find(
+        const originalPersona = personas.find(
           (p) => p.archetype_name === personaName,
         );
 
         // Ensure the chatId exists in the new state and update the persona
         if (originalPersona) {
-          const personaNames = aiState.personas.flatMap(
-            (p) => p.archetype_name,
-          );
+          const personaNames = personas.flatMap((p) => p.archetype_name);
 
           newState[chatId] = {
             ...prev[chatId],
@@ -317,7 +357,7 @@ export const PersonaEditorProvider = ({
     setPersonaEditorChanges((prev) => {
       const newState = { ...prev };
       if (chatId) {
-        aiState.personas.map((persona) => {
+        personas.map((persona) => {
           setPersonaEditorChanges((prev) => ({
             ...prev,
             [chatId]: {

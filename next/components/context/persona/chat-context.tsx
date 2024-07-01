@@ -95,7 +95,7 @@ export const PersonaChatProvider = ({
       IS_TEST_DEV_ENV
         ? console.log("DEV: UE3: Fetching chat with id", chatId)
         : null;
-      console.log("resetting selected persona");
+
       const fetchChat = async () => {
         const chatIDIsInvalid =
           !chatId || chatId === null || !stringIsMongoID(chatId);
