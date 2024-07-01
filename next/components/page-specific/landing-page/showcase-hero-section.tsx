@@ -117,16 +117,16 @@ export default function ShowcaseHeroSection({}: Props) {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 size-[200vh] -translate-x-[100vh] translate-y-[100vh] rounded-full bg-gradient-to-t from-green-500 to-green-100 blur-[50vh]" />
+      <div className="absolute bottom-0 left-0 size-[200vh] -translate-x-[100vh] translate-y-[100vh] rounded-full bg-gradient-to-t from-white to-blue-200 blur-[50vh]" />
       <AnimatedGridPattern
         numSquares={100}
         maxOpacity={0.5}
         duration={3}
         repeatDelay={1}
         className={
-          "absolute inset-x-0 inset-y-[-30%] h-[200vh] skew-y-12 bg-gradient-to-t from-white to-transparent opacity-50"
+          "absolute inset-x-0 inset-y-[-30%] h-[200vh] skew-y-12 bg-gradient-to-t from-white to-transparent opacity-50 blur-sm"
         }
-        squaresClassName="stroke-green-500 fill-green-500"
+        squaresClassName="stroke-blue-500 fill-blue-500"
       />
     </section>
   );

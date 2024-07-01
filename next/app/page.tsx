@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
       <div className="relative">
-        <AnimatedGridPattern
+        {/* <AnimatedGridPattern
           numSquares={100}
           maxOpacity={0.5}
           duration={3}
@@ -94,8 +94,8 @@ export default function Home() {
           className={cn(
             "absolute inset-x-0 bottom-0 h-full skew-y-12 opacity-50",
           )}
-          squaresClassName="stroke-green-500 fill-green-500"
-        />
+          squaresClassName="stroke-blue-500 fill-blue-500"
+        /> */}
         <LandingPage.pricing />
         <LandingPage.faqs />
         <div className="flex flex-col items-center py-8 lg:py-16">
