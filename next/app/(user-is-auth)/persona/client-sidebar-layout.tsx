@@ -26,12 +26,12 @@ export default function SidebarLayout({
     messages,
     resetChatId,
     chatId,
-    previousPath,
+    path,
     activeTab,
     setActiveTab,
   } = usePersonaChat();
   const isNewChat = messages.length === 0;
-  const shouldAnimate = isNewChat || !previousPath?.startsWith("/persona");
+  const shouldAnimate = isNewChat || !path.previous?.startsWith("/persona");
 
   return (
     <Tabs
