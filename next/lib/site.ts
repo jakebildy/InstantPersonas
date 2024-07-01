@@ -16,6 +16,7 @@ import {
   ChatBubbleLeftRightIcon,
   UsersIcon,
   FireIcon,
+  LightBulbIcon,
 } from "@heroicons/react/24/solid";
 import { BLOG_POSTS } from "@/lib/config/blog";
 import { BRAND_ICONS } from "@/components/brand-icons";
@@ -38,11 +39,12 @@ export const UNDERSTAND_TOOLS = [
     label: "",
   },
   {
-    title: "Slack Community",
-    href: SLACK_INVITE_LINK,
-    icon: BRAND_ICONS.Slack as LucideIcon,
+    title: "Persona Insights",
+    href: "/insights",
+    icon: LightBulbIcon,
     label: "",
   },
+
 ] as const;
 
 export const SIDEBAR_LINKS = [
@@ -62,6 +64,12 @@ export const SIDEBAR_LINKS = [
     title: "Send Feedback",
     href: "/feedback",
     icon: ChatBubbleLeftRightIcon,
+    label: "",
+  },
+  {
+    title: "Slack Community",
+    href: SLACK_INVITE_LINK,
+    icon: BRAND_ICONS.Slack as LucideIcon,
     label: "",
   },
 ] as const;

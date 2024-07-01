@@ -529,3 +529,8 @@ export function getRandomKey<T extends Record<string, any>>(obj: T): keyof T {
   // Return the key at the random index
   return keys[randomIndex];
 }
+
+export const isValidUrl = (url: string): boolean => {
+  const urlRegex = /^(https?|ftp):\/\/(([a-z\d]([a-z\d-]*[a-z\d])?\.)+[a-z]{2,}|localhost)(\/[-a-z\d%_.~+]*)*(\?[;&a-z\d%_.~+=-]*)?(\#[-a-z\d_]*)?$/i;
+  return !!urlRegex.test(url);
+};

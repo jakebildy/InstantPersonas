@@ -108,22 +108,6 @@ export default function DashboardLayout({
             }}
           />
 
-          <CollapsibleNavSection
-            title={{
-              collapsed: "Create",
-              expanded: "Create Content",
-            }}
-            links={{
-              isCollapsed,
-              links: TOOLS.filter((tool) => tool.section === "Create").map(
-                (element) => ({
-                  ...element,
-                  variant: pathname === element.href ? "default" : "ghost",
-                }),
-              ),
-            }}
-          />
-
           <Separator />
 
           <CollapsibleNavSection
