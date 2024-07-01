@@ -17,6 +17,7 @@ import { PersonaAvatarPopover } from "@/components/persona-archetype-generic/per
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { ActivePersonas } from "@/app/(public)/tools/editor/ActivePersonas";
 import NextImage from "next/image";
+import api from "@/service/api.service";
 
 export default function PersonaInsightsPage({}: {}) {
   const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
@@ -93,10 +94,47 @@ export default function PersonaInsightsPage({}: {}) {
               <div className="p-2">
                 <button
                   onClick={() => {
-                    setIsAnalyzing(true);
+                    if (isValidWebsite && selectedPersonas.length >= 0) {
+                      setIsAnalyzing(true);
+                      api.tools
+                        //TODO: this should also scrape the site (using Apify most likely). also move to separate function
+                        .generatePersonaThoughts(
+                          "A site about dogs",
+                          personaString,
+                        )
+                        .then((response) => {
+                          // thoughts are returned like this: PersonaName:Thought•PersonaName2:Thought
+                          const thoughts = response.response.split("•");
+                          const personaThoughts = thoughts.map(
+                            (thought: string) => {
+                              const [personaName, thoughtText] =
+                                thought.split(":");
+                              const persona = selectedPersonas.find(
+                                (persona) =>
+                                  persona.archetype_name === personaName,
+                              );
+                              return {
+                                thought: thoughtText,
+                                persona: persona!,
+                              };
+                            },
+                          );
+
+                          // filter out undefined personas
+                          setPersonaThoughts(
+                            personaThoughts.filter(
+                              (thought: {
+                                thought: string;
+                                persona: PersonaBusinessArchetype;
+                              }) => thought.persona,
+                            ),
+                          );
+                          setIsAnalyzing(false);
+                        });
+                    }
                   }}
                   className={
-                    !isValidWebsite
+                    !isValidWebsite || selectedPersonas.length === 0
                       ? "w-full rounded-sm bg-gray-100 p-2 text-left text-black"
                       : isAnalyzing
                         ? "loading-animation-3min w-full rounded-sm bg-green-600 p-2 text-left text-white hover:bg-green-500"
@@ -111,9 +149,11 @@ export default function PersonaInsightsPage({}: {}) {
                     <div className="flex flex-row font-jost">
                       {!isValidWebsite
                         ? "Enter Valid URL"
-                        : isAnalyzing
-                          ? "Analyzing..."
-                          : "Get Insights"}
+                        : selectedPersonas.length === 0
+                          ? "Select Personas"
+                          : isAnalyzing
+                            ? "Analyzing..."
+                            : "Get Insights"}
                       {isValidWebsite && (
                         <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                           →
@@ -157,8 +197,8 @@ export default function PersonaInsightsPage({}: {}) {
                   />
                 </div>
                 <div className="flex items-center whitespace-pre-wrap rounded-lg bg-gray-200 p-2 px-4 text-sm">
-                  Select some personas, and you will see their thoughts here as
-                  you write.
+                  Select some personas, and you will see their thoughts here
+                  when you paste in a link.
                 </div>
               </div>
             ) : (
