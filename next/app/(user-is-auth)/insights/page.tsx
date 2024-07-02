@@ -98,8 +98,8 @@ export default function PersonaInsightsPage({}: {}) {
                       setIsAnalyzing(true);
                       api.tools
                         //TODO: this should also scrape the site (using Apify most likely). also move to separate function
-                        .generatePersonaThoughts(
-                          "A site about dogs",
+                        .generatePersonaThoughtsFromURL(
+                          detailsInput,
                           personaString,
                         )
                         .then((response) => {

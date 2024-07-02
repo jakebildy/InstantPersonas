@@ -85,6 +85,17 @@ const api = {
       console.log("response from persona thoughts api", response);
       return response.data;
     },
+    generatePersonaThoughtsFromURL: async (
+      url: string,
+      personas: string,
+    ): Promise<any> => {
+      const response = await axios.post("/api/persona-thoughts-url", {
+        url,
+        personas,
+      });
+      console.log("response from persona thoughts url api", response);
+      return response.data;
+    },
     findInstagramAccounts: async (
       personas: string,
       paid: boolean,
