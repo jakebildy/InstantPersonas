@@ -69,7 +69,7 @@ export function EditorFallbackNoSelectedState() {
           </motion.div>
         </div>
 
-        <div className="relative flex gap-2 rounded-xl border border-gray-300 bg-gray-100 p-4">
+        <div className="relative flex flex-wrap gap-2 rounded-xl border border-gray-300 bg-gray-100 p-4">
           {personas.map((archetype: PersonaArchetype, i: number) => {
             const variant = mapUrlBackgroundColorParamToVariant({
               url: archetype.pictureURL,
@@ -80,43 +80,47 @@ export function EditorFallbackNoSelectedState() {
               .join("");
 
             return (
-              <button
+              <div
                 key={i}
-                tabIndex={0}
-                onClick={() =>
-                  setSelectedPersonaInEditor(archetype.archetype_name)
-                }
-                className={gradientLightVariants({
-                  variant,
-                  className:
-                    "group grid flex-1 place-items-center rounded-2xl border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-500 ease-out hover:mx-4 hover:scale-110 hover:px-6 hover:shadow-lg",
-                })}
+                className="group relative size-full min-h-[100px] min-w-[150px] flex-1 p-2 transition-all duration-500 ease-out hover:p-6"
               >
-                <div
-                  className={
-                    "flex size-full flex-1 flex-col items-center gap-1 transition-all duration-500 ease-out group-hover:scale-105"
+                <button
+                  tabIndex={0}
+                  onClick={() =>
+                    setSelectedPersonaInEditor(archetype.archetype_name)
                   }
+                  className={gradientLightVariants({
+                    variant,
+                    className:
+                      "absolute left-1/2 top-1/2 grid size-full -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl border border-gray-300 bg-gray-100 p-2 shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-lg",
+                  })}
                 >
-                  <Avatar className={avatarVariants({ variant, size: "sm" })}>
-                    <AvatarImage
-                      src={archetype.pictureURL}
-                      alt={[
-                        archetype.archetype_name.toLocaleLowerCase(),
-                        "persona avatar",
-                      ].join(" ")}
-                    />
-                    <AvatarFallback>{avatarFallbackName}</AvatarFallback>
-                  </Avatar>
-                  <span
-                    className={textColorVariants({
-                      variant,
-                      className: "font-jost text-sm font-semibold",
-                    })}
+                  <div
+                    className={
+                      "flex size-full flex-1 flex-col items-center gap-1 transition-all duration-500 ease-out group-hover:scale-105"
+                    }
                   >
-                    {archetype.archetype_name}
-                  </span>
-                </div>
-              </button>
+                    <Avatar className={avatarVariants({ variant, size: "sm" })}>
+                      <AvatarImage
+                        src={archetype.pictureURL}
+                        alt={[
+                          archetype.archetype_name.toLocaleLowerCase(),
+                          "persona avatar",
+                        ].join(" ")}
+                      />
+                      <AvatarFallback>{avatarFallbackName}</AvatarFallback>
+                    </Avatar>
+                    <span
+                      className={textColorVariants({
+                        variant,
+                        className: "font-jost text-sm font-semibold",
+                      })}
+                    >
+                      {archetype.archetype_name}
+                    </span>
+                  </div>
+                </button>
+              </div>
             );
           })}
           <span
