@@ -49,7 +49,7 @@ export default function SidebarLayout({
               <TabsList className="ml-auto bg-gray-200 font-jost">
                 <TabsTrigger
                   value="personaChat"
-                  className="text-zinc-600 dark:text-zinc-200"
+                  className="min-w-0 text-zinc-600 dark:text-zinc-200"
                 >
                   Persona Chat
                 </TabsTrigger>

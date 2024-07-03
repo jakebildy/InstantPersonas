@@ -7,7 +7,7 @@ import {
   CommandUserInputKeybind,
 } from "@/components/ui/fcs/cli-input";
 import { ScrollBar } from "@/components/ui/scroll-area";
-import { PersonStandingIcon } from "lucide-react";
+import { PersonStandingIcon, PlusIcon } from "lucide-react";
 import SubscriptionPopup from "@/components/popups/subscription-popup";
 import CopyLinkPopover from "@/components/ui/copy-link-popover";
 import { useInstantPersonasUser } from "@/components/context/auth/user-context";
@@ -20,6 +20,12 @@ import { AssistantMessage } from "./messages/assistant/assistant-message";
 import { mapUrlBackgroundColorParamToVariant } from "../../persona-archetype-generic/utils";
 import { PersonaAvatarPopover } from "../../persona-archetype-generic/persona-avatar-popover";
 import { GradientButton } from "@/components/ui/gradient-button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { GearIcon } from "@radix-ui/react-icons";
 
 type Props = {
   className?: string;
@@ -94,7 +100,7 @@ export default function Chat({ className }: Props) {
   return (
     <section
       className={cn(
-        "relative m-2 box-border flex h-[calc(100%-70px)] w-[calc(100%-16px)] flex-col overflow-hidden bg-background",
+        "relative m-2 box-border flex h-[calc(100%-70px)] w-[calc(100%-16px)] flex-col bg-background",
         className,
       )}
     >
@@ -103,6 +109,25 @@ export default function Chat({ className }: Props) {
         open={IS_TEST_DEV_ENV ? false : showSubscriptionPromptDialog}
       />
 
+      {personas && personas.length > 0 ? (
+        <Popover>
+          <PopoverTrigger asChild className="z-50">
+            <span className="absolute right-2 top-0 -translate-y-1/3 cursor-pointer rounded-lg border border-gray-300 bg-gray-100 p-1 px-4 text-xs text-muted-foreground shadow-md transition-all duration-200 hover:scale-105 hover:border-gray-400 hover:bg-gray-200 hover:text-foreground md:hidden">
+              <GearIcon className="size-4" />
+            </span>
+          </PopoverTrigger>
+          <PopoverContent className="flex flex-col gap-4 rounded-2xl border border-input bg-background p-2 shadow-md">
+            <GradientButton
+              Icon={PersonStandingIcon}
+              variant="green"
+              onClick={() => resetChatId()}
+            >
+              New Chat
+            </GradientButton>
+            {shareLink ? <CopyLinkPopover link={shareLink} /> : null}
+          </PopoverContent>
+        </Popover>
+      ) : null}
       <motion.div
         animate={{
           opacity: personas && personas.length > 0 ? 0 : 1,
@@ -115,7 +140,7 @@ export default function Chat({ className }: Props) {
         transition={{
           opacity: { delay: 2, duration: 0.5 },
         }}
-        className="absolute top-0 z-[400] h-2 rounded-full bg-green-500"
+        className="absolute top-0 z-40 h-2 rounded-full bg-green-500"
       />
 
       {personas && personas.length > 0 ? (
@@ -123,7 +148,7 @@ export default function Chat({ className }: Props) {
           <div className="relative mx-auto flex w-full items-center justify-center border-b pb-2">
             <GradientButton
               Icon={PersonStandingIcon}
-              className={"absolute left-0 m-8"}
+              className={"absolute left-0 m-8 max-md:hidden"}
               variant="green"
               onClick={() => resetChatId()}
             >
@@ -144,7 +169,7 @@ export default function Chat({ className }: Props) {
             {shareLink ? (
               <CopyLinkPopover
                 link={shareLink}
-                className="absolute right-0 m-8"
+                className="absolute right-0 m-8 max-md:hidden"
               />
             ) : null}
           </div>
@@ -152,7 +177,7 @@ export default function Chat({ className }: Props) {
       ) : null}
 
       <div
-        className="h-full flex-1"
+        className="h-full flex-1 overflow-hidden"
         ref={scrollContainerRef}
         id={"scroll-container-bounds"}
       >
