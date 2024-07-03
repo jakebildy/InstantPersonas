@@ -14,8 +14,8 @@ import {
   useState,
 } from "react";
 import { usePersonaChat } from "./chat-context";
-import { isEqual } from "lodash";
-import { IS_TEST_DEV_ENV, setNestedField } from "@/lib/utils";
+import { isEqual, set } from "lodash";
+import { IS_TEST_DEV_ENV } from "@/lib/utils";
 import { getSynchronizeStates } from "@/components/persona-archetype-generic/utils";
 import api from "@/service/api.service";
 import { useAIState, useUIState } from "ai/rsc";
@@ -69,6 +69,9 @@ export const PersonaEditorProvider = ({
     useState<boolean>(false); //? Flag for dirty state - Used to prevent info popups from spamming user
   const [personaEditorChanges, setPersonaEditorChanges] =
     useState<PersonaEditorChangesObject>({});
+  const [test_personaEditorChanges, test_setPersonaEditorChanges] = useState<
+    PersonaArchetype[]
+  >([]);
   const [unsavedPersonas, setUnsavedPersonas] = useState<string[]>([]);
   const [aiState, setAiState]: [AIState | null, (newState: any) => void] =
     useAIState<typeof AI>();
@@ -85,13 +88,10 @@ export const PersonaEditorProvider = ({
             persona,
             personas.find((p) => p.archetype_name === personaName),
           );
-          console.log(
-            `persona ${personaName} unsaved:`,
-            isUnsaved,
-            " - ",
-            persona,
-            personas.find((p) => p.archetype_name === personaName),
-          );
+          console.log(`persona ${personaName} unsaved:`, isUnsaved, " - ", {
+            origin: persona,
+            modified: personas.find((p) => p.archetype_name === personaName),
+          });
 
           return isUnsaved ? personaName : null;
         })
@@ -120,8 +120,10 @@ export const PersonaEditorProvider = ({
           {},
         ),
       });
+      test_setPersonaEditorChanges(personas);
     } else {
       setPersonaEditorChanges({});
+      test_setPersonaEditorChanges([]);
     }
     //? Code if we want to persist the editor state across chatId changes
     // setPersonaEditorChanges((prev) => ({
@@ -146,6 +148,35 @@ export const PersonaEditorProvider = ({
     }
   }, [selectedPersonaInEditor, selectedPersonaInEditorIsDirty]);
 
+  const test = {
+    archetype_name: "The Agile Marketer",
+    pictureURL:
+      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc",
+    persona_components: {
+      Motivations: "TEST",
+      Painpoints:
+        "Frustrated by the slow pace of traditional market research and persona development.",
+      Preferences_and_Needs:
+        "Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.",
+      End_Goal:
+        "To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.",
+      Mindset_and_Perspective:
+        "Values efficiency and agility in marketing operations; believes in data-driven decision making.",
+    },
+    insights: {
+      Enhanced_Interaction_Patterns:
+        "Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.",
+      Strategic_Recommendations:
+        "Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated.",
+    },
+    picture_components: {
+      clothing: "button_up",
+      glasses: "glasses",
+      hair: "short",
+    },
+    id: "rQyvt12J5bpUav53nlX0l",
+  };
+
   /**
    * Updates the persona editor with the specified field and value.
    * Handles nested fields dynamically.
@@ -162,16 +193,21 @@ export const PersonaEditorProvider = ({
     value: string | number;
   }) => {
     if (chatId && selectedPersonaInEditor) {
+      console.log("Editing persona in editor", field, value);
       setPersonaEditorChanges((prev) => {
         const currentPersona = prev[chatId][selectedPersonaInEditor];
-        const newPersona = setNestedField(currentPersona, field, value);
+        console.log("currentPersona", currentPersona);
+        // const newPersona = setNestedField(currentPersona, field, value);
+        const newPersona = set({ ...currentPersona }, field, value);
+        console.log("newPersona", newPersona);
         const changes = {
           ...prev,
           [chatId]: {
             ...prev[chatId],
             [selectedPersonaInEditor]: newPersona,
           },
-        };
+        } as PersonaEditorChangesObject;
+        console.log("changes", changes);
 
         return changes;
       });
@@ -357,15 +393,17 @@ export const PersonaEditorProvider = ({
     setPersonaEditorChanges((prev) => {
       const newState = { ...prev };
       if (chatId) {
-        personas.map((persona) => {
-          setPersonaEditorChanges((prev) => ({
-            ...prev,
-            [chatId]: {
+        setPersonaEditorChanges({
+          ...prev,
+          [chatId]: personas.reduce(
+            (acc, persona) => ({
+              ...acc,
               [persona.archetype_name]: persona,
-              ...prev[chatId],
-            },
-          }));
+            }),
+            {},
+          ),
         });
+        test_setPersonaEditorChanges(personas);
       }
       return newState;
     });

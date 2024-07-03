@@ -11,7 +11,7 @@ import {
 } from "@/components/variants";
 import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
-import { cn } from "@/lib/utils";
+import { cn, IS_TEST_DEV_ENV } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { cx } from "class-variance-authority";
@@ -142,6 +142,19 @@ function ArchetypeEditor({
       )}
       {...Props}
     >
+      {IS_TEST_DEV_ENV && (
+        <Button
+          onClick={() =>
+            editPersonaInEditor({
+              field: "persona_components." + "Motivations",
+              value: "test",
+            })
+          }
+        >
+          test
+        </Button>
+      )}
+
       <PersonStandingIcon className="absolute right-0 top-0 m-6 text-muted-foreground" />
       {/* Avatar + Archetype Name Editor */}
       <div className="flex gap-2 border-b bg-white/75 backdrop-blur-md">

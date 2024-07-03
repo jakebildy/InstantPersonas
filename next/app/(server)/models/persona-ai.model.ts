@@ -6,6 +6,7 @@ import {
   PERSONA_PICTURE_COMPONENTS_CONFIG,
 } from "../ai/persona-chat-ai/utils/persona-picture-components-config";
 import { MongoIDValidator } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
+import { nanoid } from "nanoid";
 
 export const MessageValidator = z.object({
   role: z.enum(["user", "assistant", "system", "tool", "function", "data"]),
@@ -73,6 +74,7 @@ export const PersonaArchetypeValidator = z.object({
       hair: z.string(),
     })
     .optional(),
+  id: z.string().default(() => nanoid()),
 });
 
 export const PersonaArchetypeValidatorWithDefaults = z.object({
@@ -104,6 +106,7 @@ export const PersonaArchetypeValidatorWithDefaults = z.object({
         .default(() => getRandomKey(PERSONA_PICTURE_COMPONENTS_CONFIG.hair)),
     })
     .optional(),
+  id: z.string().default(() => nanoid()),
 });
 
 export const AIStateMetadataValidator = z.object({
@@ -152,6 +155,7 @@ export type PersonaArchetype = {
     Enhanced_Interaction_Patterns: string;
     Strategic_Recommendations: string;
   };
+  id: string;
 };
 
 export type AIState = {

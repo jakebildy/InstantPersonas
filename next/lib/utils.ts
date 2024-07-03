@@ -529,28 +529,3 @@ export function getRandomKey<T extends Record<string, any>>(obj: T): keyof T {
   // Return the key at the random index
   return keys[randomIndex];
 }
-
-/**
- * Updates a nested field within the persona object.
- *
- * @param {Object} obj - The target object to update.
- * @param {string} path - Dot-separated path to the nested field.
- * @param {any} value - The value to set at the specified path.
- * @returns {Object} - The updated object.
- */
-export const setNestedField = (obj: any, path: string, value: any): any => {
-  const fields = path.split(".");
-  const updatedObj = { ...obj };
-  let current = updatedObj;
-
-  fields.forEach((field, index) => {
-    if (index === fields.length - 1) {
-      current[field] = value;
-    } else {
-      current[field] = current[field] || {};
-      current = current[field];
-    }
-  });
-
-  return updatedObj;
-};
