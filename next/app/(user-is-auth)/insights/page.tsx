@@ -181,9 +181,9 @@ export default function PersonaInsightsPage({}: {}) {
                   }
                 >
                   {isAnalyzing && (
-                    <div className="loading-animation z-1 absolute left-[23rem] top-[3.2rem] w-[45%] rounded-sm bg-green-200 p-5 text-left text-white"></div>
+                    <div className="loading-animation z-1 absolute left-[25.5vw] top-[3.2rem] w-[45%] rounded-sm bg-green-200 p-5 text-left text-white"></div>
                   )}
-                  <div className="z-2 absolute right-[24rem] top-[3.6rem] flex w-[45%] flex-row justify-between">
+                  <div className="z-2 absolute right-[27vw] top-[3.6rem] flex w-[45%] flex-row justify-between">
                     <div className="flex flex-row">
                       <IconSearch
                         className={
