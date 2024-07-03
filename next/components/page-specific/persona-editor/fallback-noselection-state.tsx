@@ -124,7 +124,7 @@ export function EditorFallbackNoSelectedState() {
             );
           })}
           <span
-            className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/3 rotate-12 cursor-pointer rounded-lg border border-gray-300 bg-gray-100 p-1 text-xs text-muted-foreground shadow-md transition-transform duration-500 hover:scale-105"
+            className="absolute right-0 top-0 -translate-x-2 -translate-y-1/2 rotate-0 cursor-pointer rounded-lg border border-gray-300 bg-gray-100 p-1 text-xs text-muted-foreground shadow-md transition-transform duration-500 hover:scale-105 md:translate-x-1/3 md:rotate-12"
             role="button"
             onClick={() =>
               setSelectedPersonaInEditor(personas?.at(0)?.archetype_name ?? "")
