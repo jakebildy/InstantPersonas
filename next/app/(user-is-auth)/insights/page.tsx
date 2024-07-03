@@ -79,15 +79,21 @@ export default function PersonaInsightsPage({}: {}) {
           <div className="w-1/2 rounded-md border border-gray-300 bg-white shadow-md">
             <span className="flex flex-row">
               <IconSearch className="ml-2 mt-2 text-gray-400" />
+              {detailsInput !== "" && (
+                <span className="p-2 pr-0">https://</span>
+              )}
               <input
                 type="text"
-                className="mr-2 w-full p-2 outline-none"
-                placeholder="Enter any URL..."
+                className="mr-2 w-full pb-2 pr-2 pt-2 outline-none"
+                placeholder="  Enter any URL..."
                 onChange={(e) => {
-                  setDetailsInput(e.target.value);
+                  // if https:// is included, remove it
+                  if (e.target.value.includes("https://")) {
+                    setDetailsInput(e.target.value.slice(8));
+                  } else {
+                    setDetailsInput(e.target.value);
+                  }
                 }}
-                // prefix is a SearchIcon
-
                 value={detailsInput}
               />
             </span>
@@ -106,7 +112,7 @@ export default function PersonaInsightsPage({}: {}) {
                       api.tools
                         //TODO: this should also scrape the site (using Apify most likely). also move to separate function
                         .generatePersonaThoughtsFromURL(
-                          detailsInput,
+                          "https://" + detailsInput,
                           personaString,
                         )
                         .then((response) => {
@@ -161,21 +167,33 @@ export default function PersonaInsightsPage({}: {}) {
                               }) => thought.persona,
                             ),
                           );
+
                           setIsAnalyzing(false);
                         });
                     }
                   }}
                   className={
                     !isValidWebsite || selectedPersonas.length === 0
-                      ? "w-full rounded-sm bg-gray-100 p-2 text-left text-black"
+                      ? "w-full rounded-sm bg-gray-100 p-5 text-left text-black"
                       : isAnalyzing
-                        ? "loading-animation-3min w-full rounded-sm bg-green-600 p-2 text-left text-white hover:bg-green-500"
-                        : "w-full rounded-sm bg-green-600 p-2 text-left text-white hover:bg-green-500"
+                        ? "w-full cursor-wait rounded-sm bg-gray-100 p-5 text-left text-black"
+                        : "w-full rounded-sm bg-green-600 p-5 text-left text-white hover:bg-green-500"
                   }
                 >
-                  <div className="flex flex-row justify-between">
+                  {isAnalyzing && (
+                    <div className="loading-animation z-1 absolute left-[23rem] top-[3.2rem] w-[45%] rounded-sm bg-green-200 p-5 text-left text-white"></div>
+                  )}
+                  <div className="z-2 absolute right-[24rem] top-[3.6rem] flex w-[45%] flex-row justify-between">
                     <div className="flex flex-row">
-                      <IconSearch className="mr-2 h-5 w-5 text-white" />
+                      <IconSearch
+                        className={
+                          !isValidWebsite ||
+                          selectedPersonas.length === 0 ||
+                          isAnalyzing
+                            ? "mr-2 h-5 w-5 text-black"
+                            : "mr-2 h-5 w-5 text-white"
+                        }
+                      />
                       {detailsInput}
                     </div>
                     <div className="flex flex-row font-jost">
@@ -202,6 +220,13 @@ export default function PersonaInsightsPage({}: {}) {
             <br></br>
             <button className="ml-10 p-2 text-gray-500">previous link</button> */}
           </div>
+          {personaThoughts.length > 0 && (
+            <div className="w-1/2 rounded-md border border-gray-300 bg-white p-2 text-gray-400">
+              Personas can give different outputs each time! As personas
+              represent a group of people, they may have a variety of thoughts
+              and actions based on the same content.
+            </div>
+          )}
           {/* <GuestPostFinderTool
             input={personaString}
             isSubscribed={isSubscribed}
@@ -214,8 +239,8 @@ export default function PersonaInsightsPage({}: {}) {
         <ActivePersonas selectedPersonas={selectedPersonas} />
 
         {/* Persona Thoughts */}
-        <div className="h-[100%-136px] rounded-md border-2 border-slate-300 bg-white">
-          <ScrollArea className="z-50 order-1 h-full w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
+        <div className="h-fit rounded-md border-2 border-slate-300 bg-white">
+          <ScrollArea className="z-50 order-1 h-[calc(85vh-136px)] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
             {personaThoughts.length === 0 ? (
               <div className="flex flex-row">
                 <div className="mr-2 flex h-8 w-8 items-center">
@@ -235,47 +260,58 @@ export default function PersonaInsightsPage({}: {}) {
               </div>
             ) : (
               personaThoughts.map((thought, i) => (
-                <div key={i} className="flex flex-row p-2">
-                  {selectedPersonas.length > 0 ? (
-                    <div
-                      className={
-                        thought.personaInterested === "NO" ? "" : "mt-8"
-                      }
-                    >
-                      <PersonaAvatarPopover
-                        allowManage={false}
-                        {...{
-                          archetype: thought.persona,
-                          variant: mapUrlBackgroundColorParamToVariant({
-                            url: thought.persona.pictureURL,
-                          }),
-                        }}
-                        size={"sm"}
-                      />
-                    </div>
-                  ) : null}
-                  {thought.personaInterested === "NO" ? (
-                    <div className="mt-5 text-xs font-bold text-red-500">
-                      🚫 {thought.persona.archetype_name} is not interested in
-                      this
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
-                      <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
-                        <CursorArrowRaysIcon className="h-5" />{" "}
-                        {thought.searchIntent}
+                <div>
+                  <div key={i} className="flex flex-row p-2">
+                    {selectedPersonas.length > 0 ? (
+                      <div
+                        className={
+                          thought.personaInterested === "NO"
+                            ? "opacity-50"
+                            : "mt-12"
+                        }
+                      >
+                        <PersonaAvatarPopover
+                          allowManage={false}
+                          {...{
+                            archetype: thought.persona,
+                            variant: mapUrlBackgroundColorParamToVariant({
+                              url: thought.persona.pictureURL,
+                            }),
+                          }}
+                          size={"sm"}
+                        />
+                        <div className="relative left-[40px] top-[-20px] text-lg">
+                          {thought.personaInterested === "NO"
+                            ? "🚫"
+                            : thought.thought.split("~")[0]}
+                        </div>
                       </div>
-                      <div className="rounded-lg bg-gray-200 p-2">
-                        {thought.thought}
+                    ) : null}
+                    {thought.personaInterested === "NO" ? (
+                      <div className="ml-2 mt-2 text-xs font-bold text-gray-400">
+                        {thought.persona.archetype_name} may not be interested
+                        in this based on the title and description on Google
                       </div>
-                      <div className="mb-4 mt-2 text-xs font-bold text-green-500">
-                        -&gt; {thought.persona.archetype_name} {thought.action}
+                    ) : (
+                      <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
+                        <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
+                          🔍 {thought.searchIntent}
+                        </div>
+                        <div className="rounded-lg bg-gray-200 p-2">
+                          {thought.thought.split("~")[1]}
+                        </div>
+                        <div className="mb-4 mt-2 text-xs font-bold text-green-500">
+                          -&gt; {thought.persona.archetype_name}{" "}
+                          {thought.action}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  <div className="h-[2px] w-full bg-gray-100" />
                 </div>
               ))
             )}
+
             <ScrollBar orientation="vertical" />
           </ScrollArea>
         </div>
