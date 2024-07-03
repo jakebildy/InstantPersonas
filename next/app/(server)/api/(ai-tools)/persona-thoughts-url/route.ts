@@ -92,7 +92,7 @@ export async function POST(req: Request) {
 
     // Step 1: Check if Personas are Interested in the Content
     const interestedPrompt =
-    "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of if the personas would be interested in clicking on this (YES or NO). Example response: `Joe:NO•Sarah:YES`.  \n title:" +
+    "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of if the personas would be interested in clicking on this (YES or the reason not). Example response: `Joe:doesn't solve my problem•Sarah:YES`.  \n title:" +
     title +
     "\n\ndescription: " + description + 
     " \n\nThe provided personas: " +
@@ -103,32 +103,31 @@ export async function POST(req: Request) {
     
 
 
-      const searchIntentMessage =
-        "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of what the personas search intent would be if clicking on this (what pain point do they have, assume they don't have any knowledge of the site beforehand, keep it brief). Example response: `Joe:Searched for gift ideas•Sarah:Searched Christmas deals`.  \n title:" +
-        title +
-        "\n\ndescription: " + description + 
-        " \n\nThe provided personas: " +
-        personas;
+      // const searchIntentMessage =
+      //   "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of what the personas search intent would be if clicking on this (what pain point do they have, assume they don't have any knowledge of the site beforehand, keep it brief). Example response: `Joe:Searched for gift ideas•Sarah:Searched Christmas deals`.  \n title:" +
+      //   title +
+      //   "\n\ndescription: " + description + 
+      //   " \n\nThe provided personas: " +
+      //   personas;
 
 
-        // //Step 3: Find objections if this a landing page
-        // const landingPageObjectionsPrompt =
-        // "Based on this website, identify any general objections/missing info, a high-converting landing page has social proof, a clear call to action, a defined value prop, and grabs attention. Return either the objections, or if it has all sections of a high converting landing page, return just the string `No objections`. Otherwise, just mention what could be improved in no more than two paragraphs. \n\n the website:" +
-        // text;
+      //   // //Step 3: Find objections if this a landing page
+      //   // const landingPageObjectionsPrompt =
+      //   // "Based on this website, identify any general objections/missing info, a high-converting landing page has social proof, a clear call to action, a defined value prop, and grabs attention. Return either the objections, or if it has all sections of a high converting landing page, return just the string `No objections`. Otherwise, just mention what could be improved in no more than two paragraphs. \n\n the website:" +
+      //   // text;
 
-        // const landingPageObjections = await GPT4(landingPageObjectionsPrompt);
-        // console.log ("landingPageObjections: " + landingPageObjections.text.trim());
+      //   // const landingPageObjections = await GPT4(landingPageObjectionsPrompt);
+      //   // console.log ("landingPageObjections: " + landingPageObjections.text.trim());
 
      
-      const chatResponseSearchIntent = await GPT4(searchIntentMessage);
-      console.log ("chatResponseSearchIntent: " + chatResponseSearchIntent.text.trim());
+      // const chatResponseSearchIntent = await GPT4(searchIntentMessage);
+      // console.log ("chatResponseSearchIntent: " + chatResponseSearchIntent.text.trim());
 
       const systemMessage =
-        "Based on this website and these personas (and their search intents), return a list of strings separated by • of what the personas would be thinking when reading this website + their next action. First try to think of objections they might have, if they've all been handled then think of what they are excited about. Only one sentence per persona (ex. If provided with two personas, return two sentences total). Make them specific to the persona. Also add an emoji conveying their mood from these (😡🙁🫤😐🙂😃). Lastly add their next action. Example response: `Joe:🫤~How would this help me achieve my goals?|clicks away•Sarah:🙂~Could I do this at home?|goes to Landing Page`.  \n website:" +
+        "Based on this website and these personas, return a list of strings separated by • of what the personas would be thinking when reading this website + their next action. First try to think of objections they might have, if they've all been handled then think of what they are excited about. Only one sentence per persona (ex. If provided with two personas, return two sentences total). Make them specific to the persona. Also add an emoji conveying their mood from these (😡🙁🫤😐🙂😃). Lastly add their next action. Example response: `Joe:🫤~How would this help me achieve my goals?|clicks away•Sarah:🙂~Could I do this at home?|goes to Landing Page`.  \n website:" +
         text +
         " \n\npersonas: " +
-        personas + 
-        " \n\npersonas search intents: " + chatResponseSearchIntent.text.trim() ;
+        personas;
 
 
       const thoughtsAndActions = await GPT4(systemMessage);
@@ -140,7 +139,7 @@ export async function POST(req: Request) {
         response: {
           personasInterested: personasInterested.text.trim(),
 
-          searchIntents: chatResponseSearchIntent.text.trim(),
+          // searchIntents: chatResponseSearchIntent.text.trim(),
           thoughtsAndActions: thoughtsAndActions.text.trim()},
       });
     }

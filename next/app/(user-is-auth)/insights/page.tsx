@@ -55,7 +55,7 @@ export default function PersonaInsightsPage({}: {}) {
   const [personaThoughts, setPersonaThoughts] = useState<
     {
       personaInterested: string;
-      searchIntent: string;
+      // searchIntent: string;
       thought: string;
       action: string;
       persona: PersonaBusinessArchetype;
@@ -127,15 +127,15 @@ export default function PersonaInsightsPage({}: {}) {
                                 (persona) =>
                                   persona.archetype_name === personaName,
                               );
-                              const searchIntent =
-                                response.response.searchIntents
-                                  .split("•")
-                                  .find(
-                                    (intent: string) =>
-                                      intent.split(":")[0].trimStart() ===
-                                      personaName,
-                                  )
-                                  ?.split(":")[1] ?? "";
+                              // const searchIntent =
+                              //   response.response.searchIntents
+                              //     .split("•")
+                              //     .find(
+                              //       (intent: string) =>
+                              //         intent.split(":")[0].trimStart() ===
+                              //         personaName,
+                              //     )
+                              //     ?.split(":")[1] ?? "";
 
                               const personaInterested =
                                 response.response.personasInterested
@@ -145,11 +145,11 @@ export default function PersonaInsightsPage({}: {}) {
                                       intent.split(":")[0].trimStart() ===
                                       personaName,
                                   )
-                                  ?.split(":")[1] ?? "NO";
+                                  ?.split(":")[1] ?? " it doesn't interest me";
 
                               return {
                                 personaInterested: personaInterested,
-                                searchIntent: searchIntent,
+                                // searchIntent: searchIntent,
                                 thought: thoughtText.split("|")[0],
                                 action: thoughtText.split("|")[1],
                                 persona: persona!,
@@ -265,9 +265,9 @@ export default function PersonaInsightsPage({}: {}) {
                     {selectedPersonas.length > 0 ? (
                       <div
                         className={
-                          thought.personaInterested === "NO"
+                          thought.personaInterested.trim() !== "YES"
                             ? "opacity-50"
-                            : "mt-12"
+                            : ""
                         }
                       >
                         <PersonaAvatarPopover
@@ -281,22 +281,23 @@ export default function PersonaInsightsPage({}: {}) {
                           size={"sm"}
                         />
                         <div className="relative left-[40px] top-[-20px] text-lg">
-                          {thought.personaInterested === "NO"
+                          {thought.personaInterested.trim() !== "YES"
                             ? "🚫"
                             : thought.thought.split("~")[0]}
                         </div>
                       </div>
                     ) : null}
-                    {thought.personaInterested === "NO" ? (
+                    {thought.personaInterested.trim() !== "YES" ? (
                       <div className="ml-2 mt-2 text-xs font-bold text-gray-400">
                         {thought.persona.archetype_name} may not be interested
-                        in this based on the title and description on Google
+                        in this based on the title and description on Google -{" "}
+                        {thought.personaInterested}
                       </div>
                     ) : (
                       <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
-                        <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
+                        {/* <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
                           🔍 {thought.searchIntent}
-                        </div>
+                        </div> */}
                         <div className="rounded-lg bg-gray-200 p-2">
                           {thought.thought.split("~")[1]}
                         </div>
