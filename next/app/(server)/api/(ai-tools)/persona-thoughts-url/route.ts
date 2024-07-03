@@ -77,7 +77,7 @@ export async function POST(req: Request) {
       const personas = body.personas;
 
       const systemMessage =
-        "Based on this website and these personas, return a list of strings separated by • of what the personas would be thinking when reading this blog post. Only one sentence per persona (ex. If provided with two personas, return two sentences total). Make them specific to the persona. Example response: `Joe:How would this help me achieve my goals?•Sarah:Could I do this at home?`.  \n blog post:" +
+        "Based on this website and these personas, return a list of strings separated by • of what the personas would be thinking when reading this blog post + their next action. First try to think of objections they might have, if they've all been handled then think of what they are excited about. Only one sentence per persona (ex. If provided with two personas, return two sentences total). Make them specific to the persona. Also add an emoji conveying their mood from these (😡🙁🫤😐🙂😃). Lastly add their next action. Example response: `Joe:🫤How would this help me achieve my goals?|clicks away•Sarah:🙂Could I do this at home?|goes to Landing Page`.  \n website:" +
         text +
         " \n\npersonas: " +
         personas;

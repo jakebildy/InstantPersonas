@@ -18,6 +18,7 @@ import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archet
 import { ActivePersonas } from "@/app/(public)/tools/editor/ActivePersonas";
 import NextImage from "next/image";
 import api from "@/service/api.service";
+import { CursorArrowRaysIcon } from "@heroicons/react/24/solid";
 
 export default function PersonaInsightsPage({}: {}) {
   const { selectedPersonas, setSelectedPersonas } = usePersonaChatHistory();
@@ -52,7 +53,7 @@ export default function PersonaInsightsPage({}: {}) {
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
   const [personaThoughts, setPersonaThoughts] = useState<
-    { thought: string; persona: PersonaBusinessArchetype }[]
+    { thought: string; action: string; persona: PersonaBusinessArchetype }[]
   >([]);
 
   return (
@@ -114,7 +115,8 @@ export default function PersonaInsightsPage({}: {}) {
                                   persona.archetype_name === personaName,
                               );
                               return {
-                                thought: thoughtText,
+                                thought: thoughtText.split("|")[0],
+                                action: thoughtText.split("|")[1],
                                 persona: persona!,
                               };
                             },
@@ -125,6 +127,7 @@ export default function PersonaInsightsPage({}: {}) {
                             personaThoughts.filter(
                               (thought: {
                                 thought: string;
+                                action: string;
                                 persona: PersonaBusinessArchetype;
                               }) => thought.persona,
                             ),
@@ -182,8 +185,8 @@ export default function PersonaInsightsPage({}: {}) {
         <ActivePersonas selectedPersonas={selectedPersonas} />
 
         {/* Persona Thoughts */}
-        <div className="h-[300px] rounded-md border-2 border-slate-300 bg-white">
-          <ScrollArea className="z-50 order-1 h-[290px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
+        <div className="h-[100%-136px] rounded-md border-2 border-slate-300 bg-white">
+          <ScrollArea className="z-50 order-1 h-full w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
             {personaThoughts.length === 0 ? (
               <div className="flex flex-row">
                 <div className="mr-2 flex h-8 w-8 items-center">
@@ -205,19 +208,29 @@ export default function PersonaInsightsPage({}: {}) {
               personaThoughts.map((thought, i) => (
                 <div key={i} className="flex flex-row p-2">
                   {selectedPersonas.length > 0 ? (
-                    <PersonaAvatarPopover
-                      allowManage={false}
-                      {...{
-                        archetype: thought.persona,
-                        variant: mapUrlBackgroundColorParamToVariant({
-                          url: thought.persona.pictureURL,
-                        }),
-                      }}
-                      size={"sm"}
-                    />
+                    <div className="mt-8">
+                      <PersonaAvatarPopover
+                        allowManage={false}
+                        {...{
+                          archetype: thought.persona,
+                          variant: mapUrlBackgroundColorParamToVariant({
+                            url: thought.persona.pictureURL,
+                          }),
+                        }}
+                        size={"sm"}
+                      />
+                    </div>
                   ) : null}
-                  <div className="flex items-center whitespace-pre-wrap rounded-lg bg-gray-200 p-2 px-4 text-sm">
-                    {thought.thought}
+                  <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
+                    <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
+                      <CursorArrowRaysIcon className="h-5" /> Clicks to see more
+                    </div>
+                    <div className="rounded-lg bg-gray-200 p-2">
+                      {thought.thought}
+                    </div>
+                    <div className="mb-4 mt-2 text-xs font-bold text-green-500">
+                      -&gt; {thought.persona.archetype_name} {thought.action}
+                    </div>
                   </div>
                 </div>
               ))
