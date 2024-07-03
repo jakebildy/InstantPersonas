@@ -16,6 +16,19 @@ async function pageFunction(context: any) {
   };
 }
 
+function extractTitleAndDescription(htmlString: string): { title: string | null, description: string | null } {
+  // Regular expression to match the <title> tag
+  const titleMatch = htmlString.match(/<title>(.*?)<\/title>/i);
+  const title = titleMatch ? titleMatch[1] : null;
+
+  // Regular expression to match the <meta name="description" content="..."> tag
+  const descriptionMatch = htmlString.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']\s*\/?>/i);
+  const description = descriptionMatch ? descriptionMatch[1] : null;
+
+  return { title, description };
+}
+
+
 export async function POST(req: Request) {
   if (req.body) {
     // Parse the JSON body of the request
@@ -67,14 +80,39 @@ export async function POST(req: Request) {
     const run = await apify.actor("YrQuEkowkNCLdk4j2").call(input);
     
     // Fetch and print Actor results from the run's dataset (if any)
-    console.log('Results from dataset');
+   
     const { items } = await apify.dataset(run.defaultDatasetId).listItems();
 
     const text = htmlToText(items[0].body, {
           wordwrap: 130
       });
 
-      const personas = body.personas;
+    const { title, description } = extractTitleAndDescription(items[0].body);
+    const personas = body.personas;
+
+    // Step 1: Check if Personas are Interested in the Content
+    const interestedPrompt =
+    "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of if the personas would be interested in clicking on this (YES or NO). Example response: `Joe:NO•Sarah:YES`.  \n title:" +
+    title +
+    "\n\ndescription: " + description + 
+    " \n\nThe provided personas: " +
+    personas;
+    const personasInterested = await GPT4(interestedPrompt);
+    console.log ("personasInterested: " + personasInterested.text.trim());
+
+
+
+
+      const searchIntentMessage =
+        "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of what the personas search intent would be if clicking on this (what pain point do they have, assume they don't have any knowledge of the site beforehand, keep it brief). Example response: `Joe:Looking for gift ideas•Sarah:Looking for a better deal`.  \n title:" +
+        title +
+        "\n\ndescription: " + description + 
+        " \n\nThe provided personas: " +
+        personas;
+
+     
+      const chatResponseSearchIntent = await GPT4(searchIntentMessage);
+      console.log ("chatResponseSearchIntent: " + chatResponseSearchIntent.text.trim());
 
       const systemMessage =
         "Based on this website and these personas, return a list of strings separated by • of what the personas would be thinking when reading this blog post + their next action. First try to think of objections they might have, if they've all been handled then think of what they are excited about. Only one sentence per persona (ex. If provided with two personas, return two sentences total). Make them specific to the persona. Also add an emoji conveying their mood from these (😡🙁🫤😐🙂😃). Lastly add their next action. Example response: `Joe:🫤How would this help me achieve my goals?|clicks away•Sarah:🙂Could I do this at home?|goes to Landing Page`.  \n website:" +
@@ -82,13 +120,17 @@ export async function POST(req: Request) {
         " \n\npersonas: " +
         personas;
 
-      console.log("🚀 system message! ", systemMessage);
-      const chatResponse = await GPT4(systemMessage);
 
-      console.log("response: " + chatResponse.text.trim());
+      const thoughtsAndActions = await GPT4(systemMessage);
+
+      console.log("response: " + thoughtsAndActions.text.trim());
+
 
       return NextResponse.json({
-        response: chatResponse.text.trim(),
+        response: {
+          personasInterested: personasInterested.text.trim(),
+          searchIntents: chatResponseSearchIntent.text.trim(),
+          thoughtsAndActions: thoughtsAndActions.text.trim()},
       });
     }
   }

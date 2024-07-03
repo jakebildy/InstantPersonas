@@ -53,7 +53,13 @@ export default function PersonaInsightsPage({}: {}) {
   }, [selectedPersonas, detailsInput, isSubscribed]);
 
   const [personaThoughts, setPersonaThoughts] = useState<
-    { thought: string; action: string; persona: PersonaBusinessArchetype }[]
+    {
+      personaInterested: string;
+      searchIntent: string;
+      thought: string;
+      action: string;
+      persona: PersonaBusinessArchetype;
+    }[]
   >([]);
 
   return (
@@ -105,7 +111,8 @@ export default function PersonaInsightsPage({}: {}) {
                         )
                         .then((response) => {
                           // thoughts are returned like this: PersonaName:Thought•PersonaName2:Thought
-                          const thoughts = response.response.split("•");
+                          const thoughts =
+                            response.response.thoughtsAndActions.split("•");
                           const personaThoughts = thoughts.map(
                             (thought: string) => {
                               const [personaName, thoughtText] =
@@ -114,7 +121,29 @@ export default function PersonaInsightsPage({}: {}) {
                                 (persona) =>
                                   persona.archetype_name === personaName,
                               );
+                              const searchIntent =
+                                response.response.searchIntents
+                                  .split("•")
+                                  .find(
+                                    (intent: string) =>
+                                      intent.split(":")[0].trimStart() ===
+                                      personaName,
+                                  )
+                                  ?.split(":")[1] ?? "";
+
+                              const personaInterested =
+                                response.response.personasInterested
+                                  .split("•")
+                                  .find(
+                                    (intent: string) =>
+                                      intent.split(":")[0].trimStart() ===
+                                      personaName,
+                                  )
+                                  ?.split(":")[1] ?? "NO";
+
                               return {
+                                personaInterested: personaInterested,
+                                searchIntent: searchIntent,
                                 thought: thoughtText.split("|")[0],
                                 action: thoughtText.split("|")[1],
                                 persona: persona!,
@@ -208,7 +237,11 @@ export default function PersonaInsightsPage({}: {}) {
               personaThoughts.map((thought, i) => (
                 <div key={i} className="flex flex-row p-2">
                   {selectedPersonas.length > 0 ? (
-                    <div className="mt-8">
+                    <div
+                      className={
+                        thought.personaInterested === "NO" ? "" : "mt-8"
+                      }
+                    >
                       <PersonaAvatarPopover
                         allowManage={false}
                         {...{
@@ -221,17 +254,25 @@ export default function PersonaInsightsPage({}: {}) {
                       />
                     </div>
                   ) : null}
-                  <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
-                    <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
-                      <CursorArrowRaysIcon className="h-5" /> Clicks to see more
+                  {thought.personaInterested === "NO" ? (
+                    <div className="mt-5 text-xs font-bold text-red-500">
+                      🚫 {thought.persona.archetype_name} is not interested in
+                      this
                     </div>
-                    <div className="rounded-lg bg-gray-200 p-2">
-                      {thought.thought}
+                  ) : (
+                    <div className="flex flex-col items-center whitespace-pre-wrap px-2 text-sm">
+                      <div className="mb-2 flex flex-row text-xs font-bold text-gray-500">
+                        <CursorArrowRaysIcon className="h-5" />{" "}
+                        {thought.searchIntent}
+                      </div>
+                      <div className="rounded-lg bg-gray-200 p-2">
+                        {thought.thought}
+                      </div>
+                      <div className="mb-4 mt-2 text-xs font-bold text-green-500">
+                        -&gt; {thought.persona.archetype_name} {thought.action}
+                      </div>
                     </div>
-                    <div className="mb-4 mt-2 text-xs font-bold text-green-500">
-                      -&gt; {thought.persona.archetype_name} {thought.action}
-                    </div>
-                  </div>
+                  )}
                 </div>
               ))
             )}
