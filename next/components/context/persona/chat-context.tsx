@@ -31,6 +31,7 @@ import { AssistantMessage } from "@/components/page-specific/generative-ui/messa
 import { stringIsMongoID } from "@/app/(server)/api/(persona-crud)/fix-persona-chat/validate-mongo-id";
 import { usePersistedIDManager } from "./hooks/usePersistedIDManager";
 import { PathHistory, usePathHistory } from "./hooks/usePathHistory";
+import usePersonaChatSubmit from "./hooks/usePersonaChatSubmit";
 
 export const maxDuration = 300;
 
@@ -78,16 +79,16 @@ export const PersonaChatProvider = ({
   const [messages, setMessages] = useUIState<typeof AI>();
   const [personas, setPersonas] = useState<PersonaArchetype[]>([]);
   const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
-  const { submitPersonaChatUserMessage } = useActions<typeof AI>();
+  const { handleSubmit } = usePersonaChatSubmit({
+    chatId,
+    setSuggestedMessages,
+  });
 
   const router = useRouter();
   const [shareLink, setShareLink] = useState<string | null>(null);
 
   //? State for `client-sidebar-layout` (PersonaChat) Tabs Persisting
   const [activeTab, setActiveTab] = useState<PersonaChatTabs>("personaChat");
-
-  //? State for User Auth
-  const { isSubscribed, user } = useInstantPersonasUser();
 
   //? Handles chat related state dependant on chatId (ie, fetching chat aiState)
   useEffect(() => {
@@ -153,98 +154,6 @@ export const PersonaChatProvider = ({
     router.replace("/persona");
     setAiState(PERSONA_CHAT_INITIAL_AI_STATE);
     setMessages([]);
-  };
-
-  const handleSubmit = async (message?: string | null) => {
-    if (!isSubscribed && !IS_TEST_DEV_ENV) {
-      setMessages((currentMessages: ClientMessage[]) => [
-        ...currentMessages,
-        {
-          id: nanoid(),
-          role: "assistant",
-          display: (
-            <SystemErrorMessage
-              message={
-                <div className="flex w-full flex-col gap-2">
-                  <span>
-                    Oops! It seems you haven&apos;t subscribed yet. To continue,
-                    please explore our subscription plans.
-                  </span>
-                  <Button variant={"outline"} size={"sm"} asChild>
-                    <Link href="/subscription">View Subscription Plans</Link>
-                  </Button>
-                </div>
-              }
-            />
-          ),
-        },
-      ]);
-    } else if (!message || message === null || message === "") {
-      setMessages((currentMessages: ClientMessage[]) => [
-        ...currentMessages,
-        {
-          id: nanoid(),
-          role: "assistant",
-          display: (
-            <AssistantMessage
-              message={
-                "It appears your message was submitted without content. Please type your message and submit again."
-              }
-            />
-          ),
-        },
-      ]);
-    } else {
-      const inputtedMessage = message;
-      // Add user message to UI state
-      setMessages((currentMessages: ClientMessage[]) => [
-        ...currentMessages,
-        {
-          id: nanoid(),
-          role: "user",
-          display: <UserMessage message={inputtedMessage} />,
-        },
-      ]);
-
-      // Clear suggested messages
-      setSuggestedMessages([]);
-
-      // Submit and get response message
-      if (user) {
-        const responseMessage = (await submitPersonaChatUserMessage(
-          inputtedMessage,
-          user.id,
-          chatId,
-        )) as ClientMessage;
-        setMessages((currentMessages: ClientMessage[]) => [
-          ...currentMessages,
-          responseMessage,
-        ]);
-      } else {
-        setMessages((currentMessages: ClientMessage[]) => [
-          ...currentMessages,
-          {
-            id: nanoid(),
-            role: "assistant",
-            display: (
-              <SystemErrorMessage
-                message={
-                  <div className="flex w-full flex-col gap-2">
-                    <span>
-                      Looks like your session is no longer valid, please log in
-                      again!
-                    </span>
-                    <Button variant={"outline"} size={"sm"} asChild>
-                      <Link href="/login">Log in</Link>
-                    </Button>
-                  </div>
-                }
-              />
-            ),
-          },
-        ]);
-      }
-    }
   };
 
   return (
