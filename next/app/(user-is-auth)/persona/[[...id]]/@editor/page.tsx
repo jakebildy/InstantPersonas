@@ -12,8 +12,8 @@ import { EditorFallbackErrorState } from "@/components/page-specific/persona-edi
 
 export default function EditorPage() {
   const {
-    selectedPersonaInEditor,
-    setSelectedPersonaInEditor,
+    selectedPersonaIDInEditor,
+    setSelectedPersonaIDInEditor,
     selectedPersonaInEditorIsDirty,
     unsavedPersonas,
     resetEditorState,
@@ -33,8 +33,8 @@ export default function EditorPage() {
       <div className="flex h-full flex-1 flex-col justify-center font-jost">
         <div className="relative m-2 box-border flex h-[calc(100%-70px)] min-h-[400px] w-[calc(100%-16px)] flex-1 flex-col gap-4 overflow-auto rounded-lg border bg-background p-2">
           <EditorPersonaHeader
-            selected={selectedPersonaInEditor ?? ""}
-            setSelected={setSelectedPersonaInEditor}
+            selected={selectedPersonaIDInEditor ?? ""}
+            setSelected={setSelectedPersonaIDInEditor}
             hasFirstChange={selectedPersonaInEditorIsDirty}
             personasWithChanges={unsavedPersonas}
           />
@@ -43,13 +43,13 @@ export default function EditorPage() {
             ref={scrollAreaBoundsRef}
             id="scroll-area-bounds"
           >
-            {selectedPersonaInEditor ? (
+            {selectedPersonaIDInEditor ? (
               <ScrollArea
                 className="h-full w-full flex-1 rounded-xl"
                 ref={scrollRef}
               >
                 <PersonaEditor
-                  key={selectedPersonaInEditor}
+                  key={selectedPersonaIDInEditor}
                   className="overflow-y-auto"
                   style={{ height: scrollAreaBounds.height }}
                 />

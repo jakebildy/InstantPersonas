@@ -9,6 +9,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -31,8 +32,8 @@ export type PersonaEditorChangesObject = {
 };
 
 type PersonaEditorContextType = {
-  selectedPersonaInEditor: string | null;
-  setSelectedPersonaInEditor: Dispatch<SetStateAction<string | null>>;
+  selectedPersonaIDInEditor: string | null;
+  setSelectedPersonaIDInEditor: Dispatch<SetStateAction<string | null>>;
   selectedPersonaInEditorIsDirty: boolean;
   setSelectedPersonaInEditorIsDirty: Dispatch<SetStateAction<boolean>>;
   personaEditorChanges: PersonaEditorChangesObject;
@@ -62,7 +63,7 @@ interface PersonaEditorProviderProps {
 export const PersonaEditorProvider = ({
   children,
 }: PersonaEditorProviderProps) => {
-  const [selectedPersonaInEditor, setSelectedPersonaInEditor] = useState<
+  const [selectedPersonaIDInEditor, setSelectedPersonaIDInEditor] = useState<
     string | null
   >(null);
   const [selectedPersonaInEditorIsDirty, setSelectedPersonaInEditorIsDirty] =
@@ -78,22 +79,37 @@ export const PersonaEditorProvider = ({
   const [messages, setMessages] = useUIState<typeof AI>();
   const { personas, chatId } = usePersonaChat();
 
+  /**
+   * Creates a mapping of personas by their archetype name.
+   * @param personas - Array of persona objects
+   * @returns A mapping of personas keyed by archetype name
+   */
+  const createPersonaMapping = useCallback((personas: PersonaArchetype[]) => {
+    return personas.reduce(
+      (acc, persona) => ({
+        ...acc,
+        [persona.id]: persona,
+      }),
+      {},
+    );
+  }, []);
+
   //? Handles unsaved personas
   useEffect(() => {
     if (chatId && personas && personaEditorChanges[chatId]) {
       console.log("personaEditorChanges", personaEditorChanges[chatId], chatId);
       const unsavedPersonas = Object.entries(personaEditorChanges[chatId])
-        .map(([personaName, persona]) => {
+        .map(([id, persona]) => {
           const isUnsaved = !isEqual(
             persona,
-            personas.find((p) => p.archetype_name === personaName),
+            personas.find((p) => p.id === id),
           );
-          console.log(`persona ${personaName} unsaved:`, isUnsaved, " - ", {
+          console.log(`persona ${id} unsaved:`, isUnsaved, " - ", {
             origin: persona,
-            modified: personas.find((p) => p.archetype_name === personaName),
+            modified: personas.find((p) => p.id === id),
           });
 
-          return isUnsaved ? personaName : null;
+          return isUnsaved ? id : null;
         })
         .filter((n) => n) as string[];
 
@@ -108,14 +124,14 @@ export const PersonaEditorProvider = ({
       ? console.log("DEV: P-EDIT1: resetting editor", chatId)
       : null;
 
-    setSelectedPersonaInEditor(null);
+    setSelectedPersonaIDInEditor(null);
     setSelectedPersonaInEditorIsDirty(false);
     if (chatId) {
       setPersonaEditorChanges({
         [chatId]: personas.reduce(
           (acc, persona) => ({
             ...acc,
-            [persona.archetype_name]: persona,
+            [persona.id]: persona,
           }),
           {},
         ),
@@ -141,12 +157,13 @@ export const PersonaEditorProvider = ({
   //? Handles isDirty flag state for selectedPersonaInEditor state change
   useEffect(() => {
     if (
-      (selectedPersonaInEditor !== "" || selectedPersonaInEditor !== null) &&
+      (selectedPersonaIDInEditor !== "" ||
+        selectedPersonaIDInEditor !== null) &&
       !selectedPersonaInEditorIsDirty
     ) {
       setSelectedPersonaInEditorIsDirty(true);
     }
-  }, [selectedPersonaInEditor, selectedPersonaInEditorIsDirty]);
+  }, [selectedPersonaIDInEditor, selectedPersonaInEditorIsDirty]);
 
   const test = {
     archetype_name: "The Agile Marketer",
@@ -185,115 +202,98 @@ export const PersonaEditorProvider = ({
    * @param {string} params.field - The field to update (dot-separated for nested fields).
    * @param {string | number} params.value - The value to set.
    */
-  const editPersonaInEditor = ({
-    field,
-    value,
-  }: {
-    field: string;
-    value: string | number;
-  }) => {
-    if (chatId && selectedPersonaInEditor) {
-      console.log("Editing persona in editor", field, value);
-      setPersonaEditorChanges((prev) => {
-        const currentPersona = prev[chatId][selectedPersonaInEditor];
-        console.log("currentPersona", currentPersona);
-        // const newPersona = setNestedField(currentPersona, field, value);
-        const newPersona = set({ ...currentPersona }, field, value);
-        console.log("newPersona", newPersona);
-        const changes = {
-          ...prev,
-          [chatId]: {
-            ...prev[chatId],
-            [selectedPersonaInEditor]: newPersona,
-          },
-        } as PersonaEditorChangesObject;
-        console.log("changes", changes);
-
-        return changes;
-      });
-    }
-  };
-
-  const savePersona = async (personaName: string) => {
-    if (chatId && personaEditorChanges[chatId]) {
-      const persona = personaEditorChanges[chatId][personaName];
-      const personasWithChangedPersona = personas.map((p) =>
-        p.archetype_name === personaName ? persona : p,
-      );
-      const serializedPersonas = JSON.stringify(personasWithChangedPersona);
-
-      const { aiState: newAIState, uiState: newUIState } = getSynchronizeStates(
-        {
-          aiState,
-          serializedPersonas,
-        },
-      );
-
-      const update = async (state: {}) => {
-        const updatedState = await api.userPersona.updatePersonaChat(
-          state,
-          chatId,
-        );
-
-        if (!updatedState) {
-          console.error(
-            "error in updating persona to chat state in `savePersona`",
-            updatedState,
-          );
-          return;
-        } else {
-          setPersonaEditorChanges((prev) => {
-            const newState = { ...prev };
-
-            // Add or update the persona for the given chatId
-            newState[chatId] = {
+  const editPersonaInEditor = useCallback(
+    ({ field, value }: { field: string; value: string | number }) => {
+      if (chatId && selectedPersonaIDInEditor) {
+        console.log("Editing persona in editor", field, value);
+        setPersonaEditorChanges((prev) => {
+          const currentPersona = prev[chatId][selectedPersonaIDInEditor];
+          console.log("currentPersona", currentPersona);
+          // const newPersona = setNestedField(currentPersona, field, value);
+          const newPersona = set({ ...currentPersona }, field, value);
+          console.log("newPersona", newPersona);
+          const changes = {
+            ...prev,
+            [chatId]: {
               ...prev[chatId],
-              [persona.archetype_name]: persona,
-            };
+              [selectedPersonaIDInEditor]: newPersona,
+            },
+          } as PersonaEditorChangesObject;
+          console.log("changes", changes);
 
-            // Delete the old persona name key if it exists
-            if (prev[chatId][personaName]) {
-              delete newState[chatId][personaName];
-            }
+          return changes;
+        });
+      }
+    },
+    [chatId, selectedPersonaIDInEditor],
+  );
 
-            return newState;
+  const savePersona = useCallback(
+    async (personaID: string) => {
+      if (chatId && personaEditorChanges[chatId]) {
+        const persona = personaEditorChanges[chatId][personaID];
+        const personasWithChangedPersona = personas.map((p) =>
+          p.id === personaID ? persona : p,
+        );
+        const serializedPersonas = JSON.stringify(personasWithChangedPersona);
+
+        const { aiState: newAIState, uiState: newUIState } =
+          getSynchronizeStates({
+            aiState,
+            serializedPersonas,
           });
-          if (selectedPersonaInEditor === personaName) {
-            setSelectedPersonaInEditor(persona.archetype_name);
+
+        const update = async (state: {}) => {
+          const updatedState = await api.userPersona.updatePersonaChat(
+            state,
+            chatId,
+          );
+
+          if (!updatedState) {
+            console.error(
+              "error in updating persona to chat state in `savePersona`",
+              updatedState,
+            );
+            return;
+          } else {
+            setPersonaEditorChanges((prev) => ({
+              ...prev,
+              [chatId]: {
+                ...prev[chatId],
+                [persona.id]: persona,
+              },
+            }));
+            if (selectedPersonaIDInEditor === persona.archetype_name) {
+              setSelectedPersonaIDInEditor(persona.archetype_name);
+            }
           }
-        }
-      };
+        };
 
-      update(newAIState);
-      setAiState(newAIState as ValueOrUpdater<AIState>);
-      setMessages(newUIState as ClientMessage[]);
-    }
-  };
+        update(newAIState);
+        setAiState(newAIState as ValueOrUpdater<AIState>);
+        setMessages(newUIState as ClientMessage[]);
+      }
+    },
+    [
+      aiState,
+      chatId,
+      personaEditorChanges,
+      personas,
+      selectedPersonaIDInEditor,
+      setAiState,
+      setMessages,
+    ],
+  );
 
-  const saveAllPersonas = async () => {
+  const saveAllPersonas = useCallback(async () => {
     if (chatId && personaEditorChanges[chatId]) {
-      // Map through the personas to reflect the changes from personaEditorChanges
-      const personasWithChangedNames = personas.map((p) => {
-        const editedPersona = personaEditorChanges[chatId][p.archetype_name];
-        return editedPersona ? editedPersona : p;
-      });
-
-      // Include any new personas from personaEditorChanges that do not exist in the original personas
-      Object.values(personaEditorChanges[chatId]).forEach((p) => {
-        if (
-          !personasWithChangedNames.some(
-            (persona) => persona.archetype_name === p.archetype_name,
-          )
-        ) {
-          personasWithChangedNames.push(p);
-        }
-      });
-
       const indexOfCurrentlySelectedPersona = personas.findIndex(
-        (p) => p.archetype_name === selectedPersonaInEditor,
+        (p) => p.archetype_name === selectedPersonaIDInEditor,
       );
 
-      const serializedPersonas = JSON.stringify(personasWithChangedNames);
+      const serializedPersonas = JSON.stringify(
+        Object.values(personaEditorChanges[chatId]),
+      );
 
       const { aiState: newAIState, uiState: newUIState } = getSynchronizeStates(
         {
@@ -315,31 +315,16 @@ export const PersonaEditorProvider = ({
           );
           return;
         } else {
-          setPersonaEditorChanges((prev) => {
-            const newState = { ...prev };
-
-            // Define the type for the accumulator object in reduce
-            type PersonaMap = {
-              [key: string]: (typeof updatedState.aiState.personas)[0];
-            };
-
-            // Replace the chatId personas state with the new one
-            newState[chatId] = updatedState.aiState.personas.reduce<PersonaMap>(
-              (acc, persona) => {
-                acc[persona.archetype_name] = persona;
-                return acc;
-              },
-              {} as PersonaMap,
-            );
-
-            return newState;
-          });
+          setPersonaEditorChanges((prev) => ({
+            ...prev,
+            [chatId]: createPersonaMapping(updatedState.aiState.personas),
+          }));
 
           // Safely set the selected persona in editor
           const selectedPersona =
             updatedState.aiState.personas[indexOfCurrentlySelectedPersona];
 
-          setSelectedPersonaInEditor(selectedPersona?.archetype_name ?? null);
+          setSelectedPersonaIDInEditor(selectedPersona?.archetype_name ?? null);
         }
       };
 
@@ -347,73 +332,82 @@ export const PersonaEditorProvider = ({
       setAiState(newAIState as ValueOrUpdater<AIState>);
       setMessages(newUIState as ClientMessage[]);
     }
-  };
+  }, [
+    aiState,
+    chatId,
+    createPersonaMapping,
+    personaEditorChanges,
+    personas,
+    selectedPersonaIDInEditor,
+    setAiState,
+    setMessages,
+  ]);
 
   /**
    * Reverts the changes for a given persona name under the specified chatId.
    *
    * @param {string} personaName - The name of the persona to revert changes for.
    */
-  const revertPersonaChanges = (personaName: string) => {
-    if (chatId && personaEditorChanges[chatId]) {
-      setPersonaEditorChanges((prev) => {
-        // Clone the previous state to avoid direct mutations
-        const newState = { ...prev };
+  const revertPersonaChanges = useCallback(
+    (personaID: string) => {
+      if (chatId && personaEditorChanges[chatId]) {
+        setPersonaEditorChanges((prev) => {
+          // Clone the previous state to avoid direct mutations
+          const newState = { ...prev };
 
-        // Retrieve the correct persona from the personas array
-        const originalPersona = personas.find(
-          (p) => p.archetype_name === personaName,
-        );
+          // Retrieve the correct persona from the personas array
+          const originalPersona = personas.find((p) => p.id === personaID);
 
-        // Ensure the chatId exists in the new state and update the persona
-        if (originalPersona) {
-          const personaNames = personas.flatMap((p) => p.archetype_name);
+          // Ensure the chatId exists in the new state and update the persona
+          if (originalPersona) {
+            const validPersonaIds = personas.flatMap((p) => p.id);
 
-          newState[chatId] = {
-            ...prev[chatId],
-            [personaName]: originalPersona,
-          };
+            newState[chatId] = {
+              ...prev[chatId],
+              [personaID]: originalPersona,
+            };
 
-          Object.keys(prev[chatId]).forEach((key) => {
-            if (!personaNames.includes(key)) {
-              delete newState[chatId][key];
-            }
-          });
-        }
+            //? Remove any personas that are not in the original state
+            Object.keys(prev[chatId]).forEach((id) => {
+              if (!validPersonaIds.includes(id)) {
+                delete newState[chatId][id];
+              }
+            });
+          }
 
-        return newState;
-      });
-    }
-  };
-
-  const resetEditorState = () => {
-    console.log("Resetting editor state");
-    setSelectedPersonaInEditor(null);
-    setSelectedPersonaInEditorIsDirty(false);
-    setPersonaEditorChanges((prev) => {
-      const newState = { ...prev };
-      if (chatId) {
-        setPersonaEditorChanges({
-          ...prev,
-          [chatId]: personas.reduce(
-            (acc, persona) => ({
-              ...acc,
-              [persona.archetype_name]: persona,
-            }),
-            {},
-          ),
+          return newState;
         });
-        test_setPersonaEditorChanges(personas);
       }
-      return newState;
+    },
+    [chatId, personaEditorChanges, personas],
+  );
+
+  /**
+   * Resets the editor state by clearing selected persona and setting initial states.
+   */
+  const resetEditorState = useCallback(() => {
+    console.log("Resetting editor state");
+    setSelectedPersonaIDInEditor(null);
+    setSelectedPersonaInEditorIsDirty(false);
+
+    setPersonaEditorChanges((prev) => {
+      if (chatId) {
+        const updatedPersonas = createPersonaMapping(personas);
+        test_setPersonaEditorChanges(personas);
+        return {
+          ...prev,
+          [chatId]: updatedPersonas,
+        };
+      }
+      return { ...prev };
     });
-  };
+  }, [chatId, createPersonaMapping, personas]);
 
   return (
     <PersonaEditorContext.Provider
       value={{
-        selectedPersonaInEditor,
-        setSelectedPersonaInEditor,
+        selectedPersonaIDInEditor,
+        setSelectedPersonaIDInEditor,
         selectedPersonaInEditorIsDirty,
         setSelectedPersonaInEditorIsDirty,
         personaEditorChanges,

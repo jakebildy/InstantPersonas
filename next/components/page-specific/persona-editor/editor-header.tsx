@@ -44,7 +44,7 @@ export function EditorPersonaHeader({
                 key={i + persona.archetype_name}
                 persona={persona}
                 index={i}
-                isSelected={selected === persona.archetype_name}
+                isSelected={selected === persona.id}
                 personasWithChanges={personasWithChanges}
                 setSelected={setSelected}
               />
@@ -136,7 +136,7 @@ function PersonaBadgeWrapper({
             ? "border-green-400"
             : Border600({ variant, className: "border-transparent" }),
         )}
-        onClick={() => setSelected(isSelected ? "" : persona.archetype_name)}
+        onClick={() => setSelected(isSelected ? "" : persona.id)}
         tabIndex={0}
         role="radio"
       />

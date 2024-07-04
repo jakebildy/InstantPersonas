@@ -49,10 +49,10 @@ export function PersonaEditor({ ...Props }: props) {
 }
 
 function ArchetypeEditorToolbar() {
-  const { selectedPersonaInEditor, unsavedPersonas, revertPersonaChanges } =
+  const { selectedPersonaIDInEditor, unsavedPersonas, revertPersonaChanges } =
     usePersonaEditor();
 
-  if (!selectedPersonaInEditor || unsavedPersonas.length === 0)
+  if (!selectedPersonaIDInEditor || unsavedPersonas.length === 0)
     return <div className="flex min-h-12 justify-between py-2" />;
 
   return (
@@ -68,7 +68,7 @@ function ArchetypeEditorToolbar() {
           className={
             "group h-fit w-fit rounded-full p-0.5 shadow-md hover:scale-100"
           }
-          onClick={() => revertPersonaChanges(selectedPersonaInEditor)}
+          onClick={() => revertPersonaChanges(selectedPersonaIDInEditor)}
         >
           <span
             className={cx(

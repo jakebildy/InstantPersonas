@@ -22,10 +22,10 @@ export type EditorState = EditorStateValid | EditorStateInvalid;
 
 export function useEditorState() {
   const { personas, chatId } = usePersonaChat();
-  const { personaEditorChanges, selectedPersonaInEditor, resetEditorState } =
+  const { personaEditorChanges, selectedPersonaIDInEditor, resetEditorState } =
     usePersonaEditor();
 
-  if (!chatId || !selectedPersonaInEditor) {
+  if (!chatId || !selectedPersonaIDInEditor) {
     return {
       fallbackReason: "Waiting for Selected Persona",
       archetype: null,
@@ -38,7 +38,7 @@ export function useEditorState() {
 
   try {
     changedArchetype =
-      personaEditorChanges?.[chatId]?.[selectedPersonaInEditor];
+      personaEditorChanges?.[chatId]?.[selectedPersonaIDInEditor];
     if (changedArchetype === undefined || changedArchetype === null) {
       resetEditorState();
     }
@@ -56,11 +56,11 @@ export function useEditorState() {
   }
 
   const archetype = personas.find(
-    (persona) => persona.archetype_name === selectedPersonaInEditor,
+    (persona) => persona.id === selectedPersonaIDInEditor,
   );
   if (!archetype) {
     return {
-      fallbackReason: `Waiting For Archetype ${selectedPersonaInEditor}`,
+      fallbackReason: `Waiting For Archetype`,
       archetype: null,
       changedArchetype: null,
       editorChanges: null,

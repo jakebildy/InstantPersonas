@@ -112,7 +112,7 @@ function SavePersonaCard({
         </span>
         <SaveButton
           variant={variant}
-          onClick={() => savePersona(archetype.archetype_name)}
+          onClick={() => savePersona(archetype.id)}
         />
       </div>
     </div>
