@@ -99,14 +99,14 @@ export const PersonaEditorProvider = ({
     if (chatId && personas && personaEditorChanges[chatId]) {
       console.log("personaEditorChanges", personaEditorChanges[chatId], chatId);
       const unsavedPersonas = Object.entries(personaEditorChanges[chatId])
-        .map(([id, persona]) => {
+        .map(([id, personaInEditor]) => {
           const isUnsaved = !isEqual(
-            persona,
+            personaInEditor,
             personas.find((p) => p.id === id),
           );
           console.log(`persona ${id} unsaved:`, isUnsaved, " - ", {
-            origin: persona,
-            modified: personas.find((p) => p.id === id),
+            origin: personas.find((p) => p.id === id),
+            modified: personaInEditor,
           });
 
           return isUnsaved ? id : null;
