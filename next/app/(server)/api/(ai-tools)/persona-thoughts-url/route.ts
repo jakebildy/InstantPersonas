@@ -92,7 +92,7 @@ export async function POST(req: Request) {
 
     // Step 1: Check if Personas are Interested in the Content
     const interestedPrompt =
-    "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of if the personas would be interested in clicking on this (YES or the reason not). Example response: `Joe:doesn't solve my problem•Sarah:YES`.  \n title:" +
+    "Based on this Google search result title and description and the provided personas, return a list of strings separated by • of if the personas would be interested in clicking on this (`YES` or the reason not, one of those responses exactly). Example response: `Joe:doesn't solve my problem•Sarah:YES`.  \n title:" +
     title +
     "\n\ndescription: " + description + 
     " \n\nThe provided personas: " +
