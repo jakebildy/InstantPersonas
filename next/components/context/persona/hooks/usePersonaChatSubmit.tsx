@@ -18,21 +18,21 @@ interface UsePersonaChatSubmitProps {
   setSuggestedMessages: (messages: any[]) => void;
 }
 
-// Function to create a system error message
+//? Function to create a system error message
 const createSystemErrorMessage = (message: JSX.Element): ClientMessage => ({
   id: nanoid(),
   role: "assistant",
   display: <SystemErrorMessage message={message} />,
 });
 
-// Function to create an assistant message
+//? Function to create an assistant message
 const createAssistantMessage = (message: string): ClientMessage => ({
   id: nanoid(),
   role: "assistant",
   display: <AssistantMessage message={message} />,
 });
 
-// Function to create a user message
+//? Function to create a user message
 const createUserMessage = (message: string): ClientMessage => ({
   id: nanoid(),
   role: "user",
@@ -89,7 +89,7 @@ const usePersonaChatSubmit = ({
     [],
   );
 
-  // Function to handle valid user message
+  //? Function to handle valid user message
   const handleValidMessage = useCallback(
     async (
       message: string,
@@ -138,6 +138,7 @@ const usePersonaChatSubmit = ({
     [],
   );
 
+  //? Main submit function to Persona Chat AI
   const handleSubmit = useCallback(
     async (message?: string | null) => {
       const messageIsUndefined = !message || message === null || message === "";
