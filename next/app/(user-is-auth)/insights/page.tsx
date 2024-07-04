@@ -75,7 +75,7 @@ export default function PersonaInsightsPage({}: {}) {
         {isSubscribed ? (
           <PersonaSelectFromHistorySidebar className="absolute right-4 top-4 z-[50]" />
         ) : null}
-        <div className="absolute right-1 top-36 mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost">
+        <div className="absolute right-1 top-[8.5rem] mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost md:right-20 lg:right-1">
           <div className="w-1/2 rounded-md border border-gray-300 bg-white shadow-md">
             <span className="flex flex-row">
               <IconSearch className="ml-2 mt-2 text-gray-400" />
@@ -107,7 +107,11 @@ export default function PersonaInsightsPage({}: {}) {
               <div className="p-2">
                 <button
                   onClick={() => {
-                    if (isValidWebsite && selectedPersonas.length >= 0) {
+                    if (
+                      isValidWebsite &&
+                      selectedPersonas.length >= 0 &&
+                      !isAnalyzing
+                    ) {
                       setIsAnalyzing(true);
                       api.tools
                         //TODO: this should also scrape the site (using Apify most likely). also move to separate function
