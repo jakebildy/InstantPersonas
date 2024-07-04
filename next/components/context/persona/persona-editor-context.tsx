@@ -165,35 +165,6 @@ export const PersonaEditorProvider = ({
     }
   }, [selectedPersonaIDInEditor, selectedPersonaInEditorIsDirty]);
 
-  const test = {
-    archetype_name: "The Agile Marketer",
-    pictureURL:
-      "https://api.dicebear.com/8.x/notionists/svg?glassesProbability=100&glasses=variant08&body=variant21&hair=variant13&backgroundColor=d9cbfc",
-    persona_components: {
-      Motivations: "TEST",
-      Painpoints:
-        "Frustrated by the slow pace of traditional market research and persona development.",
-      Preferences_and_Needs:
-        "Needs swift, reliable, and easily interpretable persona insights that integrate seamlessly with existing marketing tools.",
-      End_Goal:
-        "To implement dynamic and responsive marketing campaigns that are closely aligned with customer behaviors and trends.",
-      Mindset_and_Perspective:
-        "Values efficiency and agility in marketing operations; believes in data-driven decision making.",
-    },
-    insights: {
-      Enhanced_Interaction_Patterns:
-        "Utilizes interactive dashboards for real-time persona updates and prefers integrating persona insights directly with marketing automation tools.",
-      Strategic_Recommendations:
-        "Enhance API capabilities for seamless integration with popular marketing platforms; introduce real-time data feeds to keep personas updated.",
-    },
-    picture_components: {
-      clothing: "button_up",
-      glasses: "glasses",
-      hair: "short",
-    },
-    id: "rQyvt12J5bpUav53nlX0l",
-  };
-
   /**
    * Updates the persona editor with the specified field and value.
    * Handles nested fields dynamically.

@@ -142,19 +142,6 @@ function ArchetypeEditor({
       )}
       {...Props}
     >
-      {IS_TEST_DEV_ENV && (
-        <Button
-          onClick={() =>
-            editPersonaInEditor({
-              field: "persona_components." + "Motivations",
-              value: "test",
-            })
-          }
-        >
-          test
-        </Button>
-      )}
-
       <PersonStandingIcon className="absolute right-0 top-0 m-6 text-muted-foreground" />
       {/* Avatar + Archetype Name Editor */}
       <div className="flex gap-2 border-b bg-white/75 backdrop-blur-md">
