@@ -285,8 +285,7 @@ export default function PersonaInsightsFeatureSection({
               Get insights into their thoughts
             </h3>
             <span className="sm:w-[300px] lg:text-lg">
-              See how any website would be perceived by your personas. You can
-              try it right now - here are personas for a meditation app.
+              See how any website would be perceived by your personas.
             </span>
             <br className="max-md:hidden" />
             <ul className="flex flex-col gap-1 max-md:pt-4 sm:w-[300px] lg:gap-2">
@@ -404,7 +403,10 @@ export default function PersonaInsightsFeatureSection({
                 </div>
               </div>
             </div>
-
+            <img
+              src="https://i.imgur.com/lprrmW7.png"
+              className="absolute bottom-[460px] left-[280px] z-50 h-[200px]"
+            />
             <div className="relative left-[593px] top-[50px] z-40 h-[498px] w-64 scale-90 rounded-sm border-[1px] border-gray-200 bg-white">
               <ScrollArea className="z-50 order-1 h-[490px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                 {/* PersonaThoughts */}
