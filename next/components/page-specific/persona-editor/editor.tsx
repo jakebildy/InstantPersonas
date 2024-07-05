@@ -36,14 +36,14 @@ export function PersonaEditor({ ...Props }: props) {
   return (
     <Dialog>
       <div className="relative flex flex-col">
-        <ArchetypeEditorToolbar />
+        {/* <ArchetypeEditorToolbar /> */}
         <ArchetypeEditor
           archetype={archetype}
           changedArchetype={changedArchetype}
           {...Props}
         />
       </div>
-      <EditorSaveChangesDialogContent archetypeChanges={editorChanges} />
+      {/* <EditorSaveChangesDialogContent archetypeChanges={editorChanges} /> */}
     </Dialog>
   );
 }
