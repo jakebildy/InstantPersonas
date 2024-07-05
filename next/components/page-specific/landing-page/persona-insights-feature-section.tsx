@@ -172,8 +172,34 @@ export default function PersonaInsightsFeatureSection({
           )}
         >
           <div className="relative aspect-[2048/1279] w-full md:w-[90%]">
-            <div className="absolute left-[16%] top-[14%] z-10 flex h-full w-[53%] flex-col items-center rounded-lg border bg-white p-1 shadow-xl">
-              hello
+            <div className="absolute left-[19%] top-[14%] z-20 flex h-full w-[53%] flex-col items-center rounded-lg border bg-white p-1 shadow-xl">
+              <div className="relative z-30 flex w-full flex-row justify-between rounded-md bg-white p-2 hover:bg-green-600 hover:text-white">
+                https://shellevate.app
+                <div className="flex flex-row font-jost">
+                  Get Insights
+                  <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
+                    →
+                  </div>
+                </div>
+              </div>
+              <div className="z-50 flex w-full flex-row justify-between rounded-md bg-white p-2 hover:bg-green-600 hover:text-white">
+                https://calm.com
+                <div className="flex flex-row font-jost">
+                  Get Insights
+                  <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
+                    →
+                  </div>
+                </div>
+              </div>
+              <div className="z-50 flex w-full flex-row justify-between rounded-md bg-white p-2 hover:bg-green-600 hover:text-white">
+                https://headspace.app
+                <div className="flex flex-row font-jost">
+                  Get Insights
+                  <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
+                    →
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="relative left-[593px] top-[50px] z-40 h-[498px] w-64 scale-90 rounded-sm border-[1px] border-gray-200 bg-white">
