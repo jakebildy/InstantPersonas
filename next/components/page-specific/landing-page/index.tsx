@@ -10,6 +10,7 @@ import FeaturesSection from "./features-section";
 import { TestimonialSection } from "./testimonials";
 import ShowcaseHeroSection from "./showcase-hero-section";
 import DocumentFeatureSection from "./document-feature-section";
+import PersonaInsightsFeatureSection from "./persona-insights-feature-section";
 
 const LandingPage = {
   header: Header,
@@ -20,6 +21,7 @@ const LandingPage = {
   productCarousel: ProductCarouselSection,
   features: FeaturesSection,
   documentFeature: DocumentFeatureSection,
+  personaInsightsFeature: PersonaInsightsFeatureSection,
   callToAction: CallToActionSection,
   pricing: PricingSection,
   faqs: FaqSection,

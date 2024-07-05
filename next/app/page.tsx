@@ -77,7 +77,7 @@ export default function Home() {
             )}
           >
             <RadialGradient size={600} className="absolute right-0 top-0" />
-            <LandingPage.documentFeature />
+            <LandingPage.personaInsightsFeature />
 
             <div className="relative flex flex-col items-center">
               <LandingPage.testimonials />
