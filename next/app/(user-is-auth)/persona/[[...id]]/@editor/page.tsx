@@ -15,7 +15,6 @@ export default function EditorPage() {
     selectedPersonaIDInEditor,
     setSelectedPersonaIDInEditor,
     selectedPersonaInEditorIsDirty,
-    unsavedPersonas,
     resetEditorState,
   } = usePersonaEditor();
 
@@ -36,7 +35,7 @@ export default function EditorPage() {
             selected={selectedPersonaIDInEditor ?? ""}
             setSelected={setSelectedPersonaIDInEditor}
             hasFirstChange={selectedPersonaInEditorIsDirty}
-            personasWithChanges={unsavedPersonas}
+            // personasWithChanges={unsavedPersonas}
           />
           <div
             className="grid h-full place-items-center"

@@ -19,12 +19,12 @@ export function EditorPersonaHeader({
   selected,
   setSelected,
   hasFirstChange,
-  personasWithChanges,
+  // personasWithChanges,
 }: {
   selected: string;
   setSelected: (value: string) => void;
   hasFirstChange: boolean;
-  personasWithChanges: string[];
+  // personasWithChanges: string[];
 }) {
   const { personas } = usePersonaChat();
   const [openToolTip, setOpenToolTip] = useState(false);
@@ -45,7 +45,7 @@ export function EditorPersonaHeader({
                 persona={persona}
                 index={i}
                 isSelected={selected === persona.id}
-                personasWithChanges={personasWithChanges}
+                // personasWithChanges={personasWithChanges}
                 setSelected={setSelected}
               />
             ))}
@@ -77,16 +77,16 @@ export function EditorPersonaHeader({
 export function getArchetypeName(
   persona: PersonaArchetype,
   isSelected: boolean,
-  personasWithChanges: string[],
+  // personasWithChanges: string[],
 ): string {
   let archetypeName = persona.archetype_name;
 
   if (isSelected) {
     archetypeName += " - (Selected)";
   }
-  if (personasWithChanges.includes(persona.archetype_name)) {
-    archetypeName += " - (Unsaved)";
-  }
+  // if (personasWithChanges.includes(persona.archetype_name)) {
+  //   archetypeName += " - (Unsaved)";
+  // }
 
   return archetypeName;
 }
@@ -95,7 +95,7 @@ interface PersonaBadgeWrapperProps {
   persona: PersonaArchetype;
   index: number;
   isSelected: boolean;
-  personasWithChanges: string[];
+  // personasWithChanges: string[];
   setSelected: (archetypeName: string) => void;
 }
 
@@ -103,13 +103,13 @@ function PersonaBadgeWrapper({
   persona,
   index,
   isSelected,
-  personasWithChanges,
+  // personasWithChanges,
   setSelected,
 }: PersonaBadgeWrapperProps) {
   const archetypeName = getArchetypeName(
     persona,
     isSelected,
-    personasWithChanges,
+    // personasWithChanges,
   );
   const variant = mapUrlBackgroundColorParamToVariant({
     url: persona.pictureURL,

@@ -43,6 +43,8 @@ type PersonaChatContextType = {
   aiState: AIState | null;
   messages: any;
   personas: PersonaArchetype[];
+  setPersonas: Dispatch<SetStateAction<PersonaArchetype[]>>;
+  setAiState: (newState: any) => void;
   setMessages: any;
   suggestedMessages: string[];
   setSuggestedMessages: Dispatch<SetStateAction<string[]>>;
@@ -163,9 +165,11 @@ export const PersonaChatProvider = ({
         aiState,
         messages,
         personas,
+        setPersonas,
         shareLink,
         path,
         resetChatId,
+        setAiState,
         setMessages,
         handleSubmit,
         suggestedMessages,

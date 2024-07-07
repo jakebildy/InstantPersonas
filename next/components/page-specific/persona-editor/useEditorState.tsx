@@ -8,22 +8,21 @@ type EditorStateValid = {
   fallbackReason: null;
   archetype: PersonaArchetype;
   changedArchetype: PersonaArchetype;
-  editorChanges: Record<string, PersonaArchetype>;
+  // editorChanges: Record<string, PersonaArchetype>;
 };
 
 type EditorStateInvalid = {
   fallbackReason: string;
   archetype: null;
   changedArchetype: null;
-  editorChanges: Record<string, PersonaArchetype> | null;
+  // editorChanges: Record<string, PersonaArchetype> | null;
 };
 
 export type EditorState = EditorStateValid | EditorStateInvalid;
 
 export function useEditorState() {
   const { personas, chatId } = usePersonaChat();
-  const { personaEditorChanges, selectedPersonaIDInEditor, resetEditorState } =
-    usePersonaEditor();
+  const { selectedPersonaIDInEditor, resetEditorState } = usePersonaEditor();
 
   if (!chatId || !selectedPersonaIDInEditor) {
     return {
@@ -34,11 +33,13 @@ export function useEditorState() {
     } as EditorStateInvalid;
   }
 
-  let changedArchetype: PersonaArchetype | null | undefined = null;
+  let changedArchetype: PersonaArchetype | null | undefined = personas.find(
+    (p) => p.id === selectedPersonaIDInEditor,
+  );
 
   try {
-    changedArchetype =
-      personaEditorChanges?.[chatId]?.[selectedPersonaIDInEditor];
+    // changedArchetype =
+    //   personaEditorChanges?.[chatId]?.[selectedPersonaIDInEditor];
     if (changedArchetype === undefined || changedArchetype === null) {
       resetEditorState();
     }
@@ -51,7 +52,7 @@ export function useEditorState() {
       fallbackReason: "Waiting For Personas",
       archetype: null,
       changedArchetype: null,
-      editorChanges: null,
+      // editorChanges: null,
     } as EditorStateInvalid;
   }
 
@@ -63,7 +64,7 @@ export function useEditorState() {
       fallbackReason: `Waiting For Archetype`,
       archetype: null,
       changedArchetype: null,
-      editorChanges: null,
+      // editorChanges: null,
     } as EditorStateInvalid;
   }
 
@@ -71,7 +72,7 @@ export function useEditorState() {
     fallbackReason: null,
     archetype,
     changedArchetype,
-    editorChanges: personaEditorChanges[chatId],
+    // editorChanges: personaEditorChanges[chatId],
   } as EditorStateValid;
 }
 

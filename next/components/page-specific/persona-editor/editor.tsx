@@ -19,7 +19,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { usePersonaEditor } from "@/components/context/persona/persona-editor-context";
 import { EditorTextField } from "./editor-text-field";
 import { EditorFallbackState } from "./fallback-loading-state";
-import { EditorSaveChangesDialogContent } from "./editor-save-changes-dialog/content";
+// import { EditorSaveChangesDialogContent } from "./editor-save-changes-dialog/content";
 import { isEditorStateValid, useEditorState } from "./useEditorState";
 
 type props = HTMLAttributes<HTMLDivElement>;
@@ -31,7 +31,7 @@ export function PersonaEditor({ ...Props }: props) {
     return <EditorFallbackState {...Props} reason={state.fallbackReason} />;
   }
 
-  const { archetype, changedArchetype, editorChanges } = state;
+  const { archetype, changedArchetype } = state;
 
   return (
     <Dialog>
@@ -48,70 +48,70 @@ export function PersonaEditor({ ...Props }: props) {
   );
 }
 
-function ArchetypeEditorToolbar() {
-  const { selectedPersonaIDInEditor, unsavedPersonas, revertPersonaChanges } =
-    usePersonaEditor();
+// function ArchetypeEditorToolbar() {
+//   const { selectedPersonaIDInEditor, unsavedPersonas, revertPersonaChanges } =
+//     usePersonaEditor();
 
-  if (!selectedPersonaIDInEditor || unsavedPersonas.length === 0)
-    return <div className="flex min-h-12 justify-between py-2" />;
+//   if (!selectedPersonaIDInEditor || unsavedPersonas.length === 0)
+//     return <div className="flex min-h-12 justify-between py-2" />;
 
-  return (
-    <div className="flex min-h-12 justify-between py-2">
-      {/* Unsaved Personas Indicator */}
-      <span className="text-xs text-red-500">
-        {unsavedPersonas.length} unsaved personas
-      </span>
-      <div className="z-10 flex items-center justify-end gap-2">
-        {/* Revert Selected Button */}
-        <Button
-          variant={"outline"}
-          className={
-            "group h-fit w-fit rounded-full p-0.5 shadow-md hover:scale-100"
-          }
-          onClick={() => revertPersonaChanges(selectedPersonaIDInEditor)}
-        >
-          <span
-            className={cx(
-              ButtonInnerHover({ variant: "red" }),
-              gradientLightVariants({
-                variant: "red",
-                className: cn(
-                  "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl p-1 px-2 text-xs",
-                ),
-              }),
-            )}
-          >
-            Revert Changes
-          </span>
-        </Button>
-        {/* Save All Trigger */}
-        <DialogTrigger asChild>
-          <Button
-            variant={"outline"}
-            className={
-              "group h-fit w-fit rounded-full p-0.5 shadow-md hover:scale-100"
-            }
-          >
-            <span
-              className={cx(
-                ButtonInnerHover({ variant: "green" }),
-                gradientLightVariants({
-                  variant: "green",
-                  className: cn(
-                    "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl p-1 px-2 text-xs",
-                  ),
-                }),
-              )}
-            >
-              Apply Edits & Save Changes!{" "}
-              <ArrowTopRightIcon className="size-3" />
-            </span>
-          </Button>
-        </DialogTrigger>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className="flex min-h-12 justify-between py-2">
+//       {/* Unsaved Personas Indicator */}
+//       <span className="text-xs text-red-500">
+//         {unsavedPersonas.length} unsaved personas
+//       </span>
+//       <div className="z-10 flex items-center justify-end gap-2">
+//         {/* Revert Selected Button */}
+//         <Button
+//           variant={"outline"}
+//           className={
+//             "group h-fit w-fit rounded-full p-0.5 shadow-md hover:scale-100"
+//           }
+//           onClick={() => revertPersonaChanges(selectedPersonaIDInEditor)}
+//         >
+//           <span
+//             className={cx(
+//               ButtonInnerHover({ variant: "red" }),
+//               gradientLightVariants({
+//                 variant: "red",
+//                 className: cn(
+//                   "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl p-1 px-2 text-xs",
+//                 ),
+//               }),
+//             )}
+//           >
+//             Revert Changes
+//           </span>
+//         </Button>
+//         {/* Save All Trigger */}
+//         <DialogTrigger asChild>
+//           <Button
+//             variant={"outline"}
+//             className={
+//               "group h-fit w-fit rounded-full p-0.5 shadow-md hover:scale-100"
+//             }
+//           >
+//             <span
+//               className={cx(
+//                 ButtonInnerHover({ variant: "green" }),
+//                 gradientLightVariants({
+//                   variant: "green",
+//                   className: cn(
+//                     "flex h-6 min-w-0 items-center gap-2 whitespace-nowrap rounded-2xl p-1 px-2 text-xs",
+//                   ),
+//                 }),
+//               )}
+//             >
+//               Apply Edits & Save Changes!{" "}
+//               <ArrowTopRightIcon className="size-3" />
+//             </span>
+//           </Button>
+//         </DialogTrigger>
+//       </div>
+//     </div>
+//   );
+// }
 
 function ArchetypeEditor({
   archetype,
@@ -210,7 +210,6 @@ function ArchetypeEditor({
                   field: "persona_components." + key,
                   value: changedValue,
                 });
-                console.log("changedValue: ", changedValue);
               }}
               label={key.replace(/_/g, " ")}
               initialValue={value}
