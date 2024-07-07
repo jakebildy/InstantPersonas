@@ -221,7 +221,6 @@ const api = {
       });
       return response.data.result;
     },
-
     updatePersona: async (
       persona: PersonaChatType["aiState"],
       historyID: string,
@@ -233,6 +232,13 @@ const api = {
       return response.data;
     },
 
+    deletePersonaChat: async (id: string) => {
+      const response = await axios.delete(`/api/delete-persona-chat`, {
+        params: { id },
+      });
+      const success = response.data.result ?? false;
+      return success;
+    },
     deletePersona: async (id: string) => {
       const response = await axios.delete(`/api/delete-persona/${id}`);
       return response.data;

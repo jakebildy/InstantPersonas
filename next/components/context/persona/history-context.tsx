@@ -7,6 +7,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -24,6 +25,9 @@ type PersonaChatHistoryContextType = {
   history: PersonaChatType[];
   loading: boolean;
   error: string | null;
+  silentRefetchHistory: () => Promise<void>;
+  updateChatInHistory: (updatedChat: PersonaChatType) => void;
+  deleteChatInHistory: (chatId: string) => void;
 };
 
 const PersonaChatHistoryContext = createContext<
@@ -143,24 +147,69 @@ export const PersonaChatHistoryProvider = ({
     );
   }, [selectedPersonas]);
 
+  const silentRefetchHistory = useCallback(async () => {
+    if (user && isSubscribed) {
+      try {
+        IS_TEST_DEV_ENV ? console.log("DEV: Silent Refetching history") : null;
+        const data = await api.userPersona.getPersonaHistory(user.id);
+        setHistory(mostRecentPersonaChatHistory(data));
+      } catch (error) {
+        console.error("Error refetching history", error);
+      }
+    }
+  }, [isSubscribed, user]);
+
+  const updateChatInHistory = useCallback(
+    (updatedChat: PersonaChatType) => {
+      if (!updatedChat._id) return;
+
+      setHistory((prevHistory) => {
+        const updatedChatIndex = prevHistory.findIndex(
+          (chat) => chat._id === updatedChat._id,
+        );
+        if (updatedChatIndex === -1) {
+          return prevHistory;
+        }
+        const newHistory = [...prevHistory];
+        newHistory[updatedChatIndex] = updatedChat;
+        return newHistory;
+      });
+
+      const update = async () => {
+        if (!updatedChat._id) return;
+        await api.userPersona.updatePersonaChat(
+          updatedChat.aiState,
+          updatedChat._id,
+        );
+      };
+
+      update();
+      silentRefetchHistory();
+    },
+    [silentRefetchHistory],
+  );
+
+  const deleteChatInHistory = useCallback(
+    (chatId: string) => {
+      if (!chatId) return;
+      setHistory((prevHistory) =>
+        prevHistory.filter((chat) => chat._id !== chatId),
+      );
+
+      const deleteChat = async () => {
+        await api.userPersona.deletePersonaChat(chatId);
+      };
+
+      deleteChat();
+      silentRefetchHistory();
+    },
+    [silentRefetchHistory],
+  );
+
   //? Refetch history in background when user navigates to a new page ~won't trigger loading state
   useEffect(() => {
-    const silentRefetchHistory = async () => {
-      if (user && isSubscribed) {
-        try {
-          IS_TEST_DEV_ENV
-            ? console.log("DEV: Silent Refetching history")
-            : null;
-          const data = await api.userPersona.getPersonaHistory(user.id);
-          setHistory(mostRecentPersonaChatHistory(data));
-        } catch (error) {
-          console.error("Error refetching history", error);
-        }
-      }
-    };
-
     silentRefetchHistory();
-  }, [isSubscribed, pathname, user]);
+  }, [pathname, silentRefetchHistory, user]);
 
   return (
     <PersonaChatHistoryContext.Provider
@@ -170,6 +219,9 @@ export const PersonaChatHistoryProvider = ({
         history,
         loading,
         error,
+        silentRefetchHistory,
+        updateChatInHistory,
+        deleteChatInHistory,
       }}
     >
       {children}
