@@ -344,12 +344,12 @@ export default function PersonaInsightsFeatureSection({
                 }}
                 className={
                   selectedLink === "https://shellevate.app"
-                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white"
-                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white"
+                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[16px]"
+                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[16px]"
                 }
               >
                 https://shellevate.app
-                <div className="flex flex-row font-jost md:hidden lg:block">
+                <div className="flex flex-row font-jost md:text-xs lg:text-[16px]">
                   Get Insights
                   <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                     →
