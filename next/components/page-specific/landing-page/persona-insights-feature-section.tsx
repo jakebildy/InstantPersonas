@@ -327,7 +327,7 @@ export default function PersonaInsightsFeatureSection({
           </div>
         </div>
         {/* div when md or smaller, height is 3000px otherwise 0px */}
-        <div className="h-[600px] w-full lg:hidden" />
+        <div className="h-[600px] w-full max-md:hidden lg:hidden" />
         <div
           className={cn(
             "max-md:hidden sm:hidden md:absolute md:left-[40px] md:top-[50%] md:block md:size-[100%] lg:left-[30%] lg:right-0 lg:top-[50%] lg:size-[68%] xl:top-[30%] xl:size-[75%]",
@@ -344,13 +344,13 @@ export default function PersonaInsightsFeatureSection({
                 }}
                 className={
                   selectedLink === "https://shellevate.app"
-                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[16px]"
-                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[16px]"
+                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
+                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
                 }
               >
                 https://shellevate.app
-                <div className="flex flex-row font-jost md:text-xs lg:text-[16px]">
-                  Get Insights
+                <div className="flex flex-row font-jost md:text-xs lg:text-[14px]">
+                  Insights
                   <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                     →
                   </div>
@@ -363,13 +363,13 @@ export default function PersonaInsightsFeatureSection({
                 }}
                 className={
                   selectedLink === "https://calm.com"
-                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white"
-                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white"
+                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
+                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
                 }
               >
                 https://calm.com
-                <div className="flex flex-row font-jost">
-                  Get Insights
+                <div className="flex flex-row font-jost md:text-xs lg:text-[14px]">
+                  Insights
                   <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                     →
                   </div>
@@ -382,13 +382,13 @@ export default function PersonaInsightsFeatureSection({
                 }}
                 className={
                   selectedLink === "https://headspace.app"
-                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white"
-                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white"
+                    ? "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-green-600 bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
+                    : "relative z-30 flex w-full flex-row justify-between rounded-md border-2 border-white bg-white p-2 hover:bg-green-600 hover:text-white md:text-xs lg:text-[14px]"
                 }
               >
                 https://headspace.com
-                <div className="flex flex-row font-jost">
-                  Get Insights
+                <div className="flex flex-row font-jost md:text-xs lg:text-[14px]">
+                  Insights
                   <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                     →
                   </div>
