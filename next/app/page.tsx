@@ -77,7 +77,7 @@ export default function Home() {
             )}
           >
             <RadialGradient size={600} className="absolute right-0 top-0" />
-            <LandingPage.documentFeature />
+            <LandingPage.personaInsightsFeature />
 
             <div className="relative flex flex-col items-center">
               <LandingPage.testimonials />
@@ -102,7 +102,7 @@ export default function Home() {
           <p className="mt-6 max-w-2xl text-center font-jost text-lg font-semibold leading-8 text-gray-600">
             Still not convinced?
           </p>
-          <FreeToolSection title="Try our Free Seo Tools" />
+          <FreeToolSection title="Try our Free Marketing Tools" />
         </div>
       </div>
 

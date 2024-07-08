@@ -104,6 +104,10 @@
   animation: loadAnimation 60s ease-in-out forwards;
 }
 
+.loading-animation2 {
+  animation: loadAnimation2 60s ease-out forwards;
+}
+
 .loading-animation-3min {
   animation: loadAnimation 180s ease-in-out forwards;
 }
@@ -111,6 +115,15 @@
 /* For the document editor */
 .ProseMirror:focus {
   outline: none;
+}
+
+@keyframes loadAnimation2 {
+  from {
+    width: 3%;
+  }
+  to {
+    width: 45%;
+  }
 }
 
 @keyframes loadAnimation {

@@ -76,6 +76,7 @@
     "embla-carousel-react": "^8.0.1",
     "framer-motion": "^11.0.24",
     "html-to-image": "^1.11.11",
+    "html-to-text": "^9.0.5",
     "html2canvas": "^1.4.1",
     "i": "^0.3.7",
     "input-otp": "^1.2.4",
