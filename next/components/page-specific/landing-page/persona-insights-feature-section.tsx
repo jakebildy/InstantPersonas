@@ -3,32 +3,23 @@ import { IconVariants } from "@/components/ui/gradient-button";
 import {
   background600,
   ButtonInnerHover,
-  gradientLightVariants,
-  SVGLight600,
-  avatarVariants,
   ColorVariant,
 } from "@/components/variants";
 import { cn } from "@/lib/utils";
-import { CloudArrowDownIcon } from "@heroicons/react/24/solid";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { cx } from "class-variance-authority";
 import {
   GraduationCapIcon,
   BarChart4Icon,
-  BookOpenCheckIcon,
   PersonStandingIcon,
-  MessageCircleQuestionIcon,
   LightbulbIcon,
 } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import useMeasure from "react-use-measure";
 import Image from "next/image";
 import * as InsightFeatureImage from "@/public/instant_personas_insight_feature.png";
 import { PersonaAvatarPopover } from "@/components/persona-archetype-generic/persona-avatar-popover";
 import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { PersonaBusinessArchetype } from "@/components/toolfolio/selected-personas/types";
-import { set } from "lodash";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 type Props = {
@@ -357,7 +348,7 @@ export default function PersonaInsightsFeatureSection({
                 }
               >
                 https://shellevate.app
-                <div className="flex flex-row font-jost">
+                <div className="flex flex-row font-jost md:hidden lg:block">
                   Get Insights
                   <div className="ml-2 h-6 w-6 rounded-md bg-white pl-1 text-green-600">
                     →
@@ -405,9 +396,9 @@ export default function PersonaInsightsFeatureSection({
             </div>
             <img
               src="https://i.imgur.com/lprrmW7.png"
-              className="absolute bottom-[460px] left-[280px] z-50 h-[200px]"
+              className="absolute bottom-[460px] left-[35%] z-50 h-[200px]"
             />
-            <div className="relative left-[593px] top-[50px] z-40 h-[498px] w-64 scale-90 rounded-sm border-[1px] border-gray-200 bg-white">
+            <div className="relative left-[71%] top-[50px] z-40 h-[498px] w-64 scale-90 rounded-sm border-[1px] border-gray-200 bg-white">
               <ScrollArea className="z-50 order-1 h-[490px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                 {/* PersonaThoughts */}
                 {personaThoughts.map((thought, i) => (

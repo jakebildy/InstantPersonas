@@ -102,7 +102,7 @@ export default function Home() {
           <p className="mt-6 max-w-2xl text-center font-jost text-lg font-semibold leading-8 text-gray-600">
             Still not convinced?
           </p>
-          <FreeToolSection title="Try our Free Seo Tools" />
+          <FreeToolSection title="Try our Free Marketing Tools" />
         </div>
       </div>
 
