@@ -30,6 +30,7 @@ export default function PersonaInsightsFeatureSection({
   variant = "blue",
 }: Props) {
   const MINDFUL_MAX = {
+    id: "mindful-max",
     archetype_name: "Mindful Max",
     business: {
       target_problem: "High price points of eco-friendly products.",
@@ -58,6 +59,7 @@ export default function PersonaInsightsFeatureSection({
   };
 
   const SOCIAL_SOPHIA = {
+    id: "social-sophia",
     archetype_name: "Social Sophia",
     business: {
       target_problem: "",
@@ -86,6 +88,7 @@ export default function PersonaInsightsFeatureSection({
   };
 
   const GAMER_GABBY = {
+    id: "gamer-gabby",
     archetype_name: "Gamer Gabby",
     business: {
       target_problem: "",
@@ -114,6 +117,7 @@ export default function PersonaInsightsFeatureSection({
   };
 
   const CALM_CLARA = {
+    id: "calm-clara",
     archetype_name: "Calm Clara",
     business: {
       target_problem: "",
@@ -403,8 +407,8 @@ export default function PersonaInsightsFeatureSection({
               <ScrollArea className="z-50 order-1 h-[490px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
                 {/* PersonaThoughts */}
                 {personaThoughts.map((thought, i) => (
-                  <div>
-                    <div key={i} className="flex flex-row p-2">
+                  <div key={i}>
+                    <div className="flex flex-row p-2">
                       <div
                         className={
                           thought.personaInterested.trim() !== "YES"

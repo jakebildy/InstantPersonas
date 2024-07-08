@@ -264,8 +264,8 @@ export default function PersonaInsightsPage({}: {}) {
               </div>
             ) : (
               personaThoughts.map((thought, i) => (
-                <div>
-                  <div key={i} className="flex flex-row p-2">
+                <div key={i}>
+                  <div className="flex flex-row p-2">
                     {selectedPersonas.length > 0 ? (
                       <div
                         className={
