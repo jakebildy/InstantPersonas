@@ -109,7 +109,9 @@ const usePersonaChatSubmit = ({
       setSuggestedMessages([]);
 
       // Submit and get response message
-      if (user && chatId) {
+
+      //@Marcus I removed the check for the chat ID here as it was breaking production.
+      if (user) {
         const responseMessage = (await submitPersonaChatUserMessage(
           message,
           user.id,
