@@ -2,7 +2,6 @@ import {
   PERSONA_CHAT_AI_TOOL_ARG_VALIDATORS,
   PERSONA_CHAT_AI_TOOL_ARGS_UNIQUE_DESTRUCTURED,
 } from "@/components/page-specific/generative-ui/messages";
-import assert from "node:assert";
 import { extractKeysFromZodSchema } from "@/lib/utils";
 import {
   AssistantToolCallMessage,
@@ -51,7 +50,7 @@ export function updateToolCallPersonaMessage({
         );
 
       // Assert there are no tools, not found in our current strategies, that use props from PersonaArchetypeValidator
-      assert(
+      console.assert(
         toolhasImplementedFallbackStrategy === toolPropsContainsAllPersonaProps,
         `Tool ${toolName} uses props from PersonaArchetypeValidator but does not have an implementation to update personas during validation.\n` +
           JSON.stringify(

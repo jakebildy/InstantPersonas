@@ -2,14 +2,19 @@ import { ScrollBar } from "@/components/ui/scroll-area";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { useScrollAreaState } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function GradientScroll({ children }: Props) {
+export default function GradientScroll({
+  children,
+  className,
+  id,
+  ...Props
+}: HTMLAttributes<HTMLDivElement>) {
   const scrollBottomRef = useRef<HTMLDivElement>(null);
   const [scrollAreaRef, scrollAreaState] = useScrollAreaState();
 
@@ -17,9 +22,10 @@ export default function GradientScroll({ children }: Props) {
 
   return (
     <div
-      className="h-full flex-1"
+      className={cn("h-full flex-1", className)}
       ref={scrollContainerRef}
       id={"scroll-container-bounds"}
+      {...Props}
     >
       <ScrollAreaPrimitive.Root
         className={cn("relative overflow-hidden md:min-h-[50vh]")}
@@ -31,6 +37,7 @@ export default function GradientScroll({ children }: Props) {
         <ScrollAreaPrimitive.Viewport
           className="h-full w-full rounded-[inherit]"
           ref={scrollAreaRef}
+          id={id}
         >
           <div
             className={cn(

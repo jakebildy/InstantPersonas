@@ -102,7 +102,7 @@ export function EditPersonaButton({
     const updatedPersonasArray = updatePersonaByName({
       personas: aiState.personas,
       oldPersona: archetype,
-      updatedArchetype: validatedPersona.data,
+      updatedArchetype: validatedPersona.data as PersonaArchetype,
     });
     const serializedPersonas = serializePersonas(updatedPersonasArray);
     if (!serializedPersonas) {

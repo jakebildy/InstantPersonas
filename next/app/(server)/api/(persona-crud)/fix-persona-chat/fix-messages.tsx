@@ -5,7 +5,6 @@ import {
   AssistantToolCallMessage,
   PersonaArchetype,
 } from "@/app/(server)/models/persona-ai.model";
-import assert from "node:assert";
 
 export function fixPersonaChatMessageHistoryModel({
   messages,
@@ -28,8 +27,11 @@ export function fixPersonaChatMessageHistoryModel({
         return;
       }
 
-      assert(typeof message.content === "string", "Content is not a string");
-      assert(typeof message.role === "string", "Role is not a string");
+      console.assert(
+        typeof message.content === "string",
+        "Content is not a string",
+      );
+      console.assert(typeof message.role === "string", "Role is not a string");
 
       switch (message.role) {
         case "user":

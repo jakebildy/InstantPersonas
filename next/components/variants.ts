@@ -250,7 +250,7 @@ export const ButtonInnerHover = cva(
         red: "hover:bg-red-500",
         yellow: "hover:bg-yellow-500",
         green: "hover:bg-green-500",
-        brown: "hover:bg-brown-500",
+        brown: "hover:bg-brown-500 hover:text-amber-800",
         pink: "hover:bg-pink-500",
       },
     },
@@ -263,19 +263,43 @@ export const ButtonInnerHover = cva(
 export const Border600 = cva("border", {
   variants: {
     variant: {
-      blue: "border-blue-600",
-      purple: "border-purple-600",
-      red: "border-red-600",
-      yellow: "border-yellow-600",
-      green: "border-green-600",
-      brown: "border-brown-600",
-      pink: "border-pink-600",
+      blue: "border-blue-600 hover:border-blue-600",
+      purple: "border-purple-600 hover:border-purple-600",
+      red: "border-red-600 hover:border-red-600",
+      yellow: "border-yellow-600 hover:border-yellow-600",
+      green: "border-green-600 hover:border-green-600",
+      brown: "border-amber-600 hover:border-amber-600",
+      pink: "border-pink-600 hover:border-pink-600",
     },
   },
   defaultVariants: {
     variant: "blue",
   },
 });
+
+export const TextArea600 = cva(
+  "border border-opacity-25 min-h-[1.75em] rounded-md bg-transparent p-1 text-sm font-medium h-[50px] max-h-[800px] focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        blue: "border-blue-600 hover:border-blue-600 ring-offset-blue-300 focus-visible:ring-blue-400",
+        purple:
+          "border-purple-600 hover:border-purple-600 ring-offset-purple-300 focus-visible:ring-purple-400",
+        red: "border-red-600 hover:border-red-600 ring-offset-red-300 focus-visible:ring-red-400",
+        yellow:
+          "border-yellow-600 hover:border-yellow-600 ring-offset-yellow-300 focus-visible:ring-yellow-400",
+        green:
+          "border-green-600 hover:border-green-600 ring-offset-green-300 focus-visible:ring-green-400",
+        brown:
+          "border-amber-600 hover:border-amber-600 ring-offset-amber-300 focus-visible:ring-amber-400",
+        pink: "border-pink-600 hover:border-pink-600 ring-offset-pink-300 focus-visible:ring-pink-400",
+      },
+    },
+    defaultVariants: {
+      variant: "blue",
+    },
+  },
+);
 
 export const background600 = cva("", {
   variants: {

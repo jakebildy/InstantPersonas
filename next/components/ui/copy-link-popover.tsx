@@ -46,7 +46,7 @@ export default function CopyLinkPopover({ link, onCopy, className }: Props) {
         <Button
           variant={"outline"}
           onClick={handleCopyLink}
-          className="group mt-2 h-fit w-full gap-2 rounded-lg p-1 text-sm font-semibold text-muted-foreground shadow-md transition-colors duration-300 ease-out hover:scale-100 hover:text-black hover:text-primary"
+          className="group mt-2 h-fit w-full gap-2 rounded-lg p-1 text-sm font-semibold text-muted-foreground shadow-md transition-colors duration-300 ease-out hover:scale-100 hover:text-black"
         >
           {copied ? (
             <>

@@ -4,7 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PreventMobile } from "@/components/page-specific/prevent-mobile";
 import { Button } from "@/components/ui/button";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
-import { usePersonaChat } from "@/components/context/persona/chat-context";
+import {
+  PersonaChatTabs,
+  usePersonaChat,
+} from "@/components/context/persona/chat-context";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { PersonStandingIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,17 +15,30 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export default function SidebarLayout({
   chat,
   map,
+  editor,
 }: {
   chat: React.ReactNode;
   map: React.ReactNode;
+  editor: React.ReactNode;
 }) {
-  const { personas, messages, resetChatId, chatId, previousPath } =
-    usePersonaChat();
+  const {
+    personas,
+    messages,
+    resetChatId,
+    chatId,
+    path,
+    activeTab,
+    setActiveTab,
+  } = usePersonaChat();
   const isNewChat = messages.length === 0;
-  const shouldAnimate = isNewChat || !previousPath?.startsWith("/persona");
+  const shouldAnimate = isNewChat || !path.previous?.startsWith("/persona");
 
   return (
-    <Tabs defaultValue="personaChat">
+    <Tabs
+      defaultValue="personaChat"
+      value={activeTab}
+      onValueChange={(tab) => setActiveTab(tab as PersonaChatTabs)}
+    >
       {/* Main Header | 58px */}
       <div className="box-border flex max-h-11 items-center justify-between px-4 py-2">
         <h1 className="text-xl font-bold">Persona Creator</h1>
@@ -30,17 +46,23 @@ export default function SidebarLayout({
         <AnimatePresence>
           {personas && personas.length > 0 ? (
             <>
-              {/* <TabsList className="ml-auto">
-          <TabsTrigger
-            value="personaChat"
-            className="text-zinc-600 dark:text-zinc-200"
-          >
-            Persona Chat
-          </TabsTrigger>
-          <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
+              <TabsList className="ml-auto bg-gray-200 font-jost">
+                <TabsTrigger
+                  value="personaChat"
+                  className="min-w-0 text-zinc-600 dark:text-zinc-200"
+                >
+                  Persona Chat
+                </TabsTrigger>
+                {/* <TabsTrigger value="map" className="text-zinc-600 dark:text-zinc-200">
             Map
-          </TabsTrigger>
-        </TabsList> */}
+          </TabsTrigger> */}
+                <TabsTrigger
+                  value="editor"
+                  className="text-zinc-600 dark:text-zinc-200"
+                >
+                  Editor
+                </TabsTrigger>
+              </TabsList>
               <div />
             </>
           ) : isNewChat ? null : (
@@ -82,6 +104,9 @@ export default function SidebarLayout({
               </TabsContent>
               <TabsContent value="map" className="m-0 h-full flex-1">
                 {map}
+              </TabsContent>
+              <TabsContent value="editor" className="m-0 h-full flex-1">
+                {editor}
               </TabsContent>
             </div>
           </ScrollArea>
