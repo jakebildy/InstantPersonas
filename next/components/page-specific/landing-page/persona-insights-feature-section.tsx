@@ -326,10 +326,11 @@ export default function PersonaInsightsFeatureSection({
             </ul>
           </div>
         </div>
-
+        {/* div when md or smaller, height is 3000px otherwise 0px */}
+        <div className="h-[600px] w-full lg:hidden" />
         <div
           className={cn(
-            "md:absolute md:right-0 md:top-[40%] md:size-[65%] lg:top-[35%] lg:size-[68%] xl:top-[30%] xl:size-[75%]",
+            "max-md:hidden sm:hidden md:absolute md:left-[40px] md:top-[50%] md:block md:size-[100%] lg:left-[30%] lg:right-0 lg:top-[50%] lg:size-[68%] xl:top-[30%] xl:size-[75%]",
             "flex items-center md:items-start md:justify-end",
             "transition-all duration-700 ease-out",
           )}
