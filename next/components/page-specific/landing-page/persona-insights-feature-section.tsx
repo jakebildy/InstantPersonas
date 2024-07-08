@@ -335,7 +335,7 @@ export default function PersonaInsightsFeatureSection({
             "transition-all duration-700 ease-out",
           )}
         >
-          <div className="relative aspect-[2048/1279] w-full md:w-[90%]">
+          <div className="relative aspect-[2048/1279] w-full max-w-[850px] md:w-[90%]">
             <div className="absolute left-[19%] top-[14%] z-20 flex h-full w-[53%] flex-col items-center rounded-lg border bg-white p-1 shadow-xl">
               <div
                 onClick={() => {
@@ -397,7 +397,7 @@ export default function PersonaInsightsFeatureSection({
             </div>
             <img
               src="https://i.imgur.com/lprrmW7.png"
-              className="absolute bottom-[460px] left-[35%] z-50 h-[200px]"
+              className="absolute bottom-[96%] left-[35%] z-50 h-[200px]"
             />
             <div className="relative left-[71%] top-[50px] z-40 h-[498px] w-64 scale-90 rounded-sm border-[1px] border-gray-200 bg-white">
               <ScrollArea className="z-50 order-1 h-[490px] w-full overflow-hidden rounded-md bg-white p-2 text-xs text-black/70 transition-all duration-200 ease-out peer-hover:opacity-25 lg:max-w-none">
