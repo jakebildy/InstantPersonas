@@ -59,6 +59,7 @@ async function fulfillOrder(session: Session): Promise<void> {
 
   let user = await User.findOne({ stytchID });
   if (!user) throw "User not found";
+  const hashedEmail = crypto.createHash('sha256').update(user.email).digest('hex');
 
   // update User with stripeCustomerId and stripeSubscriptionId
   user = await User.updateOne(
@@ -66,7 +67,6 @@ async function fulfillOrder(session: Session): Promise<void> {
     { stripeCustomerId, stripeSubscriptionId },
   );
 
-  const hashedEmail = crypto.createHash('sha256').update(user.email).digest('hex');
   const TOKEN = process.env.FB_ACCESS_TOKEN;
   const PIXEL_ID = process.env.FB_PIXEL_ID;
 
