@@ -16,10 +16,12 @@ export default function SidebarLayout({
   chat,
   map,
   editor,
+  lab,
 }: {
   chat: React.ReactNode;
   map: React.ReactNode;
   editor: React.ReactNode;
+  lab: React.ReactNode;
 }) {
   const {
     personas,
@@ -61,6 +63,12 @@ export default function SidebarLayout({
                   className="text-zinc-600 dark:text-zinc-200"
                 >
                   Editor
+                </TabsTrigger>
+                <TabsTrigger
+                  value="lab"
+                  className="text-zinc-600 dark:text-zinc-200"
+                >
+                  Lab
                 </TabsTrigger>
               </TabsList>
               <div />
@@ -107,6 +115,9 @@ export default function SidebarLayout({
               </TabsContent>
               <TabsContent value="editor" className="m-0 h-full flex-1">
                 {editor}
+              </TabsContent>
+              <TabsContent value="lab" className="m-0 h-full flex-1">
+                {lab}
               </TabsContent>
             </div>
           </ScrollArea>
