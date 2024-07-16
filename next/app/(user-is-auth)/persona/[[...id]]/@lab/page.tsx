@@ -1,23 +1,80 @@
 "use client";
 
+import { PersonaArchetype } from "@/app/(server)/models/persona-ai.model";
 import { usePersonaChat } from "@/components/context/persona/chat-context";
 import { TabPageContainer } from "@/components/page-specific/persona-tab-layout/tab-page-container";
+import { mapUrlBackgroundColorParamToVariant } from "@/components/persona-archetype-generic/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/fcs/fcs-separator";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
-import { avatarVariants } from "@/components/variants";
+import {
+  avatarVariants,
+  gradientLightVariants,
+  textColorVariants,
+} from "@/components/variants";
 import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
-import { UserPlusIcon } from "lucide-react";
+import { PersonStandingIcon, UserPlusIcon } from "lucide-react";
+import { HTMLAttributes, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  InfoCircledIcon,
+  QuestionMarkCircledIcon,
+  QuestionMarkIcon,
+} from "@radix-ui/react-icons";
+import OrbitingCircles from "@/components/ui/magicui/orbiting-circles";
+import { IconSwitch } from "@tabler/icons-react";
 
 export default function PersonaLabPage() {
   const { personas } = usePersonaChat();
+
+  const [carousel1Index, setCarousel1Index] = useState(0);
+  const [carousel2Index, setCarousel2Index] = useState(1);
+
+  const [hasFirstChange, setHasFirstChange] = useState(false);
+  const [openToolTip, setOpenToolTip] = useState(false);
+  const [forceOpen, setForceOpen] = useState(false);
+
+  // Control tooltip visibility based on hover and first change
+  // Tooltip should only be visible if the user has not yet selected a persona or if they are hovering over the info icon
+  const effectiveOpen = forceOpen || (!hasFirstChange && openToolTip);
+
+  const getNextIndex = (
+    currentIndex: number,
+    otherIndex: number,
+    step: number,
+  ) => {
+    let nextIndex = (currentIndex + step + personas.length) % personas.length;
+    if (nextIndex === otherIndex) {
+      nextIndex = (nextIndex + step + personas.length) % personas.length;
+    }
+    return nextIndex;
+  };
+
+  const handleCarousel1Change = (step: number) => {
+    setCarousel1Index((prevIndex) =>
+      getNextIndex(prevIndex, carousel2Index, step),
+    );
+    setHasFirstChange(true);
+  };
+
+  const handleCarousel2Change = (step: number) => {
+    setCarousel2Index((prevIndex) =>
+      getNextIndex(prevIndex, carousel1Index, step),
+    );
+    setHasFirstChange(true);
+  };
 
   const selectedPersona = personas[0];
 
@@ -25,17 +82,41 @@ export default function PersonaLabPage() {
 
   return (
     <TabPageContainer>
-      <div className="flex w-full items-center justify-center">
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold" id="persona-lab-title">
-            Persona Lab
-          </h1>
-          <span id="persona-lab-description">Create & Combine Personas</span>
-        </div>
-      </div>
+      <Tooltip open={effectiveOpen} onOpenChange={setOpenToolTip}>
+        <TooltipTrigger asChild>
+          <div className="flex w-full items-center justify-center">
+            <div className="flex flex-col items-center">
+              <h1 className="text-2xl font-bold" id="persona-lab-title">
+                Persona Lab
+              </h1>
+              <span id="persona-lab-description">
+                Create & Combine Personas
+              </span>
+            </div>
+
+            <Button
+              variant={"outline"}
+              size={"icon"}
+              className="absolute right-2 top-2"
+              onClick={() => setOpenToolTip(true)}
+              onMouseEnter={() => setForceOpen(true)}
+              onMouseLeave={() => setForceOpen(false)}
+            >
+              <InfoCircledIcon className="size-4 text-muted-foreground hover:text-gray-600" />
+            </Button>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="p-2 text-xs">
+          <h2 className="font-bold">Persona Lab Combiner</h2>
+          <p>
+            Select Two Personas to combine them. The combined persona will be a
+            mix of both the persona&apos;s attributes.
+          </p>
+        </TooltipContent>
+      </Tooltip>
 
       <div className="grid size-full grid-cols-3 gap-2 p-2">
-        <Skeleton className="flex h-full w-full flex-col items-center gap-2 rounded-lg p-4">
+        <div className="flex h-full w-full flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 p-4">
           <div className="flex w-full flex-col items-center p-4">
             <h2 className="text-xl font-bold">Create Persona</h2>
             <span>Start from scratch</span>
@@ -75,59 +156,248 @@ export default function PersonaLabPage() {
               Create Persona
             </GradientButton>
           </div>
-        </Skeleton>
-        <Skeleton className="flex h-full w-full flex-col items-center gap-2 rounded-lg p-4"></Skeleton>
-        <Skeleton className="relative flex h-full w-full flex-col items-center gap-2 rounded-lg p-4">
-          <div className="absolute top-0 flex w-full items-center justify-between p-4 text-muted-foreground">
-            <ArrowLeftCircleIcon className="size-6 cursor-pointer" />
-            <ArrowRightCircleIcon className="size-6 cursor-pointer" />
-          </div>
-          <div className="flex w-full flex-col items-center p-4">
-            <Avatar
-              className={avatarVariants({
-                variant: "red",
-                size: "sm",
-              })}
-            >
-              <AvatarImage
-                src={selectedPersona.pictureURL}
-                alt={[
-                  (
-                    selectedPersona.archetype_name || "Persona Archetype"
-                  ).toLocaleLowerCase(),
-                  "persona avatar",
-                ].join(" ")}
-              />
-              <AvatarFallback>{"Name"}</AvatarFallback>
-            </Avatar>
-            <h2 className="text-xl font-bold">
-              {selectedPersona.archetype_name}
-            </h2>
-          </div>
-          <ul className="grid rounded-lg border border-black/10 bg-white p-4">
-            {Object.entries(selectedPersona.persona_components).map(
-              ([key, value]) => (
-                <li key={key} className="mb-1 flex flex-col">
-                  <span className="text-sm font-semibold text-muted-foreground">
-                    {key.replace(/_/g, " ")}
-                  </span>
-                  <span className="text-xs font-medium">{value}</span>
-                </li>
-              ),
-            )}
-          </ul>
-          <ul className="grid rounded-lg border border-black/10 bg-white p-4">
-            {Object.entries(selectedPersona.insights).map(([key, value]) => (
-              <li key={key} className="mb-1 flex flex-col">
-                <span className="text-sm font-semibold text-muted-foreground">
-                  {key.replace(/_/g, " ")}
-                </span>
-                <span className="text-xs font-medium">{value}</span>
-              </li>
-            ))}
-          </ul>
-        </Skeleton>
+        </div>
+        <PersonaCombinePreview
+          archetype1={null}
+          archetype2={personas[carousel2Index]}
+        />
+        <PersonaPreview
+          archetype={personas[carousel2Index]}
+          onNext={() => handleCarousel2Change(1)}
+          onPrev={() => handleCarousel2Change(-1)}
+        />
       </div>
     </TabPageContainer>
+  );
+}
+
+function PersonaCombinePreview({
+  archetype1,
+  archetype2,
+}: {
+  archetype1: PersonaArchetype | null;
+  archetype2: PersonaArchetype | null;
+}) {
+  return (
+    <div className="relative flex h-full w-full flex-col items-center gap-6 rounded-lg border border-gray-300 bg-gray-100 p-4">
+      <div className="flex flex-col items-center gap-2">
+        <div className="relative grid size-[200px] place-items-center">
+          <OrbitingCircles
+            className="size-[50px] border-none bg-transparent"
+            duration={20}
+            delay={20}
+            radius={80}
+          >
+            <PersonaAvatarCombinePreview archetype={archetype1} />
+          </OrbitingCircles>
+          <PersonStandingIcon className="size-8" />
+          <OrbitingCircles
+            className="size-[50px] border-none bg-transparent"
+            duration={20}
+            delay={10}
+            radius={80}
+          >
+            <PersonaAvatarCombinePreview archetype={archetype2} />
+          </OrbitingCircles>
+        </div>
+        <h3 className="text-2xl font-bold">Combine Personas</h3>
+        <span className="text-center text-xs">
+          This process will create a new persona and will not delete or modify
+          any existing personas
+        </span>
+      </div>
+      <div className="flex w-full items-center justify-center gap-10">
+        <PersonaAvatarInfoCombinePreview archetype={archetype1} />
+        <PersonaAvatarInfoCombinePreview archetype={archetype2} />
+      </div>
+    </div>
+  );
+}
+
+function PersonaAvatarInfoCombinePreview({
+  archetype,
+}: {
+  archetype: PersonaArchetype | null;
+}) {
+  if (!archetype) {
+    return (
+      <div className="flex flex-col items-center">
+        <div className="m-2 grid size-10 place-items-center rounded-full border border-input bg-background">
+          <QuestionMarkIcon className="size-3" />
+        </div>
+        <span className="text-xs font-semibold">Selected Persona</span>
+        <span className="text-xs font-semibold">No Persona Selected</span>
+      </div>
+    );
+  }
+
+  const variant = mapUrlBackgroundColorParamToVariant({
+    url: archetype.pictureURL,
+  });
+
+  return (
+    <div className="flex flex-col items-center">
+      <PersonaAvatarCombinePreview archetype={archetype} size="sm" />
+      <span className="text-xs font-semibold">Selected Persona</span>
+      <span
+        className={textColorVariants({
+          variant,
+          className: "text-xs font-semibold",
+        })}
+      >
+        {archetype.archetype_name}
+      </span>
+    </div>
+  );
+}
+
+function PersonaAvatarCombinePreview({
+  archetype,
+  size = "default",
+  ...Props
+}: HTMLAttributes<HTMLDivElement> & {
+  archetype: PersonaArchetype | null;
+  size?: "sm" | "default";
+}) {
+  if (!archetype) {
+    return (
+      <div {...Props}>
+        <div className="grid size-10 place-items-center rounded-full border border-input bg-background"></div>
+      </div>
+    );
+  }
+
+  const variant = mapUrlBackgroundColorParamToVariant({
+    url: archetype.pictureURL,
+  });
+
+  const avatarFallbackName =
+    archetype.archetype_name ||
+    "Persona Archetype"
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+
+  return (
+    <div {...Props}>
+      <Avatar
+        className={avatarVariants({
+          variant,
+          size,
+          interactive: false,
+          className: "transition-none hover:border-2",
+        })}
+      >
+        <AvatarImage
+          src={archetype.pictureURL}
+          alt={[
+            (
+              archetype.archetype_name || "Persona Archetype"
+            ).toLocaleLowerCase(),
+            "persona avatar",
+          ].join(" ")}
+        />
+        <AvatarFallback>{avatarFallbackName}</AvatarFallback>
+      </Avatar>
+    </div>
+  );
+}
+
+function PersonaPreview({
+  archetype,
+  onNext,
+  onPrev,
+}: {
+  archetype: PersonaArchetype;
+  onNext: () => void;
+  onPrev: () => void;
+}) {
+  const variant = mapUrlBackgroundColorParamToVariant({
+    url: archetype.pictureURL,
+  });
+
+  const avatarFallbackName =
+    archetype.archetype_name ||
+    "Persona Archetype"
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+
+  return (
+    <div
+      className={gradientLightVariants({
+        variant,
+        className:
+          "relative flex h-full w-full flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 p-4",
+      })}
+    >
+      <div className="absolute top-0 flex w-full items-center justify-between p-4 text-muted-foreground">
+        <button tabIndex={0} onClick={onPrev}>
+          <ArrowLeftCircleIcon className="size-6 cursor-pointer" />
+        </button>
+        <button tabIndex={0} onClick={onNext}>
+          <ArrowRightCircleIcon className="size-6 cursor-pointer" />
+        </button>
+      </div>
+      <div className="flex w-full flex-col items-center p-4">
+        <Avatar
+          className={avatarVariants({
+            variant,
+            size: "sm",
+            interactive: false,
+            className: "transition-none hover:border-2",
+          })}
+        >
+          <AvatarImage
+            src={archetype.pictureURL}
+            alt={[
+              (
+                archetype.archetype_name || "Persona Archetype"
+              ).toLocaleLowerCase(),
+              "persona avatar",
+            ].join(" ")}
+          />
+          <AvatarFallback>{avatarFallbackName}</AvatarFallback>
+        </Avatar>
+        <h2
+          className={textColorVariants({
+            variant,
+            className: "text-xl font-bold",
+          })}
+        >
+          {archetype.archetype_name}
+        </h2>
+      </div>
+      <ul className="grid rounded-lg border border-black/10 bg-white p-4">
+        {Object.entries(archetype.persona_components).map(([key, value]) => (
+          <li key={key} className="mb-1 flex flex-col">
+            <span
+              className={textColorVariants({
+                variant,
+                className: "text-sm font-semibold",
+              })}
+            >
+              {key.replace(/_/g, " ")}
+            </span>
+            <span className="text-xs font-medium">{value}</span>
+          </li>
+        ))}
+      </ul>
+      <ul className="grid rounded-lg border border-black/10 bg-white p-4">
+        {Object.entries(archetype.insights).map(([key, value]) => (
+          <li key={key} className="mb-1 flex flex-col">
+            <span
+              className={textColorVariants({
+                variant,
+                className: "text-sm font-semibold",
+              })}
+            >
+              {key.replace(/_/g, " ")}
+            </span>
+            <span className="text-xs font-medium">{value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

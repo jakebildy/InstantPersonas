@@ -93,6 +93,17 @@ const config = {
           to: { height: "0" },
         },
 
+        orbit: {
+          "0%": {
+            transform:
+              "rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg)",
+          },
+          "100%": {
+            transform:
+              "rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+
         aurora: {
           from: {
             backgroundPosition: "50% 50%, 50% 50%",
@@ -153,7 +164,7 @@ const config = {
         aurora: "aurora 60s linear infinite",
         grid: "grid 15s linear infinite",
         ripple: "ripple 3400ms ease infinite",
-
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
         first: "moveVertical 30s ease infinite",
         second: "moveInCircle 20s reverse infinite",
         third: "moveInCircle 40s linear infinite",
