@@ -63,7 +63,7 @@ export default function PersonaInsightsPage({}: {}) {
   >([]);
 
   return (
-    <section className="h-screen flex-1 bg-gray-100">
+    <section className="relative h-screen flex-1 bg-gray-100">
       <div className="flex h-full w-full flex-col items-center">
         <h1 className="pt-10 text-center text-3xl font-bold text-gray-700">
           Persona Insights
@@ -75,7 +75,7 @@ export default function PersonaInsightsPage({}: {}) {
         {isSubscribed ? (
           <PersonaSelectFromHistorySidebar className="absolute right-4 top-4 z-[50]" />
         ) : null}
-        <div className="absolute right-1 top-[8.5rem] mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost md:right-20 lg:right-1">
+        <div className="pointer-events-none absolute right-1 top-[8.5rem] mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost md:right-20 lg:right-1">
           <div className="w-1/2 rounded-md border border-gray-300 bg-white shadow-md">
             <span className="flex flex-row">
               <IconSearch className="ml-2 mt-2 text-gray-400" />
