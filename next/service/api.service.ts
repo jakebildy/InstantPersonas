@@ -1,7 +1,11 @@
 import { DocumentDraft } from "@/app/(server)/models/document_draft.model";
-import { AIState } from "@/app/(server)/models/persona-ai.model";
+import {
+  AIState,
+  PersonaArchetype,
+} from "@/app/(server)/models/persona-ai.model";
 import { PersonaChatType } from "@/app/(server)/models/personachat.model";
 import { UserSubscription } from "@/components/context/auth/user-context.types";
+import { readStreamableValue } from "ai/rsc";
 import axios, { AxiosError } from "axios";
 // axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 axios.defaults.withCredentials = true;

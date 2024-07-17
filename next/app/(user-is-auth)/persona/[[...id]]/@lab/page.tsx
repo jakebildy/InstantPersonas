@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import {
   avatarVariants,
+  ColorVariantMap,
   gradientLightVariants,
   textColorVariants,
 } from "@/components/variants";
@@ -21,8 +22,13 @@ import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
-import { PersonStandingIcon, UserPlusIcon } from "lucide-react";
-import { HTMLAttributes, useState } from "react";
+import {
+  LoaderIcon,
+  LucideIcon,
+  PersonStandingIcon,
+  UserPlusIcon,
+} from "lucide-react";
+import { HTMLAttributes, useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -34,7 +40,12 @@ import {
   QuestionMarkIcon,
 } from "@radix-ui/react-icons";
 import OrbitingCircles from "@/components/ui/magicui/orbiting-circles";
-import { IconSwitch } from "@tabler/icons-react";
+import { IconArrowsExchange, IconSwitch } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
+import api from "@/service/api.service";
+import { readStreamableValue } from "ai/rsc";
+import { getCombinationInsights } from "@/app/(server)/api/(persona-crud)/(persona-lab)/combiner-insight/action";
+import useMeasure from "react-use-measure";
 
 export default function PersonaLabPage() {
   const { personas } = usePersonaChat();
@@ -135,7 +146,7 @@ export default function PersonaLabPage() {
         </TooltipContent>
       </Tooltip>
 
-      <div className="grid size-full grid-cols-3 gap-2 p-2">
+      <div className="grid size-full max-h-[calc(100vh-150px)] grid-cols-2 gap-2 p-2 md:grid-cols-3">
         {carousel1Index !== null ? (
           <PersonaPreview
             archetype={personas[carousel1Index]}
@@ -152,6 +163,7 @@ export default function PersonaLabPage() {
           />
         )}
         <PersonaCombinePreview
+          className="max-md:hidden"
           archetype1={carousel1Index !== null ? personas[carousel1Index] : null}
           archetype2={carousel2Index !== null ? personas[carousel2Index] : null}
         />
@@ -170,6 +182,11 @@ export default function PersonaLabPage() {
             onPrev={() => handleCarousel2Change(-1)}
           />
         )}
+        <PersonaCombinePreview
+          className="col-span-2 md:hidden"
+          archetype1={carousel1Index !== null ? personas[carousel1Index] : null}
+          archetype2={carousel2Index !== null ? personas[carousel2Index] : null}
+        />
       </div>
     </TabPageContainer>
   );
@@ -178,14 +195,51 @@ export default function PersonaLabPage() {
 function PersonaCombinePreview({
   archetype1,
   archetype2,
-}: {
+  className,
+  ...Props
+}: HTMLAttributes<HTMLDivElement> & {
   archetype1: PersonaArchetype | null;
   archetype2: PersonaArchetype | null;
 }) {
+  const { aiState } = usePersonaChat();
+  const [combinedInsight, setCombinedInsight] = useState<string | null>(null);
+  const [insightFetchState, setInsightFetchState] = useState<
+    "fetching" | "streaming" | "idle"
+  >("idle");
+
+  useEffect(() => {
+    setCombinedInsight(null);
+    setInsightFetchState("idle");
+    if (!archetype1 || !archetype2 || !aiState) return;
+    const generate = async () => {
+      setInsightFetchState("fetching");
+      const { output } = await getCombinationInsights(
+        [archetype1, archetype2],
+        aiState.business,
+        aiState.targetProblem,
+      );
+
+      for await (const delta of readStreamableValue(output)) {
+        setInsightFetchState("streaming");
+        setCombinedInsight((prev) => `${prev ?? ""}${delta}`);
+      }
+      setInsightFetchState("idle");
+    };
+    generate();
+  }, [aiState, archetype1, archetype2]);
+
+  const [ref, bounds] = useMeasure();
+
   return (
-    <div className="relative flex h-full w-full flex-col items-center gap-6 rounded-lg border border-gray-300 bg-gray-100 p-4 py-10">
-      <div className="flex flex-col items-center gap-2">
-        <div className="relative grid size-[200px] place-items-center">
+    <div
+      className={cn(
+        "relative flex h-full w-full flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 p-4",
+        className,
+      )}
+      {...Props}
+    >
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="relative grid size-[250px] place-items-center py-10">
           <OrbitingCircles
             className="size-[50px] border-none bg-transparent"
             duration={20}
@@ -210,9 +264,43 @@ function PersonaCombinePreview({
           any existing personas
         </span>
       </div>
-      <div className="flex w-full items-center justify-center gap-10">
+      <div className="relative flex w-full items-center justify-center gap-10 py-4">
         <PersonaAvatarInfoCombinePreview archetype={archetype1} />
+        <IconArrowsExchange className="absolute left-1/2 top-5 -translate-x-1/2" />
         <PersonaAvatarInfoCombinePreview archetype={archetype2} />
+      </div>
+      <div
+        className="relative flex w-full flex-1 flex-col gap-2 overflow-hidden rounded-lg border border-black/10 bg-white p-4"
+        ref={ref}
+      >
+        {insightFetchState === "fetching" || !combinedInsight ? (
+          <div className="grid size-full place-items-center">
+            <LoaderIcon className="animate-spin" />
+          </div>
+        ) : (
+          <div className="absolute mb-1 flex flex-col overflow-hidden">
+            <span className={"text-sm font-semibold"}>Insights</span>
+            <pre
+              className="overflow-auto whitespace-pre-wrap text-xs font-medium"
+              style={{
+                height: bounds.height - (32 + 20),
+              }}
+            >
+              {combinedInsight}
+            </pre>
+          </div>
+        )}
+      </div>
+
+      <div className="flex w-full flex-col items-center gap-2">
+        <Separator className="my-4" text="lastly" />
+        <GradientButton
+          Icon={IconSwitch as LucideIcon}
+          variant="blue"
+          className="w-full"
+        >
+          Combine Personas
+        </GradientButton>
       </div>
     </div>
   );
@@ -240,7 +328,7 @@ function PersonaAvatarInfoCombinePreview({
   });
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center text-center">
       <PersonaAvatarCombinePreview archetype={archetype} size="sm" />
       <span className="text-xs font-semibold">Selected Persona</span>
       <span
@@ -339,12 +427,12 @@ function PersonaPreview({
           "relative flex h-full w-full flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 p-4",
       })}
     >
-      <div className="absolute top-0 flex w-full items-center justify-between p-4 text-muted-foreground">
+      <div className="absolute top-0 flex w-full items-center justify-between p-4">
         <button tabIndex={0} onClick={onPrev}>
-          <ArrowLeftCircleIcon className="size-6 cursor-pointer" />
+          <ArrowLeftCircleIcon className="size-6 cursor-pointer text-muted-foreground transition-colors duration-200 hover:text-black" />
         </button>
         <button tabIndex={0} onClick={onNext}>
-          <ArrowRightCircleIcon className="size-6 cursor-pointer" />
+          <ArrowRightCircleIcon className="size-6 cursor-pointer text-muted-foreground transition-colors duration-200 hover:text-black" />
         </button>
       </div>
       <div className="flex w-full flex-col items-center p-4">
@@ -376,7 +464,7 @@ function PersonaPreview({
           {archetype.archetype_name}
         </h2>
       </div>
-      <ul className="grid rounded-lg border border-black/10 bg-white p-4">
+      <ul className="flex flex-1 flex-col gap-2 rounded-lg border border-black/10 bg-white p-4">
         {Object.entries(archetype.persona_components).map(([key, value]) => (
           <li key={key} className="mb-1 flex flex-col">
             <span
@@ -391,9 +479,9 @@ function PersonaPreview({
           </li>
         ))}
       </ul>
-      <ul className="grid rounded-lg border border-black/10 bg-white p-4">
+      <ul className="flex flex-1 flex-col gap-2 rounded-lg border border-black/10 bg-white p-4">
         {Object.entries(archetype.insights).map(([key, value]) => (
-          <li key={key} className="mb-1 flex flex-col">
+          <li key={key} className="mb-1 flex h-fit flex-col">
             <span
               className={textColorVariants({
                 variant,
@@ -430,19 +518,19 @@ function CreatePersonaPreview({
 }) {
   return (
     <div className="relative flex h-full w-full flex-col items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 p-4">
-      <div className="absolute top-0 flex w-full items-center justify-between p-4 text-muted-foreground">
+      <div className="absolute top-0 flex w-full items-center justify-between p-4">
         <button tabIndex={0} onClick={onPrev}>
-          <ArrowLeftCircleIcon className="size-6 cursor-pointer" />
+          <ArrowLeftCircleIcon className="size-6 cursor-pointer text-muted-foreground transition-colors duration-200 hover:text-black" />
         </button>
         <button tabIndex={0} onClick={onNext}>
-          <ArrowRightCircleIcon className="size-6 cursor-pointer" />
+          <ArrowRightCircleIcon className="size-6 cursor-pointer text-muted-foreground transition-colors duration-200 hover:text-black" />
         </button>
       </div>
       <div className="flex w-full flex-col items-center p-4">
         <h2 className="text-xl font-bold">Create Persona</h2>
         <span>Start from scratch</span>
       </div>
-      <div className="flex w-full flex-col items-center p-4">
+      <div className="flex w-full flex-1 flex-col items-center p-4">
         <div className="relative flex w-full flex-col items-center">
           <Label htmlFor="edit-chat-description" className="px-2 text-xs">
             Enter a Social Media Profile URL
@@ -455,12 +543,12 @@ function CreatePersonaPreview({
           />
         </div>
         <Separator className="my-4" text="and - or" />
-        <div className="relative flex w-full flex-col items-center">
+        <div className="relative flex w-full flex-1 flex-col items-center">
           <Label htmlFor="edit-chat-description" className="px-2 text-xs">
             Enter Persona details
           </Label>
           <Textarea
-            className="h-[220px] w-full rounded-lg border border-black/10 p-2"
+            className="h-full w-full rounded-lg border border-black/10 p-2"
             placeholder={"A customer who..."}
             value={"A customer who..."}
             onChange={(e) => {}}
