@@ -153,7 +153,7 @@ export default function DashboardLayout({
                 }),
               ),
             }}
-            defaultCollapsed={true}
+            defaultCollapsed={false}
           />
         </ResizablePanel>
         <ResizableHandle withHandle disabled={!canExpandSidebar} />
