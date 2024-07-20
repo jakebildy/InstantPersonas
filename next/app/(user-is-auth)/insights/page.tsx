@@ -75,7 +75,7 @@ export default function PersonaInsightsPage({}: {}) {
         {isSubscribed ? (
           <PersonaSelectFromHistorySidebar className="absolute right-4 top-4 z-[50]" />
         ) : null}
-        <div className="pointer-events-none absolute right-1 top-[8.5rem] mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost md:right-20 lg:right-1">
+        <div className="absolute right-1 top-[8.5rem] mb-10 mr-14 flex w-full flex-col items-center gap-2 font-jost md:right-20 lg:right-1">
           <div className="w-1/2 rounded-md border border-gray-300 bg-white shadow-md">
             <span className="flex flex-row">
               <IconSearch className="ml-2 mt-2 text-gray-400" />
@@ -187,7 +187,7 @@ export default function PersonaInsightsPage({}: {}) {
                   {isAnalyzing && (
                     <div className="loading-animation2 z-1 absolute left-[25.5vw] top-[3.2rem] w-[45%] rounded-sm bg-green-200 p-5 text-left text-white"></div>
                   )}
-                  <div className="z-2 absolute right-[27vw] top-[3.6rem] flex w-[45%] flex-row justify-between">
+                  <div className="z-2 absolute top-[3.6rem] flex w-[45%] flex-row justify-between">
                     <div className="flex flex-row">
                       <IconSearch
                         className={
@@ -231,11 +231,6 @@ export default function PersonaInsightsPage({}: {}) {
               and actions based on the same content.
             </div>
           )}
-          {/* <GuestPostFinderTool
-            input={personaString}
-            isSubscribed={isSubscribed}
-            noInput={selectedPersonas.length === 0 && detailsInput === ""}
-          /> */}
         </div>
       </div>
 
