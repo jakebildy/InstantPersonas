@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStytchUser();
   const { isSubscribed, isLoggedIn } = useInstantPersonasUser();
   const pathName = usePathname();
-  const [showGiveawayPopup, setShowGiveawayPopup] = useShowGiveawayPopup();
+  // const [showGiveawayPopup, setShowGiveawayPopup] = useShowGiveawayPopup();
 
   return (
     <main
@@ -23,10 +23,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         isLoggedIn ? "min-h-screen bg-gray-100" : "min-h-screen bg-white"
       }
     >
-      <TwitterGiveAwayPopup
+      {/* <TwitterGiveAwayPopup
         open={showGiveawayPopup}
         onOpenChange={setShowGiveawayPopup}
-      />
+      /> */}
       {/editor\/.+/.test(pathName) ? (
         <div className="h-full w-full flex-1">{children}</div>
       ) : user.user ? (
