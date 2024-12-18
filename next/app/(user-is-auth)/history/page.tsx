@@ -31,7 +31,7 @@ export default function HistoryPage({}: {}) {
 
   return (
     <main className="grid min-h-screen grid-cols-12 grid-rows-[auto_auto_1fr] gap-4 p-2 transition-all duration-700 ease-out md:p-10 xl:h-[calc(100dvh-2px)] xl:grid-rows-[auto_1fr] xl:overflow-hidden">
-      <SlackPopup open={showSlackPopup} onOpenChange={setShowSlackPopup} />
+      {/* <SlackPopup open={showSlackPopup} onOpenChange={setShowSlackPopup} /> */}
       {/* Header */}
       <div
         className={cn(

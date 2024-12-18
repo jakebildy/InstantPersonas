@@ -66,12 +66,12 @@ export const SIDEBAR_LINKS = [
     icon: ChatBubbleLeftRightIcon,
     label: "",
   },
-  {
-    title: "Slack Community",
-    href: SLACK_INVITE_LINK,
-    icon: BRAND_ICONS.Slack as LucideIcon,
-    label: "",
-  },
+  // {
+  //   title: "Slack Community",
+  //   href: SLACK_INVITE_LINK,
+  //   icon: BRAND_ICONS.Slack as LucideIcon,
+  //   label: "",
+  // },
 ] as const;
 
 export const GOOGLE_FORM_FEEDBACK_LINK = "https://forms.gle/zei5QLdBTfTgssBv9";
