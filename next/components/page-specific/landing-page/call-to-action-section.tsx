@@ -75,12 +75,12 @@ export default function CallToActionSection() {
             </p>
           </p>
 
-          <Link
+          {/* <Link
             href="/register"
             className="rounded-full bg-green-500 p-4 px-8 font-jost text-lg font-semibold text-white transition duration-200 hover:shadow-xl focus:ring-2 focus:ring-green-400"
           >
             Get 3 days FREE →
-          </Link>
+          </Link> */}
         </div>
       </Container>
     </section>

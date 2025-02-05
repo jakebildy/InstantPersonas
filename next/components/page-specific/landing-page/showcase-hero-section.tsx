@@ -97,13 +97,13 @@ export default function ShowcaseHeroSection({}: Props) {
       </div>
 
       <div className="relative z-10">
-        <GradientButton
+        {/* <GradientButton
           variant="green"
           className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2"
           Icon={TrendingUpIcon}
         >
           <Link href="/register">Get 3 days FREE</Link>
-        </GradientButton>
+        </GradientButton> */}
         <div className="w-fit rounded-md border bg-white p-2 shadow-lg">
           <div className="relative aspect-[2048/1232] w-[90vw] overflow-hidden rounded-md border shadow-md">
             <Image
