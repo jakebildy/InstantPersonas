@@ -38,7 +38,7 @@ export default function SWOTAnalysisPage() {
         threats: string;
       } = (
         await axios.post(
-          "https://api.getemailnames.com/api/swot-analysis/generate",
+          "https://getemailnames.uc.r.appspot.com/api/swot-analysis/generate",
           { description },
         )
       ).data.analysis;
